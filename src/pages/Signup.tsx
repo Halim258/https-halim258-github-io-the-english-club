@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { BookOpen } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -16,19 +16,18 @@ export default function Signup() {
       <div className="w-full max-w-sm">
         <div className="mb-6 text-center">
           <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
-            <BookOpen className="h-6 w-6 text-primary-foreground" />
+            <GraduationCap className="h-6 w-6 text-primary-foreground" />
           </div>
-          <h1 className="text-2xl font-bold">Create Account</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Start your Arabic learning journey</p>
+          <h1 className="text-2xl font-bold">Join The English Club</h1>
+          <p className="mt-1 text-sm text-muted-foreground font-sans">Start your English learning journey</p>
         </div>
 
-        {/* Role toggle */}
         <div className="mb-4 flex rounded-lg border bg-muted p-1">
           {(["student", "teacher"] as const).map((r) => (
             <button
               key={r}
               onClick={() => setRole(r)}
-              className={`flex-1 rounded-md py-2 text-sm font-medium transition-colors ${
+              className={`flex-1 rounded-md py-2 text-sm font-medium transition-colors font-sans ${
                 role === r ? "bg-card shadow-sm text-foreground" : "text-muted-foreground"
               }`}
             >
@@ -52,7 +51,7 @@ export default function Signup() {
           </div>
           <Button className="w-full" type="submit">Create Account</Button>
         </form>
-        <p className="mt-4 text-center text-sm text-muted-foreground">
+        <p className="mt-4 text-center text-sm text-muted-foreground font-sans">
           Already have an account?{" "}
           <Link to="/login" className="font-medium text-primary hover:underline">Log in</Link>
         </p>

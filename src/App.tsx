@@ -10,7 +10,6 @@ import LessonPage from "./pages/LessonPage";
 import Teachers from "./pages/Teachers";
 import StudentDashboard from "./pages/StudentDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
-import QuranPage from "./pages/QuranPage";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
@@ -31,7 +30,6 @@ const App = () => (
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/dashboard" element={<StudentDashboard />} />
             <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
-            <Route path="/quran" element={<QuranPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
           </Route>

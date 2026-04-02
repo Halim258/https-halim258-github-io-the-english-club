@@ -1,28 +1,28 @@
 import { Link } from "react-router-dom";
-import { BookOpen, Globe, BookOpenCheck, ArrowRight, Star, Users, Award } from "lucide-react";
+import { BookOpen, ArrowRight, Star, Users, Award, GraduationCap, Headphones, PenLine } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const tracks = [
   {
     icon: BookOpen,
-    title: "Standard Arabic (MSA)",
-    desc: "From alphabet to advanced — structured A1→C2 curriculum with grammar, vocabulary, speaking & exams.",
+    title: "General English",
+    desc: "Structured A1→C2 curriculum following the Cambridge framework with grammar, vocabulary, speaking & exams.",
     to: "/courses",
     color: "bg-primary/10 text-primary",
   },
   {
-    icon: Globe,
-    title: "Egyptian Arabic",
-    desc: "Street-ready spoken Egyptian — dialogue-heavy lessons with cultural expressions and real-life audio.",
-    to: "/courses?track=egyptian",
-    color: "bg-accent/20 text-accent-foreground",
+    icon: Headphones,
+    title: "Listening & Speaking",
+    desc: "Conversational practice with real-world dialogues, pronunciation drills, and AI-powered speaking exercises.",
+    to: "/courses",
+    color: "bg-accent/10 text-accent",
   },
   {
-    icon: BookOpenCheck,
-    title: "Quran Recitation",
-    desc: "Surah-based lessons with Tajweed rules, color-coded guidance, and teacher correction.",
-    to: "/quran",
-    color: "bg-success/10 text-success",
+    icon: PenLine,
+    title: "Writing & Reading",
+    desc: "Build reading comprehension and writing skills through guided exercises and essay practice.",
+    to: "/courses",
+    color: "bg-secondary/10 text-secondary",
   },
 ];
 
@@ -38,16 +38,16 @@ export default function Home() {
       {/* Hero */}
       <section className="gradient-hero py-20 md:py-28">
         <div className="container mx-auto px-4 text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary">
-            Learn Arabic Your Way
+          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary font-sans">
+            Master English with Confidence
           </p>
           <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
-            Master Arabic with{" "}
-            <span className="text-primary">Structured Courses</span> &{" "}
-            <span className="text-accent">Expert Teachers</span>
+            Your Path to{" "}
+            <span className="text-primary">English Fluency</span>{" "}
+            Starts Here
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
-            Standard Arabic, Egyptian dialect & Quran recitation — all in one platform with live teacher sessions.
+          <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground font-sans">
+            Cambridge-aligned curriculum from beginner to advanced — with structured lessons, live teachers, and AI practice.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link to="/courses">
@@ -62,12 +62,11 @@ export default function Home() {
             </Link>
           </div>
 
-          {/* Arabic sample */}
           <div className="mx-auto mt-12 max-w-md rounded-xl border bg-card p-6 shadow-card">
-            <p className="arabic-text text-3xl font-bold leading-relaxed text-foreground" dir="rtl">
-              مَرْحَبًا بِكُمْ
+            <p className="text-3xl font-bold leading-relaxed text-foreground">
+              Hello, World! 👋
             </p>
-            <p className="mt-2 text-muted-foreground">Welcome — Your first word in Arabic</p>
+            <p className="mt-2 text-muted-foreground font-sans">Your first step towards English mastery</p>
           </div>
         </div>
       </section>
@@ -82,7 +81,7 @@ export default function Home() {
               </div>
               <div className="text-left">
                 <p className="text-xl font-bold">{s.value}</p>
-                <p className="text-xs text-muted-foreground">{s.label}</p>
+                <p className="text-xs text-muted-foreground font-sans">{s.label}</p>
               </div>
             </div>
           ))}
@@ -92,9 +91,9 @@ export default function Home() {
       {/* Tracks */}
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-center text-3xl font-bold">Choose Your Track</h2>
-          <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground">
-            Three specialized learning paths designed for different goals.
+          <h2 className="text-center text-3xl font-bold">Choose Your Learning Path</h2>
+          <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground font-sans">
+            Three focused tracks designed to build well-rounded English skills.
           </p>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             {tracks.map((t) => (
@@ -107,8 +106,8 @@ export default function Home() {
                   <t.icon className="h-6 w-6" />
                 </div>
                 <h3 className="text-lg font-semibold">{t.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{t.desc}</p>
-                <p className="mt-4 inline-flex items-center text-sm font-medium text-primary">
+                <p className="mt-2 text-sm text-muted-foreground font-sans">{t.desc}</p>
+                <p className="mt-4 inline-flex items-center text-sm font-medium text-primary font-sans">
                   Explore <ArrowRight className="ml-1 h-3 w-3" />
                 </p>
               </Link>
@@ -121,10 +120,10 @@ export default function Home() {
       <section className="gradient-primary py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold text-primary-foreground">
-            Ready to Start Your Arabic Journey?
+            Ready to Start Your English Journey?
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-primary-foreground/80">
-            Join thousands of students learning Arabic with our structured curriculum and expert teachers.
+          <p className="mx-auto mt-3 max-w-md text-primary-foreground/80 font-sans">
+            Join thousands of students learning English with our Cambridge-aligned curriculum and expert teachers.
           </p>
           <Link to="/signup" className="mt-6 inline-block">
             <Button size="lg" variant="secondary">
