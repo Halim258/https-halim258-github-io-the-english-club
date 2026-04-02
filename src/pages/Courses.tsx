@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
 import { ChevronRight, BookOpen, Lock } from "lucide-react";
 
-type Level = { id: string; label: string; sublabel: string; lessons: number; unlocked: boolean };
+type Level = { id: string; label: string; sublabel: string; lessons: number; unlocked: boolean; description: string };
 type Stage = { id: string; label: string; levels: Level[] };
 
 const introductory: Level = {
-  id: "intro",
-  label: "Arabic Reading Course",
-  sublabel: "Alphabet → Harakat → Madd → Sukoon → Tanween → Shadda",
+  id: "reading",
+  label: "English Reading Course",
+  sublabel: "Alphabet → Phonics → Sight Words → Short Sentences → Paragraphs",
   lessons: 12,
   unlocked: true,
+  description: "Build foundational reading skills from scratch",
 };
 
 const stages: Stage[] = [
@@ -17,24 +18,24 @@ const stages: Stage[] = [
     id: "1",
     label: "Stage 1 — Beginner",
     levels: [
-      { id: "a1", label: "A1", sublabel: "Beginner", lessons: 10, unlocked: true },
-      { id: "a2", label: "A2", sublabel: "Beginner", lessons: 10, unlocked: false },
+      { id: "a1", label: "A1", sublabel: "Beginner", lessons: 10, unlocked: true, description: "Basic greetings, simple present tense, everyday vocabulary" },
+      { id: "a2", label: "A2", sublabel: "Elementary", lessons: 10, unlocked: true, description: "Past tense, daily routines, shopping & travel" },
     ],
   },
   {
     id: "2",
     label: "Stage 2 — Intermediate",
     levels: [
-      { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 10, unlocked: false },
-      { id: "b2", label: "B2", sublabel: "Intermediate", lessons: 10, unlocked: false },
+      { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 10, unlocked: true, description: "Present perfect, opinions, conditional sentences" },
+      { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 10, unlocked: true, description: "Passive voice, formal writing, complex discussions" },
     ],
   },
   {
     id: "3",
     label: "Stage 3 — Advanced",
     levels: [
-      { id: "c1", label: "C1", sublabel: "Advanced", lessons: 10, unlocked: false },
-      { id: "c2", label: "C2", sublabel: "Advanced", lessons: 10, unlocked: false },
+      { id: "c1", label: "C1", sublabel: "Advanced", lessons: 10, unlocked: true, description: "Nuanced expression, academic English, advanced idioms" },
+      { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 10, unlocked: true, description: "Near-native fluency, stylistic writing, complex argumentation" },
     ],
   },
 ];
@@ -42,27 +43,27 @@ const stages: Stage[] = [
 export default function Courses() {
   return (
     <div className="container mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold">Standard Arabic Curriculum</h1>
-      <p className="mt-2 text-muted-foreground">
-        A complete pathway from zero to fluency.
+      <h1 className="text-3xl font-bold">English Curriculum</h1>
+      <p className="mt-2 text-muted-foreground font-sans">
+        A complete Cambridge-aligned pathway from reading to proficiency.
       </p>
 
       {/* Intro */}
       <div className="mt-8">
         <Link
-          to="/courses/intro"
+          to="/courses/reading/1"
           className="flex items-center justify-between rounded-xl border bg-card p-5 shadow-soft transition-shadow hover:shadow-card"
         >
           <div className="flex items-center gap-4">
-            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent/20">
-              <BookOpen className="h-5 w-5 text-accent" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-secondary/10">
+              <BookOpen className="h-5 w-5 text-secondary" />
             </div>
             <div>
               <h3 className="font-semibold">{introductory.label}</h3>
-              <p className="text-xs text-muted-foreground">{introductory.sublabel}</p>
+              <p className="text-xs text-muted-foreground font-sans">{introductory.sublabel}</p>
             </div>
           </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground font-sans">
             {introductory.lessons} lessons
             <ChevronRight className="h-4 w-4" />
           </div>
@@ -94,10 +95,13 @@ export default function Courses() {
                   </div>
                   <div>
                     <h3 className="font-semibold">{lvl.label} — {lvl.sublabel}</h3>
-                    <p className="text-xs text-muted-foreground">{lvl.lessons} lessons</p>
+                    <p className="text-xs text-muted-foreground font-sans">{lvl.description}</p>
                   </div>
                 </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground" />
+                <div className="flex items-center gap-2 text-sm text-muted-foreground font-sans">
+                  {lvl.lessons}
+                  <ChevronRight className="h-4 w-4" />
+                </div>
               </Link>
             ))}
           </div>
