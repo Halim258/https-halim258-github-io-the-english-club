@@ -19,7 +19,15 @@ export interface LessonData {
   homeworkQuestions: MCQItem[];
 }
 
-export const lessons: Record<string, LessonData> = {
+import { readingLessons } from "./reading-lessons";
+import { a1Lessons } from "./a1-lessons";
+import { a2Lessons } from "./a2-lessons";
+import { b1Lessons } from "./b1-lessons";
+import { b2Lessons } from "./b2-lessons";
+import { c1Lessons } from "./c1-lessons";
+import { c2Lessons } from "./c2-lessons";
+
+const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
     levelLabel: "Reading Course",
@@ -490,4 +498,15 @@ export const lessons: Record<string, LessonData> = {
       { question: "Write formal: 'This idea is really good.'", options: ["This idea rocks!", "This idea is really good.", "This proposition demonstrates considerable merit.", "Good idea!"], correct: 2 },
     ],
   },
+};
+
+export const lessons: Record<string, LessonData> = {
+  ...baseLessons,
+  ...readingLessons,
+  ...a1Lessons,
+  ...a2Lessons,
+  ...b1Lessons,
+  ...b2Lessons,
+  ...c1Lessons,
+  ...c2Lessons,
 };
