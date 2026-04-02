@@ -499,3 +499,14 @@ const baseLessons: Record<string, LessonData> = {
     ],
   },
 };
+
+export const lessons: Record<string, LessonData> = {
+  ...baseLessons,
+  ...readingLessons,
+  ...a1Lessons,
+  ...a2Lessons,
+  ...b1Lessons,
+  ...b2Lessons,
+  ...c1Lessons,
+  ...c2Lessons,
+};
