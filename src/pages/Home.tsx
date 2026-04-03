@@ -1,133 +1,296 @@
 import { Link } from "react-router-dom";
-import { BookOpen, ArrowRight, Star, Users, Award, GraduationCap, Headphones, PenLine } from "lucide-react";
+import {
+  BookOpen, ArrowRight, Users, Award, GraduationCap,
+  Headphones, PenLine, MessageCircle, BarChart3, Globe2, Star, CheckCircle2
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { PetalTopRight, PetalBottomLeft } from "@/components/PetalDecoration";
 
-const tracks = [
-  {
-    icon: BookOpen,
-    title: "General English",
-    desc: "Structured A1→C2 curriculum following the Cambridge framework with grammar, vocabulary, speaking & exams.",
-    to: "/courses",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: Headphones,
-    title: "Listening & Speaking",
-    desc: "Conversational practice with real-world dialogues, pronunciation drills, and AI-powered speaking exercises.",
-    to: "/courses",
-    color: "bg-accent/10 text-accent",
-  },
-  {
-    icon: PenLine,
-    title: "Writing & Reading",
-    desc: "Build reading comprehension and writing skills through guided exercises and essay practice.",
-    to: "/courses",
-    color: "bg-secondary/10 text-secondary",
-  },
+const audiences = [
+  { icon: "🎓", title: "Self-Learning Students", to: "/courses" },
+  { icon: "🌍", title: "International Learners", to: "/courses" },
+  { icon: "👨‍🏫", title: "Learn with a Teacher", to: "/teachers" },
 ];
 
 const stats = [
-  { icon: Users, value: "10,000+", label: "Students" },
-  { icon: Star, value: "4.9", label: "Rating" },
-  { icon: Award, value: "200+", label: "Lessons" },
+  { value: "12.5 hrs", label: "saved weekly on lesson prep" },
+  { value: "59.4%", label: "increase in student engagement" },
+  { value: "200+", label: "structured Cambridge lessons" },
+  { value: "6", label: "CEFR levels: A1 to C2" },
+];
+
+const features = [
+  {
+    icon: BookOpen,
+    title: "Comprehensive Curriculum",
+    desc: "Cambridge-aligned lessons from A1 beginner to C2 mastery, covering grammar, vocabulary, speaking & writing.",
+  },
+  {
+    icon: Headphones,
+    title: "Interactive Learning Tools",
+    desc: "Flip cards, dialogues, grammar exercises, and AI-powered speaking practice in every lesson.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Teacher-Guided Support",
+    desc: "Book expert teachers for personalized 1-on-1 lessons with structured curriculum guidance.",
+  },
+  {
+    icon: BarChart3,
+    title: "Data-Driven Progress",
+    desc: "Track your learning journey with exams, homework, and performance analytics at every level.",
+  },
+];
+
+const testimonials = [
+  {
+    quote: "The English Club's structured approach helped me go from zero English to confident conversation in just 6 months.",
+    name: "Ahmed Al-Rashid",
+    role: "Student, A1 → B2",
+  },
+  {
+    quote: "The lesson structure with vocabulary, grammar, and speaking practice is exactly what my students need. Saves me hours of planning!",
+    name: "Sarah Mitchell",
+    role: "ESL Teacher",
+  },
+  {
+    quote: "I love the flip cards and the Arabic translation toggle. It makes learning so much easier for beginners like me.",
+    name: "Fatima Hassan",
+    role: "Student, A1",
+  },
 ];
 
 export default function Home() {
   return (
-    <div>
-      {/* Hero */}
-      <section className="gradient-hero py-20 md:py-28">
-        <div className="container mx-auto px-4 text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-wider text-primary font-sans">
-            Master English with Confidence
-          </p>
-          <h1 className="mx-auto max-w-3xl text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
-            Your Path to{" "}
-            <span className="text-primary">English Fluency</span>{" "}
-            Starts Here
+    <div className="overflow-x-hidden">
+      {/* Hero Section */}
+      <section className="relative py-20 md:py-28 overflow-hidden">
+        <PetalTopRight />
+        <PetalBottomLeft />
+
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight md:text-5xl lg:text-6xl font-display">
+            We Support Students to{" "}
+            <span className="text-primary">Master English</span>{" "}
+            at Every Level
           </h1>
-          <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground font-sans">
-            Cambridge-aligned curriculum from beginner to advanced — with structured lessons, live teachers, and AI practice.
+          <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
+            Join thousands of learners using The English Club's Cambridge-aligned curriculum to achieve fluency.
           </p>
+
+          {/* Audience buttons */}
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Link to="/courses">
-              <Button size="lg">
-                Start Learning <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </Link>
-            <Link to="/teachers">
-              <Button variant="outline" size="lg">
-                Find a Teacher
-              </Button>
-            </Link>
-          </div>
-
-          <div className="mx-auto mt-12 max-w-md rounded-xl border bg-card p-6 shadow-card">
-            <p className="text-3xl font-bold leading-relaxed text-foreground">
-              Hello, World! 👋
-            </p>
-            <p className="mt-2 text-muted-foreground font-sans">Your first step towards English mastery</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="border-b bg-card py-10">
-        <div className="container mx-auto flex flex-wrap items-center justify-center gap-12 px-4">
-          {stats.map((s) => (
-            <div key={s.label} className="flex items-center gap-3 text-center">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                <s.icon className="h-5 w-5 text-primary" />
-              </div>
-              <div className="text-left">
-                <p className="text-xl font-bold">{s.value}</p>
-                <p className="text-xs text-muted-foreground font-sans">{s.label}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Tracks */}
-      <section className="py-16 md:py-20">
-        <div className="container mx-auto px-4">
-          <h2 className="text-center text-3xl font-bold">Choose Your Learning Path</h2>
-          <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground font-sans">
-            Three focused tracks designed to build well-rounded English skills.
-          </p>
-          <div className="mt-10 grid gap-6 md:grid-cols-3">
-            {tracks.map((t) => (
+            {audiences.map((a) => (
               <Link
-                key={t.title}
-                to={t.to}
-                className="group rounded-xl border bg-card p-6 shadow-soft transition-shadow hover:shadow-card"
+                key={a.title}
+                to={a.to}
+                className="flex items-center gap-2 rounded-full border bg-card px-5 py-2.5 text-sm font-medium shadow-soft transition-all hover:shadow-card hover:border-primary/30"
               >
-                <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg ${t.color}`}>
-                  <t.icon className="h-6 w-6" />
-                </div>
-                <h3 className="text-lg font-semibold">{t.title}</h3>
-                <p className="mt-2 text-sm text-muted-foreground font-sans">{t.desc}</p>
-                <p className="mt-4 inline-flex items-center text-sm font-medium text-primary font-sans">
-                  Explore <ArrowRight className="ml-1 h-3 w-3" />
-                </p>
+                <span className="text-lg">{a.icon}</span>
+                {a.title}
               </Link>
+            ))}
+          </div>
+
+          {/* CTA */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link to="/signup">
+              <Button size="lg" className="rounded-full px-8 font-semibold font-display">
+                Sign Up Free
+              </Button>
+            </Link>
+            <Link to="/courses">
+              <Button variant="outline" size="lg" className="rounded-full px-8 font-semibold font-display">
+                Explore Curriculum
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Approach Section */}
+      <section className="border-y bg-muted/30 py-14">
+        <div className="container mx-auto px-4">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary mb-2">Guide</p>
+          <h2 className="text-center text-2xl md:text-3xl font-bold font-display">
+            Our Structured, Student-Centered Approach
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
+            Every English Club lesson employs a communicative approach, engaging all four language domains — reading, speaking, listening, and writing — with structured exercises and real-world practice.
+          </p>
+          <div className="mt-8 flex justify-center">
+            <Link to="/courses">
+              <Button variant="outline" className="rounded-full font-semibold">
+                Explore Curriculum & Lessons <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-14">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {stats.map((s) => (
+              <div key={s.label} className="text-center">
+                <p className="text-3xl md:text-4xl font-bold text-primary font-display">{s.value}</p>
+                <p className="mt-1 text-sm text-muted-foreground font-medium">{s.label}</p>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Features Section */}
+      <section className="relative py-16 overflow-hidden">
+        <PetalTopRight className="opacity-50" />
+        <div className="container mx-auto px-4 relative z-10">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary mb-2">Community</p>
+          <h2 className="text-center text-2xl md:text-3xl font-bold font-display">
+            A Complete English Learning Platform
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground">
+            Everything you need to learn English — from beginner to advanced.
+          </p>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            {features.map((f) => (
+              <div
+                key={f.title}
+                className="rounded-xl border bg-card p-6 shadow-soft transition-shadow hover:shadow-card"
+              >
+                <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                  <f.icon className="h-6 w-6 text-primary" />
+                </div>
+                <h3 className="text-base font-semibold font-display">{f.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 flex justify-center">
+            <Link to="/courses">
+              <Button variant="outline" className="rounded-full font-semibold">
+                Explore Curriculum & Lessons <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Lesson Structure Preview */}
+      <section className="border-y bg-muted/30 py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-center text-2xl md:text-3xl font-bold font-display">
+            Every Lesson Includes
+          </h2>
+          <div className="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {[
+              { icon: "📚", label: "Vocabulary" },
+              { icon: "💬", label: "Conversation" },
+              { icon: "📝", label: "Grammar" },
+              { icon: "🗣️", label: "Speaking" },
+              { icon: "✅", label: "Exam" },
+              { icon: "📖", label: "Homework" },
+            ].map((item) => (
+              <div
+                key={item.label}
+                className="flex flex-col items-center rounded-xl border bg-card p-4 shadow-soft"
+              >
+                <span className="text-3xl mb-2">{item.icon}</span>
+                <span className="text-sm font-semibold font-display">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-10">
+            What Our Students Say
+          </h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            {testimonials.map((t) => (
+              <div
+                key={t.name}
+                className="rounded-xl border bg-card p-6 shadow-soft"
+              >
+                <div className="flex gap-1 mb-3">
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star key={s} className="h-4 w-4 fill-accent text-accent" />
+                  ))}
+                </div>
+                <p className="text-sm text-muted-foreground italic leading-relaxed">
+                  "{t.quote}"
+                </p>
+                <div className="mt-4 flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                    <span className="text-sm font-bold text-primary">
+                      {t.name.split(" ").map((n) => n[0]).join("")}
+                    </span>
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold">{t.name}</p>
+                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Levels Overview */}
+      <section className="relative border-t py-16 overflow-hidden">
+        <PetalBottomLeft />
+        <div className="container mx-auto px-4 relative z-10">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary mb-2">Comprehensive</p>
+          <h2 className="text-center text-2xl md:text-3xl font-bold font-display">
+            Supporting Every Student's Journey
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
+            From absolute beginners to advanced speakers, our Cambridge-aligned curriculum covers every step.
+          </p>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3 lg:grid-cols-6">
+            {["A1 Beginner", "A2 Elementary", "B1 Intermediate", "B2 Upper-Int", "C1 Advanced", "C2 Mastery"].map(
+              (level, i) => (
+                <Link
+                  key={level}
+                  to={`/courses/${["a1", "a2", "b1", "b2", "c1", "c2"][i]}`}
+                  className="group rounded-xl border bg-card p-4 text-center shadow-soft transition-all hover:shadow-card hover:border-primary/30"
+                >
+                  <div className="mx-auto mb-2 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <GraduationCap className="h-5 w-5 text-primary" />
+                  </div>
+                  <p className="text-sm font-semibold font-display">{level}</p>
+                </Link>
+              )
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
       <section className="gradient-primary py-16">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-primary-foreground">
-            Ready to Start Your English Journey?
+          <div className="flex justify-center mb-4">
+            <div className="h-14 w-14 rounded-full bg-primary-foreground/20 flex items-center justify-center">
+              <GraduationCap className="h-7 w-7 text-primary-foreground" />
+            </div>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground font-display">
+            Start Teaching & Learning with The English Club Today
           </h2>
-          <p className="mx-auto mt-3 max-w-md text-primary-foreground/80 font-sans">
-            Join thousands of students learning English with our Cambridge-aligned curriculum and expert teachers.
+          <p className="mx-auto mt-3 max-w-md text-primary-foreground/80">
+            Set up your free account and start your English journey risk-free.
           </p>
           <Link to="/signup" className="mt-6 inline-block">
-            <Button size="lg" variant="secondary">
-              Create Free Account
+            <Button size="lg" variant="secondary" className="rounded-full px-8 font-semibold font-display">
+              Sign Up Free
             </Button>
           </Link>
         </div>
