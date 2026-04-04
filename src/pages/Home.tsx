@@ -8,6 +8,7 @@ import gallery2 from "@/assets/gallery-2.png";
 import gallery3 from "@/assets/gallery-3.png";
 import gallery4 from "@/assets/gallery-4.png";
 import gallery5 from "@/assets/gallery-5.png";
+import gallery6 from "@/assets/gallery-6.png";
 import { Button } from "@/components/ui/button";
 import { PetalTopRight, PetalBottomLeft } from "@/components/PetalDecoration";
 
