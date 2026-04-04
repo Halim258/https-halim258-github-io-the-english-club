@@ -386,7 +386,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20">
+      <section id="testimonials" className="py-20">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-12">
