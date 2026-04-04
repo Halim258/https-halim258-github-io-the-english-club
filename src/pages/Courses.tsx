@@ -29,8 +29,8 @@ const stages: Stage[] = [
   {
     id: "3", label: "Stage 3 — Advanced",
     levels: [
-      { id: "c1", label: "C1", sublabel: "Advanced", lessons: 5, unlocked: true, description: "Hedging, idioms, complex sentences, academic writing, mixed conditionals" },
-      { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 5, unlocked: true, description: "Stylistic mastery, discourse markers, literary devices, argumentation" },
+      { id: "c1", label: "C1", sublabel: "Advanced", lessons: 10, unlocked: true, description: "Hedging, idioms, complex sentences, academic writing, mixed conditionals" },
+      { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 10, unlocked: true, description: "Stylistic mastery, discourse markers, literary devices, argumentation" },
     ],
   },
 ];
