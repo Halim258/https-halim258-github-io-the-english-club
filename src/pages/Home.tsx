@@ -283,10 +283,10 @@ export default function Home() {
             </div>
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground font-display">
-            Start Teaching & Learning with The English Club Today
+            Join The English Club Language School Today
           </h2>
           <p className="mx-auto mt-3 max-w-md text-primary-foreground/80">
-            Set up your free account and start your English journey risk-free.
+            Visit us in Alexandria, Egypt or start learning online — sign up free.
           </p>
           <Link to="/signup" className="mt-6 inline-block">
             <Button size="lg" variant="secondary" className="rounded-full px-8 font-semibold font-display">
