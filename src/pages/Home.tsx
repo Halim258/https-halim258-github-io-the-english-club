@@ -9,6 +9,7 @@ import gallery3 from "@/assets/gallery-3.png";
 import gallery4 from "@/assets/gallery-4.png";
 import gallery5 from "@/assets/gallery-5.png";
 import gallery6 from "@/assets/gallery-6.png";
+import gallery7 from "@/assets/gallery-7.png";
 import { Button } from "@/components/ui/button";
 import { PetalTopRight, PetalBottomLeft } from "@/components/PetalDecoration";
 
@@ -240,6 +241,9 @@ export default function Home() {
             </div>
             <div className="overflow-hidden rounded-xl border shadow-soft">
               <img src={gallery6} alt="Student presentation" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
+            </div>
+            <div className="overflow-hidden rounded-xl border shadow-soft">
+              <img src={gallery7} alt="PCC Competition certificates and medals" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
             </div>
           </div>
         </div>
