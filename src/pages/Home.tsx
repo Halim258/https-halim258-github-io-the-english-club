@@ -16,7 +16,7 @@ const stats = [
   { value: "12.5 hrs", label: "saved weekly on lesson prep" },
   { value: "59.4%", label: "increase in student engagement" },
   { value: "200+", label: "structured Cambridge lessons" },
-  { value: "6", label: "CEFR levels: A1 to C2" },
+  { value: "Since 2019", label: "serving Alexandria, Egypt" },
 ];
 
 const features = [
@@ -70,12 +70,12 @@ export default function Home() {
 
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight md:text-5xl lg:text-6xl font-display">
-            We Support Students to{" "}
-            <span className="text-primary">Master English</span>{" "}
-            at Every Level
+            Cutting-Edge Methods for{" "}
+            <span className="text-primary">Fast-Paced English</span>{" "}
+            Language Acquisition
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
-            Join thousands of learners using The English Club's Cambridge-aligned curriculum to achieve fluency.
+            The English Club Language School in Alexandria, Egypt — using cutting-edge methods and a Cambridge-aligned curriculum to ensure fast-paced language acquisition.
           </p>
 
           {/* Audience buttons */}
@@ -283,10 +283,10 @@ export default function Home() {
             </div>
           </div>
           <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground font-display">
-            Start Teaching & Learning with The English Club Today
+            Join The English Club Language School Today
           </h2>
           <p className="mx-auto mt-3 max-w-md text-primary-foreground/80">
-            Set up your free account and start your English journey risk-free.
+            Visit us in Alexandria, Egypt or start learning online — sign up free.
           </p>
           <Link to="/signup" className="mt-6 inline-block">
             <Button size="lg" variant="secondary" className="rounded-full px-8 font-semibold font-display">

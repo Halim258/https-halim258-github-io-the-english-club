@@ -6,12 +6,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Link } from "react-router-dom";
 
 const teachers = [
-  { id: 1, name: "Ahmed Hassan", bio: "Native Egyptian Arabic speaker with 8+ years teaching MSA and Egyptian dialect.", langs: ["Arabic", "English"], specializations: ["MSA", "Egyptian"], price25: 15, price50: 25, rating: 4.9, reviews: 124, avatar: "AH" },
-  { id: 2, name: "Fatima Al-Rashid", bio: "Quran teacher specialized in Tajweed rules. Certified from Al-Azhar University.", langs: ["Arabic", "English", "French"], specializations: ["Quran", "MSA"], price25: 18, price50: 30, rating: 5.0, reviews: 89, avatar: "FR" },
-  { id: 3, name: "Omar Khalil", bio: "Professional Arabic teacher for beginners. Patient and structured approach.", langs: ["Arabic", "English", "Spanish"], specializations: ["MSA"], price25: 12, price50: 20, rating: 4.8, reviews: 201, avatar: "OK" },
-  { id: 4, name: "Nour El-Din", bio: "Expert in Egyptian street Arabic and cultural expressions. Fun and engaging lessons.", langs: ["Arabic", "English"], specializations: ["Egyptian"], price25: 14, price50: 24, rating: 4.7, reviews: 156, avatar: "NE" },
-  { id: 5, name: "Layla Mansour", bio: "Experienced MSA and Quran teacher. Specializes in female students.", langs: ["Arabic", "English", "Turkish"], specializations: ["MSA", "Quran"], price25: 16, price50: 28, rating: 4.9, reviews: 97, avatar: "LM" },
-  { id: 6, name: "Youssef El-Amin", bio: "University professor of Arabic linguistics. Advanced grammar specialist.", langs: ["Arabic", "English", "German"], specializations: ["MSA"], price25: 22, price50: 38, rating: 5.0, reviews: 64, avatar: "YA" },
+  { id: 1, name: "Sarah Mitchell", bio: "CELTA-certified English teacher with 10+ years experience. Specializes in General English and exam preparation.", langs: ["English", "Arabic"], specializations: ["General", "IELTS"], price25: 15, price50: 25, rating: 4.9, reviews: 124, avatar: "SM" },
+  { id: 2, name: "James Robertson", bio: "Cambridge-trained ESL instructor. Expert in Business English and corporate training.", langs: ["English"], specializations: ["Business", "General"], price25: 18, price50: 30, rating: 5.0, reviews: 89, avatar: "JR" },
+  { id: 3, name: "Nadia Kamal", bio: "Bilingual English teacher from Alexandria. Patient and structured approach for beginners.", langs: ["English", "Arabic"], specializations: ["General", "Kids"], price25: 12, price50: 20, rating: 4.8, reviews: 201, avatar: "NK" },
+  { id: 4, name: "David Chen", bio: "IELTS examiner and Cambridge FCE/CAE specialist. Proven track record of high scores.", langs: ["English", "Mandarin"], specializations: ["IELTS", "Cambridge"], price25: 20, price50: 35, rating: 4.9, reviews: 156, avatar: "DC" },
+  { id: 5, name: "Amira Soliman", bio: "Experienced kids and teens English teacher. Fun, engaging, and communicative methods.", langs: ["English", "Arabic", "French"], specializations: ["Kids", "General"], price25: 14, price50: 24, rating: 4.7, reviews: 97, avatar: "AS" },
+  { id: 6, name: "Michael Thompson", bio: "University lecturer in Applied Linguistics. Advanced grammar and academic writing specialist.", langs: ["English", "German"], specializations: ["Business", "Cambridge"], price25: 22, price50: 38, rating: 5.0, reviews: 64, avatar: "MT" },
 ];
 
 export default function Teachers() {
@@ -27,7 +27,7 @@ export default function Teachers() {
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold">Find a Teacher</h1>
-      <p className="mt-2 text-muted-foreground">Book 1-on-1 lessons with expert Arabic teachers.</p>
+      <p className="mt-2 text-muted-foreground">Book 1-on-1 lessons with expert English teachers at The English Club, Alexandria.</p>
 
       {/* Filters */}
       <div className="mt-6 flex flex-wrap gap-3">
@@ -46,9 +46,11 @@ export default function Teachers() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Specializations</SelectItem>
-            <SelectItem value="MSA">Standard Arabic</SelectItem>
-            <SelectItem value="Egyptian">Egyptian Arabic</SelectItem>
-            <SelectItem value="Quran">Quran Recitation</SelectItem>
+            <SelectItem value="General">General English</SelectItem>
+            <SelectItem value="IELTS">IELTS Prep</SelectItem>
+            <SelectItem value="Business">Business English</SelectItem>
+            <SelectItem value="Cambridge">Cambridge Exams</SelectItem>
+            <SelectItem value="Kids">Kids & Teens</SelectItem>
           </SelectContent>
         </Select>
       </div>

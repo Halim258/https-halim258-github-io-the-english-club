@@ -12,7 +12,7 @@ export default function Layout() {
       <BookTeacherFAB />
       <footer className="border-t bg-card py-8">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          © 2026 Arabiyya. All rights reserved.
+          © {new Date().getFullYear()} The English Club Language School — Alexandria, Egypt. All rights reserved.
         </div>
       </footer>
     </div>

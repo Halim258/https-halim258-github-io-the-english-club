@@ -31,7 +31,7 @@ export default function Navbar() {
             <GraduationCap className="h-5 w-5 text-primary-foreground" />
           </div>
           <span className="text-lg font-bold text-foreground font-display tracking-tight">
-            The English Club
+            The English Club <span className="hidden sm:inline text-xs font-normal text-muted-foreground ml-1">Alexandria</span>
           </span>
         </Link>
 
