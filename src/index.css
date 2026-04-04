@@ -7,60 +7,66 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 210 20% 16%;
+    /* 60% — Warm neutral background */
+    --background: 30 20% 98%;
+    --foreground: 220 25% 14%;
 
+    /* Cards sit slightly off-white */
     --card: 0 0% 100%;
-    --card-foreground: 210 20% 16%;
+    --card-foreground: 220 25% 14%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 20% 16%;
+    --popover-foreground: 220 25% 14%;
 
-    --primary: 174 62% 41%;
+    /* 10% — Rich crimson red accent */
+    --primary: 0 72% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 340 65% 60%;
+    /* 30% — Deep slate for secondary surfaces */
+    --secondary: 220 20% 22%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 15% 95%;
-    --muted-foreground: 210 10% 45%;
+    --muted: 30 12% 94%;
+    --muted-foreground: 220 12% 45%;
 
-    --accent: 36 90% 55%;
+    /* Warm gold accent (sparingly) */
+    --accent: 38 80% 52%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 15% 90%;
-    --input: 210 15% 90%;
-    --ring: 174 62% 41%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 0 72% 45%;
 
     --radius: 0.625rem;
 
     --success: 152 60% 40%;
     --success-foreground: 0 0% 100%;
 
-    --petal-teal: 174 62% 41%;
-    --petal-pink: 340 65% 70%;
-    --petal-orange: 25 85% 58%;
-    --petal-green: 140 50% 50%;
-    --petal-blue: 210 60% 55%;
-    --petal-lavender: 280 40% 75%;
+    /* Petal decorations — muted, sophisticated tones */
+    --petal-teal: 0 50% 75%;
+    --petal-pink: 350 45% 72%;
+    --petal-orange: 25 55% 65%;
+    --petal-green: 160 30% 60%;
+    --petal-blue: 220 35% 65%;
+    --petal-lavender: 280 25% 72%;
 
-    --chart-1: 174 62% 41%;
-    --chart-2: 340 65% 60%;
-    --chart-3: 36 90% 55%;
-    --chart-4: 280 50% 55%;
-    --chart-5: 140 50% 50%;
+    --chart-1: 0 72% 45%;
+    --chart-2: 220 20% 22%;
+    --chart-3: 38 80% 52%;
+    --chart-4: 280 40% 50%;
+    --chart-5: 160 40% 45%;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 210 20% 16%;
-    --sidebar-primary: 174 62% 41%;
+    --sidebar-foreground: 220 25% 14%;
+    --sidebar-primary: 0 72% 45%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 36 90% 55%;
+    --sidebar-accent: 38 80% 52%;
     --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 210 15% 90%;
-    --sidebar-ring: 174 62% 41%;
+    --sidebar-border: 220 15% 88%;
+    --sidebar-ring: 0 72% 45%;
 
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
     --font-display: 'Poppins', 'Inter', ui-sans-serif, sans-serif;
