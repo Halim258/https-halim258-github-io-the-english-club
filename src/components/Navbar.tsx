@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
-import { Menu, X, GraduationCap } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, GraduationCap, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -11,7 +11,16 @@ const navLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
   const location = useLocation();
+
+  useEffect(() => {
+    if (dark) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [dark]);
 
   return (
     <nav className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur-md">
@@ -45,6 +54,13 @@ export default function Navbar() {
 
         {/* Desktop auth buttons */}
         <div className="hidden items-center gap-2 md:flex">
+          <button
+            onClick={() => setDark(!dark)}
+            className="rounded-full p-2 text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Toggle dark mode"
+          >
+            {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
           <Link to="/signup">
             <Button size="sm" className="rounded-full px-5 font-semibold">
               Sign Up Free
@@ -80,6 +96,13 @@ export default function Navbar() {
               </Link>
             ))}
             <hr className="my-2 border-border" />
+            <button
+              onClick={() => setDark(!dark)}
+              className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground"
+            >
+              {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {dark ? "Light Mode" : "Dark Mode"}
+            </button>
             <Link to="/signup" onClick={() => setOpen(false)}>
               <Button size="sm" className="w-full rounded-full font-semibold">Sign Up Free</Button>
             </Link>
