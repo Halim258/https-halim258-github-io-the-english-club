@@ -238,6 +238,9 @@ export default function Home() {
             <div className="overflow-hidden rounded-xl border shadow-soft">
               <img src={gallery5} alt="Student speaking practice" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
             </div>
+            <div className="overflow-hidden rounded-xl border shadow-soft">
+              <img src={gallery6} alt="Student presentation" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
+            </div>
           </div>
         </div>
       </section>
