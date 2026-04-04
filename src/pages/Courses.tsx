@@ -22,8 +22,8 @@ const stages: Stage[] = [
   {
     id: "2", label: "Stage 2 — Intermediate",
     levels: [
-      { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 10, unlocked: true, description: "Opinions, future plans, comparatives, conditionals, modals" },
-      { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 10, unlocked: true, description: "Passive voice, reported speech, relative clauses, phrasal verbs" },
+      { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 15, unlocked: true, description: "Opinions, careers, media, health, education, social issues" },
+      { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 15, unlocked: true, description: "Passive voice, globalisation, science, art, ethics, digital society" },
     ],
   },
   {
