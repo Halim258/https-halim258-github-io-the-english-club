@@ -46,9 +46,11 @@ export default function Teachers() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Specializations</SelectItem>
-            <SelectItem value="MSA">Standard Arabic</SelectItem>
-            <SelectItem value="Egyptian">Egyptian Arabic</SelectItem>
-            <SelectItem value="Quran">Quran Recitation</SelectItem>
+            <SelectItem value="General">General English</SelectItem>
+            <SelectItem value="IELTS">IELTS Prep</SelectItem>
+            <SelectItem value="Business">Business English</SelectItem>
+            <SelectItem value="Cambridge">Cambridge Exams</SelectItem>
+            <SelectItem value="Kids">Kids & Teens</SelectItem>
           </SelectContent>
         </Select>
       </div>

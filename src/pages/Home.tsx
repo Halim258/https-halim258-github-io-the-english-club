@@ -16,7 +16,7 @@ const stats = [
   { value: "12.5 hrs", label: "saved weekly on lesson prep" },
   { value: "59.4%", label: "increase in student engagement" },
   { value: "200+", label: "structured Cambridge lessons" },
-  { value: "6", label: "CEFR levels: A1 to C2" },
+  { value: "Since 2019", label: "serving Alexandria, Egypt" },
 ];
 
 const features = [
