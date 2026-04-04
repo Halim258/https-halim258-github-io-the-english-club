@@ -23,7 +23,6 @@ export default function Layout() {
           </a>
         </div>
       </footer>
-      </footer>
     </div>
   );
 }
