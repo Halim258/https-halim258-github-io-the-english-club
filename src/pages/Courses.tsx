@@ -7,30 +7,30 @@ type Stage = { id: string; label: string; levels: Level[] };
 
 const introductory: Level = {
   id: "reading", label: "English Reading Course",
-  sublabel: "Alphabet → Phonics → Sight Words → Short Sentences → Paragraphs",
-  lessons: 10, unlocked: true, description: "Build foundational reading skills from scratch",
+  sublabel: "Alphabet → Phonics → Sight Words → Short Sentences → Critical Reading",
+  lessons: 15, unlocked: true, description: "Build foundational reading skills from scratch",
 };
 
 const stages: Stage[] = [
   {
     id: "1", label: "Stage 1 — Beginner",
     levels: [
-      { id: "a1", label: "A1", sublabel: "Beginner", lessons: 10, unlocked: true, description: "Basic greetings, numbers, family, colors, food" },
-      { id: "a2", label: "A2", sublabel: "Elementary", lessons: 10, unlocked: true, description: "Daily routines, past tense, directions, shopping" },
+      { id: "a1", label: "A1", sublabel: "Beginner", lessons: 15, unlocked: true, description: "Greetings, numbers, family, weather, hobbies, health, feelings" },
+      { id: "a2", label: "A2", sublabel: "Elementary", lessons: 15, unlocked: true, description: "Daily routines, past tense, travel, restaurants, technology, environment" },
     ],
   },
   {
     id: "2", label: "Stage 2 — Intermediate",
     levels: [
-      { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 10, unlocked: true, description: "Opinions, future plans, comparatives, conditionals, modals" },
-      { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 10, unlocked: true, description: "Passive voice, reported speech, relative clauses, phrasal verbs" },
+      { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 15, unlocked: true, description: "Opinions, careers, media, health, education, social issues" },
+      { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 15, unlocked: true, description: "Passive voice, globalisation, science, art, ethics, digital society" },
     ],
   },
   {
     id: "3", label: "Stage 3 — Advanced",
     levels: [
-      { id: "c1", label: "C1", sublabel: "Advanced", lessons: 10, unlocked: true, description: "Hedging, idioms, complex sentences, academic writing, mixed conditionals" },
-      { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 10, unlocked: true, description: "Stylistic mastery, discourse markers, literary devices, argumentation" },
+      { id: "c1", label: "C1", sublabel: "Advanced", lessons: 15, unlocked: true, description: "Philosophy, sociolinguistics, environmental policy, psychology, academic writing" },
+      { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 15, unlocked: true, description: "Rhetoric, translation, corpus linguistics, discourse analysis, language & identity" },
     ],
   },
 ];

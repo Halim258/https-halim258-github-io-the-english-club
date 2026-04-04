@@ -33,6 +33,13 @@ import { b1Lessons6to10 } from "./b1-lessons-6-10";
 import { b2Lessons6to10 } from "./b2-lessons-6-10";
 import { c1Lessons6to10 } from "./c1-lessons-6-10";
 import { c2Lessons6to10 } from "./c2-lessons-6-10";
+import { readingLessons11to15 } from "./reading-lessons-11-15";
+import { a1Lessons11to15 } from "./a1-lessons-11-15";
+import { a2Lessons11to15 } from "./a2-lessons-11-15";
+import { b1Lessons11to15 } from "./b1-lessons-11-15";
+import { b2Lessons11to15 } from "./b2-lessons-11-15";
+import { c1Lessons11to15 } from "./c1-lessons-11-15";
+import { c2Lessons11to15 } from "./c2-lessons-11-15";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
@@ -522,4 +529,11 @@ export const lessons: Record<string, LessonData> = {
   ...b2Lessons6to10,
   ...c1Lessons6to10,
   ...c2Lessons6to10,
+  ...readingLessons11to15,
+  ...a1Lessons11to15,
+  ...a2Lessons11to15,
+  ...b1Lessons11to15,
+  ...b2Lessons11to15,
+  ...c1Lessons11to15,
+  ...c2Lessons11to15,
 };
