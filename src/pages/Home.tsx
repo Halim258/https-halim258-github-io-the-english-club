@@ -70,9 +70,9 @@ export default function Home() {
 
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="mx-auto max-w-4xl text-4xl font-bold leading-tight md:text-5xl lg:text-6xl font-display">
-            We Support Students to{" "}
-            <span className="text-primary">Master English</span>{" "}
-            at Every Level
+            Cutting-Edge Methods for{" "}
+            <span className="text-primary">Fast-Paced English</span>{" "}
+            Language Acquisition
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
             Join thousands of learners using The English Club's Cambridge-aligned curriculum to achieve fluency.
