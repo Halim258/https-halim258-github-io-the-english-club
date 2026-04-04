@@ -96,6 +96,13 @@ export default function Navbar() {
               </Link>
             ))}
             <hr className="my-2 border-border" />
+            <button
+              onClick={() => setDark(!dark)}
+              className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground"
+            >
+              {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {dark ? "Light Mode" : "Dark Mode"}
+            </button>
             <Link to="/signup" onClick={() => setOpen(false)}>
               <Button size="sm" className="w-full rounded-full font-semibold">Sign Up Free</Button>
             </Link>
