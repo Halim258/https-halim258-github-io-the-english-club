@@ -74,6 +74,19 @@ const testimonials = [
 ];
 
 export default function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const scrollTo = (location.state as any)?.scrollTo;
+    if (scrollTo) {
+      setTimeout(() => {
+        document.getElementById(scrollTo)?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+      // Clear the state so refreshing doesn't re-scroll
+      window.history.replaceState({}, "");
+    }
+  }, [location.state]);
+
   return (
     <div className="overflow-x-hidden">
       {/* Hero Section */}
