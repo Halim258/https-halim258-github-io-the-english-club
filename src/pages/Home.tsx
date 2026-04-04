@@ -51,19 +51,19 @@ const features = [
 
 const testimonials = [
   {
-    quote: "The English Club's structured approach helped me go from zero English to confident conversation in just 6 months.",
-    name: "Ahmed Al-Rashid",
-    role: "Student, A1 → B2",
+    quote: "It's not just a place to learn English, it's my second home.",
+    name: "May Magdy",
+    role: "Student",
   },
   {
-    quote: "The lesson structure with vocabulary, grammar, and speaking practice is exactly what my students need. Saves me hours of planning!",
-    name: "Sarah Mitchell",
-    role: "ESL Teacher",
+    quote: "I really love this place, everyone here is amazing. I'm lucky to have such a great family!",
+    name: "Nour Elanany",
+    role: "Student",
   },
   {
-    quote: "I love the flip cards and the Arabic translation toggle. It makes learning so much easier for beginners like me.",
-    name: "Fatima Hassan",
-    role: "Student, A1",
+    quote: "Without any compliments, I feel home in The English Club.",
+    name: "Ahmed Yousry",
+    role: "Student",
   },
 ];
 
