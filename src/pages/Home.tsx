@@ -423,45 +423,8 @@ export default function Home() {
       {/* Location Section */}
       <LocationSection />
 
-      {/* Levels Overview */}
-      <section className="relative py-20 overflow-hidden">
-        <PetalBottomLeft />
-        <div className="container mx-auto px-4 relative z-10">
-          <FadeInUp>
-            <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary mb-2">Comprehensive</p>
-            <h2 className="text-center text-2xl md:text-3xl font-bold font-display">
-              Supporting Every Student's Journey
-            </h2>
-            <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
-              From absolute beginners to advanced speakers, our Cambridge-aligned curriculum covers every step.
-            </p>
-          </FadeInUp>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-60px" }}
-            className="mt-12 grid gap-4 md:grid-cols-3 lg:grid-cols-6"
-          >
-            {["A1 Beginner", "A2 Elementary", "B1 Intermediate", "B2 Upper-Int", "C1 Advanced", "C2 Mastery"].map(
-              (level, i) => (
-                <motion.div key={level} variants={staggerItem}>
-                  <Link
-                    to={`/courses/${["a1", "a2", "b1", "b2", "c1", "c2"][i]}`}
-                    className="group flex flex-col items-center rounded-xl border bg-card p-5 text-center shadow-soft transition-all hover:shadow-card hover:border-primary/30 hover:-translate-y-1 duration-300"
-                  >
-                    <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <GraduationCap className="h-5 w-5 text-primary" />
-                    </div>
-                    <p className="text-sm font-semibold font-display">{level}</p>
-                  </Link>
-                </motion.div>
-              )
-            )}
-          </motion.div>
-        </div>
-      </section>
+      {/* Full Courses Section */}
+      <CoursesSection />
 
       {/* Final CTA */}
       <section className="gradient-primary py-20">
