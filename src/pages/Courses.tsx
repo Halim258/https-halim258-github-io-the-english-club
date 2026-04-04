@@ -15,8 +15,8 @@ const stages: Stage[] = [
   {
     id: "1", label: "Stage 1 — Beginner",
     levels: [
-      { id: "a1", label: "A1", sublabel: "Beginner", lessons: 10, unlocked: true, description: "Basic greetings, numbers, family, colors, food" },
-      { id: "a2", label: "A2", sublabel: "Elementary", lessons: 10, unlocked: true, description: "Daily routines, past tense, directions, shopping" },
+      { id: "a1", label: "A1", sublabel: "Beginner", lessons: 15, unlocked: true, description: "Greetings, numbers, family, weather, hobbies, health, feelings" },
+      { id: "a2", label: "A2", sublabel: "Elementary", lessons: 15, unlocked: true, description: "Daily routines, past tense, travel, restaurants, technology, environment" },
     ],
   },
   {
