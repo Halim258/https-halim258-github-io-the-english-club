@@ -316,7 +316,7 @@ export default function Home() {
       </section>
 
       {/* PCC Competition Section */}
-      <section className="border-y bg-muted/30 py-20">
+      <section id="pcc" className="border-y bg-muted/30 py-20">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
