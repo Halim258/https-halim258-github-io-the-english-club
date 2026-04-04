@@ -249,6 +249,78 @@ export default function Home() {
         </div>
       </section>
 
+      {/* PCC Competition Section */}
+      <section className="border-y bg-muted/30 py-16">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Award className="h-4 w-4 text-primary" />
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">Competition</p>
+          </div>
+          <h2 className="text-center text-2xl md:text-3xl font-bold font-display">
+            PCC — Presentation Course & Competition
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
+            Our flagship program that transforms students into confident public speakers through structured training and competitive presentation events.
+          </p>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            <div className="rounded-xl border bg-card p-6 shadow-soft">
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                <BookOpen className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-base font-semibold font-display">Presentation Course</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Students learn essential public speaking skills — structuring ideas, body language, vocal delivery, and visual aids — through hands-on workshops and practice sessions.
+              </p>
+            </div>
+
+            <div className="rounded-xl border bg-card p-6 shadow-soft">
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                <Users className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-base font-semibold font-display">Team Competition</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Students form teams and compete in live presentation battles, judged on content, delivery, creativity, and teamwork. Winners receive medals and certificates.
+              </p>
+            </div>
+
+            <div className="rounded-xl border bg-card p-6 shadow-soft">
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10">
+                <Award className="h-6 w-6 text-primary" />
+              </div>
+              <h3 className="text-base font-semibold font-display">Recognition & Awards</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Top presenters earn PCC medals, trophies, and certificates of achievement — building confidence and a portfolio of public speaking accomplishments.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 rounded-xl border bg-card p-6 shadow-soft">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="w-full md:w-1/3 overflow-hidden rounded-lg">
+                <img src={gallery7} alt="PCC Competition awards" className="w-full h-48 object-cover rounded-lg" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-lg font-semibold font-display mb-2">Why Join PCC?</h3>
+                <ul className="space-y-2">
+                  {[
+                    "Build real-world presentation & public speaking skills",
+                    "Compete with peers in a supportive, encouraging environment",
+                    "Earn certificates and medals recognized by The English Club",
+                    "Boost your confidence for academic and professional settings",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="py-16">
         <div className="container mx-auto px-4">
