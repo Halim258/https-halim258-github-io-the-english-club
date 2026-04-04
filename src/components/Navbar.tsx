@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect, useCallback } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.jpg";
@@ -10,10 +10,20 @@ const navLinks = [
   { to: "/teachers", label: "Find a Teacher" },
 ];
 
+const homeSections = [
+  { id: "courses", label: "Courses" },
+  { id: "gallery", label: "Gallery" },
+  { id: "pcc", label: "PCC" },
+  { id: "testimonials", label: "Reviews" },
+  { id: "faq", label: "FAQ" },
+];
+
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
   const location = useLocation();
+  const navigate = useNavigate();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     if (dark) {
@@ -22,6 +32,15 @@ export default function Navbar() {
       document.documentElement.classList.remove("dark");
     }
   }, [dark]);
+
+  const scrollToSection = useCallback((id: string) => {
+    setOpen(false);
+    if (isHome) {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      navigate("/", { state: { scrollTo: id } });
+    }
+  }, [isHome, navigate]);
 
   return (
     <nav className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur-md">
@@ -50,6 +69,17 @@ export default function Navbar() {
             >
               {l.label}
             </Link>
+          ))}
+          {/* Section links (visible when on home or always as quick nav) */}
+          <div className="mx-1 h-4 w-px bg-border" />
+          {homeSections.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => scrollToSection(s.id)}
+              className="rounded-full px-3 py-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {s.label}
+            </button>
           ))}
         </div>
 
@@ -95,6 +125,17 @@ export default function Navbar() {
               >
                 {l.label}
               </Link>
+            ))}
+            <hr className="my-2 border-border" />
+            <p className="px-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">Jump to</p>
+            {homeSections.map((s) => (
+              <button
+                key={s.id}
+                onClick={() => scrollToSection(s.id)}
+                className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground text-left hover:text-foreground"
+              >
+                {s.label}
+              </button>
             ))}
             <hr className="my-2 border-border" />
             <button
