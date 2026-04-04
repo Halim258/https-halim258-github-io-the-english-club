@@ -75,7 +75,7 @@ export default function Home() {
             Language Acquisition
           </h1>
           <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
-            Join thousands of learners using The English Club's Cambridge-aligned curriculum to achieve fluency.
+            The English Club Language School in Alexandria, Egypt — using cutting-edge methods and a Cambridge-aligned curriculum to ensure fast-paced language acquisition.
           </p>
 
           {/* Audience buttons */}
