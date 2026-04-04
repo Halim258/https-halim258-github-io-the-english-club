@@ -27,7 +27,7 @@ export default function Teachers() {
   return (
     <div className="container mx-auto px-4 py-10">
       <h1 className="text-3xl font-bold">Find a Teacher</h1>
-      <p className="mt-2 text-muted-foreground">Book 1-on-1 lessons with expert Arabic teachers.</p>
+      <p className="mt-2 text-muted-foreground">Book 1-on-1 lessons with expert English teachers at The English Club, Alexandria.</p>
 
       {/* Filters */}
       <div className="mt-6 flex flex-wrap gap-3">
