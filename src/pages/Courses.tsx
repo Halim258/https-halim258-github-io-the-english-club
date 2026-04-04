@@ -8,29 +8,29 @@ type Stage = { id: string; label: string; levels: Level[] };
 const introductory: Level = {
   id: "reading", label: "English Reading Course",
   sublabel: "Alphabet → Phonics → Sight Words → Short Sentences → Paragraphs",
-  lessons: 5, unlocked: true, description: "Build foundational reading skills from scratch",
+  lessons: 10, unlocked: true, description: "Build foundational reading skills from scratch",
 };
 
 const stages: Stage[] = [
   {
     id: "1", label: "Stage 1 — Beginner",
     levels: [
-      { id: "a1", label: "A1", sublabel: "Beginner", lessons: 5, unlocked: true, description: "Basic greetings, numbers, family, colors, food" },
-      { id: "a2", label: "A2", sublabel: "Elementary", lessons: 5, unlocked: true, description: "Daily routines, past tense, directions, shopping" },
+      { id: "a1", label: "A1", sublabel: "Beginner", lessons: 10, unlocked: true, description: "Basic greetings, numbers, family, colors, food" },
+      { id: "a2", label: "A2", sublabel: "Elementary", lessons: 10, unlocked: true, description: "Daily routines, past tense, directions, shopping" },
     ],
   },
   {
     id: "2", label: "Stage 2 — Intermediate",
     levels: [
-      { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 5, unlocked: true, description: "Opinions, future plans, comparatives, conditionals, modals" },
-      { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 5, unlocked: true, description: "Passive voice, reported speech, relative clauses, phrasal verbs" },
+      { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 10, unlocked: true, description: "Opinions, future plans, comparatives, conditionals, modals" },
+      { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 10, unlocked: true, description: "Passive voice, reported speech, relative clauses, phrasal verbs" },
     ],
   },
   {
     id: "3", label: "Stage 3 — Advanced",
     levels: [
-      { id: "c1", label: "C1", sublabel: "Advanced", lessons: 5, unlocked: true, description: "Hedging, idioms, complex sentences, academic writing, mixed conditionals" },
-      { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 5, unlocked: true, description: "Stylistic mastery, discourse markers, literary devices, argumentation" },
+      { id: "c1", label: "C1", sublabel: "Advanced", lessons: 10, unlocked: true, description: "Hedging, idioms, complex sentences, academic writing, mixed conditionals" },
+      { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 10, unlocked: true, description: "Stylistic mastery, discourse markers, literary devices, argumentation" },
     ],
   },
 ];
