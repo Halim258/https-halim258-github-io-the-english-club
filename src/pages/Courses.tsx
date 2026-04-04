@@ -7,8 +7,8 @@ type Stage = { id: string; label: string; levels: Level[] };
 
 const introductory: Level = {
   id: "reading", label: "English Reading Course",
-  sublabel: "Alphabet → Phonics → Sight Words → Short Sentences → Paragraphs",
-  lessons: 10, unlocked: true, description: "Build foundational reading skills from scratch",
+  sublabel: "Alphabet → Phonics → Sight Words → Short Sentences → Critical Reading",
+  lessons: 15, unlocked: true, description: "Build foundational reading skills from scratch",
 };
 
 const stages: Stage[] = [
