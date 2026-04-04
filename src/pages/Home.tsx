@@ -16,6 +16,7 @@ import { PetalTopRight, PetalBottomLeft } from "@/components/PetalDecoration";
 import { FadeInUp, FadeIn, ScaleIn, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import FAQSection from "@/components/home/FAQSection";
 import LocationSection from "@/components/home/LocationSection";
+import CoursesSection from "@/components/home/CoursesSection";
 
 const audiences = [
   { icon: "🎓", title: "Self-Learning Students", to: "/courses" },
