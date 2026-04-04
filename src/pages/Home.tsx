@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   BookOpen, ArrowRight, Users, Award, GraduationCap,
@@ -73,6 +74,19 @@ const testimonials = [
 ];
 
 export default function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    const scrollTo = (location.state as any)?.scrollTo;
+    if (scrollTo) {
+      setTimeout(() => {
+        document.getElementById(scrollTo)?.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+      // Clear the state so refreshing doesn't re-scroll
+      window.history.replaceState({}, "");
+    }
+  }, [location.state]);
+
   return (
     <div className="overflow-x-hidden">
       {/* Hero Section */}
@@ -271,7 +285,7 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section className="py-20">
+      <section id="gallery" className="py-20">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -302,7 +316,7 @@ export default function Home() {
       </section>
 
       {/* PCC Competition Section */}
-      <section className="border-y bg-muted/30 py-20">
+      <section id="pcc" className="border-y bg-muted/30 py-20">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -372,7 +386,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20">
+      <section id="testimonials" className="py-20">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-12">

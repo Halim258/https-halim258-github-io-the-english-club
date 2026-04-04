@@ -36,7 +36,7 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section className="py-20">
+    <section id="faq" className="py-20">
       <div className="container mx-auto px-4">
         <FadeInUp>
           <div className="flex items-center justify-center gap-2 mb-2">
