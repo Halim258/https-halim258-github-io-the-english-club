@@ -211,6 +211,36 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <section className="py-16">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center justify-center gap-2 mb-2">
+            <Camera className="h-4 w-4 text-primary" />
+            <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">Gallery</p>
+          </div>
+          <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-10">
+            Life at The English Club
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="col-span-2 row-span-2 overflow-hidden rounded-xl border shadow-soft">
+              <img src={gallery1} alt="Students at The English Club" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
+            </div>
+            <div className="overflow-hidden rounded-xl border shadow-soft">
+              <img src={gallery2} alt="Best Trainer award ceremony" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
+            </div>
+            <div className="overflow-hidden rounded-xl border shadow-soft">
+              <img src={gallery3} alt="Student certification" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
+            </div>
+            <div className="overflow-hidden rounded-xl border shadow-soft">
+              <img src={gallery4} alt="Student achievement" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
+            </div>
+            <div className="overflow-hidden rounded-xl border shadow-soft">
+              <img src={gallery5} alt="Student speaking practice" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Testimonials */}
       <section className="py-16">
         <div className="container mx-auto px-4">
