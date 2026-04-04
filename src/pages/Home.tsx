@@ -242,6 +242,9 @@ export default function Home() {
             <div className="overflow-hidden rounded-xl border shadow-soft">
               <img src={gallery6} alt="Student presentation" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
             </div>
+            <div className="overflow-hidden rounded-xl border shadow-soft">
+              <img src={gallery7} alt="PCC Competition certificates and medals" className="h-full w-full object-cover transition-transform hover:scale-105 duration-500" />
+            </div>
           </div>
         </div>
       </section>
