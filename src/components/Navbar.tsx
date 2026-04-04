@@ -54,6 +54,13 @@ export default function Navbar() {
 
         {/* Desktop auth buttons */}
         <div className="hidden items-center gap-2 md:flex">
+          <button
+            onClick={() => setDark(!dark)}
+            className="rounded-full p-2 text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Toggle dark mode"
+          >
+            {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
           <Link to="/signup">
             <Button size="sm" className="rounded-full px-5 font-semibold">
               Sign Up Free
