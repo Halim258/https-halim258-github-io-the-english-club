@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Menu, X, GraduationCap, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const navLinks = [
   { to: "/", label: "Home" },
@@ -27,12 +28,12 @@ export default function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary">
-            <GraduationCap className="h-5 w-5 text-primary-foreground" />
+          <div className="flex items-center gap-2">
+            <img src={logo} alt="The English Club Logo" className="h-10 w-10" />
+            <span className="text-lg font-bold text-foreground font-display tracking-tight">
+              The English Club <span className="hidden sm:inline text-xs font-normal text-muted-foreground ml-1">Alexandria</span>
+            </span>
           </div>
-          <span className="text-lg font-bold text-foreground font-display tracking-tight">
-            The English Club <span className="hidden sm:inline text-xs font-normal text-muted-foreground ml-1">Alexandria</span>
-          </span>
         </Link>
 
         {/* Desktop nav links */}
