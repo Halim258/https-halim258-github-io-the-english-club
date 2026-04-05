@@ -12,6 +12,7 @@ const courseLevelMap: Record<string, string> = {
   "Speaking & Conversation Practice": "speaking",
   "Listening Skills": "listening",
   "Pronunciation & Accent Training": "pronunciation",
+  "Fluency Development": "fluency",
   "English Writing Basics": "writing",
   "Academic Writing": "writing",
   "Creative Writing": "writing",
