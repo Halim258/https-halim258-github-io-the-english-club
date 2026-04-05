@@ -9,24 +9,55 @@ import { lessons } from "@/data/lessons";
 
 // Map course names to lesson level IDs
 const courseLevelMap: Record<string, string> = {
+  // Communication
   "Speaking & Conversation Practice": "speaking",
   "Listening Skills": "listening",
   "Pronunciation & Accent Training": "pronunciation",
   "Fluency Development": "fluency",
+  // Writing
   "English Writing Basics": "writing",
   "Academic Writing": "writing",
   "Creative Writing": "writing",
   "Business Writing": "writing",
   "Email Writing": "writing",
+  // Grammar
   "English Grammar (Basic → Advanced)": "grammar-course",
   "Tenses Mastery": "grammar-course",
   "Sentence Structure": "grammar-course",
+  // Exam
   "IELTS Preparation": "exam-prep",
   "TOEFL Preparation": "exam-prep",
+  "Cambridge Exams (PET, FCE, CAE)": "exam-prep",
+  "SAT English": "exam-prep",
+  // Professional
   "Business English": "professional",
   "English for Interviews": "professional",
   "Workplace Communication": "professional",
   "Presentation Skills": "professional",
+  // Core
+  "General English (A1–C2)": "a1",
+  "English for Beginners": "reading",
+  "Intensive English Course": "a2",
+  "Intermediate English": "b1",
+  "Advanced English": "c1",
+  // Reading & Vocabulary
+  "Reading Comprehension": "reading-comp",
+  "Vocabulary Building": "vocab-build",
+  "Idioms & Expressions": "idioms",
+  "Phrasal Verbs Course": "phrasal",
+  // Interactive
+  "English through Movies & Series": "movies",
+  "English through Stories": "stories",
+  "Real-life Conversation Practice": "real-life",
+  "Slang & Everyday English": "slang",
+  // Specialized
+  "English for Travel": "travel",
+  "English for Kids": "kids",
+  "English for Teenagers": "teens",
+  "Medical English": "medical",
+  "Engineering English": "engineering",
+  "IT English": "it-english",
+  "ESP (Specific Purposes)": "professional",
 };
 
 function getCourseHasLessons(courseName: string): boolean {
