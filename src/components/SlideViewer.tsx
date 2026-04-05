@@ -2,11 +2,12 @@ import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft, ChevronRight, BookOpen, MessageSquare, PenLine,
-  CheckCircle2, XCircle, Volume2, RotateCcw, GraduationCap
+  CheckCircle2, XCircle, Volume2, RotateCcw, GraduationCap, Eye, EyeOff
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Slide, SlideContent } from "@/data/slide-types";
 import type { VocabWord, MCQItem } from "@/data/lessons";
+import { useTTS } from "@/hooks/useTTS";
 
 /* ═══════════ MAIN VIEWER ═══════════ */
 interface SlideViewerProps {
@@ -158,20 +159,30 @@ function TitleSlide({ content }: { content: { heading: string; description: stri
 
 /* ═══════════ VOCAB SLIDE ═══════════ */
 const vocabColors = [
-  "from-blue-500/20 to-blue-400/10",
-  "from-emerald-500/20 to-emerald-400/10",
-  "from-violet-500/20 to-violet-400/10",
-  "from-amber-500/20 to-amber-400/10",
-  "from-pink-500/20 to-pink-400/10",
-  "from-cyan-500/20 to-cyan-400/10",
-  "from-rose-500/20 to-rose-400/10",
-  "from-teal-500/20 to-teal-400/10",
-  "from-indigo-500/20 to-indigo-400/10",
-  "from-orange-500/20 to-orange-400/10",
+  "from-blue-500/20 to-sky-400/10",
+  "from-emerald-500/20 to-green-400/10",
+  "from-violet-500/20 to-purple-400/10",
+  "from-amber-500/20 to-yellow-400/10",
+  "from-pink-500/20 to-rose-400/10",
+  "from-cyan-500/20 to-teal-400/10",
+  "from-rose-500/20 to-red-400/10",
+  "from-teal-500/20 to-emerald-400/10",
+  "from-indigo-500/20 to-blue-400/10",
+  "from-orange-500/20 to-amber-400/10",
+];
+
+const vocabPatterns = [
+  "radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15) 0%, transparent 50%)",
+  "radial-gradient(circle at 80% 20%, rgba(255,255,255,0.15) 0%, transparent 50%)",
+  "radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 60%)",
+  "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12) 0%, transparent 55%)",
+  "radial-gradient(circle at 70% 70%, rgba(255,255,255,0.12) 0%, transparent 55%)",
 ];
 
 function VocabSlide({ words }: { words: VocabWord[] }) {
   const [flipped, setFlipped] = useState<Set<number>>(new Set());
+  const [showAll, setShowAll] = useState(false);
+  const { speak, speaking } = useTTS();
 
   const toggle = (i: number) => {
     setFlipped((prev) => {
@@ -181,44 +192,99 @@ function VocabSlide({ words }: { words: VocabWord[] }) {
     });
   };
 
+  const revealAll = () => {
+    if (showAll) {
+      setFlipped(new Set());
+      setShowAll(false);
+    } else {
+      setFlipped(new Set(words.map((_, i) => i)));
+      setShowAll(true);
+    }
+  };
+
   return (
-    <div className="grid gap-3 sm:grid-cols-2">
-      {words.map((w, i) => (
-        <motion.div
-          key={w.word}
-          onClick={() => toggle(i)}
-          whileTap={{ scale: 0.98 }}
-          className="cursor-pointer rounded-xl border bg-card overflow-hidden shadow-soft hover:shadow-card transition-all duration-200"
-        >
-          {/* Visual illustration area */}
-          <div className={`relative bg-gradient-to-br ${vocabColors[i % vocabColors.length]} flex items-center justify-center py-5`}>
-            <span className="text-5xl select-none drop-shadow-sm">{w.emoji}</span>
-            <span className="absolute top-2 right-2 text-[10px] font-bold text-muted-foreground/60 bg-background/60 backdrop-blur-sm px-2 py-0.5 rounded-full">
-              {w.arabic}
-            </span>
-          </div>
-          {/* Text content */}
-          <div className="p-3.5">
-            <p className="font-bold font-display text-base">{w.word}</p>
-            <AnimatePresence>
-              {flipped.has(i) && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="overflow-hidden"
+    <div className="space-y-4">
+      {/* Controls */}
+      <div className="flex items-center justify-end gap-2">
+        <Button variant="ghost" size="sm" onClick={revealAll} className="rounded-full text-xs gap-1.5">
+          {showAll ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+          {showAll ? "Hide All" : "Reveal All"}
+        </Button>
+      </div>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {words.map((w, i) => {
+          const isOpen = flipped.has(i);
+          return (
+            <motion.div
+              key={w.word}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.05 }}
+              onClick={() => toggle(i)}
+              whileTap={{ scale: 0.98 }}
+              className="cursor-pointer rounded-xl border bg-card overflow-hidden shadow-soft hover:shadow-card transition-all duration-200 group"
+            >
+              {/* Visual illustration area with emoji + pattern */}
+              <div
+                className={`relative bg-gradient-to-br ${vocabColors[i % vocabColors.length]} flex items-center justify-center py-6 overflow-hidden`}
+                style={{ backgroundImage: vocabPatterns[i % vocabPatterns.length] }}
+              >
+                {/* Decorative floating shapes */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  <div className="absolute -top-2 -left-2 w-16 h-16 rounded-full bg-white/5" />
+                  <div className="absolute -bottom-3 -right-3 w-20 h-20 rounded-full bg-white/5" />
+                </div>
+                <motion.span
+                  className="text-6xl select-none drop-shadow-md z-10"
+                  animate={{ scale: isOpen ? 1.15 : 1, rotate: isOpen ? [0, -5, 5, 0] : 0 }}
+                  transition={{ duration: 0.4 }}
                 >
-                  <p className="text-sm text-muted-foreground mt-1.5">{w.meaning}</p>
-                  <p className="text-xs text-muted-foreground/70 mt-1 italic border-l-2 border-primary/30 pl-2">"{w.example}"</p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-            {!flipped.has(i) && (
-              <p className="text-[11px] text-muted-foreground/50 mt-1">Tap to reveal meaning</p>
-            )}
-          </div>
-        </motion.div>
-      ))}
+                  {w.emoji}
+                </motion.span>
+                {/* Arabic badge */}
+                <span className="absolute top-2 right-2 text-[10px] font-bold text-muted-foreground/70 bg-background/70 backdrop-blur-sm px-2 py-0.5 rounded-full shadow-sm">
+                  {w.arabic}
+                </span>
+                {/* Listen button */}
+                <button
+                  onClick={(e) => { e.stopPropagation(); speak(`${w.word}. ${w.meaning}. ${w.example}`); }}
+                  className="absolute bottom-2 right-2 h-7 w-7 rounded-full bg-background/70 backdrop-blur-sm flex items-center justify-center shadow-sm hover:bg-background transition-colors"
+                >
+                  <Volume2 className="h-3.5 w-3.5 text-primary" />
+                </button>
+              </div>
+              {/* Text content */}
+              <div className="p-3.5">
+                <div className="flex items-center justify-between">
+                  <p className="font-bold font-display text-base">{w.word}</p>
+                  <span className="text-[10px] text-muted-foreground/40 group-hover:text-muted-foreground/60 transition-colors">
+                    {isOpen ? "tap to hide" : "tap to reveal"}
+                  </span>
+                </div>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <p className="text-sm text-muted-foreground mt-1.5 flex items-start gap-1.5">
+                        <span className="text-primary font-semibold text-xs mt-0.5">→</span>
+                        {w.meaning}
+                      </p>
+                      <div className="mt-2 rounded-lg bg-muted/40 px-3 py-2 border-l-2 border-primary/30">
+                        <p className="text-xs text-muted-foreground/80 italic">"{w.example}"</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
     </div>
   );
 }
