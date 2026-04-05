@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import LessonPage from "./pages/LessonPage";
+import CategoryDetail from "./pages/CategoryDetail";
 import Teachers from "./pages/Teachers";
 import StudentDashboard from "./pages/StudentDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
@@ -26,6 +27,7 @@ const App = () => (
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/courses/category/:categorySlug" element={<CategoryDetail />} />
             <Route path="/courses/:levelId/:lessonId" element={<LessonPage />} />
             <Route path="/courses/:levelId" element={<Courses />} />
             <Route path="/teachers" element={<Teachers />} />
