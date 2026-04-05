@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { allLessons } from "@/data/lessons";
+import { lessons } from "@/data/lessons";
 import { generateSlides } from "@/data/slide-types";
 import SlideViewer from "@/components/SlideViewer";
 
@@ -8,7 +8,7 @@ export default function SlideLesson() {
   const navigate = useNavigate();
 
   const key = `${levelId}-${lessonId}`;
-  const lesson = allLessons[key];
+  const lesson = lessons[key];
 
   if (!lesson) {
     return (
