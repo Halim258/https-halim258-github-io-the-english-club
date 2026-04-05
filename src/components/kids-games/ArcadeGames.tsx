@@ -1,7 +1,23 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { RotateCcw, Trophy } from "lucide-react";
+import { RotateCcw, Trophy, Volume2, VolumeX } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { sfx, startBgMusic, stopBgMusic, isBgMusicPlaying } from "./gameSounds";
+
+function MusicToggle({ game }: { game: "spaceduck" | "mario" | "chess" | "tictactoe" }) {
+  const [playing, setPlaying] = useState(false);
+  const toggle = () => {
+    if (playing) { stopBgMusic(); setPlaying(false); }
+    else { startBgMusic(game); setPlaying(true); }
+  };
+  useEffect(() => () => { stopBgMusic(); }, []);
+  return (
+    <button onClick={toggle} className="inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-medium bg-muted/50 hover:bg-muted transition-all mb-3">
+      {playing ? <Volume2 className="h-3 w-3" /> : <VolumeX className="h-3 w-3" />}
+      {playing ? "Music On" : "Music Off"}
+    </button>
+  );
+}
 
 // ═══════════════════════════════════════════════════════════
 // TIC TAC TOE
@@ -67,10 +83,10 @@ export function TicTacToeGame() {
         const newBoard = [...board];
         const move = getAIMove(newBoard, difficulty);
         if (move >= 0) {
-          newBoard[move] = "O"; setBoard(newBoard);
+          newBoard[move] = "O"; setBoard(newBoard); sfx.place();
           const w = checkWinner(newBoard);
-          if (w) { setWinner(w); setScores(s => ({ ...s, ai: s.ai + 1 })); }
-          else if (newBoard.every(c => c)) { setWinner("draw"); setScores(s => ({ ...s, draws: s.draws + 1 })); }
+          if (w) { setWinner(w); setScores(s => ({ ...s, ai: s.ai + 1 })); sfx.lose(); }
+          else if (newBoard.every(c => c)) { setWinner("draw"); setScores(s => ({ ...s, draws: s.draws + 1 })); sfx.click(); }
           else setIsPlayerTurn(true);
         }
       }, 500);
@@ -80,10 +96,11 @@ export function TicTacToeGame() {
 
   const handleClick = (i: number) => {
     if (board[i] || !isPlayerTurn || winner) return;
+    sfx.place();
     const newBoard = [...board]; newBoard[i] = "X"; setBoard(newBoard);
     const w = checkWinner(newBoard);
-    if (w) { setWinner(w); setScores(s => ({ ...s, player: s.player + 1 })); }
-    else if (newBoard.every(c => c)) { setWinner("draw"); setScores(s => ({ ...s, draws: s.draws + 1 })); }
+    if (w) { setWinner(w); setScores(s => ({ ...s, player: s.player + 1 })); sfx.win(); }
+    else if (newBoard.every(c => c)) { setWinner("draw"); setScores(s => ({ ...s, draws: s.draws + 1 })); sfx.click(); }
     else setIsPlayerTurn(false);
   };
 
@@ -91,6 +108,7 @@ export function TicTacToeGame() {
 
   return (
     <div className="text-center">
+      <MusicToggle game="tictactoe" />
       <div className="flex justify-center gap-2 mb-4">
         {(["easy","medium","hard"] as TTTDifficulty[]).map(d => (
           <button key={d} onClick={() => setDifficulty(d)}
@@ -152,7 +170,7 @@ export function SpaceDuckGame() {
 
   const jump = useCallback(() => {
     if (!gameRef.current.running) { startGame(); return; }
-    gameRef.current.duck.vy = JUMP;
+    gameRef.current.duck.vy = JUMP; sfx.flap();
   }, []);
 
   useEffect(() => {
@@ -195,16 +213,16 @@ export function SpaceDuckGame() {
         for (const pipe of g.pipes) {
           if (duckRight > pipe.x && duckLeft < pipe.x + PIPE_W) {
             if (duckTop < pipe.gapY || duckBottom > pipe.gapY + GAP) {
-              g.running = false; setGameOver(true); setScore(g.score);
+              g.running = false; setGameOver(true); setScore(g.score); sfx.crash(); stopBgMusic();
             }
           }
           if (Math.abs(pipe.x - 60) < 3 && !("scored" in pipe)) {
-            g.score++; setScore(g.score); (pipe as any).scored = true;
+            g.score++; setScore(g.score); (pipe as any).scored = true; sfx.score();
           }
         }
 
         if (g.duck.y < 0 || g.duck.y > H - DUCK_SIZE) {
-          g.running = false; setGameOver(true); setScore(g.score);
+          g.running = false; setGameOver(true); setScore(g.score); sfx.crash(); stopBgMusic();
         }
       }
 
@@ -257,6 +275,7 @@ export function SpaceDuckGame() {
 
   return (
     <div className="text-center">
+      <MusicToggle game="spaceduck" />
       <p className="text-muted-foreground mb-3">Fly through space! Tap or press Space to flap 🦆🚀</p>
       <div className="flex items-center justify-center gap-2 mb-3">
         <Trophy className="h-4 w-4 text-yellow-500" /><span className="font-bold text-sm">Best: {score}</span>
@@ -368,14 +387,14 @@ export function MarioJumpGame() {
           for (const p of g.platforms) {
             if (g.player.x + 25 > p.x && g.player.x + 5 < p.x + p.w &&
                 g.player.y + 30 > p.y && g.player.y + 30 < p.y + 12) {
-              g.player.vy = -11;
+              g.player.vy = -11; sfx.jump();
               g.player.onGround = true;
             }
           }
         }
 
         if (g.player.y > H + 50) {
-          g.running = false; setGameOver(true);
+          g.running = false; setGameOver(true); sfx.crash(); stopBgMusic();
         }
       }
 
@@ -439,6 +458,7 @@ export function MarioJumpGame() {
 
   return (
     <div className="text-center">
+      <MusicToggle game="mario" />
       <p className="text-muted-foreground mb-3">Jump as high as you can! Use ← → keys or touch to move 🦸</p>
       <canvas ref={canvasRef} width={W} height={H}
         onClick={() => { if (!gameRef.current.running) startGame(); }}
@@ -541,19 +561,22 @@ export function ChessGame() {
     const piece = board[idx];
 
     if (selected !== null && validMoves.includes(idx)) {
-      // Move
       const newBoard = [...board];
       const moving = newBoard[selected]!;
       const target = newBoard[idx];
 
       if (target) {
+        sfx.capture();
         setCaptured(prev => ({
           ...prev,
           [turn]: [...prev[turn], target.emoji]
         }));
         if (target.type === "K") {
           setStatus(turn === "w" ? "White wins! 🎉" : "Black wins! 🎉");
+          sfx.win();
         }
+      } else {
+        sfx.move();
       }
 
       // Pawn promotion
@@ -575,6 +598,7 @@ export function ChessGame() {
     if (piece && piece.color === turn) {
       setSelected(idx);
       setValidMoves(getBasicMoves(board, idx, piece));
+      sfx.click();
     } else {
       setSelected(null);
       setValidMoves([]);
@@ -583,6 +607,7 @@ export function ChessGame() {
 
   return (
     <div className="text-center">
+      <MusicToggle game="chess" />
       <p className="text-muted-foreground mb-3">Play chess! {turn === "w" ? "White" : "Black"}'s turn ♟️</p>
       {status && (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mb-3">

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { RotateCcw, Trophy, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTTS } from "@/hooks/useTTS";
+import { sfx } from "./gameSounds";
 
 // ─── Difficulty Data ─────────────────────────────────────
 type Difficulty = "phonics" | "easy" | "medium" | "hard";
@@ -114,13 +115,14 @@ export function MatchingGame() {
 
   useEffect(() => { reset(); }, [reset]);
 
-  const handleWordClick = (idx: number) => { setSelected(idx); speak(pairs[idx].word); };
+  const handleWordClick = (idx: number) => { setSelected(idx); speak(pairs[idx].word); sfx.click(); };
   const handleEmojiClick = (shuffledIdx: number) => {
     if (selected === null) return;
     if (shuffledEmojis[shuffledIdx].word === pairs[selected].word) {
       setMatched((prev) => new Set([...prev, selected]));
       setSelected(null);
-    }
+      sfx.match();
+    } else { sfx.wrong(); }
   };
 
   const allMatched = matched.size === pairs.length;
@@ -187,8 +189,8 @@ export function ColorGame() {
   useEffect(() => { generateOptions(0); }, [generateOptions]);
 
   const handleAnswer = (word: string) => {
-    if (word === colorWords[currentIdx].word) { setScore((s) => s + 1); setFeedback("correct"); speak("Correct! " + word); }
-    else { setFeedback("wrong"); speak("Try again!"); }
+    if (word === colorWords[currentIdx].word) { setScore((s) => s + 1); setFeedback("correct"); speak("Correct! " + word); sfx.correct(); }
+    else { setFeedback("wrong"); speak("Try again!"); sfx.wrong(); }
     setTimeout(() => { setFeedback(null); const next = (currentIdx + 1) % colorWords.length; setCurrentIdx(next); generateOptions(next); }, 1000);
   };
 
@@ -232,12 +234,13 @@ export function SpellingGame() {
   useEffect(() => { setWordIdx(0); setupWord(0); setScore(0); }, [difficulty, setupWord]);
 
   const handleLetterClick = (letter: string, idx: number) => {
+    sfx.click();
     const newLetters = [...letters, letter]; const newShuffled = [...shuffled]; newShuffled.splice(idx, 1);
     setLetters(newLetters); setShuffled(newShuffled);
     const currentWord = words[wordIdx % words.length];
     if (newLetters.length === currentWord.word.length) {
-      if (newLetters.join("") === currentWord.word) { setComplete(true); setScore((s) => s + 1); speak("Well done! " + currentWord.word); }
-      else { speak("Oops! Try again."); setTimeout(() => setupWord(wordIdx), 1000); }
+      if (newLetters.join("") === currentWord.word) { setComplete(true); setScore((s) => s + 1); speak("Well done! " + currentWord.word); sfx.correct(); }
+      else { speak("Oops! Try again."); sfx.wrong(); setTimeout(() => setupWord(wordIdx), 1000); }
     }
   };
 
@@ -293,11 +296,12 @@ export function MemoryGame() {
 
   const handleFlip = (idx: number) => {
     if (cards[idx].flipped || cards[idx].matched || flippedIndices.length >= 2) return;
+    sfx.flip();
     const newCards = [...cards]; newCards[idx].flipped = true; setCards(newCards);
     const newFlipped = [...flippedIndices, idx]; setFlippedIndices(newFlipped);
     if (newFlipped.length === 2) {
       setMoves((m) => m + 1); const [a, b] = newFlipped;
-      if (newCards[a].id === newCards[b].id) { newCards[a].matched = true; newCards[b].matched = true; setCards([...newCards]); setFlippedIndices([]); if (newCards.every((c) => c.matched)) setAllDone(true); }
+      if (newCards[a].id === newCards[b].id) { newCards[a].matched = true; newCards[b].matched = true; setCards([...newCards]); setFlippedIndices([]); sfx.match(); if (newCards.every((c) => c.matched)) { setAllDone(true); sfx.win(); } }
       else { setTimeout(() => { newCards[a].flipped = false; newCards[b].flipped = false; setCards([...newCards]); setFlippedIndices([]); }, 800); }
     }
   };
