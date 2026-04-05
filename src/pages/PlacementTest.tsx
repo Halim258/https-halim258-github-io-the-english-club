@@ -518,7 +518,24 @@ export default function PlacementTest() {
                         Start {cefrLevel} Course <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </Link>
-                    <Button variant="outline" onClick={() => { setState("intro"); setElapsed(0); }} className="rounded-full px-6 font-semibold">
+                    <Button
+                      variant="outline"
+                      className="rounded-full px-6 font-semibold"
+                      onClick={() => {
+                        generateCertificate({
+                          cefrLevel,
+                          cefrLabel: cefrInfo.label,
+                          score,
+                          totalQuestions: answered.length,
+                          percentage: answered.length > 0 ? Math.round((score / answered.length) * 100) : 0,
+                          timeTaken: formatTime(elapsed),
+                          date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
+                        });
+                      }}
+                    >
+                      <Download className="mr-2 h-4 w-4" /> Download Certificate
+                    </Button>
+                    <Button variant="ghost" onClick={() => { setState("intro"); setElapsed(0); }} className="rounded-full px-6 font-semibold">
                       Retake Test
                     </Button>
                   </div>
