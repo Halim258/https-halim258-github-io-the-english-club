@@ -31,10 +31,14 @@ type Status = "idle" | "searching" | "connecting" | "connected" | "ended";
 
 export default function PracticeSpeaking() {
   const [status, setStatus] = useState<Status>("idle");
+  const statusRef = useRef<Status>("idle");
   const [timeLeft, setTimeLeft] = useState(CALL_DURATION);
   const [muted, setMuted] = useState(false);
   const [topic, setTopic] = useState("");
   const [onlineCount, setOnlineCount] = useState(0);
+  const [partnerId, setPartnerId] = useState<string | null>(null);
+
+  const updateStatus = (s: Status) => { statusRef.current = s; setStatus(s); };
   const [partnerId, setPartnerId] = useState<string | null>(null);
 
   const localStream = useRef<MediaStream | null>(null);
