@@ -173,7 +173,7 @@ export default function CategoryDetail() {
                         </div>
                       )}
                       <div className="mt-4">
-                        <Link to={course.name === "English for Kids" ? "/courses/kids" : course.name === "English through Stories" ? "/courses/stories" : hasLessons ? `/courses/${levelId}` : `/courses/${levelId || cat.slug}`}>
+                        <Link to={course.name === "English for Kids" ? "/courses/kids" : course.name === "English through Stories" ? "/courses/stories" : course.name === "English through Movies & Series" ? "/courses/movies" : hasLessons ? `/courses/${levelId}` : `/courses/${levelId || cat.slug}`}>
                           <Button size="sm" className="rounded-full px-5 text-xs font-semibold gap-2 w-full">
                             <PlayCircle className="h-3.5 w-3.5" />
                             Start Learning
