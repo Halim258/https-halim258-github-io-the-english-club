@@ -8,6 +8,7 @@ const navLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Curriculum & Lessons" },
   { to: "/teachers", label: "Find a Teacher" },
+  { to: "/fm", label: "FM Radio" },
 ];
 
 const homeSections = [

@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import LessonPage from "./pages/LessonPage";
 import CategoryDetail from "./pages/CategoryDetail";
+import FMRadio from "./pages/FMRadio";
 import Teachers from "./pages/Teachers";
 import StudentDashboard from "./pages/StudentDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/courses/category/:categorySlug" element={<CategoryDetail />} />
             <Route path="/courses/:levelId/:lessonId" element={<LessonPage />} />
             <Route path="/courses/:levelId" element={<Courses />} />
+            <Route path="/fm" element={<FMRadio />} />
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/dashboard" element={<StudentDashboard />} />
             <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
