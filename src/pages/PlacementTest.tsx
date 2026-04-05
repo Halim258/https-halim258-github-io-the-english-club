@@ -1,31 +1,43 @@
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ArrowRight, ArrowLeft, Clock, CheckCircle2, XCircle,
-  GraduationCap, BookOpen, BarChart3, Trophy, ChevronRight,
-  AlertCircle, Sparkles
+  ArrowRight, Clock, CheckCircle2, XCircle,
+  GraduationCap, BookOpen, BarChart3, Trophy,
+  AlertCircle, Sparkles, TrendingUp, Zap, Brain
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { FadeInUp, ScaleIn } from "@/components/AnimatedSection";
 import {
-  placementQuestions,
-  scoreToCEFR,
+  questionBank,
   cefrDescriptions,
+  selectNextQuestion,
+  adaptiveScoreToCEFR,
+  ADAPTIVE_CONFIG,
+  LEVELS,
   type PlacementQuestion,
+  type CEFRLevel,
 } from "@/data/placement-test-questions";
 import { supabase } from "@/integrations/supabase/client";
 
 type TestState = "intro" | "testing" | "results";
 
+interface AnsweredQuestion {
+  question: PlacementQuestion;
+  selectedIndex: number;
+}
+
 export default function PlacementTest() {
-  const navigate = useNavigate();
   const [state, setState] = useState<TestState>("intro");
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [answers, setAnswers] = useState<(number | null)[]>(Array(placementQuestions.length).fill(null));
+  const [currentLevelIndex, setCurrentLevelIndex] = useState(ADAPTIVE_CONFIG.startLevelIndex);
+  const [currentQuestion, setCurrentQuestion] = useState<PlacementQuestion | null>(null);
+  const [answered, setAnswered] = useState<AnsweredQuestion[]>([]);
+  const [usedIds, setUsedIds] = useState<Set<number>>(new Set());
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [confirmed, setConfirmed] = useState(false);
+  const [consecutiveCorrect, setConsecutiveCorrect] = useState(0);
+  const [consecutiveWrong, setConsecutiveWrong] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval>>();
@@ -39,77 +51,103 @@ export default function PlacementTest() {
     return () => clearInterval(timerRef.current);
   }, [state, startTime]);
 
-  const question = placementQuestions[currentIndex];
-  const progress = ((currentIndex + 1) / placementQuestions.length) * 100;
+  const progress = ((answered.length + (confirmed ? 1 : 0)) / ADAPTIVE_CONFIG.totalQuestions) * 100;
+
+  const pickQuestion = useCallback((levelIdx: number, used: Set<number>) => {
+    const q = selectNextQuestion(levelIdx, used);
+    setCurrentQuestion(q);
+    return q;
+  }, []);
 
   const startTest = () => {
+    const used = new Set<number>();
     setState("testing");
     setStartTime(Date.now());
-    setCurrentIndex(0);
-    setAnswers(Array(placementQuestions.length).fill(null));
+    setAnswered([]);
+    setUsedIds(used);
+    setCurrentLevelIndex(ADAPTIVE_CONFIG.startLevelIndex);
+    setConsecutiveCorrect(0);
+    setConsecutiveWrong(0);
+    setSelectedOption(null);
+    setConfirmed(false);
+    pickQuestion(ADAPTIVE_CONFIG.startLevelIndex, used);
   };
 
   const confirmAnswer = () => {
-    if (selectedOption === null) return;
-    const newAnswers = [...answers];
-    newAnswers[currentIndex] = selectedOption;
-    setAnswers(newAnswers);
+    if (selectedOption === null || !currentQuestion) return;
     setConfirmed(true);
   };
 
-  const nextQuestion = () => {
-    setConfirmed(false);
+  const nextQuestion = useCallback(() => {
+    if (selectedOption === null || !currentQuestion) return;
+
+    const isCorrect = selectedOption === currentQuestion.correctIndex;
+    const newAnswered = [...answered, { question: currentQuestion, selectedIndex: selectedOption }];
+    const newUsed = new Set(usedIds);
+    newUsed.add(currentQuestion.id);
+
+    setAnswered(newAnswered);
+    setUsedIds(newUsed);
+
+    // Check if test is done
+    if (newAnswered.length >= ADAPTIVE_CONFIG.totalQuestions) {
+      finishTest(newAnswered);
+      return;
+    }
+
+    // Adaptive level adjustment
+    let newLevelIdx = currentLevelIndex;
+    let newConsCorrect = isCorrect ? consecutiveCorrect + 1 : 0;
+    let newConsWrong = isCorrect ? 0 : consecutiveWrong + 1;
+
+    if (newConsCorrect >= ADAPTIVE_CONFIG.correctToLevelUp && currentLevelIndex < LEVELS.length - 1) {
+      newLevelIdx = currentLevelIndex + 1;
+      newConsCorrect = 0;
+    } else if (newConsWrong >= ADAPTIVE_CONFIG.wrongToLevelDown && currentLevelIndex > 0) {
+      newLevelIdx = currentLevelIndex - 1;
+      newConsWrong = 0;
+    }
+
+    setCurrentLevelIndex(newLevelIdx);
+    setConsecutiveCorrect(newConsCorrect);
+    setConsecutiveWrong(newConsWrong);
     setSelectedOption(null);
-    if (currentIndex < placementQuestions.length - 1) {
-      setCurrentIndex(currentIndex + 1);
-    } else {
-      finishTest();
-    }
-  };
+    setConfirmed(false);
+    pickQuestion(newLevelIdx, newUsed);
+  }, [selectedOption, currentQuestion, answered, usedIds, currentLevelIndex, consecutiveCorrect, consecutiveWrong, pickQuestion]);
 
-  const prevQuestion = () => {
-    if (currentIndex > 0) {
-      setConfirmed(false);
-      setSelectedOption(answers[currentIndex - 1]);
-      setCurrentIndex(currentIndex - 1);
-    }
-  };
-
-  const finishTest = useCallback(async () => {
+  const finishTest = useCallback(async (finalAnswered: AnsweredQuestion[]) => {
     clearInterval(timerRef.current);
     const timeTaken = Math.floor((Date.now() - startTime) / 1000);
-    const score = answers.reduce<number>((acc, ans, i) => {
-      return acc + (ans === placementQuestions[i].correctIndex ? 1 : 0);
-    }, 0);
-    const cefrLevel = scoreToCEFR(score, placementQuestions.length);
+    const cefrLevel = adaptiveScoreToCEFR(finalAnswered);
+    const score = finalAnswered.filter((a) => a.selectedIndex === a.question.correctIndex).length;
 
-    // Try to save
     try {
       const { data: { user } } = await supabase.auth.getUser();
       await supabase.from("placement_test_results").insert({
         user_id: user?.id ?? null,
         score,
-        total_questions: placementQuestions.length,
+        total_questions: finalAnswered.length,
         cefr_level: cefrLevel,
-        answers: answers.map((ans, i) => ({
-          questionId: placementQuestions[i].id,
-          selected: ans,
-          correct: placementQuestions[i].correctIndex,
-          isCorrect: ans === placementQuestions[i].correctIndex,
+        answers: finalAnswered.map((a) => ({
+          questionId: a.question.id,
+          level: a.question.level,
+          selected: a.selectedIndex,
+          correct: a.question.correctIndex,
+          isCorrect: a.selectedIndex === a.question.correctIndex,
         })),
         time_taken_seconds: timeTaken,
       } as any);
     } catch {
-      // Silently fail — result is still shown
+      // Silently fail
     }
 
     setState("results");
-  }, [answers, startTime]);
+  }, [startTime]);
 
-  const score = answers.reduce<number>((acc, ans, i) => {
-    return acc + (ans === placementQuestions[i].correctIndex ? 1 : 0);
-  }, 0);
-  const cefrLevel = scoreToCEFR(score, placementQuestions.length);
+  // Computed results
+  const score = answered.filter((a) => a.selectedIndex === a.question.correctIndex).length;
+  const cefrLevel = adaptiveScoreToCEFR(answered);
   const cefrInfo = cefrDescriptions[cefrLevel];
 
   const formatTime = (s: number) => {
@@ -119,13 +157,10 @@ export default function PlacementTest() {
   };
 
   // Level breakdown for results
-  const levelBreakdown = (["A1", "A2", "B1", "B2", "C1", "C2"] as const).map((lvl) => {
-    const levelQs = placementQuestions.filter((q) => q.level === lvl);
-    const levelCorrect = levelQs.filter((q, _) => {
-      const idx = placementQuestions.indexOf(q);
-      return answers[idx] === q.correctIndex;
-    }).length;
-    return { level: lvl, correct: levelCorrect, total: levelQs.length };
+  const levelBreakdown = LEVELS.map((lvl) => {
+    const levelAs = answered.filter((a) => a.question.level === lvl);
+    const correct = levelAs.filter((a) => a.selectedIndex === a.question.correctIndex).length;
+    return { level: lvl, correct, total: levelAs.length };
   });
 
   return (
@@ -148,18 +183,18 @@ export default function PlacementTest() {
               </ScaleIn>
               <FadeInUp>
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display">
-                  Cambridge Placement Test
+                  Adaptive Placement Test
                 </h1>
                 <p className="mt-4 text-muted-foreground text-lg max-w-lg mx-auto">
-                  Find your English level with our Cambridge-style assessment. 50 questions covering grammar, vocabulary, and reading comprehension.
+                  Our smart test adapts to your level in real-time. Answer correctly and questions get harder. Struggle, and they get easier — just like a real Cambridge assessment.
                 </p>
               </FadeInUp>
 
               <FadeInUp delay={0.15}>
                 <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto">
                   {[
-                    { icon: BookOpen, label: "50 Questions", sub: "Grammar, Vocab & Reading" },
-                    { icon: Clock, label: "~20 Minutes", sub: "Take your time" },
+                    { icon: Brain, label: "Adaptive AI", sub: "Adjusts to your level" },
+                    { icon: Clock, label: "~10 Minutes", sub: "25 smart questions" },
                     { icon: BarChart3, label: "CEFR Level", sub: "A1 to C2 result" },
                   ].map((item) => (
                     <div key={item.label} className="rounded-xl border bg-card p-4 shadow-soft text-center">
@@ -174,13 +209,13 @@ export default function PlacementTest() {
               <FadeInUp delay={0.25}>
                 <div className="mt-10 p-5 rounded-xl border bg-muted/30 text-left max-w-lg mx-auto">
                   <h3 className="text-sm font-semibold font-display flex items-center gap-2 mb-3">
-                    <AlertCircle className="h-4 w-4 text-primary" /> Before You Start
+                    <AlertCircle className="h-4 w-4 text-primary" /> How It Works
                   </h3>
                   <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Answer all questions — don't skip any</li>
+                    <li className="flex items-start gap-2"><TrendingUp className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Questions adapt — correct answers → harder questions</li>
+                    <li className="flex items-start gap-2"><Zap className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Only 25 questions instead of 50 — faster & more accurate</li>
                     <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Don't use a dictionary or translator</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Questions get harder as you progress</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Your result will be saved to your account if logged in</li>
+                    <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Your result saves automatically if logged in</li>
                   </ul>
                 </div>
               </FadeInUp>
@@ -199,7 +234,7 @@ export default function PlacementTest() {
         )}
 
         {/* ═══ TESTING ═══ */}
-        {state === "testing" && (
+        {state === "testing" && currentQuestion && (
           <motion.div
             key="testing"
             initial={{ opacity: 0 }}
@@ -212,25 +247,46 @@ export default function PlacementTest() {
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <span className="text-sm font-semibold font-display">
-                    Question {currentIndex + 1}
-                    <span className="text-muted-foreground font-normal"> / {placementQuestions.length}</span>
+                    Question {answered.length + 1}
+                    <span className="text-muted-foreground font-normal"> / {ADAPTIVE_CONFIG.totalQuestions}</span>
                   </span>
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                    question.type === "grammar" ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" :
-                    question.type === "vocabulary" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" :
+                    currentQuestion.type === "grammar" ? "bg-blue-500/10 text-blue-600 dark:text-blue-400" :
+                    currentQuestion.type === "vocabulary" ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" :
                     "bg-violet-500/10 text-violet-600 dark:text-violet-400"
                   }`}>
-                    {question.type}
+                    {currentQuestion.type}
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Clock className="h-3.5 w-3.5" />
-                  {formatTime(elapsed)}
+                <div className="flex items-center gap-4">
+                  {/* Adaptive level indicator */}
+                  <div className="hidden sm:flex items-center gap-1.5">
+                    {LEVELS.map((lvl, i) => (
+                      <div
+                        key={lvl}
+                        className={`h-1.5 w-6 rounded-full transition-all duration-300 ${
+                          i === currentLevelIndex
+                            ? "bg-primary scale-y-150"
+                            : i < currentLevelIndex
+                            ? "bg-primary/30"
+                            : "bg-muted-foreground/15"
+                        }`}
+                        title={lvl}
+                      />
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <Clock className="h-3.5 w-3.5" />
+                    {formatTime(elapsed)}
+                  </div>
                 </div>
               </div>
               <Progress value={progress} className="h-2" />
               <div className="flex justify-between mt-1">
-                <span className="text-[10px] text-muted-foreground">Level: {question.level}</span>
+                <span className="text-[10px] text-muted-foreground flex items-center gap-1">
+                  <TrendingUp className="h-3 w-3" />
+                  Testing at: <strong className="text-foreground">{LEVELS[currentLevelIndex]}</strong>
+                </span>
                 <span className="text-[10px] text-muted-foreground">{Math.round(progress)}%</span>
               </div>
             </div>
@@ -238,7 +294,7 @@ export default function PlacementTest() {
             {/* Question card */}
             <AnimatePresence mode="wait">
               <motion.div
-                key={currentIndex}
+                key={currentQuestion.id}
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -30 }}
@@ -247,22 +303,22 @@ export default function PlacementTest() {
               >
                 <div className="rounded-2xl border bg-card p-6 md:p-8 shadow-soft">
                   {/* Reading passage */}
-                  {question.passage && (
+                  {currentQuestion.passage && (
                     <div className="mb-6 p-4 rounded-xl bg-muted/50 border text-sm text-muted-foreground leading-relaxed italic">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-2 not-italic">Read the passage:</p>
-                      {question.passage}
+                      {currentQuestion.passage}
                     </div>
                   )}
 
                   <h2 className="text-lg md:text-xl font-semibold font-display mb-6">
-                    {question.question}
+                    {currentQuestion.question}
                   </h2>
 
                   <div className="space-y-3">
-                    {question.options.map((opt, i) => {
+                    {currentQuestion.options.map((opt, i) => {
                       const isSelected = selectedOption === i;
-                      const isCorrect = confirmed && i === question.correctIndex;
-                      const isWrong = confirmed && isSelected && i !== question.correctIndex;
+                      const isCorrect = confirmed && i === currentQuestion.correctIndex;
+                      const isWrong = confirmed && isSelected && i !== currentQuestion.correctIndex;
 
                       return (
                         <button
@@ -298,17 +354,29 @@ export default function PlacementTest() {
                     })}
                   </div>
 
-                  {/* Actions */}
-                  <div className="mt-6 flex items-center justify-between">
-                    <Button
-                      variant="ghost"
-                      onClick={prevQuestion}
-                      disabled={currentIndex === 0}
-                      className="rounded-full"
+                  {/* Adaptive feedback after confirm */}
+                  {confirmed && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"
                     >
-                      <ArrowLeft className="mr-1 h-4 w-4" /> Previous
-                    </Button>
+                      {selectedOption === currentQuestion.correctIndex ? (
+                        <>
+                          <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
+                          <span>Correct! {consecutiveCorrect + 1 >= ADAPTIVE_CONFIG.correctToLevelUp && currentLevelIndex < LEVELS.length - 1 ? "⬆️ Difficulty increasing..." : ""}</span>
+                        </>
+                      ) : (
+                        <>
+                          <XCircle className="h-3.5 w-3.5 text-destructive" />
+                          <span>Incorrect. {consecutiveWrong + 1 >= ADAPTIVE_CONFIG.wrongToLevelDown && currentLevelIndex > 0 ? "⬇️ Adjusting difficulty..." : ""}</span>
+                        </>
+                      )}
+                    </motion.div>
+                  )}
 
+                  {/* Actions */}
+                  <div className="mt-6 flex items-center justify-end">
                     {!confirmed ? (
                       <Button
                         onClick={confirmAnswer}
@@ -322,10 +390,10 @@ export default function PlacementTest() {
                         onClick={nextQuestion}
                         className="rounded-full px-6 font-semibold"
                       >
-                        {currentIndex < placementQuestions.length - 1 ? (
-                          <>Next <ArrowRight className="ml-1 h-4 w-4" /></>
-                        ) : (
+                        {answered.length + 1 >= ADAPTIVE_CONFIG.totalQuestions ? (
                           <>See Results <Trophy className="ml-1 h-4 w-4" /></>
+                        ) : (
+                          <>Next <ArrowRight className="ml-1 h-4 w-4" /></>
                         )}
                       </Button>
                     )}
@@ -336,22 +404,22 @@ export default function PlacementTest() {
 
             {/* Question dots */}
             <div className="max-w-3xl mx-auto mt-6 flex flex-wrap gap-1.5 justify-center">
-              {placementQuestions.map((_, i) => {
-                const answered = answers[i] !== null;
-                const isCurrent = i === currentIndex;
-                return (
-                  <div
-                    key={i}
-                    className={`h-2.5 w-2.5 rounded-full transition-all ${
-                      isCurrent
-                        ? "bg-primary scale-125"
-                        : answered
-                        ? "bg-primary/40"
-                        : "bg-muted-foreground/20"
-                    }`}
-                  />
-                );
-              })}
+              {answered.map((a, i) => (
+                <div
+                  key={i}
+                  className={`h-2.5 w-2.5 rounded-full ${
+                    a.selectedIndex === a.question.correctIndex
+                      ? "bg-emerald-500"
+                      : "bg-destructive"
+                  }`}
+                  title={`Q${i + 1}: ${a.question.level} — ${a.selectedIndex === a.question.correctIndex ? "✓" : "✗"}`}
+                />
+              ))}
+              {/* Current + remaining */}
+              <div className="h-2.5 w-2.5 rounded-full bg-primary scale-125" />
+              {Array.from({ length: Math.max(0, ADAPTIVE_CONFIG.totalQuestions - answered.length - 1) }).map((_, i) => (
+                <div key={`rem-${i}`} className="h-2.5 w-2.5 rounded-full bg-muted-foreground/15" />
+              ))}
             </div>
           </motion.div>
         )}
@@ -385,11 +453,11 @@ export default function PlacementTest() {
               <FadeInUp delay={0.1}>
                 <div className="mt-10 grid grid-cols-3 gap-4">
                   <div className="rounded-xl border bg-card p-5 shadow-soft">
-                    <p className="text-3xl font-bold text-primary font-display">{score}/{placementQuestions.length}</p>
+                    <p className="text-3xl font-bold text-primary font-display">{score}/{answered.length}</p>
                     <p className="text-xs text-muted-foreground mt-1">Correct Answers</p>
                   </div>
                   <div className="rounded-xl border bg-card p-5 shadow-soft">
-                    <p className="text-3xl font-bold text-primary font-display">{Math.round((score / placementQuestions.length) * 100)}%</p>
+                    <p className="text-3xl font-bold text-primary font-display">{answered.length > 0 ? Math.round((score / answered.length) * 100) : 0}%</p>
                     <p className="text-xs text-muted-foreground mt-1">Score</p>
                   </div>
                   <div className="rounded-xl border bg-card p-5 shadow-soft">
@@ -406,9 +474,9 @@ export default function PlacementTest() {
                     <BarChart3 className="h-4 w-4 text-primary" /> Performance by Level
                   </h3>
                   <div className="space-y-3">
-                    {levelBreakdown.map((lb) => (
+                    {levelBreakdown.filter((lb) => lb.total > 0).map((lb) => (
                       <div key={lb.level} className="flex items-center gap-3">
-                        <span className="text-xs font-bold font-display w-8 shrink-0">{lb.level}</span>
+                        <span className={`text-xs font-bold font-display w-8 shrink-0 ${lb.level === cefrLevel ? "text-primary" : ""}`}>{lb.level}</span>
                         <div className="flex-1 h-3 rounded-full bg-muted overflow-hidden">
                           <motion.div
                             initial={{ width: 0 }}
@@ -420,6 +488,15 @@ export default function PlacementTest() {
                         <span className="text-xs text-muted-foreground w-12 text-right">{lb.correct}/{lb.total}</span>
                       </div>
                     ))}
+                  </div>
+
+                  {/* Adaptive insight */}
+                  <div className="mt-4 pt-4 border-t flex items-start gap-2 text-xs text-muted-foreground">
+                    <Brain className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
+                    <span>
+                      The adaptive algorithm tested you across {levelBreakdown.filter((lb) => lb.total > 0).length} levels,
+                      focusing on your ability boundary. Only levels you were tested on are shown.
+                    </span>
                   </div>
                 </div>
               </FadeInUp>
