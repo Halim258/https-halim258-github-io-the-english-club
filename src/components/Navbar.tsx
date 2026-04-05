@@ -7,6 +7,7 @@ import logo from "@/assets/logo.jpg";
 const navLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Curriculum & Lessons" },
+  { to: "/placement-test", label: "Placement Test" },
   { to: "/teachers", label: "Find a Teacher" },
   { to: "/practice", label: "Practice" },
   { to: "/fm", label: "FM Radio" },
