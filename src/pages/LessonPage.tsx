@@ -211,6 +211,7 @@ type TabId = (typeof TABS)[number]["id"];
 /* ───── Main Lesson Page ───── */
 export default function LessonPage() {
   const { levelId, lessonId } = useParams();
+  const navigate = useNavigate();
   const key = `${levelId}-${lessonId}`;
   const lesson = lessons[key];
 
