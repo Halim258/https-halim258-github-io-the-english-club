@@ -110,6 +110,19 @@ export default function Courses() {
     const allLevels = [introductory, kidsLevel, ...cefrLevels];
     const level = allLevels.find((l) => l.id === levelId);
     if (level) return <LevelLessons levelId={level.id} levelLabel={`${level.label} — ${level.sublabel || ""}`} />;
+    // Check if it's a specialized course level (speaking, listening, writing, etc.)
+    const specializedLevelLabels: Record<string, string> = {
+      speaking: "Speaking & Conversation",
+      listening: "Listening Skills",
+      pronunciation: "Pronunciation & Accent",
+      writing: "Writing Skills",
+      "grammar-course": "Grammar & Structure",
+      "exam-prep": "Exam Preparation",
+      professional: "Professional English",
+    };
+    if (specializedLevelLabels[levelId]) {
+      return <LevelLessons levelId={levelId} levelLabel={specializedLevelLabels[levelId]} />;
+    }
   }
 
   return (
