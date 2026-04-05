@@ -19,6 +19,8 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
+import KidsCourse from "./pages/KidsCourse";
+import KidsGameCenter from "./pages/KidsGameCenter";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -36,6 +38,8 @@ const App = () => (
             <Route path="/courses/category/:categorySlug" element={<CategoryDetail />} />
             <Route path="/courses/:levelId/:lessonId/slides" element={<SlideLesson />} />
             <Route path="/courses/:levelId/:lessonId" element={<LessonPage />} />
+            <Route path="/courses/kids" element={<KidsCourse />} />
+            <Route path="/kids/games" element={<KidsGameCenter />} />
             <Route path="/courses/:levelId" element={<Courses />} />
             <Route path="/fm" element={<FMRadio />} />
             <Route path="/practice" element={<PracticeSpeaking />} />
