@@ -38,6 +38,7 @@ const App = () => (
             <Route path="/fm" element={<FMRadio />} />
             <Route path="/practice" element={<PracticeSpeaking />} />
             <Route path="/teachers" element={<Teachers />} />
+            <Route path="/placement-test" element={<PlacementTest />} />
             <Route path="/dashboard" element={<StudentDashboard />} />
             <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
             <Route path="/login" element={<Login />} />
