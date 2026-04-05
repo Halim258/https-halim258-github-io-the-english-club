@@ -59,7 +59,7 @@ export const questionBank: PlacementQuestion[] = [
   { id: 33, level: "B1", type: "grammar", question: "The film _____ by the time we arrived at the cinema.", options: ["started", "has started", "had started", "was starting"], correctIndex: 2 },
   { id: 34, level: "B1", type: "grammar", question: "She asked me where I _____.", options: ["live", "lived", "am living", "do live"], correctIndex: 1 },
   { id: 35, level: "B1", type: "vocabulary", question: "I really _____ forward to the holiday.", options: ["see", "go", "look", "think"], correctIndex: 2 },
-  { id: 36, level: "B1", type: "grammar", question: "You _____ to see a doctor about that cough.", options: ["should", "ought", "must", "need"], correctIndex: 1 },
+  { id: 36, level: "B1", type: "grammar", question: "You _____ to see a doctor about that cough.", options: ["should", "ought", "must", "need"], correctIndex: 0 },
   { id: 37, level: "B1", type: "reading", passage: "Sarah has been working at the company for three years. She started as an intern and has recently been promoted to team leader. Her colleagues admire her dedication and positive attitude.", question: "According to the passage, Sarah _____.", options: ["has always been a team leader", "recently started at the company", "moved up from a lower position", "does not get along with colleagues"], correctIndex: 2 },
   { id: 38, level: "B1", type: "grammar", question: "He suggested _____ to the park for a walk.", options: ["to go", "going", "go", "went"], correctIndex: 1 },
   { id: 39, level: "B1", type: "vocabulary", question: "The meeting was _____ until next week.", options: ["put off", "put on", "put up", "put away"], correctIndex: 0 },
