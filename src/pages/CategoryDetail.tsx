@@ -64,23 +64,23 @@ export default function CategoryDetail() {
             variants={staggerContainer}
             initial="hidden"
             animate="show"
-            className="grid gap-4"
+            className="grid gap-5"
           >
             {cat.courses.map((course, i) => (
               <motion.div key={course.name} variants={staggerItem}>
-                <div className="group rounded-xl border bg-card p-5 shadow-soft hover:shadow-card hover:border-primary/20 transition-all duration-300">
-                  <div className="flex items-start justify-between gap-4">
-                    <div className="flex items-start gap-4">
-                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 text-base font-bold text-primary shrink-0 mt-0.5">
+                <div className="group relative rounded-2xl border-2 border-border/60 bg-card p-6 md:p-7 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300">
+                  <div className="flex items-start justify-between gap-5">
+                    <div className="flex items-start gap-5">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-lg font-bold text-primary shrink-0 mt-0.5">
                         {i + 1}
                       </div>
-                      <div className="flex-1">
-                        <h3 className="font-semibold font-display text-base">{course.name}</h3>
-                        <p className="text-sm text-muted-foreground mt-1 leading-relaxed">{course.description}</p>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-bold font-display text-lg leading-tight">{course.name}</h3>
+                        <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{course.description}</p>
                         {course.topics && course.topics.length > 0 && (
-                          <div className="mt-3 flex flex-wrap gap-1.5">
+                          <div className="mt-4 flex flex-wrap gap-2">
                             {course.topics.map((topic) => (
-                              <span key={topic} className="rounded-full bg-muted px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+                              <span key={topic} className="rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground">
                                 {topic}
                               </span>
                             ))}
@@ -94,8 +94,8 @@ export default function CategoryDetail() {
                       rel="noopener noreferrer"
                       className="shrink-0"
                     >
-                      <Button size="sm" variant="outline" className="rounded-full text-xs font-semibold gap-1.5 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors">
-                        <MessageCircle className="h-3.5 w-3.5" />
+                      <Button size="sm" variant="outline" className="rounded-full px-5 py-2 text-sm font-semibold gap-2 border-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors">
+                        <MessageCircle className="h-4 w-4" />
                         Enroll
                       </Button>
                     </a>
