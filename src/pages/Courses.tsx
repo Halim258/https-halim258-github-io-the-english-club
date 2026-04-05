@@ -7,6 +7,7 @@ import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
 
 import readingImg from "@/assets/levels/reading.jpg";
+import kidsImg from "@/assets/levels/kids.jpg";
 import a1Img from "@/assets/levels/a1.jpg";
 import a2Img from "@/assets/levels/a2.jpg";
 import b1Img from "@/assets/levels/b1.jpg";
@@ -21,6 +22,13 @@ const introductory: Level = {
   sublabel: "Alphabet → Phonics → Sight Words → Short Sentences → Critical Reading",
   lessons: 20, description: "Build foundational reading skills from scratch",
   color: "from-rose-500 to-orange-500", image: readingImg,
+};
+
+const kidsLevel: Level = {
+  id: "kids", label: "English for Kids",
+  sublabel: "Colors → Animals → Family → Food → Numbers → Nature → Dreams",
+  lessons: 20, description: "Fun, interactive lessons designed for young learners aged 5-10",
+  color: "from-amber-400 to-pink-500", image: kidsImg,
 };
 
 const cefrLevels: Level[] = [
