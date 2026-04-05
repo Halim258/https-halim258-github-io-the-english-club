@@ -1,10 +1,44 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronLeft, ChevronRight, MessageCircle, BookOpen, Target, Briefcase, Globe2, Headphones, Brain, PenLine, BookMarked, CheckCircle2, PlayCircle } from "lucide-react";
+import { ChevronLeft, MessageCircle, CheckCircle2, PlayCircle, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/data/course-categories";
 import { getCourseImage } from "@/data/course-images";
+import { lessons } from "@/data/lessons";
+
+// Map course names to lesson level IDs
+const courseLevelMap: Record<string, string> = {
+  "Speaking & Conversation Practice": "speaking",
+  "Listening Skills": "listening",
+  "Pronunciation & Accent Training": "pronunciation",
+  "English Writing Basics": "writing",
+  "Academic Writing": "writing",
+  "Creative Writing": "writing",
+  "Business Writing": "writing",
+  "Email Writing": "writing",
+  "English Grammar (Basic → Advanced)": "grammar-course",
+  "Tenses Mastery": "grammar-course",
+  "Sentence Structure": "grammar-course",
+  "IELTS Preparation": "exam-prep",
+  "TOEFL Preparation": "exam-prep",
+  "Business English": "professional",
+  "English for Interviews": "professional",
+  "Workplace Communication": "professional",
+  "Presentation Skills": "professional",
+};
+
+function getCourseHasLessons(courseName: string): boolean {
+  const levelId = courseLevelMap[courseName];
+  if (!levelId) return false;
+  return Object.keys(lessons).some((k) => k.startsWith(`${levelId}-`));
+}
+
+function getCourseLessonCount(courseName: string): number {
+  const levelId = courseLevelMap[courseName];
+  if (!levelId) return 0;
+  return Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).length;
+}
 
 export default function CategoryDetail() {
   const { categorySlug } = useParams();
@@ -67,63 +101,86 @@ export default function CategoryDetail() {
             animate="show"
             className="grid gap-5 md:grid-cols-2"
           >
-            {cat.courses.map((course, i) => (
-              <motion.div key={course.name} variants={staggerItem}>
-                <div className="group relative rounded-2xl border bg-card shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 overflow-hidden h-full">
-                  {/* Course Image */}
-                  <div className="relative h-40 overflow-hidden">
-                    <img
-                      src={getCourseImage(course.name, cat.image)}
-                      alt={course.name}
-                      loading="lazy"
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute top-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 backdrop-blur-sm text-sm font-bold text-primary shadow-sm">
-                      {i + 1}
-                    </div>
-                  </div>
-                  {/* Content */}
-                  <div className="p-5">
-                    <h3 className="font-bold font-display text-base leading-tight">{course.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-2">{course.description}</p>
-                    {course.topics && course.topics.length > 0 && (
-                      <div className="mt-3 flex flex-wrap gap-1.5">
-                        {course.topics.map((topic) => (
-                          <span key={topic} className="rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
-                            {topic}
-                          </span>
-                        ))}
+            {cat.courses.map((course, i) => {
+              const hasLessons = getCourseHasLessons(course.name);
+              const lessonCount = getCourseLessonCount(course.name);
+              const levelId = courseLevelMap[course.name];
+
+              return (
+                <motion.div key={course.name} variants={staggerItem}>
+                  <div className="group relative rounded-2xl border bg-card shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 overflow-hidden h-full">
+                    {/* Course Image */}
+                    <div className="relative h-40 overflow-hidden">
+                      <img
+                        src={getCourseImage(course.name, cat.image)}
+                        alt={course.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                      <div className="absolute top-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 backdrop-blur-sm text-sm font-bold text-primary shadow-sm">
+                        {i + 1}
                       </div>
-                    )}
-                    <div className="mt-4">
-                      <a
-                        href="https://wa.me/201234567890"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <Button size="sm" variant="outline" className="rounded-full px-5 text-xs font-semibold gap-2 border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors w-full">
-                          <MessageCircle className="h-3.5 w-3.5" />
-                          Enroll via WhatsApp
-                        </Button>
-                      </a>
+                      {hasLessons && (
+                        <span className="absolute top-3 right-3 rounded-full bg-emerald-500 px-2.5 py-0.5 text-[10px] font-bold text-white uppercase tracking-wider">
+                          {lessonCount} Lessons
+                        </span>
+                      )}
+                    </div>
+                    {/* Content */}
+                    <div className="p-5">
+                      <h3 className="font-bold font-display text-base leading-tight">{course.name}</h3>
+                      <p className="text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-2">{course.description}</p>
+                      {course.topics && course.topics.length > 0 && (
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {course.topics.map((topic) => (
+                            <span key={topic} className="rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+                              {topic}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <div className="mt-4">
+                        {hasLessons ? (
+                          <Link to={`/courses/${levelId}`}>
+                            <Button size="sm" className="rounded-full px-5 text-xs font-semibold gap-2 w-full">
+                              <PlayCircle className="h-3.5 w-3.5" />
+                              Start Learning
+                            </Button>
+                          </Link>
+                        ) : (
+                          <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer">
+                            <Button size="sm" variant="outline" className="rounded-full px-5 text-xs font-semibold gap-2 border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors w-full">
+                              <MessageCircle className="h-3.5 w-3.5" />
+                              Enroll via WhatsApp
+                            </Button>
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </motion.div>
 
           {/* CTA */}
           <FadeInUp delay={0.2}>
             <div className="mt-10 rounded-2xl border bg-gradient-to-r from-primary/5 to-accent/5 p-6 text-center">
               <p className="text-sm text-muted-foreground mb-3">Not sure which course is right for you?</p>
-              <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer">
-                <Button className="rounded-full px-6 font-semibold font-display">
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  Ask Us on WhatsApp
-                </Button>
-              </a>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link to="/placement-test">
+                  <Button variant="outline" className="rounded-full px-6 font-semibold font-display">
+                    Take Placement Test
+                  </Button>
+                </Link>
+                <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer">
+                  <Button className="rounded-full px-6 font-semibold font-display">
+                    <MessageCircle className="mr-2 h-4 w-4" />
+                    Ask Us on WhatsApp
+                  </Button>
+                </a>
+              </div>
             </div>
           </FadeInUp>
         </div>
