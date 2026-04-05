@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Volume2, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation } from "lucide-react";
+import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play } from "lucide-react";
 import { lessons, MCQItem, VocabWord, DialogueLine } from "@/data/lessons";
+import { useTTS } from "@/hooks/useTTS";
 
 /* ───── Fullscreen no-scroll shell ───── */
 const Shell = ({ children }: { children: React.ReactNode }) => (
@@ -50,8 +51,42 @@ const NavFooter = ({
   </div>
 );
 
+/* ───── Audio Button ───── */
+function AudioButton({ text, speak, speaking }: { text: string; speak: (t: string) => void; speaking: boolean }) {
+  return (
+    <button
+      onClick={(e) => { e.stopPropagation(); speak(text); }}
+      className="flex items-center justify-center rounded-full h-9 w-9 bg-primary/10 hover:bg-primary/20 text-primary transition-colors shrink-0"
+      aria-label="Listen"
+    >
+      {speaking ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+    </button>
+  );
+}
+
+/* ───── Difficulty Badge ───── */
+function DifficultyBadge({ lessonNumber }: { lessonNumber: number }) {
+  let label: string;
+  let color: string;
+  if (lessonNumber <= 7) {
+    label = "Easy";
+    color = "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400";
+  } else if (lessonNumber <= 14) {
+    label = "Medium";
+    color = "bg-amber-500/15 text-amber-700 dark:text-amber-400";
+  } else {
+    label = "Hard";
+    color = "bg-red-500/15 text-red-700 dark:text-red-400";
+  }
+  return (
+    <span className={`rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${color}`}>
+      {label}
+    </span>
+  );
+}
+
 /* ───── Flip Card for Vocabulary ───── */
-function VocabCard({ item, showArabic }: { item: VocabWord; showArabic: boolean }) {
+function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; showArabic: boolean; speak: (t: string) => void; speaking: boolean }) {
   const [flipped, setFlipped] = useState(false);
 
   return (
@@ -75,6 +110,9 @@ function VocabCard({ item, showArabic }: { item: VocabWord; showArabic: boolean 
           >
             <span className="text-6xl mb-4">{item.emoji}</span>
             <h2 className="text-3xl font-bold text-foreground">{item.word}</h2>
+            <div className="mt-4">
+              <AudioButton text={item.word} speak={speak} speaking={speaking} />
+            </div>
             <p className="mt-2 text-sm text-muted-foreground font-sans">Tap to flip</p>
           </div>
           {/* Back */}
@@ -84,6 +122,9 @@ function VocabCard({ item, showArabic }: { item: VocabWord; showArabic: boolean 
           >
             <p className="text-lg font-semibold text-foreground text-center font-sans">{item.meaning}</p>
             <p className="mt-3 text-sm text-muted-foreground italic text-center font-sans">"{item.example}"</p>
+            <div className="mt-3">
+              <AudioButton text={item.example} speak={speak} speaking={speaking} />
+            </div>
             {showArabic && (
               <p className="mt-4 text-xl font-bold text-primary" dir="rtl">{item.arabic}</p>
             )}
@@ -95,11 +136,14 @@ function VocabCard({ item, showArabic }: { item: VocabWord; showArabic: boolean 
 }
 
 /* ───── Dialogue Card ───── */
-function DialogueCard({ line, index }: { line: DialogueLine; index: number }) {
+function DialogueCard({ line, index, speak, speaking }: { line: DialogueLine; index: number; speak: (t: string) => void; speaking: boolean }) {
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div className={`w-full max-w-sm rounded-2xl border-2 p-8 shadow-lg ${index % 2 === 0 ? "bg-card border-primary/20" : "bg-muted/30 border-muted"}`}>
-        <p className="text-xs font-bold uppercase tracking-wider text-primary mb-3 font-sans">{line.speaker}</p>
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-xs font-bold uppercase tracking-wider text-primary font-sans">{line.speaker}</p>
+          <AudioButton text={line.text} speak={speak} speaking={speaking} />
+        </div>
         <p className="text-xl font-sans leading-relaxed">{line.text}</p>
       </div>
     </div>
@@ -107,23 +151,31 @@ function DialogueCard({ line, index }: { line: DialogueLine; index: number }) {
 }
 
 /* ───── Grammar Card ───── */
-function GrammarCard({ lesson }: { lesson: typeof lessons[string] }) {
+function GrammarCard({ lesson, speak, speaking }: { lesson: typeof lessons[string]; speak: (t: string) => void; speaking: boolean }) {
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div className="w-full max-w-md rounded-2xl border-2 border-primary/20 bg-card p-6 shadow-lg">
         <h3 className="text-xl font-bold text-foreground mb-3">{lesson.grammar.title}</h3>
         <p className="text-sm text-muted-foreground leading-relaxed font-sans">{lesson.grammar.explanation}</p>
+        <div className="mt-4 flex justify-center">
+          <AudioButton text={lesson.grammar.explanation} speak={speak} speaking={speaking} />
+        </div>
       </div>
     </div>
   );
 }
 
-function GrammarExampleCard({ example }: { example: { sentence: string; note: string } }) {
+function GrammarExampleCard({ example, speak, speaking }: { example: { sentence: string; note: string }; speak: (t: string) => void; speaking: boolean }) {
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div className="w-full max-w-sm rounded-2xl border-2 border-accent/20 bg-primary/5 p-8 shadow-lg">
-        <p className="text-xl font-semibold text-foreground font-sans">{example.sentence}</p>
-        <p className="mt-3 text-sm text-muted-foreground font-sans">{example.note}</p>
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1">
+            <p className="text-xl font-semibold text-foreground font-sans">{example.sentence}</p>
+            <p className="mt-3 text-sm text-muted-foreground font-sans">{example.note}</p>
+          </div>
+          <AudioButton text={example.sentence} speak={speak} speaking={speaking} />
+        </div>
       </div>
     </div>
   );
@@ -166,19 +218,43 @@ function MCQCard({ item }: { item: MCQItem }) {
   );
 }
 
-/* ───── Speaking placeholder card ───── */
-function SpeakingCard() {
+/* ───── Speaking Card with TTS ───── */
+function SpeakingCard({ lesson, speak, speaking }: { lesson: typeof lessons[string]; speak: (t: string) => void; speaking: boolean }) {
+  const practiceTexts = lesson.dialogue.map(l => l.text);
+  const [currentIdx, setCurrentIdx] = useState(0);
+
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div className="w-full max-w-sm rounded-2xl border-2 border-primary/20 bg-card p-8 shadow-lg text-center">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mx-auto mb-4">
           <Volume2 className="h-7 w-7 text-primary" />
         </div>
-        <h3 className="text-xl font-bold">AI Speaking Practice</h3>
-        <p className="mt-2 text-sm text-muted-foreground font-sans">
-          Practice pronunciation with AI voice recognition.
+        <h3 className="text-xl font-bold">Speaking Practice</h3>
+        <p className="mt-2 text-sm text-muted-foreground font-sans mb-4">
+          Listen and repeat after the audio.
         </p>
-        <Button className="mt-4" disabled>Coming Soon</Button>
+        <div className="rounded-xl bg-muted/50 p-4 mb-4">
+          <p className="text-base font-medium font-sans">{practiceTexts[currentIdx]}</p>
+        </div>
+        <div className="flex items-center justify-center gap-3">
+          <Button 
+            size="sm" 
+            onClick={() => speak(practiceTexts[currentIdx])}
+            className="gap-2"
+          >
+            <Play className="h-4 w-4" /> Listen
+          </Button>
+          <Button 
+            size="sm" 
+            variant="outline"
+            onClick={() => setCurrentIdx((i) => (i + 1) % practiceTexts.length)}
+          >
+            Next Phrase
+          </Button>
+        </div>
+        <p className="mt-3 text-[11px] text-muted-foreground">
+          {currentIdx + 1} / {practiceTexts.length} phrases
+        </p>
       </div>
     </div>
   );
@@ -214,6 +290,7 @@ export default function LessonPage() {
   const navigate = useNavigate();
   const key = `${levelId}-${lessonId}`;
   const lesson = lessons[key];
+  const { speak, stop, speaking } = useTTS();
 
   const [activeTab, setActiveTab] = useState<TabId>("vocabulary");
   const [cardIndex, setCardIndex] = useState(0);
@@ -240,7 +317,7 @@ export default function LessonPage() {
     switch (activeTab) {
       case "vocabulary": {
         const vocabCards = lesson.vocabulary.map((w, i) => (
-          <VocabCard key={`v-${i}`} item={w} showArabic={showArabic} />
+          <VocabCard key={`v-${i}`} item={w} showArabic={showArabic} speak={speak} speaking={speaking} />
         ));
         const exerciseCards = lesson.vocabExercises.map((q, i) => (
           <MCQCard key={`ve-${i}`} item={q} />
@@ -254,7 +331,7 @@ export default function LessonPage() {
       }
       case "conversation": {
         const dialogueCards = lesson.dialogue.map((line, i) => (
-          <DialogueCard key={`d-${i}`} line={line} index={i} />
+          <DialogueCard key={`d-${i}`} line={line} index={i} speak={speak} speaking={speaking} />
         ));
         const exerciseCards = lesson.conversationExercises.map((q, i) => (
           <MCQCard key={`ce-${i}`} item={q} />
@@ -268,20 +345,20 @@ export default function LessonPage() {
       }
       case "grammar": {
         const exampleCards = lesson.grammar.examples.map((ex, i) => (
-          <GrammarExampleCard key={`ge-${i}`} example={ex} />
+          <GrammarExampleCard key={`ge-${i}`} example={ex} speak={speak} speaking={speaking} />
         ));
         const exerciseCards = lesson.grammarExercises.map((q, i) => (
           <MCQCard key={`gex-${i}`} item={q} />
         ));
         return [
-          <GrammarCard key="grammar" lesson={lesson} />,
+          <GrammarCard key="grammar" lesson={lesson} speak={speak} speaking={speaking} />,
           ...exampleCards,
           <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
           ...exerciseCards,
         ];
       }
       case "speaking":
-        return [<SpeakingCard key="speaking" />];
+        return [<SpeakingCard key="speaking" lesson={lesson} speak={speak} speaking={speaking} />];
       case "exam": {
         return [
           <SectionTitleCard key="title" title={`Lesson ${lesson.lessonNumber} Exam`} icon="📝" />,
@@ -300,10 +377,11 @@ export default function LessonPage() {
   const cards = buildCards();
   const totalCards = cards.length;
 
-  const goNext = () => setCardIndex((i) => Math.min(i + 1, totalCards - 1));
-  const goPrev = () => setCardIndex((i) => Math.max(i - 1, 0));
+  const goNext = () => { stop(); setCardIndex((i) => Math.min(i + 1, totalCards - 1)); };
+  const goPrev = () => { stop(); setCardIndex((i) => Math.max(i - 1, 0)); };
 
   const switchTab = (tab: TabId) => {
+    stop();
     setActiveTab(tab);
     setCardIndex(0);
   };
@@ -323,9 +401,12 @@ export default function LessonPage() {
             <Presentation className="h-3 w-3" /> Slides
           </button>
         </div>
-        <div className="text-center">
-          <p className="text-[10px] font-bold uppercase tracking-wider text-primary font-sans">{lesson.levelLabel}</p>
-          <p className="text-xs font-medium text-foreground font-sans">{lesson.title}</p>
+        <div className="text-center flex items-center gap-2">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-primary font-sans">{lesson.levelLabel}</p>
+            <p className="text-xs font-medium text-foreground font-sans">{lesson.title}</p>
+          </div>
+          <DifficultyBadge lessonNumber={lesson.lessonNumber} />
         </div>
         <button
           onClick={() => setShowArabic(!showArabic)}
