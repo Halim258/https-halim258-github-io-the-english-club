@@ -247,6 +247,28 @@ export default function Home() {
               </Link>
             </motion.div>
 
+            {/* Placement Test CTA */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.48, ease: "easeOut" }}
+              className="mt-6"
+            >
+              <Link
+                to="/placement-test"
+                className="group inline-flex items-center gap-3 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/10 to-accent/10 px-6 py-3 shadow-soft transition-all hover:shadow-card hover:border-primary/40 hover:-translate-y-0.5 duration-300"
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 group-hover:bg-primary/25 transition-colors">
+                  <GraduationCap className="h-4.5 w-4.5 text-primary" />
+                </div>
+                <div className="text-left">
+                  <p className="text-sm font-semibold font-display">Don't know your level?</p>
+                  <p className="text-[11px] text-muted-foreground">Take our free Cambridge Placement Test →</p>
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+              </Link>
+            </motion.div>
+
             {/* Audience cards */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
