@@ -458,6 +458,7 @@ export function MarioJumpGame() {
 
   return (
     <div className="text-center">
+      <MusicToggle game="mario" />
       <p className="text-muted-foreground mb-3">Jump as high as you can! Use ← → keys or touch to move 🦸</p>
       <canvas ref={canvasRef} width={W} height={H}
         onClick={() => { if (!gameRef.current.running) startGame(); }}
@@ -560,19 +561,22 @@ export function ChessGame() {
     const piece = board[idx];
 
     if (selected !== null && validMoves.includes(idx)) {
-      // Move
       const newBoard = [...board];
       const moving = newBoard[selected]!;
       const target = newBoard[idx];
 
       if (target) {
+        sfx.capture();
         setCaptured(prev => ({
           ...prev,
           [turn]: [...prev[turn], target.emoji]
         }));
         if (target.type === "K") {
           setStatus(turn === "w" ? "White wins! 🎉" : "Black wins! 🎉");
+          sfx.win();
         }
+      } else {
+        sfx.move();
       }
 
       // Pawn promotion
@@ -594,6 +598,7 @@ export function ChessGame() {
     if (piece && piece.color === turn) {
       setSelected(idx);
       setValidMoves(getBasicMoves(board, idx, piece));
+      sfx.click();
     } else {
       setSelected(null);
       setValidMoves([]);
@@ -602,6 +607,7 @@ export function ChessGame() {
 
   return (
     <div className="text-center">
+      <MusicToggle game="chess" />
       <p className="text-muted-foreground mb-3">Play chess! {turn === "w" ? "White" : "Black"}'s turn ♟️</p>
       {status && (
         <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="mb-3">
