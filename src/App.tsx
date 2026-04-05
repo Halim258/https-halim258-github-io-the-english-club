@@ -21,6 +21,7 @@ import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 import KidsCourse from "./pages/KidsCourse";
 import StoriesCourse from "./pages/StoriesCourse";
+import MoviesCourse from "./pages/MoviesCourse";
 import KidsGameCenter from "./pages/KidsGameCenter";
 import ProtectedRoute from "./components/ProtectedRoute";
 
@@ -41,6 +42,7 @@ const App = () => (
             <Route path="/courses/:levelId/:lessonId" element={<LessonPage />} />
             <Route path="/courses/kids" element={<KidsCourse />} />
             <Route path="/courses/stories" element={<StoriesCourse />} />
+            <Route path="/courses/movies" element={<MoviesCourse />} />
             <Route path="/kids/games" element={<KidsGameCenter />} />
             <Route path="/courses/:levelId" element={<Courses />} />
             <Route path="/fm" element={<FMRadio />} />
