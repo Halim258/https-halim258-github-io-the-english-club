@@ -7,6 +7,7 @@ import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
 
 import readingImg from "@/assets/levels/reading.jpg";
+import kidsImg from "@/assets/levels/kids.jpg";
 import a1Img from "@/assets/levels/a1.jpg";
 import a2Img from "@/assets/levels/a2.jpg";
 import b1Img from "@/assets/levels/b1.jpg";
@@ -21,6 +22,13 @@ const introductory: Level = {
   sublabel: "Alphabet → Phonics → Sight Words → Short Sentences → Critical Reading",
   lessons: 20, description: "Build foundational reading skills from scratch",
   color: "from-rose-500 to-orange-500", image: readingImg,
+};
+
+const kidsLevel: Level = {
+  id: "kids", label: "English for Kids",
+  sublabel: "Colors → Animals → Family → Food → Numbers → Nature → Dreams",
+  lessons: 20, description: "Fun, interactive lessons designed for young learners aged 5-10",
+  color: "from-amber-400 to-pink-500", image: kidsImg,
 };
 
 const cefrLevels: Level[] = [
@@ -99,7 +107,7 @@ export default function Courses() {
 
   // If a level is selected, show its lessons
   if (levelId && !window.location.pathname.match(/\/courses\/[^/]+\/\d+/)) {
-    const allLevels = [introductory, ...cefrLevels];
+    const allLevels = [introductory, kidsLevel, ...cefrLevels];
     const level = allLevels.find((l) => l.id === levelId);
     if (level) return <LevelLessons levelId={level.id} levelLabel={`${level.label} — ${level.sublabel || ""}`} />;
   }
@@ -168,6 +176,36 @@ export default function Courses() {
                   <p className="text-sm text-muted-foreground mt-1">{introductory.sublabel}</p>
                   <div className="mt-3 flex items-center gap-3">
                     <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold text-primary">{introductory.lessons} lessons</span>
+                    <span className="text-xs font-semibold text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      Begin <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          </FadeInUp>
+
+          {/* Kids Course - Featured */}
+          <FadeInUp delay={0.1}>
+            <Link
+              to="/courses/kids"
+              className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
+            >
+              <div className="flex flex-col sm:flex-row">
+                <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
+                  <img src={kidsLevel.image} alt={kidsLevel.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 sm:bg-gradient-to-l" />
+                  <span className="absolute top-3 left-3 rounded-full bg-amber-500 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">
+                    🧒 For Kids
+                  </span>
+                </div>
+                <div className="flex-1 p-5 sm:p-6 flex flex-col justify-center">
+                  <h3 className="font-bold font-display text-xl group-hover:text-primary transition-colors">
+                    {kidsLevel.label}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">{kidsLevel.sublabel}</p>
+                  <div className="mt-3 flex items-center gap-3">
+                    <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-amber-600">{kidsLevel.lessons} lessons</span>
                     <span className="text-xs font-semibold text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
                       Begin <ArrowRight className="h-3 w-3" />
                     </span>
