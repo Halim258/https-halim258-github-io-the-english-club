@@ -64,6 +64,7 @@ import { writingLessons3 } from "./specialized-lessons-3";
 import { writingLessons4 } from "./specialized-lessons-4";
 import { speakingListeningExtra } from "./speaking-listening-extra";
 import { professionalGrammarExtra } from "./professional-grammar-extra";
+import { pronunciationFluencyExtra } from "./pronunciation-fluency-extra";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
@@ -585,4 +586,5 @@ export const lessons: Record<string, LessonData> = {
   ...writingLessons4,
   ...speakingListeningExtra,
   ...professionalGrammarExtra,
+  ...pronunciationFluencyExtra,
 };
