@@ -56,7 +56,7 @@ export default function CategoryDetail() {
 
       {/* Courses List */}
       <section className="py-12 md:py-16">
-        <div className="container mx-auto px-4 max-w-3xl">
+        <div className="container mx-auto px-4 max-w-4xl">
           <FadeInUp>
             <h2 className="text-lg font-bold font-display mb-6">Choose a Course to Start</h2>
           </FadeInUp>
