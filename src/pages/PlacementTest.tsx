@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, Clock, CheckCircle2, XCircle,
   GraduationCap, BookOpen, BarChart3, Trophy,
-  AlertCircle, Sparkles, TrendingUp, Zap, Brain
+  AlertCircle, Sparkles, TrendingUp, Zap, Brain, Download
 } from "lucide-react";
+import { generateCertificate } from "@/lib/generate-certificate";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { FadeInUp, ScaleIn } from "@/components/AnimatedSection";
