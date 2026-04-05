@@ -14,10 +14,12 @@ import PracticeSpeaking from "./pages/PracticeSpeaking";
 import Teachers from "./pages/Teachers";
 import PlacementTest from "./pages/PlacementTest";
 import StudentDashboard from "./pages/StudentDashboard";
+import AdminDashboard from "./pages/AdminDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -39,7 +41,16 @@ const App = () => (
             <Route path="/practice" element={<PracticeSpeaking />} />
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/placement-test" element={<PlacementTest />} />
-            <Route path="/dashboard" element={<StudentDashboard />} />
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <StudentDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/admin" element={
+              <ProtectedRoute requiredRole="admin">
+                <AdminDashboard />
+              </ProtectedRoute>
+            } />
             <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
