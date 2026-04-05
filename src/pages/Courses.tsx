@@ -58,6 +58,12 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
       >
         {lessonKeys.map((key) => {
           const l = lessons[key];
+          const difficulty = l.lessonNumber <= 7 ? "Easy" : l.lessonNumber <= 14 ? "Medium" : "Hard";
+          const diffColor = l.lessonNumber <= 7 
+            ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400" 
+            : l.lessonNumber <= 14 
+            ? "bg-amber-500/15 text-amber-700 dark:text-amber-400" 
+            : "bg-red-500/15 text-red-700 dark:text-red-400";
           return (
             <motion.div key={key} variants={staggerItem}>
               <Link
@@ -69,7 +75,12 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
                     {l.lessonNumber}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">{l.title}</h3>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">{l.title}</h3>
+                      <span className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${diffColor}`}>
+                        {difficulty}
+                      </span>
+                    </div>
                     <p className="text-xs text-muted-foreground mt-0.5">{l.description}</p>
                   </div>
                 </div>
