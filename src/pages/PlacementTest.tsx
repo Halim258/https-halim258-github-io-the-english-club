@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, Clock, CheckCircle2, XCircle,
   GraduationCap, BookOpen, BarChart3, Trophy,
-  AlertCircle, Sparkles, TrendingUp, Zap, Brain
+  AlertCircle, Sparkles, TrendingUp, Zap, Brain, Download
 } from "lucide-react";
+import { generateCertificate } from "@/lib/generate-certificate";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { FadeInUp, ScaleIn } from "@/components/AnimatedSection";
@@ -517,7 +518,24 @@ export default function PlacementTest() {
                         Start {cefrLevel} Course <ArrowRight className="ml-2 h-4 w-4" />
                       </Button>
                     </Link>
-                    <Button variant="outline" onClick={() => { setState("intro"); setElapsed(0); }} className="rounded-full px-6 font-semibold">
+                    <Button
+                      variant="outline"
+                      className="rounded-full px-6 font-semibold"
+                      onClick={() => {
+                        generateCertificate({
+                          cefrLevel,
+                          cefrLabel: cefrInfo.label,
+                          score,
+                          totalQuestions: answered.length,
+                          percentage: answered.length > 0 ? Math.round((score / answered.length) * 100) : 0,
+                          timeTaken: formatTime(elapsed),
+                          date: new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }),
+                        });
+                      }}
+                    >
+                      <Download className="mr-2 h-4 w-4" /> Download Certificate
+                    </Button>
+                    <Button variant="ghost" onClick={() => { setState("intro"); setElapsed(0); }} className="rounded-full px-6 font-semibold">
                       Retake Test
                     </Button>
                   </div>
