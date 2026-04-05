@@ -142,21 +142,12 @@ export default function CategoryDetail() {
                         </div>
                       )}
                       <div className="mt-4">
-                        {hasLessons ? (
-                          <Link to={`/courses/${levelId}`}>
-                            <Button size="sm" className="rounded-full px-5 text-xs font-semibold gap-2 w-full">
-                              <PlayCircle className="h-3.5 w-3.5" />
-                              Start Learning
-                            </Button>
-                          </Link>
-                        ) : (
-                          <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer">
-                            <Button size="sm" variant="outline" className="rounded-full px-5 text-xs font-semibold gap-2 border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors w-full">
-                              <MessageCircle className="h-3.5 w-3.5" />
-                              Enroll via WhatsApp
-                            </Button>
-                          </a>
-                        )}
+                        <Link to={hasLessons ? `/courses/${levelId}` : `/courses/${levelId || cat.slug}`}>
+                          <Button size="sm" className="rounded-full px-5 text-xs font-semibold gap-2 w-full">
+                            <PlayCircle className="h-3.5 w-3.5" />
+                            Start Learning
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   </div>
