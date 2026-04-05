@@ -22,14 +22,14 @@ export default function CategoryDetail() {
 
   return (
     <div className="overflow-x-hidden">
-      {/* Hero */}
-      <section className="relative py-14 md:py-20 overflow-hidden">
-        <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-50`} />
-        <span className="absolute right-8 top-8 text-[120px] opacity-[0.06] select-none pointer-events-none">
-          {cat.emoji}
-        </span>
-        <div className="container mx-auto px-4 relative z-10">
-          <Link to="/courses" className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors font-medium">
+      {/* Hero with image */}
+      <section className="relative overflow-hidden">
+        <div className="relative h-48 md:h-64">
+          <img src={cat.image} alt={cat.title} className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10 -mt-20 pb-6">
+          <Link to="/courses" className="mb-4 inline-flex items-center gap-1.5 text-sm text-white/80 hover:text-white transition-colors font-medium">
             <ChevronLeft className="h-4 w-4" /> Back to All Courses
           </Link>
           <motion.div
@@ -37,8 +37,8 @@ export default function CategoryDetail() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex items-center gap-4 mb-4">
-              <div className={`h-14 w-14 rounded-2xl ${cat.iconBg} flex items-center justify-center shadow-sm`}>
+            <div className="flex items-center gap-4 mb-3">
+              <div className={`h-14 w-14 rounded-2xl ${cat.iconBg} flex items-center justify-center shadow-sm backdrop-blur-sm`}>
                 <IconComponent className="h-7 w-7 text-foreground" />
               </div>
               <div>
