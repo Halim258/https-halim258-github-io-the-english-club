@@ -58,6 +58,8 @@ import { writingLessons2, examPrepLessons2 } from "./specialized-lessons-2";
 import { grammarCourseLessons } from "./specialized-course-lessons";
 import { grammarCourseLessons2 } from "./grammar-lessons-2";
 import { examPrepLessons3 } from "./exam-professional-lessons-2";
+import { communicationLessons3 } from "./communication-lessons-3";
+import { writingLessons3 } from "./specialized-lessons-3";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
