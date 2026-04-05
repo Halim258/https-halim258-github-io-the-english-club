@@ -312,9 +312,17 @@ export default function LessonPage() {
     <Shell>
       {/* Header */}
       <div className="flex items-center justify-between border-b bg-card px-4 py-2">
-        <Link to="/courses" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-sans">
-          <ChevronLeft className="h-4 w-4" /> Exit
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link to="/courses" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-sans">
+            <ChevronLeft className="h-4 w-4" /> Exit
+          </Link>
+          <button
+            onClick={() => navigate(`/courses/${levelId}/${lessonId}/slides`)}
+            className="flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-semibold text-primary hover:bg-primary/20 transition-colors"
+          >
+            <Presentation className="h-3 w-3" /> Slides
+          </button>
+        </div>
         <div className="text-center">
           <p className="text-[10px] font-bold uppercase tracking-wider text-primary font-sans">{lesson.levelLabel}</p>
           <p className="text-xs font-medium text-foreground font-sans">{lesson.title}</p>
