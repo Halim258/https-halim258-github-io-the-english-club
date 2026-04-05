@@ -1,8 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, CheckCircle2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { lessons } from "@/data/lessons";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
+import { Button } from "@/components/ui/button";
 
 type Level = { id: string; label: string; sublabel: string; lessons: number; unlocked: boolean; description: string };
 type Stage = { id: string; label: string; levels: Level[] };
@@ -42,54 +43,72 @@ const categories = [
     icon: BookOpen,
     emoji: "📘",
     title: "Core English Courses",
+    color: "from-primary/10 to-primary/5",
+    iconBg: "bg-primary/15",
     courses: ["General English (A1–C2)", "Intensive English Course", "English for Beginners", "Intermediate English", "Advanced English"],
   },
   {
     icon: MessageCircle,
     emoji: "🗣️",
     title: "Communication Skills",
+    color: "from-blue-500/10 to-blue-500/5",
+    iconBg: "bg-blue-500/15",
     courses: ["Speaking & Conversation Practice", "Listening Skills", "Pronunciation & Accent Training", "Fluency Development"],
   },
   {
     icon: PenLine,
     emoji: "✍️",
     title: "Writing Skills",
+    color: "from-violet-500/10 to-violet-500/5",
+    iconBg: "bg-violet-500/15",
     courses: ["English Writing Basics", "Academic Writing", "Creative Writing", "Business Writing", "Email Writing"],
   },
   {
     icon: BookMarked,
     emoji: "📖",
     title: "Reading & Vocabulary",
+    color: "from-emerald-500/10 to-emerald-500/5",
+    iconBg: "bg-emerald-500/15",
     courses: ["Reading Comprehension", "Vocabulary Building", "Idioms & Expressions", "Phrasal Verbs Course"],
   },
   {
     icon: Target,
     emoji: "🎯",
     title: "Exam Preparation",
+    color: "from-orange-500/10 to-orange-500/5",
+    iconBg: "bg-orange-500/15",
     courses: ["IELTS Preparation", "TOEFL Preparation", "Cambridge Exams (PET, FCE, CAE)", "SAT English"],
   },
   {
     icon: Briefcase,
     emoji: "💼",
     title: "Professional English",
+    color: "from-slate-500/10 to-slate-500/5",
+    iconBg: "bg-slate-500/15",
     courses: ["Business English", "English for Interviews", "Workplace Communication", "Presentation Skills"],
   },
   {
     icon: Globe2,
     emoji: "🌍",
     title: "Specialized English",
-    courses: ["English for Travel", "English for Kids", "English for Teenagers", "English for Specific Purposes (ESP)", "Medical English", "Engineering English", "IT English"],
+    color: "from-teal-500/10 to-teal-500/5",
+    iconBg: "bg-teal-500/15",
+    courses: ["English for Travel", "English for Kids", "English for Teenagers", "ESP", "Medical English", "Engineering English", "IT English"],
   },
   {
     icon: Headphones,
     emoji: "🎧",
-    title: "Interactive / Modern Courses",
+    title: "Interactive / Modern",
+    color: "from-pink-500/10 to-pink-500/5",
+    iconBg: "bg-pink-500/15",
     courses: ["English through Movies & Series", "English through Stories", "Real-life Conversation Practice", "Slang & Everyday English"],
   },
   {
     icon: Brain,
     emoji: "🧠",
     title: "Grammar & Structure",
+    color: "from-amber-500/10 to-amber-500/5",
+    iconBg: "bg-amber-500/15",
     courses: ["English Grammar (Basic → Advanced)", "Tenses Mastery", "Sentence Structure"],
   },
 ];
@@ -98,34 +117,48 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
   const lessonKeys = Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).sort();
 
   return (
-    <div className="container mx-auto max-w-2xl px-4 py-10">
-      <Link to="/courses" className="mb-4 inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-sans">
+    <div className="container mx-auto max-w-3xl px-4 py-10">
+      <Link to="/courses" className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors font-medium">
         <ChevronLeft className="h-4 w-4" /> Back to Courses
       </Link>
-      <h1 className="text-2xl font-bold">{levelLabel}</h1>
-      <div className="mt-6 grid gap-3">
-        {lessonKeys.map((key) => {
+      <FadeInUp>
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-3">
+            <BookOpen className="h-3.5 w-3.5" />
+            {lessonKeys.length} Lessons
+          </div>
+          <h1 className="text-2xl md:text-3xl font-bold font-display">{levelLabel}</h1>
+        </div>
+      </FadeInUp>
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate="show"
+        className="grid gap-3"
+      >
+        {lessonKeys.map((key, i) => {
           const l = lessons[key];
           return (
-            <Link
-              key={key}
-              to={`/courses/${l.levelId}/${l.lessonNumber}`}
-              className="flex items-center justify-between rounded-xl border bg-card p-4 shadow-soft hover:shadow-card transition-shadow"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-sm font-bold text-primary">
-                  {l.lessonNumber}
+            <motion.div key={key} variants={staggerItem}>
+              <Link
+                to={`/courses/${l.levelId}/${l.lessonNumber}`}
+                className="group flex items-center justify-between rounded-xl border bg-card p-4 shadow-soft hover:shadow-card hover:border-primary/20 transition-all duration-300"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-primary/5 text-sm font-bold text-primary shrink-0">
+                    {l.lessonNumber}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">{l.title}</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">{l.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-sm">{l.title}</h3>
-                  <p className="text-xs text-muted-foreground font-sans">{l.description}</p>
-                </div>
-              </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
-            </Link>
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
+              </Link>
+            </motion.div>
           );
         })}
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -140,115 +173,203 @@ export default function Courses() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      {/* Course Categories */}
-      <FadeInUp>
-        <div className="flex items-center justify-center gap-2 mb-2">
-          <GraduationCap className="h-5 w-5 text-primary" />
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">Our Courses</p>
-        </div>
-        <h1 className="text-center text-3xl font-bold font-display">Complete Course Catalog</h1>
-        <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
-          From beginner basics to professional mastery — explore our full range of English courses designed for every goal and level.
-        </p>
-      </FadeInUp>
-
-      <motion.div
-        variants={staggerContainer}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-60px" }}
-        className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3"
-      >
-        {categories.map((cat) => (
+    <div className="overflow-x-hidden">
+      {/* Hero Banner */}
+      <section className="relative py-16 md:py-20 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
-            key={cat.title}
-            variants={staggerItem}
-            className="group rounded-xl border bg-card p-6 shadow-soft transition-all hover:shadow-card hover:border-primary/30 hover:-translate-y-1 duration-300"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                <cat.icon className="h-5 w-5 text-primary" />
-              </div>
-              <h3 className="text-base font-semibold font-display">{cat.title}</h3>
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">
+              <Sparkles className="h-3.5 w-3.5" />
+              {categories.reduce((acc, c) => acc + c.courses.length, 0)}+ Courses Available
             </div>
-            <ul className="space-y-2">
-              {cat.courses.map((course) => (
-                <li key={course} className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <ArrowRight className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />
-                  {course}
-                </li>
-              ))}
-            </ul>
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display max-w-3xl mx-auto leading-tight">
+              Complete Course{" "}
+              <span className="text-primary">Catalog</span>
+            </h1>
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground text-base md:text-lg">
+              From beginner basics to professional mastery — explore our full range of English courses designed for every goal and level.
+            </p>
           </motion.div>
-        ))}
-      </motion.div>
 
-      {/* Cambridge Curriculum */}
-      <div className="mt-16 border-t pt-16">
-        <FadeInUp>
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <BookOpen className="h-5 w-5 text-primary" />
-            <p className="text-xs font-semibold uppercase tracking-widest text-primary">Structured Curriculum</p>
-          </div>
-          <h2 className="text-center text-2xl md:text-3xl font-bold font-display">
-            Cambridge-Aligned Curriculum
-          </h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
-            A complete pathway from reading to proficiency — explore interactive lessons at every level.
-          </p>
-        </FadeInUp>
-
-        {/* Intro */}
-        <div className="mt-8">
-          <Link
-            to="/courses/reading"
-            className="flex items-center justify-between rounded-xl border bg-card p-5 shadow-soft transition-shadow hover:shadow-card"
+          {/* Quick Stats */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="mt-8 flex flex-wrap justify-center gap-6 md:gap-10"
           >
-            <div className="flex items-center gap-4">
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-secondary/10">
-                <BookOpen className="h-5 w-5 text-secondary" />
+            {[
+              { value: "9", label: "Course Categories" },
+              { value: `${categories.reduce((acc, c) => acc + c.courses.length, 0)}+`, label: "Individual Courses" },
+              { value: "A1–C2", label: "All Levels" },
+              { value: "140+", label: "Structured Lessons" },
+            ].map((s) => (
+              <div key={s.label} className="text-center">
+                <p className="text-xl md:text-2xl font-bold text-primary font-display">{s.value}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{s.label}</p>
               </div>
-              <div>
-                <h3 className="font-semibold">{introductory.label}</h3>
-                <p className="text-xs text-muted-foreground font-sans">{introductory.sublabel}</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground font-sans">
-              {introductory.lessons} lessons <ChevronRight className="h-4 w-4" />
-            </div>
-          </Link>
+            ))}
+          </motion.div>
         </div>
+      </section>
 
-        {/* Stages */}
-        {stages.map((stage) => (
-          <div key={stage.id} className="mt-10">
-            <h2 className="mb-4 text-xl font-semibold">{stage.label}</h2>
-            <div className="grid gap-4 md:grid-cols-2">
-              {stage.levels.map((lvl) => (
-                <Link
-                  key={lvl.id}
-                  to={`/courses/${lvl.id}`}
-                  className="flex items-center justify-between rounded-xl border bg-card p-5 shadow-soft hover:shadow-card transition-shadow"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary/10">
-                      <BookOpen className="h-5 w-5 text-primary" />
+      {/* Course Categories Grid */}
+      <section className="py-12 md:py-16">
+        <div className="container mx-auto px-4">
+          <FadeInUp>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <GraduationCap className="h-4 w-4 text-primary" />
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Browse by Category</p>
+            </div>
+            <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-10">
+              What Would You Like to Learn?
+            </h2>
+          </FadeInUp>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-60px" }}
+            className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+          >
+            {categories.map((cat) => (
+              <motion.div
+                key={cat.title}
+                variants={staggerItem}
+                className={`group relative rounded-2xl border bg-gradient-to-br ${cat.color} p-6 shadow-soft transition-all hover:shadow-card hover:border-primary/30 hover:-translate-y-1.5 duration-300 overflow-hidden`}
+              >
+                {/* Subtle background emoji */}
+                <span className="absolute -right-2 -top-2 text-6xl opacity-[0.07] select-none pointer-events-none">
+                  {cat.emoji}
+                </span>
+
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className={`h-11 w-11 rounded-xl ${cat.iconBg} flex items-center justify-center shrink-0 shadow-sm`}>
+                      <cat.icon className="h-5 w-5 text-foreground" />
                     </div>
                     <div>
-                      <h3 className="font-semibold">{lvl.label} — {lvl.sublabel}</h3>
-                      <p className="text-xs text-muted-foreground font-sans">{lvl.description}</p>
+                      <h3 className="text-base font-bold font-display">{cat.title}</h3>
+                      <p className="text-[11px] text-muted-foreground">{cat.courses.length} courses</p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground font-sans">
-                    {lvl.lessons} <ChevronRight className="h-4 w-4" />
-                  </div>
-                </Link>
-              ))}
+                  <ul className="space-y-2">
+                    {cat.courses.map((course) => (
+                      <li key={course} className="flex items-center gap-2.5 text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors">
+                        <CheckCircle2 className="h-3.5 w-3.5 text-primary/60 shrink-0" />
+                        {course}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* WhatsApp CTA */}
+          <FadeInUp delay={0.2}>
+            <div className="mt-12 text-center">
+              <p className="text-sm text-muted-foreground mb-4">Interested in any course? Contact us to get started!</p>
+              <a
+                href="https://wa.me/201234567890"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button className="rounded-full px-8 font-semibold font-display">
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  Inquire on WhatsApp
+                </Button>
+              </a>
             </div>
-          </div>
-        ))}
-      </div>
+          </FadeInUp>
+        </div>
+      </section>
+
+      {/* Cambridge Curriculum */}
+      <section className="border-y bg-muted/30 py-16 md:py-20">
+        <div className="container mx-auto px-4">
+          <FadeInUp>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <BookOpen className="h-4 w-4 text-primary" />
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Structured Curriculum</p>
+            </div>
+            <h2 className="text-center text-2xl md:text-3xl font-bold font-display">
+              Cambridge-Aligned Curriculum
+            </h2>
+            <p className="mx-auto mt-3 max-w-2xl text-center text-muted-foreground">
+              A complete pathway from reading to proficiency — explore interactive lessons at every level.
+            </p>
+          </FadeInUp>
+
+          {/* Intro */}
+          <FadeInUp delay={0.1}>
+            <div className="mt-10">
+              <Link
+                to="/courses/reading"
+                className="group flex items-center justify-between rounded-xl border bg-card p-5 shadow-soft transition-all hover:shadow-card hover:border-primary/20 duration-300"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-secondary/15 to-secondary/5 shadow-sm">
+                    <BookOpen className="h-5 w-5 text-secondary" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold font-display group-hover:text-primary transition-colors">{introductory.label}</h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">{introductory.sublabel}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <span className="hidden sm:inline rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">{introductory.lessons} lessons</span>
+                  <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
+                </div>
+              </Link>
+            </div>
+          </FadeInUp>
+
+          {/* Stages */}
+          {stages.map((stage, si) => (
+            <FadeInUp key={stage.id} delay={0.1 * (si + 1)}>
+              <div className="mt-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="h-1 w-8 rounded-full bg-primary/40" />
+                  <h2 className="text-lg font-bold font-display">{stage.label}</h2>
+                </div>
+                <div className="grid gap-4 md:grid-cols-2">
+                  {stage.levels.map((lvl) => (
+                    <Link
+                      key={lvl.id}
+                      to={`/courses/${lvl.id}`}
+                      className="group flex items-center justify-between rounded-xl border bg-card p-5 shadow-soft hover:shadow-card hover:border-primary/20 transition-all duration-300"
+                    >
+                      <div className="flex items-center gap-4">
+                        <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-primary/15 to-primary/5 shadow-sm">
+                          <span className="text-sm font-bold text-primary font-display">{lvl.label}</span>
+                        </div>
+                        <div>
+                          <h3 className="font-semibold font-display group-hover:text-primary transition-colors">
+                            {lvl.label} — {lvl.sublabel}
+                          </h3>
+                          <p className="text-xs text-muted-foreground mt-0.5">{lvl.description}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <span className="hidden sm:inline rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-medium text-primary">{lvl.lessons}</span>
+                        <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </FadeInUp>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
