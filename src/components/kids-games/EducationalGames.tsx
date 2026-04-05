@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { RotateCcw, Trophy, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTTS } from "@/hooks/useTTS";
+import { sfx } from "./gameSounds";
 
 // ─── Difficulty Data ─────────────────────────────────────
 type Difficulty = "phonics" | "easy" | "medium" | "hard";
