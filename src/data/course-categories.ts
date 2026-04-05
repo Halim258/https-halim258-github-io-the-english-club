@@ -1,6 +1,16 @@
 import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
+import coreEnglishImg from "@/assets/courses/core-english.jpg";
+import communicationImg from "@/assets/courses/communication.jpg";
+import writingImg from "@/assets/courses/writing.jpg";
+import readingImg from "@/assets/courses/reading.jpg";
+import examPrepImg from "@/assets/courses/exam-prep.jpg";
+import professionalImg from "@/assets/courses/professional.jpg";
+import specializedImg from "@/assets/courses/specialized.jpg";
+import interactiveImg from "@/assets/courses/interactive.jpg";
+import grammarImg from "@/assets/courses/grammar.jpg";
+
 export interface Course {
   name: string;
   description: string;
@@ -15,6 +25,7 @@ export interface Category {
   color: string;
   iconBg: string;
   description: string;
+  image: string;
   courses: Course[];
 }
 
@@ -26,6 +37,7 @@ export const categories: Category[] = [
     slug: "core-english",
     color: "from-primary/10 to-primary/5",
     iconBg: "bg-primary/15",
+    image: coreEnglishImg,
     description: "Build a strong English foundation from beginner to advanced with our structured general courses.",
     courses: [
       { name: "General English (A1–C2)", description: "Complete English course covering all proficiency levels with progressive skill-building.", topics: ["Grammar", "Vocabulary", "Speaking", "Writing"] },
@@ -42,6 +54,7 @@ export const categories: Category[] = [
     slug: "communication",
     color: "from-blue-500/10 to-blue-500/5",
     iconBg: "bg-blue-500/15",
+    image: communicationImg,
     description: "Improve your ability to speak, listen, and communicate confidently in real-world situations.",
     courses: [
       { name: "Speaking & Conversation Practice", description: "Build confidence through guided conversation sessions on everyday and academic topics.", topics: ["Role Play", "Debates", "Discussions"] },
@@ -57,6 +70,7 @@ export const categories: Category[] = [
     slug: "writing",
     color: "from-violet-500/10 to-violet-500/5",
     iconBg: "bg-violet-500/15",
+    image: writingImg,
     description: "Develop clear, structured, and effective writing across academic, creative, and professional contexts.",
     courses: [
       { name: "English Writing Basics", description: "Learn sentence structure, paragraphs, and basic essay formats.", topics: ["Sentences", "Paragraphs", "Punctuation"] },
@@ -73,6 +87,7 @@ export const categories: Category[] = [
     slug: "reading-vocabulary",
     color: "from-emerald-500/10 to-emerald-500/5",
     iconBg: "bg-emerald-500/15",
+    image: readingImg,
     description: "Expand your vocabulary and reading comprehension through engaging texts and systematic word-building.",
     courses: [
       { name: "Reading Comprehension", description: "Improve understanding of texts through inference, summarization, and critical analysis.", topics: ["Inference", "Summarization", "Analysis"] },
@@ -88,6 +103,7 @@ export const categories: Category[] = [
     slug: "exam-prep",
     color: "from-orange-500/10 to-orange-500/5",
     iconBg: "bg-orange-500/15",
+    image: examPrepImg,
     description: "Get ready for international English exams with targeted practice, strategies, and mock tests.",
     courses: [
       { name: "IELTS Preparation", description: "Comprehensive IELTS prep covering all four sections — Listening, Reading, Writing, and Speaking.", topics: ["Academic", "General Training", "Band Scores"] },
@@ -103,6 +119,7 @@ export const categories: Category[] = [
     slug: "professional",
     color: "from-slate-500/10 to-slate-500/5",
     iconBg: "bg-slate-500/15",
+    image: professionalImg,
     description: "Communicate effectively in the workplace with specialized professional English courses.",
     courses: [
       { name: "Business English", description: "Learn business vocabulary, meeting language, and professional communication skills.", topics: ["Meetings", "Negotiations", "Vocabulary"] },
@@ -118,6 +135,7 @@ export const categories: Category[] = [
     slug: "specialized",
     color: "from-teal-500/10 to-teal-500/5",
     iconBg: "bg-teal-500/15",
+    image: specializedImg,
     description: "Tailored English courses for specific industries, age groups, and purposes.",
     courses: [
       { name: "English for Travel", description: "Essential English for traveling — airports, hotels, restaurants, and navigation.", topics: ["Travel Phrases", "Directions", "Emergencies"] },
@@ -136,6 +154,7 @@ export const categories: Category[] = [
     slug: "interactive",
     color: "from-pink-500/10 to-pink-500/5",
     iconBg: "bg-pink-500/15",
+    image: interactiveImg,
     description: "Learn English through entertainment and real-world immersion with modern, engaging methods.",
     courses: [
       { name: "English through Movies & Series", description: "Learn natural English by analyzing scenes, dialogues, and expressions from popular media.", topics: ["Film Analysis", "Dialogue", "Slang"] },
@@ -151,6 +170,7 @@ export const categories: Category[] = [
     slug: "grammar",
     color: "from-amber-500/10 to-amber-500/5",
     iconBg: "bg-amber-500/15",
+    image: grammarImg,
     description: "Master English grammar rules, tenses, and sentence patterns from basic to advanced levels.",
     courses: [
       { name: "English Grammar (Basic → Advanced)", description: "Complete grammar course covering all rules, exceptions, and usage patterns.", topics: ["Parts of Speech", "Clauses", "Advanced Rules"] },
