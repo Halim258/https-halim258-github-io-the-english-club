@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/data/course-categories";
+import { getCourseImage } from "@/data/course-images";
 
 export default function CategoryDetail() {
   const { categorySlug } = useParams();
@@ -60,45 +61,53 @@ export default function CategoryDetail() {
             <h2 className="text-lg font-bold font-display mb-6">Choose a Course to Start</h2>
           </FadeInUp>
 
-          <motion.div
+           <motion.div
             variants={staggerContainer}
             initial="hidden"
             animate="show"
-            className="grid gap-5"
+            className="grid gap-5 md:grid-cols-2"
           >
             {cat.courses.map((course, i) => (
               <motion.div key={course.name} variants={staggerItem}>
-                <div className="group relative rounded-2xl border-2 border-border/60 bg-card p-6 md:p-7 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300">
-                  <div className="flex items-start justify-between gap-5">
-                    <div className="flex items-start gap-5">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-lg font-bold text-primary shrink-0 mt-0.5">
-                        {i + 1}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-bold font-display text-lg leading-tight">{course.name}</h3>
-                        <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{course.description}</p>
-                        {course.topics && course.topics.length > 0 && (
-                          <div className="mt-4 flex flex-wrap gap-2">
-                            {course.topics.map((topic) => (
-                              <span key={topic} className="rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-medium text-muted-foreground">
-                                {topic}
-                              </span>
-                            ))}
-                          </div>
-                        )}
-                      </div>
+                <div className="group relative rounded-2xl border bg-card shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 overflow-hidden h-full">
+                  {/* Course Image */}
+                  <div className="relative h-40 overflow-hidden">
+                    <img
+                      src={getCourseImage(course.name, cat.image)}
+                      alt={course.name}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute top-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg bg-white/90 backdrop-blur-sm text-sm font-bold text-primary shadow-sm">
+                      {i + 1}
                     </div>
-                    <a
-                      href="https://wa.me/201234567890"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="shrink-0"
-                    >
-                      <Button size="sm" variant="outline" className="rounded-full px-5 py-2 text-sm font-semibold gap-2 border-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors">
-                        <MessageCircle className="h-4 w-4" />
-                        Enroll
-                      </Button>
-                    </a>
+                  </div>
+                  {/* Content */}
+                  <div className="p-5">
+                    <h3 className="font-bold font-display text-base leading-tight">{course.name}</h3>
+                    <p className="text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-2">{course.description}</p>
+                    {course.topics && course.topics.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {course.topics.map((topic) => (
+                          <span key={topic} className="rounded-full border border-border bg-muted/50 px-2.5 py-0.5 text-[11px] font-medium text-muted-foreground">
+                            {topic}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <div className="mt-4">
+                      <a
+                        href="https://wa.me/201234567890"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Button size="sm" variant="outline" className="rounded-full px-5 text-xs font-semibold gap-2 border hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors w-full">
+                          <MessageCircle className="h-3.5 w-3.5" />
+                          Enroll via WhatsApp
+                        </Button>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </motion.div>
