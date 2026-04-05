@@ -448,6 +448,313 @@ export const storiesCourse: StoryData[] = [
     ],
     moral: "The most profound truths often lie at the intersection of disciplines! 🌉",
   },
+
+  // ─── Additional Stories ───
+
+  // A1
+  {
+    level: "A1", levelLabel: "Beginner", title: "The Hungry Bear 🐻",
+    emoji: "🐻",
+    story: `There is a bear 🐻 in the forest 🌲. The bear is very hungry 😋. He looks for food 🍯. He finds some berries 🫐. He eats the berries. Then he finds honey 🍯! Bears love honey. He eats a lot of honey. Now his tummy is full 😊. He goes to sleep 😴 under a big tree. Good night, bear! 🌙`,
+    highlightedWords: [
+      { word: "bear", meaning: "A big, strong animal with fur", emoji: "🐻", arabic: "دب" },
+      { word: "forest", meaning: "A large area with many trees", emoji: "🌲", arabic: "غابة" },
+      { word: "hungry", meaning: "Wanting to eat food", emoji: "😋", arabic: "جائع" },
+      { word: "food", meaning: "What you eat to stay alive", emoji: "🍽️", arabic: "طعام" },
+      { word: "berries", meaning: "Small round fruits from bushes", emoji: "🫐", arabic: "توت" },
+      { word: "honey", meaning: "Sweet golden liquid made by bees", emoji: "🍯", arabic: "عسل" },
+      { word: "sleep", meaning: "To rest with your eyes closed", emoji: "😴", arabic: "نوم" },
+    ],
+    questions: [
+      { question: "Where does the bear live?", options: ["In a city 🏙️", "In a forest 🌲", "In a house 🏠", "In the sea 🌊"], correct: 1 },
+      { question: "What does the bear find first?", options: ["Honey 🍯", "Fish 🐟", "Berries 🫐", "Bread 🍞"], correct: 2 },
+      { question: "What do bears love?", options: ["Milk 🥛", "Honey 🍯", "Cake 🎂", "Pizza 🍕"], correct: 1 },
+      { question: "What does the bear do after eating?", options: ["He dances 💃", "He sleeps 😴", "He swims 🏊", "He runs 🏃"], correct: 1 },
+    ],
+    moral: "It's important to eat well and rest! 🐻💤",
+  },
+  {
+    level: "A1", levelLabel: "Beginner", title: "The Little Boat ⛵",
+    emoji: "⛵",
+    story: `Lily has a little boat ⛵. It is red and white. She goes to the lake 🏞️. She puts the boat in the water 💧. The wind 💨 pushes the boat. The boat goes far. Lily is worried 😟. A duck 🦆 pushes the boat back! Lily is happy 😊. She thanks the duck. "You are a good friend!" 🤝 she says.`,
+    highlightedWords: [
+      { word: "boat", meaning: "Something that floats on water", emoji: "⛵", arabic: "قارب" },
+      { word: "lake", meaning: "A large area of fresh water", emoji: "🏞️", arabic: "بحيرة" },
+      { word: "water", meaning: "The clear liquid in rivers and seas", emoji: "💧", arabic: "ماء" },
+      { word: "wind", meaning: "Moving air outside", emoji: "💨", arabic: "رياح" },
+      { word: "worried", meaning: "Feeling that something bad might happen", emoji: "😟", arabic: "قلق" },
+      { word: "duck", meaning: "A bird that swims in water", emoji: "🦆", arabic: "بطة" },
+    ],
+    questions: [
+      { question: "What color is Lily's boat?", options: ["Blue and green", "Red and white", "Yellow and black", "Pink and purple"], correct: 1 },
+      { question: "Where does Lily go?", options: ["To the sea 🌊", "To the lake 🏞️", "To the river", "To the pool 🏊"], correct: 1 },
+      { question: "What pushes the boat away?", options: ["A fish 🐟", "The wind 💨", "Lily", "A dog 🐕"], correct: 1 },
+      { question: "Who brings the boat back?", options: ["A fish", "Lily's mom", "A duck 🦆", "Nobody"], correct: 2 },
+    ],
+    moral: "Help can come from unexpected places! 🦆❤️",
+  },
+
+  // A2
+  {
+    level: "A2", levelLabel: "Elementary", title: "The Birthday Surprise 🎂",
+    emoji: "🎂",
+    story: `It was Emma's birthday 🎂. She was turning 10 years old. Her friends planned a surprise party 🎉. They decorated the room with balloons 🎈 and colorful ribbons. Emma's mom baked a chocolate cake 🍫. When Emma came home from school 🏫, everyone shouted "Surprise!" 🎊. Emma was so happy she started crying 😭 tears of joy. They danced 💃, played games 🎮, and ate delicious food 🍕. It was the best birthday ever!`,
+    highlightedWords: [
+      { word: "birthday", meaning: "The day you were born, celebrated each year", emoji: "🎂", arabic: "عيد ميلاد" },
+      { word: "surprise", meaning: "Something unexpected that makes you happy", emoji: "🎊", arabic: "مفاجأة" },
+      { word: "decorated", meaning: "Made something look beautiful with ornaments", emoji: "🎈", arabic: "زيّن" },
+      { word: "balloons", meaning: "Colorful rubber bags filled with air", emoji: "🎈", arabic: "بالونات" },
+      { word: "baked", meaning: "Cooked in an oven", emoji: "🍫", arabic: "خبز" },
+      { word: "shouted", meaning: "Said something very loudly", emoji: "📢", arabic: "صاح" },
+      { word: "tears", meaning: "Water drops from your eyes", emoji: "😭", arabic: "دموع" },
+      { word: "delicious", meaning: "Very tasty and good to eat", emoji: "😋", arabic: "لذيذ" },
+    ],
+    questions: [
+      { question: "How old was Emma turning?", options: ["8", "9", "10", "11"], correct: 2 },
+      { question: "What did Emma's mom bake?", options: ["A pie 🥧", "Cookies 🍪", "A chocolate cake 🍫", "Bread 🍞"], correct: 2 },
+      { question: "How did Emma feel?", options: ["Angry 😠", "Sad 😢", "Bored 😒", "Happy 😊"], correct: 3 },
+      { question: "What did everyone shout?", options: ["Happy Birthday!", "Surprise! 🎊", "Welcome!", "Hello!"], correct: 1 },
+    ],
+    moral: "True friends make every celebration special! 🎉👫",
+  },
+  {
+    level: "A2", levelLabel: "Elementary", title: "The Lost Puppy 🐶",
+    emoji: "🐶",
+    story: `One rainy day 🌧️, Ali found a small puppy 🐶 near the park. The puppy was wet and cold 🥶. Ali took off his jacket 🧥 and wrapped the puppy. He brought it home. His mother helped him dry the puppy with a towel. They gave it warm milk 🥛 and food 🍖. Ali made posters 📋 with the puppy's photo. After three days, the owner 👨 came. He was very grateful 🙏. He said Ali could visit the puppy anytime!`,
+    highlightedWords: [
+      { word: "rainy", meaning: "When water falls from clouds", emoji: "🌧️", arabic: "ممطر" },
+      { word: "puppy", meaning: "A baby dog", emoji: "🐶", arabic: "جرو" },
+      { word: "wet", meaning: "Covered with water, not dry", emoji: "💧", arabic: "مبلل" },
+      { word: "jacket", meaning: "A short coat you wear outside", emoji: "🧥", arabic: "سترة" },
+      { word: "wrapped", meaning: "Covered something with cloth", emoji: "🤗", arabic: "لفّ" },
+      { word: "posters", meaning: "Large papers with information on walls", emoji: "📋", arabic: "ملصقات" },
+      { word: "owner", meaning: "The person who has something", emoji: "👨", arabic: "مالك" },
+      { word: "grateful", meaning: "Feeling thankful for something", emoji: "🙏", arabic: "ممتن" },
+    ],
+    questions: [
+      { question: "What was the weather like?", options: ["Sunny ☀️", "Rainy 🌧️", "Snowy ❄️", "Windy 💨"], correct: 1 },
+      { question: "What did Ali use to warm the puppy?", options: ["A blanket", "His jacket 🧥", "A scarf", "A hat 🎩"], correct: 1 },
+      { question: "What did Ali make to find the owner?", options: ["A video 📹", "A phone call 📞", "Posters 📋", "A website 💻"], correct: 2 },
+      { question: "When did the owner come?", options: ["The same day", "After one week", "After three days", "After a month"], correct: 2 },
+    ],
+    moral: "Kindness to animals always comes back to you! 🐾❤️",
+  },
+
+  // B1
+  {
+    level: "B1", levelLabel: "Intermediate", title: "The Photography Contest 📸",
+    emoji: "📸",
+    story: `Maya loved photography 📸. She took photos of everything — flowers 🌺, sunsets 🌅, and people on the street. One day, she saw a poster for a photography contest 🏆. The theme was "Hidden Beauty." Maya spent two weeks exploring her neighborhood 🏘️. She photographed an old man's wrinkled hands holding a butterfly 🦋. The image was powerful ✨. She submitted it nervously. Weeks later, she received an email 📧 — she won second place! The judge said her photo showed "the poetry of everyday life." Maya learned that beauty exists everywhere if you look closely enough.`,
+    highlightedWords: [
+      { word: "photography", meaning: "The art of taking pictures with a camera", emoji: "📸", arabic: "تصوير" },
+      { word: "contest", meaning: "A competition where people try to win", emoji: "🏆", arabic: "مسابقة" },
+      { word: "theme", meaning: "The main subject or idea", emoji: "💡", arabic: "موضوع" },
+      { word: "exploring", meaning: "Traveling around to discover new things", emoji: "🔍", arabic: "استكشاف" },
+      { word: "neighborhood", meaning: "The area around where you live", emoji: "🏘️", arabic: "حي" },
+      { word: "wrinkled", meaning: "Having lines and folds on the surface", emoji: "🤲", arabic: "مجعّد" },
+      { word: "powerful", meaning: "Having a strong effect on feelings", emoji: "✨", arabic: "مؤثر" },
+      { word: "submitted", meaning: "Sent or gave something officially", emoji: "📤", arabic: "قدّم" },
+    ],
+    questions: [
+      { question: "What was the theme of the contest?", options: ["Nature 🌿", "Hidden Beauty", "City Life 🏙️", "Animals 🐾"], correct: 1 },
+      { question: "What did Maya photograph?", options: ["A sunset 🌅", "A flower 🌺", "An old man's hands with a butterfly 🦋", "A building 🏢"], correct: 2 },
+      { question: "What place did Maya win?", options: ["First place 🥇", "Second place 🥈", "Third place 🥉", "She didn't win"], correct: 1 },
+      { question: "What did Maya learn?", options: ["Photography is expensive", "Beauty exists everywhere", "Contests are unfair", "She needs a better camera"], correct: 1 },
+    ],
+    moral: "Beauty is all around us — you just need to open your eyes! 👀✨",
+  },
+
+  // B2
+  {
+    level: "B2", levelLabel: "Upper-Intermediate", title: "The Forgotten Melody 🎹",
+    emoji: "🎹",
+    story: `Professor Chen hadn't played piano 🎹 in twenty years. After his wife passed away, the music died with her — or so he believed. One autumn evening 🍂, his granddaughter Mei found dusty sheet music 🎼 in the attic. "Grandpa, what's this?" she asked innocently. His hands trembled as he recognized the composition — a piece he had written for his wife on their wedding day 💍. Mei persuaded him to sit at the piano. His fingers, stiff from decades of silence, stumbled through the first measures. But gradually, muscle memory awakened 💫. The melody flowed, filling the house with bittersweet nostalgia. Tears streamed down his face, but for the first time in years, they were accompanied by a smile 😊. "She's still here," he whispered, "in every note."`,
+    highlightedWords: [
+      { word: "dusty", meaning: "Covered with a thin layer of dust from not being used", emoji: "🌫️", arabic: "مغبر" },
+      { word: "composition", meaning: "A piece of music that someone has written", emoji: "🎼", arabic: "مقطوعة موسيقية" },
+      { word: "trembled", meaning: "Shook slightly because of emotion or weakness", emoji: "🫨", arabic: "ارتجف" },
+      { word: "persuaded", meaning: "Convinced someone to do something", emoji: "🗣️", arabic: "أقنع" },
+      { word: "stumbled", meaning: "Made mistakes or moved unsteadily", emoji: "🫣", arabic: "تعثّر" },
+      { word: "muscle memory", meaning: "The ability to do something automatically from practice", emoji: "💪", arabic: "ذاكرة عضلية" },
+      { word: "nostalgia", meaning: "A feeling of happiness mixed with sadness about the past", emoji: "💭", arabic: "حنين" },
+      { word: "bittersweet", meaning: "Having both happy and sad feelings at the same time", emoji: "🥹", arabic: "حلو ومر" },
+    ],
+    questions: [
+      { question: "How long had the professor not played piano?", options: ["Five years", "Ten years", "Twenty years", "Thirty years"], correct: 2 },
+      { question: "Who found the sheet music?", options: ["His wife", "His daughter", "His granddaughter Mei", "His student"], correct: 2 },
+      { question: "When did he write the composition?", options: ["In college", "For his wedding day 💍", "For a concert", "When he retired"], correct: 1 },
+      { question: "What helped him remember how to play?", options: ["A recording", "Muscle memory 💪", "His granddaughter's help", "Sheet music alone"], correct: 1 },
+    ],
+    moral: "Love echoes through time in the things we create ❤️🎶",
+  },
+
+  // C1
+  {
+    level: "C1", levelLabel: "Advanced", title: "The Ethics of Algorithms 🤖",
+    emoji: "🤖",
+    story: `Dr. Amara Osei had spent five years developing an AI system 🤖 designed to predict criminal recidivism. The algorithm boasted a 94% accuracy rate, and several justice departments were eager to implement it. However, during a routine audit 🔍, her colleague Dr. Tanaka discovered a troubling pattern: the system disproportionately flagged individuals from marginalized communities. The bias wasn't intentional — it had emerged from historical data that reflected decades of systemic inequality ⚖️. Amara faced an agonizing dilemma. Publishing would advance her career immensely, but deploying a biased system could perpetuate injustice. She chose transparency 📢, publishing both her findings and the flaws, sparking a global conversation about algorithmic accountability. Her career suffered initially, but she became a pioneer in ethical AI development, proving that integrity and innovation aren't mutually exclusive.`,
+    highlightedWords: [
+      { word: "recidivism", meaning: "The tendency of a criminal to reoffend", emoji: "🔄", arabic: "العودة للإجرام" },
+      { word: "algorithm", meaning: "A set of rules a computer follows to solve problems", emoji: "🤖", arabic: "خوارزمية" },
+      { word: "audit", meaning: "A careful examination to check for problems", emoji: "🔍", arabic: "تدقيق" },
+      { word: "disproportionately", meaning: "To an extent that is too large or too small compared to something else", emoji: "⚖️", arabic: "بشكل غير متناسب" },
+      { word: "marginalized", meaning: "Treated as insignificant or pushed to the edge of society", emoji: "🚫", arabic: "مهمّش" },
+      { word: "agonizing", meaning: "Causing great physical or mental pain", emoji: "😣", arabic: "مؤلم" },
+      { word: "perpetuate", meaning: "To cause something to continue indefinitely", emoji: "♾️", arabic: "يُديم" },
+      { word: "integrity", meaning: "The quality of being honest and having strong moral principles", emoji: "💎", arabic: "نزاهة" },
+    ],
+    questions: [
+      { question: "What did the AI system predict?", options: ["Weather patterns", "Stock prices", "Criminal recidivism", "Disease outbreaks"], correct: 2 },
+      { question: "What problem did Dr. Tanaka discover?", options: ["Low accuracy", "Bias against marginalized groups", "Security vulnerability", "High cost"], correct: 1 },
+      { question: "What did Dr. Osei ultimately choose?", options: ["To hide the findings", "To publish with flaws disclosed", "To quit research", "To sell the algorithm"], correct: 1 },
+      { question: "What does 'mutually exclusive' mean here?", options: ["They always go together", "One prevents the other", "They are identical", "They are unrelated"], correct: 1 },
+    ],
+    moral: "True progress requires the courage to question our own creations! 🤖💡",
+  },
+
+  // C2
+  {
+    level: "C2", levelLabel: "Mastery", title: "The Cartography of Memory 🧠",
+    emoji: "🧠",
+    story: `Mnemosyne — that was what Dr. Elara Vasquez called her magnum opus: a neurological interface capable of rendering human memories as three-dimensional, navigable landscapes 🗺️. The implications were staggering. Trauma therapists could guide patients through their most harrowing experiences from a position of cartographic detachment. Alzheimer's patients could revisit crystallized memories before they dissolved entirely. Yet the technology's most unsettling revelation wasn't therapeutic — it was philosophical 🤔. When volunteers mapped the same shared experience, their memory-landscapes bore almost no resemblance to one another. A wedding became, simultaneously, a cathedral of light ✨ for the bride and a labyrinth of anxiety 😰 for the groom. Reality, it turned out, was not a communal edifice but a constellation of irreconcilable solipsisms. Dr. Vasquez published her findings under a title that would echo through academic discourse for decades: "There Is No There There: On the Fundamental Isolation of Conscious Experience."`,
+    highlightedWords: [
+      { word: "magnum opus", meaning: "The greatest work of an artist or scholar", emoji: "🏆", arabic: "العمل الأعظم" },
+      { word: "navigable", meaning: "Able to be traveled through or explored", emoji: "🗺️", arabic: "قابل للتنقل" },
+      { word: "staggering", meaning: "So great or surprising that it is difficult to believe", emoji: "🤯", arabic: "مذهل" },
+      { word: "harrowing", meaning: "Extremely distressing or disturbing", emoji: "😱", arabic: "مروّع" },
+      { word: "cartographic", meaning: "Relating to the drawing of maps", emoji: "🗺️", arabic: "خرائطي" },
+      { word: "crystallized", meaning: "Made clear and definite in form", emoji: "💎", arabic: "متبلور" },
+      { word: "labyrinth", meaning: "A complicated network of paths, a maze", emoji: "🌀", arabic: "متاهة" },
+      { word: "solipsism", meaning: "The philosophical idea that only one's own mind is sure to exist", emoji: "🧠", arabic: "الأنا المطلقة" },
+      { word: "edifice", meaning: "A large, imposing building or complex structure", emoji: "🏛️", arabic: "صرح" },
+      { word: "irreconcilable", meaning: "Impossible to make compatible or resolve", emoji: "⚡", arabic: "غير قابل للتوفيق" },
+    ],
+    questions: [
+      { question: "What was Mnemosyne?", options: ["A medication", "A neurological interface for mapping memories", "A virtual reality game", "A type of therapy"], correct: 1 },
+      { question: "What surprising discovery was made?", options: ["Memories are always accurate", "Shared experiences produced identical maps", "People's memory-landscapes of the same event were completely different", "Alzheimer's could be cured"], correct: 2 },
+      { question: "What does 'solipsism' mean in this context?", options: ["Shared experience", "The belief only one's own mind is certain", "A type of map", "A medical condition"], correct: 1 },
+      { question: "What was the main philosophical revelation?", options: ["Memory can be erased", "Reality is experienced differently by everyone", "Technology is dangerous", "Therapy doesn't work"], correct: 1 },
+    ],
+    moral: "We all live in the same world, yet each of us inhabits a different reality 🌍🧠",
+  },
+
+  // A2
+  {
+    level: "A2", levelLabel: "Elementary", title: "The Helpful Neighbor 🏘️",
+    emoji: "🏘️",
+    story: `Mrs. Kim is old 👵. She lives alone in a small house 🏠. Every morning, a boy named Sami walks past her house to go to school 🏫. One winter day ❄️, it snowed a lot. Mrs. Kim couldn't open her door 🚪. Sami saw the snow and got a shovel 🪣. He cleaned the path for Mrs. Kim. She was very thankful 🙏. She gave him hot chocolate ☕ and cookies 🍪. After that day, Sami helped Mrs. Kim every week. They became good friends 💕.`,
+    highlightedWords: [
+      { word: "neighbor", meaning: "A person who lives near you", emoji: "🏘️", arabic: "جار" },
+      { word: "alone", meaning: "With no other people, by yourself", emoji: "🧍", arabic: "وحيد" },
+      { word: "winter", meaning: "The coldest season of the year", emoji: "❄️", arabic: "شتاء" },
+      { word: "snowed", meaning: "When white frozen water falls from the sky", emoji: "🌨️", arabic: "تساقط الثلج" },
+      { word: "shovel", meaning: "A tool for digging or moving snow", emoji: "🪣", arabic: "مجرفة" },
+      { word: "path", meaning: "A way or track for walking", emoji: "🛤️", arabic: "ممر" },
+      { word: "thankful", meaning: "Feeling happy because someone helped you", emoji: "🙏", arabic: "شاكر" },
+    ],
+    questions: [
+      { question: "Who is Mrs. Kim?", options: ["A teacher", "An old neighbor 👵", "Sami's mother", "A shopkeeper"], correct: 1 },
+      { question: "What happened in winter?", options: ["It rained 🌧️", "It snowed a lot ❄️", "It was very hot ☀️", "There was a storm ⛈️"], correct: 1 },
+      { question: "What did Sami do?", options: ["He called for help", "He cleaned the snow path", "He broke the door", "He went to school"], correct: 1 },
+      { question: "What did Mrs. Kim give Sami?", options: ["Money 💰", "A book 📖", "Hot chocolate and cookies ☕🍪", "A gift 🎁"], correct: 2 },
+    ],
+    moral: "Small acts of kindness build lifelong friendships! 🤝❤️",
+  },
+
+  // B1
+  {
+    level: "B1", levelLabel: "Intermediate", title: "The Marathon Runner 🏃",
+    emoji: "🏃",
+    story: `Daniel had never been good at sports 🏃. In school, he was always the last one to finish running 😓. But when he turned 25, he decided to change. He signed up for a marathon 🏅. His friends laughed 😂. "You? A marathon?" they said. Daniel started training every morning at 5 AM ⏰. The first week was terrible — his legs hurt, his lungs burned 🔥. But he didn't give up. Month after month, he improved. His 5 km became 10, then 20, then 30. On race day 🏁, he was nervous but determined. He didn't finish first — he finished 847th out of 3,000 runners. But when he crossed the finish line, he felt like he had won the Olympics 🥇. His friends, the same ones who laughed, were there cheering with tears in their eyes 😭👏.`,
+    highlightedWords: [
+      { word: "marathon", meaning: "A long-distance running race of 42 km", emoji: "🏅", arabic: "ماراثون" },
+      { word: "signed up", meaning: "Registered or enrolled for something", emoji: "📝", arabic: "سجّل" },
+      { word: "training", meaning: "Practicing to improve at something", emoji: "💪", arabic: "تدريب" },
+      { word: "improved", meaning: "Got better at something over time", emoji: "📈", arabic: "تحسّن" },
+      { word: "determined", meaning: "Having a strong decision to do something", emoji: "💪", arabic: "مصمّم" },
+      { word: "finish line", meaning: "The end point of a race", emoji: "🏁", arabic: "خط النهاية" },
+      { word: "cheering", meaning: "Shouting encouragement and support", emoji: "👏", arabic: "تشجيع" },
+    ],
+    questions: [
+      { question: "How was Daniel at sports in school?", options: ["Very good 🏆", "Average", "Not good — always last", "He never did sports"], correct: 2 },
+      { question: "How did his friends first react?", options: ["They helped him", "They laughed 😂", "They joined him", "They were proud"], correct: 1 },
+      { question: "What place did Daniel finish?", options: ["First 🥇", "Last", "847th", "100th"], correct: 2 },
+      { question: "How did his friends react at the finish?", options: ["They laughed again", "They left early", "They cheered with tears 😭👏", "They were bored"], correct: 2 },
+    ],
+    moral: "The only person you need to beat is the person you were yesterday! 🏃💪",
+  },
+
+  // B2
+  {
+    level: "B2", levelLabel: "Upper-Intermediate", title: "The Digital Detox 📵",
+    emoji: "📵",
+    story: `Sarah was a social media manager 📱. She spent 14 hours a day online — posting, scrolling, responding. Her phone had become an extension of her hand. One evening, while eating dinner 🍽️ with her family, she realized she couldn't remember the last conversation she'd had without checking her phone. That night, she made a radical decision: a 30-day digital detox 📵. The first three days were agonizing. She felt phantom vibrations 📳, reached for her phone dozens of times, and experienced genuine anxiety 😰. By week two, something shifted. She noticed the texture of autumn leaves 🍁, the sound of her daughter's laughter 😄, the taste of her morning coffee ☕ — sensations that had been muted by the constant digital noise. She started reading books 📚 again, had deep conversations, and slept better than she had in years. When the 30 days ended, Sarah returned to social media — but on her own terms, limiting herself to two hours daily. "I didn't quit technology," she explained to her followers. "I just remembered that life happens offline."`,
+    highlightedWords: [
+      { word: "detox", meaning: "A period of removing harmful things from your life", emoji: "📵", arabic: "تطهير" },
+      { word: "radical", meaning: "Very new and different from the usual", emoji: "💥", arabic: "جذري" },
+      { word: "phantom", meaning: "Something that seems real but isn't actually there", emoji: "👻", arabic: "وهمي" },
+      { word: "genuine", meaning: "Real, true, not fake", emoji: "✅", arabic: "حقيقي" },
+      { word: "shifted", meaning: "Changed or moved in a new direction", emoji: "🔄", arabic: "تحوّل" },
+      { word: "muted", meaning: "Made less intense or noticeable", emoji: "🔇", arabic: "مكتوم" },
+      { word: "limiting", meaning: "Putting a restriction on the amount of something", emoji: "⏱️", arabic: "تحديد" },
+    ],
+    questions: [
+      { question: "What was Sarah's job?", options: ["Teacher", "Doctor", "Social media manager 📱", "Writer"], correct: 2 },
+      { question: "How long was the digital detox?", options: ["7 days", "14 days", "30 days", "60 days"], correct: 2 },
+      { question: "What were 'phantom vibrations'?", options: ["Real phone alerts", "Feeling the phone vibrate when it didn't", "A phone app", "A medical condition"], correct: 1 },
+      { question: "What did Sarah do after the detox?", options: ["Quit social media forever", "Went back to 14 hours a day", "Used social media 2 hours daily", "Became a teacher"], correct: 2 },
+    ],
+    moral: "Technology should serve your life, not consume it 📵🌿",
+  },
+
+  // C1
+  {
+    level: "C1", levelLabel: "Advanced", title: "The Refugee's Symphony 🎻",
+    emoji: "🎻",
+    story: `Youssef Al-Rashidi had been the principal violinist 🎻 of the Damascus Philharmonic. When war ravaged his homeland 💔, he fled with nothing but his violin and the clothes on his back. In a refugee camp in Jordan 🇯🇴, surrounded by despair, he began to play. At first, people wept 😢. His music articulated what words could not — the grief of displacement, the ache of nostalgia, the fragile hope for an uncertain future. Gradually, other musicians in the camp emerged: a cellist from Aleppo, a flautist from Homs, a drummer who had been a mathematics professor. Together, they formed an orchestra 🎶. They performed in the camp's makeshift auditorium — a repurposed storage tent. International media discovered them, and their story resonated across borders. Concert invitations arrived from Vienna, London, and New York 🌍. But Youssef insisted on one condition: every performance must include at least one piece composed in the camp. "We are not performing our tragedy," he stated firmly. "We are performing our resilience."`,
+    highlightedWords: [
+      { word: "principal", meaning: "The most important or senior in a group", emoji: "🥇", arabic: "رئيسي" },
+      { word: "ravaged", meaning: "Caused severe and extensive damage", emoji: "💥", arabic: "دمّر" },
+      { word: "displacement", meaning: "Being forced to leave your home or country", emoji: "🏚️", arabic: "نزوح" },
+      { word: "fragile", meaning: "Easily broken or damaged; delicate", emoji: "🫧", arabic: "هش" },
+      { word: "makeshift", meaning: "Temporary and improvised, used because nothing better is available", emoji: "🔧", arabic: "مؤقت" },
+      { word: "resonated", meaning: "Had a strong effect or meaning for people", emoji: "💫", arabic: "لاقى صدى" },
+      { word: "composed", meaning: "Created or written (music, poetry)", emoji: "🎼", arabic: "ألّف" },
+      { word: "resilience", meaning: "The ability to recover from difficulties", emoji: "💪", arabic: "صمود" },
+    ],
+    questions: [
+      { question: "What was Youssef's profession?", options: ["A teacher", "A doctor", "A principal violinist 🎻", "A journalist"], correct: 2 },
+      { question: "What did Youssef bring when he fled?", options: ["His family photos", "His violin and clothes", "Money and documents", "Nothing at all"], correct: 1 },
+      { question: "What condition did Youssef set for performances?", options: ["Only classical music", "Include camp-composed pieces", "No media coverage", "Free tickets only"], correct: 1 },
+      { question: "What did Youssef say they were performing?", options: ["Their tragedy", "Their resilience 💪", "Syrian culture", "A protest"], correct: 1 },
+    ],
+    moral: "Art transforms suffering into strength and gives voice to the voiceless 🎻💪",
+  },
+
+  // C2
+  {
+    level: "C2", levelLabel: "Mastery", title: "The Phenomenology of Silence 🤫",
+    emoji: "🤫",
+    story: `In an age of perpetual cacophony 📢, Dr. Henrik Lund devoted his career to studying silence — not merely the absence of sound, but silence as a phenomenological entity unto itself. His research at the University of Copenhagen led him to anechoic chambers, Trappist monasteries 🏛️, and the Namibian desert 🏜️. What he discovered challenged fundamental assumptions about human cognition. In absolute silence, subjects didn't experience peace — they experienced terror 😱. The human brain, deprived of external stimuli, begins generating its own: phantom sounds, visual hallucinations, dissociative episodes. Yet paradoxically, practitioners of contemplative silence — monks, meditators, hermits — reported profound states of clarity and transcendence ✨. The difference, Lund concluded, lay not in the silence itself but in the intentionality brought to it. "Silence is not a void," he wrote in his seminal paper. "It is a canvas 🎨. What appears upon it depends entirely on the consciousness of the observer. Those who fear emptiness find only their own unprocessed demons; those who embrace it discover an architecture of awareness so vast it makes ordinary consciousness feel like peering through a keyhole 🔑."`,
+    highlightedWords: [
+      { word: "cacophony", meaning: "A harsh, unpleasant mixture of sounds", emoji: "📢", arabic: "ضوضاء نشاز" },
+      { word: "phenomenological", meaning: "Relating to the study of conscious experience", emoji: "🧠", arabic: "ظاهراتي" },
+      { word: "anechoic", meaning: "Designed to completely absorb sound reflections", emoji: "🔇", arabic: "عديم الصدى" },
+      { word: "dissociative", meaning: "Involving a disconnection from reality or identity", emoji: "🌀", arabic: "انفصالي" },
+      { word: "contemplative", meaning: "Involving deep, focused thought or meditation", emoji: "🧘", arabic: "تأملي" },
+      { word: "transcendence", meaning: "Going beyond normal limits of experience", emoji: "✨", arabic: "تسامي" },
+      { word: "intentionality", meaning: "The quality of doing something on purpose with awareness", emoji: "🎯", arabic: "قصدية" },
+      { word: "seminal", meaning: "Strongly influencing later developments; groundbreaking", emoji: "💡", arabic: "رائد" },
+      { word: "void", meaning: "A completely empty space", emoji: "🕳️", arabic: "فراغ" },
+    ],
+    questions: [
+      { question: "What did Dr. Lund study?", options: ["Music theory", "Silence as a phenomenon", "Sound engineering", "Psychology of fear"], correct: 1 },
+      { question: "What happened to subjects in absolute silence?", options: ["They fell asleep", "They felt peaceful", "They experienced terror and hallucinations", "They could hear better"], correct: 2 },
+      { question: "What made contemplative practitioners different?", options: ["Better hearing", "Intentionality in approaching silence", "Religious beliefs", "Training in music"], correct: 1 },
+      { question: "What metaphor did Lund use for silence?", options: ["A prison", "A canvas 🎨", "A mirror", "An ocean"], correct: 1 },
+    ],
+    moral: "Silence is not emptiness — it is the space where we truly meet ourselves 🤫🧠",
+  },
 ];
 
 // Also generate lesson data for the lessons system
