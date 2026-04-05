@@ -19,6 +19,8 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
+import KidsCourse from "./pages/KidsCourse";
+import KidsGameCenter from "./pages/KidsGameCenter";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
