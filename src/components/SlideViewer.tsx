@@ -224,9 +224,37 @@ function VocabSlide({ words }: { words: VocabWord[] }) {
 }
 
 /* ═══════════ DIALOGUE SLIDE ═══════════ */
+const speakerAvatars: Record<string, string> = {
+  Teacher: "👩‍🏫", Coach: "🧑‍💼", Tutor: "👨‍🏫", Professor: "👨‍🎓",
+  Student: "🧑‍🎓", Learner: "📖", Candidate: "💼",
+  Friend: "🤝", Ali: "👦", Sara: "👧", Ahmed: "👨", Emma: "👩",
+  Nour: "👩", Mark: "👨", Alex: "🧑", Sam: "👤", You: "🙋",
+  Waiter: "🍽️", Customer: "🛒", Doctor: "👨‍⚕️", Patient: "🤒",
+  Interviewer: "📋", Manager: "💼", Receptionist: "🏨",
+  Client: "🤵", Advisor: "💡", Director: "🎬",
+  Chair: "🪑", Analyst: "📊", Editor: "✏️", Writer: "📝",
+  Anchor: "🎙️", Reporter: "🎤", Examiner: "📝",
+  "Sales Manager": "💰", "Team Member": "👥",
+};
+
+function getAvatar(speaker: string) {
+  return speakerAvatars[speaker] || "🗣️";
+}
+
 function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }) {
   return (
     <div className="space-y-3 max-w-lg mx-auto">
+      {/* Scene header */}
+      <div className="flex items-center justify-center gap-3 mb-4 pb-3 border-b border-border/50">
+        {[...new Set(lines.map(l => l.speaker))].map((speaker) => (
+          <div key={speaker} className="flex flex-col items-center gap-1">
+            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-xl shadow-sm">
+              {getAvatar(speaker)}
+            </div>
+            <span className="text-[10px] font-semibold text-muted-foreground">{speaker}</span>
+          </div>
+        ))}
+      </div>
       {lines.map((line, i) => {
         const isLeft = i % 2 === 0;
         return (
@@ -235,13 +263,18 @@ function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }
             initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1 }}
-            className={`flex ${isLeft ? "justify-start" : "justify-end"}`}
+            className={`flex items-end gap-2 ${isLeft ? "justify-start" : "justify-end"}`}
           >
+            {isLeft && (
+              <div className="h-7 w-7 rounded-full bg-muted flex items-center justify-center text-sm shrink-0 mb-1">
+                {getAvatar(line.speaker)}
+              </div>
+            )}
             <div
-              className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+              className={`max-w-[75%] rounded-2xl px-4 py-3 ${
                 isLeft
-                  ? "bg-card border rounded-tl-sm shadow-soft"
-                  : "bg-primary text-primary-foreground rounded-tr-sm"
+                  ? "bg-card border rounded-bl-sm shadow-soft"
+                  : "bg-primary text-primary-foreground rounded-br-sm"
               }`}
             >
               <p className={`text-[11px] font-semibold mb-1 ${isLeft ? "text-primary" : "text-primary-foreground/80"}`}>
@@ -249,6 +282,11 @@ function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }
               </p>
               <p className="text-sm">{line.text}</p>
             </div>
+            {!isLeft && (
+              <div className="h-7 w-7 rounded-full bg-primary/20 flex items-center justify-center text-sm shrink-0 mb-1">
+                {getAvatar(line.speaker)}
+              </div>
+            )}
           </motion.div>
         );
       })}
