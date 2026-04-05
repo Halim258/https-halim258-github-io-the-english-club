@@ -14,7 +14,63 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      placement_test_results: {
+        Row: {
+          answers: Json
+          cefr_level: string
+          created_at: string
+          id: string
+          score: number
+          time_taken_seconds: number | null
+          total_questions: number
+          user_id: string | null
+        }
+        Insert: {
+          answers?: Json
+          cefr_level: string
+          created_at?: string
+          id?: string
+          score: number
+          time_taken_seconds?: number | null
+          total_questions?: number
+          user_id?: string | null
+        }
+        Update: {
+          answers?: Json
+          cefr_level?: string
+          created_at?: string
+          id?: string
+          score?: number
+          time_taken_seconds?: number | null
+          total_questions?: number
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
