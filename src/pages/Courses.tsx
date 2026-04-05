@@ -32,14 +32,6 @@ const cefrLevels: Level[] = [
   { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 15, description: "Rhetoric, translation, corpus linguistics, discourse analysis, language & identity", color: "from-purple-400 to-purple-600", image: c2Img },
 ];
 
-const cefrLevels: Level[] = [
-  { id: "a1", label: "A1", sublabel: "Beginner", lessons: 15, description: "Greetings, numbers, family, weather, hobbies, health, feelings", color: "from-emerald-400 to-emerald-600" },
-  { id: "a2", label: "A2", sublabel: "Elementary", lessons: 15, description: "Daily routines, past tense, travel, restaurants, technology, environment", color: "from-teal-400 to-teal-600" },
-  { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 15, description: "Opinions, careers, media, health, education, social issues", color: "from-blue-400 to-blue-600" },
-  { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 15, description: "Passive voice, globalisation, science, art, ethics, digital society", color: "from-indigo-400 to-indigo-600" },
-  { id: "c1", label: "C1", sublabel: "Advanced", lessons: 15, description: "Philosophy, sociolinguistics, environmental policy, psychology, academic writing", color: "from-violet-400 to-violet-600" },
-  { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 15, description: "Rhetoric, translation, corpus linguistics, discourse analysis, language & identity", color: "from-purple-400 to-purple-600" },
-];
 
 function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: string }) {
   const lessonKeys = Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).sort();
