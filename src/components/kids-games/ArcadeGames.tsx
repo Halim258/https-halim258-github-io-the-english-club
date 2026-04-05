@@ -387,14 +387,14 @@ export function MarioJumpGame() {
           for (const p of g.platforms) {
             if (g.player.x + 25 > p.x && g.player.x + 5 < p.x + p.w &&
                 g.player.y + 30 > p.y && g.player.y + 30 < p.y + 12) {
-              g.player.vy = -11;
+              g.player.vy = -11; sfx.jump();
               g.player.onGround = true;
             }
           }
         }
 
         if (g.player.y > H + 50) {
-          g.running = false; setGameOver(true);
+          g.running = false; setGameOver(true); sfx.crash(); stopBgMusic();
         }
       }
 
