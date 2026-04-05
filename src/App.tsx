@@ -31,6 +31,7 @@ const App = () => (
             <Route path="/courses/category/:categorySlug" element={<CategoryDetail />} />
             <Route path="/courses/:levelId/:lessonId" element={<LessonPage />} />
             <Route path="/courses/:levelId" element={<Courses />} />
+            <Route path="/fm" element={<FMRadio />} />
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/dashboard" element={<StudentDashboard />} />
             <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
