@@ -157,6 +157,19 @@ function TitleSlide({ content }: { content: { heading: string; description: stri
 }
 
 /* ═══════════ VOCAB SLIDE ═══════════ */
+const vocabColors = [
+  "from-blue-500/20 to-blue-400/10",
+  "from-emerald-500/20 to-emerald-400/10",
+  "from-violet-500/20 to-violet-400/10",
+  "from-amber-500/20 to-amber-400/10",
+  "from-pink-500/20 to-pink-400/10",
+  "from-cyan-500/20 to-cyan-400/10",
+  "from-rose-500/20 to-rose-400/10",
+  "from-teal-500/20 to-teal-400/10",
+  "from-indigo-500/20 to-indigo-400/10",
+  "from-orange-500/20 to-orange-400/10",
+];
+
 function VocabSlide({ words }: { words: VocabWord[] }) {
   const [flipped, setFlipped] = useState<Set<number>>(new Set());
 
@@ -175,31 +188,35 @@ function VocabSlide({ words }: { words: VocabWord[] }) {
           key={w.word}
           onClick={() => toggle(i)}
           whileTap={{ scale: 0.98 }}
-          className="cursor-pointer rounded-xl border bg-card p-4 shadow-soft hover:shadow-card transition-all duration-200"
+          className="cursor-pointer rounded-xl border bg-card overflow-hidden shadow-soft hover:shadow-card transition-all duration-200"
         >
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <span className="text-xl">{w.emoji}</span>
-              <span className="font-bold font-display text-base">{w.word}</span>
-            </div>
-            <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{w.arabic}</span>
+          {/* Visual illustration area */}
+          <div className={`relative bg-gradient-to-br ${vocabColors[i % vocabColors.length]} flex items-center justify-center py-5`}>
+            <span className="text-5xl select-none drop-shadow-sm">{w.emoji}</span>
+            <span className="absolute top-2 right-2 text-[10px] font-bold text-muted-foreground/60 bg-background/60 backdrop-blur-sm px-2 py-0.5 rounded-full">
+              {w.arabic}
+            </span>
           </div>
-          <AnimatePresence>
-            {flipped.has(i) && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <p className="text-sm text-muted-foreground mt-2">{w.meaning}</p>
-                <p className="text-xs text-muted-foreground/70 mt-1 italic">"{w.example}"</p>
-              </motion.div>
+          {/* Text content */}
+          <div className="p-3.5">
+            <p className="font-bold font-display text-base">{w.word}</p>
+            <AnimatePresence>
+              {flipped.has(i) && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="overflow-hidden"
+                >
+                  <p className="text-sm text-muted-foreground mt-1.5">{w.meaning}</p>
+                  <p className="text-xs text-muted-foreground/70 mt-1 italic border-l-2 border-primary/30 pl-2">"{w.example}"</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {!flipped.has(i) && (
+              <p className="text-[11px] text-muted-foreground/50 mt-1">Tap to reveal meaning</p>
             )}
-          </AnimatePresence>
-          {!flipped.has(i) && (
-            <p className="text-[11px] text-muted-foreground/50 mt-2">Tap to reveal</p>
-          )}
+          </div>
         </motion.div>
       ))}
     </div>
