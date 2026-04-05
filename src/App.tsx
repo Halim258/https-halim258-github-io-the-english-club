@@ -8,6 +8,7 @@ import Home from "./pages/Home";
 import Courses from "./pages/Courses";
 import LessonPage from "./pages/LessonPage";
 import CategoryDetail from "./pages/CategoryDetail";
+import FMRadio from "./pages/FMRadio";
 import Teachers from "./pages/Teachers";
 import StudentDashboard from "./pages/StudentDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
