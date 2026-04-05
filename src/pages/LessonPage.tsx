@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Volume2, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw } from "lucide-react";
+import { Volume2, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation } from "lucide-react";
 import { lessons, MCQItem, VocabWord, DialogueLine } from "@/data/lessons";
 
 /* ───── Fullscreen no-scroll shell ───── */
@@ -211,6 +211,7 @@ type TabId = (typeof TABS)[number]["id"];
 /* ───── Main Lesson Page ───── */
 export default function LessonPage() {
   const { levelId, lessonId } = useParams();
+  const navigate = useNavigate();
   const key = `${levelId}-${lessonId}`;
   const lesson = lessons[key];
 
@@ -311,9 +312,17 @@ export default function LessonPage() {
     <Shell>
       {/* Header */}
       <div className="flex items-center justify-between border-b bg-card px-4 py-2">
-        <Link to="/courses" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-sans">
-          <ChevronLeft className="h-4 w-4" /> Exit
-        </Link>
+        <div className="flex items-center gap-2">
+          <Link to="/courses" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-sans">
+            <ChevronLeft className="h-4 w-4" /> Exit
+          </Link>
+          <button
+            onClick={() => navigate(`/courses/${levelId}/${lessonId}/slides`)}
+            className="flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-semibold text-primary hover:bg-primary/20 transition-colors"
+          >
+            <Presentation className="h-3 w-3" /> Slides
+          </button>
+        </div>
         <div className="text-center">
           <p className="text-[10px] font-bold uppercase tracking-wider text-primary font-sans">{lesson.levelLabel}</p>
           <p className="text-xs font-medium text-foreground font-sans">{lesson.title}</p>

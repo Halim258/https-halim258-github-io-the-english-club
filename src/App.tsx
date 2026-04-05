@@ -9,6 +9,7 @@ import Courses from "./pages/Courses";
 import LessonPage from "./pages/LessonPage";
 import CategoryDetail from "./pages/CategoryDetail";
 import FMRadio from "./pages/FMRadio";
+import SlideLesson from "./pages/SlideLesson";
 import Teachers from "./pages/Teachers";
 import StudentDashboard from "./pages/StudentDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
@@ -29,6 +30,7 @@ const App = () => (
             <Route path="/" element={<Home />} />
             <Route path="/courses" element={<Courses />} />
             <Route path="/courses/category/:categorySlug" element={<CategoryDetail />} />
+            <Route path="/courses/:levelId/:lessonId/slides" element={<SlideLesson />} />
             <Route path="/courses/:levelId/:lessonId" element={<LessonPage />} />
             <Route path="/courses/:levelId" element={<Courses />} />
             <Route path="/fm" element={<FMRadio />} />
