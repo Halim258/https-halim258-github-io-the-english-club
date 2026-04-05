@@ -167,17 +167,18 @@ export default function Courses() {
             viewport={{ once: true, margin: "-60px" }}
             className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
           >
-            {categories.map((cat) => (
-              <motion.div
-                key={cat.title}
-                variants={staggerItem}
-                className={`group relative rounded-2xl border bg-gradient-to-br ${cat.color} p-6 shadow-soft transition-all hover:shadow-card hover:border-primary/30 hover:-translate-y-1.5 duration-300 overflow-hidden`}
+          {categories.map((cat) => (
+            <motion.div
+              key={cat.title}
+              variants={staggerItem}
+            >
+              <Link
+                to={`/courses/category/${cat.slug}`}
+                className={`group relative block rounded-2xl border bg-gradient-to-br ${cat.color} p-6 shadow-soft transition-all hover:shadow-card hover:border-primary/30 hover:-translate-y-1.5 duration-300 overflow-hidden h-full`}
               >
-                {/* Subtle background emoji */}
                 <span className="absolute -right-2 -top-2 text-6xl opacity-[0.07] select-none pointer-events-none">
                   {cat.emoji}
                 </span>
-
                 <div className="relative z-10">
                   <div className="flex items-center gap-3 mb-5">
                     <div className={`h-11 w-11 rounded-xl ${cat.iconBg} flex items-center justify-center shrink-0 shadow-sm`}>
@@ -190,15 +191,19 @@ export default function Courses() {
                   </div>
                   <ul className="space-y-2">
                     {cat.courses.map((course) => (
-                      <li key={course} className="flex items-center gap-2.5 text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors">
+                      <li key={course.name} className="flex items-center gap-2.5 text-sm text-muted-foreground group-hover:text-foreground/80 transition-colors">
                         <CheckCircle2 className="h-3.5 w-3.5 text-primary/60 shrink-0" />
-                        {course}
+                        {course.name}
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-4 flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                    View courses <ArrowRight className="h-3.5 w-3.5" />
+                  </div>
                 </div>
-              </motion.div>
-            ))}
+              </Link>
+            </motion.div>
+          ))}
           </motion.div>
 
           {/* WhatsApp CTA */}
