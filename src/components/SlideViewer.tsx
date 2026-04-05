@@ -341,18 +341,31 @@ function getAvatar(speaker: string) {
 }
 
 function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }) {
+  const { speak } = useTTS();
+  const speakers = [...new Set(lines.map(l => l.speaker))];
+
+  const playAll = () => {
+    const fullText = lines.map(l => `${l.speaker} says: ${l.text}`).join(". ");
+    speak(fullText);
+  };
+
   return (
     <div className="space-y-3 max-w-lg mx-auto">
-      {/* Scene header */}
-      <div className="flex items-center justify-center gap-3 mb-4 pb-3 border-b border-border/50">
-        {[...new Set(lines.map(l => l.speaker))].map((speaker) => (
-          <div key={speaker} className="flex flex-col items-center gap-1">
-            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-xl shadow-sm">
-              {getAvatar(speaker)}
+      {/* Scene header with characters */}
+      <div className="flex items-center justify-between mb-4 pb-3 border-b border-border/50">
+        <div className="flex items-center gap-3">
+          {speakers.map((speaker) => (
+            <div key={speaker} className="flex flex-col items-center gap-1">
+              <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-xl shadow-sm">
+                {getAvatar(speaker)}
+              </div>
+              <span className="text-[10px] font-semibold text-muted-foreground">{speaker}</span>
             </div>
-            <span className="text-[10px] font-semibold text-muted-foreground">{speaker}</span>
-          </div>
-        ))}
+          ))}
+        </div>
+        <Button variant="ghost" size="sm" onClick={playAll} className="rounded-full text-xs gap-1.5">
+          <Volume2 className="h-3 w-3" /> Listen
+        </Button>
       </div>
       {lines.map((line, i) => {
         const isLeft = i % 2 === 0;
@@ -362,7 +375,7 @@ function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }
             initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1 }}
-            className={`flex items-end gap-2 ${isLeft ? "justify-start" : "justify-end"}`}
+            className={`flex items-end gap-2 ${isLeft ? "justify-start" : "justify-end"} group`}
           >
             {isLeft && (
               <div className="h-7 w-7 rounded-full bg-muted flex items-center justify-center text-sm shrink-0 mb-1">
@@ -370,7 +383,7 @@ function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }
               </div>
             )}
             <div
-              className={`max-w-[75%] rounded-2xl px-4 py-3 ${
+              className={`relative max-w-[75%] rounded-2xl px-4 py-3 ${
                 isLeft
                   ? "bg-card border rounded-bl-sm shadow-soft"
                   : "bg-primary text-primary-foreground rounded-br-sm"
@@ -380,6 +393,13 @@ function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }
                 {line.speaker}
               </p>
               <p className="text-sm">{line.text}</p>
+              {/* Per-line listen */}
+              <button
+                onClick={() => speak(line.text)}
+                className={`absolute -bottom-1 ${isLeft ? "-right-1" : "-left-1"} h-5 w-5 rounded-full bg-background border shadow-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity`}
+              >
+                <Volume2 className="h-2.5 w-2.5 text-primary" />
+              </button>
             </div>
             {!isLeft && (
               <div className="h-7 w-7 rounded-full bg-primary/20 flex items-center justify-center text-sm shrink-0 mb-1">
