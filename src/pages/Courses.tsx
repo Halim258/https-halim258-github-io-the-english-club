@@ -115,6 +115,7 @@ export default function Courses() {
       speaking: "Speaking & Conversation",
       listening: "Listening Skills",
       pronunciation: "Pronunciation & Accent",
+      fluency: "Fluency Development",
       writing: "Writing Skills",
       "grammar-course": "Grammar & Structure",
       "exam-prep": "Exam Preparation",
