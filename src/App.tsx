@@ -38,6 +38,8 @@ const App = () => (
             <Route path="/courses/category/:categorySlug" element={<CategoryDetail />} />
             <Route path="/courses/:levelId/:lessonId/slides" element={<SlideLesson />} />
             <Route path="/courses/:levelId/:lessonId" element={<LessonPage />} />
+            <Route path="/courses/kids" element={<KidsCourse />} />
+            <Route path="/kids/games" element={<KidsGameCenter />} />
             <Route path="/courses/:levelId" element={<Courses />} />
             <Route path="/fm" element={<FMRadio />} />
             <Route path="/practice" element={<PracticeSpeaking />} />
