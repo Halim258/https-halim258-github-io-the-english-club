@@ -157,6 +157,19 @@ function TitleSlide({ content }: { content: { heading: string; description: stri
 }
 
 /* ═══════════ VOCAB SLIDE ═══════════ */
+const vocabColors = [
+  "from-blue-500/20 to-blue-400/10",
+  "from-emerald-500/20 to-emerald-400/10",
+  "from-violet-500/20 to-violet-400/10",
+  "from-amber-500/20 to-amber-400/10",
+  "from-pink-500/20 to-pink-400/10",
+  "from-cyan-500/20 to-cyan-400/10",
+  "from-rose-500/20 to-rose-400/10",
+  "from-teal-500/20 to-teal-400/10",
+  "from-indigo-500/20 to-indigo-400/10",
+  "from-orange-500/20 to-orange-400/10",
+];
+
 function VocabSlide({ words }: { words: VocabWord[] }) {
   const [flipped, setFlipped] = useState<Set<number>>(new Set());
 
@@ -175,31 +188,35 @@ function VocabSlide({ words }: { words: VocabWord[] }) {
           key={w.word}
           onClick={() => toggle(i)}
           whileTap={{ scale: 0.98 }}
-          className="cursor-pointer rounded-xl border bg-card p-4 shadow-soft hover:shadow-card transition-all duration-200"
+          className="cursor-pointer rounded-xl border bg-card overflow-hidden shadow-soft hover:shadow-card transition-all duration-200"
         >
-          <div className="flex items-start justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <span className="text-xl">{w.emoji}</span>
-              <span className="font-bold font-display text-base">{w.word}</span>
-            </div>
-            <span className="text-xs text-muted-foreground bg-muted px-2 py-0.5 rounded-full">{w.arabic}</span>
+          {/* Visual illustration area */}
+          <div className={`relative bg-gradient-to-br ${vocabColors[i % vocabColors.length]} flex items-center justify-center py-5`}>
+            <span className="text-5xl select-none drop-shadow-sm">{w.emoji}</span>
+            <span className="absolute top-2 right-2 text-[10px] font-bold text-muted-foreground/60 bg-background/60 backdrop-blur-sm px-2 py-0.5 rounded-full">
+              {w.arabic}
+            </span>
           </div>
-          <AnimatePresence>
-            {flipped.has(i) && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <p className="text-sm text-muted-foreground mt-2">{w.meaning}</p>
-                <p className="text-xs text-muted-foreground/70 mt-1 italic">"{w.example}"</p>
-              </motion.div>
+          {/* Text content */}
+          <div className="p-3.5">
+            <p className="font-bold font-display text-base">{w.word}</p>
+            <AnimatePresence>
+              {flipped.has(i) && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="overflow-hidden"
+                >
+                  <p className="text-sm text-muted-foreground mt-1.5">{w.meaning}</p>
+                  <p className="text-xs text-muted-foreground/70 mt-1 italic border-l-2 border-primary/30 pl-2">"{w.example}"</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {!flipped.has(i) && (
+              <p className="text-[11px] text-muted-foreground/50 mt-1">Tap to reveal meaning</p>
             )}
-          </AnimatePresence>
-          {!flipped.has(i) && (
-            <p className="text-[11px] text-muted-foreground/50 mt-2">Tap to reveal</p>
-          )}
+          </div>
         </motion.div>
       ))}
     </div>
@@ -207,9 +224,37 @@ function VocabSlide({ words }: { words: VocabWord[] }) {
 }
 
 /* ═══════════ DIALOGUE SLIDE ═══════════ */
+const speakerAvatars: Record<string, string> = {
+  Teacher: "👩‍🏫", Coach: "🧑‍💼", Tutor: "👨‍🏫", Professor: "👨‍🎓",
+  Student: "🧑‍🎓", Learner: "📖", Candidate: "💼",
+  Friend: "🤝", Ali: "👦", Sara: "👧", Ahmed: "👨", Emma: "👩",
+  Nour: "👩", Mark: "👨", Alex: "🧑", Sam: "👤", You: "🙋",
+  Waiter: "🍽️", Customer: "🛒", Doctor: "👨‍⚕️", Patient: "🤒",
+  Interviewer: "📋", Manager: "💼", Receptionist: "🏨",
+  Client: "🤵", Advisor: "💡", Director: "🎬",
+  Chair: "🪑", Analyst: "📊", Editor: "✏️", Writer: "📝",
+  Anchor: "🎙️", Reporter: "🎤", Examiner: "📝",
+  "Sales Manager": "💰", "Team Member": "👥",
+};
+
+function getAvatar(speaker: string) {
+  return speakerAvatars[speaker] || "🗣️";
+}
+
 function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }) {
   return (
     <div className="space-y-3 max-w-lg mx-auto">
+      {/* Scene header */}
+      <div className="flex items-center justify-center gap-3 mb-4 pb-3 border-b border-border/50">
+        {[...new Set(lines.map(l => l.speaker))].map((speaker) => (
+          <div key={speaker} className="flex flex-col items-center gap-1">
+            <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center text-xl shadow-sm">
+              {getAvatar(speaker)}
+            </div>
+            <span className="text-[10px] font-semibold text-muted-foreground">{speaker}</span>
+          </div>
+        ))}
+      </div>
       {lines.map((line, i) => {
         const isLeft = i % 2 === 0;
         return (
@@ -218,13 +263,18 @@ function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }
             initial={{ opacity: 0, x: isLeft ? -20 : 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1 }}
-            className={`flex ${isLeft ? "justify-start" : "justify-end"}`}
+            className={`flex items-end gap-2 ${isLeft ? "justify-start" : "justify-end"}`}
           >
+            {isLeft && (
+              <div className="h-7 w-7 rounded-full bg-muted flex items-center justify-center text-sm shrink-0 mb-1">
+                {getAvatar(line.speaker)}
+              </div>
+            )}
             <div
-              className={`max-w-[80%] rounded-2xl px-4 py-3 ${
+              className={`max-w-[75%] rounded-2xl px-4 py-3 ${
                 isLeft
-                  ? "bg-card border rounded-tl-sm shadow-soft"
-                  : "bg-primary text-primary-foreground rounded-tr-sm"
+                  ? "bg-card border rounded-bl-sm shadow-soft"
+                  : "bg-primary text-primary-foreground rounded-br-sm"
               }`}
             >
               <p className={`text-[11px] font-semibold mb-1 ${isLeft ? "text-primary" : "text-primary-foreground/80"}`}>
@@ -232,6 +282,11 @@ function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }
               </p>
               <p className="text-sm">{line.text}</p>
             </div>
+            {!isLeft && (
+              <div className="h-7 w-7 rounded-full bg-primary/20 flex items-center justify-center text-sm shrink-0 mb-1">
+                {getAvatar(line.speaker)}
+              </div>
+            )}
           </motion.div>
         );
       })}
