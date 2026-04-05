@@ -39,7 +39,6 @@ export default function PracticeSpeaking() {
   const [partnerId, setPartnerId] = useState<string | null>(null);
 
   const updateStatus = (s: Status) => { statusRef.current = s; setStatus(s); };
-  const [partnerId, setPartnerId] = useState<string | null>(null);
 
   const localStream = useRef<MediaStream | null>(null);
   const remoteAudio = useRef<HTMLAudioElement | null>(null);
