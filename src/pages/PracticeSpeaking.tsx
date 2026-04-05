@@ -75,7 +75,7 @@ export default function PracticeSpeaking() {
     }
 
     pickTopic();
-    setStatus("searching");
+    updateStatus("searching");
     setTimeLeft(CALL_DURATION);
     myId.current = crypto.randomUUID();
 
@@ -115,7 +115,7 @@ export default function PracticeSpeaking() {
 
   // Initiate a WebRTC call
   const initiateCall = async (targetId: string) => {
-    setStatus("connecting");
+    updateStatus("connecting");
     setPartnerId(targetId);
 
     const pc = createPeerConnection(targetId);
@@ -139,7 +139,7 @@ export default function PracticeSpeaking() {
   // Handle incoming WebRTC signals
   const handleSignaling = async (payload: any) => {
     if (payload.type === "offer") {
-      setStatus("connecting");
+      updateStatus("connecting");
       setPartnerId(payload.from);
 
       const pc = createPeerConnection(payload.from);
@@ -202,7 +202,7 @@ export default function PracticeSpeaking() {
 
     pc.onconnectionstatechange = () => {
       if (pc.connectionState === "connected") {
-        setStatus("connected");
+        updateStatus("connected");
         // Untrack from queue so others can match
         channelRef.current?.untrack();
         startTimer();
@@ -238,7 +238,7 @@ export default function PracticeSpeaking() {
       });
     }
     cleanup();
-    setStatus("ended");
+    updateStatus("ended");
   }, [partnerId, cleanup]);
 
   // Toggle mute
@@ -342,7 +342,7 @@ export default function PracticeSpeaking() {
                   <Button
                     variant="outline"
                     className="rounded-full font-semibold"
-                    onClick={() => { cleanup(); setStatus("idle"); }}
+                    onClick={() => { cleanup(); updateStatus("idle"); }}
                   >
                     Cancel
                   </Button>
@@ -437,7 +437,7 @@ export default function PracticeSpeaking() {
                     <Button
                       size="lg"
                       className="rounded-full px-10 font-semibold font-display h-12 w-full max-w-xs"
-                      onClick={() => { setStatus("idle"); }}
+                      onClick={() => { updateStatus("idle"); }}
                     >
                       <Shuffle className="mr-2 h-5 w-5" /> Practice Again
                     </Button>
