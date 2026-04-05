@@ -93,7 +93,7 @@ export default function PracticeSpeaking() {
         setOnlineCount(users.length);
 
         // If there are exactly 2 users and I'm the "lower" ID, I initiate
-        if (users.length >= 2 && status === "searching") {
+        if (users.length >= 2 && statusRef.current === "searching") {
           const sorted = users.sort();
           const otherUser = sorted.find((u) => u !== myId.current);
           if (otherUser && sorted[0] === myId.current) {
