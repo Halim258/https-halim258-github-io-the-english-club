@@ -11,7 +11,6 @@ const navLinks = [
 ];
 
 const homeSections = [
-  { id: "courses", label: "Courses" },
   { id: "gallery", label: "Gallery" },
   { id: "pcc", label: "PCC" },
   { id: "testimonials", label: "Reviews" },
