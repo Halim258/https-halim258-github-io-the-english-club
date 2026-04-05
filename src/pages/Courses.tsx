@@ -6,23 +6,32 @@ import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSe
 import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
 
-type Level = { id: string; label: string; sublabel: string; lessons: number; description: string; color: string };
+import readingImg from "@/assets/levels/reading.jpg";
+import a1Img from "@/assets/levels/a1.jpg";
+import a2Img from "@/assets/levels/a2.jpg";
+import b1Img from "@/assets/levels/b1.jpg";
+import b2Img from "@/assets/levels/b2.jpg";
+import c1Img from "@/assets/levels/c1.jpg";
+import c2Img from "@/assets/levels/c2.jpg";
+
+type Level = { id: string; label: string; sublabel: string; lessons: number; description: string; color: string; image: string };
 
 const introductory: Level = {
   id: "reading", label: "English Reading Course",
   sublabel: "Alphabet → Phonics → Sight Words → Short Sentences → Critical Reading",
   lessons: 15, description: "Build foundational reading skills from scratch",
-  color: "from-rose-500 to-orange-500",
+  color: "from-rose-500 to-orange-500", image: readingImg,
 };
 
 const cefrLevels: Level[] = [
-  { id: "a1", label: "A1", sublabel: "Beginner", lessons: 15, description: "Greetings, numbers, family, weather, hobbies, health, feelings", color: "from-emerald-400 to-emerald-600" },
-  { id: "a2", label: "A2", sublabel: "Elementary", lessons: 15, description: "Daily routines, past tense, travel, restaurants, technology, environment", color: "from-teal-400 to-teal-600" },
-  { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 15, description: "Opinions, careers, media, health, education, social issues", color: "from-blue-400 to-blue-600" },
-  { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 15, description: "Passive voice, globalisation, science, art, ethics, digital society", color: "from-indigo-400 to-indigo-600" },
-  { id: "c1", label: "C1", sublabel: "Advanced", lessons: 15, description: "Philosophy, sociolinguistics, environmental policy, psychology, academic writing", color: "from-violet-400 to-violet-600" },
-  { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 15, description: "Rhetoric, translation, corpus linguistics, discourse analysis, language & identity", color: "from-purple-400 to-purple-600" },
+  { id: "a1", label: "A1", sublabel: "Beginner", lessons: 15, description: "Greetings, numbers, family, weather, hobbies, health, feelings", color: "from-emerald-400 to-emerald-600", image: a1Img },
+  { id: "a2", label: "A2", sublabel: "Elementary", lessons: 15, description: "Daily routines, past tense, travel, restaurants, technology, environment", color: "from-teal-400 to-teal-600", image: a2Img },
+  { id: "b1", label: "B1", sublabel: "Intermediate", lessons: 15, description: "Opinions, careers, media, health, education, social issues", color: "from-blue-400 to-blue-600", image: b1Img },
+  { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 15, description: "Passive voice, globalisation, science, art, ethics, digital society", color: "from-indigo-400 to-indigo-600", image: b2Img },
+  { id: "c1", label: "C1", sublabel: "Advanced", lessons: 15, description: "Philosophy, sociolinguistics, environmental policy, psychology, academic writing", color: "from-violet-400 to-violet-600", image: c1Img },
+  { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 15, description: "Rhetoric, translation, corpus linguistics, discourse analysis, language & identity", color: "from-purple-400 to-purple-600", image: c2Img },
 ];
+
 
 function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: string }) {
   const lessonKeys = Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).sort();
@@ -131,28 +140,27 @@ export default function Courses() {
           <FadeInUp delay={0.05}>
             <Link
               to="/courses/reading"
-              className="group block mb-6 rounded-2xl border-2 border-dashed border-primary/20 bg-gradient-to-r from-rose-500/5 to-orange-500/5 p-5 md:p-6 transition-all hover:border-primary/40 hover:shadow-card duration-300"
+              className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-rose-500 to-orange-500 shadow-lg">
-                    <BookOpen className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-0.5">
-                      <h3 className="font-bold font-display text-lg group-hover:text-primary transition-colors">
-                        {introductory.label}
-                      </h3>
-                      <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold text-primary uppercase tracking-wider">
-                        Start Here
-                      </span>
-                    </div>
-                    <p className="text-sm text-muted-foreground">{introductory.sublabel}</p>
-                  </div>
+              <div className="flex flex-col sm:flex-row">
+                <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
+                  <img src={introductory.image} alt={introductory.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 sm:bg-gradient-to-l" />
+                  <span className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-primary-foreground uppercase tracking-wider">
+                    Start Here
+                  </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <span className="hidden sm:inline text-xs text-muted-foreground">{introductory.lessons} lessons</span>
-                  <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
+                <div className="flex-1 p-5 sm:p-6 flex flex-col justify-center">
+                  <h3 className="font-bold font-display text-xl group-hover:text-primary transition-colors">
+                    {introductory.label}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mt-1">{introductory.sublabel}</p>
+                  <div className="mt-3 flex items-center gap-3">
+                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold text-primary">{introductory.lessons} lessons</span>
+                    <span className="text-xs font-semibold text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                      Begin <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </div>
                 </div>
               </div>
             </Link>
@@ -164,35 +172,35 @@ export default function Courses() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-40px" }}
-            className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+            className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
             {cefrLevels.map((lvl) => (
               <motion.div key={lvl.id} variants={staggerItem}>
                 <Link
                   to={`/courses/${lvl.id}`}
-                  className="group block rounded-2xl border bg-card p-5 shadow-soft hover:shadow-card hover:border-primary/20 hover:-translate-y-1 transition-all duration-300 h-full"
+                  className="group block rounded-2xl border bg-card shadow-soft hover:shadow-card hover:border-primary/20 hover:-translate-y-1 transition-all duration-300 h-full overflow-hidden"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br ${lvl.color} shadow-lg`}>
-                      <span className="text-lg font-bold text-white font-display">{lvl.label}</span>
+                  {/* Image */}
+                  <div className="relative h-36 overflow-hidden">
+                    <img src={lvl.image} alt={`${lvl.label} ${lvl.sublabel}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute bottom-3 left-4">
+                      <div className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${lvl.color} px-3 py-1 shadow-lg`}>
+                        <span className="text-sm font-bold text-white font-display">{lvl.label}</span>
+                        <span className="text-xs text-white/90">{lvl.sublabel}</span>
+                      </div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-bold font-display text-base group-hover:text-primary transition-colors">
-                          {lvl.label} — {lvl.sublabel}
-                        </h3>
-                      </div>
-                      <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-                        {lvl.description}
-                      </p>
-                      <div className="mt-3 flex items-center justify-between">
-                        <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold text-primary">
-                          {lvl.lessons} lessons
-                        </span>
-                        <span className="text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-1">
-                          Start <ArrowRight className="h-3 w-3" />
-                        </span>
-                      </div>
+                    <span className="absolute top-3 right-3 rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-0.5 text-[10px] font-semibold text-foreground">
+                      {lvl.lessons} lessons
+                    </span>
+                  </div>
+                  {/* Content */}
+                  <div className="p-4">
+                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                      {lvl.description}
+                    </p>
+                    <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
+                      Start learning <ArrowRight className="h-3 w-3" />
                     </div>
                   </div>
                 </Link>
