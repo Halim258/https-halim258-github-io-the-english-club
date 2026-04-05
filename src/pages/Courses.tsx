@@ -1,8 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, CheckCircle2, Sparkles } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
 import { lessons } from "@/data/lessons";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
+import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
 
 type Level = { id: string; label: string; sublabel: string; lessons: number; unlocked: boolean; description: string };
