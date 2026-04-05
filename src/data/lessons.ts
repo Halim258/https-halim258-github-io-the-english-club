@@ -575,4 +575,6 @@ export const lessons: Record<string, LessonData> = {
   ...grammarCourseLessons2,
   ...examPrepLessons2,
   ...examPrepLessons3,
+  ...communicationLessons3,
+  ...writingLessons3,
 };
