@@ -51,6 +51,9 @@ import { b2Lessons16to20 } from "./b2-lessons-16-20";
 import { c1Lessons16to20 } from "./c1-lessons-16-20";
 import { c2Lessons16to20 } from "./c2-lessons-16-20";
 import { kidsLessons16to20 } from "./kids-lessons-16-20";
+import { communicationLessons } from "./communication-lessons";
+import { writingLessons } from "./writing-lessons";
+import { grammarCourseLessons } from "./specialized-course-lessons";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
