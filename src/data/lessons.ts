@@ -68,6 +68,7 @@ import { pronunciationFluencyExtra } from "./pronunciation-fluency-extra";
 import { readingVocabLessons } from "./reading-vocab-lessons";
 import { interactiveLessons } from "./interactive-lessons";
 import { specializedNewLessons } from "./specialized-new-lessons";
+import { storyLessons } from "./stories-course";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
@@ -593,4 +594,5 @@ export const lessons: Record<string, LessonData> = {
   ...readingVocabLessons,
   ...interactiveLessons,
   ...specializedNewLessons,
+  ...storyLessons,
 };
