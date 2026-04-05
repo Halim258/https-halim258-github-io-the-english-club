@@ -144,15 +144,48 @@ function SlideRenderer({ slide }: { slide: Slide }) {
 }
 
 /* ═══════════ TITLE SLIDE ═══════════ */
+const levelEmojis: Record<string, string> = {
+  "A1": "🌱", "A2": "🌿", "B1": "🌳", "B2": "🏔️", "C1": "🚀", "C2": "👑",
+  "Reading Course": "📖", "Kids English": "🧒", "Speaking": "🗣️",
+  "Listening": "👂", "Writing": "✍️", "Grammar": "📐", "Exam": "📝", "Professional": "💼",
+};
+
+function getLevelEmoji(level: string) {
+  for (const [key, emoji] of Object.entries(levelEmojis)) {
+    if (level.toLowerCase().includes(key.toLowerCase())) return emoji;
+  }
+  return "📘";
+}
+
 function TitleSlide({ content }: { content: { heading: string; description: string; level: string; lessonNumber: number } }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-12 md:py-20">
-      <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-6">
+    <div className="flex flex-col items-center justify-center text-center py-10 md:py-16">
+      {/* Decorative emoji illustration */}
+      <motion.div
+        initial={{ scale: 0, rotate: -20 }}
+        animate={{ scale: 1, rotate: 0 }}
+        transition={{ type: "spring", stiffness: 200, damping: 15 }}
+        className="relative mb-6"
+      >
+        <div className="h-24 w-24 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center shadow-lg">
+          <span className="text-5xl">{getLevelEmoji(content.level)}</span>
+        </div>
+        <div className="absolute -top-2 -right-2 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary shadow-sm border border-primary/20">
+          {content.lessonNumber}
+        </div>
+      </motion.div>
+      <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">
         <GraduationCap className="h-3.5 w-3.5" />
         {content.level} — Lesson {content.lessonNumber}
       </div>
       <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display">{content.heading}</h1>
       <p className="mt-4 max-w-md text-muted-foreground">{content.description}</p>
+      <div className="mt-6 flex items-center gap-4 text-xs text-muted-foreground/60">
+        <span className="flex items-center gap-1">📚 Vocabulary</span>
+        <span className="flex items-center gap-1">💬 Conversation</span>
+        <span className="flex items-center gap-1">📐 Grammar</span>
+        <span className="flex items-center gap-1">✏️ Exercises</span>
+      </div>
     </div>
   );
 }
