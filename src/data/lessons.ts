@@ -590,4 +590,7 @@ export const lessons: Record<string, LessonData> = {
   ...speakingListeningExtra,
   ...professionalGrammarExtra,
   ...pronunciationFluencyExtra,
+  ...readingVocabLessons,
+  ...interactiveLessons,
+  ...specializedNewLessons,
 };
