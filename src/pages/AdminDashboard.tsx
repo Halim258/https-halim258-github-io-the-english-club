@@ -16,7 +16,7 @@ import AdminNewcomers from "@/components/admin/AdminNewcomers";
 import AdminProducts from "@/components/admin/AdminProducts";
 import AdminReceipts from "@/components/admin/AdminReceipts";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "finance" | "newcomers" | "products" | "online-students" | "tests" | "progress";
+type Tab = "overview" | "school-students" | "employees" | "groups" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "progress";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
