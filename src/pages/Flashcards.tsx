@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, RotateCcw, ThumbsUp, ThumbsDown, Lightbulb, Volume2, Shuffle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
