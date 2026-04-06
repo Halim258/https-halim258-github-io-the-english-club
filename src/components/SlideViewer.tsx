@@ -323,21 +323,59 @@ function VocabSlide({ words }: { words: VocabWord[] }) {
 }
 
 /* ═══════════ DIALOGUE SLIDE ═══════════ */
+// Female names
+const femaleNames = new Set([
+  "Sara", "Emma", "Nour", "Nora", "Lina", "Mona", "Hana", "Dana", "Layla", "Leila",
+  "Fatima", "Aisha", "Yasmin", "Jasmine", "Salma", "Rania", "Dina", "Rana", "Maya",
+  "Sophia", "Olivia", "Ava", "Mia", "Isabella", "Charlotte", "Amelia", "Emily",
+  "Ella", "Grace", "Lily", "Chloe", "Zoe", "Hannah", "Lucy", "Anna", "Sarah",
+  "Maria", "Julia", "Sophie", "Alice", "Rose", "Mary", "Jane", "Lisa", "Amy",
+  "Rachel", "Laura", "Helen", "Kate", "Katie", "Nancy", "Susan", "Linda", "Karen",
+  "Jessica", "Jennifer", "Nicole", "Samantha", "Tina", "Diana", "Reem", "Noura",
+  "Mariam", "Huda", "Amira", "Farida", "Malak", "Yara", "Lama", "Dalal", "Abeer",
+  "Mom", "Mother", "Mum", "Wife", "Sister", "Daughter", "Grandma", "Grandmother", "Aunt",
+  "Ms. Smith", "Ms. Johnson", "Mrs. Smith", "Mrs. Johnson", "Miss", "Lady",
+]);
+
+// Kid names / roles
+const kidNames = new Set([
+  "Tommy", "Timmy", "Bobby", "Billy", "Jimmy", "Danny", "Johnny", "Sammy",
+  "Annie", "Molly", "Sally", "Lily", "Rosie", "Daisy", "Penny", "Ruby",
+  "Child", "Kid", "Boy", "Girl", "Son", "Daughter", "Baby", "Toddler",
+  "Little Ali", "Little Sara", "Student 1", "Student 2",
+]);
+
 const speakerAvatars: Record<string, string> = {
+  // Roles
   Teacher: "👩‍🏫", Coach: "🧑‍💼", Tutor: "👨‍🏫", Professor: "👨‍🎓",
   Student: "🧑‍🎓", Learner: "📖", Candidate: "💼",
-  Friend: "🤝", Ali: "👦", Sara: "👧", Ahmed: "👨", Emma: "👩",
-  Nour: "👩", Mark: "👨", Alex: "🧑", Sam: "👤", You: "🙋",
-  Waiter: "🍽️", Customer: "🛒", Doctor: "👨‍⚕️", Patient: "🤒",
-  Interviewer: "📋", Manager: "💼", Receptionist: "🏨",
-  Client: "🤵", Advisor: "💡", Director: "🎬",
+  Friend: "🤝", You: "🙋",
+  Waiter: "🍽️", Waitress: "🍽️", Customer: "🛒", Cashier: "💳",
+  Doctor: "👨‍⚕️", Nurse: "👩‍⚕️", Patient: "🤒", Dentist: "🦷",
+  Interviewer: "📋", Manager: "💼", Receptionist: "🏨", Boss: "👔",
+  Client: "🤵", Advisor: "💡", Director: "🎬", Consultant: "📊",
   Chair: "🪑", Analyst: "📊", Editor: "✏️", Writer: "📝",
-  Anchor: "🎙️", Reporter: "🎤", Examiner: "📝",
-  "Sales Manager": "💰", "Team Member": "👥",
+  Anchor: "🎙️", Reporter: "🎤", Examiner: "📝", Judge: "⚖️",
+  "Sales Manager": "💰", "Team Member": "👥", "Team Leader": "🏅",
+  Pilot: "👨‍✈️", Officer: "👮", Chef: "👨‍🍳", Engineer: "👷",
+  Mechanic: "🔧", Librarian: "📚", Guide: "🗺️", Driver: "🚗",
+  Shopkeeper: "🏪", Barista: "☕", Pharmacist: "💊",
+  Host: "🎤", Guest: "🪪", Narrator: "📖", Speaker: "🎙️",
+  Dad: "👨", Father: "👨", Husband: "👨", Brother: "👦",
+  Grandpa: "👴", Grandfather: "👴", Uncle: "👨",
+  Mom: "👩", Mother: "👩", Wife: "👩", Sister: "👧",
+  Grandma: "👵", Grandmother: "👵", Aunt: "👩",
+  Child: "🧒", Kid: "🧒", Boy: "👦", Girl: "👧", Baby: "👶",
 };
 
 function getAvatar(speaker: string) {
-  return speakerAvatars[speaker] || "🗣️";
+  if (speakerAvatars[speaker]) return speakerAvatars[speaker];
+  if (kidNames.has(speaker)) return speaker.includes("Girl") || ["Annie","Molly","Sally","Lily","Rosie","Daisy","Penny","Ruby","Little Sara"].includes(speaker) ? "👧" : "👦";
+  if (femaleNames.has(speaker)) return "👩";
+  // Check common male names
+  const maleNames = ["Ali","Ahmed","Mark","Alex","Sam","John","James","Tom","David","Michael","Adam","Omar","Hassan","Mohamed","Youssef","Khalid","Tariq","Ziad","Fadi","Sami","Nabil","Karim","Rami","Bob","Jack","Leo","Ben","Max","Luke","Ryan","Chris","Dan","Steve","Peter","Paul","George","Henry","Kevin","Brian","Eric","Nick","Tony","Joe","Mike","Jake","Ethan","Noah","Liam","Mason","Logan","Mr. Smith","Mr. Johnson","Sir"];
+  if (maleNames.includes(speaker)) return "👨";
+  return "🗣️";
 }
 
 function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }) {
