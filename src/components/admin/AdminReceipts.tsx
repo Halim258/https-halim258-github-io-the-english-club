@@ -1,14 +1,27 @@
 import { useState, useMemo } from "react";
-import { Search, Receipt, Filter } from "lucide-react";
+import { Search, Pencil, Trash2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import { Label } from "@/components/ui/label";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 
 interface Props {
   receipts: any[];
+  onRefresh: () => void;
 }
 
-export default function AdminReceipts({ receipts }: Props) {
+const emptyForm = { student_name: "", phone_number: "", fees: "", paid_fees: "" };
+
+export default function AdminReceipts({ receipts, onRefresh }: Props) {
   const [search, setSearch] = useState("");
   const [filterBy, setFilterBy] = useState<"all" | "paid" | "remaining">("all");
+  const [editOpen, setEditOpen] = useState(false);
+  const [editId, setEditId] = useState<string | null>(null);
+  const [form, setForm] = useState(emptyForm);
+  const { toast } = useToast();
 
   const filtered = useMemo(() => {
     let list = receipts;
@@ -30,6 +43,49 @@ export default function AdminReceipts({ receipts }: Props) {
   const totalPaid = filtered.reduce((s: number, r: any) => s + (r.paid_fees || 0), 0);
   const totalRemaining = filtered.reduce((s: number, r: any) => s + (r.remaining_fees || 0), 0);
 
+  const openEdit = (r: any) => {
+    setEditId(r.id);
+    setForm({
+      student_name: r.student_name || "",
+      phone_number: r.phone_number || "",
+      fees: String(r.fees || 0),
+      paid_fees: String(r.paid_fees || 0),
+    });
+    setEditOpen(true);
+  };
+
+  const handleEdit = async () => {
+    if (!editId) return;
+    const fees = parseFloat(form.fees) || 0;
+    const paid_fees = parseFloat(form.paid_fees) || 0;
+    const { error } = await supabase.from("school_receipts").update({
+      student_name: form.student_name || null,
+      phone_number: form.phone_number || null,
+      fees,
+      paid_fees,
+      remaining_fees: fees - paid_fees,
+    }).eq("id", editId);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Receipt updated" });
+      setEditOpen(false);
+      setEditId(null);
+      setForm(emptyForm);
+      onRefresh();
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    const { error } = await supabase.from("school_receipts").delete().eq("id", id);
+    if (error) {
+      toast({ title: "Error", description: error.message, variant: "destructive" });
+    } else {
+      toast({ title: "Receipt deleted" });
+      onRefresh();
+    }
+  };
+
   return (
     <div>
       {/* Summary cards */}
@@ -50,12 +106,7 @@ export default function AdminReceipts({ receipts }: Props) {
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search by name, phone, or receipt #..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
-          />
+          <Input placeholder="Search by name, phone, or receipt #..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
         </div>
         <div className="flex gap-1 rounded-lg bg-muted p-1">
           {(["all", "paid", "remaining"] as const).map((f) => (
@@ -74,6 +125,22 @@ export default function AdminReceipts({ receipts }: Props) {
 
       <p className="text-xs text-muted-foreground mb-3">{filtered.length} receipts</p>
 
+      {/* Edit Dialog */}
+      <Dialog open={editOpen} onOpenChange={setEditOpen}>
+        <DialogContent>
+          <DialogHeader><DialogTitle>Edit Receipt</DialogTitle></DialogHeader>
+          <div className="space-y-3">
+            <div><Label>Student Name</Label><Input value={form.student_name} onChange={e => setForm({...form, student_name: e.target.value})} /></div>
+            <div><Label>Phone</Label><Input value={form.phone_number} onChange={e => setForm({...form, phone_number: e.target.value})} /></div>
+            <div className="grid grid-cols-2 gap-3">
+              <div><Label>Fees</Label><Input type="number" value={form.fees} onChange={e => setForm({...form, fees: e.target.value})} /></div>
+              <div><Label>Paid</Label><Input type="number" value={form.paid_fees} onChange={e => setForm({...form, paid_fees: e.target.value})} /></div>
+            </div>
+          </div>
+          <Button onClick={handleEdit} className="w-full mt-2">Save Changes</Button>
+        </DialogContent>
+      </Dialog>
+
       {/* Table */}
       <div className="rounded-2xl border bg-card shadow-soft overflow-hidden">
         <div className="overflow-x-auto">
@@ -87,6 +154,7 @@ export default function AdminReceipts({ receipts }: Props) {
                 <th className="p-3 text-right">Paid</th>
                 <th className="p-3 text-right">Remaining</th>
                 <th className="p-3 text-left">Date</th>
+                <th className="p-3 text-center">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -102,6 +170,30 @@ export default function AdminReceipts({ receipts }: Props) {
                   </td>
                   <td className="p-3 text-xs text-muted-foreground">
                     {r.reservation_date ? new Date(r.reservation_date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "—"}
+                  </td>
+                  <td className="p-3">
+                    <div className="flex items-center justify-center gap-1">
+                      <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(r)}>
+                        <Pencil className="h-3.5 w-3.5" />
+                      </Button>
+                      <AlertDialog>
+                        <AlertDialogTrigger asChild>
+                          <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive">
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                          <AlertDialogHeader>
+                            <AlertDialogTitle>Delete Receipt</AlertDialogTitle>
+                            <AlertDialogDescription>Delete receipt #{r.receipt_number} for "{r.student_name}"? This cannot be undone.</AlertDialogDescription>
+                          </AlertDialogHeader>
+                          <AlertDialogFooter>
+                            <AlertDialogCancel>Cancel</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => handleDelete(r.id)} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
+                          </AlertDialogFooter>
+                        </AlertDialogContent>
+                      </AlertDialog>
+                    </div>
                   </td>
                 </tr>
               ))}
