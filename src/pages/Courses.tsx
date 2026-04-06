@@ -138,6 +138,10 @@ export default function Courses() {
       "grammar-course": "Grammar & Structure",
       "exam-prep": "Exam Preparation",
       professional: "Professional English",
+      music: "English through Music",
+      news: "English through News",
+      legal: "Legal English",
+      hospitality: "Hospitality English",
     };
     if (specializedLevelLabels[levelId]) {
       return <LevelLessons levelId={levelId} levelLabel={specializedLevelLabels[levelId]} />;
