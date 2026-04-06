@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel } from "lucide-react";
+import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import coreEnglishImg from "@/assets/courses/core-english.jpg";
@@ -14,6 +14,11 @@ import musicImg from "@/assets/courses/music.jpg";
 import newsImg from "@/assets/courses/news.jpg";
 import legalImg from "@/assets/courses/legal.jpg";
 import hospitalityImg from "@/assets/courses/hospitality.jpg";
+import conversationImg from "@/assets/courses/conversation.jpg";
+import socialMediaImg from "@/assets/courses/social-media.jpg";
+import healthcareImg from "@/assets/courses/healthcare.jpg";
+import financeImg from "@/assets/courses/finance.jpg";
+import aviationImg from "@/assets/courses/aviation.jpg";
 
 export interface Course {
   name: string;
@@ -232,6 +237,71 @@ export const categories: Category[] = [
       { name: "English Grammar (Basic → Advanced)", description: "Complete grammar course covering all rules, exceptions, and usage patterns.", topics: ["Parts of Speech", "Clauses", "Advanced Rules"] },
       { name: "Tenses Mastery", description: "Understand and use all 12 English tenses correctly with drills and real-world examples.", topics: ["Present", "Past", "Future", "Perfect"] },
       { name: "Sentence Structure", description: "Build well-formed sentences — simple, compound, complex, and compound-complex.", topics: ["Simple", "Compound", "Complex"] },
+    ],
+  },
+  {
+    icon: MessageSquare,
+    emoji: "💬",
+    title: "Conversation Practice",
+    slug: "conversation-practice",
+    color: "from-cyan-500/10 to-cyan-500/5",
+    iconBg: "bg-cyan-500/15",
+    image: conversationImg,
+    description: "Practice real conversations for everyday situations — coffee shops, doctors, interviews, and more.",
+    courses: [
+      { name: "Conversation Practice", description: "10 real-life conversation scenarios with vocabulary, grammar, and exercises.", topics: ["Small Talk", "Shopping", "Hotels", "Interviews", "Opinions"] },
+    ],
+  },
+  {
+    icon: Smartphone,
+    emoji: "📱",
+    title: "English for Social Media",
+    slug: "social-media",
+    color: "from-rose-500/10 to-rose-500/5",
+    iconBg: "bg-rose-500/15",
+    image: socialMediaImg,
+    description: "Master social media English — captions, hashtags, analytics, brand voice, and online etiquette.",
+    courses: [
+      { name: "English for Social Media", description: "Learn the language of social media marketing and content creation.", topics: ["Captions", "Analytics", "Brand Voice", "Etiquette"] },
+    ],
+  },
+  {
+    icon: HeartPulse,
+    emoji: "🏥",
+    title: "English for Healthcare",
+    slug: "healthcare",
+    color: "from-red-500/10 to-red-500/5",
+    iconBg: "bg-red-500/15",
+    image: healthcareImg,
+    description: "Medical English for nurses, pharmacists, and healthcare workers — patient care, procedures, and mental health.",
+    courses: [
+      { name: "English for Healthcare", description: "Hospital vocabulary, patient intake, procedures, medication, and mental health.", topics: ["Hospital", "Medication", "Procedures", "Mental Health"] },
+    ],
+  },
+  {
+    icon: DollarSign,
+    emoji: "💰",
+    title: "English for Finance",
+    slug: "finance",
+    color: "from-yellow-600/10 to-yellow-600/5",
+    iconBg: "bg-yellow-600/15",
+    image: financeImg,
+    description: "Financial English for banking, investments, reports, taxes, and international trade.",
+    courses: [
+      { name: "English for Finance", description: "Banking, investments, financial reports, personal finance, and global trade.", topics: ["Banking", "Investments", "Reports", "Trade"] },
+    ],
+  },
+  {
+    icon: Plane,
+    emoji: "✈️",
+    title: "English for Aviation",
+    slug: "aviation",
+    color: "from-sky-600/10 to-sky-600/5",
+    iconBg: "bg-sky-600/15",
+    image: aviationImg,
+    description: "Aviation English for pilots, cabin crew, and airport staff — ATC communication, safety, and weather.",
+    courses: [
+      { name: "English for Aviation", description: "Airport navigation, in-flight communication, ATC phraseology, weather, and safety.", topics: ["Airport", "ATC", "Weather", "Safety"] },
     ],
   },
 ];
