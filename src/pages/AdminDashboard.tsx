@@ -14,6 +14,7 @@ import AdminFinance from "@/components/admin/AdminFinance";
 import AdminGroups from "@/components/admin/AdminGroups";
 import AdminNewcomers from "@/components/admin/AdminNewcomers";
 import AdminProducts from "@/components/admin/AdminProducts";
+import AdminReceipts from "@/components/admin/AdminReceipts";
 
 type Tab = "overview" | "school-students" | "employees" | "groups" | "finance" | "newcomers" | "products" | "online-students" | "tests" | "progress";
 
