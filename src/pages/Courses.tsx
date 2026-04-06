@@ -1,10 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import { lessons } from "@/data/lessons";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
 
 import readingImg from "@/assets/levels/reading.jpg";
 import kidsImg from "@/assets/levels/kids.jpg";
@@ -105,12 +108,27 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
 export default function Courses() {
   const { levelId } = useParams();
 
+  // Compute all level IDs and their lesson counts for progress tracking
+  const allLevelIds = useMemo(() => {
+    const ids = [introductory.id, kidsLevel.id, ...cefrLevels.map(l => l.id)];
+    return ids;
+  }, []);
+
+  const lessonCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    allLevelIds.forEach(id => {
+      counts[id] = Object.keys(lessons).filter(k => k.startsWith(`${id}-`)).length;
+    });
+    return counts;
+  }, [allLevelIds]);
+
+  const { progress } = useCourseProgress(allLevelIds, lessonCounts);
+
   // If a level is selected, show its lessons
   if (levelId && !window.location.pathname.match(/\/courses\/[^/]+\/\d+/)) {
     const allLevels = [introductory, kidsLevel, ...cefrLevels];
     const level = allLevels.find((l) => l.id === levelId);
     if (level) return <LevelLessons levelId={level.id} levelLabel={`${level.label} — ${level.sublabel || ""}`} />;
-    // Check if it's a specialized course level (speaking, listening, writing, etc.)
     const specializedLevelLabels: Record<string, string> = {
       speaking: "Speaking & Conversation",
       listening: "Listening Skills",
@@ -194,6 +212,15 @@ export default function Courses() {
                       Begin <ArrowRight className="h-3 w-3" />
                     </span>
                   </div>
+                  {progress[introductory.id] && progress[introductory.id].completed > 0 && (
+                    <div className="mt-3 space-y-1">
+                      <div className="flex justify-between text-[10px] text-muted-foreground">
+                        <span>{progress[introductory.id].completed}/{progress[introductory.id].total} lessons</span>
+                        <span>{progress[introductory.id].percentage}%</span>
+                      </div>
+                      <Progress value={progress[introductory.id].percentage} className="h-1.5" />
+                    </div>
+                  )}
                 </div>
               </div>
             </Link>
@@ -224,6 +251,15 @@ export default function Courses() {
                       Begin <ArrowRight className="h-3 w-3" />
                     </span>
                   </div>
+                  {progress[kidsLevel.id] && progress[kidsLevel.id].completed > 0 && (
+                    <div className="mt-3 space-y-1">
+                      <div className="flex justify-between text-[10px] text-muted-foreground">
+                        <span>{progress[kidsLevel.id].completed}/{progress[kidsLevel.id].total} lessons</span>
+                        <span>{progress[kidsLevel.id].percentage}%</span>
+                      </div>
+                      <Progress value={progress[kidsLevel.id].percentage} className="h-1.5" />
+                    </div>
+                  )}
                 </div>
               </div>
             </Link>
@@ -262,6 +298,15 @@ export default function Courses() {
                     <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
                       {lvl.description}
                     </p>
+                    {progress[lvl.id] && progress[lvl.id].completed > 0 && (
+                      <div className="mt-3 space-y-1">
+                        <div className="flex justify-between text-[10px] text-muted-foreground">
+                          <span>{progress[lvl.id].completed}/{progress[lvl.id].total} lessons</span>
+                          <span>{progress[lvl.id].percentage}%</span>
+                        </div>
+                        <Progress value={progress[lvl.id].percentage} className="h-1.5" />
+                      </div>
+                    )}
                     <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                       Start learning <ArrowRight className="h-3 w-3" />
                     </div>
