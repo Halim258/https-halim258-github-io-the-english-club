@@ -4,13 +4,13 @@ import type { User } from "@supabase/supabase-js";
 
 interface AuthState {
   user: User | null;
-  role: "admin" | "student" | null;
+  role: "admin" | "student" | "teacher" | null;
   loading: boolean;
 }
 
 export function useAuth(): AuthState {
   const [user, setUser] = useState<User | null>(null);
-  const [role, setRole] = useState<"admin" | "student" | null>(null);
+  const [role, setRole] = useState<"admin" | "student" | "teacher" | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export function useAuth(): AuthState {
           .eq("user_id", user.id)
           .limit(1)
           .single();
-        setRole((data?.role as "admin" | "student") || "student");
+        setRole((data?.role as "admin" | "student" | "teacher") || "student");
       }
       setLoading(false);
     }
@@ -41,7 +41,7 @@ export function useAuth(): AuthState {
           .eq("user_id", u.id)
           .limit(1)
           .single();
-        setRole((data?.role as "admin" | "student") || "student");
+        setRole((data?.role as "admin" | "student" | "teacher") || "student");
       } else {
         setRole(null);
       }
