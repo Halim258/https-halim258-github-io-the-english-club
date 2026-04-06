@@ -1,7 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download } from "lucide-react";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { lessons } from "@/data/lessons";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { categories } from "@/data/course-categories";
