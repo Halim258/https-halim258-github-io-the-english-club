@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import StudyReminder from "@/components/StudyReminder";
 import logo from "@/assets/logo.jpg";
 
 const navLinks = [
@@ -89,7 +90,8 @@ export default function Navbar() {
         </div>
 
         {/* Desktop auth buttons */}
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-1 md:flex">
+          <StudyReminder />
           <button
             onClick={() => setDark(!dark)}
             className="rounded-full p-2 text-muted-foreground hover:text-foreground transition-colors"
