@@ -126,6 +126,10 @@ export default function Login() {
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
           </div>
+          <div className="flex items-center gap-2">
+            <Checkbox id="remember" checked={rememberMe} onCheckedChange={(v) => setRememberMe(!!v)} />
+            <Label htmlFor="remember" className="text-sm font-normal cursor-pointer">Remember me</Label>
+          </div>
           <Button className="w-full" type="submit" disabled={loading}>
             {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
             Log In
