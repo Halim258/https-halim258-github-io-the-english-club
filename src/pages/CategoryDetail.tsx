@@ -61,6 +61,11 @@ const courseLevelMap: Record<string, string> = {
   "Engineering English": "engineering",
   "IT English": "it-english",
   "ESP (Specific Purposes)": "professional",
+  // New courses
+  "English through Music": "music",
+  "English through News": "news",
+  "Legal English": "legal",
+  "Hospitality English": "hospitality",
 };
 
 function getCourseHasLessons(courseName: string): boolean {
