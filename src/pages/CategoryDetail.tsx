@@ -3,9 +3,12 @@ import { ChevronLeft, MessageCircle, CheckCircle2, PlayCircle, ArrowRight } from
 import { motion } from "framer-motion";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import { categories } from "@/data/course-categories";
 import { getCourseImage } from "@/data/course-images";
 import { lessons } from "@/data/lessons";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
+import { useMemo } from "react";
 
 // Map course names to lesson level IDs
 const courseLevelMap: Record<string, string> = {
