@@ -285,6 +285,381 @@ export type Database = {
         }
         Relationships: []
       }
+      school_employees: {
+        Row: {
+          created_at: string | null
+          id: string
+          legacy_id: number | null
+          name: string
+          phone_number: string | null
+          phone_number_2: string | null
+          position: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          legacy_id?: number | null
+          name: string
+          phone_number?: string | null
+          phone_number_2?: string | null
+          position?: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          legacy_id?: number | null
+          name?: string
+          phone_number?: string | null
+          phone_number_2?: string | null
+          position?: string
+        }
+        Relationships: []
+      }
+      school_groups: {
+        Row: {
+          created_at: string | null
+          days: string | null
+          end_time: string | null
+          group_time: string | null
+          id: string
+          legacy_id: number | null
+          level: string | null
+          start_date: string | null
+          start_time: string | null
+          teacher_id: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          days?: string | null
+          end_time?: string | null
+          group_time?: string | null
+          id?: string
+          legacy_id?: number | null
+          level?: string | null
+          start_date?: string | null
+          start_time?: string | null
+          teacher_id?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          days?: string | null
+          end_time?: string | null
+          group_time?: string | null
+          id?: string
+          legacy_id?: number | null
+          level?: string | null
+          start_date?: string | null
+          start_time?: string | null
+          teacher_id?: number | null
+        }
+        Relationships: []
+      }
+      school_income: {
+        Row: {
+          amount: number
+          category: string | null
+          created_at: string | null
+          date: string | null
+          id: string
+          legacy_id: number | null
+          reason: string | null
+          receipt_number: number | null
+        }
+        Insert: {
+          amount?: number
+          category?: string | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          legacy_id?: number | null
+          reason?: string | null
+          receipt_number?: number | null
+        }
+        Update: {
+          amount?: number
+          category?: string | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          legacy_id?: number | null
+          reason?: string | null
+          receipt_number?: number | null
+        }
+        Relationships: []
+      }
+      school_newcomers: {
+        Row: {
+          access_method: string | null
+          client_name: string
+          client_number: string | null
+          created_at: string | null
+          id: string
+          legacy_id: number | null
+          reserved: boolean | null
+          the_date: string | null
+        }
+        Insert: {
+          access_method?: string | null
+          client_name: string
+          client_number?: string | null
+          created_at?: string | null
+          id?: string
+          legacy_id?: number | null
+          reserved?: boolean | null
+          the_date?: string | null
+        }
+        Update: {
+          access_method?: string | null
+          client_name?: string
+          client_number?: string | null
+          created_at?: string | null
+          id?: string
+          legacy_id?: number | null
+          reserved?: boolean | null
+          the_date?: string | null
+        }
+        Relationships: []
+      }
+      school_outcome: {
+        Row: {
+          amount: number
+          category: string | null
+          created_at: string | null
+          date: string | null
+          id: string
+          legacy_id: number | null
+          reason: string | null
+        }
+        Insert: {
+          amount?: number
+          category?: string | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          legacy_id?: number | null
+          reason?: string | null
+        }
+        Update: {
+          amount?: number
+          category?: string | null
+          created_at?: string | null
+          date?: string | null
+          id?: string
+          legacy_id?: number | null
+          reason?: string | null
+        }
+        Relationships: []
+      }
+      school_products: {
+        Row: {
+          created_at: string | null
+          id: string
+          legacy_id: number | null
+          per: string | null
+          price: number | null
+          price_for_members: number | null
+          product: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          legacy_id?: number | null
+          per?: string | null
+          price?: number | null
+          price_for_members?: number | null
+          product: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          legacy_id?: number | null
+          per?: string | null
+          price?: number | null
+          price_for_members?: number | null
+          product?: string
+        }
+        Relationships: []
+      }
+      school_receipts: {
+        Row: {
+          created_at: string | null
+          fees: number | null
+          given_by: number | null
+          id: string
+          item_id: number | null
+          legacy_number: number | null
+          paid_fees: number | null
+          phone_number: string | null
+          receipt_number: number | null
+          remaining_fees: number | null
+          reservation_date: string | null
+          student_id_legacy: number | null
+          student_name: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          fees?: number | null
+          given_by?: number | null
+          id?: string
+          item_id?: number | null
+          legacy_number?: number | null
+          paid_fees?: number | null
+          phone_number?: string | null
+          receipt_number?: number | null
+          remaining_fees?: number | null
+          reservation_date?: string | null
+          student_id_legacy?: number | null
+          student_name?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          fees?: number | null
+          given_by?: number | null
+          id?: string
+          item_id?: number | null
+          legacy_number?: number | null
+          paid_fees?: number | null
+          phone_number?: string | null
+          receipt_number?: number | null
+          remaining_fees?: number | null
+          reservation_date?: string | null
+          student_id_legacy?: number | null
+          student_name?: string | null
+        }
+        Relationships: []
+      }
+      school_sessions: {
+        Row: {
+          created_at: string | null
+          group_id: number | null
+          hours: number | null
+          id: string
+          legacy_id: number | null
+          level: string | null
+          session_date: string | null
+          session_name: string | null
+          teacher_id: number | null
+          teacher_lateness: number | null
+          time_from: number | null
+          time_to: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          group_id?: number | null
+          hours?: number | null
+          id?: string
+          legacy_id?: number | null
+          level?: string | null
+          session_date?: string | null
+          session_name?: string | null
+          teacher_id?: number | null
+          teacher_lateness?: number | null
+          time_from?: number | null
+          time_to?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          group_id?: number | null
+          hours?: number | null
+          id?: string
+          legacy_id?: number | null
+          level?: string | null
+          session_date?: string | null
+          session_name?: string | null
+          teacher_id?: number | null
+          teacher_lateness?: number | null
+          time_from?: number | null
+          time_to?: number | null
+        }
+        Relationships: []
+      }
+      school_students: {
+        Row: {
+          access_method: string | null
+          address: string | null
+          birth_date: string | null
+          created_at: string | null
+          email: string | null
+          email_subscription: boolean | null
+          fees: number | null
+          group_id: number | null
+          id: string
+          membership: string | null
+          name: string
+          notes: string | null
+          other_interests: string | null
+          paid_fees: number | null
+          phone_number: string | null
+          placement_test_result: string | null
+          preferred_activity: string | null
+          preferred_time: string | null
+          reference_number: string | null
+          remaining_fees: number | null
+          reservation_date: string | null
+          status: string | null
+          student_id_legacy: number | null
+          student_number: number | null
+          whatsapp: string | null
+          whatsapp_subscription: boolean | null
+        }
+        Insert: {
+          access_method?: string | null
+          address?: string | null
+          birth_date?: string | null
+          created_at?: string | null
+          email?: string | null
+          email_subscription?: boolean | null
+          fees?: number | null
+          group_id?: number | null
+          id?: string
+          membership?: string | null
+          name: string
+          notes?: string | null
+          other_interests?: string | null
+          paid_fees?: number | null
+          phone_number?: string | null
+          placement_test_result?: string | null
+          preferred_activity?: string | null
+          preferred_time?: string | null
+          reference_number?: string | null
+          remaining_fees?: number | null
+          reservation_date?: string | null
+          status?: string | null
+          student_id_legacy?: number | null
+          student_number?: number | null
+          whatsapp?: string | null
+          whatsapp_subscription?: boolean | null
+        }
+        Update: {
+          access_method?: string | null
+          address?: string | null
+          birth_date?: string | null
+          created_at?: string | null
+          email?: string | null
+          email_subscription?: boolean | null
+          fees?: number | null
+          group_id?: number | null
+          id?: string
+          membership?: string | null
+          name?: string
+          notes?: string | null
+          other_interests?: string | null
+          paid_fees?: number | null
+          phone_number?: string | null
+          placement_test_result?: string | null
+          preferred_activity?: string | null
+          preferred_time?: string | null
+          reference_number?: string | null
+          remaining_fees?: number | null
+          reservation_date?: string | null
+          status?: string | null
+          student_id_legacy?: number | null
+          student_number?: number | null
+          whatsapp?: string | null
+          whatsapp_subscription?: boolean | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
