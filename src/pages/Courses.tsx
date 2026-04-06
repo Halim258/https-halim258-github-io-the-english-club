@@ -108,12 +108,27 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
 export default function Courses() {
   const { levelId } = useParams();
 
+  // Compute all level IDs and their lesson counts for progress tracking
+  const allLevelIds = useMemo(() => {
+    const ids = [introductory.id, kidsLevel.id, ...cefrLevels.map(l => l.id)];
+    return ids;
+  }, []);
+
+  const lessonCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    allLevelIds.forEach(id => {
+      counts[id] = Object.keys(lessons).filter(k => k.startsWith(`${id}-`)).length;
+    });
+    return counts;
+  }, [allLevelIds]);
+
+  const { progress } = useCourseProgress(allLevelIds, lessonCounts);
+
   // If a level is selected, show its lessons
   if (levelId && !window.location.pathname.match(/\/courses\/[^/]+\/\d+/)) {
     const allLevels = [introductory, kidsLevel, ...cefrLevels];
     const level = allLevels.find((l) => l.id === levelId);
     if (level) return <LevelLessons levelId={level.id} levelLabel={`${level.label} — ${level.sublabel || ""}`} />;
-    // Check if it's a specialized course level (speaking, listening, writing, etc.)
     const specializedLevelLabels: Record<string, string> = {
       speaking: "Speaking & Conversation",
       listening: "Listening Skills",
