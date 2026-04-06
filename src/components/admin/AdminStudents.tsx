@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Search, Plus, Users, Calendar, Pencil, Trash2 } from "lucide-react";
+import { useState, useMemo } from "react";
+import { Search, Plus, Users, Calendar, Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -36,12 +36,17 @@ export default function AdminStudents({ students, onRefresh }: Props) {
   const [editOpen, setEditOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
+  const [page, setPage] = useState(0);
+  const perPage = 25;
   const { toast } = useToast();
 
-  const filtered = students.filter(s =>
+  const filtered = useMemo(() => students.filter(s =>
     !search || s.name.toLowerCase().includes(search.toLowerCase()) ||
     (s.phone_number || "").includes(search)
-  );
+  ), [students, search]);
+
+  const totalPages = Math.ceil(filtered.length / perPage);
+  const paged = filtered.slice(page * perPage, (page + 1) * perPage);
 
   const statusColors: Record<string, string> = {
     active: "bg-emerald-500/10 text-emerald-700",
@@ -157,7 +162,7 @@ export default function AdminStudents({ students, onRefresh }: Props) {
       <div className="flex gap-3 mb-4">
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search by name or phone..." value={search} onChange={e => setSearch(e.target.value)} className="pl-9" />
+          <Input placeholder="Search by name or phone..." value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} className="pl-9" />
         </div>
         <Dialog open={addOpen} onOpenChange={setAddOpen}>
           <DialogTrigger asChild>
@@ -197,9 +202,9 @@ export default function AdminStudents({ students, onRefresh }: Props) {
             </tr>
           </thead>
           <tbody>
-            {filtered.slice(0, 50).map((s, i) => (
+            {paged.map((s, i) => (
               <tr key={s.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors">
-                <td className="p-3 text-muted-foreground">{i + 1}</td>
+                <td className="p-3 text-muted-foreground">{page * perPage + i + 1}</td>
                 <td className="p-3 font-medium">{s.name}</td>
                 <td className="p-3 text-muted-foreground font-mono text-xs">{s.phone_number || "—"}</td>
                 <td className="p-3">{s.group_id || "—"}</td>
@@ -240,7 +245,19 @@ export default function AdminStudents({ students, onRefresh }: Props) {
             ))}
           </tbody>
         </table>
-        {filtered.length > 50 && <p className="text-xs text-muted-foreground text-center py-2">Showing 50 of {filtered.length} students</p>}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between border-t px-4 py-3">
+            <p className="text-xs text-muted-foreground">Page {page + 1} of {totalPages} ({filtered.length} students)</p>
+            <div className="flex gap-1">
+              <Button variant="outline" size="icon" className="h-7 w-7" disabled={page === 0} onClick={() => setPage(p => p - 1)}>
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="icon" className="h-7 w-7" disabled={page >= totalPages - 1} onClick={() => setPage(p => p + 1)}>
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
+        )}
         {filtered.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No students found.</p>}
       </div>
     </div>

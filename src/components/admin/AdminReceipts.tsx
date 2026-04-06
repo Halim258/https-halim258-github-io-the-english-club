@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Search, Pencil, Trash2 } from "lucide-react";
+import { Search, Pencil, Trash2, ChevronLeft, ChevronRight } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -21,6 +21,8 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
   const [editOpen, setEditOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
+  const [page, setPage] = useState(0);
+  const perPage = 50;
   const { toast } = useToast();
 
   const filtered = useMemo(() => {
@@ -42,6 +44,8 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
   const totalFees = filtered.reduce((s: number, r: any) => s + (r.fees || 0), 0);
   const totalPaid = filtered.reduce((s: number, r: any) => s + (r.paid_fees || 0), 0);
   const totalRemaining = filtered.reduce((s: number, r: any) => s + (r.remaining_fees || 0), 0);
+  const totalPages = Math.ceil(filtered.length / perPage);
+  const paged = filtered.slice(page * perPage, (page + 1) * perPage);
 
   const openEdit = (r: any) => {
     setEditId(r.id);
@@ -106,7 +110,7 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search by name, phone, or receipt #..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
+          <Input placeholder="Search by name, phone, or receipt #..." value={search} onChange={(e) => { setSearch(e.target.value); setPage(0); }} className="pl-9" />
         </div>
         <div className="flex gap-1 rounded-lg bg-muted p-1">
           {(["all", "paid", "remaining"] as const).map((f) => (
@@ -158,7 +162,7 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
               </tr>
             </thead>
             <tbody>
-              {filtered.slice(0, 100).map((r: any) => (
+              {paged.map((r: any) => (
                 <tr key={r.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors">
                   <td className="p-3 text-muted-foreground">{r.receipt_number || "—"}</td>
                   <td className="p-3 font-medium">{r.student_name || "—"}</td>
@@ -200,8 +204,18 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
             </tbody>
           </table>
         </div>
-        {filtered.length > 100 && (
-          <p className="text-xs text-muted-foreground text-center py-3 border-t">Showing first 100 of {filtered.length} results</p>
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between border-t px-4 py-3">
+            <p className="text-xs text-muted-foreground">Page {page + 1} of {totalPages} ({filtered.length} receipts)</p>
+            <div className="flex gap-1">
+              <Button variant="outline" size="icon" className="h-7 w-7" disabled={page === 0} onClick={() => setPage(p => p - 1)}>
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button variant="outline" size="icon" className="h-7 w-7" disabled={page >= totalPages - 1} onClick={() => setPage(p => p + 1)}>
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         )}
       </div>
     </div>
