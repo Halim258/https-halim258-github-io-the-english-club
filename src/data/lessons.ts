@@ -663,4 +663,8 @@ export const lessons: Record<string, LessonData> = {
   ...healthcareLessons,
   ...financeLessons,
   ...aviationLessons,
+  ...socialMediaLessons2,
+  ...healthcareLessons2,
+  ...financeLessons2,
+  ...aviationLessons2,
 };
