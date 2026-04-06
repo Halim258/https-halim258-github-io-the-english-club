@@ -18,6 +18,11 @@ export default function Login() {
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  useEffect(() => {
+    const saved = localStorage.getItem("remembered_email");
+    if (saved) { setEmail(saved); setRememberMe(true); }
+  }, []);
+
   const redirectByRole = async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (user) {
@@ -37,6 +42,8 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    if (rememberMe) localStorage.setItem("remembered_email", email);
+    else localStorage.removeItem("remembered_email");
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
 
