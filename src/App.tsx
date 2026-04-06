@@ -71,7 +71,11 @@ const App = () => (
                 <AdminDashboard />
               </ProtectedRoute>
             } />
-            <Route path="/teacher-dashboard" element={<TeacherDashboard />} />
+            <Route path="/teacher-dashboard" element={
+              <ProtectedRoute requiredRole="teacher">
+                <TeacherDashboard />
+              </ProtectedRoute>
+            } />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
           </Route>
