@@ -23,6 +23,11 @@ import KidsCourse from "./pages/KidsCourse";
 import StoriesCourse from "./pages/StoriesCourse";
 import MoviesCourse from "./pages/MoviesCourse";
 import KidsGameCenter from "./pages/KidsGameCenter";
+import Dictionary from "./pages/Dictionary";
+import Flashcards from "./pages/Flashcards";
+import AIChatTutor from "./pages/AIChatTutor";
+import Leaderboard from "./pages/Leaderboard";
+import Community from "./pages/Community";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -49,6 +54,11 @@ const App = () => (
             <Route path="/practice" element={<PracticeSpeaking />} />
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/placement-test" element={<PlacementTest />} />
+            <Route path="/dictionary" element={<Dictionary />} />
+            <Route path="/flashcards" element={<Flashcards />} />
+            <Route path="/ai-tutor" element={<AIChatTutor />} />
+            <Route path="/leaderboard" element={<Leaderboard />} />
+            <Route path="/community" element={<Community />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <StudentDashboard />

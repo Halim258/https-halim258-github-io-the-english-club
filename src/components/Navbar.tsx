@@ -2,15 +2,19 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { Menu, X, Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import StudyReminder from "@/components/StudyReminder";
 import logo from "@/assets/logo.jpg";
 
 const navLinks = [
   { to: "/", label: "Home" },
-  { to: "/courses", label: "Curriculum & Lessons" },
-  { to: "/placement-test", label: "Placement Test" },
-  { to: "/teachers", label: "Find a Teacher" },
-  { to: "/practice", label: "Practice" },
-  { to: "/fm", label: "FM Radio" },
+  { to: "/courses", label: "Courses" },
+  { to: "/dictionary", label: "Dictionary" },
+  { to: "/flashcards", label: "Flashcards" },
+  { to: "/ai-tutor", label: "AI Tutor" },
+  { to: "/community", label: "Community" },
+  { to: "/leaderboard", label: "Leaderboard" },
+  { to: "/placement-test", label: "Test" },
+  { to: "/fm", label: "FM" },
 ];
 
 const homeSections = [
@@ -86,7 +90,8 @@ export default function Navbar() {
         </div>
 
         {/* Desktop auth buttons */}
-        <div className="hidden items-center gap-2 md:flex">
+        <div className="hidden items-center gap-1 md:flex">
+          <StudyReminder />
           <button
             onClick={() => setDark(!dark)}
             className="rounded-full p-2 text-muted-foreground hover:text-foreground transition-colors"
