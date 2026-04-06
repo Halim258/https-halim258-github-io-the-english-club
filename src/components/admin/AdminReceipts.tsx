@@ -110,7 +110,7 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
       <div className="flex flex-col sm:flex-row gap-3 mb-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input placeholder="Search by name, phone, or receipt #..." value={search} onChange={(e) => setSearch(e.target.value)} className="pl-9" />
+          <Input placeholder="Search by name, phone, or receipt #..." value={search} onChange={(e) => { setSearch(e.target.value); setPage(0); }} className="pl-9" />
         </div>
         <div className="flex gap-1 rounded-lg bg-muted p-1">
           {(["all", "paid", "remaining"] as const).map((f) => (
