@@ -96,6 +96,11 @@ import { musicLessons } from "./music-lessons";
 import { newsLessons } from "./news-lessons";
 import { legalLessons } from "./legal-lessons";
 import { hospitalityLessons } from "./hospitality-lessons";
+import { conversationPracticeLessons } from "./conversation-practice-lessons";
+import { socialMediaLessons } from "./social-media-lessons";
+import { healthcareLessons } from "./healthcare-lessons";
+import { financeLessons } from "./finance-lessons";
+import { aviationLessons } from "./aviation-lessons";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
@@ -649,4 +654,9 @@ export const lessons: Record<string, LessonData> = {
   ...newsLessons,
   ...legalLessons,
   ...hospitalityLessons,
+  ...conversationPracticeLessons,
+  ...socialMediaLessons,
+  ...healthcareLessons,
+  ...financeLessons,
+  ...aviationLessons,
 };
