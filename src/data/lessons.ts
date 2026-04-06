@@ -101,6 +101,10 @@ import { socialMediaLessons } from "./social-media-lessons";
 import { healthcareLessons } from "./healthcare-lessons";
 import { financeLessons } from "./finance-lessons";
 import { aviationLessons } from "./aviation-lessons";
+import { socialMediaLessons2 } from "./social-media-lessons-2";
+import { healthcareLessons2 } from "./healthcare-lessons-2";
+import { financeLessons2 } from "./finance-lessons-2";
+import { aviationLessons2 } from "./aviation-lessons-2";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
