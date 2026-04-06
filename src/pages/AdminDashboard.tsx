@@ -41,10 +41,11 @@ export default function AdminDashboard() {
   const [outcome, setOutcome] = useState<any[]>([]);
   const [newcomers, setNewcomers] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
+  const [receipts, setReceipts] = useState<any[]>([]);
 
   const loadData = async () => {
     setLoading(true);
-    const [profilesRes, testsRes, progressRes, studentsRes, empRes, groupsRes, incomeRes, outcomeRes, newcomersRes, productsRes] = await Promise.all([
+    const [profilesRes, testsRes, progressRes, studentsRes, empRes, groupsRes, incomeRes, outcomeRes, newcomersRes, productsRes, receiptsRes] = await Promise.all([
       supabase.from("profiles").select("id, full_name, avatar_url, created_at").order("created_at", { ascending: false }),
       supabase.from("placement_test_results").select("*").order("created_at", { ascending: false }),
       supabase.from("lesson_progress").select("user_id, level_id, completed"),
@@ -55,6 +56,7 @@ export default function AdminDashboard() {
       supabase.from("school_outcome").select("*").order("date", { ascending: false }),
       supabase.from("school_newcomers").select("*").order("the_date", { ascending: false }),
       supabase.from("school_products").select("*").order("product"),
+      supabase.from("school_receipts").select("*").order("receipt_number", { ascending: false }),
     ]);
     setProfiles(profilesRes.data || []);
     setTestResults(testsRes.data || []);
