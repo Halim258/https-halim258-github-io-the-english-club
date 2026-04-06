@@ -193,6 +193,20 @@ export default function CategoryDetail() {
                           ))}
                         </div>
                       )}
+                      {/* Progress Bar */}
+                      {hasLessons && levelId && progress[levelId] && progress[levelId].completed > 0 && (
+                        <div className="mt-3 space-y-1">
+                          <div className="flex items-center justify-between text-[11px]">
+                            <span className="text-muted-foreground font-medium">
+                              {progress[levelId].completed}/{progress[levelId].total} lessons
+                            </span>
+                            <span className="font-semibold text-primary">
+                              {progress[levelId].percentage}%
+                            </span>
+                          </div>
+                          <Progress value={progress[levelId].percentage} className="h-2" />
+                        </div>
+                      )}
                       <div className="mt-4">
                         <Link to={course.name === "English for Kids" ? "/courses/kids" : course.name === "English through Stories" ? "/courses/stories" : course.name === "English through Movies & Series" ? "/courses/movies" : hasLessons ? `/courses/${levelId}` : `/courses/${levelId || cat.slug}`}>
                           <Button size="sm" className="rounded-full px-5 text-xs font-semibold gap-2 w-full">
