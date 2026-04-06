@@ -14,8 +14,9 @@ import AdminFinance from "@/components/admin/AdminFinance";
 import AdminGroups from "@/components/admin/AdminGroups";
 import AdminNewcomers from "@/components/admin/AdminNewcomers";
 import AdminProducts from "@/components/admin/AdminProducts";
+import AdminReceipts from "@/components/admin/AdminReceipts";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "finance" | "newcomers" | "products" | "online-students" | "tests" | "progress";
+type Tab = "overview" | "school-students" | "employees" | "groups" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "progress";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -40,10 +41,11 @@ export default function AdminDashboard() {
   const [outcome, setOutcome] = useState<any[]>([]);
   const [newcomers, setNewcomers] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
+  const [receipts, setReceipts] = useState<any[]>([]);
 
   const loadData = async () => {
     setLoading(true);
-    const [profilesRes, testsRes, progressRes, studentsRes, empRes, groupsRes, incomeRes, outcomeRes, newcomersRes, productsRes] = await Promise.all([
+    const [profilesRes, testsRes, progressRes, studentsRes, empRes, groupsRes, incomeRes, outcomeRes, newcomersRes, productsRes, receiptsRes] = await Promise.all([
       supabase.from("profiles").select("id, full_name, avatar_url, created_at").order("created_at", { ascending: false }),
       supabase.from("placement_test_results").select("*").order("created_at", { ascending: false }),
       supabase.from("lesson_progress").select("user_id, level_id, completed"),
@@ -54,6 +56,7 @@ export default function AdminDashboard() {
       supabase.from("school_outcome").select("*").order("date", { ascending: false }),
       supabase.from("school_newcomers").select("*").order("the_date", { ascending: false }),
       supabase.from("school_products").select("*").order("product"),
+      supabase.from("school_receipts").select("*").order("receipt_number", { ascending: false }),
     ]);
     setProfiles(profilesRes.data || []);
     setTestResults(testsRes.data || []);
@@ -65,6 +68,7 @@ export default function AdminDashboard() {
     setOutcome(outcomeRes.data || []);
     setNewcomers(newcomersRes.data || []);
     setProducts(productsRes.data || []);
+    setReceipts(receiptsRes.data || []);
     setLoading(false);
   };
 
@@ -97,6 +101,7 @@ export default function AdminDashboard() {
     { id: "finance", label: "Finance", icon: DollarSign },
     { id: "newcomers", label: "Newcomers", icon: UserPlus },
     { id: "products", label: "Products", icon: Package },
+    { id: "receipts", label: "Receipts", icon: Receipt },
     { id: "online-students", label: "Online Users", icon: GraduationCap },
     { id: "tests", label: "Tests", icon: Award },
     { id: "progress", label: "Progress", icon: BookOpen },
@@ -264,7 +269,13 @@ export default function AdminDashboard() {
         </motion.div>
       )}
 
-      {/* ═══ ONLINE STUDENTS ═══ */}
+      {/* ═══ RECEIPTS ═══ */}
+      {tab === "receipts" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminReceipts receipts={receipts} />
+        </motion.div>
+      )}
+
       {tab === "online-students" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <div className="rounded-2xl border bg-card shadow-soft overflow-hidden">
