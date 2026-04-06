@@ -1,0 +1,1 @@
+ALTER TABLE public.lesson_progress ADD CONSTRAINT lesson_progress_unique_user_level_lesson UNIQUE (user_id, level_id, lesson_number);
