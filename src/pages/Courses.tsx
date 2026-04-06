@@ -212,6 +212,15 @@ export default function Courses() {
                       Begin <ArrowRight className="h-3 w-3" />
                     </span>
                   </div>
+                  {progress[introductory.id] && progress[introductory.id].completed > 0 && (
+                    <div className="mt-3 space-y-1">
+                      <div className="flex justify-between text-[10px] text-muted-foreground">
+                        <span>{progress[introductory.id].completed}/{progress[introductory.id].total} lessons</span>
+                        <span>{progress[introductory.id].percentage}%</span>
+                      </div>
+                      <Progress value={progress[introductory.id].percentage} className="h-1.5" />
+                    </div>
+                  )}
                 </div>
               </div>
             </Link>
