@@ -3,9 +3,12 @@ import { ChevronLeft, MessageCircle, CheckCircle2, PlayCircle, ArrowRight } from
 import { motion } from "framer-motion";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import { categories } from "@/data/course-categories";
 import { getCourseImage } from "@/data/course-images";
 import { lessons } from "@/data/lessons";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
+import { useMemo } from "react";
 
 // Map course names to lesson level IDs
 const courseLevelMap: Record<string, string> = {
@@ -75,6 +78,24 @@ function getCourseLessonCount(courseName: string): number {
 export default function CategoryDetail() {
   const { categorySlug } = useParams();
   const cat = categories.find((c) => c.slug === categorySlug);
+
+  // Compute level IDs and lesson counts for progress tracking
+  const { levelIds, lessonCounts } = useMemo(() => {
+    const ids: string[] = [];
+    const counts: Record<string, number> = {};
+    if (cat) {
+      cat.courses.forEach((course) => {
+        const levelId = courseLevelMap[course.name];
+        if (levelId && !ids.includes(levelId)) {
+          ids.push(levelId);
+          counts[levelId] = Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).length;
+        }
+      });
+    }
+    return { levelIds: ids, lessonCounts: counts };
+  }, [cat]);
+
+  const { progress } = useCourseProgress(levelIds, lessonCounts);
 
   if (!cat) {
     return (
@@ -170,6 +191,20 @@ export default function CategoryDetail() {
                               {topic}
                             </span>
                           ))}
+                        </div>
+                      )}
+                      {/* Progress Bar */}
+                      {hasLessons && levelId && progress[levelId] && progress[levelId].completed > 0 && (
+                        <div className="mt-3 space-y-1">
+                          <div className="flex items-center justify-between text-[11px]">
+                            <span className="text-muted-foreground font-medium">
+                              {progress[levelId].completed}/{progress[levelId].total} lessons
+                            </span>
+                            <span className="font-semibold text-primary">
+                              {progress[levelId].percentage}%
+                            </span>
+                          </div>
+                          <Progress value={progress[levelId].percentage} className="h-2" />
                         </div>
                       )}
                       <div className="mt-4">
