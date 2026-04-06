@@ -70,6 +70,9 @@ import { interactiveLessons } from "./interactive-lessons";
 import { specializedNewLessons } from "./specialized-new-lessons";
 import { storyLessons } from "./stories-course";
 import { moviesLessons } from "./movies-course";
+import { readingVocabLessons2 } from "./reading-vocab-lessons-2";
+import { interactiveLessons2 } from "./interactive-lessons-2";
+import { specializedLessons5 } from "./specialized-lessons-5";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
