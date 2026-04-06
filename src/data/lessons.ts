@@ -84,6 +84,8 @@ import { specializedExpansion } from "./specialized-expansion";
 import { readingVocabExpansion2 } from "./reading-vocab-expansion-2";
 import { specializedExpansion2 } from "./specialized-expansion-2";
 import { specializedLessons8 } from "./specialized-lessons-8";
+import { specializedExpansion3 } from "./specialized-expansion-3";
+import { specializedExpansion4 } from "./specialized-expansion-4";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
