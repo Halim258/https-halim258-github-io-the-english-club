@@ -45,6 +45,12 @@ export default function Flashcards() {
   const [known, setKnown] = useState<number[]>([]);
   const [unknown, setUnknown] = useState<number[]>([]);
 
+  useEffect(() => {
+    if (allWords.length > 0 && deck.length === 0) {
+      setDeck(shuffleArray(allWords).slice(0, 20));
+    }
+  }, [allWords]);
+
   const card = deck[index];
   const isDone = index >= deck.length;
   const progress = deck.length > 0 ? ((index) / deck.length) * 100 : 0;
