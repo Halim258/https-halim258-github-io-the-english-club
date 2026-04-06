@@ -1,7 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download } from "lucide-react";
 import { motion } from "framer-motion";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { lessons } from "@/data/lessons";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { categories } from "@/data/course-categories";
@@ -45,7 +47,42 @@ const cefrLevels: Level[] = [
 
 
 function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: string }) {
-  const lessonKeys = Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).sort();
+  const lessonKeys = Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).sort((a, b) => {
+    const aNum = parseInt(a.split("-").pop() || "0");
+    const bNum = parseInt(b.split("-").pop() || "0");
+    return aNum - bNum;
+  });
+
+  // Fetch completed lessons for prerequisite locking & certificate
+  const { user } = useAuth();
+  const [completedLessons, setCompletedLessons] = useState<Set<number>>(new Set());
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("lesson_progress")
+      .select("lesson_number")
+      .eq("user_id", user.id)
+      .eq("level_id", levelId)
+      .eq("completed", true)
+      .then(({ data }) => {
+        if (data) setCompletedLessons(new Set(data.map((r) => r.lesson_number)));
+      });
+  }, [user, levelId]);
+
+  const allCompleted = lessonKeys.length > 0 && completedLessons.size >= lessonKeys.length;
+
+  const handleDownloadCertificate = async () => {
+    const { generateCourseCertificate } = await import("@/lib/generate-course-certificate");
+    const profile = user ? (await supabase.from("profiles").select("full_name").eq("id", user.id).maybeSingle()).data : null;
+    generateCourseCertificate({
+      courseName: levelLabel,
+      studentName: profile?.full_name || "Student",
+      lessonsCompleted: lessonKeys.length,
+      totalLessons: lessonKeys.length,
+      date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
+    });
+  };
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-10">
@@ -54,11 +91,23 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
       </Link>
       <FadeInUp>
         <div className="mb-8">
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary mb-3">
-            <BookOpen className="h-3.5 w-3.5" />
-            {lessonKeys.length} Lessons
+          <div className="flex items-center gap-2 mb-3 flex-wrap">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+              <BookOpen className="h-3.5 w-3.5" />
+              {lessonKeys.length} Lessons
+            </div>
+            {allCompleted && (
+              <Button size="sm" variant="outline" onClick={handleDownloadCertificate} className="rounded-full gap-1.5 text-xs h-7">
+                <Download className="h-3 w-3" /> Download Certificate
+              </Button>
+            )}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold font-display">{levelLabel}</h1>
+          {allCompleted && (
+            <div className="mt-2 flex items-center gap-2 text-emerald-600 text-sm font-semibold">
+              <Award className="h-4 w-4" /> Course completed! 🎉
+            </div>
+          )}
         </div>
       </FadeInUp>
       <motion.div
@@ -67,36 +116,71 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
         animate="show"
         className="grid gap-3"
       >
-        {lessonKeys.map((key) => {
+        {lessonKeys.map((key, index) => {
           const l = lessons[key];
           const difficulty = l.lessonNumber <= 7 ? "Easy" : l.lessonNumber <= 14 ? "Medium" : "Hard";
+          const estTime = l.lessonNumber <= 7 ? "15 min" : l.lessonNumber <= 14 ? "20 min" : "25 min";
           const diffColor = l.lessonNumber <= 7 
             ? "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400" 
             : l.lessonNumber <= 14 
             ? "bg-amber-500/15 text-amber-700 dark:text-amber-400" 
             : "bg-red-500/15 text-red-700 dark:text-red-400";
+          const isCompleted = completedLessons.has(l.lessonNumber);
+          const isLocked = user && index > 0 && !completedLessons.has(lessons[lessonKeys[index - 1]]?.lessonNumber) && !isCompleted && index !== 0;
+          const isMilestone = l.lessonNumber === 5 || l.lessonNumber === 10 || l.lessonNumber === 15;
+
           return (
             <motion.div key={key} variants={staggerItem}>
-              <Link
-                to={`/courses/${l.levelId}/${l.lessonNumber}`}
-                className="group flex items-center justify-between rounded-xl border bg-card p-4 shadow-soft hover:shadow-card hover:border-primary/20 transition-all duration-300"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary/15 to-primary/5 text-sm font-bold text-primary shrink-0">
-                    {l.lessonNumber}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">{l.title}</h3>
-                      <span className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${diffColor}`}>
-                        {difficulty}
-                      </span>
-                    </div>
-                    <p className="text-xs text-muted-foreground mt-0.5">{l.description}</p>
-                  </div>
+              {isMilestone && (
+                <div className="flex items-center gap-2 mb-2 mt-4 px-1">
+                  <div className="h-px flex-1 bg-primary/20" />
+                  <span className="text-[10px] font-bold text-primary uppercase tracking-wider">📝 Checkpoint — Lesson {l.lessonNumber}</span>
+                  <div className="h-px flex-1 bg-primary/20" />
                 </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
-              </Link>
+              )}
+              {isLocked ? (
+                <div className="flex items-center justify-between rounded-xl border bg-muted/50 p-4 opacity-60 cursor-not-allowed">
+                  <div className="flex items-center gap-4">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted text-sm font-bold text-muted-foreground shrink-0">
+                      <Lock className="h-4 w-4" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-semibold text-sm text-muted-foreground">{l.title}</h3>
+                        <span className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${diffColor}`}>
+                          {difficulty}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">Complete previous lesson to unlock</p>
+                    </div>
+                  </div>
+                  <Lock className="h-4 w-4 text-muted-foreground shrink-0" />
+                </div>
+              ) : (
+                <Link
+                  to={`/courses/${l.levelId}/${l.lessonNumber}`}
+                  className={`group flex items-center justify-between rounded-xl border p-4 shadow-soft hover:shadow-card hover:border-primary/20 transition-all duration-300 ${isCompleted ? 'bg-emerald-50/50 dark:bg-emerald-950/10 border-emerald-200 dark:border-emerald-900' : 'bg-card'}`}
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={`flex h-10 w-10 items-center justify-center rounded-lg text-sm font-bold shrink-0 ${isCompleted ? 'bg-emerald-500 text-white' : 'bg-gradient-to-br from-primary/15 to-primary/5 text-primary'}`}>
+                      {isCompleted ? <CheckCircle2 className="h-5 w-5" /> : l.lessonNumber}
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-semibold text-sm group-hover:text-primary transition-colors">{l.title}</h3>
+                        <span className={`rounded-full px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${diffColor}`}>
+                          {difficulty}
+                        </span>
+                        <span className="flex items-center gap-0.5 text-[9px] text-muted-foreground">
+                          <Clock className="h-2.5 w-2.5" /> {estTime}
+                        </span>
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">{l.description}</p>
+                    </div>
+                  </div>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
+                </Link>
+              )}
             </motion.div>
           );
         })}
@@ -138,6 +222,10 @@ export default function Courses() {
       "grammar-course": "Grammar & Structure",
       "exam-prep": "Exam Preparation",
       professional: "Professional English",
+      music: "English through Music",
+      news: "English through News",
+      legal: "Legal English",
+      hospitality: "Hospitality English",
     };
     if (specializedLevelLabels[levelId]) {
       return <LevelLessons levelId={levelId} levelLabel={specializedLevelLabels[levelId]} />;

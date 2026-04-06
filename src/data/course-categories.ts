@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain } from "lucide-react";
+import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import coreEnglishImg from "@/assets/courses/core-english.jpg";
@@ -10,6 +10,10 @@ import professionalImg from "@/assets/courses/professional.jpg";
 import specializedImg from "@/assets/courses/specialized.jpg";
 import interactiveImg from "@/assets/courses/interactive.jpg";
 import grammarImg from "@/assets/courses/grammar.jpg";
+import musicImg from "@/assets/courses/music.jpg";
+import newsImg from "@/assets/courses/news.jpg";
+import legalImg from "@/assets/courses/legal.jpg";
+import hospitalityImg from "@/assets/courses/hospitality.jpg";
 
 export interface Course {
   name: string;
@@ -161,6 +165,58 @@ export const categories: Category[] = [
       { name: "English through Stories", description: "Improve reading and listening through graded stories and narrative-based learning.", topics: ["Short Stories", "Audiobooks", "Discussion"] },
       { name: "Real-life Conversation Practice", description: "Practice real-world scenarios — shopping, doctor visits, social events, and more.", topics: ["Role Play", "Scenarios", "Daily Life"] },
       { name: "Slang & Everyday English", description: "Understand and use informal English, slang, and colloquial expressions like a native.", topics: ["Slang", "Colloquialisms", "Informal Speech"] },
+    ],
+  },
+  {
+    icon: Music,
+    emoji: "🎵",
+    title: "English through Music",
+    slug: "music",
+    color: "from-fuchsia-500/10 to-fuchsia-500/5",
+    iconBg: "bg-fuchsia-500/15",
+    image: musicImg,
+    description: "Learn English vocabulary, pronunciation, and grammar through songs, lyrics, and musical culture.",
+    courses: [
+      { name: "English through Music", description: "Learn English through song lyrics, music genres, and musical culture.", topics: ["Lyrics", "Pronunciation", "Genres", "Culture"] },
+    ],
+  },
+  {
+    icon: Newspaper,
+    emoji: "📰",
+    title: "English through News",
+    slug: "news",
+    color: "from-sky-500/10 to-sky-500/5",
+    iconBg: "bg-sky-500/15",
+    image: newsImg,
+    description: "Improve reading comprehension and vocabulary by learning through real-world news and current events.",
+    courses: [
+      { name: "English through News", description: "Read and discuss news articles to build vocabulary and critical thinking.", topics: ["Headlines", "Current Events", "Media Literacy"] },
+    ],
+  },
+  {
+    icon: Scale,
+    emoji: "⚖️",
+    title: "Legal English",
+    slug: "legal",
+    color: "from-stone-500/10 to-stone-500/5",
+    iconBg: "bg-stone-500/15",
+    image: legalImg,
+    description: "Master legal terminology, contracts, court language, and formal writing for law professionals.",
+    courses: [
+      { name: "Legal English", description: "Legal vocabulary, contracts, court procedures, and formal legal writing.", topics: ["Contracts", "Court Language", "Legal Writing"] },
+    ],
+  },
+  {
+    icon: Hotel,
+    emoji: "🏨",
+    title: "Hospitality English",
+    slug: "hospitality",
+    color: "from-amber-600/10 to-amber-600/5",
+    iconBg: "bg-amber-600/15",
+    image: hospitalityImg,
+    description: "English for hotels, restaurants, tourism, and the service industry.",
+    courses: [
+      { name: "Hospitality English", description: "Hotel check-in, restaurant service, guest relations, and tourism vocabulary.", topics: ["Hotels", "Restaurants", "Tourism", "Guest Service"] },
     ],
   },
   {
