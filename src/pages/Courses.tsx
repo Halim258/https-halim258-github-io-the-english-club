@@ -1,10 +1,13 @@
 import { Link, useParams } from "react-router-dom";
 import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { useMemo } from "react";
 import { lessons } from "@/data/lessons";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { useCourseProgress } from "@/hooks/useCourseProgress";
 
 import readingImg from "@/assets/levels/reading.jpg";
 import kidsImg from "@/assets/levels/kids.jpg";
