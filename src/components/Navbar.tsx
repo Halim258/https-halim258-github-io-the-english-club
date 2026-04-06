@@ -1,8 +1,10 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
-import { Menu, X, Moon, Sun } from "lucide-react";
+import { Menu, X, Moon, Sun, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import StudyReminder from "@/components/StudyReminder";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.jpg";
 
 const navLinks = [
@@ -13,6 +15,7 @@ const navLinks = [
   { to: "/ai-tutor", label: "AI Tutor" },
   { to: "/community", label: "Community" },
   { to: "/leaderboard", label: "Leaderboard" },
+  { to: "/pronunciation", label: "🎙️" },
   { to: "/placement-test", label: "Test" },
   { to: "/fm", label: "FM" },
 ];
@@ -30,6 +33,12 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
+  const { user, loading: authLoading } = useAuth();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate("/");
+  };
 
   useEffect(() => {
     if (dark) {
@@ -99,16 +108,32 @@ export default function Navbar() {
           >
             {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          <Link to="/signup">
-            <Button size="sm" className="rounded-full px-5 font-semibold">
-              Sign Up Free
-            </Button>
-          </Link>
-          <Link to="/login">
-            <Button variant="outline" size="sm" className="rounded-full px-5 font-semibold">
-              Log In
-            </Button>
-          </Link>
+          {!authLoading && user ? (
+            <>
+              <Link to="/dashboard">
+                <Button variant="ghost" size="sm" className="rounded-full gap-1.5">
+                  <User className="h-4 w-4" />
+                  <span className="max-w-[80px] truncate">{user.email?.split("@")[0]}</span>
+                </Button>
+              </Link>
+              <Button variant="outline" size="sm" className="rounded-full gap-1" onClick={handleLogout}>
+                <LogOut className="h-3.5 w-3.5" /> Logout
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link to="/signup">
+                <Button size="sm" className="rounded-full px-5 font-semibold">
+                  Sign Up Free
+                </Button>
+              </Link>
+              <Link to="/login">
+                <Button variant="outline" size="sm" className="rounded-full px-5 font-semibold">
+                  Log In
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile hamburger */}
@@ -152,12 +177,27 @@ export default function Navbar() {
               {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               {dark ? "Light Mode" : "Dark Mode"}
             </button>
-            <Link to="/signup" onClick={() => setOpen(false)}>
-              <Button size="sm" className="w-full rounded-full font-semibold">Sign Up Free</Button>
-            </Link>
-            <Link to="/login" onClick={() => setOpen(false)}>
-              <Button variant="outline" size="sm" className="w-full rounded-full font-semibold">Log In</Button>
-            </Link>
+            {!authLoading && user ? (
+              <>
+                <Link to="/dashboard" onClick={() => setOpen(false)}>
+                  <Button size="sm" className="w-full rounded-full font-semibold gap-1.5">
+                    <User className="h-4 w-4" /> Dashboard
+                  </Button>
+                </Link>
+                <Button variant="outline" size="sm" className="w-full rounded-full font-semibold gap-1" onClick={() => { setOpen(false); handleLogout(); }}>
+                  <LogOut className="h-3.5 w-3.5" /> Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Link to="/signup" onClick={() => setOpen(false)}>
+                  <Button size="sm" className="w-full rounded-full font-semibold">Sign Up Free</Button>
+                </Link>
+                <Link to="/login" onClick={() => setOpen(false)}>
+                  <Button variant="outline" size="sm" className="w-full rounded-full font-semibold">Log In</Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       )}

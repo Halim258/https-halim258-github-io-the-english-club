@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play } from "lucide-react";
+import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy } from "lucide-react";
 import { lessons, MCQItem, VocabWord, DialogueLine } from "@/data/lessons";
 import { useTTS } from "@/hooks/useTTS";
+import { useLessonProgress } from "@/hooks/useLessonProgress";
 
 /* ───── Fullscreen no-scroll shell ───── */
 const Shell = ({ children }: { children: React.ReactNode }) => (
@@ -291,10 +292,18 @@ export default function LessonPage() {
   const key = `${levelId}-${lessonId}`;
   const lesson = lessons[key];
   const { speak, stop, speaking } = useTTS();
+  const { markComplete } = useLessonProgress();
 
   const [activeTab, setActiveTab] = useState<TabId>("vocabulary");
   const [cardIndex, setCardIndex] = useState(0);
   const [showArabic, setShowArabic] = useState(false);
+  const [lessonDone, setLessonDone] = useState(false);
+
+  const handleCompleteLesson = async () => {
+    if (!levelId || !lesson) return;
+    await markComplete(levelId.toUpperCase(), lesson.lessonNumber);
+    setLessonDone(true);
+  };
 
   if (!lesson) {
     return (
@@ -451,6 +460,20 @@ export default function LessonPage() {
         current={cardIndex}
         total={totalCards}
       />
+
+      {/* Complete lesson button — show on last card */}
+      {cardIndex === totalCards - 1 && !lessonDone && (
+        <div className="border-t bg-card px-4 py-3 text-center">
+          <Button onClick={handleCompleteLesson} className="rounded-full gap-2 px-6">
+            <Trophy className="h-4 w-4" /> Mark Lesson Complete
+          </Button>
+        </div>
+      )}
+      {lessonDone && (
+        <div className="border-t bg-emerald-50 dark:bg-emerald-950/20 px-4 py-3 text-center">
+          <p className="text-sm font-semibold text-emerald-600">✅ Lesson completed! XP awarded.</p>
+        </div>
+      )}
     </Shell>
   );
 }

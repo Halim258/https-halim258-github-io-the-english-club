@@ -28,6 +28,7 @@ import Flashcards from "./pages/Flashcards";
 import AIChatTutor from "./pages/AIChatTutor";
 import Leaderboard from "./pages/Leaderboard";
 import Community from "./pages/Community";
+import PronunciationChecker from "./pages/PronunciationChecker";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -59,6 +60,7 @@ const App = () => (
             <Route path="/ai-tutor" element={<AIChatTutor />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/community" element={<Community />} />
+            <Route path="/pronunciation" element={<PronunciationChecker />} />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <StudentDashboard />
