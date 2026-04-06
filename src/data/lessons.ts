@@ -600,4 +600,7 @@ export const lessons: Record<string, LessonData> = {
   ...specializedNewLessons,
   ...storyLessons,
   ...moviesLessons,
+  ...readingVocabLessons2,
+  ...interactiveLessons2,
+  ...specializedLessons5,
 };
