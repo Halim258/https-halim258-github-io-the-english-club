@@ -298,6 +298,15 @@ export default function Courses() {
                     <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
                       {lvl.description}
                     </p>
+                    {progress[lvl.id] && progress[lvl.id].completed > 0 && (
+                      <div className="mt-3 space-y-1">
+                        <div className="flex justify-between text-[10px] text-muted-foreground">
+                          <span>{progress[lvl.id].completed}/{progress[lvl.id].total} lessons</span>
+                          <span>{progress[lvl.id].percentage}%</span>
+                        </div>
+                        <Progress value={progress[lvl.id].percentage} className="h-1.5" />
+                      </div>
+                    )}
                     <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-primary opacity-0 group-hover:opacity-100 transition-opacity">
                       Start learning <ArrowRight className="h-3 w-3" />
                     </div>
