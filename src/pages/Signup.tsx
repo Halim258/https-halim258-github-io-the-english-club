@@ -50,10 +50,7 @@ export default function Signup() {
       await supabase.from("user_roles").update({ role: "teacher" }).eq("user_id", signupData.user.id);
     }
 
-    toast({
-      title: "Account created! 🎉",
-      description: "Please check your email to verify your account before logging in.",
-    });
+    toast({ title: "Account created! 🎉", description: "You can now log in." });
     navigate("/login");
   };
 

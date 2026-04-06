@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GraduationCap, Loader2 } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useToast } from "@/hooks/use-toast";
@@ -13,8 +14,14 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
   const navigate = useNavigate();
   const { toast } = useToast();
+
+  useEffect(() => {
+    const saved = localStorage.getItem("remembered_email");
+    if (saved) { setEmail(saved); setRememberMe(true); }
+  }, []);
 
   const redirectByRole = async () => {
     const { data: { user } } = await supabase.auth.getUser();
@@ -35,6 +42,8 @@ export default function Login() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    if (rememberMe) localStorage.setItem("remembered_email", email);
+    else localStorage.removeItem("remembered_email");
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
 
@@ -116,6 +125,10 @@ export default function Login() {
           <div>
             <Label htmlFor="password">Password</Label>
             <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
+          </div>
+          <div className="flex items-center gap-2">
+            <Checkbox id="remember" checked={rememberMe} onCheckedChange={(v) => setRememberMe(!!v)} />
+            <Label htmlFor="remember" className="text-sm font-normal cursor-pointer">Remember me</Label>
           </div>
           <Button className="w-full" type="submit" disabled={loading}>
             {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
