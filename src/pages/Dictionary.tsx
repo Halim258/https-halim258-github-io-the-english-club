@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { allLessons } from "@/data/lessons";
+import { lessons } from "@/data/lessons";
 import { useTTS } from "@/hooks/useTTS";
 import type { VocabWord } from "@/data/lessons";
 
@@ -22,7 +22,7 @@ export default function Dictionary() {
   const allWords = useMemo(() => {
     const words: DictionaryWord[] = [];
     const seen = new Set<string>();
-    allLessons.forEach((lesson) => {
+    Object.values(lessons).forEach((lesson) => {
       lesson.vocabulary.forEach((w) => {
         const key = w.word.toLowerCase();
         if (!seen.has(key)) {

@@ -4,7 +4,7 @@ import { ChevronLeft, RotateCcw, ThumbsUp, ThumbsDown, Lightbulb, Volume2, Shuff
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { allLessons } from "@/data/lessons";
+import { lessons } from "@/data/lessons";
 import { useTTS } from "@/hooks/useTTS";
 import type { VocabWord } from "@/data/lessons";
 
@@ -27,7 +27,7 @@ export default function Flashcards() {
   const allWords = useMemo(() => {
     const words: FlashcardWord[] = [];
     const seen = new Set<string>();
-    allLessons.forEach((lesson) => {
+    Object.values(lessons).forEach((lesson) => {
       lesson.vocabulary.forEach((w) => {
         const key = w.word.toLowerCase();
         if (!seen.has(key)) {
@@ -39,7 +39,7 @@ export default function Flashcards() {
     return words;
   }, []);
 
-  const [deck, setDeck] = useState(() => shuffleArray(allWords).slice(0, 20));
+  const [deck, setDeck] = useState<FlashcardWord[]>([]);
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [known, setKnown] = useState<number[]>([]);
