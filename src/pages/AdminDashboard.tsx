@@ -68,6 +68,7 @@ export default function AdminDashboard() {
     setOutcome(outcomeRes.data || []);
     setNewcomers(newcomersRes.data || []);
     setProducts(productsRes.data || []);
+    setReceipts(receiptsRes.data || []);
     setLoading(false);
   };
 
@@ -100,6 +101,7 @@ export default function AdminDashboard() {
     { id: "finance", label: "Finance", icon: DollarSign },
     { id: "newcomers", label: "Newcomers", icon: UserPlus },
     { id: "products", label: "Products", icon: Package },
+    { id: "receipts", label: "Receipts", icon: Receipt },
     { id: "online-students", label: "Online Users", icon: GraduationCap },
     { id: "tests", label: "Tests", icon: Award },
     { id: "progress", label: "Progress", icon: BookOpen },
@@ -267,7 +269,13 @@ export default function AdminDashboard() {
         </motion.div>
       )}
 
-      {/* ═══ ONLINE STUDENTS ═══ */}
+      {/* ═══ RECEIPTS ═══ */}
+      {tab === "receipts" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminReceipts receipts={receipts} />
+        </motion.div>
+      )}
+
       {tab === "online-students" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <div className="rounded-2xl border bg-card shadow-soft overflow-hidden">
