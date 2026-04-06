@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel } from "lucide-react";
+import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import coreEnglishImg from "@/assets/courses/core-english.jpg";
@@ -14,6 +14,11 @@ import musicImg from "@/assets/courses/music.jpg";
 import newsImg from "@/assets/courses/news.jpg";
 import legalImg from "@/assets/courses/legal.jpg";
 import hospitalityImg from "@/assets/courses/hospitality.jpg";
+import conversationImg from "@/assets/courses/conversation.jpg";
+import socialMediaImg from "@/assets/courses/social-media.jpg";
+import healthcareImg from "@/assets/courses/healthcare.jpg";
+import financeImg from "@/assets/courses/finance.jpg";
+import aviationImg from "@/assets/courses/aviation.jpg";
 
 export interface Course {
   name: string;
