@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { forwardRef, ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
@@ -7,7 +7,7 @@ interface Props {
   delay?: number;
 }
 
-export function FadeInUp({ children, className, delay = 0 }: Props) {
+export const FadeInUp = forwardRef<HTMLDivElement, Props>(function FadeInUp({ children, className, delay = 0 }, ref) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -15,13 +15,14 @@ export function FadeInUp({ children, className, delay = 0 }: Props) {
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
+      ref={ref}
     >
       {children}
     </motion.div>
   );
-}
+});
 
-export function FadeIn({ children, className, delay = 0 }: Props) {
+export const FadeIn = forwardRef<HTMLDivElement, Props>(function FadeIn({ children, className, delay = 0 }, ref) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -29,13 +30,14 @@ export function FadeIn({ children, className, delay = 0 }: Props) {
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
+      ref={ref}
     >
       {children}
     </motion.div>
   );
-}
+});
 
-export function ScaleIn({ children, className, delay = 0 }: Props) {
+export const ScaleIn = forwardRef<HTMLDivElement, Props>(function ScaleIn({ children, className, delay = 0 }, ref) {
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
@@ -43,11 +45,12 @@ export function ScaleIn({ children, className, delay = 0 }: Props) {
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.4, delay, ease: "easeOut" }}
       className={className}
+      ref={ref}
     >
       {children}
     </motion.div>
   );
-}
+});
 
 export const staggerContainer = {
   hidden: {},
