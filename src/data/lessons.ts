@@ -105,6 +105,22 @@ import { socialMediaLessons2 } from "./social-media-lessons-2";
 import { healthcareLessons2 } from "./healthcare-lessons-2";
 import { financeLessons2 } from "./finance-lessons-2";
 import { aviationLessons2 } from "./aviation-lessons-2";
+import { hospitalityCompletion } from "./hospitality-completion";
+import { legalCompletion } from "./legal-completion";
+import { musicCompletion } from "./music-completion";
+import { newsCompletion } from "./news-completion";
+import { aviationCompletion } from "./aviation-completion";
+import { conversationCompletion } from "./conversation-completion";
+import { financeCompletion } from "./finance-completion";
+import { healthcareCompletion } from "./healthcare-completion";
+import { social_mediaCompletion } from "./social-media-completion";
+import { engineeringCompletion } from "./engineering-completion";
+import { it_englishCompletion } from "./it-english-completion";
+import { medicalCompletion } from "./medical-completion";
+import { real_lifeCompletion } from "./real-life-completion";
+import { slangCompletion } from "./slang-completion";
+import { teensCompletion } from "./teens-completion";
+import { travelCompletion } from "./travel-completion";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
