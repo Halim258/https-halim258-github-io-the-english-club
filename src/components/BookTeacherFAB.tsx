@@ -1,12 +1,11 @@
-import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { GraduationCap, MessageCircle } from "lucide-react";
 
 const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=%2B201554901390";
 
-const BookTeacherFAB = forwardRef<HTMLDivElement>((_, ref) => {
+export default function BookTeacherFAB() {
   return (
-    <div ref={ref} className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
       <a
         href={WHATSAPP_URL}
         target="_blank"
@@ -25,7 +24,4 @@ const BookTeacherFAB = forwardRef<HTMLDivElement>((_, ref) => {
       </Link>
     </div>
   );
-});
-
-BookTeacherFAB.displayName = "BookTeacherFAB";
-export default BookTeacherFAB;
+}
