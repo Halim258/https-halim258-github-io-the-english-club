@@ -63,10 +63,10 @@ export default function Navbar() {
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <img src={logo} alt="The English Club Logo" className="h-10 w-10" />
-            <span className="text-lg font-bold text-foreground font-display tracking-tight">
-              The English Club <span className="hidden sm:inline text-xs font-normal text-muted-foreground ml-1">Alexandria</span>
+            <span className="text-lg font-bold text-foreground font-display tracking-tight whitespace-nowrap">
+              The English Club <span className="hidden lg:inline text-xs font-normal text-muted-foreground ml-1">Alexandria</span>
             </span>
           </div>
         </Link>
