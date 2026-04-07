@@ -112,7 +112,15 @@ export default function AdminDashboard() {
     return () => { supabase.removeChannel(channel); };
   }, []);
 
-  const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
+  // Tabs secretaries are allowed to see
+  const secretaryTabs: Tab[] = [
+    "overview", "school-students", "receipts", "attendance",
+    "newcomers", "products", "unpaid", "groups", "sessions",
+  ];
+
+  const isSecretary = role === "secretary";
+
+  const allTabs: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: "overview", label: "Overview", icon: BarChart3 },
     { id: "school-students", label: "Students", icon: Users },
     { id: "employees", label: "Employees", icon: UserCheck },
@@ -130,6 +138,10 @@ export default function AdminDashboard() {
     { id: "roles", label: "Roles", icon: ShieldCheck },
     { id: "export", label: "Export", icon: Download },
   ];
+
+  const tabs = isSecretary
+    ? allTabs.filter(t => secretaryTabs.includes(t.id))
+    : allTabs;
 
   if (loading) {
     return (
