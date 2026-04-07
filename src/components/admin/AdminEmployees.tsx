@@ -33,7 +33,7 @@ export default function AdminEmployees({ employees, onRefresh }: Props) {
   const { toast } = useToast();
 
   const handleAdd = async () => {
-    if (!form.name) return;
+    if (!form.name) { toast({ title: "Name is required", variant: "destructive" }); return; }
     const { error } = await supabase.from("school_employees").insert({
       name: form.name,
       position: form.position,

@@ -54,7 +54,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
   const convRate = newcomers.length > 0 ? Math.round((reservedCount / newcomers.length) * 100) : 0;
 
   const handleAdd = async () => {
-    if (!form.client_name) return;
+    if (!form.client_name) { toast({ title: "Name is required", variant: "destructive" }); return; }
     const { error } = await supabase.from("school_newcomers").insert({
       client_name: form.client_name, client_number: form.client_number || null,
       access_method: form.access_method || null, reserved: form.reserved, the_date: new Date().toISOString(),
