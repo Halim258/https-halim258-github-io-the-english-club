@@ -167,6 +167,7 @@ export default function AdminDashboard() {
           profiles={profiles} testResults={testResults} progressData={progressData}
           schoolStudents={schoolStudents} income={income} outcome={outcome}
           newcomers={newcomers} receipts={receipts} sessions={sessions}
+          employees={employees}
         />
       )}
 

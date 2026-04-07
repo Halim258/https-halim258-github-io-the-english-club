@@ -184,6 +184,19 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
         </FadeInUp>
       </div>
 
+      {/* New Analytics Row: Heatmap + Growth + Teacher Performance */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        <FadeInUp delay={0.12}>
+          <AttendanceHeatmap sessions={sessions} />
+        </FadeInUp>
+        <FadeInUp delay={0.14}>
+          <StudentGrowthChart schoolStudents={schoolStudents} newcomers={newcomers} />
+        </FadeInUp>
+        <FadeInUp delay={0.16}>
+          <TeacherPerformance sessions={sessions} employees={employees} />
+        </FadeInUp>
+      </div>
+
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Financial Chart */}
         <FadeInUp delay={0.15}>
