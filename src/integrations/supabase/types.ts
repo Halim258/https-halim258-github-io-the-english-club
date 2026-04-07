@@ -285,6 +285,50 @@ export type Database = {
         }
         Relationships: []
       }
+      school_attendance: {
+        Row: {
+          check_in: string | null
+          check_out: string | null
+          created_at: string | null
+          id: string
+          notes: string | null
+          session_id: string
+          status: string
+          student_id_legacy: number | null
+          student_name: string
+        }
+        Insert: {
+          check_in?: string | null
+          check_out?: string | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          session_id: string
+          status?: string
+          student_id_legacy?: number | null
+          student_name: string
+        }
+        Update: {
+          check_in?: string | null
+          check_out?: string | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          session_id?: string
+          status?: string
+          student_id_legacy?: number | null
+          student_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "school_attendance_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "school_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       school_employees: {
         Row: {
           created_at: string | null
