@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, Loader2 } from "lucide-react";
+import { GraduationCap, Loader2, BookOpen, Sparkles } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { motion } from "framer-motion";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -35,7 +36,6 @@ export default function Login() {
       return;
     }
 
-    // Use the user from signIn response directly — no extra network call
     const userId = signInData.user?.id;
     if (userId) {
       const { data } = await supabase
@@ -54,42 +54,91 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <div className="mb-6 text-center">
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-primary">
-            <GraduationCap className="h-6 w-6 text-primary-foreground" />
-          </div>
-          <h1 className="text-2xl font-bold font-display">Welcome Back</h1>
-          <p className="mt-1 text-sm text-muted-foreground">Log in to continue learning</p>
-        </div>
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 relative overflow-hidden">
+      {/* Decorative background */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-20 -left-32 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-20 -right-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.02] rounded-full blur-3xl" />
+      </div>
 
+      <div className="w-full max-w-md">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="rounded-2xl border-2 border-border/50 bg-card/80 backdrop-blur-sm p-8 shadow-card"
+        >
+          {/* Header */}
+          <div className="mb-8 text-center">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.1, type: "spring", stiffness: 200 }}
+              className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/80 shadow-lg shadow-primary/25"
+            >
+              <GraduationCap className="h-8 w-8 text-primary-foreground" />
+            </motion.div>
+            <h1 className="text-2xl font-bold font-display">Welcome Back</h1>
+            <p className="mt-1.5 text-sm text-muted-foreground">Log in to continue your learning journey</p>
+          </div>
 
-        <form className="space-y-4" onSubmit={handleLogin}>
-          <div>
-            <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required />
+          <form className="space-y-5" onSubmit={handleLogin}>
+            <div className="space-y-1.5">
+              <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="you@example.com"
+                required
+                className="h-11 rounded-xl"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+                <Link to="/forgot-password" className="text-xs text-primary hover:underline">Forgot?</Link>
+              </div>
+              <Input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                required
+                className="h-11 rounded-xl"
+              />
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox id="remember" checked={rememberMe} onCheckedChange={(v) => setRememberMe(!!v)} />
+              <Label htmlFor="remember" className="text-sm font-normal cursor-pointer text-muted-foreground">Remember me</Label>
+            </div>
+            <Button className="w-full h-11 rounded-xl text-sm font-semibold" type="submit" disabled={loading}>
+              {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
+              Log In
+            </Button>
+          </form>
+
+          <div className="mt-6 pt-6 border-t border-border/50 text-center">
+            <p className="text-sm text-muted-foreground">
+              Don't have an account?{" "}
+              <Link to="/signup" className="font-semibold text-primary hover:underline">Sign up free</Link>
+            </p>
           </div>
-          <div>
-            <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" required />
-          </div>
-          <div className="flex items-center gap-2">
-            <Checkbox id="remember" checked={rememberMe} onCheckedChange={(v) => setRememberMe(!!v)} />
-            <Label htmlFor="remember" className="text-sm font-normal cursor-pointer">Remember me</Label>
-          </div>
-          <Button className="w-full" type="submit" disabled={loading}>
-            {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-            Log In
-          </Button>
-        </form>
-        <div className="mt-3 text-center">
-          <Link to="/forgot-password" className="text-sm text-primary hover:underline">Forgot password?</Link>
-        </div>
-        <p className="mt-3 text-center text-sm text-muted-foreground">
-          Don't have an account?{" "}
-          <Link to="/signup" className="font-medium text-primary hover:underline">Sign up</Link>
-        </p>
+        </motion.div>
+
+        {/* Features hint */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mt-6 flex items-center justify-center gap-6 text-xs text-muted-foreground"
+        >
+          <span className="flex items-center gap-1.5"><BookOpen className="h-3.5 w-3.5 text-primary" /> 200+ Lessons</span>
+          <span className="flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5 text-primary" /> AI Tutor</span>
+        </motion.div>
       </div>
     </div>
   );

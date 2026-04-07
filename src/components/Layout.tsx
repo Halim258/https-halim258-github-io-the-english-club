@@ -1,10 +1,12 @@
 import { Outlet, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import Navbar from "./Navbar";
 import BookTeacherFAB from "./BookTeacherFAB";
 import Footer from "./Footer";
+import PageTransition from "./PageTransition";
 
 const lessonRoutePatterns = [
-  /^\/courses\/[^/]+\/[^/]+/,  // /courses/:levelId/:lessonId
+  /^\/courses\/[^/]+\/[^/]+/,
   /^\/courses\/kids$/,
   /^\/courses\/stories$/,
   /^\/courses\/movies$/,
@@ -18,7 +20,11 @@ export default function Layout() {
     <div className="flex min-h-screen flex-col">
       <Navbar />
       <main className="flex-1">
-        <Outlet />
+        <AnimatePresence mode="wait">
+          <PageTransition key={pathname}>
+            <Outlet />
+          </PageTransition>
+        </AnimatePresence>
       </main>
       {!isInLesson && <BookTeacherFAB />}
       <Footer />
