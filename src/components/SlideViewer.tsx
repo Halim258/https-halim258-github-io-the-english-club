@@ -35,27 +35,32 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] bg-background">
       {/* Top bar */}
-      <div className="flex items-center justify-between px-4 py-2 border-b bg-card shrink-0">
+      <div className="flex items-center justify-between px-4 py-2.5 border-b bg-card/95 backdrop-blur-sm shrink-0">
         <div className="flex items-center gap-3">
           {onBack && (
-            <Button variant="ghost" size="sm" onClick={onBack} className="rounded-full text-xs gap-1.5">
+            <Button variant="ghost" size="sm" onClick={onBack} className="rounded-full text-xs gap-1.5 hover:bg-primary/8 hover:text-primary">
               <ChevronLeft className="h-3.5 w-3.5" /> Back
             </Button>
           )}
-          <span className="text-xs text-muted-foreground font-medium">
-            {current + 1} / {slides.length}
-          </span>
+          <div className="flex items-center gap-1.5 rounded-full bg-muted/60 px-3 py-1">
+            <span className="text-xs font-bold text-primary">{current + 1}</span>
+            <span className="text-[10px] text-muted-foreground">/</span>
+            <span className="text-xs text-muted-foreground">{slides.length}</span>
+          </div>
         </div>
-        <div className="flex-1 mx-4 max-w-xs">
+        <div className="flex-1 mx-4 max-w-sm">
           <div className="h-1.5 rounded-full bg-muted overflow-hidden">
             <motion.div
-              className="h-full rounded-full bg-primary"
+              className="h-full rounded-full bg-gradient-to-r from-primary to-primary/80"
               animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             />
           </div>
         </div>
-        <span className="text-xs font-semibold text-muted-foreground">{slide.title}</span>
+        <div className="flex items-center gap-2">
+          {slide.emoji && <span className="text-sm">{slide.emoji}</span>}
+          <span className="text-xs font-semibold text-foreground">{slide.title}</span>
+        </div>
       </div>
 
       {/* Slide area */}
@@ -76,36 +81,40 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
       </div>
 
       {/* Bottom nav */}
-      <div className="flex items-center justify-between px-4 py-3 border-t bg-card shrink-0">
+      <div className="flex items-center justify-between px-4 py-3 border-t bg-card/95 backdrop-blur-sm shrink-0">
         <Button
           variant="outline"
           size="sm"
           onClick={() => go(-1)}
           disabled={current === 0}
-          className="rounded-full gap-1.5 text-xs font-semibold"
+          className="rounded-full gap-1.5 text-xs font-semibold min-w-[100px] hover:bg-primary/5 hover:text-primary hover:border-primary/30 disabled:opacity-40"
         >
           <ChevronLeft className="h-3.5 w-3.5" /> Previous
         </Button>
 
         {/* Slide dots (show max 12) */}
-        <div className="hidden sm:flex items-center gap-1">
+        <div className="hidden sm:flex items-center gap-1.5">
           {slides.slice(0, 12).map((s, i) => (
             <button
               key={s.id}
               onClick={() => { setDirection(i > current ? 1 : -1); setCurrent(i); }}
-              className={`h-2 rounded-full transition-all duration-200 ${
-                i === current ? "w-6 bg-primary" : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+              className={`rounded-full transition-all duration-300 ${
+                i === current 
+                  ? "w-7 h-2.5 bg-primary shadow-sm" 
+                  : i < current 
+                    ? "w-2.5 h-2.5 bg-primary/30 hover:bg-primary/50" 
+                    : "w-2.5 h-2.5 bg-muted-foreground/20 hover:bg-muted-foreground/40"
               }`}
             />
           ))}
-          {slides.length > 12 && <span className="text-[10px] text-muted-foreground ml-1">+{slides.length - 12}</span>}
+          {slides.length > 12 && <span className="text-[10px] text-muted-foreground ml-1 font-medium">+{slides.length - 12}</span>}
         </div>
 
         <Button
           size="sm"
           onClick={() => go(1)}
           disabled={current === slides.length - 1}
-          className="rounded-full gap-1.5 text-xs font-semibold"
+          className="rounded-full gap-1.5 text-xs font-semibold min-w-[100px] disabled:opacity-40"
         >
           Next <ChevronRight className="h-3.5 w-3.5" />
         </Button>
