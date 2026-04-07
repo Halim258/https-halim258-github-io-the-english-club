@@ -5,58 +5,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 2,
     title: "Contract Law Basics", description: "Understanding agreements, clauses, and terms",
     vocabulary: [
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
     { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore contract law basics." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Understanding agreements, clauses, and terms" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore contract law basics." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Understanding agreements, clauses, and terms" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
-      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
-      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
-      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" },
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" },
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" },
       { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
     ]},
     vocabExercises: [
-    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of contract law basics, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of contract law basics, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in contract law basics?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in contract law basics?", options: ["Plaintiff", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to contract law basics?", options: ["Defendant", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional contract law basics, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in contract law basics?", options: ["Plaintiff", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to contract law basics?", options: ["Defendant", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional contract law basics, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Verdict':", options: ["The verdict was unanimous.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Testimony'?", options: ["Statements under oath", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Verdict':", options: ["The verdict was unanimous.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Testimony'?", options: ["Statements under oath", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Statute' correctly:", options: ["The statute was amended.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -64,58 +64,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 3,
     title: "Criminal Law Vocabulary", description: "Crimes, charges, and criminal justice terms",
     vocabulary: [
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
     { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore criminal law vocabulary." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Crimes, charges, and criminal justice terms" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore criminal law vocabulary." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Crimes, charges, and criminal justice terms" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
-      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
-      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
-      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" },
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" },
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" },
       { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
     ]},
     vocabExercises: [
-    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of criminal law vocabulary, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of criminal law vocabulary, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in criminal law vocabulary?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in criminal law vocabulary?", options: ["Defendant", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to criminal law vocabulary?", options: ["Verdict", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional criminal law vocabulary, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in criminal law vocabulary?", options: ["Defendant", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to criminal law vocabulary?", options: ["Verdict", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional criminal law vocabulary, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Testimony':", options: ["Her testimony was compelling.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Statute'?", options: ["A written law", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Testimony':", options: ["Her testimony was compelling.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Statute'?", options: ["A written law", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Jurisdiction' correctly:", options: ["This falls under federal jurisdiction.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -123,58 +123,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 4,
     title: "Civil Law Procedures", description: "Lawsuits, plaintiffs, and civil court processes",
     vocabulary: [
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
     { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore civil law procedures." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Lawsuits, plaintiffs, and civil court processes" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore civil law procedures." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Lawsuits, plaintiffs, and civil court processes" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
-      { sentence: "She must be at home.", note: "Present — very likely" }
-      { sentence: "He might have left already.", note: "Past — possible" }
-      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "She must be at home.", note: "Present — very likely" },
+      { sentence: "He might have left already.", note: "Past — possible" },
+      { sentence: "They can't be serious.", note: "Present — impossible" },
       { sentence: "It could have been worse.", note: "Past — possibility" },
     ]},
     vocabExercises: [
-    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of civil law procedures, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of civil law procedures, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in civil law procedures?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in civil law procedures?", options: ["Verdict", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to civil law procedures?", options: ["Testimony", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional civil law procedures, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in civil law procedures?", options: ["Verdict", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to civil law procedures?", options: ["Testimony", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional civil law procedures, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Statute':", options: ["The statute was amended.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Jurisdiction'?", options: ["Legal authority over an area", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Statute':", options: ["The statute was amended.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Jurisdiction'?", options: ["Legal authority over an area", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Litigation' correctly:", options: ["Litigation can be expensive.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -182,58 +182,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 5,
     title: "Court System", description: "Judges, juries, and courtroom roles",
     vocabulary: [
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
     { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore court system." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Judges, juries, and courtroom roles" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore court system." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Judges, juries, and courtroom roles" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
-      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
-      { sentence: "She got her hair done.", note: "Someone did her hair" }
-      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" },
+      { sentence: "She got her hair done.", note: "Someone did her hair" },
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" },
       { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
     ]},
     vocabExercises: [
-    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of court system, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of court system, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in court system?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in court system?", options: ["Testimony", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to court system?", options: ["Statute", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional court system, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in court system?", options: ["Testimony", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to court system?", options: ["Statute", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional court system, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Jurisdiction':", options: ["This falls under federal jurisdiction.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Litigation'?", options: ["The process of taking legal action", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Jurisdiction':", options: ["This falls under federal jurisdiction.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Litigation'?", options: ["The process of taking legal action", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Precedent' correctly:", options: ["The ruling set a legal precedent.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -241,58 +241,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 6,
     title: "Legal Documents", description: "Drafting affidavits, declarations, and motions",
     vocabulary: [
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
     { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore legal documents." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Drafting affidavits, declarations, and motions" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore legal documents." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Drafting affidavits, declarations, and motions" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
-      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
-      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
-      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" },
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" },
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" },
       { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
     ]},
     vocabExercises: [
-    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of legal documents, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of legal documents, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in legal documents?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in legal documents?", options: ["Statute", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to legal documents?", options: ["Jurisdiction", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional legal documents, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in legal documents?", options: ["Statute", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to legal documents?", options: ["Jurisdiction", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional legal documents, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Litigation':", options: ["Litigation can be expensive.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Precedent'?", options: ["A previous case used as guide", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Litigation':", options: ["Litigation can be expensive.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Precedent'?", options: ["A previous case used as guide", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Bail' correctly:", options: ["Bail was set at $10,000.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -300,58 +300,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 7,
     title: "Intellectual Property", description: "Patents, trademarks, copyrights, and trade secrets",
     vocabulary: [
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
     { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore intellectual property." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Patents, trademarks, copyrights, and trade secrets" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore intellectual property." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Patents, trademarks, copyrights, and trade secrets" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
-      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
-      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
-      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" },
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" },
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" },
       { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
     ]},
     vocabExercises: [
-    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of intellectual property, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of intellectual property, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in intellectual property?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in intellectual property?", options: ["Jurisdiction", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to intellectual property?", options: ["Litigation", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional intellectual property, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in intellectual property?", options: ["Jurisdiction", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to intellectual property?", options: ["Litigation", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional intellectual property, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Precedent':", options: ["The ruling set a legal precedent.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Bail'?", options: ["Money paid for release", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Precedent':", options: ["The ruling set a legal precedent.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Bail'?", options: ["Money paid for release", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Appeal' correctly:", options: ["They filed an appeal.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -359,58 +359,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 8,
     title: "Corporate Law", description: "Business formation, mergers, and compliance",
     vocabulary: [
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
     { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore corporate law." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Business formation, mergers, and compliance" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore corporate law." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Business formation, mergers, and compliance" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
-      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
-      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
-      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" },
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" },
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" },
       { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
     ]},
     vocabExercises: [
-    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of corporate law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of corporate law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in corporate law?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in corporate law?", options: ["Litigation", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to corporate law?", options: ["Precedent", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional corporate law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in corporate law?", options: ["Litigation", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to corporate law?", options: ["Precedent", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional corporate law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Bail':", options: ["Bail was set at $10,000.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Appeal'?", options: ["Request to review a decision", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Bail':", options: ["Bail was set at $10,000.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Appeal'?", options: ["Request to review a decision", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Plaintiff' correctly:", options: ["The plaintiff filed a complaint.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -418,58 +418,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 9,
     title: "Employment Law", description: "Hiring, termination, discrimination, and rights",
     vocabulary: [
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
     { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore employment law." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Hiring, termination, discrimination, and rights" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore employment law." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Hiring, termination, discrimination, and rights" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
-      { sentence: "She must be at home.", note: "Present — very likely" }
-      { sentence: "He might have left already.", note: "Past — possible" }
-      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "She must be at home.", note: "Present — very likely" },
+      { sentence: "He might have left already.", note: "Past — possible" },
+      { sentence: "They can't be serious.", note: "Present — impossible" },
       { sentence: "It could have been worse.", note: "Past — possibility" },
     ]},
     vocabExercises: [
-    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of employment law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of employment law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in employment law?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in employment law?", options: ["Precedent", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to employment law?", options: ["Bail", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional employment law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in employment law?", options: ["Precedent", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to employment law?", options: ["Bail", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional employment law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Appeal':", options: ["They filed an appeal.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Plaintiff'?", options: ["Person bringing a lawsuit", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Appeal':", options: ["They filed an appeal.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Plaintiff'?", options: ["Person bringing a lawsuit", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Defendant' correctly:", options: ["The defendant pleaded not guilty.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -477,58 +477,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 10,
     title: "Real Estate Law", description: "Property transactions, leases, and mortgages",
     vocabulary: [
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
     { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore real estate law." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Property transactions, leases, and mortgages" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore real estate law." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Property transactions, leases, and mortgages" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
-      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
-      { sentence: "She got her hair done.", note: "Someone did her hair" }
-      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" },
+      { sentence: "She got her hair done.", note: "Someone did her hair" },
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" },
       { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
     ]},
     vocabExercises: [
-    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of real estate law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of real estate law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in real estate law?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in real estate law?", options: ["Bail", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to real estate law?", options: ["Appeal", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional real estate law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in real estate law?", options: ["Bail", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to real estate law?", options: ["Appeal", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional real estate law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Plaintiff':", options: ["The plaintiff filed a complaint.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Defendant'?", options: ["Person being sued", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Plaintiff':", options: ["The plaintiff filed a complaint.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Defendant'?", options: ["Person being sued", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Verdict' correctly:", options: ["The verdict was unanimous.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -536,58 +536,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 11,
     title: "Family Law", description: "Divorce, custody, and adoption terminology",
     vocabulary: [
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
     { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore family law." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Divorce, custody, and adoption terminology" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore family law." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Divorce, custody, and adoption terminology" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
-      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
-      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
-      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" },
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" },
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" },
       { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
     ]},
     vocabExercises: [
-    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of family law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of family law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in family law?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in family law?", options: ["Appeal", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to family law?", options: ["Plaintiff", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional family law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in family law?", options: ["Appeal", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to family law?", options: ["Plaintiff", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional family law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Defendant':", options: ["The defendant pleaded not guilty.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Verdict'?", options: ["A jury's decision", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Defendant':", options: ["The defendant pleaded not guilty.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Verdict'?", options: ["A jury's decision", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Testimony' correctly:", options: ["Her testimony was compelling.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -595,58 +595,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 12,
     title: "Immigration Law", description: "Visas, asylum, deportation, and citizenship",
     vocabulary: [
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
     { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore immigration law." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Visas, asylum, deportation, and citizenship" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore immigration law." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Visas, asylum, deportation, and citizenship" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
-      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
-      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
-      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" },
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" },
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" },
       { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
     ]},
     vocabExercises: [
-    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of immigration law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of immigration law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in immigration law?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in immigration law?", options: ["Plaintiff", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to immigration law?", options: ["Defendant", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional immigration law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in immigration law?", options: ["Plaintiff", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to immigration law?", options: ["Defendant", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional immigration law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Verdict':", options: ["The verdict was unanimous.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Testimony'?", options: ["Statements under oath", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Verdict':", options: ["The verdict was unanimous.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Testimony'?", options: ["Statements under oath", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Statute' correctly:", options: ["The statute was amended.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -654,58 +654,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 13,
     title: "Constitutional Law", description: "Rights, amendments, and constitutional principles",
     vocabulary: [
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
     { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore constitutional law." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Rights, amendments, and constitutional principles" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore constitutional law." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Rights, amendments, and constitutional principles" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
-      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
-      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
-      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" },
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" },
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" },
       { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
     ]},
     vocabExercises: [
-    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of constitutional law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of constitutional law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in constitutional law?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in constitutional law?", options: ["Defendant", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to constitutional law?", options: ["Verdict", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional constitutional law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in constitutional law?", options: ["Defendant", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to constitutional law?", options: ["Verdict", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional constitutional law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Testimony':", options: ["Her testimony was compelling.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Statute'?", options: ["A written law", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Testimony':", options: ["Her testimony was compelling.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Statute'?", options: ["A written law", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Jurisdiction' correctly:", options: ["This falls under federal jurisdiction.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -713,58 +713,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 14,
     title: "International Law", description: "Treaties, jurisdiction, and diplomatic immunity",
     vocabulary: [
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
     { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore international law." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Treaties, jurisdiction, and diplomatic immunity" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore international law." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Treaties, jurisdiction, and diplomatic immunity" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
-      { sentence: "She must be at home.", note: "Present — very likely" }
-      { sentence: "He might have left already.", note: "Past — possible" }
-      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "She must be at home.", note: "Present — very likely" },
+      { sentence: "He might have left already.", note: "Past — possible" },
+      { sentence: "They can't be serious.", note: "Present — impossible" },
       { sentence: "It could have been worse.", note: "Past — possibility" },
     ]},
     vocabExercises: [
-    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of international law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of international law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in international law?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in international law?", options: ["Verdict", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to international law?", options: ["Testimony", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional international law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in international law?", options: ["Verdict", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to international law?", options: ["Testimony", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional international law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Statute':", options: ["The statute was amended.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Jurisdiction'?", options: ["Legal authority over an area", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Statute':", options: ["The statute was amended.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Jurisdiction'?", options: ["Legal authority over an area", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Litigation' correctly:", options: ["Litigation can be expensive.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -772,58 +772,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 15,
     title: "Tort Law", description: "Negligence, liability, and personal injury",
     vocabulary: [
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
     { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore tort law." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Negligence, liability, and personal injury" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore tort law." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Negligence, liability, and personal injury" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
-      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
-      { sentence: "She got her hair done.", note: "Someone did her hair" }
-      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" },
+      { sentence: "She got her hair done.", note: "Someone did her hair" },
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" },
       { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
     ]},
     vocabExercises: [
-    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Testimony' mean?", options: ["Statements under oath", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of tort law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of tort law, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in tort law?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in tort law?", options: ["Testimony", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to tort law?", options: ["Statute", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional tort law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in tort law?", options: ["Testimony", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to tort law?", options: ["Statute", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional tort law, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Jurisdiction':", options: ["This falls under federal jurisdiction.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Litigation'?", options: ["The process of taking legal action", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Jurisdiction':", options: ["This falls under federal jurisdiction.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Litigation'?", options: ["The process of taking legal action", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Precedent' correctly:", options: ["The ruling set a legal precedent.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -831,58 +831,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 16,
     title: "Evidence & Proof", description: "Types of evidence, burden of proof, and objections",
     vocabulary: [
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
     { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore evidence & proof." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Types of evidence, burden of proof, and objections" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore evidence & proof." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Types of evidence, burden of proof, and objections" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
-      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
-      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
-      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" },
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" },
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" },
       { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
     ]},
     vocabExercises: [
-    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Statute' mean?", options: ["A written law", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of evidence & proof, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of evidence & proof, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in evidence & proof?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in evidence & proof?", options: ["Statute", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to evidence & proof?", options: ["Jurisdiction", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional evidence & proof, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in evidence & proof?", options: ["Statute", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to evidence & proof?", options: ["Jurisdiction", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional evidence & proof, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Litigation':", options: ["Litigation can be expensive.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Precedent'?", options: ["A previous case used as guide", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Litigation':", options: ["Litigation can be expensive.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Precedent'?", options: ["A previous case used as guide", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Bail' correctly:", options: ["Bail was set at $10,000.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -890,58 +890,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 17,
     title: "Legal Ethics", description: "Confidentiality, conflicts of interest, and duties",
     vocabulary: [
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
     { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore legal ethics." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Confidentiality, conflicts of interest, and duties" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore legal ethics." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Confidentiality, conflicts of interest, and duties" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
-      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
-      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
-      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" },
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" },
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" },
       { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
     ]},
     vocabExercises: [
-    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Jurisdiction' mean?", options: ["Legal authority over an area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of legal ethics, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of legal ethics, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in legal ethics?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in legal ethics?", options: ["Jurisdiction", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to legal ethics?", options: ["Litigation", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional legal ethics, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in legal ethics?", options: ["Jurisdiction", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to legal ethics?", options: ["Litigation", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional legal ethics, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Precedent':", options: ["The ruling set a legal precedent.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Bail'?", options: ["Money paid for release", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Precedent':", options: ["The ruling set a legal precedent.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Bail'?", options: ["Money paid for release", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Appeal' correctly:", options: ["They filed an appeal.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -949,58 +949,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 18,
     title: "Alternative Dispute Resolution", description: "Mediation, arbitration, and negotiation",
     vocabulary: [
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
     { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore alternative dispute resolution." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Mediation, arbitration, and negotiation" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore alternative dispute resolution." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Mediation, arbitration, and negotiation" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
-      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
-      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
-      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" },
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" },
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" },
       { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
     ]},
     vocabExercises: [
-    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Litigation' mean?", options: ["The process of taking legal action", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of alternative dispute resolution, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of alternative dispute resolution, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in alternative dispute resolution?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in alternative dispute resolution?", options: ["Litigation", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to alternative dispute resolution?", options: ["Precedent", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional alternative dispute resolution, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in alternative dispute resolution?", options: ["Litigation", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to alternative dispute resolution?", options: ["Precedent", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional alternative dispute resolution, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Bail':", options: ["Bail was set at $10,000.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Appeal'?", options: ["Request to review a decision", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Bail':", options: ["Bail was set at $10,000.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Appeal'?", options: ["Request to review a decision", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Plaintiff' correctly:", options: ["The plaintiff filed a complaint.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -1008,58 +1008,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 19,
     title: "Legal Writing", description: "Briefs, memoranda, and legal research",
     vocabulary: [
-    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" }
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
+    { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
     { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore legal writing." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Briefs, memoranda, and legal research" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore legal writing." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Briefs, memoranda, and legal research" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
-      { sentence: "She must be at home.", note: "Present — very likely" }
-      { sentence: "He might have left already.", note: "Past — possible" }
-      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "She must be at home.", note: "Present — very likely" },
+      { sentence: "He might have left already.", note: "Past — possible" },
+      { sentence: "They can't be serious.", note: "Present — impossible" },
       { sentence: "It could have been worse.", note: "Past — possibility" },
     ]},
     vocabExercises: [
-    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Precedent' mean?", options: ["A previous case used as guide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of legal writing, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of legal writing, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in legal writing?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in legal writing?", options: ["Precedent", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to legal writing?", options: ["Bail", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional legal writing, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in legal writing?", options: ["Precedent", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to legal writing?", options: ["Bail", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional legal writing, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Appeal':", options: ["They filed an appeal.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Plaintiff'?", options: ["Person bringing a lawsuit", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Appeal':", options: ["They filed an appeal.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Plaintiff'?", options: ["Person bringing a lawsuit", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Defendant' correctly:", options: ["The defendant pleaded not guilty.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -1067,58 +1067,58 @@ export const legalCompletion: Record<string, LessonData> = {
     levelId: "legal", levelLabel: "Legal English", lessonNumber: 20,
     title: "Legal Career Skills", description: "Law firm interviews, networking, and specialization",
     vocabulary: [
-    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" }
-    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" }
-    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" }
-    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" }
-    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" }
-    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" }
-    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" }
-    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" }
-    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" }
+    { word: "Bail", meaning: "Money paid for release", example: "Bail was set at $10,000.", emoji: "💰", arabic: "كفالة" },
+    { word: "Appeal", meaning: "Request to review a decision", example: "They filed an appeal.", emoji: "📩", arabic: "استئناف" },
+    { word: "Plaintiff", meaning: "Person bringing a lawsuit", example: "The plaintiff filed a complaint.", emoji: "⚖️", arabic: "المدعي" },
+    { word: "Defendant", meaning: "Person being sued", example: "The defendant pleaded not guilty.", emoji: "🏛️", arabic: "المدعى عليه" },
+    { word: "Verdict", meaning: "A jury's decision", example: "The verdict was unanimous.", emoji: "📜", arabic: "الحكم" },
+    { word: "Testimony", meaning: "Statements under oath", example: "Her testimony was compelling.", emoji: "🗣️", arabic: "شهادة" },
+    { word: "Statute", meaning: "A written law", example: "The statute was amended.", emoji: "📖", arabic: "قانون" },
+    { word: "Jurisdiction", meaning: "Legal authority over an area", example: "This falls under federal jurisdiction.", emoji: "🌐", arabic: "اختصاص قضائي" },
+    { word: "Litigation", meaning: "The process of taking legal action", example: "Litigation can be expensive.", emoji: "💼", arabic: "تقاضي" },
     { word: "Precedent", meaning: "A previous case used as guide", example: "The ruling set a legal precedent.", emoji: "📋", arabic: "سابقة قضائية" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore legal career skills." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Law firm interviews, networking, and specialization" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore legal career skills." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Law firm interviews, networking, and specialization" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
-      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
-      { sentence: "She got her hair done.", note: "Someone did her hair" }
-      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" },
+      { sentence: "She got her hair done.", note: "Someone did her hair" },
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" },
       { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
     ]},
     vocabExercises: [
-    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bail' mean?", options: ["Money paid for release", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Appeal' mean?", options: ["Request to review a decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Plaintiff' mean?", options: ["Person bringing a lawsuit", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Defendant' mean?", options: ["Person being sued", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Verdict' mean?", options: ["A jury's decision", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of legal career skills, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of legal career skills, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in legal career skills?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in legal career skills?", options: ["Bail", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to legal career skills?", options: ["Appeal", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional legal career skills, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in legal career skills?", options: ["Bail", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to legal career skills?", options: ["Appeal", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional legal career skills, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Plaintiff':", options: ["The plaintiff filed a complaint.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Defendant'?", options: ["Person being sued", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Plaintiff':", options: ["The plaintiff filed a complaint.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Defendant'?", options: ["Person being sued", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Verdict' correctly:", options: ["The verdict was unanimous.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },

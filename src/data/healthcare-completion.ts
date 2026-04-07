@@ -5,58 +5,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 11,
     title: "Radiology & Imaging", description: "X-rays, MRI, CT scans, and diagnostic imaging",
     vocabulary: [
-    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" }
-    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" }
-    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" }
-    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" }
-    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" }
-    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" }
-    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" }
-    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" }
-    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" }
+    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
+    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
+    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
+    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
+    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
+    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
+    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
+    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
+    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
     { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore radiology & imaging." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "X-rays, MRI, CT scans, and diagnostic imaging" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore radiology & imaging." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "X-rays, MRI, CT scans, and diagnostic imaging" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
-      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
-      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
-      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" },
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" },
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" },
       { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
     ]},
     vocabExercises: [
-    { question: "What does 'Diagnosis' mean?", options: ["Identifying a disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Radiology' mean?", options: ["Medical imaging department", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Pediatrician' mean?", options: ["Children's doctor", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Rehabilitation' mean?", options: ["Recovery treatment", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Diagnosis' mean?", options: ["Identifying a disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Radiology' mean?", options: ["Medical imaging department", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Pediatrician' mean?", options: ["Children's doctor", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Rehabilitation' mean?", options: ["Recovery treatment", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Nutrition' mean?", options: ["Food and health science", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of radiology & imaging, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of radiology & imaging, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in radiology & imaging?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in radiology & imaging?", options: ["Diagnosis", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to radiology & imaging?", options: ["Radiology", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional radiology & imaging, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in radiology & imaging?", options: ["Diagnosis", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to radiology & imaging?", options: ["Radiology", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional radiology & imaging, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Pediatrician':", options: ["The pediatrician examined the child.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Rehabilitation'?", options: ["Recovery treatment", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Pediatrician':", options: ["The pediatrician examined the child.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Rehabilitation'?", options: ["Recovery treatment", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Nutrition' correctly:", options: ["Good nutrition prevents disease.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -64,58 +64,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 12,
     title: "Pediatric Care", description: "Child health, vaccinations, and growth monitoring",
     vocabulary: [
-    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" }
-    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" }
-    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" }
-    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" }
-    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" }
-    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" }
-    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" }
-    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" }
-    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" }
+    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
+    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
+    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
+    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
+    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
+    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
+    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
+    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
+    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
     { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore pediatric care." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Child health, vaccinations, and growth monitoring" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore pediatric care." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Child health, vaccinations, and growth monitoring" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
-      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
-      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
-      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" },
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" },
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" },
       { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
     ]},
     vocabExercises: [
-    { question: "What does 'Radiology' mean?", options: ["Medical imaging department", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Pediatrician' mean?", options: ["Children's doctor", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Rehabilitation' mean?", options: ["Recovery treatment", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Nutrition' mean?", options: ["Food and health science", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Radiology' mean?", options: ["Medical imaging department", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Pediatrician' mean?", options: ["Children's doctor", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Rehabilitation' mean?", options: ["Recovery treatment", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Nutrition' mean?", options: ["Food and health science", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Epidemiology' mean?", options: ["Study of disease spread", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of pediatric care, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of pediatric care, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in pediatric care?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in pediatric care?", options: ["Radiology", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to pediatric care?", options: ["Pediatrician", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional pediatric care, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in pediatric care?", options: ["Radiology", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to pediatric care?", options: ["Pediatrician", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional pediatric care, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Rehabilitation':", options: ["Rehabilitation takes weeks.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Nutrition'?", options: ["Food and health science", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Rehabilitation':", options: ["Rehabilitation takes weeks.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Nutrition'?", options: ["Food and health science", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Epidemiology' correctly:", options: ["Epidemiology tracks outbreaks.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -123,58 +123,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 13,
     title: "Geriatric Care", description: "Elderly patients, chronic conditions, and mobility",
     vocabulary: [
-    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" }
-    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" }
-    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" }
-    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" }
-    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" }
-    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" }
-    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" }
-    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" }
-    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" }
+    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
+    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
+    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
+    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
+    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
+    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
+    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
+    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
+    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
     { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore geriatric care." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Elderly patients, chronic conditions, and mobility" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore geriatric care." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Elderly patients, chronic conditions, and mobility" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
-      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
-      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
-      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" },
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" },
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" },
       { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
     ]},
     vocabExercises: [
-    { question: "What does 'Pediatrician' mean?", options: ["Children's doctor", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Rehabilitation' mean?", options: ["Recovery treatment", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Nutrition' mean?", options: ["Food and health science", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Epidemiology' mean?", options: ["Study of disease spread", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Pediatrician' mean?", options: ["Children's doctor", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Rehabilitation' mean?", options: ["Recovery treatment", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Nutrition' mean?", options: ["Food and health science", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Epidemiology' mean?", options: ["Study of disease spread", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Telemedicine' mean?", options: ["Remote medical care", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of geriatric care, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of geriatric care, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in geriatric care?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in geriatric care?", options: ["Pediatrician", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to geriatric care?", options: ["Rehabilitation", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional geriatric care, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in geriatric care?", options: ["Pediatrician", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to geriatric care?", options: ["Rehabilitation", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional geriatric care, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Nutrition':", options: ["Good nutrition prevents disease.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Epidemiology'?", options: ["Study of disease spread", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Nutrition':", options: ["Good nutrition prevents disease.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Epidemiology'?", options: ["Study of disease spread", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Telemedicine' correctly:", options: ["Telemedicine saves travel time.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -182,58 +182,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 14,
     title: "Dental English", description: "Teeth, procedures, oral health vocabulary",
     vocabulary: [
-    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" }
-    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" }
-    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" }
-    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" }
-    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" }
-    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" }
-    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" }
-    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" }
-    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" }
+    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
+    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
+    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
+    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
+    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
+    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
+    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
+    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
+    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
     { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore dental english." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Teeth, procedures, oral health vocabulary" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore dental english." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Teeth, procedures, oral health vocabulary" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
-      { sentence: "She must be at home.", note: "Present — very likely" }
-      { sentence: "He might have left already.", note: "Past — possible" }
-      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "She must be at home.", note: "Present — very likely" },
+      { sentence: "He might have left already.", note: "Past — possible" },
+      { sentence: "They can't be serious.", note: "Present — impossible" },
       { sentence: "It could have been worse.", note: "Past — possibility" },
     ]},
     vocabExercises: [
-    { question: "What does 'Rehabilitation' mean?", options: ["Recovery treatment", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Nutrition' mean?", options: ["Food and health science", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Epidemiology' mean?", options: ["Study of disease spread", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Telemedicine' mean?", options: ["Remote medical care", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Rehabilitation' mean?", options: ["Recovery treatment", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Nutrition' mean?", options: ["Food and health science", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Epidemiology' mean?", options: ["Study of disease spread", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Telemedicine' mean?", options: ["Remote medical care", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Chronic' mean?", options: ["Long-lasting condition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of dental english, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of dental english, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in dental english?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in dental english?", options: ["Rehabilitation", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to dental english?", options: ["Nutrition", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional dental english, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in dental english?", options: ["Rehabilitation", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to dental english?", options: ["Nutrition", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional dental english, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Epidemiology':", options: ["Epidemiology tracks outbreaks.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Telemedicine'?", options: ["Remote medical care", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Epidemiology':", options: ["Epidemiology tracks outbreaks.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Telemedicine'?", options: ["Remote medical care", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Chronic' correctly:", options: ["She has a chronic illness.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -241,58 +241,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 15,
     title: "Nursing Communication", description: "Patient handoffs, charting, and bedside manner",
     vocabulary: [
-    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" }
-    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" }
-    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" }
-    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" }
-    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" }
-    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" }
-    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" }
-    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" }
-    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" }
+    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
+    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
+    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
+    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
+    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
+    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
+    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
+    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
+    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
     { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore nursing communication." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Patient handoffs, charting, and bedside manner" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore nursing communication." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Patient handoffs, charting, and bedside manner" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
-      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
-      { sentence: "She got her hair done.", note: "Someone did her hair" }
-      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" },
+      { sentence: "She got her hair done.", note: "Someone did her hair" },
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" },
       { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
     ]},
     vocabExercises: [
-    { question: "What does 'Nutrition' mean?", options: ["Food and health science", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Epidemiology' mean?", options: ["Study of disease spread", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Telemedicine' mean?", options: ["Remote medical care", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Chronic' mean?", options: ["Long-lasting condition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Nutrition' mean?", options: ["Food and health science", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Epidemiology' mean?", options: ["Study of disease spread", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Telemedicine' mean?", options: ["Remote medical care", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Chronic' mean?", options: ["Long-lasting condition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Prescription' mean?", options: ["Doctor's medicine order", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of nursing communication, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of nursing communication, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in nursing communication?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in nursing communication?", options: ["Nutrition", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to nursing communication?", options: ["Epidemiology", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional nursing communication, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in nursing communication?", options: ["Nutrition", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to nursing communication?", options: ["Epidemiology", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional nursing communication, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Telemedicine':", options: ["Telemedicine saves travel time.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Chronic'?", options: ["Long-lasting condition", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Telemedicine':", options: ["Telemedicine saves travel time.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Chronic'?", options: ["Long-lasting condition", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Prescription' correctly:", options: ["Fill this prescription.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -300,58 +300,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 16,
     title: "Physical Therapy", description: "Rehabilitation, exercises, and recovery",
     vocabulary: [
-    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" }
-    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" }
-    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" }
-    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" }
-    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" }
-    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" }
-    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" }
-    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" }
-    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" }
+    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
+    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
+    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
+    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
+    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
+    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
+    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
+    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
+    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
     { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore physical therapy." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Rehabilitation, exercises, and recovery" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore physical therapy." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Rehabilitation, exercises, and recovery" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
-      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
-      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
-      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" },
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" },
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" },
       { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
     ]},
     vocabExercises: [
-    { question: "What does 'Epidemiology' mean?", options: ["Study of disease spread", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Telemedicine' mean?", options: ["Remote medical care", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Chronic' mean?", options: ["Long-lasting condition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Prescription' mean?", options: ["Doctor's medicine order", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Epidemiology' mean?", options: ["Study of disease spread", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Telemedicine' mean?", options: ["Remote medical care", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Chronic' mean?", options: ["Long-lasting condition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Prescription' mean?", options: ["Doctor's medicine order", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Triage' mean?", options: ["Sorting patients by urgency", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of physical therapy, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of physical therapy, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in physical therapy?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in physical therapy?", options: ["Epidemiology", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to physical therapy?", options: ["Telemedicine", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional physical therapy, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in physical therapy?", options: ["Epidemiology", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to physical therapy?", options: ["Telemedicine", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional physical therapy, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Chronic':", options: ["She has a chronic illness.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Prescription'?", options: ["Doctor's medicine order", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Chronic':", options: ["She has a chronic illness.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Prescription'?", options: ["Doctor's medicine order", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Triage' correctly:", options: ["Triage determines priority.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -359,58 +359,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 17,
     title: "Nutrition & Dietetics", description: "Diet plans, nutrients, and food allergies",
     vocabulary: [
-    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" }
-    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" }
-    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" }
-    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" }
-    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" }
-    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" }
-    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" }
-    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" }
-    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" }
+    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
+    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
+    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
+    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
+    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
+    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
+    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
+    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
+    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
     { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore nutrition & dietetics." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Diet plans, nutrients, and food allergies" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore nutrition & dietetics." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Diet plans, nutrients, and food allergies" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
-      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
-      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
-      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" },
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" },
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" },
       { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
     ]},
     vocabExercises: [
-    { question: "What does 'Telemedicine' mean?", options: ["Remote medical care", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Chronic' mean?", options: ["Long-lasting condition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Prescription' mean?", options: ["Doctor's medicine order", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Triage' mean?", options: ["Sorting patients by urgency", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Telemedicine' mean?", options: ["Remote medical care", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Chronic' mean?", options: ["Long-lasting condition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Prescription' mean?", options: ["Doctor's medicine order", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Triage' mean?", options: ["Sorting patients by urgency", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Diagnosis' mean?", options: ["Identifying a disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of nutrition & dietetics, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of nutrition & dietetics, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in nutrition & dietetics?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in nutrition & dietetics?", options: ["Telemedicine", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to nutrition & dietetics?", options: ["Chronic", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional nutrition & dietetics, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in nutrition & dietetics?", options: ["Telemedicine", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to nutrition & dietetics?", options: ["Chronic", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional nutrition & dietetics, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Prescription':", options: ["Fill this prescription.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Triage'?", options: ["Sorting patients by urgency", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Prescription':", options: ["Fill this prescription.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Triage'?", options: ["Sorting patients by urgency", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Diagnosis' correctly:", options: ["The diagnosis was confirmed.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -418,58 +418,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 18,
     title: "Public Health", description: "Epidemiology, vaccination campaigns, and outreach",
     vocabulary: [
-    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" }
-    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" }
-    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" }
-    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" }
-    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" }
-    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" }
-    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" }
-    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" }
-    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" }
+    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
+    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
+    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
+    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
+    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
+    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
+    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
+    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
+    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
     { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore public health." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Epidemiology, vaccination campaigns, and outreach" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore public health." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Epidemiology, vaccination campaigns, and outreach" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
-      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
-      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
-      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" },
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" },
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" },
       { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
     ]},
     vocabExercises: [
-    { question: "What does 'Chronic' mean?", options: ["Long-lasting condition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Prescription' mean?", options: ["Doctor's medicine order", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Triage' mean?", options: ["Sorting patients by urgency", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Diagnosis' mean?", options: ["Identifying a disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chronic' mean?", options: ["Long-lasting condition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Prescription' mean?", options: ["Doctor's medicine order", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Triage' mean?", options: ["Sorting patients by urgency", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Diagnosis' mean?", options: ["Identifying a disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Radiology' mean?", options: ["Medical imaging department", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of public health, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of public health, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in public health?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in public health?", options: ["Chronic", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to public health?", options: ["Prescription", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional public health, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in public health?", options: ["Chronic", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to public health?", options: ["Prescription", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional public health, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Triage':", options: ["Triage determines priority.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Diagnosis'?", options: ["Identifying a disease", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Triage':", options: ["Triage determines priority.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Diagnosis'?", options: ["Identifying a disease", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Radiology' correctly:", options: ["Radiology ordered an MRI.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -477,58 +477,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 19,
     title: "Healthcare Administration", description: "Hospital management, billing, and scheduling",
     vocabulary: [
-    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" }
-    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" }
-    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" }
-    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" }
-    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" }
-    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" }
-    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" }
-    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" }
-    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" }
+    { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
+    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
+    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
+    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
+    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
+    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
+    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
+    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
+    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
     { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore healthcare administration." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Hospital management, billing, and scheduling" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore healthcare administration." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Hospital management, billing, and scheduling" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
-      { sentence: "She must be at home.", note: "Present — very likely" }
-      { sentence: "He might have left already.", note: "Past — possible" }
-      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "She must be at home.", note: "Present — very likely" },
+      { sentence: "He might have left already.", note: "Past — possible" },
+      { sentence: "They can't be serious.", note: "Present — impossible" },
       { sentence: "It could have been worse.", note: "Past — possibility" },
     ]},
     vocabExercises: [
-    { question: "What does 'Prescription' mean?", options: ["Doctor's medicine order", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Triage' mean?", options: ["Sorting patients by urgency", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Diagnosis' mean?", options: ["Identifying a disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Radiology' mean?", options: ["Medical imaging department", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Prescription' mean?", options: ["Doctor's medicine order", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Triage' mean?", options: ["Sorting patients by urgency", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Diagnosis' mean?", options: ["Identifying a disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Radiology' mean?", options: ["Medical imaging department", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Pediatrician' mean?", options: ["Children's doctor", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of healthcare administration, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of healthcare administration, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in healthcare administration?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in healthcare administration?", options: ["Prescription", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to healthcare administration?", options: ["Triage", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional healthcare administration, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in healthcare administration?", options: ["Prescription", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to healthcare administration?", options: ["Triage", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional healthcare administration, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Diagnosis':", options: ["The diagnosis was confirmed.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Radiology'?", options: ["Medical imaging department", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Diagnosis':", options: ["The diagnosis was confirmed.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Radiology'?", options: ["Medical imaging department", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Pediatrician' correctly:", options: ["The pediatrician examined the child.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
@@ -536,58 +536,58 @@ export const healthcareCompletion: Record<string, LessonData> = {
     levelId: "healthcare", levelLabel: "English for Healthcare", lessonNumber: 20,
     title: "Telemedicine", description: "Virtual consultations, remote monitoring, and e-health",
     vocabulary: [
-    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" }
-    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" }
-    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" }
-    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" }
-    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" }
-    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" }
-    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" }
-    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" }
-    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" }
+    { word: "Triage", meaning: "Sorting patients by urgency", example: "Triage determines priority.", emoji: "🚑", arabic: "فرز طبي" },
+    { word: "Diagnosis", meaning: "Identifying a disease", example: "The diagnosis was confirmed.", emoji: "🔬", arabic: "تشخيص" },
+    { word: "Radiology", meaning: "Medical imaging department", example: "Radiology ordered an MRI.", emoji: "📷", arabic: "أشعة" },
+    { word: "Pediatrician", meaning: "Children's doctor", example: "The pediatrician examined the child.", emoji: "👶", arabic: "طبيب أطفال" },
+    { word: "Rehabilitation", meaning: "Recovery treatment", example: "Rehabilitation takes weeks.", emoji: "🏥", arabic: "إعادة تأهيل" },
+    { word: "Nutrition", meaning: "Food and health science", example: "Good nutrition prevents disease.", emoji: "🥗", arabic: "تغذية" },
+    { word: "Epidemiology", meaning: "Study of disease spread", example: "Epidemiology tracks outbreaks.", emoji: "📊", arabic: "علم الأوبئة" },
+    { word: "Telemedicine", meaning: "Remote medical care", example: "Telemedicine saves travel time.", emoji: "💻", arabic: "طب عن بعد" },
+    { word: "Chronic", meaning: "Long-lasting condition", example: "She has a chronic illness.", emoji: "⏳", arabic: "مزمن" },
     { word: "Prescription", meaning: "Doctor's medicine order", example: "Fill this prescription.", emoji: "💊", arabic: "وصفة طبية" },
     ],
     dialogue: [
-    { speaker: "Instructor", text: "Today we'll explore telemedicine." }
-    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
-    { speaker: "Instructor", text: "Virtual consultations, remote monitoring, and e-health" }
-    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Today we'll explore telemedicine." },
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" },
+    { speaker: "Instructor", text: "Virtual consultations, remote monitoring, and e-health" },
+    { speaker: "Student", text: "Can you give me a practical example?" },
     { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
     ],
     grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
-      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
-      { sentence: "She got her hair done.", note: "Someone did her hair" }
-      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" },
+      { sentence: "She got her hair done.", note: "Someone did her hair" },
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" },
       { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
     ]},
     vocabExercises: [
-    { question: "What does 'Triage' mean?", options: ["Sorting patients by urgency", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Diagnosis' mean?", options: ["Identifying a disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Radiology' mean?", options: ["Medical imaging department", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
-    { question: "What does 'Pediatrician' mean?", options: ["Children's doctor", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Triage' mean?", options: ["Sorting patients by urgency", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Diagnosis' mean?", options: ["Identifying a disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Radiology' mean?", options: ["Medical imaging department", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    { question: "What does 'Pediatrician' mean?", options: ["Children's doctor", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     { question: "What does 'Rehabilitation' mean?", options: ["Recovery treatment", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
     ],
     conversationExercises: [
-    { question: "In the context of telemedicine, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
-    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "In the context of telemedicine, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 },
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 },
     { question: "What is a key skill in telemedicine?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
     ],
     grammarExercises: [
-    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
-    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
-    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 },
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 },
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 },
     { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
     ],
     examQuestions: [
-    { question: "What is a key concept in telemedicine?", options: ["Triage", "Randomness", "Nothing", "Silence"], correct: 0 }
-    { question: "Which vocabulary word relates to telemedicine?", options: ["Diagnosis", "Banana", "Playground", "Cloud"], correct: 0 }
-    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
-    { question: "In professional telemedicine, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "What is a key concept in telemedicine?", options: ["Triage", "Randomness", "Nothing", "Silence"], correct: 0 },
+    { question: "Which vocabulary word relates to telemedicine?", options: ["Diagnosis", "Banana", "Playground", "Cloud"], correct: 0 },
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 },
+    { question: "In professional telemedicine, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 },
     { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
     ],
     homeworkQuestions: [
-    { question: "Write a sentence using 'Radiology':", options: ["Radiology ordered an MRI.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
-    { question: "Which definition matches 'Pediatrician'?", options: ["Children's doctor", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Write a sentence using 'Radiology':", options: ["Radiology ordered an MRI.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 },
+    { question: "Which definition matches 'Pediatrician'?", options: ["Children's doctor", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 },
     { question: "Use 'Rehabilitation' correctly:", options: ["Rehabilitation takes weeks.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
     ],
   },
