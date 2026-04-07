@@ -45,11 +45,12 @@ export const ScaleIn = forwardRef<HTMLDivElement, Props>(function ScaleIn({ chil
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.4, delay, ease: "easeOut" }}
       className={className}
+      ref={ref}
     >
       {children}
     </motion.div>
   );
-}
+});
 
 export const staggerContainer = {
   hidden: {},
