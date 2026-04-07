@@ -122,9 +122,9 @@ export default function StudentDashboard() {
   });
 
   return (
-    <div className="container mx-auto px-4 py-10">
+    <div className="container mx-auto px-4 py-6 md:py-10">
       {/* Header */}
-      <div className="flex items-center justify-between mb-10">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 md:mb-10">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
           <p className="text-sm text-muted-foreground font-medium mb-1">Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 17 ? "afternoon" : "evening"} 👋</p>
           <h1 className="text-3xl md:text-4xl font-bold font-display">
@@ -165,7 +165,7 @@ export default function StudentDashboard() {
         ))}
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="grid gap-4 lg:gap-6 lg:grid-cols-3">
         {/* Left Column - Main Content */}
         <div className="lg:col-span-2 space-y-6">
           {/* Placement Test Progress */}

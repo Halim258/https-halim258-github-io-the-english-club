@@ -399,7 +399,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ FEATURES ═══════════════ */}
-      <section className="relative py-20 md:py-28 overflow-hidden border-y bg-muted/20">
+      <section className="relative py-14 md:py-20 lg:py-28 overflow-hidden border-y bg-muted/20">
         <PetalTopRight className="opacity-50" />
         <div className="container mx-auto px-4 relative z-10">
           <FadeInUp>
@@ -410,7 +410,7 @@ export default function Home() {
             <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-bold font-display">
               A Complete English Learning Platform
             </h2>
-            <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground">
+            <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground text-sm md:text-base">
               Everything you need to learn English — from beginner to advanced.
             </p>
           </FadeInUp>
@@ -420,36 +420,36 @@ export default function Home() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-60px" }}
-            className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-10 md:mt-14 grid gap-4 md:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           >
             {features.map((f, i) => (
               <motion.div
                 key={f.title}
                 variants={staggerItem}
-                className={`relative rounded-2xl border bg-gradient-to-br ${f.color} p-7 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 group overflow-hidden`}
+                className={`relative rounded-2xl border bg-gradient-to-br ${f.color} p-5 md:p-7 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 group overflow-hidden`}
               >
                 {/* Decorative corner glow */}
                 <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-primary/5 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10">
-                  <div className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl ${f.accent} shadow-sm group-hover:scale-110 group-hover:shadow-md transition-all duration-300`}>
-                    <f.icon className="h-6 w-6 text-primary" />
+                  <div className={`mb-4 md:mb-5 inline-flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-xl ${f.accent} shadow-sm group-hover:scale-110 group-hover:shadow-md transition-all duration-300`}>
+                    <f.icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                   </div>
-                  <h3 className="text-base font-semibold font-display">{f.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                  <h3 className="text-sm md:text-base font-semibold font-display">{f.title}</h3>
+                  <p className="mt-1.5 md:mt-2 text-xs md:text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
                 </div>
               </motion.div>
             ))}
           </motion.div>
 
           <FadeInUp delay={0.2}>
-            <div className="mt-12 flex flex-wrap justify-center gap-3">
+            <div className="mt-10 md:mt-12 flex flex-wrap justify-center gap-3">
               <Link to="/courses">
-                <Button className="rounded-full font-semibold px-6 hover:scale-[1.02] transition-transform">
+                <Button className="rounded-full font-semibold px-6 hover:scale-[1.02] transition-transform text-sm">
                   Explore Courses <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/fm">
-                <Button variant="outline" className="rounded-full font-semibold px-6 hover:scale-[1.02] transition-transform">
+                <Button variant="outline" className="rounded-full font-semibold px-6 hover:scale-[1.02] transition-transform text-sm">
                   <Radio className="mr-2 h-4 w-4" /> FM Radio
                 </Button>
               </Link>
