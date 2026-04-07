@@ -359,6 +359,27 @@ export type Database = {
         }
         Relationships: []
       }
+      school_fixed_expenses: {
+        Row: {
+          amount: number
+          created_at: string | null
+          id: string
+          name: string
+        }
+        Insert: {
+          amount?: number
+          created_at?: string | null
+          id?: string
+          name: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string | null
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       school_groups: {
         Row: {
           created_at: string | null
