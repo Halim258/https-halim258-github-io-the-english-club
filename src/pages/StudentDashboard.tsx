@@ -62,8 +62,17 @@ function formatTime(s: number) {
 }
 
 export default function StudentDashboard() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect admins/secretaries to admin dashboard, teachers to teacher dashboard
+  useEffect(() => {
+    if (role === "admin" || role === "secretary") {
+      navigate("/admin", { replace: true });
+    } else if (role === "teacher") {
+      navigate("/teacher-dashboard", { replace: true });
+    }
+  }, [role, navigate]);
   const [testResults, setTestResults] = useState<TestResult[]>([]);
   const [progress, setProgress] = useState<LessonProgress[]>([]);
   const [bookmarks, setBookmarks] = useState<BookmarkRow[]>([]);
