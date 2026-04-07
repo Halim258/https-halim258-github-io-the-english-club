@@ -3,7 +3,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 interface Props {
   children: React.ReactNode;
-  requiredRole?: "admin" | "student" | "teacher";
+  requiredRole?: "admin" | "student" | "teacher" | "secretary";
 }
 
 export default function ProtectedRoute({ children, requiredRole }: Props) {
@@ -26,6 +26,11 @@ export default function ProtectedRoute({ children, requiredRole }: Props) {
   }
 
   if (requiredRole === "teacher" && role !== "teacher" && role !== "admin") {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  // Secretary can access admin panel
+  if (requiredRole === "secretary" && role !== "secretary" && role !== "admin") {
     return <Navigate to="/dashboard" replace />;
   }
 

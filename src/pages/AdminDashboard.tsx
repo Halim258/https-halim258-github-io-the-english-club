@@ -5,7 +5,7 @@ import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
-  Timer, AlertCircle, Moon, Sun
+  Timer, AlertCircle, Moon, Sun, ShieldCheck
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import CommandPalette from "@/components/admin/CommandPalette";
@@ -23,6 +23,7 @@ import AdminExport from "@/components/admin/AdminExport";
 import AdminAttendance from "@/components/admin/AdminAttendance";
 import AdminTeacherHours from "@/components/admin/AdminTeacherHours";
 import AdminUnpaidStudents from "@/components/admin/AdminUnpaidStudents";
+import AdminRoles from "@/components/admin/AdminRoles";
 
 type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "export";
 
