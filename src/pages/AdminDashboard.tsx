@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
-  Package, Receipt, Calendar, Download, Award
+  Package, Receipt, Calendar, Download, Award, ClipboardCheck
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -17,8 +17,9 @@ import AdminReceipts from "@/components/admin/AdminReceipts";
 import AdminSessions from "@/components/admin/AdminSessions";
 import AdminOverview from "@/components/admin/AdminOverview";
 import AdminExport from "@/components/admin/AdminExport";
+import AdminAttendance from "@/components/admin/AdminAttendance";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "export";
+type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "export";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -82,6 +83,7 @@ export default function AdminDashboard() {
     { id: "employees", label: "Employees", icon: UserCheck },
     { id: "groups", label: "Groups", icon: Users2 },
     { id: "sessions", label: "Sessions", icon: Calendar },
+    { id: "attendance", label: "Attendance", icon: ClipboardCheck },
     { id: "finance", label: "Finance", icon: DollarSign },
     { id: "newcomers", label: "Newcomers", icon: UserPlus },
     { id: "products", label: "Products", icon: Package },
@@ -158,6 +160,12 @@ export default function AdminDashboard() {
       {tab === "sessions" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <AdminSessions sessions={sessions} employees={employees} onRefresh={loadData} />
+        </motion.div>
+      )}
+
+      {tab === "attendance" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminAttendance sessions={sessions} />
         </motion.div>
       )}
 
