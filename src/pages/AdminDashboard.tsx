@@ -91,6 +91,26 @@ export default function AdminDashboard() {
 
   useEffect(() => { loadData(); }, []);
 
+  // Real-time subscriptions for auto-refresh
+  useEffect(() => {
+    const tables = [
+      "school_students", "school_income", "school_outcome",
+      "school_newcomers", "school_receipts", "school_sessions", "school_attendance"
+    ];
+    const channel = supabase
+      .channel("admin-realtime")
+      .on("postgres_changes", { event: "*", schema: "public", table: "school_students" }, () => loadData())
+      .on("postgres_changes", { event: "*", schema: "public", table: "school_income" }, () => loadData())
+      .on("postgres_changes", { event: "*", schema: "public", table: "school_outcome" }, () => loadData())
+      .on("postgres_changes", { event: "*", schema: "public", table: "school_newcomers" }, () => loadData())
+      .on("postgres_changes", { event: "*", schema: "public", table: "school_receipts" }, () => loadData())
+      .on("postgres_changes", { event: "*", schema: "public", table: "school_sessions" }, () => loadData())
+      .on("postgres_changes", { event: "*", schema: "public", table: "school_attendance" }, () => loadData())
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+  }, []);
+
   const tabs: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: "overview", label: "Overview", icon: BarChart3 },
     { id: "school-students", label: "Students", icon: Users },
