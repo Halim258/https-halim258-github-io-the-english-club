@@ -351,7 +351,7 @@ const speakerAvatars: Record<string, string> = {
   Student: "🧑‍🎓", Learner: "📖", Candidate: "💼", Pupil: "🧑‍🎓", Trainee: "📝",
   // Social
   Friend: "🤝", You: "🙋", Neighbor: "🏡", Colleague: "🤝", Partner: "💑",
-  Stranger: "❓", Roommate: "🏠", Classmate: "🎒", Pen Pal: "✉️",
+  Stranger: "❓", Roommate: "🏠", Classmate: "🎒", "Pen Pal": "✉️",
   // Food & Hospitality
   Waiter: "🍽️", Waitress: "🍽️", Customer: "🛒", Cashier: "💳",
   Chef: "👨‍🍳", Cook: "🍳", Baker: "🧁", Barista: "☕", Bartender: "🍸",
