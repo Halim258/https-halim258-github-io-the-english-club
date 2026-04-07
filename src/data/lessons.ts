@@ -122,6 +122,8 @@ import { slangCompletion } from "./slang-completion";
 import { teensCompletion } from "./teens-completion";
 import { travelCompletion } from "./travel-completion";
 import { conversationExpansion } from "./conversation-expansion";
+import { businessEnglishLessons } from "./business-english-lessons";
+import { academicWritingLessons } from "./academic-writing-lessons";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
@@ -701,4 +703,6 @@ export const lessons: Record<string, LessonData> = {
   ...teensCompletion,
   ...travelCompletion,
   ...conversationExpansion,
+  ...businessEnglishLessons,
+  ...academicWritingLessons,
 };
