@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
-import { Clock, Search, User, AlertTriangle, ChevronDown, ChevronUp } from "lucide-react";
+import { Clock, Search, User, AlertTriangle, ChevronDown, ChevronUp, DollarSign, Calculator, Settings } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 interface Session {
   id: string;
@@ -41,6 +43,10 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [monthFilter, setMonthFilter] = useState<string>("all");
+  const [showPayroll, setShowPayroll] = useState(false);
+  const [hourlyRate, setHourlyRate] = useState(100);
+  const [latenessDeductionPerMin, setLatenessDeductionPerMin] = useState(2);
+  const [bonuses, setBonuses] = useState<Record<number, number>>({});
 
   const months = useMemo(() => {
     const set = new Set<string>();
@@ -138,6 +144,14 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
   const grandTotalSessions = summaries.reduce((s, t) => s + t.totalSessions, 0);
   const grandTotalLateness = summaries.reduce((s, t) => s + t.totalLateness, 0);
 
+  const calcPay = (t: TeacherSummary) => {
+    const gross = t.totalHours * hourlyRate;
+    const deduction = t.totalLateness * latenessDeductionPerMin;
+    const bonus = bonuses[t.id] || 0;
+    return { gross, deduction, bonus, net: gross - deduction + bonus };
+  };
+  const grandTotalPay = summaries.reduce((s, t) => s + calcPay(t).net, 0);
+
   const toggleSort = (field: typeof sortField) => {
     if (sortField === field) setSortDir(d => d === "asc" ? "desc" : "asc");
     else { setSortField(field); setSortDir("desc"); }
@@ -163,6 +177,7 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
           { icon: Clock, label: "Total Hours", value: grandTotalHours },
           { icon: Clock, label: "Total Sessions", value: grandTotalSessions },
           { icon: AlertTriangle, label: "Total Lateness", value: `${grandTotalLateness} min` },
+          ...(showPayroll ? [{ icon: DollarSign, label: "Total Payroll", value: `${grandTotalPay.toLocaleString()} EGP` }] : []),
         ].map(s => (
           <div key={s.label} className="rounded-xl border bg-card p-4 shadow-soft">
             <div className="flex items-center gap-2">
@@ -174,6 +189,26 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
         ))}
       </div>
 
+      {/* Payroll Settings */}
+      {showPayroll && (
+        <div className="mb-4 rounded-xl border bg-card p-4 shadow-soft">
+          <div className="flex items-center gap-2 mb-3">
+            <Settings className="h-4 w-4 text-primary" />
+            <span className="text-sm font-semibold">Payroll Settings</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <Label>Hourly Rate (EGP)</Label>
+              <Input type="number" value={hourlyRate} onChange={e => setHourlyRate(Number(e.target.value) || 0)} />
+            </div>
+            <div>
+              <Label>Lateness Deduction (EGP/min)</Label>
+              <Input type="number" value={latenessDeductionPerMin} onChange={e => setLatenessDeductionPerMin(Number(e.target.value) || 0)} />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Controls */}
       <div className="flex flex-wrap gap-3 mb-4">
         <div className="relative flex-1 min-w-[200px] max-w-sm">
@@ -184,6 +219,9 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
           <option value="all">All Time</option>
           {months.map(m => <option key={m} value={m}>{monthLabel(m)}</option>)}
         </select>
+        <Button variant={showPayroll ? "default" : "outline"} size="sm" onClick={() => setShowPayroll(!showPayroll)}>
+          <Calculator className="h-4 w-4 mr-1" /> {showPayroll ? "Hide Payroll" : "Payroll"}
+        </Button>
       </div>
 
       {/* Table */}
