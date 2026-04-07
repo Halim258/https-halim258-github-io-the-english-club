@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { Facebook, MapPin, Phone, MessageCircle, GraduationCap, Heart, ArrowUpRight } from "lucide-react";
 
@@ -26,16 +27,16 @@ const tools = [
   { label: "Leaderboard", to: "/leaderboard" },
 ];
 
-export default function Footer() {
+const Footer = forwardRef<HTMLElement>((_, ref) => {
   return (
-    <footer className="relative border-t bg-secondary text-secondary-foreground overflow-hidden">
+    <footer ref={ref} className="relative border-t bg-secondary text-secondary-foreground overflow-hidden">
       {/* Subtle decorative gradient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/[0.03] rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
 
-      <div className="container mx-auto px-4 py-14 relative">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
+      <div className="container mx-auto px-4 py-10 md:py-14 relative">
+        <div className="grid gap-8 grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary shadow-sm">
                 <GraduationCap className="h-5 w-5 text-primary-foreground" />
@@ -147,4 +148,7 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+});
+
+Footer.displayName = "Footer";
+export default Footer;

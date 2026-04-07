@@ -316,14 +316,14 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
-      <section className="border-y bg-muted/30 py-16 md:py-20">
+      <section className="border-y bg-muted/30 py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-4">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-60px" }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8"
           >
             {stats.map((s, i) => (
               <motion.div
@@ -332,13 +332,13 @@ export default function Home() {
                 whileHover={{ scale: 1.05, y: -4 }}
                 className="relative text-center group cursor-default"
               >
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary group-hover:shadow-lg transition-all duration-300">
-                  <s.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                <div className="inline-flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-2xl bg-primary/10 mb-3 md:mb-4 group-hover:bg-primary group-hover:shadow-lg transition-all duration-300">
+                  <s.icon className="h-5 w-5 md:h-6 md:w-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
                 </div>
-                <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary font-display">
+                <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary font-display">
                   <AnimatedCounter target={s.value} suffix={s.suffix} />
                 </p>
-                <p className="mt-1.5 text-sm text-muted-foreground font-medium">{s.label}</p>
+                <p className="mt-1 text-xs md:text-sm text-muted-foreground font-medium">{s.label}</p>
                 {i < stats.length - 1 && (
                   <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-border" />
                 )}
@@ -349,7 +349,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ HOW IT WORKS ═══════════════ */}
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -359,12 +359,12 @@ export default function Home() {
             <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-bold font-display">
               Your Learning Journey in 4 Steps
             </h2>
-            <p className="mx-auto mt-3 max-w-xl text-center text-muted-foreground">
+            <p className="mx-auto mt-3 max-w-xl text-center text-muted-foreground text-sm md:text-base">
               Getting started is simple. Here's how The English Club takes you from enrollment to excellence.
             </p>
           </FadeInUp>
 
-          <div className="mt-14 relative">
+          <div className="mt-10 md:mt-14 relative">
             {/* Connection line */}
             <div className="hidden lg:block absolute top-[3.5rem] left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-transparent via-border to-transparent" />
 
@@ -373,24 +373,24 @@ export default function Home() {
               initial="hidden"
               whileInView="show"
               viewport={{ once: true, margin: "-60px" }}
-              className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+              className="grid gap-4 md:gap-6 grid-cols-2 lg:grid-cols-4"
             >
               {howItWorks.map((item, i) => (
                 <motion.div
                   key={item.step}
                   variants={staggerItem}
-                  className="relative rounded-2xl border bg-card p-7 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition-all duration-300 group"
+                  className="relative rounded-2xl border bg-card p-5 md:p-7 shadow-soft hover:shadow-card hover:-translate-y-1.5 transition-all duration-300 group"
                 >
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="relative h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                      <item.icon className="h-5 w-5 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
-                      <span className="absolute -top-2 -right-2 h-6 w-6 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center font-display shadow-sm">
+                  <div className="flex items-center gap-3 mb-3 md:mb-4">
+                    <div className="relative h-10 w-10 md:h-12 md:w-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                      <item.icon className="h-4 w-4 md:h-5 md:w-5 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+                      <span className="absolute -top-2 -right-2 h-5 w-5 md:h-6 md:w-6 rounded-full bg-primary text-primary-foreground text-[9px] md:text-[10px] font-bold flex items-center justify-center font-display shadow-sm">
                         {item.step}
                       </span>
                     </div>
                   </div>
-                  <h3 className="text-base font-semibold font-display">{item.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  <h3 className="text-sm md:text-base font-semibold font-display">{item.title}</h3>
+                  <p className="mt-1.5 md:mt-2 text-xs md:text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -399,7 +399,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ FEATURES ═══════════════ */}
-      <section className="relative py-20 md:py-28 overflow-hidden border-y bg-muted/20">
+      <section className="relative py-14 md:py-20 lg:py-28 overflow-hidden border-y bg-muted/20">
         <PetalTopRight className="opacity-50" />
         <div className="container mx-auto px-4 relative z-10">
           <FadeInUp>
@@ -410,7 +410,7 @@ export default function Home() {
             <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-bold font-display">
               A Complete English Learning Platform
             </h2>
-            <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground">
+            <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground text-sm md:text-base">
               Everything you need to learn English — from beginner to advanced.
             </p>
           </FadeInUp>
@@ -420,36 +420,36 @@ export default function Home() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-60px" }}
-            className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            className="mt-10 md:mt-14 grid gap-4 md:gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
           >
             {features.map((f, i) => (
               <motion.div
                 key={f.title}
                 variants={staggerItem}
-                className={`relative rounded-2xl border bg-gradient-to-br ${f.color} p-7 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 group overflow-hidden`}
+                className={`relative rounded-2xl border bg-gradient-to-br ${f.color} p-5 md:p-7 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 group overflow-hidden`}
               >
                 {/* Decorative corner glow */}
                 <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-primary/5 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="relative z-10">
-                  <div className={`mb-5 inline-flex h-14 w-14 items-center justify-center rounded-xl ${f.accent} shadow-sm group-hover:scale-110 group-hover:shadow-md transition-all duration-300`}>
-                    <f.icon className="h-6 w-6 text-primary" />
+                  <div className={`mb-4 md:mb-5 inline-flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-xl ${f.accent} shadow-sm group-hover:scale-110 group-hover:shadow-md transition-all duration-300`}>
+                    <f.icon className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                   </div>
-                  <h3 className="text-base font-semibold font-display">{f.title}</h3>
-                  <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                  <h3 className="text-sm md:text-base font-semibold font-display">{f.title}</h3>
+                  <p className="mt-1.5 md:mt-2 text-xs md:text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
                 </div>
               </motion.div>
             ))}
           </motion.div>
 
           <FadeInUp delay={0.2}>
-            <div className="mt-12 flex flex-wrap justify-center gap-3">
+            <div className="mt-10 md:mt-12 flex flex-wrap justify-center gap-3">
               <Link to="/courses">
-                <Button className="rounded-full font-semibold px-6 hover:scale-[1.02] transition-transform">
+                <Button className="rounded-full font-semibold px-6 hover:scale-[1.02] transition-transform text-sm">
                   Explore Courses <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/fm">
-                <Button variant="outline" className="rounded-full font-semibold px-6 hover:scale-[1.02] transition-transform">
+                <Button variant="outline" className="rounded-full font-semibold px-6 hover:scale-[1.02] transition-transform text-sm">
                   <Radio className="mr-2 h-4 w-4" /> FM Radio
                 </Button>
               </Link>
@@ -459,7 +459,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ EVERY LESSON INCLUDES ═══════════════ */}
-      <section className="py-20 md:py-28">
+      <section className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -469,7 +469,7 @@ export default function Home() {
             <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-bold font-display">
               Every Lesson Includes
             </h2>
-            <p className="mx-auto mt-3 max-w-md text-center text-muted-foreground">
+            <p className="mx-auto mt-3 max-w-md text-center text-muted-foreground text-sm md:text-base">
               A complete learning experience in every session.
             </p>
           </FadeInUp>
@@ -478,18 +478,18 @@ export default function Home() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-60px" }}
-            className="mt-12 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+            className="mt-10 md:mt-12 grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4"
           >
             {lessonIncludes.map((item, i) => (
               <motion.div
                 key={item.label}
                 variants={staggerItem}
-                className="relative flex flex-col items-center rounded-2xl border bg-card p-6 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 group overflow-hidden"
+                className="relative flex flex-col items-center rounded-2xl border bg-card p-4 md:p-6 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 group overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative text-3xl mb-3 group-hover:scale-125 transition-transform duration-300">{item.icon}</span>
-                <span className="relative text-sm font-semibold font-display">{item.label}</span>
-                <span className="relative text-[11px] text-muted-foreground mt-1 text-center">{item.desc}</span>
+                <span className="relative text-2xl md:text-3xl mb-2 md:mb-3 group-hover:scale-125 transition-transform duration-300">{item.icon}</span>
+                <span className="relative text-xs md:text-sm font-semibold font-display text-center">{item.label}</span>
+                <span className="relative text-[10px] md:text-[11px] text-muted-foreground mt-1 text-center hidden sm:block">{item.desc}</span>
               </motion.div>
             ))}
           </motion.div>
