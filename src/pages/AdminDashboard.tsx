@@ -33,7 +33,7 @@ const LEVEL_COLORS: Record<string, string> = {
 };
 
 export default function AdminDashboard() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
   const [tab, setTab] = useState<Tab>("overview");
   const [loading, setLoading] = useState(true);
   const [selectedProfile, setSelectedProfile] = useState<any | null>(null);
