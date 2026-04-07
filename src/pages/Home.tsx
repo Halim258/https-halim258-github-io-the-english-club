@@ -309,7 +309,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
-      <section className="border-y bg-muted/30 py-14 md:py-18">
+      <section className="border-y bg-muted/30 py-16 md:py-20">
         <div className="container mx-auto px-4">
           <motion.div
             variants={staggerContainer}
@@ -322,10 +322,11 @@ export default function Home() {
               <motion.div
                 key={s.label}
                 variants={staggerItem}
-                className="relative text-center group"
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="relative text-center group cursor-default"
               >
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 mb-4 group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
-                  <s.icon className="h-6 w-6 text-primary" />
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary group-hover:shadow-lg transition-all duration-300">
+                  <s.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
                 </div>
                 <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary font-display">
                   <AnimatedCounter target={s.value} suffix={s.suffix} />
