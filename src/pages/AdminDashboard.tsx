@@ -8,6 +8,7 @@ import {
   Timer, AlertCircle, Moon, Sun
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import CommandPalette from "@/components/admin/CommandPalette";
 import { useAuth } from "@/hooks/useAuth";
 import AdminStudents from "@/components/admin/AdminStudents";
 import AdminEmployees from "@/components/admin/AdminEmployees";
