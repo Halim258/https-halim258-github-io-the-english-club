@@ -346,35 +346,73 @@ const kidNames = new Set([
 ]);
 
 const speakerAvatars: Record<string, string> = {
-  // Roles
-  Teacher: "👩‍🏫", Coach: "🧑‍💼", Tutor: "👨‍🏫", Professor: "👨‍🎓",
-  Student: "🧑‍🎓", Learner: "📖", Candidate: "💼",
-  Friend: "🤝", You: "🙋",
+  // Education
+  Teacher: "👩‍🏫", Coach: "🧑‍💼", Tutor: "👨‍🏫", Professor: "👨‍🎓", Instructor: "👩‍🏫",
+  Student: "🧑‍🎓", Learner: "📖", Candidate: "💼", Pupil: "🧑‍🎓", Trainee: "📝",
+  // Social
+  Friend: "🤝", You: "🙋", Neighbor: "🏡", Colleague: "🤝", Partner: "💑",
+  Stranger: "❓", Roommate: "🏠", Classmate: "🎒", Pen Pal: "✉️",
+  // Food & Hospitality
   Waiter: "🍽️", Waitress: "🍽️", Customer: "🛒", Cashier: "💳",
+  Chef: "👨‍🍳", Cook: "🍳", Baker: "🧁", Barista: "☕", Bartender: "🍸",
+  Server: "🍽️", "Head Chef": "👨‍🍳", "Sous Chef": "🍳",
+  // Medical
   Doctor: "👨‍⚕️", Nurse: "👩‍⚕️", Patient: "🤒", Dentist: "🦷",
+  Surgeon: "🏥", Therapist: "🧠", Pharmacist: "💊", Paramedic: "🚑",
+  Psychologist: "🧠", Veterinarian: "🐾", Vet: "🐾", Optician: "👓",
+  // Business & Office
   Interviewer: "📋", Manager: "💼", Receptionist: "🏨", Boss: "👔",
   Client: "🤵", Advisor: "💡", Director: "🎬", Consultant: "📊",
-  Chair: "🪑", Analyst: "📊", Editor: "✏️", Writer: "📝",
-  Anchor: "🎙️", Reporter: "🎤", Examiner: "📝", Judge: "⚖️",
+  Analyst: "📈", Editor: "✏️", Writer: "📝", Secretary: "📋",
+  CEO: "🏢", CFO: "💹", CTO: "💻", HR: "👥", "HR Manager": "👥",
+  Accountant: "🧮", Lawyer: "⚖️", Attorney: "⚖️", Banker: "🏦",
+  Investor: "📈", Entrepreneur: "🚀", Freelancer: "💻", Intern: "🎓",
   "Sales Manager": "💰", "Team Member": "👥", "Team Leader": "🏅",
-  Pilot: "👨‍✈️", Officer: "👮", Chef: "👨‍🍳", Engineer: "👷",
-  Mechanic: "🔧", Librarian: "📚", Guide: "🗺️", Driver: "🚗",
-  Shopkeeper: "🏪", Barista: "☕", Pharmacist: "💊",
+  "Project Manager": "📋", Supervisor: "👔", Coordinator: "📊",
+  // Media & Arts
+  Anchor: "🎙️", Reporter: "🎤", Journalist: "📰", Photographer: "📷",
+  Artist: "🎨", Musician: "🎵", Singer: "🎤", Actor: "🎭", Actress: "🎭",
+  Dancer: "💃", Designer: "🎨", Architect: "📐", Filmmaker: "🎥",
   Host: "🎤", Guest: "🪪", Narrator: "📖", Speaker: "🎙️",
+  DJ: "🎧", Presenter: "📺", Blogger: "💻", Vlogger: "📹",
+  // Law & Authority
+  Examiner: "📝", Judge: "⚖️", Officer: "👮", Police: "👮",
+  Detective: "🕵️", Inspector: "🔍", Agent: "🕶️", Guard: "💂",
+  Soldier: "🎖️", Captain: "⚓", Commander: "🎖️",
+  // Transport & Travel
+  Pilot: "👨‍✈️", Driver: "🚗", "Taxi Driver": "🚕", "Bus Driver": "🚌",
+  "Flight Attendant": "✈️", Navigator: "🧭", Guide: "🗺️", "Tour Guide": "🗺️",
+  "Travel Agent": "✈️",
+  // Trades & Services
+  Engineer: "👷", Mechanic: "🔧", Electrician: "⚡", Plumber: "🔧",
+  Carpenter: "🪚", Painter: "🖌️", Gardener: "🌱", Farmer: "👨‍🌾",
+  Fisherman: "🎣", Firefighter: "🧑‍🚒", Cleaner: "🧹",
+  Librarian: "📚", Shopkeeper: "🏪", Vendor: "🏪", Tailor: "🧵",
+  // Tech
+  Programmer: "👨‍💻", Developer: "👩‍💻", "IT Support": "🖥️", Technician: "🔌",
+  Scientist: "🔬", Researcher: "🔬", Professor: "👨‍🎓",
+  // Sports
+  Referee: "🏁", Athlete: "🏃", Trainer: "🏋️", Player: "⚽",
+  // Family
   Dad: "👨", Father: "👨", Husband: "👨", Brother: "👦",
   Grandpa: "👴", Grandfather: "👴", Uncle: "👨",
   Mom: "👩", Mother: "👩", Wife: "👩", Sister: "👧",
   Grandma: "👵", Grandmother: "👵", Aunt: "👩",
   Child: "🧒", Kid: "🧒", Boy: "👦", Girl: "👧", Baby: "👶",
+  // Misc
+  Chair: "🪑", Volunteer: "🤲", Mentor: "🌟", Assistant: "📎",
+  Moderator: "🛡️", Panelist: "🎤", Audience: "👥", Listener: "👂",
 };
 
 function getAvatar(speaker: string) {
   if (speakerAvatars[speaker]) return speakerAvatars[speaker];
   if (kidNames.has(speaker)) return speaker.includes("Girl") || ["Annie","Molly","Sally","Lily","Rosie","Daisy","Penny","Ruby","Little Sara"].includes(speaker) ? "👧" : "👦";
   if (femaleNames.has(speaker)) return "👩";
-  // Check common male names
-  const maleNames = ["Ali","Ahmed","Mark","Alex","Sam","John","James","Tom","David","Michael","Adam","Omar","Hassan","Mohamed","Youssef","Khalid","Tariq","Ziad","Fadi","Sami","Nabil","Karim","Rami","Bob","Jack","Leo","Ben","Max","Luke","Ryan","Chris","Dan","Steve","Peter","Paul","George","Henry","Kevin","Brian","Eric","Nick","Tony","Joe","Mike","Jake","Ethan","Noah","Liam","Mason","Logan","Mr. Smith","Mr. Johnson","Sir"];
-  if (maleNames.includes(speaker)) return "👨";
+  const maleNames = new Set(["Ali","Ahmed","Mark","Alex","Sam","John","James","Tom","David","Michael","Adam","Omar","Hassan","Mohamed","Youssef","Khalid","Tariq","Ziad","Fadi","Sami","Nabil","Karim","Rami","Bob","Jack","Leo","Ben","Max","Luke","Ryan","Chris","Dan","Steve","Peter","Paul","George","Henry","Kevin","Brian","Eric","Nick","Tony","Joe","Mike","Jake","Ethan","Noah","Liam","Mason","Logan","Mr. Smith","Mr. Johnson","Sir","Carlos","Pedro","Marco","Luis","Diego","Ivan","Raj","Arjun","Wei","Ken","Hiroshi","Yuki","Hans","Franz","Pierre","Jean","Andre","Viktor","Nikolai","Abdul","Hamza","Ibrahim","Bilal","Samir","Amir","Hadi","Walid","Bassam","Majid","Mansour","Faisal","Sultan","Nawaf","Bader","Fahad","Saeed","Rashid","Hamdan"]);
+  if (maleNames.has(speaker)) return "👨";
+  // Fallback: check for title prefixes
+  if (speaker.startsWith("Mr.") || speaker.startsWith("Dr.") || speaker.startsWith("Prof.")) return "👨";
+  if (speaker.startsWith("Ms.") || speaker.startsWith("Mrs.") || speaker.startsWith("Miss")) return "👩";
   return "🗣️";
 }
 
