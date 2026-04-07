@@ -1,0 +1,1066 @@
+import type { LessonData } from "./lessons";
+
+export const musicCompletion: Record<string, LessonData> = {
+  "music-3": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 3,
+    title: "Musical Instruments", description: "Names and descriptions of instruments in English",
+    vocabulary: [
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore musical instruments." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Names and descriptions of instruments in English" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Melody' mean?", options: ["A sequence of musical notes", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Harmony' mean?", options: ["Combining notes to sound good", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Rhythm' mean?", options: ["A regular pattern of beats", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Tempo' mean?", options: ["Speed of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of musical instruments, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in musical instruments?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in musical instruments?", options: ["Melody", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to musical instruments?", options: ["Harmony", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional musical instruments, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Rhythm':", options: ["Feel the rhythm of the drums.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Tempo'?", options: ["Speed of music", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Chord' correctly:", options: ["Play a C major chord.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-4": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 4,
+    title: "Music Genres Explained", description: "Rock, jazz, pop, classical, and more",
+    vocabulary: [
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music genres explained." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Rock, jazz, pop, classical, and more" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
+      { sentence: "She must be at home.", note: "Present — very likely" }
+      { sentence: "He might have left already.", note: "Past — possible" }
+      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "It could have been worse.", note: "Past — possibility" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Harmony' mean?", options: ["Combining notes to sound good", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Rhythm' mean?", options: ["A regular pattern of beats", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Tempo' mean?", options: ["Speed of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music genres explained, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music genres explained?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music genres explained?", options: ["Harmony", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music genres explained?", options: ["Rhythm", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music genres explained, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Tempo':", options: ["The tempo was fast and energetic.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Chord'?", options: ["Multiple notes played together", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Verse' correctly:", options: ["The first verse sets the scene.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-5": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 5,
+    title: "Songwriting Basics", description: "Verse, chorus, bridge, and rhyme schemes",
+    vocabulary: [
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore songwriting basics." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Verse, chorus, bridge, and rhyme schemes" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
+      { sentence: "She got her hair done.", note: "Someone did her hair" }
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Rhythm' mean?", options: ["A regular pattern of beats", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Tempo' mean?", options: ["Speed of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of songwriting basics, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in songwriting basics?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in songwriting basics?", options: ["Rhythm", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to songwriting basics?", options: ["Tempo", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional songwriting basics, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Chord':", options: ["Play a C major chord.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Verse'?", options: ["A section of a song", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Chorus' correctly:", options: ["Everyone sang the chorus.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-6": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 6,
+    title: "Music Production Terms", description: "Studio, mixing, mastering, and recording",
+    vocabulary: [
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music production terms." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Studio, mixing, mastering, and recording" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Tempo' mean?", options: ["Speed of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music production terms, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music production terms?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music production terms?", options: ["Tempo", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music production terms?", options: ["Chord", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music production terms, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Verse':", options: ["The first verse sets the scene.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Chorus'?", options: ["The repeated main part", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Bridge' correctly:", options: ["The bridge changed the mood.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-7": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 7,
+    title: "Famous Musicians", description: "Biographies and achievements of music legends",
+    vocabulary: [
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore famous musicians." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Biographies and achievements of music legends" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Pitch' mean?", options: ["Highness or lowness of sound", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of famous musicians, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in famous musicians?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in famous musicians?", options: ["Chord", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to famous musicians?", options: ["Verse", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional famous musicians, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Chorus':", options: ["Everyone sang the chorus.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Bridge'?", options: ["A contrasting section", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Pitch' correctly:", options: ["Her pitch was perfect.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-8": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 8,
+    title: "Music and Emotions", description: "Describing how music makes you feel",
+    vocabulary: [
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music and emotions." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Describing how music makes you feel" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Pitch' mean?", options: ["Highness or lowness of sound", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["A category of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music and emotions, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music and emotions?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music and emotions?", options: ["Verse", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music and emotions?", options: ["Chorus", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music and emotions, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Bridge':", options: ["The bridge changed the mood.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Pitch'?", options: ["Highness or lowness of sound", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Genre' correctly:", options: ["Pop is a popular genre.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-9": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 9,
+    title: "Concert & Live Music", description: "Venue, stage, performance, and audience vocabulary",
+    vocabulary: [
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore concert & live music." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Venue, stage, performance, and audience vocabulary" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
+      { sentence: "She must be at home.", note: "Present — very likely" }
+      { sentence: "He might have left already.", note: "Past — possible" }
+      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "It could have been worse.", note: "Past — possibility" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Pitch' mean?", options: ["Highness or lowness of sound", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["A category of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Melody' mean?", options: ["A sequence of musical notes", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of concert & live music, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in concert & live music?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in concert & live music?", options: ["Chorus", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to concert & live music?", options: ["Bridge", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional concert & live music, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Pitch':", options: ["Her pitch was perfect.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Genre'?", options: ["A category of music", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Melody' correctly:", options: ["The melody was catchy.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-10": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 10,
+    title: "Music Reviews", description: "Writing and understanding music critiques",
+    vocabulary: [
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music reviews." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Writing and understanding music critiques" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
+      { sentence: "She got her hair done.", note: "Someone did her hair" }
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Pitch' mean?", options: ["Highness or lowness of sound", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["A category of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Melody' mean?", options: ["A sequence of musical notes", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Harmony' mean?", options: ["Combining notes to sound good", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music reviews, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music reviews?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music reviews?", options: ["Bridge", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music reviews?", options: ["Pitch", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music reviews, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Genre':", options: ["Pop is a popular genre.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Melody'?", options: ["A sequence of musical notes", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Harmony' correctly:", options: ["The harmony was beautiful.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-11": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 11,
+    title: "Music History", description: "Evolution of music from classical to modern",
+    vocabulary: [
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music history." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Evolution of music from classical to modern" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Pitch' mean?", options: ["Highness or lowness of sound", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["A category of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Melody' mean?", options: ["A sequence of musical notes", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Harmony' mean?", options: ["Combining notes to sound good", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Rhythm' mean?", options: ["A regular pattern of beats", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music history, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music history?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music history?", options: ["Pitch", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music history?", options: ["Genre", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music history, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Melody':", options: ["The melody was catchy.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Harmony'?", options: ["Combining notes to sound good", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Rhythm' correctly:", options: ["Feel the rhythm of the drums.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-12": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 12,
+    title: "Musical Notation", description: "Notes, scales, tempo, and rhythm vocabulary",
+    vocabulary: [
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore musical notation." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Notes, scales, tempo, and rhythm vocabulary" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Genre' mean?", options: ["A category of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Melody' mean?", options: ["A sequence of musical notes", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Harmony' mean?", options: ["Combining notes to sound good", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Rhythm' mean?", options: ["A regular pattern of beats", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Tempo' mean?", options: ["Speed of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of musical notation, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in musical notation?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in musical notation?", options: ["Genre", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to musical notation?", options: ["Melody", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional musical notation, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Harmony':", options: ["The harmony was beautiful.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Rhythm'?", options: ["A regular pattern of beats", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Tempo' correctly:", options: ["The tempo was fast and energetic.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-13": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 13,
+    title: "Folk & Traditional Music", description: "Cultural music, folk songs, and heritage",
+    vocabulary: [
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore folk & traditional music." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Cultural music, folk songs, and heritage" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Melody' mean?", options: ["A sequence of musical notes", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Harmony' mean?", options: ["Combining notes to sound good", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Rhythm' mean?", options: ["A regular pattern of beats", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Tempo' mean?", options: ["Speed of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of folk & traditional music, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in folk & traditional music?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in folk & traditional music?", options: ["Melody", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to folk & traditional music?", options: ["Harmony", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional folk & traditional music, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Rhythm':", options: ["Feel the rhythm of the drums.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Tempo'?", options: ["Speed of music", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Chord' correctly:", options: ["Play a C major chord.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-14": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 14,
+    title: "Hip-Hop & Rap Culture", description: "Slang, wordplay, and rap vocabulary",
+    vocabulary: [
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore hip-hop & rap culture." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Slang, wordplay, and rap vocabulary" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
+      { sentence: "She must be at home.", note: "Present — very likely" }
+      { sentence: "He might have left already.", note: "Past — possible" }
+      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "It could have been worse.", note: "Past — possibility" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Harmony' mean?", options: ["Combining notes to sound good", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Rhythm' mean?", options: ["A regular pattern of beats", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Tempo' mean?", options: ["Speed of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of hip-hop & rap culture, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in hip-hop & rap culture?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in hip-hop & rap culture?", options: ["Harmony", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to hip-hop & rap culture?", options: ["Rhythm", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional hip-hop & rap culture, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Tempo':", options: ["The tempo was fast and energetic.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Chord'?", options: ["Multiple notes played together", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Verse' correctly:", options: ["The first verse sets the scene.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-15": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 15,
+    title: "Music Awards & Industry", description: "Grammys, charts, labels, and contracts",
+    vocabulary: [
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music awards & industry." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Grammys, charts, labels, and contracts" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
+      { sentence: "She got her hair done.", note: "Someone did her hair" }
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Rhythm' mean?", options: ["A regular pattern of beats", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Tempo' mean?", options: ["Speed of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music awards & industry, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music awards & industry?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music awards & industry?", options: ["Rhythm", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music awards & industry?", options: ["Tempo", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music awards & industry, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Chord':", options: ["Play a C major chord.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Verse'?", options: ["A section of a song", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Chorus' correctly:", options: ["Everyone sang the chorus.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-16": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 16,
+    title: "Singing Techniques", description: "Vocal range, harmony, pitch, and breath control",
+    vocabulary: [
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore singing techniques." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Vocal range, harmony, pitch, and breath control" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Tempo' mean?", options: ["Speed of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of singing techniques, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in singing techniques?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in singing techniques?", options: ["Tempo", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to singing techniques?", options: ["Chord", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional singing techniques, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Verse':", options: ["The first verse sets the scene.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Chorus'?", options: ["The repeated main part", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Bridge' correctly:", options: ["The bridge changed the mood.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-17": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 17,
+    title: "Music in Films", description: "Soundtracks, scores, and theme songs",
+    vocabulary: [
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music in films." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Soundtracks, scores, and theme songs" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Chord' mean?", options: ["Multiple notes played together", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Pitch' mean?", options: ["Highness or lowness of sound", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music in films, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music in films?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music in films?", options: ["Chord", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music in films?", options: ["Verse", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music in films, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Chorus':", options: ["Everyone sang the chorus.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Bridge'?", options: ["A contrasting section", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Pitch' correctly:", options: ["Her pitch was perfect.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-18": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 18,
+    title: "Music & Technology", description: "Streaming, playlists, algorithms, and digital music",
+    vocabulary: [
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music & technology." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Streaming, playlists, algorithms, and digital music" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Verse' mean?", options: ["A section of a song", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Pitch' mean?", options: ["Highness or lowness of sound", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["A category of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music & technology, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music & technology?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music & technology?", options: ["Verse", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music & technology?", options: ["Chorus", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music & technology, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Bridge':", options: ["The bridge changed the mood.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Pitch'?", options: ["Highness or lowness of sound", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Genre' correctly:", options: ["Pop is a popular genre.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-19": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 19,
+    title: "Music Festivals", description: "Planning, lineup, and festival culture vocabulary",
+    vocabulary: [
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" }
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music festivals." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Planning, lineup, and festival culture vocabulary" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
+      { sentence: "She must be at home.", note: "Present — very likely" }
+      { sentence: "He might have left already.", note: "Past — possible" }
+      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "It could have been worse.", note: "Past — possibility" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Chorus' mean?", options: ["The repeated main part", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Pitch' mean?", options: ["Highness or lowness of sound", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["A category of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Melody' mean?", options: ["A sequence of musical notes", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music festivals, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music festivals?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music festivals?", options: ["Chorus", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music festivals?", options: ["Bridge", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music festivals, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Pitch':", options: ["Her pitch was perfect.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Genre'?", options: ["A category of music", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Melody' correctly:", options: ["The melody was catchy.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "music-20": {
+    levelId: "music", levelLabel: "English through Music", lessonNumber: 20,
+    title: "Music & Language Learning", description: "How music helps learn English effectively",
+    vocabulary: [
+    { word: "Bridge", meaning: "A contrasting section", example: "The bridge changed the mood.", emoji: "🌉", arabic: "جسر موسيقي" }
+    { word: "Pitch", meaning: "Highness or lowness of sound", example: "Her pitch was perfect.", emoji: "📈", arabic: "طبقة صوت" }
+    { word: "Genre", meaning: "A category of music", example: "Pop is a popular genre.", emoji: "🎧", arabic: "نوع موسيقي" }
+    { word: "Melody", meaning: "A sequence of musical notes", example: "The melody was catchy.", emoji: "🎵", arabic: "لحن" }
+    { word: "Harmony", meaning: "Combining notes to sound good", example: "The harmony was beautiful.", emoji: "🎶", arabic: "تناغم" }
+    { word: "Rhythm", meaning: "A regular pattern of beats", example: "Feel the rhythm of the drums.", emoji: "🥁", arabic: "إيقاع" }
+    { word: "Tempo", meaning: "Speed of music", example: "The tempo was fast and energetic.", emoji: "⏱️", arabic: "سرعة اللحن" }
+    { word: "Chord", meaning: "Multiple notes played together", example: "Play a C major chord.", emoji: "🎸", arabic: "وتر" }
+    { word: "Verse", meaning: "A section of a song", example: "The first verse sets the scene.", emoji: "📝", arabic: "مقطع" }
+    { word: "Chorus", meaning: "The repeated main part", example: "Everyone sang the chorus.", emoji: "🎤", arabic: "لازمة" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore music & language learning." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "How music helps learn English effectively" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
+      { sentence: "She got her hair done.", note: "Someone did her hair" }
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Bridge' mean?", options: ["A contrasting section", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Pitch' mean?", options: ["Highness or lowness of sound", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["A category of music", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Melody' mean?", options: ["A sequence of musical notes", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Harmony' mean?", options: ["Combining notes to sound good", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of music & language learning, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in music & language learning?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in music & language learning?", options: ["Bridge", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to music & language learning?", options: ["Pitch", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional music & language learning, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Genre':", options: ["Pop is a popular genre.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Melody'?", options: ["A sequence of musical notes", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Harmony' correctly:", options: ["The harmony was beautiful.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+};

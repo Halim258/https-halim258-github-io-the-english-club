@@ -1,0 +1,181 @@
+import type { LessonData } from "./lessons";
+
+export const teensCompletion: Record<string, LessonData> = {
+  "teens-18": {
+    levelId: "teens", levelLabel: "English for Teenagers", lessonNumber: 18,
+    title: "College Preparation", description: "Applications, essays, and campus vocabulary",
+    vocabulary: [
+    { word: "Application", meaning: "Request for admission", example: "Submit your application.", emoji: "📄", arabic: "طلب" }
+    { word: "Essay", meaning: "Written composition", example: "Write a 500-word essay.", emoji: "✍️", arabic: "مقال" }
+    { word: "Campus", meaning: "University grounds", example: "The campus is beautiful.", emoji: "🏫", arabic: "حرم جامعي" }
+    { word: "Resume", meaning: "Job summary document", example: "Update your resume.", emoji: "📋", arabic: "سيرة ذاتية" }
+    { word: "Part-time", meaning: "Less than full hours", example: "I work part-time.", emoji: "⏰", arabic: "دوام جزئي" }
+    { word: "Budget", meaning: "Financial plan", example: "Stick to your budget.", emoji: "💰", arabic: "ميزانية" }
+    { word: "Independence", meaning: "Being self-sufficient", example: "Teens seek independence.", emoji: "🦅", arabic: "استقلالية" }
+    { word: "Scholarship", meaning: "Financial aid for study", example: "She won a scholarship.", emoji: "🏆", arabic: "منحة دراسية" }
+    { word: "Internship", meaning: "Work experience", example: "An internship builds skills.", emoji: "💼", arabic: "تدريب" }
+    { word: "Volunteer", meaning: "Work without pay", example: "Volunteer at the shelter.", emoji: "🤝", arabic: "تطوع" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore college preparation." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Applications, essays, and campus vocabulary" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Application' mean?", options: ["Request for admission", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Essay' mean?", options: ["Written composition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Campus' mean?", options: ["University grounds", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Resume' mean?", options: ["Job summary document", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Part-time' mean?", options: ["Less than full hours", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of college preparation, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in college preparation?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in college preparation?", options: ["Application", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to college preparation?", options: ["Essay", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional college preparation, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Campus':", options: ["The campus is beautiful.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Resume'?", options: ["Job summary document", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Part-time' correctly:", options: ["I work part-time.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "teens-19": {
+    levelId: "teens", levelLabel: "English for Teenagers", lessonNumber: 19,
+    title: "Part-time Jobs", description: "Job hunting, interviews, and workplace basics",
+    vocabulary: [
+    { word: "Essay", meaning: "Written composition", example: "Write a 500-word essay.", emoji: "✍️", arabic: "مقال" }
+    { word: "Campus", meaning: "University grounds", example: "The campus is beautiful.", emoji: "🏫", arabic: "حرم جامعي" }
+    { word: "Resume", meaning: "Job summary document", example: "Update your resume.", emoji: "📋", arabic: "سيرة ذاتية" }
+    { word: "Part-time", meaning: "Less than full hours", example: "I work part-time.", emoji: "⏰", arabic: "دوام جزئي" }
+    { word: "Budget", meaning: "Financial plan", example: "Stick to your budget.", emoji: "💰", arabic: "ميزانية" }
+    { word: "Independence", meaning: "Being self-sufficient", example: "Teens seek independence.", emoji: "🦅", arabic: "استقلالية" }
+    { word: "Scholarship", meaning: "Financial aid for study", example: "She won a scholarship.", emoji: "🏆", arabic: "منحة دراسية" }
+    { word: "Internship", meaning: "Work experience", example: "An internship builds skills.", emoji: "💼", arabic: "تدريب" }
+    { word: "Volunteer", meaning: "Work without pay", example: "Volunteer at the shelter.", emoji: "🤝", arabic: "تطوع" }
+    { word: "Application", meaning: "Request for admission", example: "Submit your application.", emoji: "📄", arabic: "طلب" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore part-time jobs." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Job hunting, interviews, and workplace basics" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
+      { sentence: "She must be at home.", note: "Present — very likely" }
+      { sentence: "He might have left already.", note: "Past — possible" }
+      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "It could have been worse.", note: "Past — possibility" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Essay' mean?", options: ["Written composition", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Campus' mean?", options: ["University grounds", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Resume' mean?", options: ["Job summary document", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Part-time' mean?", options: ["Less than full hours", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Budget' mean?", options: ["Financial plan", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of part-time jobs, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in part-time jobs?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in part-time jobs?", options: ["Essay", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to part-time jobs?", options: ["Campus", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional part-time jobs, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Resume':", options: ["Update your resume.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Part-time'?", options: ["Less than full hours", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Budget' correctly:", options: ["Stick to your budget.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "teens-20": {
+    levelId: "teens", levelLabel: "English for Teenagers", lessonNumber: 20,
+    title: "Life Skills in English", description: "Budgeting, cooking, and independence vocabulary",
+    vocabulary: [
+    { word: "Campus", meaning: "University grounds", example: "The campus is beautiful.", emoji: "🏫", arabic: "حرم جامعي" }
+    { word: "Resume", meaning: "Job summary document", example: "Update your resume.", emoji: "📋", arabic: "سيرة ذاتية" }
+    { word: "Part-time", meaning: "Less than full hours", example: "I work part-time.", emoji: "⏰", arabic: "دوام جزئي" }
+    { word: "Budget", meaning: "Financial plan", example: "Stick to your budget.", emoji: "💰", arabic: "ميزانية" }
+    { word: "Independence", meaning: "Being self-sufficient", example: "Teens seek independence.", emoji: "🦅", arabic: "استقلالية" }
+    { word: "Scholarship", meaning: "Financial aid for study", example: "She won a scholarship.", emoji: "🏆", arabic: "منحة دراسية" }
+    { word: "Internship", meaning: "Work experience", example: "An internship builds skills.", emoji: "💼", arabic: "تدريب" }
+    { word: "Volunteer", meaning: "Work without pay", example: "Volunteer at the shelter.", emoji: "🤝", arabic: "تطوع" }
+    { word: "Application", meaning: "Request for admission", example: "Submit your application.", emoji: "📄", arabic: "طلب" }
+    { word: "Essay", meaning: "Written composition", example: "Write a 500-word essay.", emoji: "✍️", arabic: "مقال" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore life skills in english." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Budgeting, cooking, and independence vocabulary" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
+      { sentence: "She got her hair done.", note: "Someone did her hair" }
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Campus' mean?", options: ["University grounds", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Resume' mean?", options: ["Job summary document", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Part-time' mean?", options: ["Less than full hours", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Budget' mean?", options: ["Financial plan", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Independence' mean?", options: ["Being self-sufficient", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of life skills in english, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in life skills in english?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in life skills in english?", options: ["Campus", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to life skills in english?", options: ["Resume", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional life skills in english, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Part-time':", options: ["I work part-time.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Budget'?", options: ["Financial plan", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Independence' correctly:", options: ["Teens seek independence.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+};

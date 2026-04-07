@@ -1,0 +1,594 @@
+import type { LessonData } from "./lessons";
+
+export const conversationCompletion: Record<string, LessonData> = {
+  "conversation-11": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 11,
+    title: "At the Bank", description: "Opening accounts, loans, and banking transactions",
+    vocabulary: [
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" }
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" }
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" }
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" }
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" }
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" }
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" }
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" }
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" }
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore at the bank." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Opening accounts, loans, and banking transactions" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Deposit' mean?", options: ["Money put into bank", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Membership' mean?", options: ["Being a member", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Itinerary' mean?", options: ["Travel schedule", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Socializing' mean?", options: ["Spending time with people", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Deadline' mean?", options: ["Final date for task", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of at the bank, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in at the bank?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in at the bank?", options: ["Deposit", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to at the bank?", options: ["Membership", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional at the bank, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Itinerary':", options: ["The itinerary includes three cities.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Socializing'?", options: ["Spending time with people", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Deadline' correctly:", options: ["The deadline is tomorrow.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "conversation-12": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 12,
+    title: "At the Gym", description: "Fitness, exercises, and gym membership",
+    vocabulary: [
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" }
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" }
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" }
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" }
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" }
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" }
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" }
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" }
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" }
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore at the gym." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Fitness, exercises, and gym membership" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Membership' mean?", options: ["Being a member", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Itinerary' mean?", options: ["Travel schedule", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Socializing' mean?", options: ["Spending time with people", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Deadline' mean?", options: ["Final date for task", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["Category of arts", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of at the gym, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in at the gym?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in at the gym?", options: ["Membership", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to at the gym?", options: ["Itinerary", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional at the gym, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Socializing':", options: ["Socializing is good for health.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Deadline'?", options: ["Final date for task", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Genre' correctly:", options: ["What genre of movies do you like?", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "conversation-13": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 13,
+    title: "Planning a Trip", description: "Travel arrangements, destinations, and itineraries",
+    vocabulary: [
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" }
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" }
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" }
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" }
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" }
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" }
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" }
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" }
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" }
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore planning a trip." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Travel arrangements, destinations, and itineraries" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Itinerary' mean?", options: ["Travel schedule", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Socializing' mean?", options: ["Spending time with people", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Deadline' mean?", options: ["Final date for task", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["Category of arts", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Cuisine' mean?", options: ["Style of cooking", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of planning a trip, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in planning a trip?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in planning a trip?", options: ["Itinerary", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to planning a trip?", options: ["Socializing", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional planning a trip, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Deadline':", options: ["The deadline is tomorrow.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Genre'?", options: ["Category of arts", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Cuisine' correctly:", options: ["Italian cuisine is my favorite.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "conversation-14": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 14,
+    title: "At a Party", description: "Small talk, introductions, and socializing",
+    vocabulary: [
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" }
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" }
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" }
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" }
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" }
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" }
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" }
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" }
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" }
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore at a party." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Small talk, introductions, and socializing" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
+      { sentence: "She must be at home.", note: "Present — very likely" }
+      { sentence: "He might have left already.", note: "Past — possible" }
+      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "It could have been worse.", note: "Past — possibility" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Socializing' mean?", options: ["Spending time with people", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Deadline' mean?", options: ["Final date for task", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["Category of arts", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Cuisine' mean?", options: ["Style of cooking", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Symptom' mean?", options: ["Sign of illness", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of at a party, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in at a party?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in at a party?", options: ["Socializing", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to at a party?", options: ["Deadline", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional at a party, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Genre':", options: ["What genre of movies do you like?", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Cuisine'?", options: ["Style of cooking", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Symptom' correctly:", options: ["Fever is a common symptom.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "conversation-15": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 15,
+    title: "At the Office", description: "Workplace conversations and professional etiquette",
+    vocabulary: [
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" }
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" }
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" }
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" }
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" }
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" }
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" }
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" }
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" }
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore at the office." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Workplace conversations and professional etiquette" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
+      { sentence: "She got her hair done.", note: "Someone did her hair" }
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Deadline' mean?", options: ["Final date for task", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Genre' mean?", options: ["Category of arts", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Cuisine' mean?", options: ["Style of cooking", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Symptom' mean?", options: ["Sign of illness", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Gadget' mean?", options: ["A small device", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of at the office, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in at the office?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in at the office?", options: ["Deadline", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to at the office?", options: ["Genre", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional at the office, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Cuisine':", options: ["Italian cuisine is my favorite.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Symptom'?", options: ["Sign of illness", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Gadget' correctly:", options: ["This gadget is very useful.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "conversation-16": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 16,
+    title: "Talking About Movies", description: "Film reviews, genres, and recommendations",
+    vocabulary: [
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" }
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" }
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" }
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" }
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" }
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" }
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" }
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" }
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" }
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore talking about movies." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Film reviews, genres, and recommendations" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Conditional Sentences", explanation: "Conditionals express hypothetical situations. Type 0: general truths (If+present, present). Type 1: real future (If+present, will+verb). Type 2: unreal present (If+past, would+verb). Type 3: unreal past (If+had+PP, would have+PP).", examples: [
+      { sentence: "If you heat water, it boils.", note: "Type 0 — general truth" }
+      { sentence: "If it rains, we will cancel.", note: "Type 1 — real possibility" }
+      { sentence: "If I had time, I would help.", note: "Type 2 — hypothetical" }
+      { sentence: "If she had studied, she would have passed.", note: "Type 3 — regret" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Genre' mean?", options: ["Category of arts", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Cuisine' mean?", options: ["Style of cooking", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Symptom' mean?", options: ["Sign of illness", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Gadget' mean?", options: ["A small device", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Ambition' mean?", options: ["Strong desire to achieve", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of talking about movies, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in talking about movies?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in talking about movies?", options: ["Genre", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to talking about movies?", options: ["Cuisine", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional talking about movies, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Symptom':", options: ["Fever is a common symptom.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Gadget'?", options: ["A small device", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Ambition' correctly:", options: ["Her ambition drove her success.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "conversation-17": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 17,
+    title: "Discussing Food", description: "Cuisines, cooking, and restaurant reviews",
+    vocabulary: [
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" }
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" }
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" }
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" }
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" }
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" }
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" }
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" }
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" }
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore discussing food." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Cuisines, cooking, and restaurant reviews" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Reported Speech", explanation: "When reporting what someone said, we shift tenses back: present→past, past→past perfect, will→would. Pronouns and time expressions also change.", examples: [
+      { sentence: "He said he was busy.", note: "Direct: 'I am busy' → Reported: past tense" }
+      { sentence: "She told me she had finished.", note: "Direct: 'I finished' → past perfect" }
+      { sentence: "They said they would come.", note: "Direct: 'We will come' → would" }
+      { sentence: "He asked if I liked it.", note: "Direct: 'Do you like it?' → if clause" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Cuisine' mean?", options: ["Style of cooking", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Symptom' mean?", options: ["Sign of illness", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Gadget' mean?", options: ["A small device", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Ambition' mean?", options: ["Strong desire to achieve", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Deposit' mean?", options: ["Money put into bank", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of discussing food, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in discussing food?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in discussing food?", options: ["Cuisine", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to discussing food?", options: ["Symptom", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional discussing food, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Gadget':", options: ["This gadget is very useful.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Ambition'?", options: ["Strong desire to achieve", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Deposit' correctly:", options: ["I made a deposit today.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "conversation-18": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 18,
+    title: "Health & Wellness", description: "Doctor visits, symptoms, and healthy living",
+    vocabulary: [
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" }
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" }
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" }
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" }
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" }
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" }
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" }
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" }
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" }
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore health & wellness." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Doctor visits, symptoms, and healthy living" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Relative Clauses", explanation: "Relative clauses add information about nouns using who, which, that, where, whose. Defining clauses are essential (no commas). Non-defining add extra info (with commas).", examples: [
+      { sentence: "The man who called is here.", note: "Defining — identifies which man" }
+      { sentence: "London, which is the capital, is huge.", note: "Non-defining — extra info, commas" }
+      { sentence: "The book that I read was great.", note: "'That' for defining clauses" }
+      { sentence: "She's the one whose idea won.", note: "'Whose' shows possession" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Symptom' mean?", options: ["Sign of illness", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Gadget' mean?", options: ["A small device", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Ambition' mean?", options: ["Strong desire to achieve", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Deposit' mean?", options: ["Money put into bank", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Membership' mean?", options: ["Being a member", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of health & wellness, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in health & wellness?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in health & wellness?", options: ["Symptom", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to health & wellness?", options: ["Gadget", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional health & wellness, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Ambition':", options: ["Her ambition drove her success.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Deposit'?", options: ["Money put into bank", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Membership' correctly:", options: ["My gym membership expires soon.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "conversation-19": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 19,
+    title: "Technology Talk", description: "Gadgets, apps, and digital conversations",
+    vocabulary: [
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" }
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" }
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" }
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" }
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" }
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" }
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" }
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" }
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" }
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore technology talk." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Gadgets, apps, and digital conversations" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Modal Verbs for Speculation", explanation: "We use modal verbs to speculate about present and past: must (90% sure), might/may (50%), can't (impossible). For past: must have, might have, can't have + past participle.", examples: [
+      { sentence: "She must be at home.", note: "Present — very likely" }
+      { sentence: "He might have left already.", note: "Past — possible" }
+      { sentence: "They can't be serious.", note: "Present — impossible" }
+      { sentence: "It could have been worse.", note: "Past — possibility" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Gadget' mean?", options: ["A small device", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Ambition' mean?", options: ["Strong desire to achieve", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Deposit' mean?", options: ["Money put into bank", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Membership' mean?", options: ["Being a member", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Itinerary' mean?", options: ["Travel schedule", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of technology talk, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in technology talk?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in technology talk?", options: ["Gadget", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to technology talk?", options: ["Ambition", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional technology talk, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Deposit':", options: ["I made a deposit today.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Membership'?", options: ["Being a member", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Itinerary' correctly:", options: ["The itinerary includes three cities.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+  "conversation-20": {
+    levelId: "conversation", levelLabel: "Conversation Practice", lessonNumber: 20,
+    title: "Future Plans", description: "Ambitions, goals, and life planning discussions",
+    vocabulary: [
+    { word: "Ambition", meaning: "Strong desire to achieve", example: "Her ambition drove her success.", emoji: "🌟", arabic: "طموح" }
+    { word: "Deposit", meaning: "Money put into bank", example: "I made a deposit today.", emoji: "💰", arabic: "إيداع" }
+    { word: "Membership", meaning: "Being a member", example: "My gym membership expires soon.", emoji: "🎫", arabic: "عضوية" }
+    { word: "Itinerary", meaning: "Travel schedule", example: "The itinerary includes three cities.", emoji: "🗺️", arabic: "جدول الرحلة" }
+    { word: "Socializing", meaning: "Spending time with people", example: "Socializing is good for health.", emoji: "🤝", arabic: "التواصل الاجتماعي" }
+    { word: "Deadline", meaning: "Final date for task", example: "The deadline is tomorrow.", emoji: "⏰", arabic: "موعد نهائي" }
+    { word: "Genre", meaning: "Category of arts", example: "What genre of movies do you like?", emoji: "🎬", arabic: "نوع" }
+    { word: "Cuisine", meaning: "Style of cooking", example: "Italian cuisine is my favorite.", emoji: "🍝", arabic: "مطبخ" }
+    { word: "Symptom", meaning: "Sign of illness", example: "Fever is a common symptom.", emoji: "🤒", arabic: "عرض" }
+    { word: "Gadget", meaning: "A small device", example: "This gadget is very useful.", emoji: "📱", arabic: "أداة" },
+    ],
+    dialogue: [
+    { speaker: "Instructor", text: "Today we'll explore future plans." }
+    { speaker: "Student", text: "That sounds interesting! What should I know first?" }
+    { speaker: "Instructor", text: "Ambitions, goals, and life planning discussions" }
+    { speaker: "Student", text: "Can you give me a practical example?" }
+    { speaker: "Instructor", text: "Of course! Let's start with the key vocabulary." },
+    ],
+    grammar: { title: "Causative Structures", explanation: "The causative is used when someone arranges for another person to do something. Have/get + object + past participle. 'Have' is more formal than 'get'.", examples: [
+      { sentence: "I had my car repaired.", note: "Someone repaired it for me" }
+      { sentence: "She got her hair done.", note: "Someone did her hair" }
+      { sentence: "We'll have the report written.", note: "Formal — arrange for someone" }
+      { sentence: "Get it checked by a doctor.", note: "Informal — recommendation" },
+    ]},
+    vocabExercises: [
+    { question: "What does 'Ambition' mean?", options: ["Strong desire to achieve", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Deposit' mean?", options: ["Money put into bank", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Membership' mean?", options: ["Being a member", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Itinerary' mean?", options: ["Travel schedule", "The opposite meaning", "A type of food", "A greeting"], correct: 0 }
+    { question: "What does 'Socializing' mean?", options: ["Spending time with people", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
+    ],
+    conversationExercises: [
+    { question: "In the context of future plans, what is most important?", options: ["Speaking clearly", "Using technical vocabulary", "Both A and B", "Neither"], correct: 2 }
+    { question: "How should you ask for clarification?", options: ["Say nothing", "'Could you explain that?'", "Walk away", "Guess"], correct: 1 }
+    { question: "What is a key skill in future plans?", options: ["Ignoring details", "Active listening", "Speaking fast", "Using slang"], correct: 1 },
+    ],
+    grammarExercises: [
+    { question: "Choose the correct form:", options: ["If I was you, I'll go.", "If I were you, I would go.", "If I am you, I go.", "If I be you, I went."], correct: 1 }
+    { question: "Select the reported speech:", options: ["He says he is happy.", "He said he was happy.", "He said he is happy.", "He says he was happy."], correct: 1 }
+    { question: "Which uses a relative clause?", options: ["I went home.", "The man who called left.", "She runs fast.", "It rained."], correct: 1 }
+    { question: "Complete: 'She ___ have arrived by now.'", options: ["must", "can", "do", "are"], correct: 0 },
+    ],
+    examQuestions: [
+    { question: "What is a key concept in future plans?", options: ["Ambition", "Randomness", "Nothing", "Silence"], correct: 0 }
+    { question: "Which vocabulary word relates to future plans?", options: ["Deposit", "Banana", "Playground", "Cloud"], correct: 0 }
+    { question: "Choose the most professional response:", options: ["Yeah whatever", "I understand, let me help.", "I don't know", "Not my problem"], correct: 1 }
+    { question: "In professional future plans, you should:", options: ["Be casual", "Use appropriate terminology", "Avoid speaking", "Use only slang"], correct: 1 }
+    { question: "The best way to learn new vocabulary is:", options: ["Memorize lists", "Use words in context", "Ignore them", "Read once"], correct: 1 },
+    ],
+    homeworkQuestions: [
+    { question: "Write a sentence using 'Membership':", options: ["My gym membership expires soon.", "I like pizza.", "The sky is blue.", "Hello world."], correct: 0 }
+    { question: "Which definition matches 'Itinerary'?", options: ["Travel schedule", "A type of sport", "A kind of weather", "A musical instrument"], correct: 0 }
+    { question: "Use 'Socializing' correctly:", options: ["Socializing is good for health.", "The table is green.", "I went shopping.", "It was Tuesday."], correct: 0 },
+    ],
+  },
+};
