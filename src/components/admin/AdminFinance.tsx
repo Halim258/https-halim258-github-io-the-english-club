@@ -362,211 +362,147 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
         </div>
       )}
 
-      {tab === "pnl" && (() => {
-        const monthIncome = income.filter(r => {
-          if (!r.date) return false;
-          const d = new Date(r.date);
-          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}` === pnlMonth;
-        });
-        const monthOutcome = outcome.filter(r => {
-          if (!r.date) return false;
-          const d = new Date(r.date);
-          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}` === pnlMonth;
-        });
-
-        const totalMonthIncome = monthIncome.reduce((s, r) => s + r.amount, 0);
-        const totalMonthExpenses = monthOutcome.reduce((s, r) => s + r.amount, 0);
+      {tab === "yearly" && (() => {
         const totalFixed = fixedExpenses.reduce((s, e) => s + e.amount, 0);
-        const totalAllExpenses = totalMonthExpenses + totalFixed;
-        const netPnl = totalMonthIncome - totalAllExpenses;
-        const margin = totalMonthIncome > 0 ? ((netPnl / totalMonthIncome) * 100).toFixed(1) : "0";
-
-        // Group variable expenses by category
-        const varCats: Record<string, number> = {};
-        monthOutcome.forEach(r => { const c = r.category || "Other"; varCats[c] = (varCats[c] || 0) + r.amount; });
-
-        // Group income by category
-        const incCats: Record<string, number> = {};
-        monthIncome.forEach(r => { const c = r.category || "Other"; incCats[c] = (incCats[c] || 0) + r.amount; });
-
-        const pnlMonthLabel = (() => {
-          const [y, mo] = pnlMonth.split("-");
-          return new Date(parseInt(y), parseInt(mo) - 1).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+        
+        // Available years from data
+        const availableYears = (() => {
+          const yrs = new Set<number>();
+          income.forEach(r => { if (r.date) yrs.add(new Date(r.date).getFullYear()); });
+          outcome.forEach(r => { if (r.date) yrs.add(new Date(r.date).getFullYear()); });
+          yrs.add(pnlYear);
+          return Array.from(yrs).sort((a, b) => b - a);
         })();
 
-        // Available months
-        const availableMonths = (() => {
-          const set = new Set<string>();
-          income.forEach(r => { if (r.date) { const d = new Date(r.date); set.add(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`); }});
-          outcome.forEach(r => { if (r.date) { const d = new Date(r.date); set.add(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`); }});
-          set.add(pnlMonth);
-          return Array.from(set).sort().reverse();
-        })();
+        const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+        // Build month-by-month data for selected year
+        const yearlyData = MONTHS.map((label, idx) => {
+          const key = `${pnlYear}-${String(idx + 1).padStart(2, "0")}`;
+          const mIncome = income.filter(r => {
+            if (!r.date) return false;
+            const d = new Date(r.date);
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}` === key;
+          }).reduce((s, r) => s + r.amount, 0);
+          const mExpenses = outcome.filter(r => {
+            if (!r.date) return false;
+            const d = new Date(r.date);
+            return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}` === key;
+          }).reduce((s, r) => s + r.amount, 0);
+          const net = mIncome - mExpenses - totalFixed;
+          return { label, income: mIncome, expenses: mExpenses, fixed: totalFixed, net };
+        });
+
+        const totals = yearlyData.reduce(
+          (acc, m) => ({ income: acc.income + m.income, expenses: acc.expenses + m.expenses, fixed: acc.fixed + m.fixed, net: acc.net + m.net }),
+          { income: 0, expenses: 0, fixed: 0, net: 0 }
+        );
+
+        const maxBar = Math.max(...yearlyData.map(m => Math.max(m.income, m.expenses + m.fixed)), 1);
 
         return (
           <div className="space-y-6">
-            {/* Month selector */}
-            <div className="flex flex-wrap items-center gap-3">
-              <select value={pnlMonth} onChange={e => setPnlMonth(e.target.value)} className="rounded-md border bg-background px-3 py-2 text-sm font-medium">
-                {availableMonths.map(m => {
-                  const [y, mo] = m.split("-");
-                  return <option key={m} value={m}>{new Date(parseInt(y), parseInt(mo) - 1).toLocaleDateString("en-GB", { month: "long", year: "numeric" })}</option>;
-                })}
+            {/* Year selector */}
+            <div className="flex items-center gap-3">
+              <Calendar className="h-4 w-4 text-primary" />
+              <select value={pnlYear} onChange={e => setPnlYear(Number(e.target.value))} className="rounded-md border bg-background px-3 py-2 text-sm font-medium">
+                {availableYears.map(y => <option key={y} value={y}>{y}</option>)}
               </select>
-              <span className="text-sm text-muted-foreground">Profit & Loss Statement</span>
+              <span className="text-sm text-muted-foreground">Yearly P&L Summary</span>
             </div>
 
-            {/* P&L Summary Cards */}
+            {/* Annual Totals */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               <div className="rounded-xl border bg-card p-4 shadow-soft">
-                <span className="text-xs text-muted-foreground">Revenue</span>
-                <p className="text-xl font-bold font-display text-emerald-600 mt-1">{totalMonthIncome.toLocaleString()} ج.م</p>
+                <span className="text-xs text-muted-foreground">Annual Revenue</span>
+                <p className="text-xl font-bold font-display text-emerald-600 mt-1">{totals.income.toLocaleString()} ج.م</p>
               </div>
               <div className="rounded-xl border bg-card p-4 shadow-soft">
                 <span className="text-xs text-muted-foreground">Variable Expenses</span>
-                <p className="text-xl font-bold font-display text-red-600 mt-1">{totalMonthExpenses.toLocaleString()} ج.م</p>
+                <p className="text-xl font-bold font-display text-red-600 mt-1">{totals.expenses.toLocaleString()} ج.م</p>
               </div>
               <div className="rounded-xl border bg-card p-4 shadow-soft">
-                <span className="text-xs text-muted-foreground">Fixed Expenses</span>
-                <p className="text-xl font-bold font-display text-amber-600 mt-1">{totalFixed.toLocaleString()} ج.م</p>
+                <span className="text-xs text-muted-foreground">Fixed Expenses (×12)</span>
+                <p className="text-xl font-bold font-display text-amber-600 mt-1">{totals.fixed.toLocaleString()} ج.م</p>
               </div>
-              <div className={`rounded-xl border p-4 shadow-soft ${netPnl >= 0 ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800" : "bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800"}`}>
-                <span className="text-xs text-muted-foreground">{netPnl >= 0 ? "Net Profit ✅" : "Net Loss ❌"}</span>
-                <p className={`text-xl font-bold font-display mt-1 ${netPnl >= 0 ? "text-emerald-600" : "text-red-600"}`}>{netPnl.toLocaleString()} ج.م</p>
-                <p className="text-[10px] text-muted-foreground">Margin: {margin}%</p>
+              <div className={`rounded-xl border p-4 shadow-soft ${totals.net >= 0 ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800" : "bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800"}`}>
+                <span className="text-xs text-muted-foreground">{totals.net >= 0 ? "Annual Profit ✅" : "Annual Loss ❌"}</span>
+                <p className={`text-xl font-bold font-display mt-1 ${totals.net >= 0 ? "text-emerald-600" : "text-red-600"}`}>{totals.net.toLocaleString()} ج.م</p>
               </div>
             </div>
 
-            {/* P&L Statement */}
-            <div className="rounded-2xl border bg-card shadow-soft overflow-hidden">
-              <div className="p-4 border-b bg-muted/50">
-                <h3 className="text-sm font-bold">📋 Profit & Loss — {pnlMonthLabel}</h3>
-              </div>
-              <div className="divide-y">
-                {/* Revenue Section */}
-                <div className="p-4">
-                  <p className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-3">Revenue</p>
-                  {Object.entries(incCats).map(([cat, val]) => (
-                    <div key={cat} className="flex justify-between py-1 text-sm">
-                      <span className="text-muted-foreground">{cat}</span>
-                      <span className="font-mono font-medium text-emerald-600">+{val.toLocaleString()}</span>
-                    </div>
-                  ))}
-                  {Object.keys(incCats).length === 0 && <p className="text-xs text-muted-foreground">No income this month</p>}
-                  <div className="flex justify-between py-2 mt-2 border-t font-bold text-sm">
-                    <span>Total Revenue</span>
-                    <span className="font-mono text-emerald-600">{totalMonthIncome.toLocaleString()} ج.م</span>
-                  </div>
-                </div>
-
-                {/* Variable Expenses Section */}
-                <div className="p-4">
-                  <p className="text-xs font-bold uppercase tracking-wider text-red-600 mb-3">Variable Expenses</p>
-                  {Object.entries(varCats).map(([cat, val]) => (
-                    <div key={cat} className="flex justify-between py-1 text-sm">
-                      <span className="text-muted-foreground">{cat}</span>
-                      <span className="font-mono font-medium text-red-600">-{val.toLocaleString()}</span>
-                    </div>
-                  ))}
-                  {Object.keys(varCats).length === 0 && <p className="text-xs text-muted-foreground">No variable expenses this month</p>}
-                  <div className="flex justify-between py-2 mt-2 border-t font-bold text-sm">
-                    <span>Total Variable</span>
-                    <span className="font-mono text-red-600">-{totalMonthExpenses.toLocaleString()} ج.م</span>
-                  </div>
-                </div>
-
-                {/* Fixed Expenses Section */}
-                <div className="p-4">
-                  <p className="text-xs font-bold uppercase tracking-wider text-amber-600 mb-3">Fixed Monthly Expenses</p>
-                  {fixedExpenses.map((e, i) => (
-                    <div key={i} className="flex items-center justify-between py-1 text-sm group">
-                      <span className="text-muted-foreground">{e.name}</span>
-                      <div className="flex items-center gap-2">
-                        <Input
-                          type="number"
-                          className="w-24 h-7 text-xs text-right"
-                          value={e.amount}
-                          onChange={ev => {
-                            const newAmount = Number(ev.target.value) || 0;
-                            const updated = [...fixedExpenses];
-                            updated[i] = { ...updated[i], amount: newAmount };
-                            setFixedExpenses(updated);
-                          }}
-                          onBlur={async () => {
-                            if (e.id) {
-                              await supabase.from("school_fixed_expenses").update({ amount: e.amount } as any).eq("id", e.id);
-                            }
-                          }}
-                        />
-                        <button
-                          onClick={async () => {
-                            if (e.id) await supabase.from("school_fixed_expenses").delete().eq("id", e.id);
-                            setFixedExpenses(fixedExpenses.filter((_, j) => j !== i));
-                          }}
-                          className="text-destructive opacity-0 group-hover:opacity-100 transition-opacity text-xs"
-                        >✕</button>
+            {/* Visual bar chart */}
+            <div className="rounded-2xl border bg-card p-6 shadow-soft">
+              <h3 className="text-sm font-semibold flex items-center gap-2 mb-4"><BarChart3 className="h-4 w-4 text-primary" /> Monthly Comparison — {pnlYear}</h3>
+              <div className="space-y-2">
+                {yearlyData.map(m => (
+                  <div key={m.label} className="space-y-1">
+                    <div className="flex justify-between text-xs">
+                      <span className="font-medium w-10">{m.label}</span>
+                      <div className="flex gap-3">
+                        <span className="text-emerald-600">+{m.income.toLocaleString()}</span>
+                        <span className="text-red-500">-{(m.expenses + m.fixed).toLocaleString()}</span>
+                        <span className={`font-bold ${m.net >= 0 ? "text-emerald-700" : "text-red-700"}`}>{m.net >= 0 ? "+" : ""}{m.net.toLocaleString()}</span>
                       </div>
                     </div>
-                  ))}
-                  {/* Add new fixed expense */}
-                  <div className="flex gap-2 mt-3">
-                    <Input
-                      placeholder="Expense name..."
-                      value={newFixedName}
-                      onChange={e => setNewFixedName(e.target.value)}
-                      className="h-8 text-xs flex-1"
-                    />
-                    <Input
-                      type="number"
-                      placeholder="Amount"
-                      value={newFixedAmount}
-                      onChange={e => setNewFixedAmount(e.target.value)}
-                      className="h-8 text-xs w-24"
-                    />
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      className="h-8 text-xs"
-                      onClick={async () => {
-                        if (newFixedName && newFixedAmount) {
-                          const { data, error } = await supabase.from("school_fixed_expenses").insert({
-                            name: newFixedName, amount: Number(newFixedAmount) || 0
-                          } as any).select().single();
-                          if (!error && data) {
-                            setFixedExpenses([...fixedExpenses, { id: (data as any).id, name: (data as any).name, amount: Number((data as any).amount) }]);
-                          }
-                          setNewFixedName(""); setNewFixedAmount("");
-                        }
-                      }}
-                    >
-                      <Plus className="h-3 w-3" />
-                    </Button>
-                  </div>
-                  <div className="flex justify-between py-2 mt-2 border-t font-bold text-sm">
-                    <span>Total Fixed</span>
-                    <span className="font-mono text-amber-600">-{totalFixed.toLocaleString()} ج.م</span>
-                  </div>
-                </div>
-
-                {/* Net Result */}
-                <div className={`p-4 ${netPnl >= 0 ? "bg-emerald-50 dark:bg-emerald-950/20" : "bg-red-50 dark:bg-red-950/20"}`}>
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="text-sm font-bold">{netPnl >= 0 ? "✅ Net Profit" : "❌ Net Loss"}</p>
-                      <p className="text-xs text-muted-foreground">Revenue − Variable Expenses − Fixed Expenses</p>
+                    <div className="flex gap-1 h-2.5">
+                      <motion.div initial={{ width: 0 }} animate={{ width: `${(m.income / maxBar) * 100}%` }} transition={{ duration: 0.6 }} className="h-full rounded-full bg-emerald-500" />
+                      <motion.div initial={{ width: 0 }} animate={{ width: `${((m.expenses + m.fixed) / maxBar) * 100}%` }} transition={{ duration: 0.6, delay: 0.1 }} className="h-full rounded-full bg-red-400" />
                     </div>
-                    <p className={`text-2xl font-bold font-display ${netPnl >= 0 ? "text-emerald-600" : "text-red-600"}`}>
-                      {netPnl.toLocaleString()} ج.م
-                    </p>
                   </div>
-                  <div className="mt-3 h-3 rounded-full bg-muted overflow-hidden">
-                    <div
-                      className={`h-full rounded-full transition-all ${netPnl >= 0 ? "bg-emerald-500" : "bg-red-500"}`}
-                      style={{ width: `${Math.min(Math.abs(netPnl / (totalMonthIncome || 1)) * 100, 100)}%` }}
-                    />
-                  </div>
-                  <p className="text-xs text-muted-foreground mt-1 text-right">Margin: {margin}%</p>
-                </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Month-by-Month Table */}
+            <div className="rounded-2xl border bg-card shadow-soft overflow-hidden">
+              <div className="p-4 border-b bg-muted/50">
+                <h3 className="text-sm font-bold">📅 Month-by-Month Breakdown — {pnlYear}</h3>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b bg-muted/30 text-xs font-semibold text-muted-foreground uppercase">
+                      <th className="p-3 text-left">Month</th>
+                      <th className="p-3 text-right">Revenue</th>
+                      <th className="p-3 text-right">Variable</th>
+                      <th className="p-3 text-right">Fixed</th>
+                      <th className="p-3 text-right">Total Costs</th>
+                      <th className="p-3 text-right">Net P&L</th>
+                      <th className="p-3 text-right">Margin</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {yearlyData.map(m => {
+                      const totalCost = m.expenses + m.fixed;
+                      const margin = m.income > 0 ? ((m.net / m.income) * 100).toFixed(1) : "—";
+                      return (
+                        <tr key={m.label} className="border-b last:border-0 hover:bg-muted/20 transition-colors">
+                          <td className="p-3 font-medium">{m.label}</td>
+                          <td className="p-3 text-right font-mono text-emerald-600">{m.income.toLocaleString()}</td>
+                          <td className="p-3 text-right font-mono text-red-600">{m.expenses.toLocaleString()}</td>
+                          <td className="p-3 text-right font-mono text-amber-600">{m.fixed.toLocaleString()}</td>
+                          <td className="p-3 text-right font-mono text-red-600">{totalCost.toLocaleString()}</td>
+                          <td className={`p-3 text-right font-mono font-bold ${m.net >= 0 ? "text-emerald-600" : "text-red-600"}`}>{m.net.toLocaleString()}</td>
+                          <td className={`p-3 text-right text-xs ${m.net >= 0 ? "text-emerald-600" : "text-red-600"}`}>{margin}{margin !== "—" ? "%" : ""}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                  <tfoot>
+                    <tr className="border-t-2 bg-muted/30 font-bold">
+                      <td className="p-3">Total</td>
+                      <td className="p-3 text-right font-mono text-emerald-600">{totals.income.toLocaleString()}</td>
+                      <td className="p-3 text-right font-mono text-red-600">{totals.expenses.toLocaleString()}</td>
+                      <td className="p-3 text-right font-mono text-amber-600">{totals.fixed.toLocaleString()}</td>
+                      <td className="p-3 text-right font-mono text-red-600">{(totals.expenses + totals.fixed).toLocaleString()}</td>
+                      <td className={`p-3 text-right font-mono ${totals.net >= 0 ? "text-emerald-600" : "text-red-600"}`}>{totals.net.toLocaleString()}</td>
+                      <td className={`p-3 text-right text-xs ${totals.net >= 0 ? "text-emerald-600" : "text-red-600"}`}>
+                        {totals.income > 0 ? `${((totals.net / totals.income) * 100).toFixed(1)}%` : "—"}
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
               </div>
             </div>
           </div>
