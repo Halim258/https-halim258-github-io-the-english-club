@@ -124,37 +124,44 @@ export default function StudentDashboard() {
   return (
     <div className="container mx-auto px-4 py-10">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-3xl font-bold font-display">
-            Welcome{profile.full_name ? `, ${profile.full_name}` : ""}! 👋
+      <div className="flex items-center justify-between mb-10">
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
+          <p className="text-sm text-muted-foreground font-medium mb-1">Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 17 ? "afternoon" : "evening"} 👋</p>
+          <h1 className="text-3xl md:text-4xl font-bold font-display">
+            {profile.full_name ? `${profile.full_name}` : "Welcome back!"}
           </h1>
-          <p className="mt-1 text-muted-foreground">Continue your learning journey.</p>
-        </div>
-        <Button variant="ghost" size="sm" onClick={handleLogout} className="text-muted-foreground">
-          <LogOut className="h-4 w-4 mr-1" /> Log Out
+          <p className="mt-1.5 text-muted-foreground text-sm">Continue your learning journey</p>
+        </motion.div>
+        <Button variant="outline" size="sm" onClick={handleLogout} className="rounded-full text-muted-foreground hover:text-destructive hover:border-destructive/30 transition-colors">
+          <LogOut className="h-4 w-4 mr-1.5" /> Log Out
         </Button>
       </div>
 
       {/* Quick Stats */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10">
         {[
-          { icon: BookOpen, label: "Lessons Completed", value: completedLessons.toString() },
-          { icon: GraduationCap, label: "Tests Taken", value: testResults.length.toString() },
-          { icon: Bookmark, label: "Bookmarked", value: bookmarks.length.toString() },
-          { icon: Award, label: "Achievements", value: achievements.length.toString() },
-        ].map((s) => (
-          <div key={s.label} className="rounded-xl border bg-card p-4 shadow-soft">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                <s.icon className="h-5 w-5 text-primary" />
+          { icon: BookOpen, label: "Lessons Completed", value: completedLessons.toString(), accent: "from-primary/15 to-primary/5", iconColor: "text-primary" },
+          { icon: GraduationCap, label: "Tests Taken", value: testResults.length.toString(), accent: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
+          { icon: Bookmark, label: "Bookmarked", value: bookmarks.length.toString(), accent: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
+          { icon: Award, label: "Achievements", value: achievements.length.toString(), accent: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
+        ].map((s, i) => (
+          <motion.div
+            key={s.label}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.08 }}
+            className="rounded-2xl border bg-card p-5 shadow-soft hover:shadow-card transition-all duration-300 group"
+          >
+            <div className="flex items-center gap-4">
+              <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${s.accent} group-hover:scale-110 transition-transform duration-300`}>
+                <s.icon className={`h-5 w-5 ${s.iconColor}`} />
               </div>
               <div>
-                <p className="text-2xl font-bold font-display">{s.value}</p>
-                <p className="text-xs text-muted-foreground">{s.label}</p>
+                <p className="text-3xl font-bold font-display tracking-tight">{s.value}</p>
+                <p className="text-[11px] text-muted-foreground font-medium">{s.label}</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
