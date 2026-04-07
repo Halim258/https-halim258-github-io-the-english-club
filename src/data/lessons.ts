@@ -123,6 +123,8 @@ import { teensCompletion } from "./teens-completion";
 import { travelCompletion } from "./travel-completion";
 import { conversationExpansion } from "./conversation-expansion";
 import { businessEnglishLessons } from "./business-english-lessons";
+import { businessEnglishLessons2 } from "./business-english-2";
+import { businessEnglishLessons3 } from "./business-english-3";
 import { academicWritingLessons } from "./academic-writing-lessons";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
@@ -704,5 +706,7 @@ export const lessons: Record<string, LessonData> = {
   ...travelCompletion,
   ...conversationExpansion,
   ...businessEnglishLessons,
+  ...businessEnglishLessons2,
+  ...businessEnglishLessons3,
   ...academicWritingLessons,
 };
