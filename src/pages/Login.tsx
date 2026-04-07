@@ -21,35 +21,36 @@ export default function Login() {
     if (saved) { setEmail(saved); setRememberMe(true); }
   }, []);
 
-  const redirectByRole = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (user) {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    if (rememberMe) localStorage.setItem("remembered_email", email);
+    else localStorage.removeItem("remembered_email");
+
+    const { data: signInData, error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      setLoading(false);
+      toast({ title: "Login failed", description: error.message, variant: "destructive" });
+      return;
+    }
+
+    // Use the user from signIn response directly — no extra network call
+    const userId = signInData.user?.id;
+    if (userId) {
       const { data } = await supabase
         .from("user_roles")
         .select("role")
-        .eq("user_id", user.id)
+        .eq("user_id", userId)
         .limit(1)
         .single();
 
       if (data?.role === "admin") navigate("/admin");
       else if (data?.role === "teacher") navigate("/teacher-dashboard");
       else navigate("/dashboard");
+    } else {
+      navigate("/dashboard");
     }
-  };
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    if (rememberMe) localStorage.setItem("remembered_email", email);
-    else localStorage.removeItem("remembered_email");
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    setLoading(false);
-
-    if (error) {
-      toast({ title: "Login failed", description: error.message, variant: "destructive" });
-      return;
-    }
-    await redirectByRole();
   };
 
   return (
