@@ -7,6 +7,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import DetailSheet from "./DetailSheet";
 
 interface Session {
   id: string;
@@ -36,6 +37,7 @@ export default function AdminSessions({ sessions, employees, onRefresh }: Props)
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [page, setPage] = useState(0);
+  const [selectedSession, setSelectedSession] = useState<Session | null>(null);
   const perPage = 25;
   const { toast } = useToast();
 
@@ -184,8 +186,8 @@ export default function AdminSessions({ sessions, employees, onRefresh }: Props)
           </thead>
           <tbody>
             {paged.map(s => (
-              <tr key={s.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors">
-                <td className="p-3 font-medium">{s.session_name || "—"}</td>
+              <tr key={s.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedSession(s)}>
+                <td className="p-3 font-medium text-primary hover:underline">{s.session_name || "—"}</td>
                 <td className="p-3"><span className="text-xs font-bold rounded-full px-2 py-0.5 bg-primary/10 text-primary">{s.level || "—"}</span></td>
                 <td className="p-3 text-xs">{getTeacher(s.teacher_id)}</td>
                 <td className="p-3 text-xs">{s.session_date ? new Date(s.session_date).toLocaleDateString("en-GB") : "—"}</td>
@@ -196,7 +198,7 @@ export default function AdminSessions({ sessions, employees, onRefresh }: Props)
                   </span>
                 </td>
                 <td className="p-3">
-                  <div className="flex items-center justify-center gap-1">
+                  <div className="flex items-center justify-center gap-1" onClick={e => e.stopPropagation()}>
                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(s)}><Pencil className="h-3.5 w-3.5" /></Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
@@ -230,6 +232,25 @@ export default function AdminSessions({ sessions, employees, onRefresh }: Props)
         )}
         {filtered.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No sessions found.</p>}
       </div>
+
+      <DetailSheet
+        open={!!selectedSession}
+        onOpenChange={(open) => { if (!open) setSelectedSession(null); }}
+        title={selectedSession?.session_name || "Session"}
+        subtitle={selectedSession?.level ? `Level: ${selectedSession.level}` : undefined}
+        avatar={selectedSession?.session_name?.[0]?.toUpperCase() || "S"}
+        fields={selectedSession ? [
+          { label: "Session Name", value: selectedSession.session_name },
+          { label: "Level", value: selectedSession.level, type: "badge" as const },
+          { label: "Date", value: selectedSession.session_date, type: "date" as const },
+          { label: "Teacher", value: getTeacher(selectedSession.teacher_id) },
+          { label: "Group ID", value: selectedSession.group_id },
+          { label: "Hours", value: selectedSession.hours },
+          { label: "Time From", value: selectedSession.time_from },
+          { label: "Time To", value: selectedSession.time_to },
+          { label: "Teacher Lateness", value: selectedSession.teacher_lateness ? `${selectedSession.teacher_lateness} min` : "0 min" },
+        ] : []}
+      />
     </div>
   );
 }
