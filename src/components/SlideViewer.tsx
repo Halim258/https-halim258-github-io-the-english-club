@@ -390,7 +390,7 @@ const speakerAvatars: Record<string, string> = {
   Librarian: "📚", Shopkeeper: "🏪", Vendor: "🏪", Tailor: "🧵",
   // Tech
   Programmer: "👨‍💻", Developer: "👩‍💻", "IT Support": "🖥️", Technician: "🔌",
-  Scientist: "🔬", Researcher: "🔬", Professor: "👨‍🎓",
+  Scientist: "🔬", Researcher: "🔬",
   // Sports
   Referee: "🏁", Athlete: "🏃", Trainer: "🏋️", Player: "⚽",
   // Family
