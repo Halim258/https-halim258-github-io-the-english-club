@@ -171,6 +171,11 @@ export default function Home() {
             animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
             transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           />
+          {/* Grid pattern overlay */}
+          <div className="absolute inset-0 opacity-[0.02]" style={{
+            backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
+            backgroundSize: "60px 60px"
+          }} />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -180,13 +185,15 @@ export default function Home() {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full border bg-card px-5 py-2.5 text-xs font-semibold text-muted-foreground shadow-soft mb-8"
+              className="inline-flex items-center gap-2.5 rounded-full border bg-card/80 backdrop-blur-sm px-5 py-2.5 text-xs font-semibold text-muted-foreground shadow-soft mb-8"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
               Serving Alexandria since 2019
+              <span className="h-3.5 w-px bg-border" />
+              <span className="text-primary font-bold">500+ Students</span>
             </motion.div>
 
             <motion.h1
@@ -286,7 +293,7 @@ export default function Home() {
                 >
                   <Link
                     to={a.to}
-                    className="group relative flex flex-col items-center gap-2.5 rounded-2xl border bg-card px-4 py-6 shadow-soft transition-all hover:shadow-elevated hover:border-primary/30 duration-300"
+                    className="group relative flex flex-col items-center gap-2.5 rounded-2xl border bg-card/80 backdrop-blur-sm px-4 py-6 shadow-soft transition-all hover:shadow-elevated hover:border-primary/30 duration-300"
                   >
                     <span className="absolute top-2.5 right-2.5 text-[9px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2 py-0.5">
                       {a.tag}

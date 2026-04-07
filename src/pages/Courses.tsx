@@ -85,26 +85,26 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
   };
 
   return (
-    <div className="container mx-auto max-w-3xl px-4 py-10">
-      <Link to="/courses" className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors font-medium">
-        <ChevronLeft className="h-4 w-4" /> Back to Courses
+    <div className="container mx-auto max-w-3xl px-4 py-8 md:py-10">
+      <Link to="/courses" className="mb-6 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors font-medium group">
+        <ChevronLeft className="h-4 w-4 group-hover:-translate-x-0.5 transition-transform" /> Back to Courses
       </Link>
       <FadeInUp>
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3 flex-wrap">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-xs font-semibold text-primary">
               <BookOpen className="h-3.5 w-3.5" />
               {lessonKeys.length} Lessons
             </div>
             {allCompleted && (
-              <Button size="sm" variant="outline" onClick={handleDownloadCertificate} className="rounded-full gap-1.5 text-xs h-7">
+              <Button size="sm" variant="outline" onClick={handleDownloadCertificate} className="rounded-full gap-1.5 text-xs h-7 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-700 dark:hover:bg-emerald-950/20 dark:hover:border-emerald-700">
                 <Download className="h-3 w-3" /> Download Certificate
               </Button>
             )}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold font-display">{levelLabel}</h1>
           {allCompleted && (
-            <div className="mt-2 flex items-center gap-2 text-emerald-600 text-sm font-semibold">
+            <div className="mt-2 flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-sm font-semibold">
               <Award className="h-4 w-4" /> Course completed! 🎉
             </div>
           )}
