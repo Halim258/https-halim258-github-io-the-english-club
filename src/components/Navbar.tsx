@@ -2,6 +2,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
 import { Menu, X, Moon, Sun, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import StudyReminder from "@/components/StudyReminder";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -108,7 +109,12 @@ export default function Navbar() {
           >
             {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
-          {!authLoading && user ? (
+          {authLoading ? (
+            <div className="flex items-center gap-2">
+              <Skeleton className="h-8 w-24 rounded-full" />
+              <Skeleton className="h-8 w-20 rounded-full" />
+            </div>
+          ) : user ? (
             <>
               <Link to="/dashboard">
                 <Button variant="ghost" size="sm" className="rounded-full gap-1.5">
@@ -177,7 +183,12 @@ export default function Navbar() {
               {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               {dark ? "Light Mode" : "Dark Mode"}
             </button>
-            {!authLoading && user ? (
+            {authLoading ? (
+              <div className="space-y-2">
+                <Skeleton className="h-9 w-full rounded-full" />
+                <Skeleton className="h-9 w-full rounded-full" />
+              </div>
+            ) : user ? (
               <>
                 <Link to="/dashboard" onClick={() => setOpen(false)}>
                   <Button size="sm" className="w-full rounded-full font-semibold gap-1.5">
