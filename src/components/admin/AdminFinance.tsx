@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function AdminFinance({ income, outcome, onRefresh }: Props) {
-  const [tab, setTab] = useState<"overview" | "income" | "expenses">("overview");
+  const [tab, setTab] = useState<"overview" | "income" | "expenses" | "pnl">("overview");
   const [openIncome, setOpenIncome] = useState(false);
   const [openExpense, setOpenExpense] = useState(false);
   const [incForm, setIncForm] = useState({ amount: "", reason: "", category: "", date: "" });
@@ -33,6 +33,21 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
   const [editForm, setEditForm] = useState({ amount: "", reason: "", category: "", date: "" });
   const perPage = 25;
   const { toast } = useToast();
+
+  // Fixed monthly expenses for P&L
+  const [fixedExpenses, setFixedExpenses] = useState([
+    { name: "Rent", amount: 5000 },
+    { name: "Electricity", amount: 800 },
+    { name: "Water", amount: 200 },
+    { name: "Internet", amount: 500 },
+    { name: "Cleaning", amount: 400 },
+  ]);
+  const [newFixedName, setNewFixedName] = useState("");
+  const [newFixedAmount, setNewFixedAmount] = useState("");
+  const [pnlMonth, setPnlMonth] = useState<string>(() => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+  });
 
   const totalIncome = income.reduce((s, r) => s + r.amount, 0);
   const totalExpenses = outcome.reduce((s, r) => s + r.amount, 0);
@@ -187,10 +202,10 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-4">
-        {(["overview", "income", "expenses"] as const).map(t => (
-          <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${tab === t ? "bg-card shadow-sm border" : "text-muted-foreground hover:text-foreground"}`}>
-            {t === "overview" ? "📊 Overview" : t === "income" ? "📈 Income" : "📉 Expenses"}
+      <div className="flex gap-2 mb-4 overflow-x-auto">
+        {(["overview", "income", "expenses", "pnl"] as const).map(t => (
+          <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${tab === t ? "bg-card shadow-sm border" : "text-muted-foreground hover:text-foreground"}`}>
+            {t === "overview" ? "📊 Overview" : t === "income" ? "📈 Income" : t === "expenses" ? "📉 Expenses" : "📋 P&L"}
           </button>
         ))}
       </div>
@@ -342,6 +357,203 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
           {renderTable(filteredExpenses, "expense", expPage, setExpPage, expPages)}
         </div>
       )}
+
+      {tab === "pnl" && (() => {
+        const monthIncome = income.filter(r => {
+          if (!r.date) return false;
+          const d = new Date(r.date);
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}` === pnlMonth;
+        });
+        const monthOutcome = outcome.filter(r => {
+          if (!r.date) return false;
+          const d = new Date(r.date);
+          return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}` === pnlMonth;
+        });
+
+        const totalMonthIncome = monthIncome.reduce((s, r) => s + r.amount, 0);
+        const totalMonthExpenses = monthOutcome.reduce((s, r) => s + r.amount, 0);
+        const totalFixed = fixedExpenses.reduce((s, e) => s + e.amount, 0);
+        const totalAllExpenses = totalMonthExpenses + totalFixed;
+        const netPnl = totalMonthIncome - totalAllExpenses;
+        const margin = totalMonthIncome > 0 ? ((netPnl / totalMonthIncome) * 100).toFixed(1) : "0";
+
+        // Group variable expenses by category
+        const varCats: Record<string, number> = {};
+        monthOutcome.forEach(r => { const c = r.category || "Other"; varCats[c] = (varCats[c] || 0) + r.amount; });
+
+        // Group income by category
+        const incCats: Record<string, number> = {};
+        monthIncome.forEach(r => { const c = r.category || "Other"; incCats[c] = (incCats[c] || 0) + r.amount; });
+
+        const pnlMonthLabel = (() => {
+          const [y, mo] = pnlMonth.split("-");
+          return new Date(parseInt(y), parseInt(mo) - 1).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
+        })();
+
+        // Available months
+        const availableMonths = (() => {
+          const set = new Set<string>();
+          income.forEach(r => { if (r.date) { const d = new Date(r.date); set.add(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`); }});
+          outcome.forEach(r => { if (r.date) { const d = new Date(r.date); set.add(`${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`); }});
+          set.add(pnlMonth);
+          return Array.from(set).sort().reverse();
+        })();
+
+        return (
+          <div className="space-y-6">
+            {/* Month selector */}
+            <div className="flex flex-wrap items-center gap-3">
+              <select value={pnlMonth} onChange={e => setPnlMonth(e.target.value)} className="rounded-md border bg-background px-3 py-2 text-sm font-medium">
+                {availableMonths.map(m => {
+                  const [y, mo] = m.split("-");
+                  return <option key={m} value={m}>{new Date(parseInt(y), parseInt(mo) - 1).toLocaleDateString("en-GB", { month: "long", year: "numeric" })}</option>;
+                })}
+              </select>
+              <span className="text-sm text-muted-foreground">Profit & Loss Statement</span>
+            </div>
+
+            {/* P&L Summary Cards */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="rounded-xl border bg-card p-4 shadow-soft">
+                <span className="text-xs text-muted-foreground">Revenue</span>
+                <p className="text-xl font-bold font-display text-emerald-600 mt-1">{totalMonthIncome.toLocaleString()} ج.م</p>
+              </div>
+              <div className="rounded-xl border bg-card p-4 shadow-soft">
+                <span className="text-xs text-muted-foreground">Variable Expenses</span>
+                <p className="text-xl font-bold font-display text-red-600 mt-1">{totalMonthExpenses.toLocaleString()} ج.م</p>
+              </div>
+              <div className="rounded-xl border bg-card p-4 shadow-soft">
+                <span className="text-xs text-muted-foreground">Fixed Expenses</span>
+                <p className="text-xl font-bold font-display text-amber-600 mt-1">{totalFixed.toLocaleString()} ج.م</p>
+              </div>
+              <div className={`rounded-xl border p-4 shadow-soft ${netPnl >= 0 ? "bg-emerald-50 dark:bg-emerald-950/20 border-emerald-200 dark:border-emerald-800" : "bg-red-50 dark:bg-red-950/20 border-red-200 dark:border-red-800"}`}>
+                <span className="text-xs text-muted-foreground">{netPnl >= 0 ? "Net Profit ✅" : "Net Loss ❌"}</span>
+                <p className={`text-xl font-bold font-display mt-1 ${netPnl >= 0 ? "text-emerald-600" : "text-red-600"}`}>{netPnl.toLocaleString()} ج.م</p>
+                <p className="text-[10px] text-muted-foreground">Margin: {margin}%</p>
+              </div>
+            </div>
+
+            {/* P&L Statement */}
+            <div className="rounded-2xl border bg-card shadow-soft overflow-hidden">
+              <div className="p-4 border-b bg-muted/50">
+                <h3 className="text-sm font-bold">📋 Profit & Loss — {pnlMonthLabel}</h3>
+              </div>
+              <div className="divide-y">
+                {/* Revenue Section */}
+                <div className="p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-emerald-600 mb-3">Revenue</p>
+                  {Object.entries(incCats).map(([cat, val]) => (
+                    <div key={cat} className="flex justify-between py-1 text-sm">
+                      <span className="text-muted-foreground">{cat}</span>
+                      <span className="font-mono font-medium text-emerald-600">+{val.toLocaleString()}</span>
+                    </div>
+                  ))}
+                  {Object.keys(incCats).length === 0 && <p className="text-xs text-muted-foreground">No income this month</p>}
+                  <div className="flex justify-between py-2 mt-2 border-t font-bold text-sm">
+                    <span>Total Revenue</span>
+                    <span className="font-mono text-emerald-600">{totalMonthIncome.toLocaleString()} ج.م</span>
+                  </div>
+                </div>
+
+                {/* Variable Expenses Section */}
+                <div className="p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-red-600 mb-3">Variable Expenses</p>
+                  {Object.entries(varCats).map(([cat, val]) => (
+                    <div key={cat} className="flex justify-between py-1 text-sm">
+                      <span className="text-muted-foreground">{cat}</span>
+                      <span className="font-mono font-medium text-red-600">-{val.toLocaleString()}</span>
+                    </div>
+                  ))}
+                  {Object.keys(varCats).length === 0 && <p className="text-xs text-muted-foreground">No variable expenses this month</p>}
+                  <div className="flex justify-between py-2 mt-2 border-t font-bold text-sm">
+                    <span>Total Variable</span>
+                    <span className="font-mono text-red-600">-{totalMonthExpenses.toLocaleString()} ج.م</span>
+                  </div>
+                </div>
+
+                {/* Fixed Expenses Section */}
+                <div className="p-4">
+                  <p className="text-xs font-bold uppercase tracking-wider text-amber-600 mb-3">Fixed Monthly Expenses</p>
+                  {fixedExpenses.map((e, i) => (
+                    <div key={i} className="flex items-center justify-between py-1 text-sm group">
+                      <span className="text-muted-foreground">{e.name}</span>
+                      <div className="flex items-center gap-2">
+                        <Input
+                          type="number"
+                          className="w-24 h-7 text-xs text-right"
+                          value={e.amount}
+                          onChange={ev => {
+                            const updated = [...fixedExpenses];
+                            updated[i] = { ...updated[i], amount: Number(ev.target.value) || 0 };
+                            setFixedExpenses(updated);
+                          }}
+                        />
+                        <button
+                          onClick={() => setFixedExpenses(fixedExpenses.filter((_, j) => j !== i))}
+                          className="text-destructive opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                        >✕</button>
+                      </div>
+                    </div>
+                  ))}
+                  {/* Add new fixed expense */}
+                  <div className="flex gap-2 mt-3">
+                    <Input
+                      placeholder="Expense name..."
+                      value={newFixedName}
+                      onChange={e => setNewFixedName(e.target.value)}
+                      className="h-8 text-xs flex-1"
+                    />
+                    <Input
+                      type="number"
+                      placeholder="Amount"
+                      value={newFixedAmount}
+                      onChange={e => setNewFixedAmount(e.target.value)}
+                      className="h-8 text-xs w-24"
+                    />
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      className="h-8 text-xs"
+                      onClick={() => {
+                        if (newFixedName && newFixedAmount) {
+                          setFixedExpenses([...fixedExpenses, { name: newFixedName, amount: Number(newFixedAmount) || 0 }]);
+                          setNewFixedName(""); setNewFixedAmount("");
+                        }
+                      }}
+                    >
+                      <Plus className="h-3 w-3" />
+                    </Button>
+                  </div>
+                  <div className="flex justify-between py-2 mt-2 border-t font-bold text-sm">
+                    <span>Total Fixed</span>
+                    <span className="font-mono text-amber-600">-{totalFixed.toLocaleString()} ج.م</span>
+                  </div>
+                </div>
+
+                {/* Net Result */}
+                <div className={`p-4 ${netPnl >= 0 ? "bg-emerald-50 dark:bg-emerald-950/20" : "bg-red-50 dark:bg-red-950/20"}`}>
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <p className="text-sm font-bold">{netPnl >= 0 ? "✅ Net Profit" : "❌ Net Loss"}</p>
+                      <p className="text-xs text-muted-foreground">Revenue − Variable Expenses − Fixed Expenses</p>
+                    </div>
+                    <p className={`text-2xl font-bold font-display ${netPnl >= 0 ? "text-emerald-600" : "text-red-600"}`}>
+                      {netPnl.toLocaleString()} ج.م
+                    </p>
+                  </div>
+                  <div className="mt-3 h-3 rounded-full bg-muted overflow-hidden">
+                    <div
+                      className={`h-full rounded-full transition-all ${netPnl >= 0 ? "bg-emerald-500" : "bg-red-500"}`}
+                      style={{ width: `${Math.min(Math.abs(netPnl / (totalMonthIncome || 1)) * 100, 100)}%` }}
+                    />
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-1 text-right">Margin: {margin}%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
     </div>
   );
 }
