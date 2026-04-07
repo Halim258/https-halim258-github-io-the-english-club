@@ -86,11 +86,39 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
   };
 
   const formFields = (
-    <div className="space-y-3">
-      <div><Label>Name *</Label><Input value={form.client_name} onChange={e => setForm({...form, client_name: e.target.value})} /></div>
-      <div><Label>Phone</Label><Input value={form.client_number} onChange={e => setForm({...form, client_number: e.target.value})} /></div>
-      <div><Label>Source</Label><Input value={form.access_method} onChange={e => setForm({...form, access_method: e.target.value})} placeholder="Facebook, Walk-in, Referral..." /></div>
-      <label className="flex items-center gap-2 text-sm"><input type="checkbox" checked={form.reserved} onChange={e => setForm({...form, reserved: e.target.checked})} className="rounded" /> Enrolled / Reserved</label>
+    <div className="space-y-4">
+      {/* Basic Info */}
+      <div className="space-y-3">
+        <p className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-1">👤 Lead Info</p>
+        <div><Label>Full Name *</Label><Input value={form.client_name} onChange={e => setForm({...form, client_name: e.target.value})} placeholder="Client full name" autoFocus /></div>
+        <div><Label>Phone Number</Label><Input value={form.client_number} onChange={e => setForm({...form, client_number: e.target.value})} placeholder="01xxxxxxxxx" /></div>
+      </div>
+
+      {/* Source & Status */}
+      <div className="space-y-3">
+        <p className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-1">📊 Source & Status</p>
+        <div>
+          <Label>How did they find us?</Label>
+          <select value={form.access_method} onChange={e => setForm({...form, access_method: e.target.value})} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+            <option value="">— Select source —</option>
+            <option value="Facebook">📘 Facebook</option>
+            <option value="Instagram">📸 Instagram</option>
+            <option value="WhatsApp">💬 WhatsApp</option>
+            <option value="Walk-in">🚶 Walk-in</option>
+            <option value="Referral">🤝 Referral</option>
+            <option value="Google">🔍 Google</option>
+            <option value="Flyer">📄 Flyer</option>
+            <option value="Other">📋 Other</option>
+          </select>
+        </div>
+        <label className="flex items-center gap-3 text-sm p-3 rounded-lg border bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors">
+          <input type="checkbox" checked={form.reserved} onChange={e => setForm({...form, reserved: e.target.checked})} className="rounded h-4 w-4" />
+          <div>
+            <span className="font-medium">Enrolled / Reserved</span>
+            <p className="text-xs text-muted-foreground">Check if this lead has enrolled or reserved a spot</p>
+          </div>
+        </label>
+      </div>
     </div>
   );
 

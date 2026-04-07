@@ -98,11 +98,33 @@ export default function AdminEmployees({ employees, onRefresh }: Props) {
   };
 
   const formFields = (
-    <div className="space-y-3">
-      <div><Label>Name *</Label><Input value={form.name} onChange={e => setForm({...form, name: e.target.value})} /></div>
-      <div><Label>Position</Label><Input value={form.position} onChange={e => setForm({...form, position: e.target.value})} placeholder="teacher / manager / receptionist" /></div>
-      <div><Label>Phone</Label><Input value={form.phone_number} onChange={e => setForm({...form, phone_number: e.target.value})} /></div>
-      <div><Label>Phone 2</Label><Input value={form.phone_number_2} onChange={e => setForm({...form, phone_number_2: e.target.value})} /></div>
+    <div className="space-y-4">
+      {/* Basic Info */}
+      <div className="space-y-3">
+        <p className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-1">👤 Basic Info</p>
+        <div><Label>Full Name *</Label><Input value={form.name} onChange={e => setForm({...form, name: e.target.value})} placeholder="Employee full name" autoFocus /></div>
+        <div>
+          <Label>Position *</Label>
+          <select value={form.position} onChange={e => setForm({...form, position: e.target.value})} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+            <option value="teacher">👨‍🏫 Teacher</option>
+            <option value="manager">👔 Manager</option>
+            <option value="receptionist">🖥️ Receptionist</option>
+            <option value="assistant">🤝 Assistant</option>
+            <option value="cleaner">🧹 Cleaner</option>
+            <option value="security">🛡️ Security</option>
+            <option value="other">📋 Other</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Contact */}
+      <div className="space-y-3">
+        <p className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-1">📞 Contact</p>
+        <div className="grid grid-cols-2 gap-3">
+          <div><Label>Phone</Label><Input value={form.phone_number} onChange={e => setForm({...form, phone_number: e.target.value})} placeholder="01xxxxxxxxx" /></div>
+          <div><Label>Phone 2</Label><Input value={form.phone_number_2} onChange={e => setForm({...form, phone_number_2: e.target.value})} placeholder="Optional" /></div>
+        </div>
+      </div>
     </div>
   );
 
