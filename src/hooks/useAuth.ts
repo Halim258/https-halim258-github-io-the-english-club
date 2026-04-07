@@ -15,13 +15,15 @@ export function useAuth(): AuthState {
 
   useEffect(() => {
     async function getSession() {
-      const { data: { user } } = await supabase.auth.getUser();
-      setUser(user);
-      if (user) {
+      // Use getSession first (reads from localStorage, no network delay)
+      const { data: { session } } = await supabase.auth.getSession();
+      const u = session?.user ?? null;
+      setUser(u);
+      if (u) {
         const { data } = await supabase
           .from("user_roles")
           .select("role")
-          .eq("user_id", user.id)
+          .eq("user_id", u.id)
           .limit(1)
           .single();
         setRole((data?.role as "admin" | "student" | "teacher") || "student");
