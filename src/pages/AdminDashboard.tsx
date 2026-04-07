@@ -159,6 +159,11 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-2 mb-1">
             <Shield className="h-5 w-5 text-primary" />
             <span className="text-xs font-bold uppercase tracking-wider text-primary">Admin Panel</span>
+            <span className={`text-[10px] font-bold uppercase tracking-wider rounded-full px-2.5 py-0.5 ${
+              role === "admin" ? "bg-destructive/10 text-destructive" : "bg-amber-500/10 text-amber-600"
+            }`}>
+              {role}
+            </span>
           </div>
           <h1 className="text-3xl font-bold font-display">School Management</h1>
           <p className="text-muted-foreground mt-1">Manage students, staff, courses, and finances.</p>
