@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import DetailSheet from "@/components/admin/DetailSheet";
 import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
@@ -33,6 +34,8 @@ export default function AdminDashboard() {
   const { user } = useAuth();
   const [tab, setTab] = useState<Tab>("overview");
   const [loading, setLoading] = useState(true);
+  const [selectedProfile, setSelectedProfile] = useState<any | null>(null);
+  const [selectedTest, setSelectedTest] = useState<any | null>(null);
 
   const [profiles, setProfiles] = useState<any[]>([]);
   const [testResults, setTestResults] = useState<any[]>([]);
@@ -220,12 +223,15 @@ export default function AdminDashboard() {
               const userTests = testResults.filter((t: any) => t.user_id === s.id);
               const latestTest = userTests[0];
               return (
-                <div key={s.id} className="grid grid-cols-[1fr_auto_auto_auto] gap-4 items-center p-4 border-b last:border-0 hover:bg-muted/20 transition-colors">
+                <div key={s.id} className="grid grid-cols-[1fr_auto_auto_auto] gap-4 items-center p-4 border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => {
+                  const userTests = testResults.filter((t: any) => t.user_id === s.id);
+                  setSelectedProfile({ ...s, tests: userTests });
+                }}>
                   <div className="flex items-center gap-3">
                     <div className="h-9 w-9 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">
                       {(s.full_name || "?")[0].toUpperCase()}
                     </div>
-                    <span className="text-sm font-medium truncate">{s.full_name || "Unnamed"}</span>
+                    <span className="text-sm font-medium truncate text-primary hover:underline">{s.full_name || "Unnamed"}</span>
                   </div>
                   <span className="text-xs text-muted-foreground">{new Date(s.created_at).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}</span>
                   <span className="text-xs font-medium">{userTests.length}</span>
@@ -236,6 +242,22 @@ export default function AdminDashboard() {
               );
             })}
           </div>
+
+          <DetailSheet
+            open={!!selectedProfile}
+            onOpenChange={(open) => { if (!open) setSelectedProfile(null); }}
+            title={selectedProfile?.full_name || "Unnamed"}
+            subtitle="Online Student"
+            avatar={selectedProfile?.full_name?.[0]?.toUpperCase() || "?"}
+            fields={selectedProfile ? [
+              { label: "Full Name", value: selectedProfile.full_name },
+              { label: "Joined", value: selectedProfile.created_at, type: "date" as const },
+              { label: "Tests Taken", value: selectedProfile.tests?.length || 0 },
+              { label: "Latest Level", value: selectedProfile.tests?.[0]?.cefr_level, type: "badge" as const },
+              { label: "Latest Score", value: selectedProfile.tests?.[0] ? `${selectedProfile.tests[0].score}/${selectedProfile.tests[0].total_questions}` : null },
+              { label: "Avatar URL", value: selectedProfile.avatar_url },
+            ] : []}
+          />
         </motion.div>
       )}
 
@@ -249,8 +271,8 @@ export default function AdminDashboard() {
               const student = profiles.find((s: any) => s.id === t.user_id);
               const pct = Math.round((t.score / t.total_questions) * 100);
               return (
-                <div key={t.id} className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 items-center p-4 border-b last:border-0 hover:bg-muted/20 transition-colors">
-                  <span className="text-sm font-medium truncate">{student?.full_name || "Anonymous"}</span>
+                <div key={t.id} className="grid grid-cols-[1fr_auto_auto_auto_auto] gap-4 items-center p-4 border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedTest({ ...t, student_name: student?.full_name })}>
+                  <span className="text-sm font-medium truncate text-primary hover:underline">{student?.full_name || "Anonymous"}</span>
                   <span className={`text-xs font-bold rounded-full px-2.5 py-0.5 ${LEVEL_COLORS[t.cefr_level]} text-white`}>{t.cefr_level}</span>
                   <span className="text-sm font-bold font-display">{t.score}/{t.total_questions} <span className="text-muted-foreground font-normal text-xs">({pct}%)</span></span>
                   <span className="text-xs text-muted-foreground">{t.time_taken_seconds ? `${Math.floor(t.time_taken_seconds / 60)}m ${t.time_taken_seconds % 60}s` : "—"}</span>
@@ -259,6 +281,21 @@ export default function AdminDashboard() {
               );
             })}
           </div>
+
+          <DetailSheet
+            open={!!selectedTest}
+            onOpenChange={(open) => { if (!open) setSelectedTest(null); }}
+            title={selectedTest?.student_name || "Anonymous"}
+            subtitle={`Placement Test — ${selectedTest?.cefr_level || ""}`}
+            avatar={selectedTest?.student_name?.[0]?.toUpperCase() || "T"}
+            fields={selectedTest ? [
+              { label: "Student", value: selectedTest.student_name },
+              { label: "CEFR Level", value: selectedTest.cefr_level, type: "badge" as const },
+              { label: "Score", value: `${selectedTest.score}/${selectedTest.total_questions} (${Math.round((selectedTest.score / selectedTest.total_questions) * 100)}%)` },
+              { label: "Time Taken", value: selectedTest.time_taken_seconds ? `${Math.floor(selectedTest.time_taken_seconds / 60)}m ${selectedTest.time_taken_seconds % 60}s` : null },
+              { label: "Date", value: selectedTest.created_at, type: "date" as const },
+            ] : []}
+          />
         </motion.div>
       )}
 
