@@ -486,13 +486,22 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
                           className="w-24 h-7 text-xs text-right"
                           value={e.amount}
                           onChange={ev => {
+                            const newAmount = Number(ev.target.value) || 0;
                             const updated = [...fixedExpenses];
-                            updated[i] = { ...updated[i], amount: Number(ev.target.value) || 0 };
+                            updated[i] = { ...updated[i], amount: newAmount };
                             setFixedExpenses(updated);
+                          }}
+                          onBlur={async () => {
+                            if (e.id) {
+                              await supabase.from("school_fixed_expenses").update({ amount: e.amount } as any).eq("id", e.id);
+                            }
                           }}
                         />
                         <button
-                          onClick={() => setFixedExpenses(fixedExpenses.filter((_, j) => j !== i))}
+                          onClick={async () => {
+                            if (e.id) await supabase.from("school_fixed_expenses").delete().eq("id", e.id);
+                            setFixedExpenses(fixedExpenses.filter((_, j) => j !== i));
+                          }}
                           className="text-destructive opacity-0 group-hover:opacity-100 transition-opacity text-xs"
                         >✕</button>
                       </div>
@@ -517,9 +526,14 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
                       size="sm"
                       variant="outline"
                       className="h-8 text-xs"
-                      onClick={() => {
+                      onClick={async () => {
                         if (newFixedName && newFixedAmount) {
-                          setFixedExpenses([...fixedExpenses, { name: newFixedName, amount: Number(newFixedAmount) || 0 }]);
+                          const { data, error } = await supabase.from("school_fixed_expenses").insert({
+                            name: newFixedName, amount: Number(newFixedAmount) || 0
+                          } as any).select().single();
+                          if (!error && data) {
+                            setFixedExpenses([...fixedExpenses, { id: (data as any).id, name: (data as any).name, amount: Number((data as any).amount) }]);
+                          }
                           setNewFixedName(""); setNewFixedAmount("");
                         }
                       }}
