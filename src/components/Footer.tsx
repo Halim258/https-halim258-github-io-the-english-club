@@ -1,4 +1,3 @@
-import { forwardRef } from "react";
 import { Link } from "react-router-dom";
 import { Facebook, MapPin, Phone, MessageCircle, GraduationCap, Heart, ArrowUpRight } from "lucide-react";
 
@@ -27,9 +26,9 @@ const tools = [
   { label: "Leaderboard", to: "/leaderboard" },
 ];
 
-const Footer = forwardRef<HTMLElement>((_, ref) => {
+export default function Footer() {
   return (
-    <footer ref={ref} className="relative border-t bg-secondary text-secondary-foreground overflow-hidden">
+    <footer className="relative border-t bg-secondary text-secondary-foreground overflow-hidden">
       {/* Subtle decorative gradient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/[0.03] rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
 
@@ -148,7 +147,4 @@ const Footer = forwardRef<HTMLElement>((_, ref) => {
       </div>
     </footer>
   );
-});
-
-Footer.displayName = "Footer";
-export default Footer;
+}
