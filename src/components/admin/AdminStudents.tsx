@@ -300,7 +300,7 @@ export default function AdminStudents({ students, onRefresh }: Props) {
           <DialogTrigger asChild>
             <Button size="sm" onClick={() => setForm(emptyForm)}><Plus className="h-4 w-4 mr-1" /> Add</Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="sm:max-w-lg">
             <DialogHeader><DialogTitle>Add New Student</DialogTitle></DialogHeader>
             {formFields}
             <Button onClick={handleAdd} className="w-full mt-2">Add Student</Button>
