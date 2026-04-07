@@ -50,6 +50,13 @@ export default function AdminDashboard() {
   const [products, setProducts] = useState<any[]>([]);
   const [receipts, setReceipts] = useState<any[]>([]);
 
+  // Restore saved theme preference
+  useEffect(() => {
+    const saved = localStorage.getItem("admin-theme");
+    if (saved === "dark") document.documentElement.classList.add("dark");
+    else if (saved === "light") document.documentElement.classList.remove("dark");
+  }, []);
+
   const loadData = async () => {
     setLoading(true);
     const [profilesRes, testsRes, progressRes, studentsRes, empRes, groupsRes, sessionsRes, incomeRes, outcomeRes, newcomersRes, productsRes, receiptsRes] = await Promise.all([
