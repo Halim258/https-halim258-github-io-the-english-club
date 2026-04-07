@@ -150,6 +150,7 @@ export default function AdminUnpaidStudents({ students }: Props) {
               <th className="p-3 text-center">% Paid</th>
               <th className="p-3 text-center">Status</th>
               <th className="p-3 text-center">Remind</th>
+            </tr>
           </thead>
           <tbody>
             {paged.map(s => {
