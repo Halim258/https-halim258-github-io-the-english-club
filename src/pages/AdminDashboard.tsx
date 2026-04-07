@@ -5,7 +5,7 @@ import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
-  Timer, AlertCircle
+  Timer, AlertCircle, Moon, Sun
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -120,6 +120,20 @@ export default function AdminDashboard() {
           <h1 className="text-3xl font-bold font-display">School Management</h1>
           <p className="text-muted-foreground mt-1">Manage students, staff, courses, and finances.</p>
         </div>
+        <button
+          onClick={() => {
+            const root = document.documentElement;
+            const isDark = root.classList.contains("dark");
+            root.classList.toggle("dark", !isDark);
+            localStorage.setItem("admin-theme", isDark ? "light" : "dark");
+          }}
+          className="flex items-center gap-2 rounded-xl border bg-card px-3 py-2 text-sm font-medium shadow-sm hover:bg-muted transition-colors"
+        >
+          <Sun className="h-4 w-4 hidden dark:block" />
+          <Moon className="h-4 w-4 block dark:hidden" />
+          <span className="hidden sm:inline dark:hidden">Dark</span>
+          <span className="hidden sm:inline hidden dark:inline">Light</span>
+        </button>
       </div>
 
       {/* Tabs */}
