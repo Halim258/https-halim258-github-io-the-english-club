@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { TrendingUp, TrendingDown, DollarSign, Plus, Search, ChevronLeft, ChevronRight, Calendar, Pencil, Trash2, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -34,14 +34,17 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
   const perPage = 25;
   const { toast } = useToast();
 
-  // Fixed monthly expenses for P&L
-  const [fixedExpenses, setFixedExpenses] = useState([
-    { name: "Rent", amount: 5000 },
-    { name: "Electricity", amount: 800 },
-    { name: "Water", amount: 200 },
-    { name: "Internet", amount: 500 },
-    { name: "Cleaning", amount: 400 },
-  ]);
+  // Fixed monthly expenses for P&L — loaded from DB
+  const [fixedExpenses, setFixedExpenses] = useState<{id?: string; name: string; amount: number}[]>([]);
+  const [fixedLoaded, setFixedLoaded] = useState(false);
+
+  const loadFixedExpenses = useCallback(async () => {
+    const { data } = await supabase.from("school_fixed_expenses").select("id, name, amount").order("created_at");
+    if (data) setFixedExpenses(data.map(r => ({ id: r.id, name: r.name, amount: Number(r.amount) })));
+    setFixedLoaded(true);
+  }, []);
+
+  useEffect(() => { loadFixedExpenses(); }, [loadFixedExpenses]);
   const [newFixedName, setNewFixedName] = useState("");
   const [newFixedAmount, setNewFixedAmount] = useState("");
   const [pnlMonth, setPnlMonth] = useState<string>(() => {
