@@ -710,4 +710,7 @@ export const lessons: Record<string, LessonData> = {
   ...businessEnglishLessons2,
   ...businessEnglishLessons3,
   ...academicWritingLessons,
+  ...newsLesson2,
+  ...hospitalityLesson1,
+  ...legalLesson1,
 };
