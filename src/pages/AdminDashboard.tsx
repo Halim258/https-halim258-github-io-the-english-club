@@ -3,7 +3,8 @@ import { motion } from "framer-motion";
 import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
-  Package, Receipt, Calendar, Download, Award, ClipboardCheck
+  Package, Receipt, Calendar, Download, Award, ClipboardCheck,
+  Timer, AlertCircle
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -18,8 +19,10 @@ import AdminSessions from "@/components/admin/AdminSessions";
 import AdminOverview from "@/components/admin/AdminOverview";
 import AdminExport from "@/components/admin/AdminExport";
 import AdminAttendance from "@/components/admin/AdminAttendance";
+import AdminTeacherHours from "@/components/admin/AdminTeacherHours";
+import AdminUnpaidStudents from "@/components/admin/AdminUnpaidStudents";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "export";
+type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "export";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -84,6 +87,8 @@ export default function AdminDashboard() {
     { id: "groups", label: "Groups", icon: Users2 },
     { id: "sessions", label: "Sessions", icon: Calendar },
     { id: "attendance", label: "Attendance", icon: ClipboardCheck },
+    { id: "teacher-hours", label: "Teacher Hours", icon: Timer },
+    { id: "unpaid", label: "Unpaid", icon: AlertCircle },
     { id: "finance", label: "Finance", icon: DollarSign },
     { id: "newcomers", label: "Newcomers", icon: UserPlus },
     { id: "products", label: "Products", icon: Package },
@@ -166,6 +171,18 @@ export default function AdminDashboard() {
       {tab === "attendance" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <AdminAttendance sessions={sessions} />
+        </motion.div>
+      )}
+
+      {tab === "teacher-hours" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminTeacherHours sessions={sessions} employees={employees} />
+        </motion.div>
+      )}
+
+      {tab === "unpaid" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminUnpaidStudents students={schoolStudents} />
         </motion.div>
       )}
 
