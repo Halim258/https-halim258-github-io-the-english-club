@@ -207,9 +207,9 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
 
       {/* Tabs */}
       <div className="flex gap-2 mb-4 overflow-x-auto">
-        {(["overview", "income", "expenses", "pnl"] as const).map(t => (
+        {(["overview", "income", "expenses", "pnl", "yearly"] as const).map(t => (
           <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${tab === t ? "bg-card shadow-sm border" : "text-muted-foreground hover:text-foreground"}`}>
-            {t === "overview" ? "📊 Overview" : t === "income" ? "📈 Income" : t === "expenses" ? "📉 Expenses" : "📋 P&L"}
+            {t === "overview" ? "📊 Overview" : t === "income" ? "📈 Income" : t === "expenses" ? "📉 Expenses" : t === "pnl" ? "📋 P&L" : "📅 Yearly"}
           </button>
         ))}
       </div>
