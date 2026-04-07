@@ -309,7 +309,7 @@ export default function AdminStudents({ students, onRefresh }: Props) {
       </div>
 
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent>
+        <DialogContent className="sm:max-w-lg">
           <DialogHeader><DialogTitle>Edit Student</DialogTitle></DialogHeader>
           {formFields}
           <Button onClick={handleEdit} className="w-full mt-2">Save Changes</Button>
