@@ -19,7 +19,8 @@ interface Props {
 }
 
 export default function AdminFinance({ income, outcome, onRefresh }: Props) {
-  const [tab, setTab] = useState<"overview" | "income" | "expenses" | "pnl">("overview");
+  const [tab, setTab] = useState<"overview" | "income" | "expenses" | "pnl" | "yearly">("overview");
+  const [pnlYear, setPnlYear] = useState<number>(new Date().getFullYear());
   const [openIncome, setOpenIncome] = useState(false);
   const [openExpense, setOpenExpense] = useState(false);
   const [incForm, setIncForm] = useState({ amount: "", reason: "", category: "", date: "" });
