@@ -1,0 +1,273 @@
+import type { LessonData } from "./lessons";
+
+export const newsLesson2: Record<string, LessonData> = {
+  "news-2": {
+    levelId: "news", levelLabel: "English through News", lessonNumber: 2,
+    title: "Headlines & Hooks",
+    description: "Learn how headlines grab attention using powerful words and short structures.",
+    vocabulary: [
+      { word: "Hook", meaning: "Something that grabs attention", example: "The first sentence is a hook.", emoji: "🪝", arabic: "جاذب" },
+      { word: "Catchy", meaning: "Attractive and easy to remember", example: "Write a catchy headline.", emoji: "✨", arabic: "جذاب" },
+      { word: "Sensational", meaning: "Exaggerated to shock", example: "Sensational headlines can be misleading.", emoji: "😱", arabic: "مثير" },
+      { word: "Scoop", meaning: "An exclusive news story", example: "The reporter got a big scoop.", emoji: "📢", arabic: "خبر حصري" },
+      { word: "Lead", meaning: "The opening of a news article", example: "The lead summarizes the whole story.", emoji: "📰", arabic: "مقدمة الخبر" },
+      { word: "Byline", meaning: "The author's name on an article", example: "Check the byline to see who wrote it.", emoji: "✍️", arabic: "اسم الكاتب" },
+      { word: "Deadline", meaning: "The time a task must be finished", example: "Journalists work under tight deadlines.", emoji: "⏰", arabic: "موعد نهائي" },
+      { word: "Caption", meaning: "Text under a photo", example: "Read the caption for context.", emoji: "🖼️", arabic: "تعليق على صورة" },
+      { word: "Clickbait", meaning: "Misleading content to get clicks", example: "Avoid clickbait headlines.", emoji: "🖱️", arabic: "طعم نقرات" },
+      { word: "Subheading", meaning: "A smaller heading below the main one", example: "Subheadings organize the article.", emoji: "📑", arabic: "عنوان فرعي" },
+    ],
+    dialogue: [
+      { speaker: "Teacher", text: "Why are headlines so short?" },
+      { speaker: "Student", text: "Maybe to grab attention quickly?" },
+      { speaker: "Teacher", text: "Exactly! They drop articles like 'a' and 'the'. For example: 'President Visits Egypt' instead of 'The President Visits Egypt'." },
+      { speaker: "Student", text: "What about clickbait?" },
+      { speaker: "Teacher", text: "Clickbait exaggerates to get clicks. Good headlines inform without misleading." },
+      { speaker: "Student", text: "So a good headline is catchy AND honest." },
+    ],
+    grammar: {
+      title: "Headline Grammar — Shortened Forms",
+      explanation: "Headlines use special grammar: present simple for past events ('PM Meets Leaders'), drop articles ('Man Saves Child'), use infinitive for future ('Prices to Rise'), and colons for attribution ('Police: Crime Down').",
+      examples: [
+        { sentence: "Stocks Fall After Report", note: "Present simple = past event" },
+        { sentence: "Mayor to Open New Park", note: "Infinitive = future plan" },
+        { sentence: "Scientists: Vaccine Safe", note: "Colon = attribution" },
+        { sentence: "Fire Destroys Factory", note: "No articles" },
+      ],
+    },
+    vocabExercises: [
+      { question: "A 'hook' is designed to ___.", options: ["Bore the reader", "Grab attention", "End the story", "Confuse people"], correct: 1 },
+      { question: "'Clickbait' is ___.", options: ["Honest reporting", "Misleading content for clicks", "A type of fish", "A news award"], correct: 1 },
+      { question: "The 'lead' of an article is the ___.", options: ["Last sentence", "Opening paragraph", "Author's name", "Photo"], correct: 1 },
+      { question: "A 'byline' shows the ___.", options: ["Date", "Author's name", "Price", "Weather"], correct: 1 },
+      { question: "A 'caption' appears ___.", options: ["At the top", "Under a photo", "In the title", "At the end"], correct: 1 },
+    ],
+    conversationExercises: [
+      { question: "Why are headlines short?", options: ["To save paper", "To grab attention quickly", "Because writers are lazy", "Because of grammar rules"], correct: 1 },
+      { question: "What does clickbait do?", options: ["Informs accurately", "Exaggerates to get clicks", "Helps journalists", "Saves time"], correct: 1 },
+      { question: "A good headline is catchy AND ___.", options: ["Long", "Honest", "Complicated", "Boring"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "'Stocks ___ After Report' (headline grammar)", options: ["Fell", "Fall", "Falling", "Have fallen"], correct: 1 },
+      { question: "'Mayor ___ Open New Park' (future headline)", options: ["Will", "To", "Is", "Was"], correct: 1 },
+      { question: "Headlines usually drop ___.", options: ["Verbs", "Nouns", "Articles (a, the)", "Punctuation"], correct: 2 },
+      { question: "A colon in headlines shows ___.", options: ["Time", "Who said it", "A question", "The end"], correct: 1 },
+    ],
+    examQuestions: [
+      { question: "A 'scoop' is ___.", options: ["A common story", "An exclusive news story", "A rumor", "An ad"], correct: 1 },
+      { question: "Headlines use present simple to describe ___.", options: ["Future events", "Past events", "Imaginary events", "Weather"], correct: 1 },
+      { question: "'Sensational' headlines are ___.", options: ["Calm", "Exaggerated", "Short", "Accurate"], correct: 1 },
+      { question: "A 'subheading' helps to ___.", options: ["End the article", "Organize the article", "Add photos", "Remove content"], correct: 1 },
+      { question: "The 'deadline' is when work must be ___.", options: ["Started", "Finished", "Deleted", "Reviewed"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Rewrite: 'The President visited Cairo.' → headline?", options: ["President Visits Cairo", "The President Visited Cairo", "A President Goes Cairo", "President Was Visiting"], correct: 0 },
+      { question: "'___ Discovers New Planet' is missing ___.", options: ["A verb", "An article", "Nothing — it's correct", "A comma"], correct: 2 },
+      { question: "A good headline should be ___ and informative.", options: ["Very long", "Catchy", "Confusing", "Hidden"], correct: 1 },
+    ],
+  },
+};
+
+export const hospitalityLesson1: Record<string, LessonData> = {
+  "hospitality-1": {
+    levelId: "hospitality", levelLabel: "Hospitality English", lessonNumber: 1,
+    title: "Welcome to the Hotel",
+    description: "Learn essential vocabulary and phrases for greeting guests and handling check-in.",
+    vocabulary: [
+      { word: "Reservation", meaning: "A booking for a room or table", example: "I'd like to make a reservation.", emoji: "📋", arabic: "حجز" },
+      { word: "Guest", meaning: "A person staying at a hotel", example: "Welcome, dear guest!", emoji: "🧳", arabic: "ضيف" },
+      { word: "Check-in", meaning: "Arriving and registering at a hotel", example: "Check-in is at 3 PM.", emoji: "🏨", arabic: "تسجيل الوصول" },
+      { word: "Check-out", meaning: "Leaving and paying at a hotel", example: "Check-out is at 11 AM.", emoji: "🚪", arabic: "تسجيل المغادرة" },
+      { word: "Concierge", meaning: "Hotel staff who assists guests", example: "Ask the concierge for recommendations.", emoji: "🛎️", arabic: "موظف الاستقبال" },
+      { word: "Suite", meaning: "A large, luxurious hotel room", example: "They booked the presidential suite.", emoji: "🛏️", arabic: "جناح" },
+      { word: "Lobby", meaning: "The entrance area of a hotel", example: "Meet me in the lobby.", emoji: "🏛️", arabic: "ردهة" },
+      { word: "Bellboy", meaning: "Staff who carries luggage", example: "The bellboy brought our bags.", emoji: "🧑‍✈️", arabic: "حامل الحقائب" },
+      { word: "Vacancy", meaning: "An available room", example: "Do you have any vacancies?", emoji: "🔑", arabic: "غرفة شاغرة" },
+      { word: "Amenities", meaning: "Hotel facilities and services", example: "The hotel amenities include a pool.", emoji: "🏊", arabic: "مرافق" },
+    ],
+    dialogue: [
+      { speaker: "Receptionist", text: "Good evening! Welcome to Grand Hotel. Do you have a reservation?" },
+      { speaker: "Guest", text: "Yes, under the name Johnson. I booked a double room." },
+      { speaker: "Receptionist", text: "Let me check... Yes, a double room for three nights. May I see your ID, please?" },
+      { speaker: "Guest", text: "Here you go. What time is check-out?" },
+      { speaker: "Receptionist", text: "Check-out is at 11 AM. Here's your key card — room 405 on the fourth floor." },
+      { speaker: "Guest", text: "Thank you! Where is the elevator?" },
+    ],
+    grammar: {
+      title: "Polite Requests — Would/Could/May",
+      explanation: "In hospitality, polite language is essential. Use 'Would you like...?' to offer, 'Could I have...?' to request, and 'May I...?' for permission. These are more professional than 'Do you want...?' or 'Give me...'.",
+      examples: [
+        { sentence: "Would you like a wake-up call?", note: "Offering a service" },
+        { sentence: "Could I have a room with a view?", note: "Making a polite request" },
+        { sentence: "May I see your passport, please?", note: "Asking permission formally" },
+        { sentence: "Would you prefer a king or twin bed?", note: "Offering a choice" },
+      ],
+    },
+    vocabExercises: [
+      { question: "A 'reservation' is a ___.", options: ["Complaint", "Booking", "Payment", "Room type"], correct: 1 },
+      { question: "The hotel entrance area is the ___.", options: ["Suite", "Lobby", "Kitchen", "Pool"], correct: 1 },
+      { question: "A 'concierge' is hotel staff who ___.", options: ["Cooks food", "Cleans rooms", "Assists guests", "Drives taxis"], correct: 2 },
+      { question: "'Amenities' are hotel ___.", options: ["Problems", "Facilities", "Rules", "Prices"], correct: 1 },
+      { question: "A 'vacancy' means a room is ___.", options: ["Full", "Broken", "Available", "Closed"], correct: 2 },
+    ],
+    conversationExercises: [
+      { question: "What did the guest book?", options: ["A single room", "A double room", "A suite", "A table"], correct: 1 },
+      { question: "What time is check-out?", options: ["10 AM", "11 AM", "12 PM", "3 PM"], correct: 1 },
+      { question: "What room number was assigned?", options: ["305", "504", "405", "204"], correct: 2 },
+    ],
+    grammarExercises: [
+      { question: "'___ you like a wake-up call?'", options: ["Do", "Would", "Are", "Is"], correct: 1 },
+      { question: "'___ I have a room with a view?'", options: ["Give", "Want", "Could", "Do"], correct: 2 },
+      { question: "'___ I see your passport, please?'", options: ["Do", "Will", "May", "Can't"], correct: 2 },
+      { question: "Which is most polite?", options: ["Give me the key", "I want the key", "Could I have the key?", "Key, now"], correct: 2 },
+    ],
+    examQuestions: [
+      { question: "A 'bellboy' carries ___.", options: ["Food", "Luggage", "Keys", "Papers"], correct: 1 },
+      { question: "'Check-in' means ___.", options: ["Leaving the hotel", "Arriving and registering", "Paying the bill", "Making a complaint"], correct: 1 },
+      { question: "A 'suite' is a ___ room.", options: ["Small", "Cheap", "Large and luxurious", "Shared"], correct: 2 },
+      { question: "In hospitality, you should use ___ language.", options: ["Casual", "Rude", "Polite", "Slang"], correct: 2 },
+      { question: "'Would you prefer...?' is used to ___.", options: ["Complain", "Offer a choice", "Cancel a booking", "End a conversation"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Complete: '___ you like help with your bags?'", options: ["Do", "Would", "Are", "Is"], correct: 1 },
+      { question: "The place where you first enter a hotel is the ___.", options: ["Suite", "Lobby", "Kitchen", "Balcony"], correct: 1 },
+      { question: "'No vacancies' means the hotel is ___.", options: ["Cheap", "New", "Full", "Open"], correct: 2 },
+    ],
+  },
+};
+
+export const legalLesson1: Record<string, LessonData> = {
+  "legal-1": {
+    levelId: "legal", levelLabel: "Legal English", lessonNumber: 1,
+    title: "Introduction to Legal English",
+    description: "Learn fundamental legal vocabulary and understand how legal language differs from everyday English.",
+    vocabulary: [
+      { word: "Law", meaning: "A system of rules enforced by government", example: "Everyone must follow the law.", emoji: "⚖️", arabic: "قانون" },
+      { word: "Court", meaning: "A place where legal cases are heard", example: "The case went to court.", emoji: "🏛️", arabic: "محكمة" },
+      { word: "Judge", meaning: "An official who decides legal cases", example: "The judge made a ruling.", emoji: "🧑‍⚖️", arabic: "قاضٍ" },
+      { word: "Lawyer", meaning: "A person qualified to practice law", example: "She hired a lawyer.", emoji: "👨‍💼", arabic: "محامٍ" },
+      { word: "Contract", meaning: "A legally binding agreement", example: "Sign the contract carefully.", emoji: "📄", arabic: "عقد" },
+      { word: "Plaintiff", meaning: "The person who brings a case to court", example: "The plaintiff filed a lawsuit.", emoji: "👤", arabic: "مدّعي" },
+      { word: "Defendant", meaning: "The person accused in a legal case", example: "The defendant pleaded not guilty.", emoji: "🧑", arabic: "متهم" },
+      { word: "Verdict", meaning: "The final decision in a court case", example: "The verdict was unanimous.", emoji: "📜", arabic: "حكم" },
+      { word: "Evidence", meaning: "Information used to prove something", example: "The evidence was strong.", emoji: "🔍", arabic: "دليل" },
+      { word: "Guilty", meaning: "Responsible for a crime", example: "The jury found him guilty.", emoji: "❌", arabic: "مذنب" },
+    ],
+    dialogue: [
+      { speaker: "Teacher", text: "What is the difference between a lawyer and a judge?" },
+      { speaker: "Student", text: "A lawyer represents people, and a judge makes decisions?" },
+      { speaker: "Teacher", text: "Exactly! The lawyer argues the case, and the judge or jury gives the verdict." },
+      { speaker: "Student", text: "What about the plaintiff and defendant?" },
+      { speaker: "Teacher", text: "The plaintiff is the one who starts the case, and the defendant is the one being accused." },
+      { speaker: "Student", text: "So legal English has very specific terms for each role." },
+    ],
+    grammar: {
+      title: "Formal Legal Language — Passive Voice",
+      explanation: "Legal English frequently uses the passive voice to sound objective and formal. Instead of 'The police arrested the suspect,' legal writing says 'The suspect was arrested.' This focuses on the action, not who did it.",
+      examples: [
+        { sentence: "The contract was signed by both parties.", note: "Passive — focus on the contract" },
+        { sentence: "The defendant was found guilty.", note: "Passive — focus on the verdict" },
+        { sentence: "Evidence must be presented in court.", note: "Passive — obligation" },
+        { sentence: "The law was amended in 2020.", note: "Passive — focus on the law" },
+      ],
+    },
+    vocabExercises: [
+      { question: "A 'court' is where ___.", options: ["Laws are written", "Legal cases are heard", "Contracts are sold", "Police train"], correct: 1 },
+      { question: "A 'plaintiff' is the person who ___.", options: ["Judges the case", "Defends the accused", "Brings the case", "Writes the law"], correct: 2 },
+      { question: "'Evidence' is used to ___.", options: ["Confuse the jury", "Prove something", "Pay the lawyer", "End the trial"], correct: 1 },
+      { question: "A 'verdict' is the ___.", options: ["Beginning of a trial", "Final decision", "Lawyer's speech", "Judge's robe"], correct: 1 },
+      { question: "'Guilty' means someone is ___.", options: ["Innocent", "Responsible for a crime", "A witness", "A judge"], correct: 1 },
+    ],
+    conversationExercises: [
+      { question: "A lawyer's job is to ___.", options: ["Judge cases", "Represent people", "Arrest criminals", "Write laws"], correct: 1 },
+      { question: "Who gives the verdict?", options: ["The plaintiff", "The lawyer", "The judge or jury", "The defendant"], correct: 2 },
+      { question: "The defendant is the person being ___.", options: ["Helped", "Accused", "Rewarded", "Hired"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "'The contract ___ signed by both parties.'", options: ["is", "was", "were", "be"], correct: 1 },
+      { question: "'The defendant ___ found guilty.'", options: ["is", "was", "are", "has"], correct: 1 },
+      { question: "'Evidence must ___ presented.'", options: ["is", "be", "was", "being"], correct: 1 },
+      { question: "Legal writing uses passive voice to sound ___.", options: ["Casual", "Funny", "Objective", "Emotional"], correct: 2 },
+    ],
+    examQuestions: [
+      { question: "A 'judge' is someone who ___.", options: ["Commits crimes", "Decides legal cases", "Writes newspapers", "Teaches law"], correct: 1 },
+      { question: "'The law was amended' is in the ___ voice.", options: ["Active", "Passive", "Future", "Conditional"], correct: 1 },
+      { question: "A 'contract' is a legal ___.", options: ["Opinion", "Story", "Agreement", "Question"], correct: 2 },
+      { question: "The opposite of 'guilty' is ___.", options: ["Defendant", "Plaintiff", "Innocent", "Verdict"], correct: 2 },
+      { question: "Legal English is more ___ than everyday English.", options: ["Casual", "Formal", "Simple", "Short"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Rewrite in passive: 'The judge gave the verdict.' → 'The verdict ___ by the judge.'", options: ["gave", "was given", "is giving", "gives"], correct: 1 },
+      { question: "A person who practices law is a ___.", options: ["Judge", "Plaintiff", "Lawyer", "Witness"], correct: 2 },
+      { question: "'The suspect ___ arrested last night.' (passive)", options: ["is", "was", "are", "were"], correct: 1 },
+    ],
+  },
+};
+
+export const readingLesson1: Record<string, LessonData> = {
+  "reading-1": {
+    levelId: "reading", levelLabel: "Reading Course", lessonNumber: 1,
+    title: "The Alphabet & Letter Sounds",
+    description: "Learn the 26 letters of the English alphabet and their basic sounds.",
+    vocabulary: [
+      { word: "Alphabet", meaning: "The set of letters in a language", example: "The English alphabet has 26 letters.", emoji: "🔤", arabic: "أبجدية" },
+      { word: "Letter", meaning: "A symbol representing a sound", example: "A is the first letter.", emoji: "🅰️", arabic: "حرف" },
+      { word: "Vowel", meaning: "Letters A, E, I, O, U", example: "Every word has at least one vowel.", emoji: "🔴", arabic: "حرف علة" },
+      { word: "Consonant", meaning: "Letters that are not vowels", example: "B, C, D are consonants.", emoji: "🔵", arabic: "حرف ساكن" },
+      { word: "Sound", meaning: "What you hear when you say a letter", example: "The letter B makes a /b/ sound.", emoji: "🔊", arabic: "صوت" },
+      { word: "Uppercase", meaning: "Capital letter", example: "Start a sentence with an uppercase letter.", emoji: "🔠", arabic: "حرف كبير" },
+      { word: "Lowercase", meaning: "Small letter", example: "Most words use lowercase letters.", emoji: "🔡", arabic: "حرف صغير" },
+      { word: "Spell", meaning: "To say or write the letters of a word", example: "Can you spell your name?", emoji: "📝", arabic: "يتهجّى" },
+      { word: "Pronounce", meaning: "To say a word correctly", example: "How do you pronounce this word?", emoji: "🗣️", arabic: "ينطق" },
+      { word: "Word", meaning: "A unit of language", example: "'Cat' is a three-letter word.", emoji: "📖", arabic: "كلمة" },
+    ],
+    dialogue: [
+      { speaker: "Teacher", text: "Let's start with the alphabet. How many letters are there?" },
+      { speaker: "Student", text: "26 letters!" },
+      { speaker: "Teacher", text: "Great! Can you name the five vowels?" },
+      { speaker: "Student", text: "A, E, I, O, U." },
+      { speaker: "Teacher", text: "Perfect! All other letters are consonants. Now, can you spell your name?" },
+      { speaker: "Student", text: "S-A-R-A. Sara!" },
+    ],
+    grammar: {
+      title: "Capital Letters — When to Use Uppercase",
+      explanation: "Use uppercase (capital) letters at the start of sentences, for names, places, days, and months. Everything else uses lowercase.",
+      examples: [
+        { sentence: "My name is Ahmed.", note: "Names are capitalized" },
+        { sentence: "I live in Cairo.", note: "Places are capitalized" },
+        { sentence: "Today is Monday.", note: "Days are capitalized" },
+        { sentence: "She was born in January.", note: "Months are capitalized" },
+      ],
+    },
+    vocabExercises: [
+      { question: "How many letters are in the English alphabet?", options: ["24", "25", "26", "28"], correct: 2 },
+      { question: "A, E, I, O, U are called ___.", options: ["Consonants", "Vowels", "Numbers", "Sounds"], correct: 1 },
+      { question: "'B' is a ___.", options: ["Vowel", "Number", "Consonant", "Word"], correct: 2 },
+      { question: "To 'spell' means to ___.", options: ["Read fast", "Say the letters", "Write a story", "Draw pictures"], correct: 1 },
+      { question: "A capital letter is also called ___.", options: ["Lowercase", "Uppercase", "Vowel", "Consonant"], correct: 1 },
+    ],
+    conversationExercises: [
+      { question: "How many vowels are there?", options: ["3", "4", "5", "6"], correct: 2 },
+      { question: "What did the student spell?", options: ["Cat", "Dog", "Sara", "Book"], correct: 2 },
+      { question: "Letters that are not vowels are ___.", options: ["Numbers", "Consonants", "Words", "Sentences"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Which should be capitalized? '___ is my friend.'", options: ["ahmed", "Ahmed", "AHMED", "aHmEd"], correct: 1 },
+      { question: "Days of the week start with ___.", options: ["Lowercase", "Uppercase", "Numbers", "Symbols"], correct: 1 },
+      { question: "'i live in ___ .' Which is correct?", options: ["cairo", "Cairo", "CAIRO", "cAiro"], correct: 1 },
+      { question: "The first word of a sentence uses ___.", options: ["Lowercase", "Uppercase", "No letter", "A number"], correct: 1 },
+    ],
+    examQuestions: [
+      { question: "The English alphabet has ___ letters.", options: ["24", "25", "26", "27"], correct: 2 },
+      { question: "Which is a vowel?", options: ["B", "C", "E", "D"], correct: 2 },
+      { question: "'Pronounce' means to ___.", options: ["Write", "Say correctly", "Spell", "Read"], correct: 1 },
+      { question: "Names always start with ___.", options: ["Lowercase", "Numbers", "Uppercase", "Symbols"], correct: 2 },
+      { question: "A 'word' is made of ___.", options: ["Numbers", "Letters", "Drawings", "Colors"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Write the vowels: A, ___, I, O, U.", options: ["B", "C", "E", "F"], correct: 2 },
+      { question: "'cat' has ___ letters.", options: ["2", "3", "4", "5"], correct: 1 },
+      { question: "Which is correct? '___ is a student.'", options: ["she", "She", "SHE", "sHe"], correct: 1 },
+    ],
+  },
+};
