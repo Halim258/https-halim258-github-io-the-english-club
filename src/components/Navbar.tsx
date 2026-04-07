@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback } from "react";
-import { Menu, X, Moon, Sun, User, LogOut } from "lucide-react";
+import { Menu, X, Moon, Sun, User, LogOut, ChevronDown } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import StudyReminder from "@/components/StudyReminder";
@@ -31,6 +32,7 @@ const homeSections = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
@@ -49,6 +51,15 @@ export default function Navbar() {
     }
   }, [dark]);
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => { setOpen(false); }, [location.pathname]);
+
   const scrollToSection = useCallback((id: string) => {
     setOpen(false);
     if (isHome) {
@@ -59,38 +70,55 @@ export default function Navbar() {
   }, [isHome, navigate]);
 
   return (
-    <nav className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur-md">
+    <nav className={`sticky top-0 z-50 border-b transition-all duration-300 ${
+      scrolled 
+        ? "bg-card/80 glass-morphism shadow-soft border-border" 
+        : "bg-card/95 backdrop-blur-md border-transparent"
+    }`}>
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 flex-shrink-0">
-          <img src={logo} alt="The English Club Logo" className="h-10 w-10 flex-shrink-0" />
-          <span className="text-lg font-bold text-foreground font-display tracking-tight whitespace-nowrap leading-tight">
+        <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 group">
+          <motion.img 
+            src={logo} 
+            alt="The English Club Logo" 
+            className="h-10 w-10 flex-shrink-0 rounded-lg shadow-sm"
+            whileHover={{ scale: 1.05, rotate: 2 }}
+            transition={{ type: "spring", stiffness: 400 }}
+          />
+          <span className="text-lg font-bold text-foreground font-display tracking-tight whitespace-nowrap leading-tight group-hover:text-primary transition-colors duration-200">
             The English Club
           </span>
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden items-center gap-1 md:flex">
-          {navLinks.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${
-                location.pathname === l.to
-                  ? "text-primary font-semibold"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
-          {/* Section links (visible when on home or always as quick nav) */}
-          <div className="mx-1 h-4 w-px bg-border" />
+        <div className="hidden items-center gap-0.5 md:flex">
+          {navLinks.map((l) => {
+            const isActive = location.pathname === l.to;
+            return (
+              <Link
+                key={l.to}
+                to={l.to}
+                className="relative rounded-full px-3.5 py-2 text-sm font-medium transition-all duration-200 group"
+              >
+                <span className={isActive ? "text-primary font-semibold" : "text-muted-foreground group-hover:text-foreground"}>
+                  {l.label}
+                </span>
+                {isActive && (
+                  <motion.div
+                    layoutId="nav-indicator"
+                    className="absolute inset-0 rounded-full bg-primary/8 border border-primary/15"
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                  />
+                )}
+              </Link>
+            );
+          })}
+          <div className="mx-1.5 h-4 w-px bg-border" />
           {homeSections.map((s) => (
             <button
               key={s.id}
               onClick={() => scrollToSection(s.id)}
-              className="rounded-full px-3 py-2 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
+              className="rounded-full px-2.5 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-all duration-200"
             >
               {s.label}
             </button>
@@ -98,15 +126,27 @@ export default function Navbar() {
         </div>
 
         {/* Desktop auth buttons */}
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-1.5 md:flex">
           <StudyReminder />
-          <button
+          <motion.button
             onClick={() => setDark(!dark)}
-            className="rounded-full p-2 text-muted-foreground hover:text-foreground transition-colors"
+            className="rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
             aria-label="Toggle dark mode"
+            whileTap={{ scale: 0.9, rotate: 180 }}
+            transition={{ duration: 0.3 }}
           >
-            {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-          </button>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={dark ? "sun" : "moon"}
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.2 }}
+              >
+                {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </motion.div>
+            </AnimatePresence>
+          </motion.button>
           {authLoading ? (
             <div className="flex items-center gap-2">
               <Skeleton className="h-8 w-24 rounded-full" />
@@ -115,24 +155,24 @@ export default function Navbar() {
           ) : user ? (
             <>
               <Link to="/dashboard">
-                <Button variant="ghost" size="sm" className="rounded-full gap-1.5">
+                <Button variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
                   <User className="h-4 w-4" />
                   <span className="max-w-[80px] truncate">{user.email?.split("@")[0]}</span>
                 </Button>
               </Link>
-              <Button variant="outline" size="sm" className="rounded-full gap-1" onClick={handleLogout}>
+              <Button variant="outline" size="sm" className="rounded-full gap-1 hover:border-destructive/30 hover:text-destructive hover:bg-destructive/5 transition-colors" onClick={handleLogout}>
                 <LogOut className="h-3.5 w-3.5" /> Logout
               </Button>
             </>
           ) : (
             <>
               <Link to="/signup">
-                <Button size="sm" className="rounded-full px-5 font-semibold">
+                <Button size="sm" className="rounded-full px-5 font-semibold shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200">
                   Sign Up Free
                 </Button>
               </Link>
               <Link to="/login">
-                <Button variant="outline" size="sm" className="rounded-full px-5 font-semibold">
+                <Button variant="outline" size="sm" className="rounded-full px-5 font-semibold hover:scale-[1.02] transition-all duration-200">
                   Log In
                 </Button>
               </Link>
@@ -141,75 +181,103 @@ export default function Navbar() {
         </div>
 
         {/* Mobile hamburger */}
-        <button className="md:hidden p-2 text-foreground" onClick={() => setOpen(!open)}>
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <motion.button
+          className="md:hidden p-2 text-foreground rounded-lg hover:bg-muted/50 transition-colors"
+          onClick={() => setOpen(!open)}
+          whileTap={{ scale: 0.9 }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={open ? "close" : "menu"}
+              initial={{ opacity: 0, rotate: -90 }}
+              animate={{ opacity: 1, rotate: 0 }}
+              exit={{ opacity: 0, rotate: 90 }}
+              transition={{ duration: 0.15 }}
+            >
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </motion.div>
+          </AnimatePresence>
+        </motion.button>
       </div>
 
       {/* Mobile menu */}
-      {open && (
-        <div className="border-t bg-card p-4 md:hidden">
-          <div className="flex flex-col gap-2">
-            {navLinks.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className={`rounded-lg px-3 py-2.5 text-sm font-medium ${
-                  location.pathname === l.to ? "bg-primary/10 text-primary" : "text-muted-foreground"
-                }`}
-              >
-                {l.label}
-              </Link>
-            ))}
-            <hr className="my-2 border-border" />
-            <p className="px-3 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">Jump to</p>
-            {homeSections.map((s) => (
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="overflow-hidden border-t bg-card md:hidden"
+          >
+            <div className="p-4 flex flex-col gap-1">
+              {navLinks.map((l, i) => (
+                <motion.div
+                  key={l.to}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.03 }}
+                >
+                  <Link
+                    to={l.to}
+                    onClick={() => setOpen(false)}
+                    className={`rounded-xl px-4 py-2.5 text-sm font-medium flex items-center transition-colors ${
+                      location.pathname === l.to ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground hover:bg-muted/50"
+                    }`}
+                  >
+                    {l.label}
+                  </Link>
+                </motion.div>
+              ))}
+              <hr className="my-2 border-border" />
+              <p className="px-4 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">Jump to</p>
+              {homeSections.map((s) => (
+                <button
+                  key={s.id}
+                  onClick={() => scrollToSection(s.id)}
+                  className="rounded-xl px-4 py-2 text-sm font-medium text-muted-foreground text-left hover:bg-muted/50 hover:text-foreground transition-colors"
+                >
+                  {s.label}
+                </button>
+              ))}
+              <hr className="my-2 border-border" />
               <button
-                key={s.id}
-                onClick={() => scrollToSection(s.id)}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground text-left hover:text-foreground"
+                onClick={() => setDark(!dark)}
+                className="flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium text-muted-foreground hover:bg-muted/50 transition-colors"
               >
-                {s.label}
+                {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+                {dark ? "Light Mode" : "Dark Mode"}
               </button>
-            ))}
-            <hr className="my-2 border-border" />
-            <button
-              onClick={() => setDark(!dark)}
-              className="flex items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground"
-            >
-              {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
-              {dark ? "Light Mode" : "Dark Mode"}
-            </button>
-            {authLoading ? (
-              <div className="space-y-2">
-                <Skeleton className="h-9 w-full rounded-full" />
-                <Skeleton className="h-9 w-full rounded-full" />
-              </div>
-            ) : user ? (
-              <>
-                <Link to="/dashboard" onClick={() => setOpen(false)}>
-                  <Button size="sm" className="w-full rounded-full font-semibold gap-1.5">
-                    <User className="h-4 w-4" /> Dashboard
+              {authLoading ? (
+                <div className="space-y-2 mt-2">
+                  <Skeleton className="h-10 w-full rounded-full" />
+                  <Skeleton className="h-10 w-full rounded-full" />
+                </div>
+              ) : user ? (
+                <div className="mt-2 space-y-2">
+                  <Link to="/dashboard" onClick={() => setOpen(false)}>
+                    <Button size="sm" className="w-full rounded-full font-semibold gap-1.5 h-10">
+                      <User className="h-4 w-4" /> Dashboard
+                    </Button>
+                  </Link>
+                  <Button variant="outline" size="sm" className="w-full rounded-full font-semibold gap-1 h-10" onClick={() => { setOpen(false); handleLogout(); }}>
+                    <LogOut className="h-3.5 w-3.5" /> Logout
                   </Button>
-                </Link>
-                <Button variant="outline" size="sm" className="w-full rounded-full font-semibold gap-1" onClick={() => { setOpen(false); handleLogout(); }}>
-                  <LogOut className="h-3.5 w-3.5" /> Logout
-                </Button>
-              </>
-            ) : (
-              <>
-                <Link to="/signup" onClick={() => setOpen(false)}>
-                  <Button size="sm" className="w-full rounded-full font-semibold">Sign Up Free</Button>
-                </Link>
-                <Link to="/login" onClick={() => setOpen(false)}>
-                  <Button variant="outline" size="sm" className="w-full rounded-full font-semibold">Log In</Button>
-                </Link>
-              </>
-            )}
-          </div>
-        </div>
-      )}
+                </div>
+              ) : (
+                <div className="mt-2 space-y-2">
+                  <Link to="/signup" onClick={() => setOpen(false)}>
+                    <Button size="sm" className="w-full rounded-full font-semibold h-10">Sign Up Free</Button>
+                  </Link>
+                  <Link to="/login" onClick={() => setOpen(false)}>
+                    <Button variant="outline" size="sm" className="w-full rounded-full font-semibold h-10">Log In</Button>
+                  </Link>
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

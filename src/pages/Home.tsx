@@ -180,7 +180,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 rounded-full border bg-card px-5 py-2 text-xs font-semibold text-muted-foreground shadow-soft mb-8"
+              className="inline-flex items-center gap-2 rounded-full border bg-card px-5 py-2.5 text-xs font-semibold text-muted-foreground shadow-soft mb-8"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -197,7 +197,7 @@ export default function Home() {
             >
               Master English with{" "}
               <span className="relative inline-block">
-                <span className="text-primary">Confidence</span>
+                <span className="text-gradient">Confidence</span>
                 <motion.svg
                   className="absolute -bottom-2 left-0 w-full"
                   viewBox="0 0 200 12"
@@ -236,12 +236,12 @@ export default function Home() {
               className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3"
             >
               <Link to="/signup">
-                <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] duration-200">
+                <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200">
                   Start Learning Free <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/courses">
-                <Button variant="outline" size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 hover:scale-[1.02] transition-all duration-200">
+                <Button variant="outline" size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 hover:scale-[1.03] hover:border-primary/30 hover:bg-primary/5 transition-all duration-200">
                   Explore Courses
                 </Button>
               </Link>
@@ -256,16 +256,16 @@ export default function Home() {
             >
               <Link
                 to="/placement-test"
-                className="group inline-flex items-center gap-3 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/10 to-accent/10 px-6 py-3 shadow-soft transition-all hover:shadow-card hover:border-primary/40 hover:-translate-y-0.5 duration-300"
+                className="group inline-flex items-center gap-3 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/8 to-accent/8 px-6 py-3.5 shadow-soft transition-all hover:shadow-elevated hover:border-primary/40 hover:-translate-y-0.5 duration-300"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 group-hover:bg-primary/25 transition-colors">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 group-hover:bg-primary/25 group-hover:scale-110 transition-all duration-300">
                   <GraduationCap className="h-4.5 w-4.5 text-primary" />
                 </div>
                 <div className="text-left">
                   <p className="text-sm font-semibold font-display">Don't know your level?</p>
                   <p className="text-[11px] text-muted-foreground">Take our free Cambridge Placement Test →</p>
                 </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-200" />
               </Link>
             </motion.div>
 
@@ -274,7 +274,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
-              className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-2xl mx-auto"
+              className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto"
             >
               {audiences.map((a, i) => (
                 <motion.div
@@ -282,15 +282,22 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
+                  whileHover={{ y: -6, scale: 1.02 }}
                 >
                   <Link
                     to={a.to}
-                    className="group relative flex flex-col items-center gap-2 rounded-2xl border bg-card px-4 py-5 shadow-soft transition-all hover:shadow-card hover:border-primary/30 hover:-translate-y-1 duration-300"
+                    className="group relative flex flex-col items-center gap-2.5 rounded-2xl border bg-card px-4 py-6 shadow-soft transition-all hover:shadow-elevated hover:border-primary/30 duration-300"
                   >
-                    <span className="absolute top-2 right-2 text-[9px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2 py-0.5">
+                    <span className="absolute top-2.5 right-2.5 text-[9px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2 py-0.5">
                       {a.tag}
                     </span>
-                    <span className="text-3xl">{a.icon}</span>
+                    <motion.span 
+                      className="text-3xl"
+                      whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}
+                      transition={{ duration: 0.4 }}
+                    >
+                      {a.icon}
+                    </motion.span>
                     <p className="text-sm font-semibold font-display">{a.title}</p>
                     <p className="text-[11px] text-muted-foreground">{a.desc}</p>
                   </Link>
@@ -302,7 +309,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
-      <section className="border-y bg-muted/30 py-14 md:py-18">
+      <section className="border-y bg-muted/30 py-16 md:py-20">
         <div className="container mx-auto px-4">
           <motion.div
             variants={staggerContainer}
@@ -315,10 +322,11 @@ export default function Home() {
               <motion.div
                 key={s.label}
                 variants={staggerItem}
-                className="relative text-center group"
+                whileHover={{ scale: 1.05, y: -4 }}
+                className="relative text-center group cursor-default"
               >
-                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 mb-4 group-hover:scale-110 group-hover:bg-primary/15 transition-all duration-300">
-                  <s.icon className="h-6 w-6 text-primary" />
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 mb-4 group-hover:bg-primary group-hover:shadow-lg transition-all duration-300">
+                  <s.icon className="h-6 w-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
                 </div>
                 <p className="text-3xl md:text-4xl lg:text-5xl font-bold text-primary font-display">
                   <AnimatedCounter target={s.value} suffix={s.suffix} />
@@ -619,25 +627,29 @@ export default function Home() {
               <motion.div
                 key={t.name}
                 variants={staggerItem}
-                className="rounded-2xl border bg-card p-7 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 relative overflow-hidden group"
+                whileHover={{ y: -6, scale: 1.01 }}
+                className="rounded-2xl border bg-card p-7 shadow-soft transition-shadow hover:shadow-elevated duration-300 relative overflow-hidden group"
               >
                 {/* Quote accent bar */}
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
                 <div className="flex gap-1 mb-5">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star key={s} className="h-4 w-4 fill-accent text-accent" />
                   ))}
                 </div>
                 <Quote className="h-8 w-8 text-primary/10 mb-3" />
-                <p className="text-sm text-muted-foreground leading-relaxed relative z-10">
-                  {t.quote}
+                <p className="text-sm text-muted-foreground leading-relaxed italic relative z-10">
+                  "{t.quote}"
                 </p>
                 <div className="mt-6 flex items-center gap-3 pt-4 border-t">
-                  <div className="h-11 w-11 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                  <motion.div
+                    className="h-11 w-11 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                  >
                     <span className="text-sm font-bold text-primary">
                       {t.name.split(" ").map((n) => n[0]).join("")}
                     </span>
-                  </div>
+                  </motion.div>
                   <div>
                     <p className="text-sm font-semibold font-display">{t.name}</p>
                     <p className="text-xs text-muted-foreground">{t.role}</p>
