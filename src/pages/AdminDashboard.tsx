@@ -345,6 +345,12 @@ export default function AdminDashboard() {
         </motion.div>
       )}
 
+      {tab === "roles" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminRoles />
+        </motion.div>
+      )}
+
       {tab === "export" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <AdminExport
