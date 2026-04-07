@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useCallback } from "react";
 import { TrendingUp, TrendingDown, DollarSign, Plus, Search, ChevronLeft, ChevronRight, Calendar, Pencil, Trash2, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -34,14 +34,17 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
   const perPage = 25;
   const { toast } = useToast();
 
-  // Fixed monthly expenses for P&L
-  const [fixedExpenses, setFixedExpenses] = useState([
-    { name: "Rent", amount: 5000 },
-    { name: "Electricity", amount: 800 },
-    { name: "Water", amount: 200 },
-    { name: "Internet", amount: 500 },
-    { name: "Cleaning", amount: 400 },
-  ]);
+  // Fixed monthly expenses for P&L — loaded from DB
+  const [fixedExpenses, setFixedExpenses] = useState<{id?: string; name: string; amount: number}[]>([]);
+  const [fixedLoaded, setFixedLoaded] = useState(false);
+
+  const loadFixedExpenses = useCallback(async () => {
+    const { data } = await supabase.from("school_fixed_expenses").select("id, name, amount").order("created_at");
+    if (data) setFixedExpenses(data.map(r => ({ id: r.id, name: r.name, amount: Number(r.amount) })));
+    setFixedLoaded(true);
+  }, []);
+
+  useEffect(() => { loadFixedExpenses(); }, [loadFixedExpenses]);
   const [newFixedName, setNewFixedName] = useState("");
   const [newFixedAmount, setNewFixedAmount] = useState("");
   const [pnlMonth, setPnlMonth] = useState<string>(() => {
@@ -483,13 +486,22 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
                           className="w-24 h-7 text-xs text-right"
                           value={e.amount}
                           onChange={ev => {
+                            const newAmount = Number(ev.target.value) || 0;
                             const updated = [...fixedExpenses];
-                            updated[i] = { ...updated[i], amount: Number(ev.target.value) || 0 };
+                            updated[i] = { ...updated[i], amount: newAmount };
                             setFixedExpenses(updated);
+                          }}
+                          onBlur={async () => {
+                            if (e.id) {
+                              await supabase.from("school_fixed_expenses").update({ amount: e.amount } as any).eq("id", e.id);
+                            }
                           }}
                         />
                         <button
-                          onClick={() => setFixedExpenses(fixedExpenses.filter((_, j) => j !== i))}
+                          onClick={async () => {
+                            if (e.id) await supabase.from("school_fixed_expenses").delete().eq("id", e.id);
+                            setFixedExpenses(fixedExpenses.filter((_, j) => j !== i));
+                          }}
                           className="text-destructive opacity-0 group-hover:opacity-100 transition-opacity text-xs"
                         >✕</button>
                       </div>
@@ -514,9 +526,14 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
                       size="sm"
                       variant="outline"
                       className="h-8 text-xs"
-                      onClick={() => {
+                      onClick={async () => {
                         if (newFixedName && newFixedAmount) {
-                          setFixedExpenses([...fixedExpenses, { name: newFixedName, amount: Number(newFixedAmount) || 0 }]);
+                          const { data, error } = await supabase.from("school_fixed_expenses").insert({
+                            name: newFixedName, amount: Number(newFixedAmount) || 0
+                          } as any).select().single();
+                          if (!error && data) {
+                            setFixedExpenses([...fixedExpenses, { id: (data as any).id, name: (data as any).name, amount: Number((data as any).amount) }]);
+                          }
                           setNewFixedName(""); setNewFixedAmount("");
                         }
                       }}
