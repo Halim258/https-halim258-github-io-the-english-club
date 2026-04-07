@@ -7,12 +7,14 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import DetailSheet from "./DetailSheet";
 
 interface Student {
   id: string;
   name: string;
   phone_number: string | null;
   email: string | null;
+  whatsapp: string | null;
   status: string | null;
   group_id: number | null;
   fees: number | null;
@@ -21,6 +23,16 @@ interface Student {
   placement_test_result: string | null;
   membership: string | null;
   created_at: string | null;
+  reservation_date: string | null;
+  birth_date: string | null;
+  address: string | null;
+  notes: string | null;
+  preferred_time: string | null;
+  preferred_activity: string | null;
+  other_interests: string | null;
+  access_method: string | null;
+  student_number: number | null;
+  reference_number: string | null;
 }
 
 interface Props {
@@ -42,6 +54,7 @@ export default function AdminStudents({ students, onRefresh }: Props) {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [sortField, setSortField] = useState<SortField>("name");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const perPage = 25;
   const { toast } = useToast();
 
@@ -213,9 +226,9 @@ export default function AdminStudents({ students, onRefresh }: Props) {
           </thead>
           <tbody>
             {paged.map((s, i) => (
-              <tr key={s.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors">
+              <tr key={s.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedStudent(s)}>
                 <td className="p-3 text-muted-foreground">{page * perPage + i + 1}</td>
-                <td className="p-3 font-medium">{s.name}</td>
+                <td className="p-3 font-medium text-primary hover:underline">{s.name}</td>
                 <td className="p-3 text-muted-foreground font-mono text-xs">{s.phone_number || "—"}</td>
                 <td className="p-3">{s.group_id || "—"}</td>
                 <td className="p-3 font-mono">{s.fees?.toLocaleString() || 0}</td>
@@ -228,7 +241,7 @@ export default function AdminStudents({ students, onRefresh }: Props) {
                 </td>
                 <td className="p-3 text-xs">{s.placement_test_result || "—"}</td>
                 <td className="p-3">
-                  <div className="flex items-center justify-center gap-1">
+                  <div className="flex items-center justify-center gap-1" onClick={e => e.stopPropagation()}>
                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(s)}><Pencil className="h-3.5 w-3.5" /></Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
@@ -262,6 +275,38 @@ export default function AdminStudents({ students, onRefresh }: Props) {
         )}
         {filtered.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">No students found.</p>}
       </div>
+
+      {/* Detail Sheet */}
+      <DetailSheet
+        open={!!selectedStudent}
+        onOpenChange={(open) => { if (!open) setSelectedStudent(null); }}
+        title={selectedStudent?.name || ""}
+        subtitle={selectedStudent?.status ? `Status: ${selectedStudent.status}` : undefined}
+        avatar={selectedStudent?.name?.[0]?.toUpperCase()}
+        fields={selectedStudent ? [
+          { label: "Student #", value: selectedStudent.student_number },
+          { label: "Reference #", value: selectedStudent.reference_number },
+          { label: "Phone", value: selectedStudent.phone_number, type: "phone" as const },
+          { label: "WhatsApp", value: selectedStudent.whatsapp, type: "phone" as const },
+          { label: "Email", value: selectedStudent.email, type: "email" as const },
+          { label: "Status", value: selectedStudent.status, type: "badge" as const, badgeColor: selectedStudent.status === "active" ? "bg-emerald-500/10 text-emerald-700" : "bg-red-500/10 text-red-700" },
+          { label: "Group ID", value: selectedStudent.group_id },
+          { label: "Level", value: selectedStudent.placement_test_result, type: "badge" as const },
+          { label: "Membership", value: selectedStudent.membership },
+          { label: "Total Fees", value: selectedStudent.fees, type: "currency" as const },
+          { label: "Paid Fees", value: selectedStudent.paid_fees, type: "currency" as const },
+          { label: "Remaining", value: selectedStudent.remaining_fees, type: "currency" as const },
+          { label: "Birth Date", value: selectedStudent.birth_date, type: "date" as const },
+          { label: "Address", value: selectedStudent.address },
+          { label: "Reservation Date", value: selectedStudent.reservation_date, type: "date" as const },
+          { label: "Registered", value: selectedStudent.created_at, type: "date" as const },
+          { label: "Preferred Time", value: selectedStudent.preferred_time },
+          { label: "Preferred Activity", value: selectedStudent.preferred_activity },
+          { label: "Other Interests", value: selectedStudent.other_interests },
+          { label: "Access Method", value: selectedStudent.access_method },
+          { label: "Notes", value: selectedStudent.notes },
+        ] : []}
+      />
     </div>
   );
 }

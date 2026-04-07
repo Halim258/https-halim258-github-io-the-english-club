@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { AlertCircle, Search, Phone, ChevronLeft, ChevronRight, DollarSign, MessageCircle, Send } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import DetailSheet from "./DetailSheet";
 
 interface Student {
   id: string;
@@ -25,6 +26,7 @@ export default function AdminUnpaidStudents({ students }: Props) {
   const [sortField, setSortField] = useState<"remaining_fees" | "name" | "fees">("remaining_fees");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [page, setPage] = useState(0);
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [messageTemplate, setMessageTemplate] = useState(
     "مرحباً {name}، نود تذكيركم بأن لديكم مبلغ {amount} جنيه مستحق. نرجو سداد المبلغ في أقرب وقت. شكراً لكم - The English Club"
   );
@@ -160,8 +162,8 @@ export default function AdminUnpaidStudents({ students }: Props) {
                 remaining >= 500 ? "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400" :
                 "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400";
               return (
-                <tr key={s.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors">
-                  <td className="p-3 font-medium">{s.name}</td>
+                <tr key={s.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedStudent(s)}>
+                  <td className="p-3 font-medium text-primary hover:underline">{s.name}</td>
                   <td className="p-3 text-xs">
                     {s.phone_number ? (
                       <a href={`tel:${s.phone_number}`} className="flex items-center gap-1 text-primary hover:underline">
@@ -189,7 +191,7 @@ export default function AdminUnpaidStudents({ students }: Props) {
                       {s.status || "—"}
                     </span>
                   </td>
-                  <td className="p-3 text-center">
+                  <td className="p-3 text-center" onClick={e => e.stopPropagation()}>
                     {hasPhone(s) ? (
                       <a
                         href={buildWhatsAppUrl(s)}
@@ -219,6 +221,24 @@ export default function AdminUnpaidStudents({ students }: Props) {
         )}
         {unpaid.length === 0 && <p className="text-sm text-muted-foreground text-center py-8">🎉 All students have paid their fees!</p>}
       </div>
+
+      <DetailSheet
+        open={!!selectedStudent}
+        onOpenChange={(open) => { if (!open) setSelectedStudent(null); }}
+        title={selectedStudent?.name || ""}
+        subtitle={`Remaining: ${(selectedStudent?.remaining_fees || 0).toLocaleString()} EGP`}
+        avatar={selectedStudent?.name?.[0]?.toUpperCase()}
+        fields={selectedStudent ? [
+          { label: "Phone", value: selectedStudent.phone_number, type: "phone" as const },
+          { label: "WhatsApp", value: selectedStudent.whatsapp, type: "phone" as const },
+          { label: "Status", value: selectedStudent.status, type: "badge" as const, badgeColor: selectedStudent.status === "active" ? "bg-emerald-500/10 text-emerald-700" : "bg-muted text-muted-foreground" },
+          { label: "Group ID", value: selectedStudent.group_id },
+          { label: "Total Fees", value: selectedStudent.fees, type: "currency" as const },
+          { label: "Paid Fees", value: selectedStudent.paid_fees, type: "currency" as const },
+          { label: "Remaining", value: selectedStudent.remaining_fees, type: "currency" as const },
+          { label: "Reservation Date", value: selectedStudent.reservation_date, type: "date" as const },
+        ] : []}
+      />
     </div>
   );
 }

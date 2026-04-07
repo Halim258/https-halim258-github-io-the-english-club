@@ -7,6 +7,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import DetailSheet from "./DetailSheet";
 
 interface Employee {
   id: string;
@@ -28,6 +29,7 @@ export default function AdminEmployees({ employees, onRefresh }: Props) {
   const [editOpen, setEditOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
+  const [selectedEmp, setSelectedEmp] = useState<Employee | null>(null);
   const { toast } = useToast();
 
   const handleAdd = async () => {
@@ -134,16 +136,16 @@ export default function AdminEmployees({ employees, onRefresh }: Props) {
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {employees.map(emp => (
-          <div key={emp.id} className="rounded-xl border bg-card p-4 shadow-soft">
+          <div key={emp.id} className="rounded-xl border bg-card p-4 shadow-soft cursor-pointer hover:border-primary/50 transition-colors" onClick={() => setSelectedEmp(emp)}>
             <div className="flex items-center justify-between mb-2">
-              <h4 className="font-semibold text-sm">{emp.name}</h4>
+              <h4 className="font-semibold text-sm text-primary hover:underline">{emp.name}</h4>
               <span className={`text-[10px] font-bold rounded-full px-2 py-0.5 ${positionColors[emp.position] || positionColors.staff}`}>
                 {emp.position}
               </span>
             </div>
             {emp.phone_number && <p className="text-xs text-muted-foreground font-mono">{emp.phone_number}</p>}
             {emp.phone_number_2 && <p className="text-xs text-muted-foreground font-mono">{emp.phone_number_2}</p>}
-            <div className="flex gap-1 mt-3 border-t pt-2">
+            <div className="flex gap-1 mt-3 border-t pt-2" onClick={e => e.stopPropagation()}>
               <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => openEdit(emp)}>
                 <Pencil className="h-3 w-3 mr-1" /> Edit
               </Button>
@@ -168,6 +170,19 @@ export default function AdminEmployees({ employees, onRefresh }: Props) {
           </div>
         ))}
       </div>
+
+      <DetailSheet
+        open={!!selectedEmp}
+        onOpenChange={(open) => { if (!open) setSelectedEmp(null); }}
+        title={selectedEmp?.name || ""}
+        subtitle={selectedEmp?.position}
+        avatar={selectedEmp?.name?.[0]?.toUpperCase()}
+        fields={selectedEmp ? [
+          { label: "Position", value: selectedEmp.position, type: "badge" as const, badgeColor: (positionColors as any)[selectedEmp.position] || "bg-muted text-muted-foreground" },
+          { label: "Phone", value: selectedEmp.phone_number, type: "phone" as const },
+          { label: "Phone 2", value: selectedEmp.phone_number_2, type: "phone" as const },
+        ] : []}
+      />
     </div>
   );
 }

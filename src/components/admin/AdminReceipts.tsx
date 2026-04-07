@@ -7,6 +7,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import DetailSheet from "./DetailSheet";
 
 interface Props {
   receipts: any[];
@@ -22,6 +23,7 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [page, setPage] = useState(0);
+  const [selectedReceipt, setSelectedReceipt] = useState<any | null>(null);
   const perPage = 50;
   const { toast } = useToast();
 
@@ -163,9 +165,9 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
             </thead>
             <tbody>
               {paged.map((r: any) => (
-                <tr key={r.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors">
+                <tr key={r.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedReceipt(r)}>
                   <td className="p-3 text-muted-foreground">{r.receipt_number || "—"}</td>
-                  <td className="p-3 font-medium">{r.student_name || "—"}</td>
+                  <td className="p-3 font-medium text-primary hover:underline">{r.student_name || "—"}</td>
                   <td className="p-3 text-muted-foreground">{r.phone_number || "—"}</td>
                   <td className="p-3 text-right font-medium">{(r.fees || 0).toLocaleString()}</td>
                   <td className="p-3 text-right text-emerald-600 font-medium">{(r.paid_fees || 0).toLocaleString()}</td>
@@ -176,7 +178,7 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
                     {r.reservation_date ? new Date(r.reservation_date).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "—"}
                   </td>
                   <td className="p-3">
-                    <div className="flex items-center justify-center gap-1">
+                    <div className="flex items-center justify-center gap-1" onClick={e => e.stopPropagation()}>
                       <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(r)}>
                         <Pencil className="h-3.5 w-3.5" />
                       </Button>
@@ -218,6 +220,25 @@ export default function AdminReceipts({ receipts, onRefresh }: Props) {
           </div>
         )}
       </div>
+
+      <DetailSheet
+        open={!!selectedReceipt}
+        onOpenChange={(open) => { if (!open) setSelectedReceipt(null); }}
+        title={selectedReceipt?.student_name || "Receipt"}
+        subtitle={selectedReceipt?.receipt_number ? `Receipt #${selectedReceipt.receipt_number}` : undefined}
+        avatar={selectedReceipt?.student_name?.[0]?.toUpperCase()}
+        fields={selectedReceipt ? [
+          { label: "Receipt #", value: selectedReceipt.receipt_number },
+          { label: "Student Name", value: selectedReceipt.student_name },
+          { label: "Phone", value: selectedReceipt.phone_number, type: "phone" as const },
+          { label: "Total Fees", value: selectedReceipt.fees, type: "currency" as const },
+          { label: "Paid Fees", value: selectedReceipt.paid_fees, type: "currency" as const },
+          { label: "Remaining", value: selectedReceipt.remaining_fees, type: "currency" as const },
+          { label: "Reservation Date", value: selectedReceipt.reservation_date, type: "date" as const },
+          { label: "Given By", value: selectedReceipt.given_by },
+          { label: "Item ID", value: selectedReceipt.item_id },
+        ] : []}
+      />
     </div>
   );
 }

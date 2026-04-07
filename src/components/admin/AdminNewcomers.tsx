@@ -7,6 +7,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import DetailSheet from "./DetailSheet";
 
 interface Newcomer {
   id: string;
@@ -32,6 +33,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [page, setPage] = useState(0);
+  const [selectedNewcomer, setSelectedNewcomer] = useState<Newcomer | null>(null);
   const perPage = 25;
   const { toast } = useToast();
 
@@ -148,8 +150,8 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
           </thead>
           <tbody>
             {paged.map(n => (
-              <tr key={n.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors">
-                <td className="p-3 font-medium">{n.client_name}</td>
+              <tr key={n.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedNewcomer(n)}>
+                <td className="p-3 font-medium text-primary hover:underline">{n.client_name}</td>
                 <td className="p-3 font-mono text-xs">{n.client_number || "—"}</td>
                 <td className="p-3 text-xs">{n.access_method || "—"}</td>
                 <td className="p-3 text-xs">{n.the_date ? new Date(n.the_date).toLocaleDateString("en-GB") : "—"}</td>
@@ -159,7 +161,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
                   </span>
                 </td>
                 <td className="p-3">
-                  <div className="flex items-center justify-center gap-1">
+                  <div className="flex items-center justify-center gap-1" onClick={e => e.stopPropagation()}>
                     <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => openEdit(n)}><Pencil className="h-3.5 w-3.5" /></Button>
                     <AlertDialog>
                       <AlertDialogTrigger asChild><Button variant="ghost" size="icon" className="h-7 w-7 text-destructive hover:text-destructive"><Trash2 className="h-3.5 w-3.5" /></Button></AlertDialogTrigger>
@@ -184,6 +186,21 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
           </div>
         )}
       </div>
+
+      <DetailSheet
+        open={!!selectedNewcomer}
+        onOpenChange={(open) => { if (!open) setSelectedNewcomer(null); }}
+        title={selectedNewcomer?.client_name || ""}
+        subtitle={selectedNewcomer?.reserved ? "Enrolled" : "Pending"}
+        avatar={selectedNewcomer?.client_name?.[0]?.toUpperCase()}
+        fields={selectedNewcomer ? [
+          { label: "Name", value: selectedNewcomer.client_name },
+          { label: "Phone", value: selectedNewcomer.client_number, type: "phone" as const },
+          { label: "Source", value: selectedNewcomer.access_method },
+          { label: "Date", value: selectedNewcomer.the_date, type: "date" as const },
+          { label: "Status", value: selectedNewcomer.reserved ? "Enrolled" : "Pending", type: "badge" as const, badgeColor: selectedNewcomer.reserved ? "bg-emerald-500/10 text-emerald-700" : "bg-amber-500/10 text-amber-700" },
+        ] : []}
+      />
     </div>
   );
 }
