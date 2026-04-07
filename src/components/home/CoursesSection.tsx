@@ -8,7 +8,7 @@ import { useAuth } from "@/hooks/useAuth";
 
 export default function CoursesSection() {
   const { user, loading } = useAuth();
-  const isLoggedIn = !!user;
+  const isLoggedIn = loading || !!user; // treat loading as logged-in to avoid flash of locks
 
   return (
     <section id="courses" className="py-20">
