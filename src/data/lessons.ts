@@ -126,6 +126,7 @@ import { businessEnglishLessons } from "./business-english-lessons";
 import { businessEnglishLessons2 } from "./business-english-2";
 import { businessEnglishLessons3 } from "./business-english-3";
 import { academicWritingLessons } from "./academic-writing-lessons";
+import { newsLesson2, hospitalityLesson1, legalLesson1 } from "./missing-lesson-1s";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
@@ -709,4 +710,7 @@ export const lessons: Record<string, LessonData> = {
   ...businessEnglishLessons2,
   ...businessEnglishLessons3,
   ...academicWritingLessons,
+  ...newsLesson2,
+  ...hospitalityLesson1,
+  ...legalLesson1,
 };
