@@ -126,7 +126,7 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
             ? "bg-amber-500/15 text-amber-700 dark:text-amber-400" 
             : "bg-red-500/15 text-red-700 dark:text-red-400";
           const isCompleted = completedLessons.has(l.lessonNumber);
-          const isLocked = user && index > 0 && !completedLessons.has(lessons[lessonKeys[index - 1]]?.lessonNumber) && !isCompleted && index !== 0;
+          const isLocked = false; // All lessons are accessible
           const isMilestone = l.lessonNumber === 5 || l.lessonNumber === 10 || l.lessonNumber === 15;
 
           return (
