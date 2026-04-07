@@ -25,7 +25,7 @@ import AdminTeacherHours from "@/components/admin/AdminTeacherHours";
 import AdminUnpaidStudents from "@/components/admin/AdminUnpaidStudents";
 import AdminRoles from "@/components/admin/AdminRoles";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "export";
+type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "export";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -127,6 +127,7 @@ export default function AdminDashboard() {
     { id: "receipts", label: "Receipts", icon: Receipt },
     { id: "online-students", label: "Online Users", icon: GraduationCap },
     { id: "tests", label: "Tests", icon: Award },
+    { id: "roles", label: "Roles", icon: ShieldCheck },
     { id: "export", label: "Export", icon: Download },
   ];
 
