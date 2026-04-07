@@ -44,25 +44,25 @@ const App = () => (
         <Routes>
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/courses/category/:categorySlug" element={<CategoryDetail />} />
-            <Route path="/courses/:levelId/:lessonId/slides" element={<SlideLesson />} />
-            <Route path="/courses/:levelId/:lessonId" element={<LessonPage />} />
-            <Route path="/courses/kids" element={<KidsCourse />} />
-            <Route path="/courses/stories" element={<StoriesCourse />} />
-            <Route path="/courses/movies" element={<MoviesCourse />} />
-            <Route path="/kids/games" element={<KidsGameCenter />} />
-            <Route path="/courses/:levelId" element={<Courses />} />
-            <Route path="/fm" element={<FMRadio />} />
-            <Route path="/practice" element={<PracticeSpeaking />} />
+            <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
+            <Route path="/courses/category/:categorySlug" element={<ProtectedRoute><CategoryDetail /></ProtectedRoute>} />
+            <Route path="/courses/:levelId/:lessonId/slides" element={<ProtectedRoute><SlideLesson /></ProtectedRoute>} />
+            <Route path="/courses/:levelId/:lessonId" element={<ProtectedRoute><LessonPage /></ProtectedRoute>} />
+            <Route path="/courses/kids" element={<ProtectedRoute><KidsCourse /></ProtectedRoute>} />
+            <Route path="/courses/stories" element={<ProtectedRoute><StoriesCourse /></ProtectedRoute>} />
+            <Route path="/courses/movies" element={<ProtectedRoute><MoviesCourse /></ProtectedRoute>} />
+            <Route path="/kids/games" element={<ProtectedRoute><KidsGameCenter /></ProtectedRoute>} />
+            <Route path="/courses/:levelId" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
+            <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />
+            <Route path="/practice" element={<ProtectedRoute><PracticeSpeaking /></ProtectedRoute>} />
             <Route path="/teachers" element={<Teachers />} />
             <Route path="/placement-test" element={<PlacementTest />} />
-            <Route path="/dictionary" element={<Dictionary />} />
-            <Route path="/flashcards" element={<Flashcards />} />
-            <Route path="/ai-tutor" element={<AIChatTutor />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/pronunciation" element={<PronunciationChecker />} />
+            <Route path="/dictionary" element={<ProtectedRoute><Dictionary /></ProtectedRoute>} />
+            <Route path="/flashcards" element={<ProtectedRoute><Flashcards /></ProtectedRoute>} />
+            <Route path="/ai-tutor" element={<ProtectedRoute><AIChatTutor /></ProtectedRoute>} />
+            <Route path="/leaderboard" element={<ProtectedRoute><Leaderboard /></ProtectedRoute>} />
+            <Route path="/community" element={<ProtectedRoute><Community /></ProtectedRoute>} />
+            <Route path="/pronunciation" element={<ProtectedRoute><PronunciationChecker /></ProtectedRoute>} />
             <Route path="/dashboard" element={
               <ProtectedRoute>
                 <StudentDashboard />
