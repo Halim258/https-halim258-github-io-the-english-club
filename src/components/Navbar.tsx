@@ -62,13 +62,11 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur-md">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5">
-          <div className="flex items-center gap-2 flex-shrink-0">
-            <img src={logo} alt="The English Club Logo" className="h-10 w-10" />
-            <span className="text-lg font-bold text-foreground font-display tracking-tight whitespace-nowrap">
-              The English Club <span className="hidden lg:inline text-xs font-normal text-muted-foreground ml-1">Alexandria</span>
-            </span>
-          </div>
+        <Link to="/" className="flex items-center gap-2 flex-shrink-0">
+          <img src={logo} alt="The English Club Logo" className="h-10 w-10 flex-shrink-0" />
+          <span className="text-lg font-bold text-foreground font-display tracking-tight whitespace-nowrap leading-tight">
+            The English Club
+          </span>
         </Link>
 
         {/* Desktop nav links */}
