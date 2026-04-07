@@ -700,4 +700,5 @@ export const lessons: Record<string, LessonData> = {
   ...slangCompletion,
   ...teensCompletion,
   ...travelCompletion,
+  ...conversationExpansion,
 };
