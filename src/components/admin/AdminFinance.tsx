@@ -19,7 +19,7 @@ interface Props {
 }
 
 export default function AdminFinance({ income, outcome, onRefresh }: Props) {
-  const [tab, setTab] = useState<"overview" | "income" | "expenses">("overview");
+  const [tab, setTab] = useState<"overview" | "income" | "expenses" | "pnl">("overview");
   const [openIncome, setOpenIncome] = useState(false);
   const [openExpense, setOpenExpense] = useState(false);
   const [incForm, setIncForm] = useState({ amount: "", reason: "", category: "", date: "" });
@@ -33,6 +33,21 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
   const [editForm, setEditForm] = useState({ amount: "", reason: "", category: "", date: "" });
   const perPage = 25;
   const { toast } = useToast();
+
+  // Fixed monthly expenses for P&L
+  const [fixedExpenses, setFixedExpenses] = useState([
+    { name: "Rent", amount: 5000 },
+    { name: "Electricity", amount: 800 },
+    { name: "Water", amount: 200 },
+    { name: "Internet", amount: 500 },
+    { name: "Cleaning", amount: 400 },
+  ]);
+  const [newFixedName, setNewFixedName] = useState("");
+  const [newFixedAmount, setNewFixedAmount] = useState("");
+  const [pnlMonth, setPnlMonth] = useState<string>(() => {
+    const now = new Date();
+    return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`;
+  });
 
   const totalIncome = income.reduce((s, r) => s + r.amount, 0);
   const totalExpenses = outcome.reduce((s, r) => s + r.amount, 0);
@@ -187,10 +202,10 @@ export default function AdminFinance({ income, outcome, onRefresh }: Props) {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-4">
-        {(["overview", "income", "expenses"] as const).map(t => (
-          <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${tab === t ? "bg-card shadow-sm border" : "text-muted-foreground hover:text-foreground"}`}>
-            {t === "overview" ? "📊 Overview" : t === "income" ? "📈 Income" : "📉 Expenses"}
+      <div className="flex gap-2 mb-4 overflow-x-auto">
+        {(["overview", "income", "expenses", "pnl"] as const).map(t => (
+          <button key={t} onClick={() => setTab(t)} className={`px-4 py-2 rounded-lg text-sm font-medium transition-all whitespace-nowrap ${tab === t ? "bg-card shadow-sm border" : "text-muted-foreground hover:text-foreground"}`}>
+            {t === "overview" ? "📊 Overview" : t === "income" ? "📈 Income" : t === "expenses" ? "📉 Expenses" : "📋 P&L"}
           </button>
         ))}
       </div>
