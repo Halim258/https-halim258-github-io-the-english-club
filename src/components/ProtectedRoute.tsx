@@ -21,16 +21,11 @@ export default function ProtectedRoute({ children, requiredRole }: Props) {
     return <Navigate to="/login" replace />;
   }
 
-  if (requiredRole === "admin" && role !== "admin") {
+  if (requiredRole === "admin" && role !== "admin" && role !== "secretary") {
     return <Navigate to="/dashboard" replace />;
   }
 
   if (requiredRole === "teacher" && role !== "teacher" && role !== "admin") {
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  // Secretary can access admin panel
-  if (requiredRole === "secretary" && role !== "secretary" && role !== "admin") {
     return <Navigate to="/dashboard" replace />;
   }
 
