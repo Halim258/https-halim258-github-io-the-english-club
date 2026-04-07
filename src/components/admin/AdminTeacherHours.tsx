@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
-import { Clock, Search, User, AlertTriangle, ChevronDown, ChevronUp } from "lucide-react";
+import { Clock, Search, User, AlertTriangle, ChevronDown, ChevronUp, DollarSign, Calculator, Settings } from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 
 interface Session {
   id: string;
@@ -41,6 +43,10 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [monthFilter, setMonthFilter] = useState<string>("all");
+  const [showPayroll, setShowPayroll] = useState(false);
+  const [hourlyRate, setHourlyRate] = useState(100);
+  const [latenessDeductionPerMin, setLatenessDeductionPerMin] = useState(2);
+  const [bonuses, setBonuses] = useState<Record<number, number>>({});
 
   const months = useMemo(() => {
     const set = new Set<string>();
@@ -138,6 +144,14 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
   const grandTotalSessions = summaries.reduce((s, t) => s + t.totalSessions, 0);
   const grandTotalLateness = summaries.reduce((s, t) => s + t.totalLateness, 0);
 
+  const calcPay = (t: TeacherSummary) => {
+    const gross = t.totalHours * hourlyRate;
+    const deduction = t.totalLateness * latenessDeductionPerMin;
+    const bonus = bonuses[t.id] || 0;
+    return { gross, deduction, bonus, net: gross - deduction + bonus };
+  };
+  const grandTotalPay = summaries.reduce((s, t) => s + calcPay(t).net, 0);
+
   const toggleSort = (field: typeof sortField) => {
     if (sortField === field) setSortDir(d => d === "asc" ? "desc" : "asc");
     else { setSortField(field); setSortDir("desc"); }
@@ -163,6 +177,7 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
           { icon: Clock, label: "Total Hours", value: grandTotalHours },
           { icon: Clock, label: "Total Sessions", value: grandTotalSessions },
           { icon: AlertTriangle, label: "Total Lateness", value: `${grandTotalLateness} min` },
+          ...(showPayroll ? [{ icon: DollarSign, label: "Total Payroll", value: `${grandTotalPay.toLocaleString()} EGP` }] : []),
         ].map(s => (
           <div key={s.label} className="rounded-xl border bg-card p-4 shadow-soft">
             <div className="flex items-center gap-2">
@@ -174,6 +189,26 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
         ))}
       </div>
 
+      {/* Payroll Settings */}
+      {showPayroll && (
+        <div className="mb-4 rounded-xl border bg-card p-4 shadow-soft">
+          <div className="flex items-center gap-2 mb-3">
+            <Settings className="h-4 w-4 text-primary" />
+            <span className="text-sm font-semibold">Payroll Settings</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <Label>Hourly Rate (EGP)</Label>
+              <Input type="number" value={hourlyRate} onChange={e => setHourlyRate(Number(e.target.value) || 0)} />
+            </div>
+            <div>
+              <Label>Lateness Deduction (EGP/min)</Label>
+              <Input type="number" value={latenessDeductionPerMin} onChange={e => setLatenessDeductionPerMin(Number(e.target.value) || 0)} />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Controls */}
       <div className="flex flex-wrap gap-3 mb-4">
         <div className="relative flex-1 min-w-[200px] max-w-sm">
@@ -184,6 +219,9 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
           <option value="all">All Time</option>
           {months.map(m => <option key={m} value={m}>{monthLabel(m)}</option>)}
         </select>
+        <Button variant={showPayroll ? "default" : "outline"} size="sm" onClick={() => setShowPayroll(!showPayroll)}>
+          <Calculator className="h-4 w-4 mr-1" /> {showPayroll ? "Hide Payroll" : "Payroll"}
+        </Button>
       </div>
 
       {/* Table */}
@@ -205,6 +243,12 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
                 <span className="flex items-center justify-center gap-1">Lateness <SortIcon field="totalLateness" /></span>
               </th>
               <th className="p-3 text-left">Levels</th>
+              {showPayroll && <>
+                <th className="p-3 text-center">Gross</th>
+                <th className="p-3 text-center">Deduction</th>
+                <th className="p-3 text-center">Bonus</th>
+                <th className="p-3 text-center">Net Pay</th>
+              </>}
               <th className="p-3 text-center">Details</th>
             </tr>
           </thead>
@@ -236,6 +280,22 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
                       {t.levels.length === 0 && <span className="text-xs text-muted-foreground">—</span>}
                     </div>
                   </td>
+                  {showPayroll && (() => {
+                    const pay = calcPay(t);
+                    return <>
+                      <td className="p-3 text-center font-mono text-sm">{pay.gross.toLocaleString()}</td>
+                      <td className="p-3 text-center font-mono text-sm text-destructive">-{pay.deduction.toLocaleString()}</td>
+                      <td className="p-3 text-center">
+                        <Input
+                          type="number"
+                          className="w-20 h-7 text-xs text-center mx-auto"
+                          value={bonuses[t.id] || 0}
+                          onChange={e => setBonuses({ ...bonuses, [t.id]: Number(e.target.value) || 0 })}
+                        />
+                      </td>
+                      <td className="p-3 text-center font-mono font-bold text-primary">{pay.net.toLocaleString()}</td>
+                    </>;
+                  })()}
                   <td className="p-3 text-center">
                     <button onClick={() => setExpandedId(expandedId === t.id ? null : t.id)} className="text-xs text-primary hover:underline">
                       {expandedId === t.id ? "Hide" : "View"}
@@ -244,7 +304,7 @@ export default function AdminTeacherHours({ sessions, employees }: Props) {
                 </tr>
                 {expandedId === t.id && (
                   <tr key={`${t.id}-detail`}>
-                    <td colSpan={7} className="bg-muted/30 p-4">
+                    <td colSpan={showPayroll ? 11 : 7} className="bg-muted/30 p-4">
                       <p className="text-xs font-semibold text-muted-foreground mb-2">Recent Sessions (last 10)</p>
                       <div className="grid gap-2">
                         {t.recentSessions.map(s => (
