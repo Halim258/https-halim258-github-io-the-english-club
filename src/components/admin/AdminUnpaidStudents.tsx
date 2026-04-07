@@ -25,7 +25,21 @@ export default function AdminUnpaidStudents({ students }: Props) {
   const [sortField, setSortField] = useState<"remaining_fees" | "name" | "fees">("remaining_fees");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [page, setPage] = useState(0);
+  const [messageTemplate, setMessageTemplate] = useState(
+    "مرحباً {name}، نود تذكيركم بأن لديكم مبلغ {amount} جنيه مستحق. نرجو سداد المبلغ في أقرب وقت. شكراً لكم - The English Club"
+  );
+  const [showTemplateEditor, setShowTemplateEditor] = useState(false);
   const perPage = 25;
+
+  const buildWhatsAppUrl = (student: Student) => {
+    const phone = (student.whatsapp || student.phone_number || "").replace(/[^0-9+]/g, "").replace(/^0/, "20");
+    const msg = messageTemplate
+      .replace("{name}", student.name)
+      .replace("{amount}", (student.remaining_fees || 0).toLocaleString());
+    return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`;
+  };
+
+  const hasPhone = (s: Student) => !!(s.whatsapp || s.phone_number);
 
   const unpaid = useMemo(() => {
     let list = students.filter(s => (s.remaining_fees || 0) > 0);
@@ -92,12 +106,29 @@ export default function AdminUnpaidStudents({ students }: Props) {
         </div>
       </div>
 
-      {/* Search */}
-      <div className="flex gap-3 mb-4">
-        <div className="relative flex-1 max-w-sm">
+      {/* Template editor */}
+      {showTemplateEditor && (
+        <div className="mb-4 rounded-xl border bg-card p-4 shadow-soft">
+          <label className="text-sm font-medium mb-2 block">Message Template</label>
+          <p className="text-xs text-muted-foreground mb-2">Use <code className="bg-muted px-1 rounded">{"{name}"}</code> for student name and <code className="bg-muted px-1 rounded">{"{amount}"}</code> for remaining fees.</p>
+          <textarea
+            value={messageTemplate}
+            onChange={e => setMessageTemplate(e.target.value)}
+            className="w-full rounded-md border bg-background px-3 py-2 text-sm min-h-[80px] resize-y"
+            dir="auto"
+          />
+        </div>
+      )}
+
+      {/* Search + Actions */}
+      <div className="flex flex-wrap gap-3 mb-4">
+        <div className="relative flex-1 min-w-[200px] max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input placeholder="Search student or phone..." value={search} onChange={e => { setSearch(e.target.value); setPage(0); }} className="pl-9" />
         </div>
+        <Button variant="outline" size="sm" onClick={() => setShowTemplateEditor(!showTemplateEditor)}>
+          <MessageCircle className="h-4 w-4 mr-1" /> {showTemplateEditor ? "Hide Template" : "Edit Message"}
+        </Button>
       </div>
 
       {/* Table */}
@@ -118,7 +149,7 @@ export default function AdminUnpaidStudents({ students }: Props) {
               </th>
               <th className="p-3 text-center">% Paid</th>
               <th className="p-3 text-center">Status</th>
-            </tr>
+              <th className="p-3 text-center">Remind</th>
           </thead>
           <tbody>
             {paged.map(s => {
@@ -156,6 +187,20 @@ export default function AdminUnpaidStudents({ students }: Props) {
                     <span className={`text-xs font-bold rounded-full px-2 py-0.5 ${s.status === "active" ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
                       {s.status || "—"}
                     </span>
+                  </td>
+                  <td className="p-3 text-center">
+                    {hasPhone(s) ? (
+                      <a
+                        href={buildWhatsAppUrl(s)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 text-xs font-medium transition-colors"
+                      >
+                        <Send className="h-3 w-3" /> WhatsApp
+                      </a>
+                    ) : (
+                      <span className="text-xs text-muted-foreground">No phone</span>
+                    )}
                   </td>
                 </tr>
               );
