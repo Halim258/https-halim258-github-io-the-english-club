@@ -10,6 +10,9 @@ import AnimatedCounter from "./AnimatedCounter";
 import SmartNotifications from "./SmartNotifications";
 import ActivityFeed from "./ActivityFeed";
 import AIInsights from "./AIInsights";
+import AttendanceHeatmap from "./AttendanceHeatmap";
+import StudentGrowthChart from "./StudentGrowthChart";
+import TeacherPerformance from "./TeacherPerformance";
 
 interface Props {
   profiles: any[];
@@ -21,6 +24,7 @@ interface Props {
   newcomers: any[];
   receipts: any[];
   sessions: any[];
+  employees: any[];
 }
 
 const LEVEL_COLORS: Record<string, string> = {
@@ -28,7 +32,7 @@ const LEVEL_COLORS: Record<string, string> = {
   B2: "bg-indigo-500", C1: "bg-violet-500", C2: "bg-purple-500",
 };
 
-export default function AdminOverview({ profiles, testResults, progressData, schoolStudents, income, outcome, newcomers, receipts, sessions }: Props) {
+export default function AdminOverview({ profiles, testResults, progressData, schoolStudents, income, outcome, newcomers, receipts, sessions, employees }: Props) {
   const totalOnlineStudents = profiles.length;
   const totalSchoolStudents = schoolStudents.length;
   const totalTests = testResults.length;
@@ -177,6 +181,19 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
             receipts={receipts}
             sessions={sessions}
           />
+        </FadeInUp>
+      </div>
+
+      {/* New Analytics Row: Heatmap + Growth + Teacher Performance */}
+      <div className="grid gap-6 lg:grid-cols-3">
+        <FadeInUp delay={0.12}>
+          <AttendanceHeatmap sessions={sessions} />
+        </FadeInUp>
+        <FadeInUp delay={0.14}>
+          <StudentGrowthChart schoolStudents={schoolStudents} newcomers={newcomers} />
+        </FadeInUp>
+        <FadeInUp delay={0.16}>
+          <TeacherPerformance sessions={sessions} employees={employees} />
         </FadeInUp>
       </div>
 
