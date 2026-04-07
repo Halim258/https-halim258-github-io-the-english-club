@@ -627,25 +627,29 @@ export default function Home() {
               <motion.div
                 key={t.name}
                 variants={staggerItem}
-                className="rounded-2xl border bg-card p-7 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 relative overflow-hidden group"
+                whileHover={{ y: -6, scale: 1.01 }}
+                className="rounded-2xl border bg-card p-7 shadow-soft transition-shadow hover:shadow-elevated duration-300 relative overflow-hidden group"
               >
                 {/* Quote accent bar */}
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
                 <div className="flex gap-1 mb-5">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star key={s} className="h-4 w-4 fill-accent text-accent" />
                   ))}
                 </div>
                 <Quote className="h-8 w-8 text-primary/10 mb-3" />
-                <p className="text-sm text-muted-foreground leading-relaxed relative z-10">
-                  {t.quote}
+                <p className="text-sm text-muted-foreground leading-relaxed italic relative z-10">
+                  "{t.quote}"
                 </p>
                 <div className="mt-6 flex items-center gap-3 pt-4 border-t">
-                  <div className="h-11 w-11 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                  <motion.div
+                    className="h-11 w-11 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                  >
                     <span className="text-sm font-bold text-primary">
                       {t.name.split(" ").map((n) => n[0]).join("")}
                     </span>
-                  </div>
+                  </motion.div>
                   <div>
                     <p className="text-sm font-semibold font-display">{t.name}</p>
                     <p className="text-xs text-muted-foreground">{t.role}</p>
