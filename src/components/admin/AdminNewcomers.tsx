@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { UserPlus, Search, Plus, ChevronLeft, ChevronRight, Pencil, Trash2 } from "lucide-react";
+import CsvImport from "./CsvImport";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -151,14 +152,34 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
             </button>
           ))}
         </div>
-        <Dialog open={addOpen} onOpenChange={setAddOpen}>
-          <DialogTrigger asChild><Button size="sm" onClick={() => setForm(emptyForm)}><Plus className="h-4 w-4 mr-1" /> Add Lead</Button></DialogTrigger>
-          <DialogContent>
-            <DialogHeader><DialogTitle>Add Lead</DialogTitle></DialogHeader>
-            {formFields}
-            <Button onClick={handleAdd} className="w-full mt-2">Add</Button>
-          </DialogContent>
-        </Dialog>
+        <div className="flex gap-2">
+          <CsvImport
+            table="school_newcomers"
+            label="Import CSV"
+            mappings={[
+              { csvHeader: "client_name", dbField: "client_name", required: true },
+              { csvHeader: "client_number", dbField: "client_number" },
+              { csvHeader: "access_method", dbField: "access_method" },
+              { csvHeader: "reserved", dbField: "reserved" },
+            ]}
+            transformRow={(row) => ({
+              client_name: row.client_name,
+              client_number: row.client_number || null,
+              access_method: row.access_method || null,
+              reserved: row.reserved?.toLowerCase() === "true" || row.reserved === "1",
+              the_date: new Date().toISOString(),
+            })}
+            onComplete={onRefresh}
+          />
+          <Dialog open={addOpen} onOpenChange={setAddOpen}>
+            <DialogTrigger asChild><Button size="sm" onClick={() => setForm(emptyForm)}><Plus className="h-4 w-4 mr-1" /> Add Lead</Button></DialogTrigger>
+            <DialogContent>
+              <DialogHeader><DialogTitle>Add Lead</DialogTitle></DialogHeader>
+              {formFields}
+              <Button onClick={handleAdd} className="w-full mt-2">Add</Button>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       <Dialog open={editOpen} onOpenChange={setEditOpen}>

@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Search, Plus, Users, Pencil, Trash2, ChevronLeft, ChevronRight, Download, Filter, ArrowUpDown } from "lucide-react";
+import CsvImport from "./CsvImport";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -296,16 +297,57 @@ export default function AdminStudents({ students, onRefresh }: Props) {
             </button>
           ))}
         </div>
-        <Dialog open={addOpen} onOpenChange={setAddOpen}>
-          <DialogTrigger asChild>
-            <Button size="sm" onClick={() => setForm(emptyForm)}><Plus className="h-4 w-4 mr-1" /> Add</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-lg">
-            <DialogHeader><DialogTitle>Add New Student</DialogTitle></DialogHeader>
-            {formFields}
-            <Button onClick={handleAdd} className="w-full mt-2">Add Student</Button>
-          </DialogContent>
-        </Dialog>
+        <div className="flex gap-2">
+          <CsvImport
+            table="school_students"
+            label="Import CSV"
+            mappings={[
+              { csvHeader: "name", dbField: "name", required: true },
+              { csvHeader: "phone_number", dbField: "phone_number" },
+              { csvHeader: "whatsapp", dbField: "whatsapp" },
+              { csvHeader: "email", dbField: "email" },
+              { csvHeader: "status", dbField: "status" },
+              { csvHeader: "fees", dbField: "fees" },
+              { csvHeader: "paid_fees", dbField: "paid_fees" },
+              { csvHeader: "group_id", dbField: "group_id" },
+              { csvHeader: "membership", dbField: "membership" },
+              { csvHeader: "placement_test_result", dbField: "placement_test_result" },
+              { csvHeader: "address", dbField: "address" },
+              { csvHeader: "birth_date", dbField: "birth_date" },
+              { csvHeader: "access_method", dbField: "access_method" },
+              { csvHeader: "notes", dbField: "notes" },
+            ]}
+            transformRow={(row) => ({
+              name: row.name,
+              phone_number: row.phone_number || null,
+              whatsapp: row.whatsapp || null,
+              email: row.email || null,
+              status: row.status || "active",
+              fees: parseFloat(row.fees) || 0,
+              paid_fees: parseFloat(row.paid_fees) || 0,
+              remaining_fees: (parseFloat(row.fees) || 0) - (parseFloat(row.paid_fees) || 0),
+              group_id: row.group_id ? parseInt(row.group_id) : null,
+              membership: row.membership || null,
+              placement_test_result: row.placement_test_result || null,
+              address: row.address || null,
+              birth_date: row.birth_date || null,
+              access_method: row.access_method || null,
+              notes: row.notes || null,
+              reservation_date: new Date().toISOString(),
+            })}
+            onComplete={onRefresh}
+          />
+          <Dialog open={addOpen} onOpenChange={setAddOpen}>
+            <DialogTrigger asChild>
+              <Button size="sm" onClick={() => setForm(emptyForm)}><Plus className="h-4 w-4 mr-1" /> Add</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-lg">
+              <DialogHeader><DialogTitle>Add New Student</DialogTitle></DialogHeader>
+              {formFields}
+              <Button onClick={handleAdd} className="w-full mt-2">Add Student</Button>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
