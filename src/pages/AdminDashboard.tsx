@@ -8,6 +8,7 @@ import {
   Timer, AlertCircle, Moon, Sun
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import CommandPalette from "@/components/admin/CommandPalette";
 import { useAuth } from "@/hooks/useAuth";
 import AdminStudents from "@/components/admin/AdminStudents";
 import AdminEmployees from "@/components/admin/AdminEmployees";
@@ -118,6 +119,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="container mx-auto px-4 py-10">
+      <CommandPalette onNavigate={(id) => setTab(id as Tab)} />
       <div className="flex items-center justify-between mb-8">
         <div>
           <div className="flex items-center gap-2 mb-1">
@@ -164,7 +166,7 @@ export default function AdminDashboard() {
         <AdminOverview
           profiles={profiles} testResults={testResults} progressData={progressData}
           schoolStudents={schoolStudents} income={income} outcome={outcome}
-          newcomers={newcomers} receipts={receipts}
+          newcomers={newcomers} receipts={receipts} sessions={sessions}
         />
       )}
 

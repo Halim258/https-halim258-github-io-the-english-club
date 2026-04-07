@@ -6,6 +6,10 @@ import {
   Calendar, Receipt
 } from "lucide-react";
 import { FadeInUp } from "@/components/AnimatedSection";
+import AnimatedCounter from "./AnimatedCounter";
+import SmartNotifications from "./SmartNotifications";
+import ActivityFeed from "./ActivityFeed";
+import AIInsights from "./AIInsights";
 
 interface Props {
   profiles: any[];
@@ -16,6 +20,7 @@ interface Props {
   outcome: any[];
   newcomers: any[];
   receipts: any[];
+  sessions: any[];
 }
 
 const LEVEL_COLORS: Record<string, string> = {
@@ -23,7 +28,7 @@ const LEVEL_COLORS: Record<string, string> = {
   B2: "bg-indigo-500", C1: "bg-violet-500", C2: "bg-purple-500",
 };
 
-export default function AdminOverview({ profiles, testResults, progressData, schoolStudents, income, outcome, newcomers, receipts }: Props) {
+export default function AdminOverview({ profiles, testResults, progressData, schoolStudents, income, outcome, newcomers, receipts, sessions }: Props) {
   const totalOnlineStudents = profiles.length;
   const totalSchoolStudents = schoolStudents.length;
   const totalTests = testResults.length;
@@ -44,7 +49,6 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
     return acc;
   }, {});
 
-  // Monthly income chart data
   const monthlyData = useMemo(() => {
     const months: Record<string, { income: number; expenses: number }> = {};
     const now = new Date();
@@ -72,21 +76,26 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
   }, [income, outcome]);
 
   const maxMonthly = Math.max(...monthlyData.map(d => Math.max(d.income, d.expenses)), 1);
-
   const activeStudents = schoolStudents.filter((s: any) => s.status === "active").length;
   const conversionRate = newcomers.length > 0 ? Math.round((schoolStudents.length / newcomers.length) * 100) : 0;
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
-      {/* KPI Cards - Row 1 */}
+      {/* KPI Cards - Row 1 with Animated Counters */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
           { icon: Users, label: "School Students", value: totalSchoolStudents, sub: `${activeStudents} active`, color: "text-blue-600", bg: "bg-blue-500/10", trend: null },
           { icon: GraduationCap, label: "Online Users", value: totalOnlineStudents, sub: `+${recentSignups} this week`, color: "text-violet-600", bg: "bg-violet-500/10", trend: recentSignups > 0 ? "up" : null },
-          { icon: TrendingUp, label: "Net Profit", value: `${netProfit.toLocaleString()} ج.م`, sub: `Income: ${totalIncome.toLocaleString()}`, color: netProfit >= 0 ? "text-emerald-600" : "text-red-600", bg: netProfit >= 0 ? "bg-emerald-500/10" : "bg-red-500/10", trend: netProfit >= 0 ? "up" : "down" },
+          { icon: TrendingUp, label: "Net Profit", value: netProfit, sub: `Income: ${totalIncome.toLocaleString()}`, color: netProfit >= 0 ? "text-emerald-600" : "text-red-600", bg: netProfit >= 0 ? "bg-emerald-500/10" : "bg-red-500/10", trend: netProfit >= 0 ? "up" : "down", suffix: " ج.م" },
           { icon: UserPlus, label: "Monthly Leads", value: monthlyNewcomers, sub: `${conversionRate}% conversion`, color: "text-amber-600", bg: "bg-amber-500/10", trend: null },
         ].map((s) => (
-          <div key={s.label} className="rounded-xl border bg-card p-5 shadow-soft hover:shadow-md transition-shadow">
+          <motion.div
+            key={s.label}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.02 }}
+            className="rounded-xl border bg-card p-5 shadow-soft hover:shadow-md transition-all"
+          >
             <div className="flex items-center justify-between mb-3">
               <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${s.bg}`}>
                 <s.icon className={`h-5 w-5 ${s.color}`} />
@@ -97,10 +106,12 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
                 </span>
               )}
             </div>
-            <p className="text-2xl font-bold font-display">{s.value}</p>
+            <p className="text-2xl font-bold font-display">
+              <AnimatedCounter value={s.value} suffix={s.suffix || ""} />
+            </p>
             <p className="text-xs text-muted-foreground mt-0.5">{s.label}</p>
             <p className="text-[10px] text-muted-foreground mt-1">{s.sub}</p>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -109,26 +120,69 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
         {[
           { icon: BookOpen, label: "Lessons Done", value: completedLessons, color: "text-teal-600", bg: "bg-teal-500/10" },
           { icon: BarChart3, label: "Tests Taken", value: totalTests, color: "text-indigo-600", bg: "bg-indigo-500/10" },
-          { icon: Receipt, label: "Receipts Paid", value: `${totalReceiptsPaid.toLocaleString()} ج.م`, color: "text-emerald-600", bg: "bg-emerald-500/10" },
-          { icon: DollarSign, label: "Outstanding", value: `${totalReceiptsRemaining.toLocaleString()} ج.م`, color: "text-red-600", bg: "bg-red-500/10" },
+          { icon: Receipt, label: "Receipts Paid", value: totalReceiptsPaid, color: "text-emerald-600", bg: "bg-emerald-500/10", suffix: " ج.م" },
+          { icon: DollarSign, label: "Outstanding", value: totalReceiptsRemaining, color: "text-red-600", bg: "bg-red-500/10", suffix: " ج.م" },
         ].map((s) => (
-          <div key={s.label} className="rounded-xl border bg-card p-4 shadow-soft">
+          <motion.div
+            key={s.label}
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="rounded-xl border bg-card p-4 shadow-soft hover:shadow-md transition-all"
+          >
             <div className="flex items-center gap-3">
               <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${s.bg}`}>
                 <s.icon className={`h-4 w-4 ${s.color}`} />
               </div>
               <div>
-                <p className="text-lg font-bold font-display">{s.value}</p>
+                <p className="text-lg font-bold font-display">
+                  <AnimatedCounter value={s.value} suffix={(s as any).suffix || ""} />
+                </p>
                 <p className="text-[10px] text-muted-foreground">{s.label}</p>
               </div>
             </div>
-          </div>
+          </motion.div>
         ))}
+      </div>
+
+      {/* Smart Notifications */}
+      <FadeInUp>
+        <SmartNotifications
+          schoolStudents={schoolStudents}
+          income={income}
+          outcome={outcome}
+          newcomers={newcomers}
+          sessions={sessions}
+        />
+      </FadeInUp>
+
+      {/* AI Insights + Activity Feed */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        <FadeInUp delay={0.05}>
+          <AIInsights
+            schoolStudents={schoolStudents}
+            income={income}
+            outcome={outcome}
+            newcomers={newcomers}
+            sessions={sessions}
+            receipts={receipts}
+          />
+        </FadeInUp>
+        <FadeInUp delay={0.1}>
+          <ActivityFeed
+            schoolStudents={schoolStudents}
+            income={income}
+            outcome={outcome}
+            newcomers={newcomers}
+            receipts={receipts}
+            sessions={sessions}
+          />
+        </FadeInUp>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
         {/* Financial Chart */}
-        <FadeInUp>
+        <FadeInUp delay={0.15}>
           <div className="rounded-2xl border bg-card p-6 shadow-soft">
             <h3 className="text-sm font-semibold font-display flex items-center gap-2 mb-4">
               <TrendingUp className="h-4 w-4 text-primary" /> Monthly Revenue (6 Months)
@@ -144,18 +198,8 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
                     </div>
                   </div>
                   <div className="flex gap-1 h-3">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${(m.income / maxMonthly) * 100}%` }}
-                      transition={{ duration: 0.8 }}
-                      className="h-full rounded-full bg-emerald-500"
-                    />
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${(m.expenses / maxMonthly) * 100}%` }}
-                      transition={{ duration: 0.8, delay: 0.2 }}
-                      className="h-full rounded-full bg-red-400"
-                    />
+                    <motion.div initial={{ width: 0 }} animate={{ width: `${(m.income / maxMonthly) * 100}%` }} transition={{ duration: 0.8 }} className="h-full rounded-full bg-emerald-500" />
+                    <motion.div initial={{ width: 0 }} animate={{ width: `${(m.expenses / maxMonthly) * 100}%` }} transition={{ duration: 0.8, delay: 0.2 }} className="h-full rounded-full bg-red-400" />
                   </div>
                 </div>
               ))}
@@ -168,7 +212,7 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
         </FadeInUp>
 
         {/* Level Distribution */}
-        <FadeInUp delay={0.1}>
+        <FadeInUp delay={0.2}>
           <div className="rounded-2xl border bg-card p-6 shadow-soft">
             <h3 className="text-sm font-semibold font-display flex items-center gap-2 mb-4">
               <BarChart3 className="h-4 w-4 text-primary" /> CEFR Level Distribution
@@ -185,8 +229,8 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
                         <motion.circle
                           cx="18" cy="18" r="15" fill="none" strokeWidth="3"
                           strokeDasharray={`${pct * 0.94} 94`}
-                          className={`${LEVEL_COLORS[lvl] ? "stroke-current" : ""}`}
                           style={{ color: lvl === "A1" ? "#10b981" : lvl === "A2" ? "#14b8a6" : lvl === "B1" ? "#3b82f6" : lvl === "B2" ? "#6366f1" : lvl === "C1" ? "#8b5cf6" : "#a855f7" }}
+                          className="stroke-current"
                           initial={{ strokeDasharray: "0 94" }}
                           animate={{ strokeDasharray: `${pct * 0.94} 94` }}
                           transition={{ duration: 1 }}
@@ -207,8 +251,7 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
 
       {/* Recent Activity */}
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Recent Test Results */}
-        <FadeInUp delay={0.15}>
+        <FadeInUp delay={0.25}>
           <div className="rounded-2xl border bg-card p-6 shadow-soft">
             <h3 className="text-sm font-semibold font-display flex items-center gap-2 mb-4">
               <Clock className="h-4 w-4 text-primary" /> Recent Tests
@@ -240,8 +283,7 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
           </div>
         </FadeInUp>
 
-        {/* Recent Newcomers */}
-        <FadeInUp delay={0.2}>
+        <FadeInUp delay={0.3}>
           <div className="rounded-2xl border bg-card p-6 shadow-soft">
             <h3 className="text-sm font-semibold font-display flex items-center gap-2 mb-4">
               <UserPlus className="h-4 w-4 text-primary" /> Recent Leads
@@ -275,7 +317,7 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
       </div>
 
       {/* Progress by Level */}
-      <FadeInUp delay={0.25}>
+      <FadeInUp delay={0.35}>
         <div className="rounded-2xl border bg-card p-6 shadow-soft">
           <h3 className="text-sm font-semibold font-display flex items-center gap-2 mb-6">
             <BookOpen className="h-4 w-4 text-primary" /> Lesson Completion by Level
@@ -290,12 +332,7 @@ export default function AdminOverview({ profiles, testResults, progressData, sch
                 <div key={lvl} className="flex items-center gap-4">
                   <span className="text-sm font-bold font-display w-16 shrink-0 uppercase">{lvl}</span>
                   <div className="flex-1 h-3 rounded-full bg-muted overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${pct}%` }}
-                      transition={{ duration: 0.8 }}
-                      className="h-full rounded-full bg-primary"
-                    />
+                    <motion.div initial={{ width: 0 }} animate={{ width: `${pct}%` }} transition={{ duration: 0.8 }} className="h-full rounded-full bg-primary" />
                   </div>
                   <div className="text-right shrink-0 min-w-[100px]">
                     <span className="text-sm font-bold">{completed}</span>
