@@ -4,11 +4,11 @@ import type { User } from "@supabase/supabase-js";
 
 interface AuthState {
   user: User | null;
-  role: "admin" | "student" | "teacher" | null;
+  role: "admin" | "student" | "teacher" | "secretary" | null;
   loading: boolean;
 }
 
-type AppRole = "admin" | "student" | "teacher";
+type AppRole = "admin" | "student" | "teacher" | "secretary";
 
 const roleCache = new Map<string, AppRole>();
 

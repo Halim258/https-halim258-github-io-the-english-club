@@ -5,7 +5,7 @@ import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
-  Timer, AlertCircle, Moon, Sun
+  Timer, AlertCircle, Moon, Sun, ShieldCheck
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import CommandPalette from "@/components/admin/CommandPalette";
@@ -23,8 +23,9 @@ import AdminExport from "@/components/admin/AdminExport";
 import AdminAttendance from "@/components/admin/AdminAttendance";
 import AdminTeacherHours from "@/components/admin/AdminTeacherHours";
 import AdminUnpaidStudents from "@/components/admin/AdminUnpaidStudents";
+import AdminRoles from "@/components/admin/AdminRoles";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "export";
+type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "export";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -126,6 +127,7 @@ export default function AdminDashboard() {
     { id: "receipts", label: "Receipts", icon: Receipt },
     { id: "online-students", label: "Online Users", icon: GraduationCap },
     { id: "tests", label: "Tests", icon: Award },
+    { id: "roles", label: "Roles", icon: ShieldCheck },
     { id: "export", label: "Export", icon: Download },
   ];
 
@@ -340,6 +342,12 @@ export default function AdminDashboard() {
               { label: "Date", value: selectedTest.created_at, type: "date" as const },
             ] : []}
           />
+        </motion.div>
+      )}
+
+      {tab === "roles" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminRoles />
         </motion.div>
       )}
 
