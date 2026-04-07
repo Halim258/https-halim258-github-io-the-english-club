@@ -95,7 +95,7 @@ export const hospitalityLesson1: Record<string, LessonData> = {
     ],
     grammar: {
       title: "Polite Requests — Would/Could/May",
-      explanation: "In hospitality, polite language is essential. Use 'Would you like...?' to offer, 'Could I have...?' to request, and 'May I...?' for permission. These are more professional than 'Do you want...?' or 'Give me...'.",
+      explanation: "In hospitality, polite language is essential. Use 'Would you like...?' to offer, 'Could I have...?' to request, and 'May I...?' for permission.",
       examples: [
         { sentence: "Would you like a wake-up call?", note: "Offering a service" },
         { sentence: "Could I have a room with a view?", note: "Making a polite request" },
@@ -158,12 +158,12 @@ export const legalLesson1: Record<string, LessonData> = {
       { speaker: "Student", text: "A lawyer represents people, and a judge makes decisions?" },
       { speaker: "Teacher", text: "Exactly! The lawyer argues the case, and the judge or jury gives the verdict." },
       { speaker: "Student", text: "What about the plaintiff and defendant?" },
-      { speaker: "Teacher", text: "The plaintiff is the one who starts the case, and the defendant is the one being accused." },
+      { speaker: "Teacher", text: "The plaintiff starts the case, and the defendant is the one being accused." },
       { speaker: "Student", text: "So legal English has very specific terms for each role." },
     ],
     grammar: {
       title: "Formal Legal Language — Passive Voice",
-      explanation: "Legal English frequently uses the passive voice to sound objective and formal. Instead of 'The police arrested the suspect,' legal writing says 'The suspect was arrested.' This focuses on the action, not who did it.",
+      explanation: "Legal English frequently uses the passive voice to sound objective. Instead of 'The police arrested the suspect,' legal writing says 'The suspect was arrested.'",
       examples: [
         { sentence: "The contract was signed by both parties.", note: "Passive — focus on the contract" },
         { sentence: "The defendant was found guilty.", note: "Passive — focus on the verdict" },
@@ -190,84 +190,16 @@ export const legalLesson1: Record<string, LessonData> = {
       { question: "Legal writing uses passive voice to sound ___.", options: ["Casual", "Funny", "Objective", "Emotional"], correct: 2 },
     ],
     examQuestions: [
-      { question: "A 'judge' is someone who ___.", options: ["Commits crimes", "Decides legal cases", "Writes newspapers", "Teaches law"], correct: 1 },
+      { question: "A 'judge' decides ___.", options: ["Recipes", "Legal cases", "Sports scores", "Weather"], correct: 1 },
       { question: "'The law was amended' is in the ___ voice.", options: ["Active", "Passive", "Future", "Conditional"], correct: 1 },
       { question: "A 'contract' is a legal ___.", options: ["Opinion", "Story", "Agreement", "Question"], correct: 2 },
       { question: "The opposite of 'guilty' is ___.", options: ["Defendant", "Plaintiff", "Innocent", "Verdict"], correct: 2 },
       { question: "Legal English is more ___ than everyday English.", options: ["Casual", "Formal", "Simple", "Short"], correct: 1 },
     ],
     homeworkQuestions: [
-      { question: "Rewrite in passive: 'The judge gave the verdict.' → 'The verdict ___ by the judge.'", options: ["gave", "was given", "is giving", "gives"], correct: 1 },
+      { question: "Rewrite in passive: 'The judge gave the verdict.' →", options: ["The verdict gave the judge.", "The verdict was given by the judge.", "The judge is giving.", "Gave the verdict."], correct: 1 },
       { question: "A person who practices law is a ___.", options: ["Judge", "Plaintiff", "Lawyer", "Witness"], correct: 2 },
-      { question: "'The suspect ___ arrested last night.' (passive)", options: ["is", "was", "are", "were"], correct: 1 },
-    ],
-  },
-};
-
-export const readingLesson1: Record<string, LessonData> = {
-  "reading-1": {
-    levelId: "reading", levelLabel: "Reading Course", lessonNumber: 1,
-    title: "The Alphabet & Letter Sounds",
-    description: "Learn the 26 letters of the English alphabet and their basic sounds.",
-    vocabulary: [
-      { word: "Alphabet", meaning: "The set of letters in a language", example: "The English alphabet has 26 letters.", emoji: "🔤", arabic: "أبجدية" },
-      { word: "Letter", meaning: "A symbol representing a sound", example: "A is the first letter.", emoji: "🅰️", arabic: "حرف" },
-      { word: "Vowel", meaning: "Letters A, E, I, O, U", example: "Every word has at least one vowel.", emoji: "🔴", arabic: "حرف علة" },
-      { word: "Consonant", meaning: "Letters that are not vowels", example: "B, C, D are consonants.", emoji: "🔵", arabic: "حرف ساكن" },
-      { word: "Sound", meaning: "What you hear when you say a letter", example: "The letter B makes a /b/ sound.", emoji: "🔊", arabic: "صوت" },
-      { word: "Uppercase", meaning: "Capital letter", example: "Start a sentence with an uppercase letter.", emoji: "🔠", arabic: "حرف كبير" },
-      { word: "Lowercase", meaning: "Small letter", example: "Most words use lowercase letters.", emoji: "🔡", arabic: "حرف صغير" },
-      { word: "Spell", meaning: "To say or write the letters of a word", example: "Can you spell your name?", emoji: "📝", arabic: "يتهجّى" },
-      { word: "Pronounce", meaning: "To say a word correctly", example: "How do you pronounce this word?", emoji: "🗣️", arabic: "ينطق" },
-      { word: "Word", meaning: "A unit of language", example: "'Cat' is a three-letter word.", emoji: "📖", arabic: "كلمة" },
-    ],
-    dialogue: [
-      { speaker: "Teacher", text: "Let's start with the alphabet. How many letters are there?" },
-      { speaker: "Student", text: "26 letters!" },
-      { speaker: "Teacher", text: "Great! Can you name the five vowels?" },
-      { speaker: "Student", text: "A, E, I, O, U." },
-      { speaker: "Teacher", text: "Perfect! All other letters are consonants. Now, can you spell your name?" },
-      { speaker: "Student", text: "S-A-R-A. Sara!" },
-    ],
-    grammar: {
-      title: "Capital Letters — When to Use Uppercase",
-      explanation: "Use uppercase (capital) letters at the start of sentences, for names, places, days, and months. Everything else uses lowercase.",
-      examples: [
-        { sentence: "My name is Ahmed.", note: "Names are capitalized" },
-        { sentence: "I live in Cairo.", note: "Places are capitalized" },
-        { sentence: "Today is Monday.", note: "Days are capitalized" },
-        { sentence: "She was born in January.", note: "Months are capitalized" },
-      ],
-    },
-    vocabExercises: [
-      { question: "How many letters are in the English alphabet?", options: ["24", "25", "26", "28"], correct: 2 },
-      { question: "A, E, I, O, U are called ___.", options: ["Consonants", "Vowels", "Numbers", "Sounds"], correct: 1 },
-      { question: "'B' is a ___.", options: ["Vowel", "Number", "Consonant", "Word"], correct: 2 },
-      { question: "To 'spell' means to ___.", options: ["Read fast", "Say the letters", "Write a story", "Draw pictures"], correct: 1 },
-      { question: "A capital letter is also called ___.", options: ["Lowercase", "Uppercase", "Vowel", "Consonant"], correct: 1 },
-    ],
-    conversationExercises: [
-      { question: "How many vowels are there?", options: ["3", "4", "5", "6"], correct: 2 },
-      { question: "What did the student spell?", options: ["Cat", "Dog", "Sara", "Book"], correct: 2 },
-      { question: "Letters that are not vowels are ___.", options: ["Numbers", "Consonants", "Words", "Sentences"], correct: 1 },
-    ],
-    grammarExercises: [
-      { question: "Which should be capitalized? '___ is my friend.'", options: ["ahmed", "Ahmed", "AHMED", "aHmEd"], correct: 1 },
-      { question: "Days of the week start with ___.", options: ["Lowercase", "Uppercase", "Numbers", "Symbols"], correct: 1 },
-      { question: "'i live in ___ .' Which is correct?", options: ["cairo", "Cairo", "CAIRO", "cAiro"], correct: 1 },
-      { question: "The first word of a sentence uses ___.", options: ["Lowercase", "Uppercase", "No letter", "A number"], correct: 1 },
-    ],
-    examQuestions: [
-      { question: "The English alphabet has ___ letters.", options: ["24", "25", "26", "27"], correct: 2 },
-      { question: "Which is a vowel?", options: ["B", "C", "E", "D"], correct: 2 },
-      { question: "'Pronounce' means to ___.", options: ["Write", "Say correctly", "Spell", "Read"], correct: 1 },
-      { question: "Names always start with ___.", options: ["Lowercase", "Numbers", "Uppercase", "Symbols"], correct: 2 },
-      { question: "A 'word' is made of ___.", options: ["Numbers", "Letters", "Drawings", "Colors"], correct: 1 },
-    ],
-    homeworkQuestions: [
-      { question: "Write the vowels: A, ___, I, O, U.", options: ["B", "C", "E", "F"], correct: 2 },
-      { question: "'cat' has ___ letters.", options: ["2", "3", "4", "5"], correct: 1 },
-      { question: "Which is correct? '___ is a student.'", options: ["she", "She", "SHE", "sHe"], correct: 1 },
+      { question: "'The suspect ___ arrested last night.'", options: ["is", "was", "are", "were"], correct: 1 },
     ],
   },
 };
