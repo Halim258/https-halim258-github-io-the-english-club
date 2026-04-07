@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { AlertCircle, Search, Phone, ChevronLeft, ChevronRight, DollarSign } from "lucide-react";
+import { AlertCircle, Search, Phone, ChevronLeft, ChevronRight, DollarSign, MessageCircle, Send } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
