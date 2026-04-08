@@ -12,6 +12,7 @@ import FMRadio from "./pages/FMRadio";
 import SlideLesson from "./pages/SlideLesson";
 import PracticeSpeaking from "./pages/PracticeSpeaking";
 import Teachers from "./pages/Teachers";
+import Groups from "./pages/Groups";
 import PlacementTest from "./pages/PlacementTest";
 import StudentDashboard from "./pages/StudentDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
