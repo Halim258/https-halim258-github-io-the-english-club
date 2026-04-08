@@ -8,7 +8,10 @@ export type SlideType =
   | "grammar"
   | "exercise"
   | "summary"
-  | "info";
+  | "info"
+  | "story-text"
+  | "video"
+  | "expressions";
 
 export interface Slide {
   id: string;
