@@ -556,6 +556,37 @@ function GrammarSlide({ rule }: { rule: { title: string; explanation: string; ex
 }
 
 /* ═══════════ EXERCISE SLIDE ═══════════ */
+function getQuestionEmoji(question: string): string {
+  const q = question.toLowerCase();
+  if (q.includes("color") || q.includes("colour")) return "🎨";
+  if (q.includes("animal") || q.includes("dog") || q.includes("cat") || q.includes("bird")) return "🐾";
+  if (q.includes("food") || q.includes("eat") || q.includes("fruit") || q.includes("vegetable")) return "🍎";
+  if (q.includes("family") || q.includes("mother") || q.includes("father") || q.includes("sister") || q.includes("brother")) return "👨‍👩‍👧‍👦";
+  if (q.includes("school") || q.includes("class") || q.includes("teacher") || q.includes("student")) return "🏫";
+  if (q.includes("weather") || q.includes("rain") || q.includes("sun") || q.includes("snow")) return "🌤️";
+  if (q.includes("time") || q.includes("clock") || q.includes("hour") || q.includes("morning")) return "⏰";
+  if (q.includes("number") || q.includes("count") || q.includes("how many")) return "🔢";
+  if (q.includes("house") || q.includes("room") || q.includes("home") || q.includes("kitchen")) return "🏠";
+  if (q.includes("travel") || q.includes("trip") || q.includes("country") || q.includes("city")) return "✈️";
+  if (q.includes("sport") || q.includes("play") || q.includes("game") || q.includes("ball")) return "⚽";
+  if (q.includes("music") || q.includes("song") || q.includes("sing")) return "🎵";
+  if (q.includes("book") || q.includes("read") || q.includes("story")) return "📖";
+  if (q.includes("water") || q.includes("sea") || q.includes("swim") || q.includes("ocean")) return "🌊";
+  if (q.includes("tree") || q.includes("flower") || q.includes("garden") || q.includes("nature")) return "🌿";
+  if (q.includes("shop") || q.includes("buy") || q.includes("store") || q.includes("money")) return "🛒";
+  if (q.includes("job") || q.includes("work") || q.includes("office")) return "💼";
+  if (q.includes("doctor") || q.includes("health") || q.includes("hospital")) return "🏥";
+  if (q.includes("car") || q.includes("bus") || q.includes("drive") || q.includes("transport")) return "🚗";
+  if (q.includes("phone") || q.includes("call") || q.includes("computer")) return "📱";
+  if (q.includes("friend") || q.includes("people") || q.includes("meet")) return "🤝";
+  if (q.includes("happy") || q.includes("sad") || q.includes("feel") || q.includes("emotion")) return "😊";
+  if (q.includes("cloth") || q.includes("wear") || q.includes("dress") || q.includes("shirt")) return "👕";
+  if (q.includes("sky") || q.includes("star") || q.includes("moon") || q.includes("night")) return "🌙";
+  if (q.includes("grass") || q.includes("green")) return "🌱";
+  if (q.includes("is") || q.includes("are") || q.includes("was") || q.includes("were")) return "💡";
+  return "🤔";
+}
+
 function ExerciseSlide({ label, questions }: { label: string; questions: MCQItem[] }) {
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [showResults, setShowResults] = useState(false);
@@ -581,6 +612,7 @@ function ExerciseSlide({ label, questions }: { label: string; questions: MCQItem
       {questions.map((q, qi) => (
         <div key={qi} className="rounded-xl border bg-card p-4 shadow-soft">
           <p className="text-sm font-semibold mb-3">
+            <span className="mr-1.5">{getQuestionEmoji(q.question)}</span>
             <span className="text-primary mr-1.5">Q{qi + 1}.</span>
             {q.question}
           </p>
