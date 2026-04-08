@@ -107,14 +107,14 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden items-center gap-0.5 md:flex">
-          {navLinks.map((l) => {
+        <div className="hidden items-center gap-0.5 lg:flex">
+          {primaryLinks.map((l) => {
             const isActive = location.pathname === l.to;
             return (
               <Link
                 key={l.to}
                 to={l.to}
-                className="relative rounded-full px-3.5 py-2 text-sm font-medium transition-all duration-200 group"
+                className="relative rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 group"
               >
                 <span className={isActive ? "text-primary font-semibold" : "text-muted-foreground group-hover:text-foreground"}>
                   {l.label}
@@ -129,17 +129,58 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <div className="mx-1.5 h-4 w-px bg-border/60" />
-          <div className="flex items-center gap-0.5 rounded-full bg-muted/40 px-1 py-0.5">
-            {homeSections.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => scrollToSection(s.id)}
-                className="rounded-full px-2.5 py-1 text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-background/80 transition-all duration-200"
-              >
-                {s.label}
-              </button>
-            ))}
+
+          {/* More dropdown */}
+          <div className="relative" ref={moreRef}>
+            <button
+              onClick={() => setMoreOpen(!moreOpen)}
+              className={`relative flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
+                moreLinks.some(l => location.pathname === l.to) ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              More <ChevronDown className={`h-3.5 w-3.5 transition-transform ${moreOpen ? "rotate-180" : ""}`} />
+              {moreLinks.some(l => location.pathname === l.to) && (
+                <motion.div
+                  layoutId="nav-indicator"
+                  className="absolute inset-0 rounded-full bg-primary/8 border border-primary/15"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
+            </button>
+            <AnimatePresence>
+              {moreOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full right-0 mt-1 w-48 rounded-xl border bg-card shadow-lg py-1 z-50"
+                >
+                  {moreLinks.map((l) => (
+                    <Link
+                      key={l.to}
+                      to={l.to}
+                      onClick={() => setMoreOpen(false)}
+                      className={`block px-4 py-2.5 text-sm font-medium transition-colors ${
+                        location.pathname === l.to ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                      }`}
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                  <hr className="my-1 border-border/60" />
+                  {homeSections.map((s) => (
+                    <button
+                      key={s.id}
+                      onClick={() => { setMoreOpen(false); scrollToSection(s.id); }}
+                      className="w-full text-left px-4 py-2 text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
+                    >
+                      {s.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
