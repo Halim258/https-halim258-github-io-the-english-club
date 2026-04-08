@@ -262,6 +262,48 @@ function SpeakingCard({ lesson, speak, speaking }: { lesson: typeof lessons[stri
   );
 }
 
+/* ───── Discussion Prompt Card ───── */
+function DiscussionPromptCard({ prompt, index }: { prompt: DiscussionPrompt; index: number }) {
+  const [showHint, setShowHint] = useState(false);
+  const [userAnswer, setUserAnswer] = useState("");
+
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-sm rounded-2xl border-2 border-primary/20 bg-card p-6 shadow-lg">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-3xl">{prompt.emoji}</span>
+          <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
+            Question {index + 1}
+          </span>
+        </div>
+        <p className="text-lg font-semibold text-foreground mb-4 font-sans leading-relaxed">{prompt.question}</p>
+        
+        <textarea
+          className="w-full rounded-xl border-2 border-border bg-muted/30 p-3 text-sm font-sans resize-none focus:border-primary/40 focus:outline-none transition-colors"
+          rows={3}
+          placeholder="Type your answer here..."
+          value={userAnswer}
+          onChange={(e) => setUserAnswer(e.target.value)}
+        />
+
+        <button
+          onClick={() => setShowHint(!showHint)}
+          className="mt-3 flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-sans font-medium"
+        >
+          <MessageCircle className="h-3.5 w-3.5" />
+          {showHint ? "Hide hint" : "Show hint"}
+        </button>
+
+        {showHint && (
+          <div className="mt-2 rounded-lg bg-primary/5 border border-primary/10 px-3 py-2">
+            <p className="text-sm text-muted-foreground font-sans italic">{prompt.hint}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /* ───── Section title card ───── */
 function SectionTitleCard({ title, icon }: { title: string; icon: string }) {
   return (
