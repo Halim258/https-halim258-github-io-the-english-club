@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { CalendarDays, Users, Clock, DollarSign, Settings, MessageCircle } from "lucide-react";
+import { CalendarDays, Users, Clock, DollarSign, Settings, MessageCircle, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import StudentAnswersReview from "@/components/teacher/StudentAnswersReview";
+import TeacherEnrollments from "@/components/teacher/TeacherEnrollments";
 
 const upcomingClasses = [
   { student: "John Doe", date: "Feb 19, 2026", time: "10:00 AM", duration: "50 min", level: "A1" },
@@ -11,6 +12,7 @@ const upcomingClasses = [
 
 const TABS = [
   { id: "overview", label: "Overview", icon: CalendarDays },
+  { id: "enrollments", label: "Enrollments", icon: UserPlus },
   { id: "answers", label: "Student Answers", icon: MessageCircle },
 ] as const;
 
@@ -87,6 +89,12 @@ export default function TeacherDashboard() {
             ))}
           </div>
         </>
+      )}
+
+      {activeTab === "enrollments" && (
+        <div className="mt-6">
+          <TeacherEnrollments />
+        </div>
       )}
 
       {activeTab === "answers" && (
