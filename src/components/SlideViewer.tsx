@@ -147,6 +147,9 @@ function SlideRenderer({ slide }: { slide: Slide }) {
         {content.kind === "exercise" && <ExerciseSlide label={content.label} questions={content.questions} />}
         {content.kind === "summary" && <SummarySlide points={content.points} />}
         {content.kind === "info" && <InfoSlide paragraphs={content.paragraphs} />}
+        {content.kind === "story-text" && <StoryTextSlide text={content.text} moral={content.moral} />}
+        {content.kind === "video" && <VideoSlide youtubeId={content.youtubeId} sceneContext={content.sceneContext} culturalNote={content.culturalNote} movieTitle={content.movieTitle} />}
+        {content.kind === "expressions" && <ExpressionsSlide items={content.items} />}
       </div>
     </div>
   );
@@ -778,6 +781,89 @@ function InfoSlide({ paragraphs }: { paragraphs: string[] }) {
     <div className="space-y-4">
       {paragraphs.map((p, i) => (
         <p key={i} className="text-sm text-muted-foreground leading-relaxed">{p}</p>
+      ))}
+    </div>
+  );
+}
+
+/* ═══════════ STORY TEXT SLIDE ═══════════ */
+function StoryTextSlide({ text, moral }: { text: string; moral?: string }) {
+  const { speak, speaking } = useTTS();
+  const plainText = text.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}\u{FE00}-\u{FE0F}\u{200D}\u{20E3}\u{E0020}-\u{E007F}]/gu, "");
+
+  return (
+    <div className="space-y-4">
+      <div className="flex justify-end">
+        <Button
+          size="sm"
+          variant="outline"
+          className="rounded-full gap-1.5 text-xs"
+          onClick={() => speak(plainText, "en-US", 0.85)}
+          disabled={speaking}
+        >
+          <Volume2 className="h-3.5 w-3.5" />
+          {speaking ? "Reading..." : "Listen 🔊"}
+        </Button>
+      </div>
+      <div className="bg-muted/30 rounded-xl p-5 text-base leading-relaxed border">
+        {text}
+      </div>
+      {moral && (
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 text-sm font-medium text-center">
+          💡 <strong>Moral:</strong> {moral}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ═══════════ VIDEO SLIDE ═══════════ */
+function VideoSlide({ youtubeId, sceneContext, culturalNote, movieTitle }: { youtubeId: string; sceneContext: string; culturalNote?: string; movieTitle: string }) {
+  return (
+    <div className="space-y-4">
+      <div className="relative rounded-xl overflow-hidden border bg-black aspect-video">
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}`}
+          title={movieTitle}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full"
+        />
+      </div>
+      <div className="bg-muted/30 rounded-lg p-3 text-sm border">
+        📝 <strong>Scene Context:</strong> {sceneContext}
+      </div>
+      {culturalNote && (
+        <div className="bg-primary/5 border border-primary/20 rounded-lg p-3 text-sm">
+          🎬 <strong>Did you know?</strong> {culturalNote}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ═══════════ EXPRESSIONS SLIDE ═══════════ */
+function ExpressionsSlide({ items }: { items: { phrase: string; meaning: string; arabic: string; emoji: string }[] }) {
+  const { speak } = useTTS();
+
+  return (
+    <div className="grid gap-3">
+      {items.map((e) => (
+        <div
+          key={e.phrase}
+          className="p-4 rounded-xl border bg-gradient-to-r from-primary/5 to-accent/5 cursor-pointer hover:from-primary/10 hover:to-accent/10 transition-colors"
+          onClick={() => speak(e.phrase)}
+        >
+          <div className="flex items-start gap-3">
+            <span className="text-2xl">{e.emoji}</span>
+            <div className="flex-1">
+              <p className="font-bold text-sm">"{e.phrase}"</p>
+              <p className="text-xs text-muted-foreground mt-1">{e.meaning}</p>
+              <p className="text-xs text-muted-foreground/70 mt-0.5">({e.arabic})</p>
+            </div>
+            <Volume2 className="h-3.5 w-3.5 text-muted-foreground shrink-0 mt-1" />
+          </div>
+        </div>
       ))}
     </div>
   );

@@ -8,7 +8,10 @@ export type SlideType =
   | "grammar"
   | "exercise"
   | "summary"
-  | "info";
+  | "info"
+  | "story-text"
+  | "video"
+  | "expressions";
 
 export interface Slide {
   id: string;
@@ -28,7 +31,10 @@ export type SlideContent =
   | { kind: "grammar"; rule: GrammarRule }
   | { kind: "exercise"; label: string; questions: MCQItem[] }
   | { kind: "summary"; points: string[] }
-  | { kind: "info"; paragraphs: string[] };
+  | { kind: "info"; paragraphs: string[] }
+  | { kind: "story-text"; text: string; moral?: string }
+  | { kind: "video"; youtubeId: string; sceneContext: string; culturalNote?: string; movieTitle: string }
+  | { kind: "expressions"; items: { phrase: string; meaning: string; arabic: string; emoji: string }[] };
 
 /* ── Generate slides from lesson data ── */
 export function generateSlides(lesson: LessonData): Slide[] {
