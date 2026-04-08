@@ -558,6 +558,73 @@ function GrammarSlide({ rule }: { rule: { title: string; explanation: string; ex
 /* ═══════════ EXERCISE SLIDE ═══════════ */
 function getQuestionEmoji(question: string): string {
   const q = question.toLowerCase();
+
+  // Grammar & Language Structure
+  if (q.includes("tense") || q.includes("past ") || q.includes("present ") || q.includes("future ")) return "⏳";
+  if (q.includes("verb") || q.includes("conjugat")) return "🔤";
+  if (q.includes("noun") || q.includes("plural") || q.includes("singular")) return "📝";
+  if (q.includes("adjective") || q.includes("describ")) return "🏷️";
+  if (q.includes("adverb")) return "💨";
+  if (q.includes("preposition") || q.includes("in front") || q.includes("behind") || q.includes("between")) return "📍";
+  if (q.includes("pronoun") || q.includes("he ") || q.includes("she ") || q.includes("they ")) return "👤";
+  if (q.includes("sentence") || q.includes("clause") || q.includes("phrase")) return "✏️";
+  if (q.includes("grammar") || q.includes("correct form") || q.includes("fill in")) return "📐";
+  if (q.includes("punctuat") || q.includes("comma") || q.includes("period")) return "❗";
+  if (q.includes("passive") || q.includes("active voice")) return "🔄";
+  if (q.includes("conditional") || q.includes("if ")) return "🔀";
+  if (q.includes("modal") || q.includes("can ") || q.includes("should ") || q.includes("must ")) return "⚙️";
+  if (q.includes("article") || q.includes(" a ") || q.includes(" the ")) return "📎";
+
+  // Reading & Comprehension
+  if (q.includes("passage") || q.includes("paragraph") || q.includes("text")) return "📄";
+  if (q.includes("main idea") || q.includes("theme") || q.includes("summary")) return "🎯";
+  if (q.includes("author") || q.includes("writer") || q.includes("narrator")) return "🖊️";
+  if (q.includes("meaning") || q.includes("synonym") || q.includes("antonym") || q.includes("definition")) return "🔍";
+  if (q.includes("vocabulary") || q.includes("word") || q.includes("term")) return "📚";
+  if (q.includes("infer") || q.includes("imply") || q.includes("suggest")) return "🧩";
+
+  // Business & Professional
+  if (q.includes("meeting") || q.includes("agenda") || q.includes("conference")) return "📊";
+  if (q.includes("email") || q.includes("letter") || q.includes("correspondence")) return "📧";
+  if (q.includes("presentation") || q.includes("slide") || q.includes("pitch")) return "📽️";
+  if (q.includes("negotiate") || q.includes("deal") || q.includes("contract")) return "🤝";
+  if (q.includes("resume") || q.includes("cv") || q.includes("interview") || q.includes("hire")) return "📋";
+  if (q.includes("market") || q.includes("brand") || q.includes("advertis")) return "📈";
+  if (q.includes("finance") || q.includes("invest") || q.includes("stock") || q.includes("bank")) return "💰";
+  if (q.includes("law") || q.includes("legal") || q.includes("court") || q.includes("rights")) return "⚖️";
+
+  // Healthcare & Medical
+  if (q.includes("patient") || q.includes("symptom") || q.includes("diagnos")) return "🩺";
+  if (q.includes("medicine") || q.includes("drug") || q.includes("prescription")) return "💊";
+
+  // IT & Technology
+  if (q.includes("software") || q.includes("program") || q.includes("code") || q.includes("developer")) return "💻";
+  if (q.includes("internet") || q.includes("website") || q.includes("online")) return "🌐";
+  if (q.includes("data") || q.includes("database") || q.includes("server")) return "🗄️";
+
+  // Aviation
+  if (q.includes("flight") || q.includes("pilot") || q.includes("aircraft") || q.includes("aviation")) return "✈️";
+  if (q.includes("runway") || q.includes("takeoff") || q.includes("landing") || q.includes("tower")) return "🛫";
+
+  // Hospitality & Tourism
+  if (q.includes("hotel") || q.includes("guest") || q.includes("reserv") || q.includes("check-in")) return "🏨";
+  if (q.includes("restaurant") || q.includes("menu") || q.includes("order") || q.includes("waiter")) return "🍽️";
+
+  // Communication & Speaking
+  if (q.includes("speak") || q.includes("talk") || q.includes("conversation") || q.includes("discuss")) return "🗣️";
+  if (q.includes("listen") || q.includes("hear") || q.includes("audio") || q.includes("sound")) return "👂";
+  if (q.includes("pronunciat") || q.includes("accent") || q.includes("stress") || q.includes("intonation")) return "🎤";
+  if (q.includes("debate") || q.includes("argument") || q.includes("opinion")) return "💬";
+
+  // Writing
+  if (q.includes("essay") || q.includes("writing") || q.includes("compose") || q.includes("draft")) return "✍️";
+  if (q.includes("report") || q.includes("academic") || q.includes("research")) return "🎓";
+
+  // Social Media & News
+  if (q.includes("social media") || q.includes("post") || q.includes("instagram") || q.includes("twitter")) return "📲";
+  if (q.includes("news") || q.includes("headline") || q.includes("journal")) return "📰";
+
+  // Kids & Fun Topics
   if (q.includes("color") || q.includes("colour")) return "🎨";
   if (q.includes("animal") || q.includes("dog") || q.includes("cat") || q.includes("bird")) return "🐾";
   if (q.includes("food") || q.includes("eat") || q.includes("fruit") || q.includes("vegetable")) return "🍎";
@@ -567,7 +634,7 @@ function getQuestionEmoji(question: string): string {
   if (q.includes("time") || q.includes("clock") || q.includes("hour") || q.includes("morning")) return "⏰";
   if (q.includes("number") || q.includes("count") || q.includes("how many")) return "🔢";
   if (q.includes("house") || q.includes("room") || q.includes("home") || q.includes("kitchen")) return "🏠";
-  if (q.includes("travel") || q.includes("trip") || q.includes("country") || q.includes("city")) return "✈️";
+  if (q.includes("travel") || q.includes("trip") || q.includes("country") || q.includes("city")) return "🌍";
   if (q.includes("sport") || q.includes("play") || q.includes("game") || q.includes("ball")) return "⚽";
   if (q.includes("music") || q.includes("song") || q.includes("sing")) return "🎵";
   if (q.includes("book") || q.includes("read") || q.includes("story")) return "📖";
@@ -582,7 +649,14 @@ function getQuestionEmoji(question: string): string {
   if (q.includes("happy") || q.includes("sad") || q.includes("feel") || q.includes("emotion")) return "😊";
   if (q.includes("cloth") || q.includes("wear") || q.includes("dress") || q.includes("shirt")) return "👕";
   if (q.includes("sky") || q.includes("star") || q.includes("moon") || q.includes("night")) return "🌙";
-  if (q.includes("grass") || q.includes("green")) return "🌱";
+
+  // Fallback patterns
+  if (q.includes("choose") || q.includes("select") || q.includes("pick")) return "👆";
+  if (q.includes("true") || q.includes("false") || q.includes("correct")) return "✅";
+  if (q.includes("match") || q.includes("pair") || q.includes("connect")) return "🔗";
+  if (q.includes("complete") || q.includes("blank") || q.includes("missing")) return "📝";
+  if (q.includes("translate") || q.includes("arabic") || q.includes("english")) return "🌐";
+  if (q.includes("example") || q.includes("explain")) return "💡";
   if (q.includes("is") || q.includes("are") || q.includes("was") || q.includes("were")) return "💡";
   return "🤔";
 }
