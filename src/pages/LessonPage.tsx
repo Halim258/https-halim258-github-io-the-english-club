@@ -492,19 +492,24 @@ export default function LessonPage() {
 
       {/* Tab pills */}
       <div className="flex gap-1 overflow-x-auto px-3 py-2 bg-muted/50 border-b">
-        {TABS.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => switchTab(tab.id)}
-            className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-colors font-sans ${
-              activeTab === tab.id
-                ? "bg-primary text-primary-foreground"
-                : "bg-card text-muted-foreground hover:text-foreground border"
-            }`}
-          >
-            <span>{tab.icon}</span> {tab.label}
-          </button>
-        ))}
+        {TABS.map((tab) => {
+          const isCommunication = isCommunicationCourse(lesson.levelId);
+          const displayLabel = tab.id === "conversation" && isCommunication && "altLabel" in tab ? tab.altLabel : tab.label;
+          const displayIcon = tab.id === "conversation" && isCommunication && "altIcon" in tab ? tab.altIcon : tab.icon;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => switchTab(tab.id)}
+              className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-colors font-sans ${
+                activeTab === tab.id
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-card text-muted-foreground hover:text-foreground border"
+              }`}
+            >
+              <span>{displayIcon}</span> {displayLabel}
+            </button>
+          );
+        })}
       </div>
 
       {/* Progress */}
