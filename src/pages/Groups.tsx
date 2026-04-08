@@ -149,12 +149,17 @@ export default function Groups() {
         <div className="grid gap-5 sm:grid-cols-2">
           {groups.map((g) => (
             <div key={g.id} className="rounded-2xl border-2 border-border/50 bg-card p-6 shadow-soft hover:shadow-md transition-shadow">
-              {/* Level badge */}
-              {g.level && (
-                <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary mb-3">
-                  {g.level}
+              <div className="flex items-center gap-2 mb-3 flex-wrap">
+                {g.level && (
+                  <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-bold text-primary">
+                    {g.level}
+                  </span>
+                )}
+                <span className="inline-flex items-center gap-1 rounded-full bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent-foreground">
+                  <Users2 className="h-3 w-3" />
+                  {enrollCounts[g.id] || 0}{g.max_students ? `/${g.max_students}` : ""} joined
                 </span>
-              )}
+              </div>
 
               {/* Teacher info */}
               <div className="flex items-center gap-3 mb-3">
