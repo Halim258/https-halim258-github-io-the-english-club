@@ -504,49 +504,53 @@ function GrammarSlide({ rule }: { rule: { title: string; explanation: string; ex
   const grammarEmojis = ["📐", "🔤", "✨", "📏"];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Rule card with visual header */}
-      <div className="rounded-xl border bg-card overflow-hidden shadow-soft">
-        <div className="bg-gradient-to-r from-violet-500/15 to-purple-500/10 p-4 flex items-center gap-3">
-          <div className="h-12 w-12 rounded-xl bg-background/70 backdrop-blur-sm flex items-center justify-center text-2xl shadow-sm">
-            📐
-          </div>
-          <div>
-            <h3 className="font-bold font-display text-lg">{rule.title}</h3>
-            <p className="text-[11px] text-muted-foreground">Grammar Rule</p>
-          </div>
-        </div>
-        <div className="p-5">
-          <p className="text-sm text-muted-foreground leading-relaxed">{rule.explanation}</p>
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <p className="text-xs font-semibold uppercase tracking-widest text-primary flex items-center gap-2">
-          <span>📝</span> Examples
-        </p>
-        {rule.examples.map((ex, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="rounded-lg border bg-card p-3 shadow-soft flex items-start gap-3 group hover:border-primary/20 transition-colors"
-          >
-            <span className="text-xl mt-0.5">{grammarEmojis[i % grammarEmojis.length]}</span>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium">{ex.sentence}</p>
-              <p className="text-xs text-muted-foreground mt-0.5">{ex.note}</p>
+      {rule.explanation && (
+        <div className="rounded-xl border bg-card overflow-hidden shadow-soft">
+          <div className="bg-gradient-to-r from-violet-500/15 to-purple-500/10 p-4 flex items-center gap-3">
+            <div className="h-12 w-12 rounded-xl bg-background/70 backdrop-blur-sm flex items-center justify-center text-2xl shadow-sm">
+              📐
             </div>
-            <button
-              onClick={() => speak(ex.sentence)}
-              className="h-7 w-7 rounded-full bg-muted/50 flex items-center justify-center shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+            <div>
+              <h3 className="font-bold font-display text-lg">{rule.title}</h3>
+              <p className="text-[11px] text-muted-foreground">Grammar Rule</p>
+            </div>
+          </div>
+          <div className="p-4">
+            <p className="text-sm text-muted-foreground leading-relaxed">{rule.explanation}</p>
+          </div>
+        </div>
+      )}
+
+      {rule.examples.length > 0 && (
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary flex items-center gap-2">
+            <span>📝</span> Examples
+          </p>
+          {rule.examples.map((ex, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.1 }}
+              className="rounded-lg border bg-card p-3 shadow-soft flex items-start gap-3 group hover:border-primary/20 transition-colors"
             >
-              <Volume2 className="h-3 w-3 text-primary" />
-            </button>
-          </motion.div>
-        ))}
-      </div>
+              <span className="text-xl mt-0.5">{grammarEmojis[i % grammarEmojis.length]}</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium">{ex.sentence}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{ex.note}</p>
+              </div>
+              <button
+                onClick={() => speak(ex.sentence)}
+                className="h-7 w-7 rounded-full bg-muted/50 flex items-center justify-center shrink-0 opacity-0 group-hover:opacity-100 transition-opacity"
+              >
+                <Volume2 className="h-3 w-3 text-primary" />
+              </button>
+            </motion.div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

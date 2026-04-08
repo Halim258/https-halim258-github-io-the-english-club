@@ -83,15 +83,31 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   }
 
-  // 4. Grammar slide
-  slides.push({
-    id: id(n++),
-    type: "grammar",
-    title: "Grammar",
-    subtitle: lesson.grammar.title,
-    emoji: "📝",
-    bgColor: "from-violet-500/10 to-violet-500/5",
-    content: { kind: "grammar", rule: lesson.grammar },
+  // 4. Grammar slides (2 examples per slide)
+  const grammarChunks = lesson.grammar.examples.length > 0
+    ? chunkArray(lesson.grammar.examples, 2)
+    : [[]];
+
+  grammarChunks.forEach((chunk, i) => {
+    slides.push({
+      id: id(n++),
+      type: "grammar",
+      title: "Grammar",
+      subtitle:
+        grammarChunks.length > 1
+          ? `${lesson.grammar.title} — Part ${i + 1} of ${grammarChunks.length}`
+          : lesson.grammar.title,
+      emoji: "📝",
+      bgColor: "from-violet-500/10 to-violet-500/5",
+      content: {
+        kind: "grammar",
+        rule: {
+          ...lesson.grammar,
+          explanation: i === 0 ? lesson.grammar.explanation : "",
+          examples: chunk,
+        },
+      },
+    });
   });
 
   // 5. Vocab exercises (2 questions per slide)
