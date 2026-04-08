@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Menu, X, Moon, Sun, User, LogOut, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -9,18 +9,23 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.jpg";
 
-const navLinks = [
+const primaryLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
   { to: "/dictionary", label: "Dictionary" },
   { to: "/flashcards", label: "Flashcards" },
   { to: "/ai-tutor", label: "AI Tutor" },
   { to: "/community", label: "Community" },
-  { to: "/leaderboard", label: "Leaderboard" },
-  { to: "/pronunciation", label: "🎙️" },
-  { to: "/placement-test", label: "Test" },
-  { to: "/fm", label: "FM" },
 ];
+
+const moreLinks = [
+  { to: "/leaderboard", label: "Leaderboard" },
+  { to: "/pronunciation", label: "🎙️ Pronunciation" },
+  { to: "/placement-test", label: "📝 Placement Test" },
+  { to: "/fm", label: "📻 FM Radio" },
+];
+
+const allNavLinks = [...primaryLinks, ...moreLinks];
 
 const homeSections = [
   { id: "gallery", label: "Gallery" },
