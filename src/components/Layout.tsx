@@ -16,6 +16,10 @@ export default function Layout() {
   const { pathname } = useLocation();
   const isInLesson = lessonRoutePatterns.some((p) => p.test(pathname));
 
+  if (isInLesson) {
+    return <Outlet />;
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
@@ -26,7 +30,7 @@ export default function Layout() {
           </PageTransition>
         </AnimatePresence>
       </main>
-      {!isInLesson && <BookTeacherFAB />}
+      <BookTeacherFAB />
       <Footer />
     </div>
   );
