@@ -53,7 +53,9 @@ const App = () => (
             <Route path="/courses/:levelId/:lessonId" element={<ProtectedRoute><LessonPage /></ProtectedRoute>} />
             <Route path="/courses/kids" element={<ProtectedRoute><KidsCourse /></ProtectedRoute>} />
             <Route path="/courses/stories" element={<ProtectedRoute><StoriesCourse /></ProtectedRoute>} />
+            <Route path="/courses/stories/:lessonId/slides" element={<ProtectedRoute><StorySlideLesson /></ProtectedRoute>} />
             <Route path="/courses/movies" element={<ProtectedRoute><MoviesCourse /></ProtectedRoute>} />
+            <Route path="/courses/movies/:lessonId/slides" element={<ProtectedRoute><MovieSlideLesson /></ProtectedRoute>} />
             <Route path="/kids/games" element={<ProtectedRoute><KidsGameCenter /></ProtectedRoute>} />
             <Route path="/courses/:levelId" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
             <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />
