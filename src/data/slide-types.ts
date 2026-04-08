@@ -53,8 +53,8 @@ export function generateSlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 2. Vocabulary slides (5 words per slide)
-  const vocabChunks = chunkArray(lesson.vocabulary, 5);
+  // 2. Vocabulary slides (4 words per slide — fits without scrolling)
+  const vocabChunks = chunkArray(lesson.vocabulary, 4);
   vocabChunks.forEach((chunk, i) => {
     slides.push({
       id: id(n++),
@@ -67,15 +67,19 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   });
 
-  // 3. Dialogue slide
+  // 3. Dialogue slides (max 5 lines per slide)
   if (lesson.dialogue.length > 0) {
-    slides.push({
-      id: id(n++),
-      type: "dialogue",
-      title: "Conversation",
-      emoji: "💬",
-      bgColor: "from-emerald-500/10 to-emerald-500/5",
-      content: { kind: "dialogue", lines: lesson.dialogue },
+    const dialogueChunks = chunkArray(lesson.dialogue, 5);
+    dialogueChunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "dialogue",
+        title: "Conversation",
+        subtitle: dialogueChunks.length > 1 ? `Part ${i + 1} of ${dialogueChunks.length}` : undefined,
+        emoji: "💬",
+        bgColor: "from-emerald-500/10 to-emerald-500/5",
+        content: { kind: "dialogue", lines: chunk },
+      });
     });
   }
 
@@ -90,63 +94,83 @@ export function generateSlides(lesson: LessonData): Slide[] {
     content: { kind: "grammar", rule: lesson.grammar },
   });
 
-  // 5. Vocab exercises
+  // 5. Vocab exercises (3 questions per slide)
   if (lesson.vocabExercises.length > 0) {
-    slides.push({
-      id: id(n++),
-      type: "exercise",
-      title: "Vocabulary Practice",
-      emoji: "✏️",
-      bgColor: "from-orange-500/10 to-orange-500/5",
-      content: { kind: "exercise", label: "Vocabulary", questions: lesson.vocabExercises },
+    const chunks = chunkArray(lesson.vocabExercises, 3);
+    chunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "exercise",
+        title: "Vocabulary Practice",
+        subtitle: chunks.length > 1 ? `Part ${i + 1} of ${chunks.length}` : undefined,
+        emoji: "✏️",
+        bgColor: "from-orange-500/10 to-orange-500/5",
+        content: { kind: "exercise", label: "Vocabulary", questions: chunk },
+      });
     });
   }
 
-  // 6. Conversation exercises
+  // 6. Conversation exercises (3 questions per slide)
   if (lesson.conversationExercises.length > 0) {
-    slides.push({
-      id: id(n++),
-      type: "exercise",
-      title: "Conversation Practice",
-      emoji: "🗣️",
-      bgColor: "from-teal-500/10 to-teal-500/5",
-      content: { kind: "exercise", label: "Conversation", questions: lesson.conversationExercises },
+    const chunks = chunkArray(lesson.conversationExercises, 3);
+    chunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "exercise",
+        title: "Conversation Practice",
+        subtitle: chunks.length > 1 ? `Part ${i + 1} of ${chunks.length}` : undefined,
+        emoji: "🗣️",
+        bgColor: "from-teal-500/10 to-teal-500/5",
+        content: { kind: "exercise", label: "Conversation", questions: chunk },
+      });
     });
   }
 
-  // 7. Grammar exercises
+  // 7. Grammar exercises (3 questions per slide)
   if (lesson.grammarExercises.length > 0) {
-    slides.push({
-      id: id(n++),
-      type: "exercise",
-      title: "Grammar Practice",
-      emoji: "📐",
-      bgColor: "from-pink-500/10 to-pink-500/5",
-      content: { kind: "exercise", label: "Grammar", questions: lesson.grammarExercises },
+    const chunks = chunkArray(lesson.grammarExercises, 3);
+    chunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "exercise",
+        title: "Grammar Practice",
+        subtitle: chunks.length > 1 ? `Part ${i + 1} of ${chunks.length}` : undefined,
+        emoji: "📐",
+        bgColor: "from-pink-500/10 to-pink-500/5",
+        content: { kind: "exercise", label: "Grammar", questions: chunk },
+      });
     });
   }
 
-  // 8. Exam
+  // 8. Exam (3 questions per slide)
   if (lesson.examQuestions.length > 0) {
-    slides.push({
-      id: id(n++),
-      type: "exercise",
-      title: "Lesson Exam",
-      emoji: "✅",
-      bgColor: "from-red-500/10 to-red-500/5",
-      content: { kind: "exercise", label: "Exam", questions: lesson.examQuestions },
+    const chunks = chunkArray(lesson.examQuestions, 3);
+    chunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "exercise",
+        title: "Lesson Exam",
+        subtitle: chunks.length > 1 ? `Part ${i + 1} of ${chunks.length}` : undefined,
+        emoji: "✅",
+        bgColor: "from-red-500/10 to-red-500/5",
+        content: { kind: "exercise", label: "Exam", questions: chunk },
+      });
     });
   }
 
-  // 9. Homework
+  // 9. Homework (3 questions per slide)
   if (lesson.homeworkQuestions.length > 0) {
-    slides.push({
-      id: id(n++),
-      type: "exercise",
-      title: "Homework",
-      emoji: "📖",
-      bgColor: "from-amber-500/10 to-amber-500/5",
-      content: { kind: "exercise", label: "Homework", questions: lesson.homeworkQuestions },
+    const chunks = chunkArray(lesson.homeworkQuestions, 3);
+    chunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "exercise",
+        title: "Homework",
+        subtitle: chunks.length > 1 ? `Part ${i + 1} of ${chunks.length}` : undefined,
+        emoji: "📖",
+        bgColor: "from-amber-500/10 to-amber-500/5",
+        content: { kind: "exercise", label: "Homework", questions: chunk },
+      });
     });
   }
 
