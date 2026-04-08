@@ -12,6 +12,7 @@ import logo from "@/assets/logo.jpg";
 const primaryLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
+  { to: "/groups", label: "Groups" },
   { to: "/dictionary", label: "Dictionary" },
   { to: "/flashcards", label: "Flashcards" },
   { to: "/ai-tutor", label: "AI Tutor" },
