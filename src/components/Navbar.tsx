@@ -36,8 +36,10 @@ const homeSections = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
   const [scrolled, setScrolled] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
