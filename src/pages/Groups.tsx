@@ -44,7 +44,20 @@ export default function Groups() {
       .select("id, level, days, start_time, end_time, teacher_name, teacher_email, description, max_students, is_public")
       .eq("is_public", true);
 
-    setGroups((data as PublicGroup[]) || []);
+    const groupList = (data as PublicGroup[]) || [];
+    setGroups(groupList);
+
+    // Fetch approved enrollment counts per group
+    if (groupList.length > 0) {
+      const { data: counts } = await supabase
+        .from("group_enrollments")
+        .select("group_id, status")
+        .eq("status", "approved")
+        .in("group_id", groupList.map(g => g.id));
+      const countMap: Record<string, number> = {};
+      counts?.forEach((e: any) => { countMap[e.group_id] = (countMap[e.group_id] || 0) + 1; });
+      setEnrollCounts(countMap);
+    }
 
     if (user) {
       const { data: myEnrollments } = await supabase
