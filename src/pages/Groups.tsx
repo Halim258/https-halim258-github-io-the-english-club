@@ -26,6 +26,7 @@ export default function Groups() {
   const { toast } = useToast();
   const [groups, setGroups] = useState<PublicGroup[]>([]);
   const [enrollments, setEnrollments] = useState<Record<string, string>>({});
+  const [enrollCounts, setEnrollCounts] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
   const [enrollOpen, setEnrollOpen] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState<PublicGroup | null>(null);
