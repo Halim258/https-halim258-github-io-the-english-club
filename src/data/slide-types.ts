@@ -94,9 +94,9 @@ export function generateSlides(lesson: LessonData): Slide[] {
     content: { kind: "grammar", rule: lesson.grammar },
   });
 
-  // 5. Vocab exercises (3 questions per slide)
+  // 5. Vocab exercises (2 questions per slide)
   if (lesson.vocabExercises.length > 0) {
-    const chunks = chunkArray(lesson.vocabExercises, 3);
+    const chunks = chunkArray(lesson.vocabExercises, 2);
     chunks.forEach((chunk, i) => {
       slides.push({
         id: id(n++),
@@ -110,9 +110,9 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   }
 
-  // 6. Conversation exercises (3 questions per slide)
+  // 6. Conversation exercises (2 questions per slide)
   if (lesson.conversationExercises.length > 0) {
-    const chunks = chunkArray(lesson.conversationExercises, 3);
+    const chunks = chunkArray(lesson.conversationExercises, 2);
     chunks.forEach((chunk, i) => {
       slides.push({
         id: id(n++),
@@ -126,9 +126,9 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   }
 
-  // 7. Grammar exercises (3 questions per slide)
+  // 7. Grammar exercises (2 questions per slide)
   if (lesson.grammarExercises.length > 0) {
-    const chunks = chunkArray(lesson.grammarExercises, 3);
+    const chunks = chunkArray(lesson.grammarExercises, 2);
     chunks.forEach((chunk, i) => {
       slides.push({
         id: id(n++),
@@ -142,9 +142,9 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   }
 
-  // 8. Exam (3 questions per slide)
+  // 8. Exam (2 questions per slide)
   if (lesson.examQuestions.length > 0) {
-    const chunks = chunkArray(lesson.examQuestions, 3);
+    const chunks = chunkArray(lesson.examQuestions, 2);
     chunks.forEach((chunk, i) => {
       slides.push({
         id: id(n++),
@@ -158,9 +158,9 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   }
 
-  // 9. Homework (3 questions per slide)
+  // 9. Homework (2 questions per slide)
   if (lesson.homeworkQuestions.length > 0) {
-    const chunks = chunkArray(lesson.homeworkQuestions, 3);
+    const chunks = chunkArray(lesson.homeworkQuestions, 2);
     chunks.forEach((chunk, i) => {
       slides.push({
         id: id(n++),
