@@ -48,7 +48,8 @@ export function generateMovieSlides(movie: MovieLessonData): Slide[] {
   // 3. Vocabulary slides (4 words per slide)
   const vocabWords: VocabWord[] = movie.vocabulary.map((w) => ({
     word: w.word,
-    meaning: `${w.meaning} — "${w.example}"`,
+    meaning: w.meaning,
+    example: w.example,
     emoji: w.emoji,
     arabic: w.arabic,
   }));

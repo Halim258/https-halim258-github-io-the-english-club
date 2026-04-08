@@ -51,6 +51,7 @@ export function generateStorySlides(story: StoryData, index: number): Slide[] {
   const vocabWords: VocabWord[] = story.highlightedWords.map((w) => ({
     word: w.word,
     meaning: w.meaning,
+    example: "",
     emoji: w.emoji,
     arabic: w.arabic,
   }));
