@@ -91,6 +91,12 @@ export default function TeacherDashboard() {
         </>
       )}
 
+      {activeTab === "enrollments" && (
+        <div className="mt-6">
+          <TeacherEnrollments />
+        </div>
+      )}
+
       {activeTab === "answers" && (
         <div className="mt-6">
           <StudentAnswersReview />
