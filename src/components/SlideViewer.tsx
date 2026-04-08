@@ -128,7 +128,7 @@ function SlideRenderer({ slide }: { slide: Slide }) {
   const { content } = slide;
 
   return (
-    <div className={`min-h-full bg-gradient-to-br ${slide.bgColor || ""} p-4 md:p-8`}>
+    <div className={`min-h-full bg-gradient-to-br ${slide.bgColor || ""} p-3 md:p-6`}>
       <div className="max-w-3xl mx-auto">
         {/* Slide header */}
         <div className="flex items-center gap-3 mb-6">
