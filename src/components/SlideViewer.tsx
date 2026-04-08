@@ -869,3 +869,51 @@ function ExpressionsSlide({ items }: { items: { phrase: string; meaning: string;
     </div>
   );
 }
+
+/* ═══════════ DISCUSSION SLIDE ═══════════ */
+function DiscussionSlide({ questions }: { questions: { question: string; modelAnswer: string; emoji: string }[] }) {
+  const [revealed, setRevealed] = useState<Set<number>>(new Set());
+
+  const toggle = (i: number) => {
+    setRevealed((prev) => {
+      const next = new Set(prev);
+      if (next.has(i)) next.delete(i);
+      else next.add(i);
+      return next;
+    });
+  };
+
+  return (
+    <div className="grid gap-3">
+      {questions.map((q, i) => (
+        <div key={i} className="rounded-xl border bg-card p-4 space-y-2">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl shrink-0">{q.emoji}</span>
+            <p className="font-semibold text-sm leading-relaxed">{q.question}</p>
+          </div>
+
+          <button
+            onClick={() => toggle(i)}
+            className="flex items-center gap-2 text-xs font-medium text-primary hover:text-primary/80 transition-colors ml-11"
+          >
+            {revealed.has(i) ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+            {revealed.has(i) ? "Hide Model Answer" : "Show Model Answer"}
+          </button>
+
+          {revealed.has(i) && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              className="ml-11 rounded-lg bg-primary/5 border border-primary/10 p-3"
+            >
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <span className="font-semibold text-foreground">💡 Model Answer: </span>
+                {q.modelAnswer}
+              </p>
+            </motion.div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
