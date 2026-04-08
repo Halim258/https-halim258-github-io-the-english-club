@@ -205,7 +205,7 @@ export default function KidsCourse() {
                         {unit.lessons.map((lesson) => (
                           <Link
                             key={lesson.id}
-                            to={`/courses/kids/${lesson.id}/slides`}
+                            to={`/courses/kids/${lesson.number}/slides`}
                             className="flex items-center gap-3 rounded-xl border bg-muted/30 hover:bg-primary/5 hover:border-primary/30 px-4 py-3 transition-all group/lesson"
                           >
                             <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-xs font-bold text-primary">
