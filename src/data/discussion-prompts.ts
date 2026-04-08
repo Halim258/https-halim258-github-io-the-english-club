@@ -165,6 +165,162 @@ const communicationPrompts: Record<string, DiscussionPrompt[]> = {
     { question: "Read a short paragraph naturally. Which words do you stress and why?", hint: "Stress nouns, verbs, adjectives. Reduce articles, prepositions.", emoji: "📖" },
     { question: "How does rhythm in English differ from your native language?", hint: "English is stress-timed; many languages are syllable-timed.", emoji: "🥁" },
   ],
+
+  // Pronunciation 6-10
+  "pronunciation-6": [
+    { question: "Practice linking: Say 'turn off' as one sound — 'tur-noff'. Find 3 more examples.", hint: "Linking happens when a word ends in a consonant and the next starts with a vowel.", emoji: "🔗" },
+    { question: "How does linking change the way sentences sound in natural speech?", hint: "Words blend together: 'pick it up' → 'pi-ki-tup'.", emoji: "🗣️" },
+    { question: "Say 'an apple', 'an egg', 'an orange'. Notice the linking. Create 5 more.", hint: "The 'n' links smoothly to the vowel sound.", emoji: "🍎" },
+    { question: "Why do learners find connected speech difficult to understand?", hint: "Words don't sound the same in isolation vs. in sentences.", emoji: "🤔" },
+  ],
+  "pronunciation-7": [
+    { question: "Practice the schwa /ə/ sound: Say 'about', 'banana', 'support'. What do the unstressed vowels sound like?", hint: "The schwa is the most common vowel sound — short, lazy, neutral.", emoji: "🔤" },
+    { question: "Find the schwa in these words: 'chocolate', 'comfortable', 'vegetable'.", hint: "Schwa often replaces vowels in unstressed syllables.", emoji: "🔍" },
+    { question: "Why is the schwa important for sounding natural in English?", hint: "Native speakers reduce unstressed syllables — it creates English rhythm.", emoji: "🎵" },
+    { question: "Record yourself saying 'I want to go to the store.' How many schwas can you find?", hint: "'to' and 'the' both use schwa in natural speech.", emoji: "🎙️" },
+  ],
+  "pronunciation-8": [
+    { question: "Practice silent letters: Say 'knife', 'write', 'honest', 'island'. Which letters are silent?", hint: "K in knife, W in write, H in honest, S in island.", emoji: "🤫" },
+    { question: "List 10 English words with silent letters. Why do these silent letters exist?", hint: "They're historical — pronunciation changed but spelling didn't.", emoji: "📜" },
+    { question: "How do silent letters make English spelling difficult for learners?", hint: "You can't always predict pronunciation from spelling.", emoji: "😤" },
+    { question: "Practice: 'Wednesday', 'February', 'comfortable'. How do native speakers actually say these?", hint: "Wenz-day, Feb-yoo-ary, Comf-ter-bul.", emoji: "👂" },
+  ],
+  "pronunciation-9": [
+    { question: "Compare American and British pronunciation: 'water', 'can't', 'schedule'. What differences do you notice?", hint: "American: 'wader', 'kænt', 'skedule'. British: 'wohtuh', 'kahnt', 'shedule'.", emoji: "🇺🇸" },
+    { question: "Which English accent do you prefer to learn? Why?", hint: "Consider: exposure, goals, media you consume.", emoji: "🌍" },
+    { question: "How does the 'r' sound differ between American and British English?", hint: "American English is rhotic (pronounces all r's); British often drops final r's.", emoji: "🔤" },
+    { question: "Listen to a clip in Australian, Indian, or South African English. What patterns do you notice?", hint: "Every accent has its own vowel shifts and intonation patterns.", emoji: "🎧" },
+  ],
+  "pronunciation-10": [
+    { question: "Read a paragraph aloud focusing on all pronunciation skills: stress, intonation, linking, and rhythm.", hint: "Combine everything: stress content words, link sounds, use natural intonation.", emoji: "🏆" },
+    { question: "What are your top 3 pronunciation challenges? Create a practice plan for each.", hint: "Be specific: which sounds, which patterns, how will you practice?", emoji: "📋" },
+    { question: "Record yourself speaking for 1 minute. Listen back — what would you improve?", hint: "Focus on: clarity, rhythm, stress patterns, natural flow.", emoji: "🎙️" },
+    { question: "How has your pronunciation improved since lesson 1? What strategies helped most?", hint: "Reflect on: minimal pairs, stress practice, listening exposure.", emoji: "📈" },
+  ],
+
+  // Speaking 11-20
+  "speaking-11": [
+    { question: "Describe a process you know well (cooking a meal, using an app, etc.) step by step.", hint: "Use sequence words: 'First...', 'After that...', 'Finally...'", emoji: "📝" },
+    { question: "How would you explain how to use social media to an elderly person?", hint: "Use simple language, analogies, and patience.", emoji: "👵" },
+    { question: "Give instructions for a daily routine. Make them clear enough for a child to follow.", hint: "Use imperatives: 'Wake up at...', 'Brush your...'", emoji: "⏰" },
+    { question: "Describe how to get from your home to your school/workplace.", hint: "Use direction language: 'Turn left...', 'Go straight...', 'Pass the...'", emoji: "🗺️" },
+  ],
+  "speaking-12": [
+    { question: "Compare life in a big city vs. a small town. Which do you prefer and why?", hint: "Use comparatives: 'more...than', 'less...than', 'as...as'.", emoji: "🏙️" },
+    { question: "Compare two movies, books, or TV shows you've watched recently.", hint: "Use: 'While X is..., Y is...', 'Both...however...'", emoji: "🎬" },
+    { question: "What are the similarities and differences between learning online and in a classroom?", hint: "Structure: similarities first, then differences, then your preference.", emoji: "💻" },
+    { question: "Compare your generation with your parents' generation. What's different?", hint: "Use: 'Unlike...', 'In contrast...', 'Similarly...'", emoji: "👨‍👩‍👧" },
+  ],
+  "speaking-13": [
+    { question: "You need to complain about a product you bought online. Role-play the call.", hint: "Be firm but polite: 'I'm not satisfied with...', 'I'd like a refund...'", emoji: "📞" },
+    { question: "How do you handle a situation where someone cuts in line?", hint: "Use assertive language: 'Excuse me, I believe I was here first.'", emoji: "🙋" },
+    { question: "Practice making and responding to complaints in a restaurant.", hint: "Complain: 'I'm afraid this is cold.' Respond: 'I apologize, let me...'", emoji: "🍽️" },
+    { question: "Write a formal complaint email about a delayed delivery. Read it aloud.", hint: "Structure: greeting → problem → expectation → closing.", emoji: "📧" },
+  ],
+  "speaking-14": [
+    { question: "If you could change one thing about your country, what would it be? Why?", hint: "Use conditionals: 'If I could...', 'I would...because...'", emoji: "🌍" },
+    { question: "What would you do if you won a million dollars? Plan your spending.", hint: "Use 'would' for hypothetical: 'I'd invest...', 'I'd donate...'", emoji: "💰" },
+    { question: "If you could have dinner with any person (alive or dead), who and why?", hint: "Explain your choice and what questions you'd ask them.", emoji: "🍝" },
+    { question: "Imagine you could live in any time period. Which would you choose?", hint: "Use: 'If I lived in...', 'I would experience...'", emoji: "⏳" },
+  ],
+  "speaking-15": [
+    { question: "Give a 2-minute presentation about a topic you're an expert in.", hint: "Structure: hook → 3 main points → conclusion with call to action.", emoji: "🎤" },
+    { question: "How do you structure a presentation to keep the audience engaged?", hint: "Think about: storytelling, questions, visual aids, humor.", emoji: "📊" },
+    { question: "Practice handling Q&A: Answer unexpected questions about your presentation topic.", hint: "Techniques: 'That's a great question...', 'Let me think about that...'", emoji: "❓" },
+    { question: "What's the best presentation you've ever seen? What made it memorable?", hint: "Analyze: content, delivery, visuals, speaker's energy.", emoji: "⭐" },
+  ],
+  "speaking-16": [
+    { question: "Negotiate a price at a market. Role-play as both buyer and seller.", hint: "Buyer: 'Could you do it for less?' Seller: 'The best I can offer is...'", emoji: "🤝" },
+    { question: "How would you negotiate a salary raise with your boss?", hint: "Prepare: achievements, market rate, timing. Use: 'Based on my performance...'", emoji: "💼" },
+    { question: "Practice agreeing and disagreeing diplomatically in a business meeting.", hint: "Agree: 'I see your point and...' Disagree: 'I understand, however...'", emoji: "📋" },
+    { question: "Negotiate plans with friends — everyone wants to do something different.", hint: "Find compromise: 'How about we...', 'What if we did X first, then Y?'", emoji: "👥" },
+  ],
+  "speaking-17": [
+    { question: "Describe a graph or chart showing population growth. Use data language.", hint: "Use: 'increased sharply', 'remained stable', 'decreased gradually'.", emoji: "📈" },
+    { question: "Present statistics about a topic you care about (education, health, etc.).", hint: "Use: 'According to...', 'The data shows...', 'X percent of...'", emoji: "📊" },
+    { question: "How do you make numbers and data interesting in a presentation?", hint: "Use comparisons, stories, visuals: 'That's equivalent to...'", emoji: "🔢" },
+    { question: "Analyze a recent trend (social media usage, climate change, etc.) using data.", hint: "Describe the trend, give causes, predict the future.", emoji: "🔮" },
+  ],
+  "speaking-18": [
+    { question: "Tell a story using reported speech: 'She said that...', 'He told me...'", hint: "Remember tense changes: 'I am' → 'she was', 'I will' → 'she would'.", emoji: "🗣️" },
+    { question: "Report a conversation you had recently. Use indirect speech accurately.", hint: "Use reporting verbs: said, told, asked, explained, mentioned.", emoji: "📰" },
+    { question: "Practice gossiping politely: Report what someone told you without being rude.", hint: "Use hedging: 'Apparently...', 'I heard that...', 'Someone mentioned...'", emoji: "🤫" },
+    { question: "How does reported speech change in formal vs. informal settings?", hint: "Formal: full reported speech. Informal: 'She's like... and I'm like...'", emoji: "🎭" },
+  ],
+  "speaking-19": [
+    { question: "Lead a group discussion about a controversial topic. Keep everyone involved.", hint: "Use: 'What do you think, [name]?', 'Let's hear another perspective.'", emoji: "👥" },
+    { question: "How do you politely interrupt someone in a conversation?", hint: "Use: 'Sorry to interrupt, but...', 'Can I add something?', 'If I may...'", emoji: "✋" },
+    { question: "Practice turn-taking in a conversation about weekend plans.", hint: "Skills: active listening, building on others' ideas, asking follow-ups.", emoji: "🔄" },
+    { question: "How do you keep a conversation going when it starts to die?", hint: "Techniques: ask open questions, share related stories, change topics smoothly.", emoji: "💬" },
+  ],
+  "speaking-20": [
+    { question: "Give a 3-minute impromptu speech on a random topic chosen by your classmate.", hint: "Structure quickly: state opinion → 2 reasons → example → conclusion.", emoji: "🎤" },
+    { question: "Reflect on your speaking journey: How have you improved since lesson 1?", hint: "Compare: confidence, fluency, vocabulary range, pronunciation.", emoji: "📈" },
+    { question: "What advice would you give to someone just starting to learn English speaking?", hint: "Share your top 5 tips based on personal experience.", emoji: "💡" },
+    { question: "Create a 1-minute speech about why communication skills matter in the modern world.", hint: "Include: career benefits, relationships, global citizenship.", emoji: "🌟" },
+  ],
+
+  // Listening 11-20
+  "listening-11": [
+    { question: "What strategies do you use to understand fast speakers in English?", hint: "Think about: focus on key words, context clues, don't try to catch every word.", emoji: "⚡" },
+    { question: "How do you differentiate between similar-sounding words in fast speech?", hint: "Use context: 'I need to buy/by the store' — context tells you which.", emoji: "🔍" },
+    { question: "Practice listening to a podcast at 1.25x speed. What did you understand?", hint: "Start slow, increase speed gradually as your ear adjusts.", emoji: "🎧" },
+    { question: "Why do native speakers seem to 'eat' words? Give examples.", hint: "Connected speech: 'going to' → 'gonna', 'want to' → 'wanna'.", emoji: "🗣️" },
+  ],
+  "listening-12": [
+    { question: "Listen to a song in English. Can you identify the main message?", hint: "Focus on the chorus — it usually contains the main theme.", emoji: "🎵" },
+    { question: "How do songs help with listening comprehension? What are the limitations?", hint: "Pros: rhythm, repetition. Cons: poetic language, unclear pronunciation.", emoji: "🎶" },
+    { question: "Choose a song and write down as many lyrics as you can hear. Check your accuracy.", hint: "This is called a 'dictation exercise' — great for ear training!", emoji: "✏️" },
+    { question: "What genres of English music do you enjoy? How do they help your English?", hint: "Different genres teach different vocabulary and speech patterns.", emoji: "🎸" },
+  ],
+  "listening-13": [
+    { question: "Watch a short news clip. Identify: Who? What? When? Where? Why?", hint: "News follows the '5W' structure — listen for these key details.", emoji: "📺" },
+    { question: "How is the language in news broadcasts different from everyday conversation?", hint: "News: formal, passive voice, reported speech. Conversation: informal, active.", emoji: "📰" },
+    { question: "Summarize a news story you heard today in your own words.", hint: "Keep it brief: main event → key details → significance.", emoji: "📝" },
+    { question: "What challenges do you face when listening to English news? How do you overcome them?", hint: "Common issues: speed, vocabulary, background knowledge.", emoji: "💪" },
+  ],
+  "listening-14": [
+    { question: "How do you understand humor in English? What makes English jokes difficult?", hint: "Humor relies on: wordplay, cultural references, timing, sarcasm.", emoji: "😂" },
+    { question: "Watch a comedy clip in English. What made it funny? Did you catch the punchline?", hint: "Pay attention to: setup, build-up, unexpected twist.", emoji: "🎭" },
+    { question: "Why is sarcasm hard to detect in English? Give examples.", hint: "Sarcasm uses opposite meaning: 'Oh great!' (meaning terrible).", emoji: "🙄" },
+    { question: "Tell a joke in English. Was the timing and delivery effective?", hint: "Jokes need: clear setup, pause before punchline, confident delivery.", emoji: "🤣" },
+  ],
+  "listening-15": [
+    { question: "Listen to a TED Talk for 5 minutes. What was the speaker's main argument?", hint: "TED Talks have a clear structure: hook → problem → solution → call to action.", emoji: "🎙️" },
+    { question: "How do great speakers use pauses and emphasis to make their message clearer?", hint: "Pauses create anticipation; emphasis highlights key words.", emoji: "⏸️" },
+    { question: "What note-taking method works best for lectures? Try Cornell Notes.", hint: "Cornell: divide paper into notes, cues, and summary sections.", emoji: "📋" },
+    { question: "Practice listening to an academic lecture. Identify the thesis and supporting points.", hint: "Listen for signposts: 'My main point is...', 'Furthermore...'", emoji: "🎓" },
+  ],
+  "listening-16": [
+    { question: "How do you understand phone calls in English when you can't see the speaker?", hint: "Focus on: tone, key words, ask for repetition when needed.", emoji: "📱" },
+    { question: "Practice taking a message during a phone call. What information do you need?", hint: "Get: caller's name, number, reason for calling, action needed.", emoji: "📞" },
+    { question: "What makes phone conversations harder than face-to-face? How do you cope?", hint: "No body language, possible bad connection, can't lip-read.", emoji: "🤔" },
+    { question: "Role-play: Call to make a reservation. Focus on listening to the options given.", hint: "Listen for: dates, times, availability, special requirements.", emoji: "📅" },
+  ],
+  "listening-17": [
+    { question: "Watch a movie scene without subtitles. How much did you understand?", hint: "Focus on: visual context, character emotions, key phrases.", emoji: "🎬" },
+    { question: "How do movies and TV shows differ in the type of English they use?", hint: "Movies: scripted, clear. TV: more casual, faster, more slang.", emoji: "📺" },
+    { question: "What's easier to understand: movies or documentaries? Why?", hint: "Documentaries: clearer speech, academic vocab. Movies: slang, fast dialogue.", emoji: "🎥" },
+    { question: "Practice: Watch a scene, then retell what happened to a partner.", hint: "Include: setting, characters, main events, dialogue highlights.", emoji: "🗣️" },
+  ],
+  "listening-18": [
+    { question: "Listen to a debate or argument. Identify each side's main points.", hint: "Listen for: claims, evidence, counterarguments, conclusions.", emoji: "⚖️" },
+    { question: "How can you tell which speaker has a stronger argument?", hint: "Stronger arguments have: evidence, logic, acknowledgment of other views.", emoji: "💪" },
+    { question: "Practice listening for persuasion techniques in advertisements.", hint: "Watch for: emotional appeals, celebrity endorsement, statistics.", emoji: "📢" },
+    { question: "Summarize both sides of a debate you listened to. Which side do you agree with?", hint: "Be fair: present both sides accurately before sharing your opinion.", emoji: "🤝" },
+  ],
+  "listening-19": [
+    { question: "Listen to different English accents (Scottish, Australian, Indian). Rate your understanding.", hint: "Exposure is key — the more you listen, the easier it gets.", emoji: "🌐" },
+    { question: "Which English accent is hardest for you to understand? How can you improve?", hint: "Find podcasts, YouTubers, or shows with that accent.", emoji: "🎧" },
+    { question: "How do regional accents within the US or UK differ from standard accents?", hint: "Think about: Southern US, Cockney, Scottish, New York.", emoji: "🗺️" },
+    { question: "Why is it important to understand multiple accents in today's global world?", hint: "Business, travel, media — English is spoken worldwide with many accents.", emoji: "🌍" },
+  ],
+  "listening-20": [
+    { question: "Reflect on your listening journey. What was your biggest breakthrough moment?", hint: "Think about: a time you suddenly understood something you couldn't before.", emoji: "🎉" },
+    { question: "Create a personalized listening practice plan for the next 30 days.", hint: "Include: daily minutes, content types, specific goals, progress tracking.", emoji: "📅" },
+    { question: "What resources (apps, websites, podcasts) have helped your listening the most?", hint: "Share specific names and explain why they're effective.", emoji: "📱" },
+    { question: "Listen to a 5-minute audio and write a complete summary. How accurate were you?", hint: "Compare your summary with the original — note what you missed.", emoji: "📝" },
+  ],
 };
 
 /** Get discussion prompts for a lesson key (e.g., "speaking-1") */
