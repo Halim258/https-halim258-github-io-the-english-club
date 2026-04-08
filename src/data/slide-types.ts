@@ -67,9 +67,9 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   });
 
-  // 3. Dialogue slides (max 5 lines per slide)
+  // 3. Dialogue slides (max 4 lines per slide)
   if (lesson.dialogue.length > 0) {
-    const dialogueChunks = chunkArray(lesson.dialogue, 5);
+    const dialogueChunks = chunkArray(lesson.dialogue, 4);
     dialogueChunks.forEach((chunk, i) => {
       slides.push({
         id: id(n++),
