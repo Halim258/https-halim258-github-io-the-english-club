@@ -450,7 +450,7 @@ export default function LessonPage() {
         if (isCommunication && prompts && prompts.length > 0) {
           // Show discussion prompts for communication courses
           const promptCards = prompts.map((p, i) => (
-            <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} />
+            <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} levelId={lesson.levelId} lessonNumber={lesson.lessonNumber} userId={user?.id ?? null} />
           ));
           const exerciseCards = lesson.conversationExercises.map((q, i) => (
             <MCQCard key={`ce-${i}`} item={q} />
