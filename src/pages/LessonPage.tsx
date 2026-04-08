@@ -266,8 +266,9 @@ function SpeakingCard({ lesson, speak, speaking }: { lesson: typeof lessons[stri
 }
 
 /* ───── Discussion Prompt Card ───── */
-function DiscussionPromptCard({ prompt, index, levelId, lessonNumber, userId }: { 
+function DiscussionPromptCard({ prompt, index, levelId, lessonNumber, userId, speak, speaking }: { 
   prompt: DiscussionPrompt; index: number; levelId: string; lessonNumber: number; userId: string | null;
+  speak: (t: string) => void; speaking: boolean;
 }) {
   const [showHint, setShowHint] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
@@ -317,11 +318,14 @@ function DiscussionPromptCard({ prompt, index, levelId, lessonNumber, userId }: 
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div className="w-full max-w-sm rounded-2xl border-2 border-primary/20 bg-card p-6 shadow-lg">
-        <div className="flex items-center gap-2 mb-3">
-          <span className="text-3xl">{prompt.emoji}</span>
-          <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
-            Question {index + 1}
-          </span>
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <span className="text-3xl">{prompt.emoji}</span>
+            <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
+              Question {index + 1}
+            </span>
+          </div>
+          <AudioButton text={prompt.question} speak={speak} speaking={speaking} />
         </div>
         <p className="text-lg font-semibold text-foreground mb-4 font-sans leading-relaxed">{prompt.question}</p>
         
@@ -450,7 +454,7 @@ export default function LessonPage() {
         if (isCommunication && prompts && prompts.length > 0) {
           // Show discussion prompts for communication courses
           const promptCards = prompts.map((p, i) => (
-            <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} levelId={lesson.levelId} lessonNumber={lesson.lessonNumber} userId={user?.id ?? null} />
+            <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} levelId={lesson.levelId} lessonNumber={lesson.lessonNumber} userId={user?.id ?? null} speak={speak} speaking={speaking} />
           ));
           const exerciseCards = lesson.conversationExercises.map((q, i) => (
             <MCQCard key={`ce-${i}`} item={q} />
