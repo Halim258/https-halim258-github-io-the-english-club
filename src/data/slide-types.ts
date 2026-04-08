@@ -75,8 +75,25 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   });
 
-  // 3. Dialogue slides (max 4 lines per slide)
-  if (lesson.dialogue.length > 0) {
+  // 3. For conversation courses: discussion questions instead of dialogue
+  const isConversation = lesson.levelId === "conversation";
+  if (isConversation) {
+    // Generate discussion questions from the dialogue
+    const discussionQuestions = generateDiscussionFromDialogue(lesson);
+    const discussionChunks = chunkArray(discussionQuestions, 3);
+    discussionChunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "discussion",
+        title: "Discussion Questions",
+        subtitle: discussionChunks.length > 1 ? `Part ${i + 1} of ${discussionChunks.length}` : undefined,
+        emoji: "💭",
+        bgColor: "from-emerald-500/10 to-emerald-500/5",
+        content: { kind: "discussion", questions: chunk },
+      });
+    });
+  } else if (lesson.dialogue.length > 0) {
+    // Standard dialogue slides
     const dialogueChunks = chunkArray(lesson.dialogue, 4);
     dialogueChunks.forEach((chunk, i) => {
       slides.push({
