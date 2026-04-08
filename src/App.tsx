@@ -12,6 +12,7 @@ import FMRadio from "./pages/FMRadio";
 import SlideLesson from "./pages/SlideLesson";
 import PracticeSpeaking from "./pages/PracticeSpeaking";
 import Teachers from "./pages/Teachers";
+import Groups from "./pages/Groups";
 import PlacementTest from "./pages/PlacementTest";
 import StudentDashboard from "./pages/StudentDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -56,6 +57,7 @@ const App = () => (
             <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />
             <Route path="/practice" element={<ProtectedRoute><PracticeSpeaking /></ProtectedRoute>} />
             <Route path="/teachers" element={<Teachers />} />
+            <Route path="/groups" element={<Groups />} />
             <Route path="/placement-test" element={<PlacementTest />} />
             <Route path="/dictionary" element={<ProtectedRoute><Dictionary /></ProtectedRoute>} />
             <Route path="/flashcards" element={<ProtectedRoute><Flashcards /></ProtectedRoute>} />

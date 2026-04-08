@@ -228,6 +228,47 @@ export type Database = {
         }
         Relationships: []
       }
+      group_enrollments: {
+        Row: {
+          created_at: string
+          group_id: string
+          id: string
+          status: string
+          student_email: string | null
+          student_name: string
+          student_phone: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          group_id: string
+          id?: string
+          status?: string
+          student_email?: string | null
+          student_name: string
+          student_phone?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          group_id?: string
+          id?: string
+          status?: string
+          student_email?: string | null
+          student_name?: string
+          student_phone?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "group_enrollments_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "school_groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       lesson_progress: {
         Row: {
           completed: boolean
@@ -420,38 +461,53 @@ export type Database = {
         Row: {
           created_at: string | null
           days: string | null
+          description: string | null
           end_time: string | null
           group_time: string | null
           id: string
+          is_public: boolean
           legacy_id: number | null
           level: string | null
+          max_students: number | null
           start_date: string | null
           start_time: string | null
+          teacher_email: string | null
           teacher_id: number | null
+          teacher_name: string | null
         }
         Insert: {
           created_at?: string | null
           days?: string | null
+          description?: string | null
           end_time?: string | null
           group_time?: string | null
           id?: string
+          is_public?: boolean
           legacy_id?: number | null
           level?: string | null
+          max_students?: number | null
           start_date?: string | null
           start_time?: string | null
+          teacher_email?: string | null
           teacher_id?: number | null
+          teacher_name?: string | null
         }
         Update: {
           created_at?: string | null
           days?: string | null
+          description?: string | null
           end_time?: string | null
           group_time?: string | null
           id?: string
+          is_public?: boolean
           legacy_id?: number | null
           level?: string | null
+          max_students?: number | null
           start_date?: string | null
           start_time?: string | null
+          teacher_email?: string | null
           teacher_id?: number | null
+          teacher_name?: string | null
         }
         Relationships: []
       }
