@@ -26,6 +26,8 @@ import KidsCourse from "./pages/KidsCourse";
 import StoriesCourse from "./pages/StoriesCourse";
 import MoviesCourse from "./pages/MoviesCourse";
 import KidsGameCenter from "./pages/KidsGameCenter";
+import StorySlideLesson from "./pages/StorySlideLesson";
+import MovieSlideLesson from "./pages/MovieSlideLesson";
 import Dictionary from "./pages/Dictionary";
 import Flashcards from "./pages/Flashcards";
 import AIChatTutor from "./pages/AIChatTutor";
