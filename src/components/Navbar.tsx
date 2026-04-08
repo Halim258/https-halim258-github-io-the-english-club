@@ -185,7 +185,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop auth buttons */}
-        <div className="hidden items-center gap-1.5 md:flex">
+        <div className="hidden items-center gap-1.5 lg:flex">
           <StudyReminder />
           <motion.button
             onClick={() => setDark(!dark)}
@@ -241,7 +241,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <motion.button
-          className="md:hidden p-2 text-foreground rounded-lg hover:bg-muted/50 transition-colors"
+          className="lg:hidden p-2 text-foreground rounded-lg hover:bg-muted/50 transition-colors"
           onClick={() => setOpen(!open)}
           whileTap={{ scale: 0.9 }}
         >
@@ -267,10 +267,10 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            className="overflow-hidden border-t bg-card/95 backdrop-blur-xl md:hidden"
+            className="overflow-hidden border-t bg-card/95 backdrop-blur-xl lg:hidden"
           >
             <div className="p-4 flex flex-col gap-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
-              {navLinks.map((l, i) => (
+              {allNavLinks.map((l, i) => (
                 <motion.div
                   key={l.to}
                   initial={{ opacity: 0, x: -16 }}
