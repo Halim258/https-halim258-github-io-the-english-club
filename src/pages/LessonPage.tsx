@@ -396,6 +396,7 @@ export default function LessonPage() {
   const lesson = lessons[key];
   const { speak, stop, speaking } = useTTS();
   const { markComplete } = useLessonProgress();
+  const { user } = useAuth();
 
   const [activeTab, setActiveTab] = useState<TabId>("vocabulary");
   const [cardIndex, setCardIndex] = useState(0);
