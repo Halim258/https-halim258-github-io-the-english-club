@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy } from "lucide-react";
+import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy, MessageCircle } from "lucide-react";
 import { lessons, MCQItem, VocabWord, DialogueLine } from "@/data/lessons";
 import { useTTS } from "@/hooks/useTTS";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
+import { getDiscussionPrompts, isCommunicationCourse, DiscussionPrompt } from "@/data/discussion-prompts";
 
 /* ───── Fullscreen no-scroll shell ───── */
 const Shell = ({ children }: { children: React.ReactNode }) => (
@@ -261,6 +262,48 @@ function SpeakingCard({ lesson, speak, speaking }: { lesson: typeof lessons[stri
   );
 }
 
+/* ───── Discussion Prompt Card ───── */
+function DiscussionPromptCard({ prompt, index }: { prompt: DiscussionPrompt; index: number }) {
+  const [showHint, setShowHint] = useState(false);
+  const [userAnswer, setUserAnswer] = useState("");
+
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-sm rounded-2xl border-2 border-primary/20 bg-card p-6 shadow-lg">
+        <div className="flex items-center gap-2 mb-3">
+          <span className="text-3xl">{prompt.emoji}</span>
+          <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-primary">
+            Question {index + 1}
+          </span>
+        </div>
+        <p className="text-lg font-semibold text-foreground mb-4 font-sans leading-relaxed">{prompt.question}</p>
+        
+        <textarea
+          className="w-full rounded-xl border-2 border-border bg-muted/30 p-3 text-sm font-sans resize-none focus:border-primary/40 focus:outline-none transition-colors"
+          rows={3}
+          placeholder="Type your answer here..."
+          value={userAnswer}
+          onChange={(e) => setUserAnswer(e.target.value)}
+        />
+
+        <button
+          onClick={() => setShowHint(!showHint)}
+          className="mt-3 flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-sans font-medium"
+        >
+          <MessageCircle className="h-3.5 w-3.5" />
+          {showHint ? "Hide hint" : "Show hint"}
+        </button>
+
+        {showHint && (
+          <div className="mt-2 rounded-lg bg-primary/5 border border-primary/10 px-3 py-2">
+            <p className="text-sm text-muted-foreground font-sans italic">{prompt.hint}</p>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /* ───── Section title card ───── */
 function SectionTitleCard({ title, icon }: { title: string; icon: string }) {
   return (
@@ -276,7 +319,7 @@ function SectionTitleCard({ title, icon }: { title: string; icon: string }) {
 /* ───── Tab selector ───── */
 const TABS = [
   { id: "vocabulary", label: "Vocabulary", icon: "📚" },
-  { id: "conversation", label: "Conversation", icon: "💬" },
+  { id: "conversation", label: "Conversation", altLabel: "Discussion", icon: "💬", altIcon: "🗣️" },
   { id: "grammar", label: "Grammar", icon: "📐" },
   { id: "speaking", label: "Speaking", icon: "🗣️" },
   { id: "exam", label: "Exam", icon: "📝" },
@@ -339,6 +382,27 @@ export default function LessonPage() {
         ];
       }
       case "conversation": {
+        const lessonKey = `${lesson.levelId}-${lesson.lessonNumber}`;
+        const prompts = getDiscussionPrompts(lessonKey);
+        const isCommunication = isCommunicationCourse(lesson.levelId);
+
+        if (isCommunication && prompts && prompts.length > 0) {
+          // Show discussion prompts for communication courses
+          const promptCards = prompts.map((p, i) => (
+            <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} />
+          ));
+          const exerciseCards = lesson.conversationExercises.map((q, i) => (
+            <MCQCard key={`ce-${i}`} item={q} />
+          ));
+          return [
+            <SectionTitleCard key="title" title="Discussion Questions" icon="🗣️" />,
+            ...promptCards,
+            <SectionTitleCard key="ex-title" title="Practice Questions" icon="✏️" />,
+            ...exerciseCards,
+          ];
+        }
+
+        // Default dialogue cards for non-communication courses
         const dialogueCards = lesson.dialogue.map((line, i) => (
           <DialogueCard key={`d-${i}`} line={line} index={i} speak={speak} speaking={speaking} />
         ));
@@ -428,19 +492,24 @@ export default function LessonPage() {
 
       {/* Tab pills */}
       <div className="flex gap-1 overflow-x-auto px-3 py-2 bg-muted/50 border-b">
-        {TABS.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => switchTab(tab.id)}
-            className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-colors font-sans ${
-              activeTab === tab.id
-                ? "bg-primary text-primary-foreground"
-                : "bg-card text-muted-foreground hover:text-foreground border"
-            }`}
-          >
-            <span>{tab.icon}</span> {tab.label}
-          </button>
-        ))}
+        {TABS.map((tab) => {
+          const isCommunication = isCommunicationCourse(lesson.levelId);
+          const displayLabel = tab.id === "conversation" && isCommunication && "altLabel" in tab ? tab.altLabel : tab.label;
+          const displayIcon = tab.id === "conversation" && isCommunication && "altIcon" in tab ? tab.altIcon : tab.icon;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => switchTab(tab.id)}
+              className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-colors font-sans ${
+                activeTab === tab.id
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-card text-muted-foreground hover:text-foreground border"
+              }`}
+            >
+              <span>{displayIcon}</span> {displayLabel}
+            </button>
+          );
+        })}
       </div>
 
       {/* Progress */}
