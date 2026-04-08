@@ -382,6 +382,27 @@ export default function LessonPage() {
         ];
       }
       case "conversation": {
+        const lessonKey = `${lesson.levelId}-${lesson.lessonNumber}`;
+        const prompts = getDiscussionPrompts(lessonKey);
+        const isCommunication = isCommunicationCourse(lesson.levelId);
+
+        if (isCommunication && prompts && prompts.length > 0) {
+          // Show discussion prompts for communication courses
+          const promptCards = prompts.map((p, i) => (
+            <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} />
+          ));
+          const exerciseCards = lesson.conversationExercises.map((q, i) => (
+            <MCQCard key={`ce-${i}`} item={q} />
+          ));
+          return [
+            <SectionTitleCard key="title" title="Discussion Questions" icon="🗣️" />,
+            ...promptCards,
+            <SectionTitleCard key="ex-title" title="Practice Questions" icon="✏️" />,
+            ...exerciseCards,
+          ];
+        }
+
+        // Default dialogue cards for non-communication courses
         const dialogueCards = lesson.dialogue.map((line, i) => (
           <DialogueCard key={`d-${i}`} line={line} index={i} speak={speak} speaking={speaking} />
         ));
