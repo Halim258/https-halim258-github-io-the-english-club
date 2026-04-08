@@ -226,6 +226,22 @@ export default function Courses() {
       news: "English through News",
       legal: "Legal English",
       hospitality: "Hospitality English",
+      conversation: "Conversation Practice",
+      "social-media": "English for Social Media",
+      healthcare: "English for Healthcare",
+      finance: "English for Finance",
+      aviation: "English for Aviation",
+      "reading-comp": "Reading Comprehension",
+      "vocab-build": "Vocabulary Building",
+      idioms: "Idioms & Expressions",
+      phrasal: "Phrasal Verbs Course",
+      "real-life": "Real-life Conversation Practice",
+      slang: "Slang & Everyday English",
+      travel: "English for Travel",
+      teens: "English for Teenagers",
+      medical: "Medical English",
+      engineering: "Engineering English",
+      "it-english": "IT English",
     };
     if (specializedLevelLabels[levelId]) {
       return <LevelLessons levelId={levelId} levelLabel={specializedLevelLabels[levelId]} />;
