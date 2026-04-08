@@ -236,6 +236,40 @@ export function generateSlides(lesson: LessonData): Slide[] {
   return slides;
 }
 
+/* ── Generate discussion questions from dialogue ── */
+function generateDiscussionFromDialogue(lesson: LessonData): { question: string; modelAnswer: string; emoji: string }[] {
+  const questions: { question: string; modelAnswer: string; emoji: string }[] = [];
+  const emojis = ["🤔", "💬", "🗣️", "🎯", "💡", "🌟", "📌", "🧠"];
+
+  // Create questions from dialogue pairs
+  for (let i = 0; i < lesson.dialogue.length - 1; i += 2) {
+    const q = lesson.dialogue[i];
+    const a = lesson.dialogue[i + 1];
+    if (q && a) {
+      questions.push({
+        question: `How would you respond if someone said: "${q.text}"`,
+        modelAnswer: a.text,
+        emoji: emojis[questions.length % emojis.length],
+      });
+    }
+  }
+
+  // Add topic-based open questions
+  questions.push({
+    question: `What would you say to start a conversation about "${lesson.title.toLowerCase()}"?`,
+    modelAnswer: lesson.dialogue[0]?.text || "Start with a friendly greeting and introduce the topic naturally.",
+    emoji: "🚀",
+  });
+
+  questions.push({
+    question: `How would you politely end a conversation about "${lesson.title.toLowerCase()}"?`,
+    modelAnswer: `It was great talking about this! ${lesson.dialogue[lesson.dialogue.length - 1]?.text || "Let's continue next time."}`,
+    emoji: "👋",
+  });
+
+  return questions;
+}
+
 function chunkArray<T>(arr: T[], size: number): T[][] {
   const chunks: T[][] = [];
   for (let i = 0; i < arr.length; i += size) {
