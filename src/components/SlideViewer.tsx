@@ -435,7 +435,7 @@ function DialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }
   };
 
   return (
-    <div className="space-y-3 max-w-lg mx-auto">
+    <div className="space-y-2 max-w-lg mx-auto">
       {/* Scene header with characters */}
       <div className="flex items-center justify-between mb-4 pb-3 border-b border-border/50">
         <div className="flex items-center gap-3">
