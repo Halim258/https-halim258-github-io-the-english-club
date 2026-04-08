@@ -156,6 +156,42 @@ export type Database = {
         }
         Relationships: []
       }
+      discussion_answers: {
+        Row: {
+          answer_text: string
+          created_at: string
+          id: string
+          lesson_number: number
+          level_id: string
+          question_index: number
+          question_text: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          answer_text: string
+          created_at?: string
+          id?: string
+          lesson_number: number
+          level_id: string
+          question_index: number
+          question_text: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          answer_text?: string
+          created_at?: string
+          id?: string
+          lesson_number?: number
+          level_id?: string
+          question_index?: number
+          question_text?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       flashcard_progress: {
         Row: {
           created_at: string

@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy, MessageCircle } from "lucide-react";
+import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy, MessageCircle, Save, Loader2 } from "lucide-react";
 import { lessons, MCQItem, VocabWord, DialogueLine } from "@/data/lessons";
 import { useTTS } from "@/hooks/useTTS";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { getDiscussionPrompts, isCommunicationCourse, DiscussionPrompt } from "@/data/discussion-prompts";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
+import { toast } from "@/hooks/use-toast";
 
 /* ───── Fullscreen no-scroll shell ───── */
 const Shell = ({ children }: { children: React.ReactNode }) => (
@@ -263,9 +266,53 @@ function SpeakingCard({ lesson, speak, speaking }: { lesson: typeof lessons[stri
 }
 
 /* ───── Discussion Prompt Card ───── */
-function DiscussionPromptCard({ prompt, index }: { prompt: DiscussionPrompt; index: number }) {
+function DiscussionPromptCard({ prompt, index, levelId, lessonNumber, userId }: { 
+  prompt: DiscussionPrompt; index: number; levelId: string; lessonNumber: number; userId: string | null;
+}) {
   const [showHint, setShowHint] = useState(false);
   const [userAnswer, setUserAnswer] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  // Load existing answer
+  useEffect(() => {
+    if (!userId) return;
+    supabase
+      .from("discussion_answers")
+      .select("answer_text")
+      .eq("user_id", userId)
+      .eq("level_id", levelId)
+      .eq("lesson_number", lessonNumber)
+      .eq("question_index", index)
+      .maybeSingle()
+      .then(({ data }) => {
+        if (data?.answer_text) {
+          setUserAnswer(data.answer_text);
+          setSaved(true);
+        }
+      });
+  }, [userId, levelId, lessonNumber, index]);
+
+  const handleSave = async () => {
+    if (!userId || !userAnswer.trim()) return;
+    setSaving(true);
+    const { error } = await supabase.from("discussion_answers").upsert({
+      user_id: userId,
+      level_id: levelId,
+      lesson_number: lessonNumber,
+      question_index: index,
+      question_text: prompt.question,
+      answer_text: userAnswer.trim(),
+      updated_at: new Date().toISOString(),
+    }, { onConflict: "user_id,level_id,lesson_number,question_index" });
+    setSaving(false);
+    if (error) {
+      toast({ title: "Error saving", description: error.message, variant: "destructive" });
+    } else {
+      setSaved(true);
+      toast({ title: "Answer saved! ✅" });
+    }
+  };
 
   return (
     <div className="flex flex-1 items-center justify-center px-4">
@@ -283,16 +330,29 @@ function DiscussionPromptCard({ prompt, index }: { prompt: DiscussionPrompt; ind
           rows={3}
           placeholder="Type your answer here..."
           value={userAnswer}
-          onChange={(e) => setUserAnswer(e.target.value)}
+          onChange={(e) => { setUserAnswer(e.target.value); setSaved(false); }}
         />
 
-        <button
-          onClick={() => setShowHint(!showHint)}
-          className="mt-3 flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-sans font-medium"
-        >
-          <MessageCircle className="h-3.5 w-3.5" />
-          {showHint ? "Hide hint" : "Show hint"}
-        </button>
+        <div className="flex items-center justify-between mt-3">
+          <button
+            onClick={() => setShowHint(!showHint)}
+            className="flex items-center gap-1.5 text-xs text-primary hover:text-primary/80 transition-colors font-sans font-medium"
+          >
+            <MessageCircle className="h-3.5 w-3.5" />
+            {showHint ? "Hide hint" : "Show hint"}
+          </button>
+
+          {userId && (
+            <button
+              onClick={handleSave}
+              disabled={saving || !userAnswer.trim() || saved}
+              className="flex items-center gap-1.5 text-xs font-sans font-medium rounded-full px-3 py-1.5 transition-colors disabled:opacity-50 bg-primary/10 text-primary hover:bg-primary/20"
+            >
+              {saving ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : saved ? <CheckCircle2 className="h-3.5 w-3.5" /> : <Save className="h-3.5 w-3.5" />}
+              {saving ? "Saving..." : saved ? "Saved" : "Save"}
+            </button>
+          )}
+        </div>
 
         {showHint && (
           <div className="mt-2 rounded-lg bg-primary/5 border border-primary/10 px-3 py-2">
@@ -336,6 +396,7 @@ export default function LessonPage() {
   const lesson = lessons[key];
   const { speak, stop, speaking } = useTTS();
   const { markComplete } = useLessonProgress();
+  const { user } = useAuth();
 
   const [activeTab, setActiveTab] = useState<TabId>("vocabulary");
   const [cardIndex, setCardIndex] = useState(0);
@@ -389,7 +450,7 @@ export default function LessonPage() {
         if (isCommunication && prompts && prompts.length > 0) {
           // Show discussion prompts for communication courses
           const promptCards = prompts.map((p, i) => (
-            <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} />
+            <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} levelId={lesson.levelId} lessonNumber={lesson.lessonNumber} userId={user?.id ?? null} />
           ));
           const exerciseCards = lesson.conversationExercises.map((q, i) => (
             <MCQCard key={`ce-${i}`} item={q} />
