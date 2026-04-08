@@ -57,6 +57,7 @@ const App = () => (
             <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />
             <Route path="/practice" element={<ProtectedRoute><PracticeSpeaking /></ProtectedRoute>} />
             <Route path="/teachers" element={<Teachers />} />
+            <Route path="/groups" element={<Groups />} />
             <Route path="/placement-test" element={<PlacementTest />} />
             <Route path="/dictionary" element={<ProtectedRoute><Dictionary /></ProtectedRoute>} />
             <Route path="/flashcards" element={<ProtectedRoute><Flashcards /></ProtectedRoute>} />
