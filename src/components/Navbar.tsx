@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Menu, X, Moon, Sun, User, LogOut, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -9,18 +9,23 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.jpg";
 
-const navLinks = [
+const primaryLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
   { to: "/dictionary", label: "Dictionary" },
   { to: "/flashcards", label: "Flashcards" },
   { to: "/ai-tutor", label: "AI Tutor" },
   { to: "/community", label: "Community" },
-  { to: "/leaderboard", label: "Leaderboard" },
-  { to: "/pronunciation", label: "🎙️" },
-  { to: "/placement-test", label: "Test" },
-  { to: "/fm", label: "FM" },
 ];
+
+const moreLinks = [
+  { to: "/leaderboard", label: "Leaderboard" },
+  { to: "/pronunciation", label: "🎙️ Pronunciation" },
+  { to: "/placement-test", label: "📝 Placement Test" },
+  { to: "/fm", label: "📻 FM Radio" },
+];
+
+const allNavLinks = [...primaryLinks, ...moreLinks];
 
 const homeSections = [
   { id: "gallery", label: "Gallery" },
@@ -31,8 +36,10 @@ const homeSections = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [moreOpen, setMoreOpen] = useState(false);
   const [dark, setDark] = useState(() => document.documentElement.classList.contains("dark"));
   const [scrolled, setScrolled] = useState(false);
+  const moreRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
@@ -57,8 +64,17 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => { setOpen(false); }, [location.pathname]);
+  // Close menus on route change
+  useEffect(() => { setOpen(false); setMoreOpen(false); }, [location.pathname]);
+
+  // Close "More" dropdown on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (moreRef.current && !moreRef.current.contains(e.target as Node)) setMoreOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
   const scrollToSection = useCallback((id: string) => {
     setOpen(false);
@@ -91,14 +107,14 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden items-center gap-0.5 md:flex">
-          {navLinks.map((l) => {
+        <div className="hidden items-center gap-0.5 lg:flex">
+          {primaryLinks.map((l) => {
             const isActive = location.pathname === l.to;
             return (
               <Link
                 key={l.to}
                 to={l.to}
-                className="relative rounded-full px-3.5 py-2 text-sm font-medium transition-all duration-200 group"
+                className="relative rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 group"
               >
                 <span className={isActive ? "text-primary font-semibold" : "text-muted-foreground group-hover:text-foreground"}>
                   {l.label}
@@ -113,22 +129,63 @@ export default function Navbar() {
               </Link>
             );
           })}
-          <div className="mx-1.5 h-4 w-px bg-border/60" />
-          <div className="flex items-center gap-0.5 rounded-full bg-muted/40 px-1 py-0.5">
-            {homeSections.map((s) => (
-              <button
-                key={s.id}
-                onClick={() => scrollToSection(s.id)}
-                className="rounded-full px-2.5 py-1 text-[11px] font-medium text-muted-foreground hover:text-foreground hover:bg-background/80 transition-all duration-200"
-              >
-                {s.label}
-              </button>
-            ))}
+
+          {/* More dropdown */}
+          <div className="relative" ref={moreRef}>
+            <button
+              onClick={() => setMoreOpen(!moreOpen)}
+              className={`relative flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
+                moreLinks.some(l => location.pathname === l.to) ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              More <ChevronDown className={`h-3.5 w-3.5 transition-transform ${moreOpen ? "rotate-180" : ""}`} />
+              {moreLinks.some(l => location.pathname === l.to) && (
+                <motion.div
+                  layoutId="nav-indicator"
+                  className="absolute inset-0 rounded-full bg-primary/8 border border-primary/15"
+                  transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+              )}
+            </button>
+            <AnimatePresence>
+              {moreOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute top-full right-0 mt-1 w-48 rounded-xl border bg-card shadow-lg py-1 z-50"
+                >
+                  {moreLinks.map((l) => (
+                    <Link
+                      key={l.to}
+                      to={l.to}
+                      onClick={() => setMoreOpen(false)}
+                      className={`block px-4 py-2.5 text-sm font-medium transition-colors ${
+                        location.pathname === l.to ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
+                      }`}
+                    >
+                      {l.label}
+                    </Link>
+                  ))}
+                  <hr className="my-1 border-border/60" />
+                  {homeSections.map((s) => (
+                    <button
+                      key={s.id}
+                      onClick={() => { setMoreOpen(false); scrollToSection(s.id); }}
+                      className="w-full text-left px-4 py-2 text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
+                    >
+                      {s.label}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
         {/* Desktop auth buttons */}
-        <div className="hidden items-center gap-1.5 md:flex">
+        <div className="hidden items-center gap-1.5 lg:flex">
           <StudyReminder />
           <motion.button
             onClick={() => setDark(!dark)}
@@ -184,7 +241,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <motion.button
-          className="md:hidden p-2 text-foreground rounded-lg hover:bg-muted/50 transition-colors"
+          className="lg:hidden p-2 text-foreground rounded-lg hover:bg-muted/50 transition-colors"
           onClick={() => setOpen(!open)}
           whileTap={{ scale: 0.9 }}
         >
@@ -210,10 +267,10 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            className="overflow-hidden border-t bg-card/95 backdrop-blur-xl md:hidden"
+            className="overflow-hidden border-t bg-card/95 backdrop-blur-xl lg:hidden"
           >
             <div className="p-4 flex flex-col gap-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
-              {navLinks.map((l, i) => (
+              {allNavLinks.map((l, i) => (
                 <motion.div
                   key={l.to}
                   initial={{ opacity: 0, x: -16 }}
