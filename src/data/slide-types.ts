@@ -11,7 +11,8 @@ export type SlideType =
   | "info"
   | "story-text"
   | "video"
-  | "expressions";
+  | "expressions"
+  | "discussion";
 
 export interface Slide {
   id: string;
@@ -34,7 +35,8 @@ export type SlideContent =
   | { kind: "info"; paragraphs: string[] }
   | { kind: "story-text"; text: string; moral?: string }
   | { kind: "video"; youtubeId: string; sceneContext: string; culturalNote?: string; movieTitle: string }
-  | { kind: "expressions"; items: { phrase: string; meaning: string; arabic: string; emoji: string }[] };
+  | { kind: "expressions"; items: { phrase: string; meaning: string; arabic: string; emoji: string }[] }
+  | { kind: "discussion"; questions: { question: string; modelAnswer: string; emoji: string }[] };
 
 /* ── Generate slides from lesson data ── */
 export function generateSlides(lesson: LessonData): Slide[] {
@@ -73,8 +75,25 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   });
 
-  // 3. Dialogue slides (max 4 lines per slide)
-  if (lesson.dialogue.length > 0) {
+  // 3. For conversation courses: discussion questions instead of dialogue
+  const isConversation = lesson.levelId === "conversation";
+  if (isConversation) {
+    // Generate discussion questions from the dialogue
+    const discussionQuestions = generateDiscussionFromDialogue(lesson);
+    const discussionChunks = chunkArray(discussionQuestions, 3);
+    discussionChunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "discussion",
+        title: "Discussion Questions",
+        subtitle: discussionChunks.length > 1 ? `Part ${i + 1} of ${discussionChunks.length}` : undefined,
+        emoji: "💭",
+        bgColor: "from-emerald-500/10 to-emerald-500/5",
+        content: { kind: "discussion", questions: chunk },
+      });
+    });
+  } else if (lesson.dialogue.length > 0) {
+    // Standard dialogue slides
     const dialogueChunks = chunkArray(lesson.dialogue, 4);
     dialogueChunks.forEach((chunk, i) => {
       slides.push({
@@ -215,6 +234,40 @@ export function generateSlides(lesson: LessonData): Slide[] {
   });
 
   return slides;
+}
+
+/* ── Generate discussion questions from dialogue ── */
+function generateDiscussionFromDialogue(lesson: LessonData): { question: string; modelAnswer: string; emoji: string }[] {
+  const questions: { question: string; modelAnswer: string; emoji: string }[] = [];
+  const emojis = ["🤔", "💬", "🗣️", "🎯", "💡", "🌟", "📌", "🧠"];
+
+  // Create questions from dialogue pairs
+  for (let i = 0; i < lesson.dialogue.length - 1; i += 2) {
+    const q = lesson.dialogue[i];
+    const a = lesson.dialogue[i + 1];
+    if (q && a) {
+      questions.push({
+        question: `How would you respond if someone said: "${q.text}"`,
+        modelAnswer: a.text,
+        emoji: emojis[questions.length % emojis.length],
+      });
+    }
+  }
+
+  // Add topic-based open questions
+  questions.push({
+    question: `What would you say to start a conversation about "${lesson.title.toLowerCase()}"?`,
+    modelAnswer: lesson.dialogue[0]?.text || "Start with a friendly greeting and introduce the topic naturally.",
+    emoji: "🚀",
+  });
+
+  questions.push({
+    question: `How would you politely end a conversation about "${lesson.title.toLowerCase()}"?`,
+    modelAnswer: `It was great talking about this! ${lesson.dialogue[lesson.dialogue.length - 1]?.text || "Let's continue next time."}`,
+    emoji: "👋",
+  });
+
+  return questions;
 }
 
 function chunkArray<T>(arr: T[], size: number): T[][] {
