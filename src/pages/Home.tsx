@@ -56,9 +56,9 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 }
 
 const audiences = [
-  { icon: "🎓", title: "Self-Learning Students", desc: "Study at your own pace", to: "/courses", tag: "Free" },
-  { icon: "🌍", title: "International Learners", desc: "Learn from anywhere", to: "/courses", tag: "Online" },
-  { icon: "👨‍🏫", title: "Learn with a Teacher", desc: "1-on-1 expert guidance", to: "/teachers", tag: "Premium" },
+  { image: audienceSelfLearning, title: "Self-Learning Students", desc: "Study at your own pace", to: "/courses", tag: "Free" },
+  { image: audienceInternational, title: "International Learners", desc: "Learn from anywhere", to: "/courses", tag: "Online" },
+  { image: audienceTeacher, title: "Learn with a Teacher", desc: "1-on-1 expert guidance", to: "/teachers", tag: "Premium" },
 ];
 
 const stats = [
@@ -121,12 +121,12 @@ const howItWorks = [
 ];
 
 const lessonIncludes = [
-  { icon: "📚", label: "Vocabulary", desc: "New words in context" },
-  { icon: "💬", label: "Conversation", desc: "Real dialogue practice" },
-  { icon: "📝", label: "Grammar", desc: "Rules & exercises" },
-  { icon: "🗣️", label: "Speaking", desc: "Pronunciation drills" },
-  { icon: "✅", label: "Exam", desc: "Level assessments" },
-  { icon: "📖", label: "Homework", desc: "Reinforce learning" },
+  { image: lessonVocabulary, label: "Vocabulary", desc: "New words in context" },
+  { image: lessonConversation, label: "Conversation", desc: "Real dialogue practice" },
+  { image: lessonGrammar, label: "Grammar", desc: "Rules & exercises" },
+  { image: lessonSpeaking, label: "Speaking", desc: "Pronunciation drills" },
+  { image: lessonExam, label: "Exam", desc: "Level assessments" },
+  { image: lessonHomework, label: "Homework", desc: "Reinforce learning" },
 ];
 
 const testimonials = [
