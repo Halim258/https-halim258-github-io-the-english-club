@@ -648,48 +648,52 @@ export default function Home() {
               Real words from real students — our community speaks for itself.
             </p>
           </FadeInUp>
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-60px" }}
-            className="grid gap-5 md:grid-cols-3"
-          >
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                variants={staggerItem}
-                whileHover={{ y: -6, scale: 1.01 }}
-                className="rounded-2xl border bg-card p-7 shadow-soft transition-shadow hover:shadow-elevated duration-300 relative overflow-hidden group"
-              >
-                {/* Quote accent bar */}
-                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
-                <div className="flex gap-1 mb-5">
-                  {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="h-4 w-4 fill-accent text-accent" />
-                  ))}
-                </div>
-                <Quote className="h-8 w-8 text-primary/10 mb-3" />
-                <p className="text-sm text-muted-foreground leading-relaxed italic relative z-10">
-                  "{t.quote}"
-                </p>
-                <div className="mt-6 flex items-center gap-3 pt-4 border-t">
-                  <motion.div
-                    className="h-11 w-11 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center"
-                    whileHover={{ scale: 1.1, rotate: 5 }}
-                  >
-                    <span className="text-sm font-bold text-primary">
-                      {t.name.split(" ").map((n) => n[0]).join("")}
-                    </span>
-                  </motion.div>
-                  <div>
-                    <p className="text-sm font-semibold font-display">{t.name}</p>
-                    <p className="text-xs text-muted-foreground">{t.role}</p>
+
+          {/* Infinite scrolling marquee */}
+          <div className="relative">
+            {/* Fade edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-muted/20 to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-muted/20 to-transparent z-10 pointer-events-none" />
+            
+            <motion.div
+              className="flex gap-5"
+              animate={{ x: [0, -(320 * testimonials.length)] }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              style={{ width: `${320 * testimonials.length * 2}px` }}
+            >
+              {[...testimonials, ...testimonials].map((t, i) => (
+                <div
+                  key={`${t.name}-${i}`}
+                  className="w-[300px] shrink-0 rounded-2xl border bg-card p-6 shadow-soft hover:shadow-elevated transition-shadow duration-300 relative overflow-hidden group"
+                >
+                  <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex gap-0.5">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star key={s} className="h-3.5 w-3.5 fill-accent text-accent" />
+                      ))}
+                    </div>
+                    <span className="text-xl">{t.emoji}</span>
+                  </div>
+                  <Quote className="h-6 w-6 text-primary/10 mb-2" />
+                  <p className="text-sm text-muted-foreground leading-relaxed italic">
+                    "{t.quote}"
+                  </p>
+                  <div className="mt-5 flex items-center gap-3 pt-3 border-t">
+                    <div className="h-9 w-9 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                      <span className="text-xs font-bold text-primary">
+                        {t.name.split(" ").map((n) => n[0]).join("")}
+                      </span>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold font-display">{t.name}</p>
+                      <p className="text-[11px] text-muted-foreground">{t.role}</p>
+                    </div>
                   </div>
                 </div>
-              </motion.div>
-            ))}
-          </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 

@@ -6,6 +6,7 @@ import Footer from "./Footer";
 import PageTransition from "./PageTransition";
 import ScrollToTop from "./ScrollToTop";
 import Breadcrumbs from "./Breadcrumbs";
+import GlobalSearch from "./GlobalSearch";
 
 const lessonRoutePatterns = [
   /^\/courses\/[^/]+\/[^/]+/,
