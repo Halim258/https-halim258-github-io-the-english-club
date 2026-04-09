@@ -123,16 +123,37 @@ const testimonials = [
     quote: "It's not just a place to learn English, it's my second home.",
     name: "May Magdy",
     role: "Student",
+    emoji: "🏠",
   },
   {
     quote: "I really love this place, everyone here is amazing. I'm lucky to have such a great family!",
     name: "Nour Elanany",
     role: "Student",
+    emoji: "❤️",
   },
   {
     quote: "Without any compliments, I feel home in The English Club.",
     name: "Ahmed Yousry",
     role: "Student",
+    emoji: "🌟",
+  },
+  {
+    quote: "The teachers are so supportive and the atmosphere makes learning fun every single day.",
+    name: "Sara Mohamed",
+    role: "Student",
+    emoji: "📚",
+  },
+  {
+    quote: "My English improved dramatically in just 3 months. The courses are well-structured and engaging.",
+    name: "Omar Hassan",
+    role: "Student",
+    emoji: "🚀",
+  },
+  {
+    quote: "PCC Competition changed my life. I went from shy to a confident public speaker!",
+    name: "Mariam Khalil",
+    role: "PCC Winner",
+    emoji: "🏆",
   },
 ];
 
