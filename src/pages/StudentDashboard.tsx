@@ -175,6 +175,37 @@ export default function StudentDashboard() {
         ))}
       </div>
 
+      {/* Recently Completed */}
+      {progress.filter(p => p.completed).length > 0 && (
+        <FadeInUp delay={0.05}>
+          <div className="rounded-2xl border bg-card p-5 shadow-soft mb-6">
+            <h2 className="text-sm font-semibold font-display flex items-center gap-2 mb-3">
+              <Clock className="h-4 w-4 text-primary" />
+              Recently Completed
+            </h2>
+            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+              {progress
+                .filter(p => p.completed)
+                .slice(0, 8)
+                .map((p) => (
+                  <Link
+                    key={`${p.level_id}-${p.lesson_number}`}
+                    to={`/courses/${p.level_id}/${p.lesson_number}/slides`}
+                    className="shrink-0 flex items-center gap-2 rounded-xl border bg-muted/30 px-3 py-2 hover:bg-primary/5 hover:border-primary/20 transition-all group"
+                  >
+                    <span className="text-[10px] font-bold uppercase text-primary">{p.level_id}</span>
+                    <span className="text-xs font-medium">L{p.lesson_number}</span>
+                    {p.score !== null && (
+                      <span className="text-[10px] text-muted-foreground">{p.score}%</span>
+                    )}
+                    <ArrowRight className="h-3 w-3 text-muted-foreground group-hover:text-primary transition-colors" />
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </FadeInUp>
+      )}
+
       <div className="grid gap-4 lg:gap-6 lg:grid-cols-3">
         {/* Left Column - Main Content */}
         <div className="lg:col-span-2 space-y-6">
