@@ -19,6 +19,7 @@ import { FadeInUp, FadeIn, ScaleIn, staggerContainer, staggerItem } from "@/comp
 import FAQSection from "@/components/home/FAQSection";
 import LocationSection from "@/components/home/LocationSection";
 import CoursesSection from "@/components/home/CoursesSection";
+import ContinueLearning from "@/components/ContinueLearning";
 
 /* ── Animated Counter ── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -314,6 +315,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* ═══════════════ CONTINUE LEARNING ═══════════════ */}
+      <ContinueLearning />
 
       {/* ═══════════════ STATS ═══════════════ */}
       <section className="border-y bg-muted/30 py-12 md:py-16 lg:py-20">
