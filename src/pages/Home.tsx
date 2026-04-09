@@ -727,6 +727,7 @@ export default function Home() {
           </FadeInUp>
         </div>
       </section>
+      <SocialProofToast />
     </div>
   );
 }

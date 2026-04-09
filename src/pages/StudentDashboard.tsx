@@ -26,6 +26,7 @@ interface LessonProgress {
   lesson_number: number;
   completed: boolean;
   score: number | null;
+  completed_at?: string | null;
 }
 
 interface BookmarkRow {
@@ -86,8 +87,8 @@ export default function StudentDashboard() {
       const [testsRes, progressRes, bookmarksRes, achievementsRes, profileRes] = await Promise.all([
         supabase.from("placement_test_results").select("id, score, total_questions, cefr_level, time_taken_seconds, created_at")
           .eq("user_id", user!.id).order("created_at", { ascending: true }),
-        supabase.from("lesson_progress").select("level_id, lesson_number, completed, score")
-          .eq("user_id", user!.id),
+        supabase.from("lesson_progress").select("level_id, lesson_number, completed, score, completed_at")
+          .eq("user_id", user!.id).order("completed_at", { ascending: false }),
         supabase.from("bookmarks").select("level_id, lesson_number, created_at")
           .eq("user_id", user!.id).order("created_at", { ascending: false }),
         supabase.from("achievements").select("badge_key, earned_at")
