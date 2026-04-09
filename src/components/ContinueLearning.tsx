@@ -1,22 +1,32 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, BookOpen, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
-import { useCourseProgress } from "@/hooks/useCourseProgress";
+import { supabase } from "@/integrations/supabase/client";
 
 export default function ContinueLearning() {
   const { user } = useAuth();
-  const { completedLessons } = useCourseProgress();
+  const [lastLesson, setLastLesson] = useState<{ level_id: string; lesson_number: number } | null>(null);
 
-  if (!user || !completedLessons || completedLessons.length === 0) return null;
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("lesson_progress")
+      .select("level_id, lesson_number")
+      .eq("user_id", user.id)
+      .eq("completed", true)
+      .order("completed_at", { ascending: false })
+      .limit(1)
+      .then(({ data }) => {
+        if (data && data.length > 0) setLastLesson(data[0]);
+      });
+  }, [user]);
 
-  // Find the last completed lesson to suggest the next one
-  const lastLesson = completedLessons[completedLessons.length - 1];
   if (!lastLesson) return null;
 
-  const levelId = lastLesson.level_id;
-  const nextLessonNum = lastLesson.lesson_number + 1;
+  const nextNum = lastLesson.lesson_number + 1;
 
   return (
     <motion.section
@@ -33,11 +43,11 @@ export default function ContinueLearning() {
           <div>
             <p className="text-sm font-semibold font-display">Continue Learning</p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Pick up where you left off — <span className="font-medium text-foreground">{levelId.toUpperCase()}</span>, Lesson {nextLessonNum}
+              Pick up where you left off — <span className="font-medium text-foreground">{lastLesson.level_id.toUpperCase()}</span>, Lesson {nextNum}
             </p>
           </div>
         </div>
-        <Link to={`/courses/${levelId}/${nextLessonNum}/slides`}>
+        <Link to={`/courses/${lastLesson.level_id}/${nextNum}/slides`}>
           <Button size="sm" className="rounded-full font-semibold gap-1.5 px-5">
             <BookOpen className="h-3.5 w-3.5" /> Resume <ArrowRight className="h-3.5 w-3.5" />
           </Button>
