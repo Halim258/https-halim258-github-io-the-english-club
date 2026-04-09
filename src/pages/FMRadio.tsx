@@ -24,6 +24,12 @@ const stations: Station[] = [
   { name: "BBC Radio 2", description: "Great music variety & entertainment", streamUrl: "https://stream.live.vc.bbcmedia.co.uk/bbc_radio_two", category: "Music", country: "🇬🇧 UK" },
   { name: "Classic FM", description: "The world's greatest classical music", streamUrl: "https://media-ice.musicradio.com/ClassicFMMP3", category: "Music", country: "🇬🇧 UK" },
   { name: "Heart FM", description: "Feel-good hits & pop music", streamUrl: "https://media-ice.musicradio.com/HeartLondonMP3", category: "Music", country: "🇬🇧 UK" },
+  { name: "Capital FM", description: "The UK's No.1 hit music station", streamUrl: "https://media-ice.musicradio.com/CapitalMP3", category: "Music", country: "🇬🇧 UK" },
+  { name: "Smooth Radio", description: "Relaxing hits from the 70s to today", streamUrl: "https://media-ice.musicradio.com/SmoothUKMP3", category: "Music", country: "🇬🇧 UK" },
+  { name: "Absolute Radio", description: "Real music, no repeat guarantee", streamUrl: "https://ais-sa5.cdnstream1.com/b75154_128mp3", category: "Music", country: "🇬🇧 UK" },
+  { name: "Jazz FM", description: "The best jazz, soul, and blues", streamUrl: "https://media-ice.musicradio.com/JazzFMMP3", category: "Music", country: "🇬🇧 UK" },
+  { name: "Kiss FM UK", description: "Dance, R&B & hip-hop hits", streamUrl: "https://media-ice.musicradio.com/KissFMMP3", category: "Music", country: "🇬🇧 UK" },
+  { name: "Magic Radio", description: "More of the songs you love", streamUrl: "https://media-ice.musicradio.com/MagicMP3", category: "Music", country: "🇬🇧 UK" },
 
   // Talk Shows
   { name: "BBC Radio 4", description: "Intelligent speech — drama, comedy, documentaries", streamUrl: "https://stream.live.vc.bbcmedia.co.uk/bbc_radio_fourfm", category: "Talk", country: "🇬🇧 UK" },
