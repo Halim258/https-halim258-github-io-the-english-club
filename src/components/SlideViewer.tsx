@@ -112,11 +112,16 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
 
         <Button
           size="sm"
-          onClick={() => go(1)}
-          disabled={current === slides.length - 1}
-          className="rounded-full gap-1.5 text-xs font-semibold min-w-[100px] disabled:opacity-40"
+          onClick={() => {
+            if (current === slides.length - 1) {
+              onBack?.();
+            } else {
+              go(1);
+            }
+          }}
+          className="rounded-full gap-1.5 text-xs font-semibold min-w-[100px]"
         >
-          Next <ChevronRight className="h-3.5 w-3.5" />
+          {current === slides.length - 1 ? "Finish" : "Next"} <ChevronRight className="h-3.5 w-3.5" />
         </Button>
       </div>
     </div>
