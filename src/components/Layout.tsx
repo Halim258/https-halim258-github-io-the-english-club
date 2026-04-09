@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import BookTeacherFAB from "./BookTeacherFAB";
 import Footer from "./Footer";
 import PageTransition from "./PageTransition";
+import ScrollToTop from "./ScrollToTop";
 
 const lessonRoutePatterns = [
   /^\/courses\/[^/]+\/[^/]+/,
@@ -31,6 +32,7 @@ export default function Layout() {
         </AnimatePresence>
       </main>
       <BookTeacherFAB />
+      <ScrollToTop />
       <Footer />
     </div>
   );
