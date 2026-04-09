@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Menu, X, Moon, Sun, User, LogOut, ChevronDown } from "lucide-react";
+import { Menu, X, Moon, Sun, User, LogOut, ChevronDown, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -196,6 +196,14 @@ export default function Navbar() {
 
         {/* Desktop auth buttons */}
         <div className="hidden items-center gap-1.5 lg:flex">
+          <button
+            onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
+            className="flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+          >
+            <Search className="h-3.5 w-3.5" />
+            <span className="hidden xl:inline">Search</span>
+            <kbd className="hidden xl:inline-flex items-center rounded border bg-background px-1 py-0.5 text-[9px] font-medium">⌘K</kbd>
+          </button>
           <StudyReminder />
           <motion.button
             onClick={() => setDark(!dark)}
