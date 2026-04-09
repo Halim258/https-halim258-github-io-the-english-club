@@ -28,6 +28,7 @@ export default function Layout() {
   return (
     <div className="flex min-h-screen flex-col">
       <Navbar />
+      <GlobalSearch />
       {showBreadcrumbs && <Breadcrumbs />}
       <main className="flex-1">
         <AnimatePresence mode="wait">
