@@ -13,6 +13,15 @@ import gallery4 from "@/assets/gallery-4.png";
 import gallery5 from "@/assets/gallery-5.png";
 import gallery6 from "@/assets/gallery-6.png";
 import gallery7 from "@/assets/gallery-7.png";
+import audienceSelfLearning from "@/assets/audience-self-learning.png";
+import audienceInternational from "@/assets/audience-international.png";
+import audienceTeacher from "@/assets/audience-teacher.png";
+import lessonVocabulary from "@/assets/lesson-vocabulary.png";
+import lessonConversation from "@/assets/lesson-conversation.png";
+import lessonGrammar from "@/assets/lesson-grammar.png";
+import lessonSpeaking from "@/assets/lesson-speaking.png";
+import lessonExam from "@/assets/lesson-exam.png";
+import lessonHomework from "@/assets/lesson-homework.png";
 import { Button } from "@/components/ui/button";
 import { PetalTopRight, PetalBottomLeft } from "@/components/PetalDecoration";
 import { FadeInUp, FadeIn, ScaleIn, staggerContainer, staggerItem } from "@/components/AnimatedSection";
@@ -47,9 +56,9 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 }
 
 const audiences = [
-  { icon: "🎓", title: "Self-Learning Students", desc: "Study at your own pace", to: "/courses", tag: "Free" },
-  { icon: "🌍", title: "International Learners", desc: "Learn from anywhere", to: "/courses", tag: "Online" },
-  { icon: "👨‍🏫", title: "Learn with a Teacher", desc: "1-on-1 expert guidance", to: "/teachers", tag: "Premium" },
+  { image: audienceSelfLearning, title: "Self-Learning Students", desc: "Study at your own pace", to: "/courses", tag: "Free" },
+  { image: audienceInternational, title: "International Learners", desc: "Learn from anywhere", to: "/courses", tag: "Online" },
+  { image: audienceTeacher, title: "Learn with a Teacher", desc: "1-on-1 expert guidance", to: "/teachers", tag: "Premium" },
 ];
 
 const stats = [
@@ -112,12 +121,12 @@ const howItWorks = [
 ];
 
 const lessonIncludes = [
-  { icon: "📚", label: "Vocabulary", desc: "New words in context" },
-  { icon: "💬", label: "Conversation", desc: "Real dialogue practice" },
-  { icon: "📝", label: "Grammar", desc: "Rules & exercises" },
-  { icon: "🗣️", label: "Speaking", desc: "Pronunciation drills" },
-  { icon: "✅", label: "Exam", desc: "Level assessments" },
-  { icon: "📖", label: "Homework", desc: "Reinforce learning" },
+  { image: lessonVocabulary, label: "Vocabulary", desc: "New words in context" },
+  { image: lessonConversation, label: "Conversation", desc: "Real dialogue practice" },
+  { image: lessonGrammar, label: "Grammar", desc: "Rules & exercises" },
+  { image: lessonSpeaking, label: "Speaking", desc: "Pronunciation drills" },
+  { image: lessonExam, label: "Exam", desc: "Level assessments" },
+  { image: lessonHomework, label: "Homework", desc: "Reinforce learning" },
 ];
 
 const testimonials = [
@@ -302,13 +311,16 @@ export default function Home() {
                     <span className="absolute top-2.5 right-2.5 text-[9px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2 py-0.5">
                       {a.tag}
                     </span>
-                    <motion.span 
-                      className="text-3xl"
-                      whileHover={{ scale: 1.2, rotate: [0, -10, 10, 0] }}
+                    <motion.img 
+                      src={a.image}
+                      alt={a.title}
+                      className="h-14 w-14 rounded-xl object-cover"
+                      whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
                       transition={{ duration: 0.4 }}
-                    >
-                      {a.icon}
-                    </motion.span>
+                      loading="lazy"
+                      width={56}
+                      height={56}
+                    />
                     <p className="text-sm font-semibold font-display">{a.title}</p>
                     <p className="text-[11px] text-muted-foreground">{a.desc}</p>
                   </Link>
@@ -494,7 +506,7 @@ export default function Home() {
                 className="relative flex flex-col items-center rounded-2xl border bg-card p-4 md:p-6 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 group overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative text-2xl md:text-3xl mb-2 md:mb-3 group-hover:scale-125 transition-transform duration-300">{item.icon}</span>
+                <img src={item.image} alt={item.label} className="relative h-10 w-10 md:h-12 md:w-12 mb-2 md:mb-3 object-contain group-hover:scale-110 transition-transform duration-300 rounded-lg" loading="lazy" width={48} height={48} />
                 <span className="relative text-xs md:text-sm font-semibold font-display text-center">{item.label}</span>
                 <span className="relative text-[10px] md:text-[11px] text-muted-foreground mt-1 text-center hidden sm:block">{item.desc}</span>
               </motion.div>
