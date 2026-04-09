@@ -134,15 +134,43 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Newsletter / Quick action bar */}
+      <div className="border-t border-secondary-foreground/8 bg-secondary-foreground/[0.03]">
+        <div className="container mx-auto px-4 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 rounded-xl bg-primary/20 flex items-center justify-center">
+              <GraduationCap className="h-5 w-5 text-primary" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-secondary-foreground/90">Ready to start learning?</p>
+              <p className="text-xs text-secondary-foreground/50">Join 500+ students already improving their English</p>
+            </div>
+          </div>
+          <Link to="/signup">
+            <button className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors">
+              Get Started Free →
+            </button>
+          </Link>
+        </div>
+      </div>
+
       {/* Bottom bar */}
       <div className="border-t border-secondary-foreground/8">
         <div className="container mx-auto px-4 py-5 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-xs text-secondary-foreground/40">
             © {new Date().getFullYear()} The English Club Language School. All rights reserved.
           </p>
-          <p className="text-xs text-secondary-foreground/40 flex items-center gap-1">
-            Made with <Heart className="h-3 w-3 text-primary/60 fill-primary/60" /> in Alexandria
-          </p>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="text-xs text-secondary-foreground/40 hover:text-primary transition-colors flex items-center gap-1"
+            >
+              Back to top ↑
+            </button>
+            <p className="text-xs text-secondary-foreground/40 flex items-center gap-1">
+              Made with <Heart className="h-3 w-3 text-primary/60 fill-primary/60" /> in Alexandria
+            </p>
+          </div>
         </div>
       </div>
     </footer>

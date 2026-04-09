@@ -20,6 +20,8 @@ import FAQSection from "@/components/home/FAQSection";
 import LocationSection from "@/components/home/LocationSection";
 import CoursesSection from "@/components/home/CoursesSection";
 import ContinueLearning from "@/components/ContinueLearning";
+import TypingHero from "@/components/TypingHero";
+import SocialProofToast from "@/components/SocialProofToast";
 
 /* ── Animated Counter ── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -225,27 +227,7 @@ export default function Home() {
               className="text-4xl font-bold leading-[1.08] md:text-5xl lg:text-6xl xl:text-7xl font-display"
             >
               Master English with{" "}
-              <span className="relative inline-block">
-                <span className="text-gradient">Confidence</span>
-                <motion.svg
-                  className="absolute -bottom-2 left-0 w-full"
-                  viewBox="0 0 200 12"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1, delay: 0.8 }}
-                >
-                  <motion.path
-                    d="M2 8 Q50 2 100 6 Q150 10 198 4"
-                    fill="none"
-                    stroke="hsl(var(--primary))"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    initial={{ pathLength: 0 }}
-                    animate={{ pathLength: 1 }}
-                    transition={{ duration: 1, delay: 0.8 }}
-                  />
-                </motion.svg>
-              </span>
+              <TypingHero />
             </motion.h1>
 
             <motion.p
@@ -745,6 +727,7 @@ export default function Home() {
           </FadeInUp>
         </div>
       </section>
+      <SocialProofToast />
     </div>
   );
 }
