@@ -45,21 +45,21 @@ export function generateDocumentarySlides(doc: DocumentaryLessonData): Slide[] {
     },
   });
 
-  // 3. Transcript slides (word-by-word with translations)
+  // 3. Transcript slides (interactive tap-to-translate)
+  const vocabWords = doc.vocabulary.map((v) => v.word.toLowerCase());
   const transcriptChunks = chunkArray(doc.transcript, 4);
   transcriptChunks.forEach((chunk, i) => {
     slides.push({
       id: id(n++),
-      type: "info",
+      type: "transcript",
       title: transcriptChunks.length > 1 ? `📝 Transcript — Part ${i + 1}` : "📝 Transcript",
-      subtitle: "Word by word with translation",
+      subtitle: "Tap each line to reveal translation",
       emoji: "📝",
       bgColor: "from-amber-50/30 to-yellow-50/30 dark:from-amber-950/10 dark:to-yellow-950/10",
       content: {
-        kind: "info",
-        paragraphs: chunk.map(
-          (line) => `⏱️ ${line.time}\n🇬🇧 ${line.text}\n🇸🇦 ${line.translation}`
-        ),
+        kind: "transcript",
+        lines: chunk,
+        vocabWords,
       },
     });
   });
