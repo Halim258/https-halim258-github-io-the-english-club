@@ -63,6 +63,23 @@ export function generateSlides(lesson: LessonData): Slide[] {
     },
   });
 
+  // 1b. Video slide (if lesson has a YouTube video)
+  if (lesson.youtubeId) {
+    slides.push({
+      id: id(n++),
+      type: "video",
+      title: "🎥 Watch the Video",
+      emoji: "🎥",
+      bgColor: "from-slate-50/30 to-gray-50/30 dark:from-slate-950/10 dark:to-gray-950/10",
+      content: {
+        kind: "video",
+        youtubeId: lesson.youtubeId,
+        sceneContext: lesson.videoContext || lesson.description,
+        movieTitle: lesson.videoTitle || lesson.title,
+      },
+    });
+  }
+
   // 2. Vocabulary slides (4 words per slide — fits without scrolling)
   const vocabChunks = chunkArray(lesson.vocabulary, 4);
   vocabChunks.forEach((chunk, i) => {
