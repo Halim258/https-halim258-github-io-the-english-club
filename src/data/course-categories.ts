@@ -305,4 +305,17 @@ export const categories: Category[] = [
       { name: "English for Aviation", description: "Airport navigation, in-flight communication, ATC phraseology, weather, and safety.", topics: ["Airport", "ATC", "Weather", "Safety"] },
     ],
   },
+  {
+    icon: Video,
+    emoji: "🎥",
+    title: "English through Documentary",
+    slug: "documentary",
+    color: "from-teal-500/10 to-emerald-500/5",
+    iconBg: "bg-teal-500/15",
+    image: documentaryImg,
+    description: "Learn English by watching real documentaries — nature, science, history, and more — with word-by-word transcripts.",
+    courses: [
+      { name: "English through Documentary", description: "Watch free documentary clips, learn vocabulary word-by-word, and test comprehension.", topics: ["Nature", "Science", "History", "Technology", "Psychology"] },
+    ],
+  },
 ];
