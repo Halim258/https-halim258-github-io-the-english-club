@@ -3,12 +3,46 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, Loader2, BookOpen, Users, Sparkles } from "lucide-react";
+import { GraduationCap, Loader2, BookOpen, Users, Sparkles, Eye, EyeOff, Check, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
 type Role = "student" | "teacher";
+
+function PasswordStrength({ password }: { password: string }) {
+  const checks = [
+    { label: "6+ characters", pass: password.length >= 6 },
+    { label: "Uppercase letter", pass: /[A-Z]/.test(password) },
+    { label: "Number", pass: /\d/.test(password) },
+  ];
+  const strength = checks.filter(c => c.pass).length;
+  const colors = ["bg-destructive", "bg-amber-500", "bg-emerald-500"];
+  const labels = ["Weak", "Fair", "Strong"];
+
+  if (!password) return null;
+
+  return (
+    <div className="space-y-2 mt-2">
+      <div className="flex gap-1">
+        {[0, 1, 2].map(i => (
+          <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i < strength ? colors[strength - 1] : "bg-muted"}`} />
+        ))}
+      </div>
+      <div className="flex items-center justify-between">
+        <div className="flex flex-wrap gap-x-3 gap-y-1">
+          {checks.map(c => (
+            <span key={c.label} className={`flex items-center gap-1 text-[10px] ${c.pass ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground"}`}>
+              {c.pass ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
+              {c.label}
+            </span>
+          ))}
+        </div>
+        {strength > 0 && <span className={`text-[10px] font-semibold ${strength === 3 ? "text-emerald-600" : strength === 2 ? "text-amber-500" : "text-destructive"}`}>{labels[strength - 1]}</span>}
+      </div>
+    </div>
+  );
+}
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -17,6 +51,7 @@ export default function Signup() {
   const [role, setRole] = useState<Role>("student");
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -47,7 +82,7 @@ export default function Signup() {
       await supabase.from("user_roles").update({ role: "teacher" }).eq("user_id", signupData.user.id);
     }
 
-    toast({ title: "Account created! 🎉", description: "You can now log in." });
+    toast({ title: "Account created! 🎉", description: "Check your email to verify your account, then log in." });
     navigate("/login");
   };
 
@@ -118,7 +153,26 @@ export default function Signup() {
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="password" className="text-sm font-medium">Password</Label>
-              <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" minLength={6} required className="h-11 rounded-xl" />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  minLength={6}
+                  required
+                  className="h-11 rounded-xl pr-10"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
+              <PasswordStrength password={password} />
             </div>
 
             {role === "teacher" && (
