@@ -4,9 +4,8 @@ import { motion } from "framer-motion";
 import {
   BookOpen, Clock, Award, CalendarDays, TrendingUp, CheckCircle2,
   GraduationCap, ArrowRight, History, BarChart3, Sparkles,
-  Bookmark, Trophy, Star, LogOut, Zap
+  Bookmark, Trophy, Star, LogOut, Zap, Flame, Target, Mic2, Brain, Radio
 } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { FadeInUp, ScaleIn } from "@/components/AnimatedSection";
@@ -40,6 +39,13 @@ interface AchievementRow {
   earned_at: string;
 }
 
+interface XpRow {
+  total_xp: number;
+  current_streak: number;
+  longest_streak: number;
+  last_activity_date: string | null;
+}
+
 const LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
 const LEVEL_COLORS: Record<string, string> = {
   A1: "from-emerald-400 to-emerald-600", A2: "from-teal-400 to-teal-600",
@@ -56,17 +62,29 @@ const BADGES: Record<string, { icon: React.ElementType; label: string; desc: str
   level_up: { icon: TrendingUp, label: "Level Up", desc: "Improved your CEFR level" },
 };
 
-function formatTime(s: number) {
-  const m = Math.floor(s / 60);
-  const sec = s % 60;
-  return `${m}:${sec.toString().padStart(2, "0")}`;
-}
+const quickActions = [
+  { icon: BookOpen, label: "Courses", to: "/courses", color: "from-primary/15 to-primary/5", iconColor: "text-primary" },
+  { icon: Brain, label: "AI Tutor", to: "/ai-tutor", color: "from-violet-500/15 to-violet-500/5", iconColor: "text-violet-600 dark:text-violet-400" },
+  { icon: Mic2, label: "Speaking", to: "/practice", color: "from-rose-500/15 to-rose-500/5", iconColor: "text-rose-600 dark:text-rose-400" },
+  { icon: Target, label: "Flashcards", to: "/flashcards", color: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
+  { icon: Radio, label: "FM Radio", to: "/fm", color: "from-sky-500/15 to-sky-500/5", iconColor: "text-sky-600 dark:text-sky-400" },
+  { icon: Trophy, label: "Leaderboard", to: "/leaderboard", color: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
+];
+
+const dailyTips = [
+  "Try reading an English article for 10 minutes today!",
+  "Practice speaking by describing your day in English.",
+  "Listen to a podcast or FM Radio to improve your listening.",
+  "Review your flashcards — spaced repetition is key!",
+  "Write 5 sentences using a new word you learned.",
+  "Watch a short video in English without subtitles.",
+  "Talk to the AI Tutor about a topic you enjoy!",
+];
 
 export default function StudentDashboard() {
   const { user, role } = useAuth();
   const navigate = useNavigate();
 
-  // Redirect admins/secretaries to admin dashboard, teachers to teacher dashboard
   useEffect(() => {
     if (role === "admin" || role === "secretary") {
       navigate("/admin", { replace: true });
@@ -74,17 +92,21 @@ export default function StudentDashboard() {
       navigate("/teacher-dashboard", { replace: true });
     }
   }, [role, navigate]);
+
   const [testResults, setTestResults] = useState<TestResult[]>([]);
   const [progress, setProgress] = useState<LessonProgress[]>([]);
   const [bookmarks, setBookmarks] = useState<BookmarkRow[]>([]);
   const [achievements, setAchievements] = useState<AchievementRow[]>([]);
+  const [xp, setXp] = useState<XpRow | null>(null);
   const [profile, setProfile] = useState<{ full_name: string | null }>({ full_name: null });
   const [loading, setLoading] = useState(true);
+
+  const todayTip = dailyTips[new Date().getDay() % dailyTips.length];
 
   useEffect(() => {
     if (!user) return;
     async function load() {
-      const [testsRes, progressRes, bookmarksRes, achievementsRes, profileRes] = await Promise.all([
+      const [testsRes, progressRes, bookmarksRes, achievementsRes, profileRes, xpRes] = await Promise.all([
         supabase.from("placement_test_results").select("id, score, total_questions, cefr_level, time_taken_seconds, created_at")
           .eq("user_id", user!.id).order("created_at", { ascending: true }),
         supabase.from("lesson_progress").select("level_id, lesson_number, completed, score, completed_at")
@@ -94,12 +116,15 @@ export default function StudentDashboard() {
         supabase.from("achievements").select("badge_key, earned_at")
           .eq("user_id", user!.id),
         supabase.from("profiles").select("full_name").eq("id", user!.id).single(),
+        supabase.from("user_xp").select("total_xp, current_streak, longest_streak, last_activity_date")
+          .eq("user_id", user!.id).maybeSingle(),
       ]);
       setTestResults(testsRes.data || []);
       setProgress(progressRes.data || []);
       setBookmarks(bookmarksRes.data || []);
       setAchievements(achievementsRes.data || []);
       if (profileRes.data) setProfile(profileRes.data);
+      setXp(xpRes.data || null);
       setLoading(false);
     }
     load();
@@ -124,56 +149,96 @@ export default function StudentDashboard() {
   const levelImproved = latestResult && previousResult
     ? LEVEL_ORDER.indexOf(latestResult.cefr_level) > LEVEL_ORDER.indexOf(previousResult.cefr_level) : false;
 
-  // Progress by level
   const levelProgress = ["reading", "a1", "a2", "b1", "b2", "c1", "c2"].map((lvl) => {
     const lvlProgress = progress.filter((p) => p.level_id === lvl);
     const completed = lvlProgress.filter((p) => p.completed).length;
     return { level: lvl, completed, total: 15 };
   });
 
+  const greeting = new Date().getHours() < 12 ? "morning" : new Date().getHours() < 17 ? "afternoon" : "evening";
+
   return (
     <div className="container mx-auto px-4 py-6 md:py-10">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 md:mb-10">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
-          <p className="text-sm text-muted-foreground font-medium mb-1">Good {new Date().getHours() < 12 ? "morning" : new Date().getHours() < 17 ? "afternoon" : "evening"} 👋</p>
+          <p className="text-sm text-muted-foreground font-medium mb-1">Good {greeting} 👋</p>
           <h1 className="text-3xl md:text-4xl font-bold font-display">
             {profile.full_name ? `${profile.full_name}` : "Welcome back!"}
           </h1>
-          <p className="mt-1.5 text-muted-foreground text-sm">Continue your learning journey</p>
         </motion.div>
         <Button variant="outline" size="sm" onClick={handleLogout} className="rounded-full text-muted-foreground hover:text-destructive hover:border-destructive/30 transition-colors">
           <LogOut className="h-4 w-4 mr-1.5" /> Log Out
         </Button>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-10">
+      {/* Daily Tip Banner */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="rounded-2xl border bg-gradient-to-r from-primary/8 via-accent/5 to-primary/8 p-4 mb-6 flex items-center gap-3"
+      >
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/15">
+          <Sparkles className="h-5 w-5 text-primary" />
+        </div>
+        <div>
+          <p className="text-xs font-semibold text-primary mb-0.5">Daily Learning Tip</p>
+          <p className="text-sm text-muted-foreground">{todayTip}</p>
+        </div>
+      </motion.div>
+
+      {/* Quick Stats with XP & Streak */}
+      <div className="grid gap-3 grid-cols-2 lg:grid-cols-5 mb-6">
         {[
-          { icon: BookOpen, label: "Lessons Completed", value: completedLessons.toString(), accent: "from-primary/15 to-primary/5", iconColor: "text-primary" },
+          { icon: BookOpen, label: "Lessons Done", value: completedLessons.toString(), accent: "from-primary/15 to-primary/5", iconColor: "text-primary" },
           { icon: GraduationCap, label: "Tests Taken", value: testResults.length.toString(), accent: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
-          { icon: Bookmark, label: "Bookmarked", value: bookmarks.length.toString(), accent: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
-          { icon: Award, label: "Achievements", value: achievements.length.toString(), accent: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
+          { icon: Flame, label: "Streak", value: xp ? `${xp.current_streak}d` : "0d", accent: "from-orange-500/15 to-orange-500/5", iconColor: "text-orange-600 dark:text-orange-400" },
+          { icon: Zap, label: "Total XP", value: xp ? xp.total_xp.toLocaleString() : "0", accent: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
+          { icon: Award, label: "Badges", value: achievements.length.toString(), accent: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
         ].map((s, i) => (
           <motion.div
             key={s.label}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-            className="rounded-2xl border bg-card p-5 shadow-soft hover:shadow-card transition-all duration-300 group"
+            transition={{ delay: i * 0.06 }}
+            className="rounded-2xl border bg-card p-4 shadow-soft hover:shadow-card transition-all duration-300 group"
           >
-            <div className="flex items-center gap-4">
-              <div className={`flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${s.accent} group-hover:scale-110 transition-transform duration-300`}>
-                <s.icon className={`h-5 w-5 ${s.iconColor}`} />
+            <div className="flex items-center gap-3">
+              <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${s.accent} group-hover:scale-110 transition-transform duration-300`}>
+                <s.icon className={`h-4 w-4 ${s.iconColor}`} />
               </div>
               <div>
-                <p className="text-3xl font-bold font-display tracking-tight">{s.value}</p>
-                <p className="text-[11px] text-muted-foreground font-medium">{s.label}</p>
+                <p className="text-2xl font-bold font-display tracking-tight">{s.value}</p>
+                <p className="text-[10px] text-muted-foreground font-medium">{s.label}</p>
               </div>
             </div>
           </motion.div>
         ))}
       </div>
+
+      {/* Quick Actions */}
+      <FadeInUp delay={0.05}>
+        <div className="mb-6">
+          <h2 className="text-sm font-semibold font-display flex items-center gap-2 mb-3">
+            <Target className="h-4 w-4 text-primary" />
+            Quick Actions
+          </h2>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+            {quickActions.map((a, i) => (
+              <Link
+                key={a.to}
+                to={a.to}
+                className="flex flex-col items-center gap-2 rounded-xl border bg-card p-3 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-200 group"
+              >
+                <div className={`flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br ${a.color} group-hover:scale-110 transition-transform`}>
+                  <a.icon className={`h-4.5 w-4.5 ${a.iconColor}`} />
+                </div>
+                <span className="text-[11px] font-medium text-muted-foreground group-hover:text-foreground transition-colors">{a.label}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </FadeInUp>
 
       {/* Recently Completed */}
       {progress.filter(p => p.completed).length > 0 && (
@@ -207,9 +272,9 @@ export default function StudentDashboard() {
       )}
 
       <div className="grid gap-4 lg:gap-6 lg:grid-cols-3">
-        {/* Left Column - Main Content */}
+        {/* Left Column */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Placement Test Progress */}
+          {/* CEFR Level */}
           <FadeInUp>
             <div className="rounded-2xl border bg-card p-6 shadow-soft">
               <div className="flex items-center justify-between mb-4">
@@ -250,7 +315,6 @@ export default function StudentDashboard() {
                 </div>
               )}
 
-              {/* Test history */}
               {testResults.length > 1 && (
                 <div className="mt-4 pt-4 border-t">
                   <p className="text-xs font-semibold text-muted-foreground mb-2 flex items-center gap-1">
@@ -344,23 +408,24 @@ export default function StudentDashboard() {
                 {Object.entries(BADGES).map(([key, badge]) => {
                   const earned = achievements.some((a) => a.badge_key === key);
                   return (
-                    <div
+                    <motion.div
                       key={key}
+                      whileHover={earned ? { scale: 1.08 } : {}}
                       className={`flex flex-col items-center gap-1 rounded-xl p-3 text-center transition-all ${
-                        earned ? "bg-primary/10 border border-primary/20" : "bg-muted/30 opacity-40"
+                        earned ? "bg-primary/10 border border-primary/20 shadow-sm" : "bg-muted/30 opacity-40"
                       }`}
                       title={badge.desc}
                     >
                       <badge.icon className={`h-5 w-5 ${earned ? "text-primary" : "text-muted-foreground"}`} />
                       <span className="text-[10px] font-semibold leading-tight">{badge.label}</span>
-                    </div>
+                    </motion.div>
                   );
                 })}
               </div>
             </div>
           </FadeInUp>
 
-          {/* Recommended Course */}
+          {/* Recommended */}
           {latestResult && (
             <FadeInUp delay={0.25}>
               <div className="rounded-2xl border bg-gradient-to-br from-primary/10 to-primary/5 p-6 shadow-soft">
