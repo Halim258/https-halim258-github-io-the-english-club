@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Bell, BellOff, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { createNotification } from "@/lib/notifications";
 import {
   Dialog,
   DialogContent,
