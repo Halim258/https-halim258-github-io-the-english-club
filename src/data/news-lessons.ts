@@ -66,30 +66,34 @@ const baseLesson = (n: number, title: string, desc: string): LessonData => ({
 export const newsLessons: Record<string, LessonData> = {};
 
 const topics = [
-  { n: 1, t: "Reading the News", d: "Understanding news articles and vocabulary." },
-  { n: 2, t: "Headlines & Hooks", d: "How headlines grab your attention." },
-  { n: 3, t: "Types of News", d: "Hard news, soft news, features, and opinion pieces." },
-  { n: 4, t: "Reporting Facts", d: "Distinguishing facts from opinions in news." },
-  { n: 5, t: "World News", d: "Vocabulary for international current events." },
-  { n: 6, t: "Local News", d: "Community events and local reporting." },
-  { n: 7, t: "Weather Reports", d: "Understanding weather forecasts in English." },
-  { n: 8, t: "Sports News", d: "Vocabulary for sports reporting." },
-  { n: 9, t: "Business News", d: "Financial and economic news vocabulary." },
-  { n: 10, t: "Technology News", d: "Reporting on tech innovations and trends." },
-  { n: 11, t: "Science News", d: "Discussing scientific discoveries in the news." },
-  { n: 12, t: "Health News", d: "Medical and health reporting vocabulary." },
-  { n: 13, t: "Environmental News", d: "Climate change and environmental reporting." },
-  { n: 14, t: "Political News", d: "Government and political news vocabulary." },
-  { n: 15, t: "Social Media News", d: "How social media shapes news consumption." },
-  { n: 16, t: "Fake News", d: "Identifying misinformation and fact-checking." },
-  { n: 17, t: "Press Conferences", d: "Vocabulary for official announcements." },
-  { n: 18, t: "Investigative Journalism", d: "In-depth reporting and exposés." },
-  { n: 19, t: "News Debate", d: "Discussing and debating current issues." },
-  { n: 20, t: "Becoming a News Reader", d: "Present a news bulletin in English." },
+  { n: 1, t: "Reading the News", d: "Understanding news articles and vocabulary.", yt: "M03vuos_nLI", vt: "Talking about the News — BBC Learning English" },
+  { n: 2, t: "Headlines & Hooks", d: "How headlines grab your attention.", yt: "6biHRtzRQPE", vt: "Newspaper Vocabulary Explained — Virtually Fluent" },
+  { n: 3, t: "Types of News", d: "Hard news, soft news, features, and opinion pieces.", yt: "hYFp1nL5Wls", vt: "Learn English with BBC News — JForrest English" },
+  { n: 4, t: "Reporting Facts", d: "Distinguishing facts from opinions in news.", yt: "QlqyS8pBaso", vt: "Read a BBC Article — Advanced English Lesson" },
+  { n: 5, t: "World News", d: "Vocabulary for international current events.", yt: "cGDVTgOw_4Q", vt: "Understanding World Affairs — CNN Fareed Zakaria" },
+  { n: 6, t: "Local News", d: "Community events and local reporting.", yt: "vNQUAtFQf9A", vt: "What Makes a Good Citizen? — BBC 6 Minute English" },
+  { n: 7, t: "Weather Reports", d: "Understanding weather forecasts in English.", yt: "ezk9bPIFN5k", vt: "Economy Slows Down — BBC News Review" },
+  { n: 8, t: "Sports News", d: "Vocabulary for sports reporting.", yt: "i2yhyaNb4ac", vt: "Types of Sports & Games in English" },
+  { n: 9, t: "Business News", d: "Financial and economic news vocabulary.", yt: "ezk9bPIFN5k", vt: "Global Economy — BBC News Review" },
+  { n: 10, t: "Technology News", d: "Reporting on tech innovations and trends.", yt: "5dZ_lvDgevk", vt: "In the Age of AI — FRONTLINE Documentary" },
+  { n: 11, t: "Science News", d: "Discussing scientific discoveries in the news.", yt: "kS25vitrZ6g", vt: "Richard Feynman — Electricity Explained" },
+  { n: 12, t: "Health News", d: "Medical and health reporting vocabulary.", yt: "Ae4MadKPJC0", vt: "Human Body 101 — National Geographic" },
+  { n: 13, t: "Environmental News", d: "Climate change and environmental reporting.", yt: "zbEnOYtsXHA", vt: "Before the Flood — National Geographic" },
+  { n: 14, t: "Political News", d: "Government and political news vocabulary.", yt: "Y44fyh4ap7k", vt: "Democracy on Trial — FRONTLINE" },
+  { n: 15, t: "Social Media News", d: "How social media shapes news consumption.", yt: "zgkF23nFIBw", vt: "Facebook's Fight Against Misinformation" },
+  { n: 16, t: "Fake News", d: "Identifying misinformation and fact-checking.", yt: "4llDKvPukao", vt: "How DW Fact-Checks Fake News" },
+  { n: 17, t: "Press Conferences", d: "Vocabulary for official announcements.", yt: "u8Pg-cD0ytg", vt: "How Do I Spot Fake News? — DW Fact Check" },
+  { n: 18, t: "Investigative Journalism", d: "In-depth reporting and exposés.", yt: "JQpjfWV_p6E", vt: "A Thousand Cuts — FRONTLINE Documentary" },
+  { n: 19, t: "News Debate", d: "Discussing and debating current issues.", yt: "5wynL5ttotw", vt: "How Important Is Politeness? — BBC 6 Minute English" },
+  { n: 20, t: "Becoming a News Reader", d: "Present a news bulletin in English.", yt: "M03vuos_nLI", vt: "Talking about the News — BBC Learning English" },
 ];
 
-topics.forEach(({ n, t, d }) => {
-  newsLessons[`news-${n}`] = baseLesson(n, t, d);
+topics.forEach(({ n, t, d, yt, vt }) => {
+  const lesson = baseLesson(n, t, d);
+  lesson.youtubeId = yt;
+  lesson.videoTitle = vt;
+  lesson.videoContext = `Watch this video related to "${t}" and learn key vocabulary used in news media.`;
+  newsLessons[`news-${n}`] = lesson;
 });
 
 // Override first lesson with richer content
