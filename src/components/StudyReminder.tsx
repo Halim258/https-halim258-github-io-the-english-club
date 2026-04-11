@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Bell, BellOff, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
+import { createNotification } from "@/lib/notifications";
 import {
   Dialog,
   DialogContent,
@@ -25,6 +27,7 @@ export default function StudyReminder() {
     return saved ? JSON.parse(saved) : { enabled: false, hour: 18, minute: 0 };
   });
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
@@ -45,11 +48,20 @@ export default function StudyReminder() {
           title: "📚 Time to Study!",
           description: "Your daily English lesson is waiting. Keep your streak going! 🔥",
         });
+        if (user?.id) {
+          createNotification({
+            userId: user.id,
+            title: "📚 Time to Study!",
+            message: "Your daily English lesson is waiting. Keep your streak going! 🔥",
+            type: "tip",
+            link: "/courses",
+          });
+        }
       }
     };
     const interval = setInterval(check, 60000);
     return () => clearInterval(interval);
-  }, [settings]);
+  }, [settings, user]);
 
   const enableNotifications = async () => {
     if (!("Notification" in window)) {
