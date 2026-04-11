@@ -4,7 +4,8 @@ import { motion, useInView } from "framer-motion";
 import {
   BookOpen, ArrowRight, Users, Award, GraduationCap,
   Headphones, PenLine, MessageCircle, BarChart3, Globe2, Star, CheckCircle2, Camera,
-  Sparkles, Target, Zap, Trophy, Heart, Play, ChevronRight, Radio, Mic2, Quote
+  Sparkles, Target, Zap, Trophy, Heart, Play, ChevronRight, Radio, Mic2, Quote,
+  Shield, Clock, MapPin
 } from "lucide-react";
 import gallery1 from "@/assets/gallery-1.png";
 import gallery2 from "@/assets/gallery-2.png";
