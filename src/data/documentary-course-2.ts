@@ -48,7 +48,7 @@ export const documentaryCourse2: DocumentaryLessonData[] = [
     id: 12, level: "A2", levelLabel: "Elementary",
     title: "Mysteries of the Deep Sea", emoji: "🐙",
     documentaryTitle: "Deep Ocean — BBC",
-    youtubeId: "hXoFMmiBoBM",
+    youtubeId: "UXl8F-eIoiM",
     description: "Explore the deepest parts of the ocean and learn marine vocabulary",
     sceneContext: "Dive into the darkest parts of the ocean where strange creatures glow in the dark and survive under extreme pressure.",
     vocabulary: [
@@ -91,7 +91,7 @@ export const documentaryCourse2: DocumentaryLessonData[] = [
     id: 13, level: "A2", levelLabel: "Elementary",
     title: "The Roman Empire", emoji: "🏛️",
     documentaryTitle: "Ancient Rome 101 — National Geographic",
-    youtubeId: "3HiMyPWuFQo",
+    youtubeId: "gxqPbGqYACw",
     description: "Learn about Roman civilization and history vocabulary",
     sceneContext: "Discover how Rome grew from a small village to one of the greatest empires in history, and the legacy it left behind.",
     vocabulary: [
@@ -133,7 +133,7 @@ export const documentaryCourse2: DocumentaryLessonData[] = [
     id: 14, level: "B1", levelLabel: "Intermediate",
     title: "When Dinosaurs Ruled the Earth", emoji: "🦕",
     documentaryTitle: "Walking with Dinosaurs — BBC",
-    youtubeId: "xtHsc51-bGc",
+    youtubeId: "VAVp_1-Aqc8",
     description: "Travel back in time and learn paleontology vocabulary",
     sceneContext: "Journey 65 million years into the past to witness the age of dinosaurs — the largest creatures ever to walk the Earth.",
     vocabulary: [
@@ -180,7 +180,7 @@ export const documentaryCourse2: DocumentaryLessonData[] = [
     id: 15, level: "B1", levelLabel: "Intermediate",
     title: "The Evolution of Music", emoji: "🎵",
     documentaryTitle: "How Music Works — Howard Goodall",
-    youtubeId: "QQeQy5SjIGs",
+    youtubeId: "HteU3bDKrsM",
     description: "Discover how music evolved and learn music terminology",
     sceneContext: "Trace the journey of music from ancient drums to modern electronic beats, and understand how music shapes culture and emotions.",
     vocabulary: [
@@ -319,7 +319,7 @@ export const documentaryCourse2: DocumentaryLessonData[] = [
     id: 18, level: "C1", levelLabel: "Advanced",
     title: "The Language of the Universe", emoji: "🔢",
     documentaryTitle: "The Story of Maths — BBC",
-    youtubeId: "pb0MSMGSIeY",
+    youtubeId: "OiOIaM_2rvo",
     description: "Explore advanced math concepts and academic vocabulary",
     sceneContext: "Discover how mathematics — from ancient number systems to modern algorithms — is the universal language that governs everything around us.",
     vocabulary: [
@@ -365,7 +365,7 @@ export const documentaryCourse2: DocumentaryLessonData[] = [
     id: 19, level: "C1", levelLabel: "Advanced",
     title: "The Art of Photography", emoji: "📸",
     documentaryTitle: "The Genius of Photography — BBC",
-    youtubeId: "wev0SBmMPf4",
+    youtubeId: "GMrDkcYiLC4",
     description: "Master photography terminology and visual arts vocabulary",
     sceneContext: "Trace the 180-year history of photography from the first daguerreotype to the digital revolution, and how it changed our perception of the world.",
     vocabulary: [
@@ -411,7 +411,7 @@ export const documentaryCourse2: DocumentaryLessonData[] = [
     id: 20, level: "C1", levelLabel: "Advanced",
     title: "The Future of Food", emoji: "🌾",
     documentaryTitle: "The Future of Food — BBC",
-    youtubeId: "KriTQ0aTrtw",
+    youtubeId: "hWkYtZxpQUo",
     description: "Explore food science, agriculture, and sustainability vocabulary",
     sceneContext: "Investigate how we can feed 10 billion people by 2050 — through vertical farming, lab-grown meat, gene editing, and sustainable agriculture.",
     vocabulary: [

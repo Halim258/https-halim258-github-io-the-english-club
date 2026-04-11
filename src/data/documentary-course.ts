@@ -107,7 +107,7 @@ export const documentaryCourse: DocumentaryLessonData[] = [
     id: 3, level: "A2", levelLabel: "Elementary",
     title: "Amazing Animal Migration", emoji: "🦋",
     documentaryTitle: "Great Migrations — National Geographic",
-    youtubeId: "qYII5yXGsQk",
+    youtubeId: "cNXPKjPprsA",
     description: "Learn about animal migration and survival vocabulary",
     sceneContext: "Follow millions of animals as they embark on incredible journeys across continents for food, warmth, and survival.",
     vocabulary: [
@@ -192,7 +192,7 @@ export const documentaryCourse: DocumentaryLessonData[] = [
     id: 5, level: "B1", levelLabel: "Intermediate",
     title: "How the Human Body Works", emoji: "🫀",
     documentaryTitle: "Inside the Human Body — BBC",
-    youtubeId: "wTlVnHbJpKM",
+    youtubeId: "Ae4MadKPJC0",
     description: "Understand the human body and learn scientific vocabulary",
     sceneContext: "Take a journey inside the human body to understand how our organs, cells, and systems work together to keep us alive.",
     vocabulary: [
@@ -285,7 +285,7 @@ export const documentaryCourse: DocumentaryLessonData[] = [
     id: 7, level: "B1", levelLabel: "Intermediate",
     title: "Climate Change Explained", emoji: "🌡️",
     documentaryTitle: "Before the Flood",
-    youtubeId: "D9xFFyUOpXo",
+    youtubeId: "zbEnOYtsXHA",
     description: "Understand climate change through environmental vocabulary",
     sceneContext: "Leonardo DiCaprio travels across the globe to witness the devastating effects of climate change and explore solutions.",
     vocabulary: [
@@ -327,7 +327,7 @@ export const documentaryCourse: DocumentaryLessonData[] = [
     id: 8, level: "B2", levelLabel: "Upper-Intermediate",
     title: "The Story of Human Language", emoji: "🗣️",
     documentaryTitle: "The Story of Human Language — TTC",
-    youtubeId: "KdouFpd1qkc",
+    youtubeId: "4Nbgj7Rsbkc",
     description: "Explore linguistics and the evolution of human language",
     sceneContext: "Discover how human language evolved, how languages spread across continents, and why some languages disappear.",
     vocabulary: [
