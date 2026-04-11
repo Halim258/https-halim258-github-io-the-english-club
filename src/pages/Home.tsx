@@ -35,6 +35,7 @@ import SocialProofToast from "@/components/SocialProofToast";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import LearningGuide from "@/components/home/LearningGuide";
 import OnboardingTour from "@/components/OnboardingTour";
+import WordOfTheDay from "@/components/home/WordOfTheDay";
 
 /* ── Animated Counter ── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -339,8 +340,17 @@ export default function Home() {
       {/* ═══════════════ CONTINUE LEARNING ═══════════════ */}
       <ContinueLearning />
 
-      {/* ═══════════════ LEARNING GUIDE ═══════════════ */}
-      <LearningGuide />
+      {/* ═══════════════ WORD OF THE DAY + LEARNING GUIDE ═══════════════ */}
+      <section className="py-8 md:py-12">
+        <div className="container mx-auto px-4">
+          <div className="grid gap-6 lg:grid-cols-3">
+            <div className="lg:col-span-2">
+              <LearningGuide />
+            </div>
+            <WordOfTheDay />
+          </div>
+        </div>
+      </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
       <section className="border-y bg-muted/30 py-12 md:py-16 lg:py-20">

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import StudyReminder from "@/components/StudyReminder";
+import NotificationBell from "@/components/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.jpg";
@@ -205,6 +206,7 @@ export default function Navbar() {
             <kbd className="hidden xl:inline-flex items-center rounded border bg-background px-1 py-0.5 text-[9px] font-medium">⌘K</kbd>
           </button>
           <StudyReminder />
+          {user && <NotificationBell />}
           <motion.button
             onClick={() => setDark(!dark)}
             className="rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { GraduationCap, Loader2, BookOpen, Users, Sparkles, Eye, EyeOff, Check, X } from "lucide-react";
+import { notifyWelcome } from "@/lib/notifications";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -77,9 +78,13 @@ export default function Signup() {
       return;
     }
 
-    if (signupData.user && role === "teacher") {
-      await supabase.from("profiles").update({ youtube_intro_url: youtubeUrl }).eq("id", signupData.user.id);
-      await supabase.from("user_roles").update({ role: "teacher" }).eq("user_id", signupData.user.id);
+    if (signupData.user) {
+      if (role === "teacher") {
+        await supabase.from("profiles").update({ youtube_intro_url: youtubeUrl }).eq("id", signupData.user.id);
+        await supabase.from("user_roles").update({ role: "teacher" }).eq("user_id", signupData.user.id);
+      }
+      // Send welcome notification (fire-and-forget)
+      notifyWelcome(signupData.user.id).catch(() => {});
     }
 
     toast({ title: "Account created! 🎉", description: "Check your email to verify your account, then log in." });
