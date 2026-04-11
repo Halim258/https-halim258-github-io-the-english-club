@@ -626,7 +626,7 @@ export default function Home() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-60px" }}
-            className="mt-10 md:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto"
+            className="mt-10 md:mt-14 grid gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-6xl mx-auto"
           >
             {[
               { img: teacher1, name: "Mr. Ahmed", role: "Senior Instructor", specialty: "IELTS & Business English", years: "5+ years" },
