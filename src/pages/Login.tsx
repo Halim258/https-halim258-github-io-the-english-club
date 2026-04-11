@@ -121,11 +121,17 @@ export default function Login() {
             </Button>
           </form>
 
-          <div className="mt-6 pt-6 border-t border-border/50 text-center">
-            <p className="text-sm text-muted-foreground">
-              Don't have an account?{" "}
-              <Link to="/signup" className="font-semibold text-primary hover:underline">Sign up free</Link>
+          {/* Sign up & Start learning CTA */}
+          <div className="mt-6 pt-6 border-t border-border/50 space-y-4">
+            <p className="text-sm text-muted-foreground text-center">
+              Don't have an account?
             </p>
+            <Link to="/signup" className="block">
+              <Button variant="outline" className="w-full h-11 rounded-xl text-sm font-semibold border-primary/30 hover:bg-primary/5 hover:border-primary">
+                <GraduationCap className="h-4 w-4 mr-2 text-primary" />
+                Sign Up & Start Learning Now
+              </Button>
+            </Link>
           </div>
         </motion.div>
 
