@@ -27,6 +27,7 @@ export default function StudyReminder() {
     return saved ? JSON.parse(saved) : { enabled: false, hour: 18, minute: 0 };
   });
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
