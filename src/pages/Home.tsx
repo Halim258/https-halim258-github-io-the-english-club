@@ -728,10 +728,28 @@ export default function Home() {
 
       {/* ═══════════════ FINAL CTA ═══════════════ */}
       <section className="gradient-primary py-20 md:py-28 relative overflow-hidden">
-        {/* Decorative shapes */}
+        {/* Decorative shapes + floating particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-primary-foreground/5 blur-3xl" />
           <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-primary-foreground/5 blur-3xl" />
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 rounded-full bg-primary-foreground/10"
+              style={{ left: `${15 + i * 15}%`, top: `${20 + (i % 3) * 25}%` }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.7, 0.3],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 4 + i,
+                repeat: Infinity,
+                delay: i * 0.7,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <FadeInUp>
