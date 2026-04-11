@@ -61,7 +61,7 @@ export default function StudyReminder() {
     };
     const interval = setInterval(check, 60000);
     return () => clearInterval(interval);
-  }, [settings]);
+  }, [settings, user]);
 
   const enableNotifications = async () => {
     if (!("Notification" in window)) {
