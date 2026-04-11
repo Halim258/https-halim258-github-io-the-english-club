@@ -632,6 +632,8 @@ export default function Home() {
               { img: teacher1, name: "Mr. Ahmed", role: "Senior Instructor", specialty: "IELTS & Business English", years: "5+ years" },
               { img: teacher2, name: "Ms. Nour", role: "Lead Teacher", specialty: "Kids & Conversation", years: "4+ years" },
               { img: teacher3, name: "Mr. Kareem", role: "Head of Curriculum", specialty: "Grammar & Academic Writing", years: "7+ years" },
+              { img: teacherRadwa, name: "Ms. Radwa Badwi", role: "Instructor", specialty: "General English & Speaking", years: "3+ years" },
+              { img: teacherAsmaa, name: "Ms. Asmaa Omar", role: "Instructor", specialty: "Grammar & Vocabulary", years: "3+ years" },
             ].map((t, i) => (
               <motion.div
                 key={t.name}
