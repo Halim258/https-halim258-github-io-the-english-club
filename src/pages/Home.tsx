@@ -31,6 +31,8 @@ import teacher1 from "@/assets/teacher-1.jpg";
 import teacher2 from "@/assets/teacher-2.jpg";
 import teacher3 from "@/assets/teacher-3.jpg";
 import classroomAerial from "@/assets/classroom-aerial.jpg";
+import teacherRadwa from "@/assets/teacher-radwa.jpg";
+import teacherAsmaa from "@/assets/teacher-asmaa.jpg";
 import { Button } from "@/components/ui/button";
 import { PetalTopRight, PetalBottomLeft } from "@/components/PetalDecoration";
 import { FadeInUp, FadeIn, ScaleIn, staggerContainer, staggerItem } from "@/components/AnimatedSection";
