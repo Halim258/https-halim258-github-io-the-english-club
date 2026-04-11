@@ -391,14 +391,14 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ TRUST BADGES ═══════════════ */}
-      <section className="py-8 md:py-10">
+      <section className="py-8 md:py-10 overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-6 md:gap-10"
+            className="flex flex-wrap items-center justify-center gap-4 md:gap-6"
           >
             {[
               { icon: Shield, text: "Cambridge Aligned" },
@@ -407,10 +407,16 @@ export default function Home() {
               { icon: MapPin, text: "Alexandria, Egypt" },
               { icon: Award, text: "Certified Teachers" },
             ].map((badge) => (
-              <div key={badge.text} className="flex items-center gap-2 text-muted-foreground">
-                <badge.icon className="h-4 w-4 text-primary/70" />
-                <span className="text-xs md:text-sm font-medium whitespace-nowrap">{badge.text}</span>
-              </div>
+              <motion.div
+                key={badge.text}
+                whileHover={{ scale: 1.05, y: -2 }}
+                className="flex items-center gap-2.5 rounded-full border bg-card/80 backdrop-blur-sm px-4 py-2.5 shadow-soft"
+              >
+                <div className="h-7 w-7 rounded-full bg-primary/10 flex items-center justify-center">
+                  <badge.icon className="h-3.5 w-3.5 text-primary" />
+                </div>
+                <span className="text-xs md:text-sm font-semibold whitespace-nowrap">{badge.text}</span>
+              </motion.div>
             ))}
           </motion.div>
         </div>
