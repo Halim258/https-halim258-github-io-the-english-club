@@ -45,8 +45,17 @@ export function generateDocumentarySlides(doc: DocumentaryLessonData): Slide[] {
     },
   });
 
-  // 3. Transcript slides (interactive tap-to-translate)
-  const vocabWords = doc.vocabulary.map((v) => v.word.toLowerCase());
+  // 3. Vocabulary data (used by both transcript and vocab slides)
+  const vocabWordsList: VocabWord[] = doc.vocabulary.map((w) => ({
+    word: w.word,
+    meaning: w.meaning,
+    example: w.example,
+    emoji: w.emoji,
+    arabic: w.arabic,
+  }));
+  const vocabWordNames = doc.vocabulary.map((v) => v.word.toLowerCase());
+
+  // 4. Transcript slides (interactive tap-to-translate)
   const transcriptChunks = chunkArray(doc.transcript, 4);
   transcriptChunks.forEach((chunk, i) => {
     slides.push({
@@ -59,20 +68,13 @@ export function generateDocumentarySlides(doc: DocumentaryLessonData): Slide[] {
       content: {
         kind: "transcript",
         lines: chunk,
-        vocabWords,
+        vocabWords: vocabWordNames,
       },
     });
   });
 
-  // 4. Vocabulary slides (4 words per slide)
-  const vocabWords: VocabWord[] = doc.vocabulary.map((w) => ({
-    word: w.word,
-    meaning: w.meaning,
-    example: w.example,
-    emoji: w.emoji,
-    arabic: w.arabic,
-  }));
-  const vocabChunks = chunkArray(vocabWords, 4);
+  // 5. Vocabulary slides (4 words per slide)
+  const vocabChunks = chunkArray(vocabWordsList, 4);
   vocabChunks.forEach((chunk, i) => {
     slides.push({
       id: id(n++),
