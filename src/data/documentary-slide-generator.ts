@@ -45,34 +45,36 @@ export function generateDocumentarySlides(doc: DocumentaryLessonData): Slide[] {
     },
   });
 
-  // 3. Transcript slides (word-by-word with translations)
-  const transcriptChunks = chunkArray(doc.transcript, 4);
-  transcriptChunks.forEach((chunk, i) => {
-    slides.push({
-      id: id(n++),
-      type: "info",
-      title: transcriptChunks.length > 1 ? `📝 Transcript — Part ${i + 1}` : "📝 Transcript",
-      subtitle: "Word by word with translation",
-      emoji: "📝",
-      bgColor: "from-amber-50/30 to-yellow-50/30 dark:from-amber-950/10 dark:to-yellow-950/10",
-      content: {
-        kind: "info",
-        paragraphs: chunk.map(
-          (line) => `⏱️ ${line.time}\n🇬🇧 ${line.text}\n🇸🇦 ${line.translation}`
-        ),
-      },
-    });
-  });
-
-  // 4. Vocabulary slides (4 words per slide)
-  const vocabWords: VocabWord[] = doc.vocabulary.map((w) => ({
+  // 3. Vocabulary data (used by both transcript and vocab slides)
+  const vocabWordsList: VocabWord[] = doc.vocabulary.map((w) => ({
     word: w.word,
     meaning: w.meaning,
     example: w.example,
     emoji: w.emoji,
     arabic: w.arabic,
   }));
-  const vocabChunks = chunkArray(vocabWords, 4);
+  const vocabWordNames = doc.vocabulary.map((v) => v.word.toLowerCase());
+
+  // 4. Transcript slides (interactive tap-to-translate)
+  const transcriptChunks = chunkArray(doc.transcript, 4);
+  transcriptChunks.forEach((chunk, i) => {
+    slides.push({
+      id: id(n++),
+      type: "transcript",
+      title: transcriptChunks.length > 1 ? `📝 Transcript — Part ${i + 1}` : "📝 Transcript",
+      subtitle: "Tap each line to reveal translation",
+      emoji: "📝",
+      bgColor: "from-amber-50/30 to-yellow-50/30 dark:from-amber-950/10 dark:to-yellow-950/10",
+      content: {
+        kind: "transcript",
+        lines: chunk,
+        vocabWords: vocabWordNames,
+      },
+    });
+  });
+
+  // 5. Vocabulary slides (4 words per slide)
+  const vocabChunks = chunkArray(vocabWordsList, 4);
   vocabChunks.forEach((chunk, i) => {
     slides.push({
       id: id(n++),

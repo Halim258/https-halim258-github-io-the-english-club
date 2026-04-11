@@ -12,7 +12,8 @@ export type SlideType =
   | "story-text"
   | "video"
   | "expressions"
-  | "discussion";
+  | "discussion"
+  | "transcript";
 
 export interface Slide {
   id: string;
@@ -36,7 +37,8 @@ export type SlideContent =
   | { kind: "story-text"; text: string; moral?: string }
   | { kind: "video"; youtubeId: string; sceneContext: string; culturalNote?: string; movieTitle: string }
   | { kind: "expressions"; items: { phrase: string; meaning: string; arabic: string; emoji: string }[] }
-  | { kind: "discussion"; questions: { question: string; modelAnswer: string; emoji: string }[] };
+  | { kind: "discussion"; questions: { question: string; modelAnswer: string; emoji: string }[] }
+  | { kind: "transcript"; lines: { time: string; text: string; translation: string }[]; vocabWords?: string[] };
 
 /* ── Generate slides from lesson data ── */
 export function generateSlides(lesson: LessonData): Slide[] {
