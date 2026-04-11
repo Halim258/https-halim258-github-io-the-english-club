@@ -21,7 +21,7 @@ export const documentaryCourse: DocumentaryLessonData[] = [
     id: 1, level: "A1", levelLabel: "Beginner",
     title: "Life in the Ocean", emoji: "🐳",
     documentaryTitle: "Our Planet — Coastal Seas",
-    youtubeId: "r9PnYin7cjE",
+    youtubeId: "r9PeYPHdpNo",
     description: "Discover ocean life and learn basic nature vocabulary",
     sceneContext: "Explore the stunning underwater world of coastal seas, where diverse marine creatures thrive in coral reefs and kelp forests.",
     vocabulary: [
