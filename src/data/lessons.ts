@@ -128,6 +128,8 @@ import { businessEnglishLessons3 } from "./business-english-3";
 import "./business-english-enhance"; // Enhances business lessons 1-10 with more content
 import "./healthcare-enhance"; // Enhances healthcare lessons 1-10 with more content
 import "./legal-enhance"; // Enhances legal lessons 1-10 with more content
+import "./hospitality-enhance"; // Enhances hospitality lessons 1-10 with more content
+import "./finance-enhance"; // Enhances finance lessons 1-5 with more content
 import { academicWritingLessons } from "./academic-writing-lessons";
 import { newsLesson2, hospitalityLesson1, legalLesson1 } from "./missing-lesson-1s";
 const baseLessons: Record<string, LessonData> = {
