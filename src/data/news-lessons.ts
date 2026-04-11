@@ -154,3 +154,7 @@ newsLessons["news-1"] = nl(1, "Reading the News", "Understanding news articles a
     { question: "'Social ___ spreads news fast.'", options: ["Life", "Media", "Work", "School"], correct: 1 },
   ],
 );
+newsLessons["news-1"].youtubeId = "M03vuos_nLI";
+newsLessons["news-1"].videoTitle = "Talking about the News — BBC Learning English";
+newsLessons["news-1"].videoContext = "Watch this BBC Learning English video about discussing news topics and learn key vocabulary.";
+
