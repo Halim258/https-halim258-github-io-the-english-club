@@ -635,7 +635,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ PCC COMPETITION ═══════════════ */}
-      <section id="pcc" className="py-20 md:py-28">
+      <section id="pcc" className="py-20 md:py-28 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
