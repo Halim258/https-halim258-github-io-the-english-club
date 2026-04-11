@@ -33,6 +33,7 @@ import ContinueLearning from "@/components/ContinueLearning";
 import TypingHero from "@/components/TypingHero";
 import SocialProofToast from "@/components/SocialProofToast";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
+import LearningGuide from "@/components/home/LearningGuide";
 
 /* ── Animated Counter ── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
