@@ -38,19 +38,26 @@ export default function CoursesSection() {
           {categories.map((cat) => {
             const CardContent = (
               <>
-                <span className="absolute -right-2 -top-2 text-6xl opacity-[0.07] select-none pointer-events-none">
-                  {cat.emoji}
-                </span>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`h-10 w-10 rounded-lg ${cat.iconBg} flex items-center justify-center shrink-0`}>
-                      <cat.icon className="h-5 w-5 text-foreground" />
+                {/* Category image */}
+                <div className="relative -mx-6 -mt-6 mb-4 h-32 overflow-hidden rounded-t-2xl">
+                  <img
+                    src={cat.image}
+                    alt={cat.title}
+                    className="h-full w-full object-cover transition-transform group-hover:scale-110 duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/60 to-transparent" />
+                  <div className="absolute bottom-3 left-4 flex items-center gap-2">
+                    <div className={`h-8 w-8 rounded-lg ${cat.iconBg} flex items-center justify-center shrink-0 shadow-sm backdrop-blur-sm`}>
+                      <cat.icon className="h-4 w-4 text-foreground" />
                     </div>
                     <div>
-                      <h3 className="text-base font-semibold font-display">{cat.title}</h3>
-                      <p className="text-[11px] text-muted-foreground">{cat.courses.length} courses</p>
+                      <h3 className="text-sm font-semibold font-display text-foreground drop-shadow-sm">{cat.title}</h3>
+                      <p className="text-[10px] text-muted-foreground">{cat.courses.length} courses</p>
                     </div>
                   </div>
+                </div>
+                <div className="relative z-10">
                   <ul className="space-y-2">
                     {cat.courses.slice(0, 4).map((course) => (
                       <li key={course.name} className="flex items-start gap-2 text-sm text-muted-foreground">

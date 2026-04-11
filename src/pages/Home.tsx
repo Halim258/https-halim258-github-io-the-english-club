@@ -134,37 +134,37 @@ const testimonials = [
     quote: "It's not just a place to learn English, it's my second home.",
     name: "May Magdy",
     role: "Student",
-    emoji: "🏠",
+    color: "from-rose-400 to-pink-500",
   },
   {
     quote: "I really love this place, everyone here is amazing. I'm lucky to have such a great family!",
     name: "Nour Elanany",
     role: "Student",
-    emoji: "❤️",
+    color: "from-violet-400 to-purple-500",
   },
   {
     quote: "Without any compliments, I feel home in The English Club.",
     name: "Ahmed Yousry",
     role: "Student",
-    emoji: "🌟",
+    color: "from-sky-400 to-blue-500",
   },
   {
     quote: "The teachers are so supportive and the atmosphere makes learning fun every single day.",
     name: "Sara Mohamed",
     role: "Student",
-    emoji: "📚",
+    color: "from-emerald-400 to-green-500",
   },
   {
     quote: "My English improved dramatically in just 3 months. The courses are well-structured and engaging.",
     name: "Omar Hassan",
     role: "Student",
-    emoji: "🚀",
+    color: "from-amber-400 to-orange-500",
   },
   {
     quote: "PCC Competition changed my life. I went from shy to a confident public speaker!",
     name: "Mariam Khalil",
     role: "PCC Winner",
-    emoji: "🏆",
+    color: "from-teal-400 to-cyan-500",
   },
 ];
 
@@ -661,21 +661,9 @@ export default function Home() {
                   className="w-[300px] shrink-0 rounded-2xl border bg-card p-6 shadow-soft hover:shadow-elevated transition-shadow duration-300 relative overflow-hidden group"
                 >
                   <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex gap-0.5">
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} className="h-3.5 w-3.5 fill-accent text-accent" />
-                      ))}
-                    </div>
-                    <span className="text-xl">{t.emoji}</span>
-                  </div>
-                  <Quote className="h-6 w-6 text-primary/10 mb-2" />
-                  <p className="text-sm text-muted-foreground leading-relaxed italic">
-                    "{t.quote}"
-                  </p>
-                  <div className="mt-5 flex items-center gap-3 pt-3 border-t">
-                    <div className="h-9 w-9 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                      <span className="text-xs font-bold text-primary">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`h-10 w-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center shadow-sm`}>
+                      <span className="text-xs font-bold text-white">
                         {t.name.split(" ").map((n) => n[0]).join("")}
                       </span>
                     </div>
@@ -684,6 +672,14 @@ export default function Home() {
                       <p className="text-[11px] text-muted-foreground">{t.role}</p>
                     </div>
                   </div>
+                  <div className="flex gap-0.5 mb-3">
+                    {[1, 2, 3, 4, 5].map((s) => (
+                      <Star key={s} className="h-3.5 w-3.5 fill-accent text-accent" />
+                    ))}
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed italic">
+                    "{t.quote}"
+                  </p>
                 </div>
               ))}
             </motion.div>
