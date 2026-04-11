@@ -876,6 +876,155 @@ function ExpressionsSlide({ items }: { items: { phrase: string; meaning: string;
   );
 }
 
+/* ═══════════ TRANSCRIPT SLIDE (Tap-to-Translate) ═══════════ */
+function TranscriptSlide({ lines, vocabWords }: { lines: { time: string; text: string; translation: string }[]; vocabWords?: string[] }) {
+  const [revealed, setRevealed] = useState<Set<number>>(new Set());
+  const [showAll, setShowAll] = useState(false);
+  const { speak } = useTTS();
+
+  const toggle = (i: number) => {
+    setRevealed((prev) => {
+      const next = new Set(prev);
+      next.has(i) ? next.delete(i) : next.add(i);
+      return next;
+    });
+  };
+
+  const revealAll = () => {
+    if (showAll) {
+      setRevealed(new Set());
+      setShowAll(false);
+    } else {
+      setRevealed(new Set(lines.map((_, i) => i)));
+      setShowAll(true);
+    }
+  };
+
+  const highlightVocab = (text: string) => {
+    if (!vocabWords || vocabWords.length === 0) return <>{text}</>;
+    const regex = new RegExp(`\\b(${vocabWords.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})\\b`, 'gi');
+    const parts = text.split(regex);
+    return (
+      <>
+        {parts.map((part, i) => {
+          const isVocab = vocabWords.some(w => w.toLowerCase() === part.toLowerCase());
+          return isVocab ? (
+            <span key={i} className="font-semibold text-primary underline decoration-primary/30 decoration-2 underline-offset-2 cursor-help" title={`Vocabulary word: ${part}`}>
+              {part}
+            </span>
+          ) : (
+            <span key={i}>{part}</span>
+          );
+        })}
+      </>
+    );
+  };
+
+  return (
+    <div className="space-y-3">
+      {/* Controls */}
+      <div className="flex items-center justify-between">
+        <p className="text-xs text-muted-foreground flex items-center gap-1.5">
+          👆 Tap each line to reveal Arabic translation
+        </p>
+        <div className="flex items-center gap-2">
+          <Button variant="ghost" size="sm" onClick={revealAll} className="rounded-full text-xs gap-1.5">
+            {showAll ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+            {showAll ? "Hide All" : "Show All"}
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="rounded-full text-xs gap-1.5"
+            onClick={() => {
+              const fullText = lines.map(l => l.text).join('. ');
+              speak(fullText, "en-US", 0.85);
+            }}
+          >
+            <Volume2 className="h-3 w-3" /> Listen All
+          </Button>
+        </div>
+      </div>
+
+      {/* Transcript lines */}
+      <div className="space-y-2">
+        {lines.map((line, i) => {
+          const isRevealed = revealed.has(i);
+          return (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.08 }}
+              onClick={() => toggle(i)}
+              className={`rounded-xl border cursor-pointer transition-all duration-200 overflow-hidden group ${
+                isRevealed
+                  ? "bg-primary/5 border-primary/20 shadow-sm"
+                  : "bg-card hover:bg-muted/40 hover:border-primary/10"
+              }`}
+            >
+              <div className="flex items-start gap-3 p-3.5">
+                {/* Timestamp */}
+                <div className="shrink-0 flex flex-col items-center gap-1">
+                  <span className="text-[10px] font-mono font-bold text-muted-foreground bg-muted/60 px-2 py-0.5 rounded-full">
+                    {line.time}
+                  </span>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); speak(line.text); }}
+                    className="h-7 w-7 rounded-full bg-muted/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-primary/10"
+                  >
+                    <Volume2 className="h-3 w-3 text-primary" />
+                  </button>
+                </div>
+
+                {/* Text content */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm leading-relaxed">
+                    🇬🇧 {highlightVocab(line.text)}
+                  </p>
+
+                  <AnimatePresence>
+                    {isRevealed && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="overflow-hidden"
+                      >
+                        <p className="text-sm text-muted-foreground mt-2 pt-2 border-t border-dashed border-primary/15" dir="rtl">
+                          🇸🇦 {line.translation}
+                        </p>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+
+                {/* Reveal indicator */}
+                <div className="shrink-0 mt-1">
+                  {isRevealed ? (
+                    <EyeOff className="h-3.5 w-3.5 text-primary/50" />
+                  ) : (
+                    <Eye className="h-3.5 w-3.5 text-muted-foreground/30 group-hover:text-muted-foreground/60 transition-colors" />
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Legend */}
+      {vocabWords && vocabWords.length > 0 && (
+        <div className="flex items-center gap-2 text-[10px] text-muted-foreground/60 pt-2">
+          <span className="font-semibold text-primary underline decoration-primary/30 decoration-2 underline-offset-2">Highlighted words</span>
+          <span>= vocabulary from this lesson</span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ═══════════ DISCUSSION SLIDE ═══════════ */
 function DiscussionSlide({ questions }: { questions: { question: string; modelAnswer: string; emoji: string }[] }) {
   const [revealed, setRevealed] = useState<Set<number>>(new Set());
