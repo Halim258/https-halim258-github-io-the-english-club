@@ -678,13 +678,15 @@ export default function Home() {
           </motion.div>
 
           <FadeInUp delay={0.2}>
-            <div className="mt-10 rounded-2xl border bg-card p-7 shadow-soft overflow-hidden">
-              <div className="flex flex-col md:flex-row items-center gap-8">
-                <div className="w-full md:w-1/3 overflow-hidden rounded-xl relative group">
-                  <img src={gallery7} alt="PCC Competition awards" className="w-full h-52 object-cover rounded-xl transition-transform group-hover:scale-105 duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent rounded-xl" />
+            <div className="mt-10 rounded-2xl border bg-card shadow-soft overflow-hidden">
+              <div className="flex flex-col md:flex-row items-stretch">
+                {/* Left: Presentation image */}
+                <div className="w-full md:w-2/5 relative group">
+                  <img src={pccPresentation} alt="Student presenting at PCC" className="w-full h-64 md:h-full object-cover transition-transform group-hover:scale-105 duration-700" loading="lazy" width={1024} height={1024} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/40 to-transparent" />
                 </div>
-                <div className="flex-1">
+                {/* Right: Content */}
+                <div className="flex-1 p-7 md:p-10 flex flex-col justify-center">
                   <h3 className="text-lg font-semibold font-display mb-4 flex items-center gap-2">
                     <Trophy className="h-5 w-5 text-accent" />
                     Why Join PCC?
@@ -702,6 +704,15 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
+                  {/* Awards mini gallery */}
+                  <div className="mt-6 flex gap-3">
+                    <div className="w-20 h-16 rounded-lg overflow-hidden border shadow-sm">
+                      <img src={pccAwards} alt="PCC trophies" className="w-full h-full object-cover" loading="lazy" width={800} height={600} />
+                    </div>
+                    <div className="w-20 h-16 rounded-lg overflow-hidden border shadow-sm">
+                      <img src={gallery7} alt="PCC event" className="w-full h-full object-cover" loading="lazy" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
