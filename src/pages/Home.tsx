@@ -199,6 +199,7 @@ export default function Home() {
         <PetalBottomLeft />
         {/* Animated background blobs */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] dark:opacity-[0.04]" aria-hidden="true" />
           <motion.div
             className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]"
             animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3], x: [0, 30, 0] }}
