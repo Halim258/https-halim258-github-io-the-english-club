@@ -457,3 +457,7 @@ export const documentaryCourse: DocumentaryLessonData[] = [
     culturalNote: "Dr. Suzanne Simard's research on tree communication networks inspired the concept of 'Hometree' in the movie Avatar!",
   },
 ];
+
+// Merge with batch 2
+import { documentaryCourse2 } from "./documentary-course-2";
+documentaryCourse.push(...documentaryCourse2);
