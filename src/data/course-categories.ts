@@ -171,6 +171,7 @@ export const categories: Category[] = [
       { name: "English through Stories", description: "Improve reading and listening through graded stories and narrative-based learning.", topics: ["Short Stories", "Audiobooks", "Discussion"] },
       { name: "Real-life Conversation Practice", description: "Practice real-world scenarios — shopping, doctor visits, social events, and more.", topics: ["Role Play", "Scenarios", "Daily Life"] },
       { name: "Slang & Everyday English", description: "Understand and use informal English, slang, and colloquial expressions like a native.", topics: ["Slang", "Colloquialisms", "Informal Speech"] },
+      { name: "English through Documentary", description: "Watch real documentaries, learn vocabulary word-by-word, and test your understanding.", topics: ["Nature", "Science", "History", "Technology"] },
     ],
   },
   {
