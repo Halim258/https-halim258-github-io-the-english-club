@@ -369,6 +369,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══════════════ TRUST BADGES ═══════════════ */}
+      <section className="py-8 md:py-10">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-6 md:gap-10"
+          >
+            {[
+              { icon: Shield, text: "Cambridge Aligned" },
+              { icon: Clock, text: "7+ Years Experience" },
+              { icon: Users, text: "500+ Graduates" },
+              { icon: MapPin, text: "Alexandria, Egypt" },
+              { icon: Award, text: "Certified Teachers" },
+            ].map((badge) => (
+              <div key={badge.text} className="flex items-center gap-2 text-muted-foreground">
+                <badge.icon className="h-4 w-4 text-primary/70" />
+                <span className="text-xs md:text-sm font-medium whitespace-nowrap">{badge.text}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══════════════ HOW IT WORKS ═══════════════ */}
       <section className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
