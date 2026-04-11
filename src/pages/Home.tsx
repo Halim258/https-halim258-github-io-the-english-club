@@ -570,7 +570,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════ GALLERY ═══════════════ */}
+      {/* ═══════════════ CLASSROOM BANNER ═══════════════ */}
+      <section className="relative h-64 md:h-80 lg:h-96 overflow-hidden">
+        <img src={studentsLearning} alt="Students learning at The English Club" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={720} />
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/80 via-secondary/50 to-transparent" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="max-w-lg"
+            >
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground font-display">
+                Learn in a Community That Inspires
+              </h2>
+              <p className="mt-3 text-primary-foreground/80 text-sm md:text-base leading-relaxed">
+                Our classrooms are designed for collaboration, creativity, and real-world English practice.
+              </p>
+              <Link to="/signup">
+                <Button size="lg" className="mt-6 rounded-full px-8 font-semibold shadow-lg">
+                  Join Our Classes <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       <section id="gallery" className="border-y bg-muted/20 py-20 md:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
