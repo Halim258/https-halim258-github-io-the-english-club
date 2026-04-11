@@ -603,6 +603,99 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══════════════ MEET OUR TEACHERS ═══════════════ */}
+      <section className="py-14 md:py-20 lg:py-28">
+        <div className="container mx-auto px-4">
+          <FadeInUp>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <GraduationCap className="h-4 w-4 text-primary" />
+              <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">Our Team</p>
+            </div>
+            <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-bold font-display">
+              Meet Our Expert Teachers
+            </h2>
+            <p className="mx-auto mt-3 max-w-lg text-center text-muted-foreground text-sm md:text-base">
+              Certified, passionate, and dedicated to helping you achieve fluency.
+            </p>
+          </FadeInUp>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-60px" }}
+            className="mt-10 md:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto"
+          >
+            {[
+              { img: teacher1, name: "Mr. Ahmed", role: "Senior Instructor", specialty: "IELTS & Business English", years: "5+ years" },
+              { img: teacher2, name: "Ms. Nour", role: "Lead Teacher", specialty: "Kids & Conversation", years: "4+ years" },
+              { img: teacher3, name: "Mr. Kareem", role: "Head of Curriculum", specialty: "Grammar & Academic Writing", years: "7+ years" },
+            ].map((t, i) => (
+              <motion.div
+                key={t.name}
+                variants={staggerItem}
+                className="group relative rounded-2xl border bg-card overflow-hidden shadow-soft hover:shadow-elevated transition-all duration-300"
+              >
+                <div className="relative h-56 md:h-64 overflow-hidden">
+                  <img src={t.img} alt={t.name} className="w-full h-full object-cover object-top transition-transform group-hover:scale-105 duration-700" loading="lazy" width={512} height={640} />
+                  <div className="absolute inset-0 bg-gradient-to-t from-secondary/70 via-transparent to-transparent" />
+                  <div className="absolute bottom-3 left-4 right-4">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-primary/90 backdrop-blur-sm px-3 py-1 text-[10px] font-bold text-primary-foreground">
+                      <Star className="h-3 w-3 fill-current" /> {t.years}
+                    </span>
+                  </div>
+                </div>
+                <div className="p-5">
+                  <h3 className="text-base font-semibold font-display">{t.name}</h3>
+                  <p className="text-xs text-primary font-medium mt-0.5">{t.role}</p>
+                  <p className="text-xs text-muted-foreground mt-2">{t.specialty}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          <FadeInUp delay={0.2}>
+            <div className="mt-10 text-center">
+              <Link to="/teachers">
+                <Button variant="outline" className="rounded-full font-semibold px-6 hover:scale-[1.02] transition-transform text-sm">
+                  View All Teachers <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </FadeInUp>
+        </div>
+      </section>
+
+      {/* ═══════════════ MILESTONES BANNER ═══════════════ */}
+      <section className="relative h-48 md:h-56 overflow-hidden">
+        <img src={classroomAerial} alt="The English Club classroom" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={512} />
+        <div className="absolute inset-0 bg-secondary/75 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="container mx-auto px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center"
+            >
+              {[
+                { icon: Globe2, value: "10+", label: "Nationalities" },
+                { icon: Award, value: "50+", label: "PCC Winners" },
+                { icon: BookOpen, value: "1000+", label: "Lessons Delivered" },
+                { icon: Heart, value: "98%", label: "Satisfaction Rate" },
+              ].map((m) => (
+                <div key={m.label} className="flex flex-col items-center">
+                  <m.icon className="h-5 w-5 text-primary-foreground/70 mb-2" />
+                  <p className="text-2xl md:text-3xl font-bold text-primary-foreground font-display">{m.value}</p>
+                  <p className="text-xs text-primary-foreground/70 mt-1">{m.label}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       <section id="gallery" className="border-y bg-muted/20 py-20 md:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
