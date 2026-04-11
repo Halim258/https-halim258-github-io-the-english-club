@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane } from "lucide-react";
+import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane, Video } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import coreEnglishImg from "@/assets/courses/core-english.jpg";
@@ -19,6 +19,7 @@ import socialMediaImg from "@/assets/courses/social-media.jpg";
 import healthcareImg from "@/assets/courses/healthcare.jpg";
 import financeImg from "@/assets/courses/finance.jpg";
 import aviationImg from "@/assets/courses/aviation.jpg";
+import documentaryImg from "@/assets/courses/documentary.jpg";
 
 export interface Course {
   name: string;
@@ -302,6 +303,19 @@ export const categories: Category[] = [
     description: "Aviation English for pilots, cabin crew, and airport staff — ATC communication, safety, and weather.",
     courses: [
       { name: "English for Aviation", description: "Airport navigation, in-flight communication, ATC phraseology, weather, and safety.", topics: ["Airport", "ATC", "Weather", "Safety"] },
+    ],
+  },
+  {
+    icon: Video,
+    emoji: "🎥",
+    title: "English through Documentary",
+    slug: "documentary",
+    color: "from-teal-500/10 to-emerald-500/5",
+    iconBg: "bg-teal-500/15",
+    image: documentaryImg,
+    description: "Learn English by watching real documentaries — nature, science, history, and more — with word-by-word transcripts.",
+    courses: [
+      { name: "English through Documentary", description: "Watch free documentary clips, learn vocabulary word-by-word, and test comprehension.", topics: ["Nature", "Science", "History", "Technology", "Psychology"] },
     ],
   },
 ];

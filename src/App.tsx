@@ -37,6 +37,8 @@ const Flashcards = lazy(() => import("./pages/Flashcards"));
 const AIChatTutor = lazy(() => import("./pages/AIChatTutor"));
 const Leaderboard = lazy(() => import("./pages/Leaderboard"));
 const Community = lazy(() => import("./pages/Community"));
+const DocumentaryCourse = lazy(() => import("./pages/DocumentaryCourse"));
+const DocumentarySlideLesson = lazy(() => import("./pages/DocumentarySlideLesson"));
 const PronunciationChecker = lazy(() => import("./pages/PronunciationChecker"));
 
 const queryClient = new QueryClient();
@@ -71,6 +73,8 @@ const App = () => (
               <Route path="/courses/stories/:lessonId/slides" element={<ProtectedRoute><StorySlideLesson /></ProtectedRoute>} />
               <Route path="/courses/movies" element={<ProtectedRoute><MoviesCourse /></ProtectedRoute>} />
               <Route path="/courses/movies/:lessonId/slides" element={<ProtectedRoute><MovieSlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/documentary" element={<ProtectedRoute><DocumentaryCourse /></ProtectedRoute>} />
+              <Route path="/courses/documentary/:lessonId/slides" element={<ProtectedRoute><DocumentarySlideLesson /></ProtectedRoute>} />
               <Route path="/kids/games" element={<ProtectedRoute><KidsGameCenter /></ProtectedRoute>} />
               <Route path="/courses/:levelId" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
               <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />
