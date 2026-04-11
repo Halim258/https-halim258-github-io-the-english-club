@@ -34,6 +34,7 @@ import TypingHero from "@/components/TypingHero";
 import SocialProofToast from "@/components/SocialProofToast";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import LearningGuide from "@/components/home/LearningGuide";
+import OnboardingTour from "@/components/OnboardingTour";
 
 /* ── Animated Counter ── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -186,6 +187,7 @@ export default function Home() {
 
   return (
     <div className="overflow-x-hidden">
+      <OnboardingTour />
       {/* ═══════════════ HERO ═══════════════ */}
       <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
         <PetalTopRight />
