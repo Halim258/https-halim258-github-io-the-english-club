@@ -156,6 +156,7 @@ function SlideRenderer({ slide }: { slide: Slide }) {
         {content.kind === "video" && <VideoSlide youtubeId={content.youtubeId} sceneContext={content.sceneContext} culturalNote={content.culturalNote} movieTitle={content.movieTitle} />}
         {content.kind === "expressions" && <ExpressionsSlide items={content.items} />}
         {content.kind === "discussion" && <DiscussionSlide questions={content.questions} />}
+        {content.kind === "transcript" && <TranscriptSlide lines={content.lines} vocabWords={content.vocabWords} />}
       </div>
     </div>
   );
