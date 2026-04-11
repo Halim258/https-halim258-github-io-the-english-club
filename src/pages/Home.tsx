@@ -337,6 +337,9 @@ export default function Home() {
       {/* ═══════════════ CONTINUE LEARNING ═══════════════ */}
       <ContinueLearning />
 
+      {/* ═══════════════ LEARNING GUIDE ═══════════════ */}
+      <LearningGuide />
+
       {/* ═══════════════ STATS ═══════════════ */}
       <section className="border-y bg-muted/30 py-12 md:py-16 lg:py-20">
         <div className="container mx-auto px-4">
