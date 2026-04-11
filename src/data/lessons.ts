@@ -17,6 +17,9 @@ export interface LessonData {
   grammarExercises: MCQItem[];
   examQuestions: MCQItem[];
   homeworkQuestions: MCQItem[];
+  youtubeId?: string;
+  videoTitle?: string;
+  videoContext?: string;
 }
 
 import { readingLessons } from "./reading-lessons";
