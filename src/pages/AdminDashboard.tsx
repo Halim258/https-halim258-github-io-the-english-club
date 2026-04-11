@@ -370,7 +370,12 @@ export default function AdminDashboard() {
         </motion.div>
       )}
 
-      {tab === "export" && (
+      {tab === "notifications" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminNotifications />
+        </motion.div>
+      )}
+
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <AdminExport
             students={schoolStudents} employees={employees} income={income}
