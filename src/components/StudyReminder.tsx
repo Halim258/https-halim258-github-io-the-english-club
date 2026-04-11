@@ -48,6 +48,15 @@ export default function StudyReminder() {
           title: "📚 Time to Study!",
           description: "Your daily English lesson is waiting. Keep your streak going! 🔥",
         });
+        if (user?.id) {
+          createNotification({
+            userId: user.id,
+            title: "📚 Time to Study!",
+            message: "Your daily English lesson is waiting. Keep your streak going! 🔥",
+            type: "tip",
+            link: "/courses",
+          });
+        }
       }
     };
     const interval = setInterval(check, 60000);
