@@ -216,7 +216,7 @@ export default function Navbar() {
           {user && <NotificationBell />}
           <motion.button
             onClick={() => setDark(!dark)}
-            className="rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/50 transition-colors"
+            className="rounded-full p-2 text-foreground hover:text-primary hover:bg-muted/50 transition-colors"
             aria-label="Toggle dark mode"
             whileTap={{ scale: 0.9, rotate: 180 }}
             transition={{ duration: 0.3 }}
