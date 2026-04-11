@@ -5,7 +5,7 @@ import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
-  Timer, AlertCircle, Moon, Sun, ShieldCheck
+  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import CommandPalette from "@/components/admin/CommandPalette";
