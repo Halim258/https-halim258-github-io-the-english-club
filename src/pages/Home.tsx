@@ -31,6 +31,8 @@ import teacher1 from "@/assets/teacher-1.jpg";
 import teacher2 from "@/assets/teacher-2.jpg";
 import teacher3 from "@/assets/teacher-3.jpg";
 import classroomAerial from "@/assets/classroom-aerial.jpg";
+import teacherRadwa from "@/assets/teacher-radwa.jpg";
+import teacherAsmaa from "@/assets/teacher-asmaa.jpg";
 import { Button } from "@/components/ui/button";
 import { PetalTopRight, PetalBottomLeft } from "@/components/PetalDecoration";
 import { FadeInUp, FadeIn, ScaleIn, staggerContainer, staggerItem } from "@/components/AnimatedSection";
@@ -624,12 +626,14 @@ export default function Home() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-60px" }}
-            className="mt-10 md:mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto"
+            className="mt-10 md:mt-14 grid gap-5 grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 max-w-6xl mx-auto"
           >
             {[
               { img: teacher1, name: "Mr. Ahmed", role: "Senior Instructor", specialty: "IELTS & Business English", years: "5+ years" },
               { img: teacher2, name: "Ms. Nour", role: "Lead Teacher", specialty: "Kids & Conversation", years: "4+ years" },
               { img: teacher3, name: "Mr. Kareem", role: "Head of Curriculum", specialty: "Grammar & Academic Writing", years: "7+ years" },
+              { img: teacherRadwa, name: "Ms. Radwa Badwi", role: "Instructor", specialty: "General English & Speaking", years: "3+ years" },
+              { img: teacherAsmaa, name: "Ms. Asmaa Omar", role: "Instructor", specialty: "Grammar & Vocabulary", years: "3+ years" },
             ].map((t, i) => (
               <motion.div
                 key={t.name}
