@@ -4,7 +4,8 @@ import { motion, useInView } from "framer-motion";
 import {
   BookOpen, ArrowRight, Users, Award, GraduationCap,
   Headphones, PenLine, MessageCircle, BarChart3, Globe2, Star, CheckCircle2, Camera,
-  Sparkles, Target, Zap, Trophy, Heart, Play, ChevronRight, Radio, Mic2, Quote
+  Sparkles, Target, Zap, Trophy, Heart, Play, ChevronRight, Radio, Mic2, Quote,
+  Shield, Clock, MapPin
 } from "lucide-react";
 import gallery1 from "@/assets/gallery-1.png";
 import gallery2 from "@/assets/gallery-2.png";
@@ -31,6 +32,7 @@ import CoursesSection from "@/components/home/CoursesSection";
 import ContinueLearning from "@/components/ContinueLearning";
 import TypingHero from "@/components/TypingHero";
 import SocialProofToast from "@/components/SocialProofToast";
+import ScrollToTopButton from "@/components/ScrollToTopButton";
 
 /* ── Animated Counter ── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -367,6 +369,32 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══════════════ TRUST BADGES ═══════════════ */}
+      <section className="py-8 md:py-10">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-6 md:gap-10"
+          >
+            {[
+              { icon: Shield, text: "Cambridge Aligned" },
+              { icon: Clock, text: "7+ Years Experience" },
+              { icon: Users, text: "500+ Graduates" },
+              { icon: MapPin, text: "Alexandria, Egypt" },
+              { icon: Award, text: "Certified Teachers" },
+            ].map((badge) => (
+              <div key={badge.text} className="flex items-center gap-2 text-muted-foreground">
+                <badge.icon className="h-4 w-4 text-primary/70" />
+                <span className="text-xs md:text-sm font-medium whitespace-nowrap">{badge.text}</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══════════════ HOW IT WORKS ═══════════════ */}
       <section className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
@@ -643,46 +671,48 @@ export default function Home() {
             </p>
           </FadeInUp>
 
-          {/* Infinite scrolling marquee */}
-          <div className="relative">
+          {/* Infinite scrolling marquee — pauses on hover */}
+          <div className="relative group/marquee">
             {/* Fade edges */}
             <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-muted/20 to-transparent z-10 pointer-events-none" />
             <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-muted/20 to-transparent z-10 pointer-events-none" />
             
-            <motion.div
-              className="flex gap-5"
-              animate={{ x: [0, -(320 * testimonials.length)] }}
-              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-              style={{ width: `${320 * testimonials.length * 2}px` }}
+            <div
+              className="flex gap-5 overflow-hidden"
             >
-              {[...testimonials, ...testimonials].map((t, i) => (
-                <div
-                  key={`${t.name}-${i}`}
-                  className="w-[300px] shrink-0 rounded-2xl border bg-card p-6 shadow-soft hover:shadow-elevated transition-shadow duration-300 relative overflow-hidden group"
-                >
-                  <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`h-10 w-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center shadow-sm`}>
-                      <span className="text-xs font-bold text-white">
-                        {t.name.split(" ").map((n) => n[0]).join("")}
-                      </span>
+              <div
+                className="flex gap-5 animate-marquee group-hover/marquee:[animation-play-state:paused]"
+                style={{ width: `${320 * testimonials.length * 2}px` }}
+              >
+                {[...testimonials, ...testimonials].map((t, i) => (
+                  <div
+                    key={`${t.name}-${i}`}
+                    className="w-[300px] shrink-0 rounded-2xl border bg-card p-6 shadow-soft hover:shadow-elevated transition-shadow duration-300 relative overflow-hidden group"
+                  >
+                    <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary to-accent rounded-l-2xl scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-500" />
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className={`h-10 w-10 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center shadow-sm`}>
+                        <span className="text-xs font-bold text-white">
+                          {t.name.split(" ").map((n) => n[0]).join("")}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold font-display">{t.name}</p>
+                        <p className="text-[11px] text-muted-foreground">{t.role}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm font-semibold font-display">{t.name}</p>
-                      <p className="text-[11px] text-muted-foreground">{t.role}</p>
+                    <div className="flex gap-0.5 mb-3">
+                      {[1, 2, 3, 4, 5].map((s) => (
+                        <Star key={s} className="h-3.5 w-3.5 fill-accent text-accent" />
+                      ))}
                     </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed italic">
+                      "{t.quote}"
+                    </p>
                   </div>
-                  <div className="flex gap-0.5 mb-3">
-                    {[1, 2, 3, 4, 5].map((s) => (
-                      <Star key={s} className="h-3.5 w-3.5 fill-accent text-accent" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed italic">
-                    "{t.quote}"
-                  </p>
-                </div>
-              ))}
-            </motion.div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -698,10 +728,28 @@ export default function Home() {
 
       {/* ═══════════════ FINAL CTA ═══════════════ */}
       <section className="gradient-primary py-20 md:py-28 relative overflow-hidden">
-        {/* Decorative shapes */}
+        {/* Decorative shapes + floating particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-primary-foreground/5 blur-3xl" />
           <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-primary-foreground/5 blur-3xl" />
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute w-2 h-2 rounded-full bg-primary-foreground/10"
+              style={{ left: `${15 + i * 15}%`, top: `${20 + (i % 3) * 25}%` }}
+              animate={{
+                y: [0, -30, 0],
+                opacity: [0.3, 0.7, 0.3],
+                scale: [1, 1.5, 1],
+              }}
+              transition={{
+                duration: 4 + i,
+                repeat: Infinity,
+                delay: i * 0.7,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
           <FadeInUp>
@@ -736,6 +784,7 @@ export default function Home() {
         </div>
       </section>
       <SocialProofToast />
+      <ScrollToTopButton />
     </div>
   );
 }
