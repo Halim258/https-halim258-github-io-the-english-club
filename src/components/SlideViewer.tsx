@@ -158,6 +158,7 @@ function SlideRenderer({ slide }: { slide: Slide }) {
         {content.kind === "discussion" && <DiscussionSlide questions={content.questions} />}
         {content.kind === "transcript" && <TranscriptSlide lines={content.lines} vocabWords={content.vocabWords} />}
         {content.kind === "song-reward" && <SongRewardSlide youtubeId={content.youtubeId} title={content.title} artist={content.artist} message={content.message} />}
+        {content.kind === "listening" && <ListeningSlide audioContext={content.audioContext} tip={content.tip} questions={content.questions} />}
       </div>
     </div>
   );
