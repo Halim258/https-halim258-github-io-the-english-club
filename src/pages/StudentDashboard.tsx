@@ -70,7 +70,7 @@ const quickActions = [
   { icon: Brain, label: "AI Tutor", to: "/ai-tutor", color: "from-violet-500/15 to-violet-500/5", iconColor: "text-violet-600 dark:text-violet-400" },
   { icon: Mic2, label: "Speaking", to: "/practice", color: "from-rose-500/15 to-rose-500/5", iconColor: "text-rose-600 dark:text-rose-400" },
   { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz", color: "from-purple-500/15 to-purple-500/5", iconColor: "text-purple-600 dark:text-purple-400" },
-  { icon: Radio, label: "FM Radio", to: "/fm", color: "from-sky-500/15 to-sky-500/5", iconColor: "text-sky-600 dark:text-sky-400" },
+  { icon: PenLine, label: "Writing", to: "/writing", color: "from-teal-500/15 to-teal-500/5", iconColor: "text-teal-600 dark:text-teal-400" },
   { icon: Trophy, label: "Leaderboard", to: "/leaderboard", color: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
 ];
 
