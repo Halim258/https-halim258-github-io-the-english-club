@@ -55,9 +55,15 @@ const queryClient = new QueryClient();
 function PageLoader() {
   return (
     <div className="flex min-h-[60vh] items-center justify-center">
-      <div className="flex flex-col items-center gap-3">
-        <div className="h-8 w-8 animate-spin rounded-full border-3 border-primary border-t-transparent" />
-        <p className="text-sm text-muted-foreground font-medium animate-pulse">Loading...</p>
+      <div className="flex flex-col items-center gap-4">
+        <div className="relative">
+          <div className="h-10 w-10 animate-spin rounded-full border-[3px] border-muted border-t-primary" />
+          <div className="absolute inset-0 h-10 w-10 animate-ping rounded-full border border-primary/20" />
+        </div>
+        <div className="space-y-1 text-center">
+          <p className="text-sm text-foreground font-semibold">Loading</p>
+          <p className="text-xs text-muted-foreground animate-pulse">Preparing your content...</p>
+        </div>
       </div>
     </div>
   );
