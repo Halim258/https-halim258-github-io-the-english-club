@@ -21,6 +21,7 @@ const primaryLinks = [
 ];
 
 const moreLinks = [
+  { to: "/idioms", label: "🗣️ Idioms & Phrasal Verbs" },
   { to: "/writing", label: "✍️ Writing" },
   { to: "/grammar", label: "📖 Grammar" },
   { to: "/progress", label: "📊 My Progress" },
