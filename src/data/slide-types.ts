@@ -254,7 +254,27 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   }
 
-  // 10. Summary slide
+  // 10. Listening comprehension slide (auto-generated from dialogue)
+  if (lesson.dialogue.length >= 4 && !isConversation) {
+    const listeningQs = generateListeningQuestions(lesson);
+    if (listeningQs.length > 0) {
+      slides.push({
+        id: id(n++),
+        type: "listening",
+        title: "Listening Practice",
+        emoji: "🎧",
+        bgColor: "from-cyan-500/10 to-cyan-500/5",
+        content: {
+          kind: "listening",
+          audioContext: `Listen carefully to the conversation about "${lesson.title}" and answer the questions.`,
+          tip: "Try to understand the main ideas before answering.",
+          questions: listeningQs,
+        },
+      });
+    }
+  }
+
+  // 11. Summary slide
   slides.push({
     id: id(n++),
     type: "summary",
