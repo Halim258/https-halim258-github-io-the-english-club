@@ -21,22 +21,22 @@ export default function MobileBottomNav() {
   if (pathname.includes("/slides") || pathname.includes("/admin") || pathname.includes("/teacher")) return null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-card/95 backdrop-blur-lg md:hidden safe-area-bottom">
-      <div className="flex items-center justify-around py-1 px-2">
+    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-card/95 backdrop-blur-lg md:hidden" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
+      <div className="flex items-center justify-around py-1.5 px-1">
         {navItems.map(item => {
           const isActive = pathname === item.to || (item.to !== "/" && pathname.startsWith(item.to));
           return (
             <Link
               key={item.to}
               to={item.to}
-              className={`relative flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-colors min-w-[56px] ${
+              className={`relative flex flex-col items-center gap-0.5 px-2 py-2 rounded-xl transition-colors min-w-[56px] min-h-[48px] justify-center touch-manipulation active:scale-95 ${
                 isActive ? "text-primary" : "text-muted-foreground"
               }`}
             >
               {isActive && (
                 <motion.div
                   layoutId="mobile-nav-indicator"
-                  className="absolute -top-1 h-0.5 w-8 rounded-full bg-primary"
+                  className="absolute -top-1.5 h-0.5 w-8 rounded-full bg-primary"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}

@@ -43,15 +43,15 @@ const NavFooter = ({
   current: number;
   total: number;
 }) => (
-  <div className="flex items-center justify-between border-t bg-card px-4 py-3">
+  <div className="flex items-center justify-between border-t bg-card px-3 sm:px-4 py-2.5 sm:py-3 safe-area-bottom">
     <Button
       variant={canPrev ? "outline" : "ghost"}
       size="sm"
       onClick={onPrev}
       disabled={!canPrev}
-      className="gap-1 transition-all duration-200"
+      className="gap-1 transition-all duration-200 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 touch-manipulation"
     >
-      <ChevronLeft className="h-4 w-4" /> Back
+      <ChevronLeft className="h-4 w-4" /> <span className="hidden sm:inline">Back</span>
     </Button>
     <div className="flex flex-col items-center">
       <span className="text-xs text-muted-foreground font-sans font-medium">
@@ -59,8 +59,8 @@ const NavFooter = ({
       </span>
       {/* Mini dot progress */}
       <div className="flex gap-0.5 mt-1">
-        {Array.from({ length: Math.min(total, 20) }, (_, i) => {
-          const dotIndex = total <= 20 ? i : Math.floor((i / 20) * total);
+        {Array.from({ length: Math.min(total, 16) }, (_, i) => {
+          const dotIndex = total <= 16 ? i : Math.floor((i / 16) * total);
           return (
             <div
               key={i}
@@ -77,9 +77,9 @@ const NavFooter = ({
       size="sm"
       onClick={onNext}
       disabled={!canNext}
-      className="gap-1 transition-all duration-200"
+      className="gap-1 transition-all duration-200 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 touch-manipulation"
     >
-      Next <ChevronRight className="h-4 w-4" />
+      <span className="hidden sm:inline">Next</span> <ChevronRight className="h-4 w-4" />
     </Button>
   </div>
 );
@@ -123,9 +123,9 @@ function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; sho
   const [flipped, setFlipped] = useState(false);
 
   return (
-    <div className="flex flex-1 items-center justify-center px-4">
+    <div className="flex flex-1 items-center justify-center px-3 sm:px-4">
       <div
-        className="relative w-full max-w-sm aspect-[3/4] cursor-pointer group"
+        className="relative w-full max-w-sm aspect-[3/4] sm:aspect-[3/4] cursor-pointer group"
         style={{ perspective: "800px" }}
         onClick={() => setFlipped(!flipped)}
       >
@@ -609,36 +609,36 @@ export default function LessonPage() {
   return (
     <Shell>
       {/* Header */}
-      <div className="flex items-center justify-between border-b bg-card px-4 py-2">
-        <div className="flex items-center gap-2">
-          <Link to="/courses" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-sans">
-            <ChevronLeft className="h-4 w-4" /> Exit
+      <div className="flex items-center justify-between border-b bg-card px-3 sm:px-4 py-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <Link to="/courses" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-sans min-h-[44px] min-w-[44px] justify-center touch-manipulation">
+            <ChevronLeft className="h-4 w-4" /> <span className="hidden sm:inline">Exit</span>
           </Link>
           <button
             onClick={() => navigate(`/courses/${levelId}/${lessonId}/slides`)}
-            className="flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-semibold text-primary hover:bg-primary/20 transition-colors"
+            className="flex items-center gap-1 rounded-full bg-primary/10 px-2 sm:px-2.5 py-1 text-[11px] font-semibold text-primary hover:bg-primary/20 transition-colors min-h-[36px] touch-manipulation"
           >
-            <Presentation className="h-3 w-3" /> Slides
+            <Presentation className="h-3 w-3" /> <span className="hidden sm:inline">Slides</span>
           </button>
         </div>
-        <div className="text-center flex items-center gap-2">
-          <div>
+        <div className="text-center flex items-center gap-1.5 sm:gap-2 min-w-0">
+          <div className="min-w-0">
             <p className="text-[10px] font-bold uppercase tracking-wider text-primary font-sans">{lesson.levelLabel}</p>
-            <p className="text-xs font-medium text-foreground font-sans">{lesson.title}</p>
+            <p className="text-xs font-medium text-foreground font-sans truncate max-w-[120px] sm:max-w-none">{lesson.title}</p>
           </div>
           <DifficultyBadge lessonNumber={lesson.lessonNumber} />
         </div>
         <button
           onClick={() => setShowArabic(!showArabic)}
-          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground font-sans"
+          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground font-sans min-h-[44px] min-w-[44px] justify-center touch-manipulation"
         >
           {showArabic ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
-          <span>عربي</span>
+          <span className="hidden sm:inline">عربي</span>
         </button>
       </div>
 
-      {/* Tab pills */}
-      <div className="flex gap-1 overflow-x-auto px-3 py-2 bg-muted/50 border-b">
+      {/* Tab pills — scrollable on mobile */}
+      <div className="flex gap-1 overflow-x-auto px-2 sm:px-3 py-2 bg-muted/50 border-b scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
         {TABS.map((tab) => {
           const isCommunication = isCommunicationCourse(lesson.levelId);
           const displayLabel = tab.id === "conversation" && isCommunication && "altLabel" in tab ? tab.altLabel : tab.label;
@@ -647,7 +647,7 @@ export default function LessonPage() {
             <button
               key={tab.id}
               onClick={() => switchTab(tab.id)}
-              className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-medium transition-colors font-sans ${
+              className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-xs font-medium transition-colors font-sans shrink-0 min-h-[40px] touch-manipulation ${
                 activeTab === tab.id
                   ? "bg-primary text-primary-foreground"
                   : "bg-card text-muted-foreground hover:text-foreground border"

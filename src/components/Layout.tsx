@@ -31,7 +31,7 @@ export default function Layout() {
       <Navbar />
       <GlobalSearch />
       {showBreadcrumbs && <Breadcrumbs />}
-      <main className="flex-1">
+      <main className="flex-1 pb-mobile-nav md:pb-0">
         <AnimatePresence mode="wait">
           <PageTransition key={pathname}>
             <Outlet />
