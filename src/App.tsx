@@ -43,6 +43,8 @@ const PronunciationChecker = lazy(() => import("./pages/PronunciationChecker"));
 const Achievements = lazy(() => import("./pages/Achievements"));
 const VocabQuiz = lazy(() => import("./pages/VocabQuiz"));
 const WritingPractice = lazy(() => import("./pages/WritingPractice"));
+const CourseProgress = lazy(() => import("./pages/CourseProgress"));
+const NotificationCenter = lazy(() => import("./pages/NotificationCenter"));
 
 const queryClient = new QueryClient();
 
@@ -94,6 +96,8 @@ const App = () => (
               <Route path="/achievements" element={<ProtectedRoute><Achievements /></ProtectedRoute>} />
               <Route path="/vocab-quiz" element={<ProtectedRoute><VocabQuiz /></ProtectedRoute>} />
               <Route path="/writing" element={<ProtectedRoute><WritingPractice /></ProtectedRoute>} />
+              <Route path="/progress" element={<ProtectedRoute><CourseProgress /></ProtectedRoute>} />
+              <Route path="/notifications" element={<ProtectedRoute><NotificationCenter /></ProtectedRoute>} />
               <Route path="/dashboard" element={
                 <ProtectedRoute>
                   <StudentDashboard />

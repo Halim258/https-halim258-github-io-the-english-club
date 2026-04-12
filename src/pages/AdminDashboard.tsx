@@ -29,6 +29,7 @@ import AdminNotifications from "@/components/admin/AdminNotifications";
 import AdminStudentReports from "@/components/admin/AdminStudentReports";
 import AdminTeacherSchedule from "@/components/admin/AdminTeacherSchedule";
 import AdminRevenueCharts from "@/components/admin/AdminRevenueCharts";
+import AdminBulkNotifications from "@/components/admin/AdminBulkNotifications";
 
 type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts";
 
@@ -378,8 +379,11 @@ export default function AdminDashboard() {
       )}
 
       {tab === "notifications" && (
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-6">
           <AdminNotifications />
+          <div className="rounded-2xl border bg-card p-5 shadow-soft">
+            <AdminBulkNotifications />
+          </div>
         </motion.div>
       )}
 
