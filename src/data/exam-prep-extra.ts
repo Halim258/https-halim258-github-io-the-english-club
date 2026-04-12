@@ -36,6 +36,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "If information is simply not mentioned, mark ___.", options: ["True", "False", "Not Given", "Incorrect"], correct: 2 },
       { question: "The passage uses different words with the same meaning. This is called ___.", options: ["Contradiction", "Paraphrase", "Inference", "Summary"], correct: 1 },
     ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Reading strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
+    ],
   },
 
   "exam-prep-22": {
@@ -71,6 +88,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "A heading should summarize the ___ of the paragraph.", options: ["First detail", "Last example", "Main idea", "Author's name"], correct: 2 },
       { question: "Reading quickly for general understanding is called ___.", options: ["Scanning", "Skimming", "Analyzing", "Translating"], correct: 1 },
     ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Reading strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
+    ],
   },
 
   "exam-prep-23": {
@@ -105,6 +139,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "In TOEFL, vocabulary questions test meaning ___.", options: ["From a dictionary", "In context", "In isolation", "By spelling"], correct: 1 },
       { question: "To check your answer, ___ it into the original sentence.", options: ["Translate", "Substitute", "Delete", "Highlight"], correct: 1 },
       { question: "Words with similar meanings are called ___.", options: ["Antonyms", "Homonyms", "Synonyms", "Acronyms"], correct: 2 },
+    ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Reading strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
     ],
   },
 
@@ -143,6 +194,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "Section 1 is usually a ___.", options: ["Lecture", "Conversation", "Debate", "Song"], correct: 1 },
       { question: "If you miss an answer, you should ___.", options: ["Stop and think", "Move on", "Replay", "Guess randomly"], correct: 1 },
     ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Listening strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
+    ],
   },
 
   "exam-prep-25": {
@@ -177,6 +245,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "Section 4 of IELTS Listening is always a ___.", options: ["Conversation", "Debate", "Lecture", "Song"], correct: 2 },
       { question: "Words like 'however' and 'moreover' are called ___ words.", options: ["Academic", "Transition", "Distractor", "Prediction"], correct: 1 },
       { question: "In Section 3, you need to identify ___ says what.", options: ["When", "Where", "Who", "Why"], correct: 2 },
+    ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Listening strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
     ],
   },
 
@@ -213,6 +298,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "Replay questions test the speaker's ___.", options: ["Vocabulary", "Purpose or attitude", "Grammar", "Speed"], correct: 1 },
       { question: "The main idea is usually found in the ___ of the conversation.", options: ["Middle", "End", "Beginning", "Title"], correct: 2 },
     ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Listening strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
+    ],
   },
 
   "exam-prep-27": {
@@ -247,6 +349,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "Cambridge Part 1 tests understanding of ___ and attitude.", options: ["Grammar", "Spelling", "Gist", "Vocabulary"], correct: 2 },
       { question: "Part 3 requires matching ___ to statements.", options: ["Paragraphs", "Speakers", "Words", "Dates"], correct: 1 },
       { question: "Cambridge Listening has ___ parts.", options: ["3", "4", "5", "6"], correct: 1 },
+    ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Listening strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
     ],
   },
 
@@ -284,6 +403,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "Integrated tasks combine reading, listening, and ___.", options: ["Writing", "Speaking", "Grammar", "Vocabulary"], correct: 1 },
       { question: "You get ___ seconds to prepare for most tasks.", options: ["5", "15-30", "60", "120"], correct: 1 },
     ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Speaking strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
+    ],
   },
 
   "exam-prep-29": {
@@ -318,6 +454,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "In Part 2, you compare ___ photos.", options: ["1", "2", "3", "4"], correct: 1 },
       { question: "Part 3 requires you to ___ with your partner.", options: ["Argue", "Collaborate", "Compete", "Ignore them"], correct: 1 },
       { question: "When comparing photos, you should ___ about what's happening.", options: ["Describe exactly", "Speculate", "Count objects", "Read text"], correct: 1 },
+    ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Speaking strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
     ],
   },
 
@@ -354,6 +507,23 @@ export const examPrepExtra: Record<string, LessonData> = {
       { question: "SAT Reading has ___ passages.", options: ["3", "4", "5", "6"], correct: 2 },
       { question: "Paired questions link a question to ___.", options: ["Another passage", "Evidence lines", "Vocabulary", "Grammar"], correct: 1 },
       { question: "For paired questions, read the ___ question first.", options: ["Main", "Evidence", "Vocabulary", "Graph"], correct: 1 },
+    ],
+    conversationExercises: [
+      { question: "What is the main focus of this lesson?", options: ["Grammar rules", "Reading strategies", "Vocabulary lists", "Translation"], correct: 1 },
+      { question: "Practice is key to improving ___.", options: ["Luck", "Exam performance", "Memory only", "Speed only"], correct: 1 },
+      { question: "You should review your mistakes to ___.", options: ["Feel bad", "Learn from them", "Ignore them", "Repeat them"], correct: 1 },
+    ],
+    grammarExercises: [
+      { question: "Before the exam, make sure to review ___.", options: ["Nothing", "Key strategies", "Only vocabulary", "Only grammar"], correct: 1 },
+      { question: "Time management in exams means ___.", options: ["Rushing", "Spending equal time on all parts", "Skipping questions", "Allocating time wisely"], correct: 3 },
+    ],
+    examQuestions: [
+      { question: "The best way to prepare for exams is ___.", options: ["Cramming the night before", "Regular practice over time", "Memorizing answers", "Guessing"], correct: 1 },
+      { question: "During the exam, if you don't know an answer, ___.", options: ["Leave it blank", "Make an educated guess", "Stop the exam", "Ask the examiner"], correct: 1 },
+    ],
+    homeworkQuestions: [
+      { question: "Practice this skill for at least ___ minutes today.", options: ["5", "10", "15", "30"], correct: 2 },
+      { question: "Review the strategies from this lesson and ___.", options: ["Forget them", "Apply them in practice tests", "Memorize word for word", "Skip them"], correct: 1 },
     ],
   },
 };
