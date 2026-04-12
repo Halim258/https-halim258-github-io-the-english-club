@@ -400,13 +400,13 @@ export default function AdminDashboard() {
 
       {tab === "schedule" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <AdminTeacherSchedule sessions={sessions} employees={employees} />
+          <AdminTeacherSchedule />
         </motion.div>
       )}
 
       {tab === "revenue-charts" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <AdminRevenueCharts income={income} outcome={outcome} />
+          <AdminRevenueCharts />
         </motion.div>
       )}
     </div>
