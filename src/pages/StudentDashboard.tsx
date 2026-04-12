@@ -252,6 +252,13 @@ export default function StudentDashboard() {
         </div>
       </FadeInUp>
 
+      {/* Study Goals */}
+      <FadeInUp delay={0.06}>
+        <div className="mb-6">
+          <StudyGoals />
+        </div>
+      </FadeInUp>
+
       {/* Study Streak Calendar */}
       <FadeInUp delay={0.08}>
         <div className="mb-6">
