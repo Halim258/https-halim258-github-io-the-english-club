@@ -409,13 +409,23 @@ export default function LessonPage() {
 
   // Swipe support
   const touchStart = useRef<number | null>(null);
-  const cardAreaRef = useRef<HTMLDivElement>(null);
 
   const handleCompleteLesson = async () => {
     if (!levelId || !lesson) return;
     await markComplete(levelId.toUpperCase(), lesson.lessonNumber);
     setLessonDone(true);
   };
+
+  // Keyboard navigation — must be before any early return
+  useEffect(() => {
+    if (!lesson) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); setCardIndex(i => Math.min(i + 1, 999)); }
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); setCardIndex(i => Math.max(i - 1, 0)); }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lesson]);
 
   if (!lesson) {
     return (
