@@ -45,6 +45,8 @@ const VocabQuiz = lazy(() => import("./pages/VocabQuiz"));
 const WritingPractice = lazy(() => import("./pages/WritingPractice"));
 const CourseProgress = lazy(() => import("./pages/CourseProgress"));
 const NotificationCenter = lazy(() => import("./pages/NotificationCenter"));
+const ProfilePage = lazy(() => import("./pages/ProfilePage"));
+const BookmarksPage = lazy(() => import("./pages/BookmarksPage"));
 
 const queryClient = new QueryClient();
 
