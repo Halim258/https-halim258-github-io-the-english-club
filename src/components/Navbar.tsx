@@ -21,7 +21,9 @@ const primaryLinks = [
 ];
 
 const moreLinks = [
-  { to: "/leaderboard", label: "Leaderboard" },
+  { to: "/writing", label: "✍️ Writing" },
+  { to: "/progress", label: "📊 My Progress" },
+  { to: "/leaderboard", label: "🏆 Leaderboard" },
   { to: "/pronunciation", label: "🎙️ Pronunciation" },
   { to: "/placement-test", label: "📝 Placement Test" },
   { to: "/fm", label: "📻 FM Radio" },
