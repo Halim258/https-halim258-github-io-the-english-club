@@ -61,7 +61,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 relative overflow-hidden">
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 pb-20 md:pb-4 relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-20 -left-32 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
@@ -120,7 +120,7 @@ export default function Login() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="rounded-2xl border-2 border-border/50 bg-card/80 backdrop-blur-sm p-8 shadow-card"
+          className="rounded-2xl border-2 border-border/50 bg-card/80 backdrop-blur-sm p-6 md:p-8 shadow-card"
         >
           {/* Header */}
           <div className="mb-8 text-center">
@@ -146,7 +146,7 @@ export default function Login() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
                 required
-                className="h-11 rounded-xl"
+                className="h-12 rounded-xl text-base focus:ring-2 focus:ring-primary/20 transition-shadow"
               />
             </div>
             <div className="space-y-1.5">
@@ -162,12 +162,12 @@ export default function Login() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  className="h-11 rounded-xl pr-10"
+                  className="h-12 rounded-xl pr-11 text-base focus:ring-2 focus:ring-primary/20 transition-shadow"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1 rounded-lg"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -177,7 +177,7 @@ export default function Login() {
               <Checkbox id="remember" checked={rememberMe} onCheckedChange={(v) => setRememberMe(!!v)} />
               <Label htmlFor="remember" className="text-sm font-normal cursor-pointer text-muted-foreground">Remember me</Label>
             </div>
-            <Button className="w-full h-11 rounded-xl text-sm font-semibold" type="submit" disabled={loading}>
+            <Button className="w-full h-12 rounded-xl text-sm font-semibold active:scale-[0.98] transition-transform" type="submit" disabled={loading}>
               {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
               Log In
             </Button>
@@ -189,7 +189,7 @@ export default function Login() {
               Don't have an account?
             </p>
             <Link to="/signup" className="block">
-              <Button variant="outline" className="w-full h-11 rounded-xl text-sm font-semibold border-primary/30 hover:bg-primary/5 hover:border-primary group">
+              <Button variant="outline" className="w-full h-12 rounded-xl text-sm font-semibold border-primary/30 hover:bg-primary/5 hover:border-primary group active:scale-[0.98] transition-transform">
                 <GraduationCap className="h-4 w-4 mr-2 text-primary" />
                 Sign Up & Start Learning Now
                 <ArrowRight className="h-4 w-4 ml-2 text-primary group-hover:translate-x-1 transition-transform" />
@@ -199,16 +199,6 @@ export default function Login() {
         </motion.div>
       </div>
 
-      {/* Features hint - mobile only */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
-        className="fixed bottom-6 left-0 right-0 flex items-center justify-center gap-6 text-xs text-muted-foreground lg:hidden"
-      >
-        <span className="flex items-center gap-1.5"><BookOpen className="h-3.5 w-3.5 text-primary" /> 200+ Lessons</span>
-        <span className="flex items-center gap-1.5"><Sparkles className="h-3.5 w-3.5 text-primary" /> AI Tutor</span>
-      </motion.div>
     </div>
   );
 }
