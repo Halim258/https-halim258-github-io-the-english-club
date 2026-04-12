@@ -201,10 +201,10 @@ export default function Home() {
     <div className="overflow-x-hidden">
       <OnboardingTour />
       {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative py-20 md:py-28 lg:py-36 overflow-hidden">
+      <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
         <PetalTopRight />
         <PetalBottomLeft />
-        {/* Animated background blobs */}
+        {/* Animated background */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] dark:opacity-[0.04]" aria-hidden="true" />
           <motion.div
@@ -222,6 +222,16 @@ export default function Home() {
             animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
             transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
           />
+          {/* Animated floating dots */}
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={`dot-${i}`}
+              className="absolute w-1.5 h-1.5 rounded-full bg-primary/15"
+              style={{ left: `${10 + i * 12}%`, top: `${15 + (i % 4) * 22}%` }}
+              animate={{ y: [0, -40, 0], opacity: [0.2, 0.6, 0.2] }}
+              transition={{ duration: 5 + i * 0.7, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
+            />
+          ))}
           {/* Grid pattern overlay */}
           <div className="absolute inset-0 opacity-[0.02]" style={{
             backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
@@ -248,9 +258,9 @@ export default function Home() {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-4xl font-bold leading-[1.08] md:text-5xl lg:text-6xl xl:text-7xl font-display"
             >
               Master English with{" "}
@@ -258,9 +268,9 @@ export default function Home() {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.25, ease: "easeOut" }}
+              initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               className="mx-auto mt-6 max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed"
             >
               The English Club Language School — Cambridge-aligned curriculum, expert teachers, and modern learning tools. From beginner to advanced, we've got your English journey covered.
@@ -365,8 +375,10 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
-      <section className="border-y bg-muted/30 py-12 md:py-16 lg:py-20">
-        <div className="container mx-auto px-4">
+      <section className="border-y bg-muted/30 py-14 md:py-20 lg:py-24 relative overflow-hidden">
+        {/* Subtle gradient accent */}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.02] via-transparent to-accent/[0.02] pointer-events-none" />
+        <div className="container mx-auto px-4 relative z-10">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -578,26 +590,37 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ CLASSROOM BANNER ═══════════════ */}
-      <section className="relative h-64 md:h-80 lg:h-96 overflow-hidden">
-        <img src={studentsLearning} alt="Students learning at The English Club" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={720} />
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary/80 via-secondary/50 to-transparent" />
+      <section className="relative h-72 md:h-80 lg:h-[28rem] overflow-hidden">
+        <motion.img
+          src={studentsLearning}
+          alt="Students learning at The English Club"
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+          width={1280}
+          height={720}
+          initial={{ scale: 1.1 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-secondary/85 via-secondary/60 to-secondary/20" />
         <div className="absolute inset-0 flex items-center">
           <div className="container mx-auto px-4">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, x: -40, filter: "blur(6px)" }}
+              whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               className="max-w-lg"
             >
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground font-display">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground font-display leading-tight">
                 Learn in a Community That Inspires
               </h2>
               <p className="mt-3 text-primary-foreground/80 text-sm md:text-base leading-relaxed">
                 Our classrooms are designed for collaboration, creativity, and real-world English practice.
               </p>
               <Link to="/signup">
-                <Button size="lg" className="mt-6 rounded-full px-8 font-semibold shadow-lg">
+                <Button size="lg" className="mt-6 rounded-full px-8 font-semibold shadow-lg hover:scale-[1.03] transition-transform duration-200">
                   Join Our Classes <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -898,25 +921,25 @@ export default function Home() {
       <LocationSection />
 
       {/* ═══════════════ FINAL CTA ═══════════════ */}
-      <section className="gradient-primary py-20 md:py-28 relative overflow-hidden">
+      <section className="gradient-primary py-24 md:py-32 relative overflow-hidden">
         {/* Decorative shapes + floating particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute -top-20 -left-20 w-60 h-60 rounded-full bg-primary-foreground/5 blur-3xl" />
-          <div className="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-primary-foreground/5 blur-3xl" />
-          {[...Array(6)].map((_, i) => (
+          <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-primary-foreground/5 blur-3xl" />
+          <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full bg-primary-foreground/5 blur-3xl" />
+          {[...Array(10)].map((_, i) => (
             <motion.div
               key={i}
-              className="absolute w-2 h-2 rounded-full bg-primary-foreground/10"
-              style={{ left: `${15 + i * 15}%`, top: `${20 + (i % 3) * 25}%` }}
+              className="absolute w-1.5 h-1.5 rounded-full bg-primary-foreground/10"
+              style={{ left: `${8 + i * 10}%`, top: `${15 + (i % 4) * 20}%` }}
               animate={{
-                y: [0, -30, 0],
-                opacity: [0.3, 0.7, 0.3],
-                scale: [1, 1.5, 1],
+                y: [0, -35, 0],
+                opacity: [0.2, 0.6, 0.2],
+                scale: [1, 1.4, 1],
               }}
               transition={{
-                duration: 4 + i,
+                duration: 4 + i * 0.5,
                 repeat: Infinity,
-                delay: i * 0.7,
+                delay: i * 0.5,
                 ease: "easeInOut",
               }}
             />
@@ -926,27 +949,27 @@ export default function Home() {
           <FadeInUp>
             <div className="flex justify-center mb-6">
               <motion.div
-                className="h-18 w-18 rounded-2xl bg-primary-foreground/20 flex items-center justify-center backdrop-blur-sm"
-                animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
+                className="h-20 w-20 rounded-2xl bg-primary-foreground/15 flex items-center justify-center backdrop-blur-sm border border-primary-foreground/10"
+                animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.08, 1] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
               >
-                <GraduationCap className="h-9 w-9 text-primary-foreground" />
+                <GraduationCap className="h-10 w-10 text-primary-foreground" />
               </motion.div>
             </div>
-            <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary-foreground font-display">
-              Ready to Start Your English Journey?
+            <h2 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-primary-foreground font-display leading-tight">
+              Ready to Start Your<br className="hidden sm:block" /> English Journey?
             </h2>
             <p className="mx-auto mt-5 max-w-lg text-primary-foreground/80 text-lg">
               Join hundreds of students at The English Club — Alexandria's premier English language school.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link to="/signup">
-                <Button size="lg" variant="secondary" className="rounded-full px-8 font-semibold font-display h-12 hover:scale-[1.02] transition-transform">
+                <Button size="lg" variant="secondary" className="rounded-full px-8 font-semibold font-display h-13 text-base hover:scale-[1.03] transition-transform shadow-lg">
                   Sign Up Free <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <a href="https://api.whatsapp.com/send?phone=%2B201554901390" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" variant="outline" className="rounded-full px-8 font-semibold font-display h-12 border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:scale-[1.02] transition-all">
+                <Button size="lg" variant="outline" className="rounded-full px-8 font-semibold font-display h-13 text-base border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:scale-[1.03] transition-all">
                   <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp Us
                 </Button>
               </a>
