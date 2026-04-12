@@ -5,7 +5,7 @@ import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
-  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell
+  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import CommandPalette from "@/components/admin/CommandPalette";
@@ -143,6 +143,9 @@ export default function AdminDashboard() {
     { id: "roles", label: "Roles", icon: ShieldCheck },
     { id: "notifications", label: "Notifications", icon: Bell },
     { id: "export", label: "Export", icon: Download },
+    { id: "reports", label: "Reports", icon: FileText },
+    { id: "schedule", label: "Schedule", icon: CalendarDays },
+    { id: "revenue-charts", label: "Revenue", icon: TrendingUp },
   ];
 
   const tabs = isSecretary
