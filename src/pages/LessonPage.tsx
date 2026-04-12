@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy, MessageCircle, Save, Loader2 } from "lucide-react";
@@ -407,11 +407,25 @@ export default function LessonPage() {
   const [showArabic, setShowArabic] = useState(false);
   const [lessonDone, setLessonDone] = useState(false);
 
+  // Swipe support
+  const touchStart = useRef<number | null>(null);
+
   const handleCompleteLesson = async () => {
     if (!levelId || !lesson) return;
     await markComplete(levelId.toUpperCase(), lesson.lessonNumber);
     setLessonDone(true);
   };
+
+  // Keyboard navigation — must be before any early return
+  useEffect(() => {
+    if (!lesson) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); setCardIndex(i => Math.min(i + 1, 999)); }
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); setCardIndex(i => Math.max(i - 1, 0)); }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lesson]);
 
   if (!lesson) {
     return (
@@ -442,7 +456,7 @@ export default function LessonPage() {
         return [
           <SectionTitleCard key="title" title="Vocabulary" icon="📚" />,
           ...vocabCards,
-          <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
+          <SectionTitleCard key="ex-title" title={`Exercises (${exerciseCards.length})`} icon="✏️" />,
           ...exerciseCards,
         ];
       }
@@ -452,7 +466,6 @@ export default function LessonPage() {
         const isCommunication = isCommunicationCourse(lesson.levelId);
 
         if (isCommunication && prompts && prompts.length > 0) {
-          // Show discussion prompts for communication courses
           const promptCards = prompts.map((p, i) => (
             <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} levelId={lesson.levelId} lessonNumber={lesson.lessonNumber} userId={user?.id ?? null} speak={speak} speaking={speaking} />
           ));
@@ -467,7 +480,6 @@ export default function LessonPage() {
           ];
         }
 
-        // Default dialogue cards for non-communication courses
         const dialogueCards = lesson.dialogue.map((line, i) => (
           <DialogueCard key={`d-${i}`} line={line} index={i} speak={speak} speaking={speaking} />
         ));
@@ -515,14 +527,30 @@ export default function LessonPage() {
   const cards = buildCards();
   const totalCards = cards.length;
 
+  // Clamp cardIndex to valid range
+  const safeIndex = Math.min(cardIndex, totalCards - 1);
+  if (safeIndex !== cardIndex) setCardIndex(safeIndex);
+
   const goNext = () => { stop(); setCardIndex((i) => Math.min(i + 1, totalCards - 1)); };
   const goPrev = () => { stop(); setCardIndex((i) => Math.max(i - 1, 0)); };
+
+  // Swipe navigation
+  const onTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart.current === null) return;
+    const diff = touchStart.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? goNext() : goPrev(); }
+    touchStart.current = null;
+  };
 
   const switchTab = (tab: TabId) => {
     stop();
     setActiveTab(tab);
     setCardIndex(0);
   };
+
+  // Calculate exercise start index for "Jump to Exercises" button
+  const exerciseStartIndex = activeTab === "vocabulary" ? lesson.vocabulary.length + 2 : 0;
 
   return (
     <Shell>
@@ -580,8 +608,24 @@ export default function LessonPage() {
       {/* Progress */}
       <ProgressBar current={cardIndex} total={totalCards} />
 
-      {/* Card area */}
-      <div className="flex flex-1 flex-col min-h-0">
+      {/* Jump to Exercises button — visible in vocab tab when viewing vocab cards */}
+      {activeTab === "vocabulary" && cardIndex < exerciseStartIndex && (
+        <div className="flex justify-center py-1 bg-muted/30 border-b">
+          <button
+            onClick={() => setCardIndex(exerciseStartIndex)}
+            className="flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors font-sans"
+          >
+            <ChevronRight className="h-3.5 w-3.5" /> Skip to Exercises ({lesson.vocabExercises.length})
+          </button>
+        </div>
+      )}
+
+      {/* Card area — swipe enabled */}
+      <div
+        className="flex flex-1 flex-col min-h-0"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         {cards[cardIndex]}
       </div>
 
