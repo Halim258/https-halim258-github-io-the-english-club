@@ -251,6 +251,13 @@ export default function StudentDashboard() {
         </div>
       </FadeInUp>
 
+      {/* Study Streak Calendar */}
+      <FadeInUp delay={0.08}>
+        <div className="mb-6">
+          <StudyStreakCalendar />
+        </div>
+      </FadeInUp>
+
       {/* Recently Completed */}
       {progress.filter(p => p.completed).length > 0 && (
         <FadeInUp delay={0.05}>
