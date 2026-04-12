@@ -13,6 +13,7 @@ import { useAuth } from "@/hooks/useAuth";
 import DailyChallenge from "@/components/DailyChallenge";
 import StudyStreakCalendar from "@/components/StudyStreakCalendar";
 import OnboardingWelcome from "@/components/OnboardingWelcome";
+import StudyGoals from "@/components/StudyGoals";
 
 interface TestResult {
   id: string;
