@@ -261,6 +261,7 @@ export default function CategoryDetail() {
           </FadeInUp>
         </div>
       </section>
+      )}
     </div>
   );
 }
