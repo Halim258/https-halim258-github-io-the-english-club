@@ -251,7 +251,7 @@ export default function Courses() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero Banner */}
-      <section className="relative py-16 md:py-20 overflow-hidden">
+      <section className="relative py-12 md:py-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -268,9 +268,28 @@ export default function Courses() {
               Our English{" "}
               <span className="text-primary">Courses</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-muted-foreground text-base md:text-lg">
+            <p className="mx-auto mt-3 max-w-xl text-muted-foreground text-sm md:text-base">
               Choose your level and start learning — from complete beginner to mastery.
             </p>
+
+            {/* Quick Level Jump */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap items-center justify-center gap-2 mt-6"
+            >
+              <span className="text-xs text-muted-foreground mr-1">Jump to:</span>
+              {cefrLevels.map((lvl) => (
+                <Link
+                  key={lvl.id}
+                  to={`/courses/${lvl.id}`}
+                  className={`inline-flex items-center gap-1 rounded-full bg-gradient-to-r ${lvl.color} px-3 py-1 text-xs font-bold text-white shadow-sm hover:shadow-md hover:scale-105 transition-all`}
+                >
+                  {lvl.label}
+                </Link>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>
