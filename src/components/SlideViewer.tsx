@@ -1150,3 +1150,72 @@ function SongRewardSlide({ youtubeId, title, artist, message }: { youtubeId: str
     </div>
   );
 }
+
+/* ═══════════ LISTENING SLIDE ═══════════ */
+function ListeningSlide({ audioContext, tip, questions }: { audioContext: string; tip: string; questions: { question: string; options: string[]; correct: number }[] }) {
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [showResults, setShowResults] = useState(false);
+
+  const handleSelect = (qi: number, oi: number) => {
+    if (showResults) return;
+    setAnswers(prev => ({ ...prev, [qi]: oi }));
+  };
+
+  const score = questions.reduce((s, q, i) => s + (answers[i] === q.correct ? 1 : 0), 0);
+  const allAnswered = Object.keys(answers).length === questions.length;
+
+  return (
+    <div className="space-y-4 max-w-lg mx-auto">
+      <div className="rounded-xl bg-cyan-500/10 p-4 text-center">
+        <span className="text-3xl block mb-2">🎧</span>
+        <p className="text-sm font-medium">{audioContext}</p>
+        <p className="text-xs text-muted-foreground mt-1">💡 {tip}</p>
+      </div>
+
+      {questions.map((q, qi) => {
+        const selected = answers[qi];
+        return (
+          <div key={qi} className="rounded-xl border bg-card p-4">
+            <p className="text-sm font-semibold mb-3">{qi + 1}. {q.question}</p>
+            <div className="space-y-2">
+              {q.options.map((opt, oi) => {
+                let cls = "rounded-lg border px-3 py-2 text-sm cursor-pointer transition-all hover:border-primary/30";
+                if (showResults) {
+                  if (oi === q.correct) cls += " bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300";
+                  else if (selected === oi) cls += " bg-destructive/10 border-destructive/30 text-destructive";
+                } else if (selected === oi) {
+                  cls += " bg-primary/10 border-primary/30 text-primary";
+                }
+                return (
+                  <button key={oi} onClick={() => handleSelect(qi, oi)} className={`w-full text-left ${cls}`}>
+                    {opt}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })}
+
+      {allAnswered && !showResults && (
+        <button
+          onClick={() => setShowResults(true)}
+          className="w-full rounded-xl bg-primary text-primary-foreground py-2.5 text-sm font-semibold hover:opacity-90 transition-opacity"
+        >
+          Check Answers
+        </button>
+      )}
+
+      {showResults && (
+        <div className="rounded-xl bg-muted/50 p-4 text-center">
+          <p className="text-lg font-bold font-display">
+            {score}/{questions.length} correct
+          </p>
+          <p className="text-xs text-muted-foreground mt-1">
+            {score === questions.length ? "🎉 Perfect!" : score >= questions.length / 2 ? "👏 Good job!" : "Keep practicing!"}
+          </p>
+        </div>
+      )}
+    </div>
+  );
+}
