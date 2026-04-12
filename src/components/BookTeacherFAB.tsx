@@ -5,7 +5,7 @@ const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=%2B201554901390";
 
 export default function BookTeacherFAB() {
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3">
+    <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-50 flex flex-col gap-2.5">
       <a
         href={WHATSAPP_URL}
         target="_blank"
