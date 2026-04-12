@@ -77,6 +77,50 @@ export const courseVideoPatches: Record<string, VideoPatch> = {
 
 /** Apply video patches to lesson data */
 export function applyVideoPatches(lessons: Record<string, any>) {
+  // ═══════════ CONVERSATION PRACTICE (40 lessons) ═══════════
+  "conversation-1": { youtubeId: "BrVWq3Bz4aE", videoTitle: "How to Introduce Yourself in English", videoContext: "Watch how native speakers introduce themselves and learn common greetings and small talk phrases." },
+  "conversation-2": { youtubeId: "jB7gqEg2GXo", videoTitle: "Talking About Your Day in English", videoContext: "Learn how to describe your daily routine and share what happened during your day." },
+  "conversation-3": { youtubeId: "ZKrIsPUfWzg", videoTitle: "Food Vocabulary – English with Lucy", videoContext: "Explore food and cooking vocabulary with this fun lesson about meals, ingredients, and restaurants." },
+  "conversation-4": { youtubeId: "B4KXJB5-lVU", videoTitle: "Talking About Hobbies in English", videoContext: "Learn to discuss your hobbies and free time activities using natural English expressions." },
+  "conversation-5": { youtubeId: "9v_oc7yBsOI", videoTitle: "Travel English Conversation", videoContext: "Watch this travel conversation and pick up useful phrases for discussing vacations and trips." },
+  "conversation-6": { youtubeId: "Ae4MadKPJC0", videoTitle: "Health & Fitness Vocabulary", videoContext: "Learn essential health and fitness vocabulary to discuss exercise, diet, and wellbeing." },
+  "conversation-7": { youtubeId: "t0EqnoaPNaE", videoTitle: "Job Interview English – Top Questions", videoContext: "Practice talking about your work and career using professional English expressions." },
+  "conversation-8": { youtubeId: "N6jnTiv6XBk", videoTitle: "Movie Vocabulary – Cinema English", videoContext: "From comedy to thriller — learn to discuss movies, actors, and your favorite entertainment." },
+  "conversation-9": { youtubeId: "5dZ_lvDgevk", videoTitle: "Technology Vocabulary in English", videoContext: "Discuss smartphones, social media, and technology trends using modern English vocabulary." },
+  "conversation-10": { youtubeId: "dt5AMKsFjQU", videoTitle: "Family Members & Relationships", videoContext: "Learn to describe your family, relationships, and the people who matter most to you." },
+  "conversation-11": { youtubeId: "dqTTojTija8", videoTitle: "Education System in English", videoContext: "Discuss schools, universities, learning styles, and your educational experiences." },
+  "conversation-12": { youtubeId: "4A2cMtPPLYs", videoTitle: "Shopping Vocabulary – English Practice", videoContext: "Practice talking about shopping, prices, deals, and managing money in English." },
+  "conversation-13": { youtubeId: "ezk9bPIFN5k", videoTitle: "Weather Vocabulary – BBC Learning", videoContext: "Learn to describe weather conditions, seasons, and climate in natural English." },
+  "conversation-14": { youtubeId: "TJ2BfwEkBYk", videoTitle: "Dreams & Goals in English", videoContext: "Watch how people discuss their dreams, ambitions, and future plans in English." },
+  "conversation-15": { youtubeId: "9FkflYPGefk", videoTitle: "Culture & Traditions Around the World", videoContext: "Explore cultural vocabulary and learn to discuss traditions, festivals, and customs." },
+  "conversation-16": { youtubeId: "GhBsUJ6RMGQ", videoTitle: "Everyday Problems & Solutions", videoContext: "Learn to describe daily challenges and discuss solutions using practical English." },
+  "conversation-17": { youtubeId: "PInuWXKLKR4", videoTitle: "Pet Vocabulary – Talking About Animals", videoContext: "Discuss your favorite animals, pets, and wildlife using fun English vocabulary." },
+  "conversation-18": { youtubeId: "i2yhyaNb4ac", videoTitle: "Sports Vocabulary in English", videoContext: "Talk about your favorite sports, teams, and competition using sports English." },
+  "conversation-19": { youtubeId: "zbEnOYtsXHA", videoTitle: "Environment & Nature Documentary", videoContext: "Watch and discuss environmental topics like climate, nature, and sustainability." },
+  "conversation-20": { youtubeId: "pRpeEdMmmQ0", videoTitle: "Music Around the World – Shakira", videoContext: "Discuss music, art, and creative expression using vocabulary from this music video." },
+  "conversation-21": { youtubeId: "V0hSa5cC-4I", videoTitle: "Book Recommendations in English", videoContext: "Learn to discuss books, reading habits, and your favorite stories in English." },
+  "conversation-22": { youtubeId: "nkGiFpJC9LY", videoTitle: "Home & Living – Interior Design", videoContext: "Describe your home, rooms, furniture, and living arrangements in English." },
+  "conversation-23": { youtubeId: "dFS9WBRwJZ0", videoTitle: "Emotions & Feelings in English", videoContext: "Learn to express your feelings, moods, and emotional experiences in English." },
+  "conversation-24": { youtubeId: "TJ2BfwEkBYk", videoTitle: "Future Plans – Where Will You Be?", videoContext: "Practice talking about your future goals, career plans, and life ambitions." },
+  "conversation-25": { youtubeId: "_jP1lfRiK9A", videoTitle: "Funny Stories & Experiences", videoContext: "Watch funny clips and learn to tell humorous stories and share experiences in English." },
+  "conversation-26": { youtubeId: "5wynL5ttotw", videoTitle: "Communication Skills – BBC", videoContext: "Improve your communication skills by watching how effective speakers express ideas clearly." },
+  "conversation-27": { youtubeId: "HAnw168huqA", videoTitle: "Learning a New Language – TED Talk", videoContext: "Discuss language learning strategies, challenges, and tips for improving English." },
+  "conversation-28": { youtubeId: "arj7oStGLkU", videoTitle: "Inside the Mind – TED Talk", videoContext: "Explore personality traits and discuss what makes people unique and interesting." },
+  "conversation-29": { youtubeId: "DlPt-YBsY5g", videoTitle: "Social Media & Modern Life", videoContext: "Discuss how social media affects friendships, daily life, and modern communication." },
+  "conversation-30": { youtubeId: "rWVAzS5duAs", videoTitle: "Childhood Memories – Nostalgia", videoContext: "Share childhood memories and discuss how growing up shapes who we are today." },
+  "conversation-31": { youtubeId: "6Af6b_wyiwI", videoTitle: "Exploring Your City – Travel Vlog", videoContext: "Describe your city, favorite places, and local attractions using descriptive English." },
+  "conversation-32": { youtubeId: "Lp7E973zozc", videoTitle: "Time Management Tips", videoContext: "Discuss daily routines, time management strategies, and productivity habits." },
+  "conversation-33": { youtubeId: "8KkKuTCFvzI", videoTitle: "Volunteering & Helping Others", videoContext: "Learn to discuss community service, volunteering experiences, and making a difference." },
+  "conversation-34": { youtubeId: "3sK3wJAxGfs", videoTitle: "Fashion & Style Around the World", videoContext: "Discuss clothing, fashion trends, and personal style using English vocabulary." },
+  "conversation-35": { youtubeId: "kS25vitrZ6g", videoTitle: "Science & Inventions", videoContext: "Discuss scientific discoveries, inventions, and how technology changes our lives." },
+  "conversation-36": { youtubeId: "Y44fyh4ap7k", videoTitle: "News & Current Events Discussion", videoContext: "Practice discussing news stories, world events, and forming opinions in English." },
+  "conversation-37": { youtubeId: "QyjXDB6dMIo", videoTitle: "Celebrations Around the World", videoContext: "Learn about holidays, celebrations, and special occasions from different cultures." },
+  "conversation-38": { youtubeId: "Ae4MadKPJC0", videoTitle: "Healthy Living & Wellness", videoContext: "Discuss healthy habits, wellness routines, and tips for a balanced lifestyle." },
+  "conversation-39": { youtubeId: "cGDVTgOw_4Q", videoTitle: "Global Issues Discussion", videoContext: "Engage with important global topics and practice expressing your views on world issues." },
+  "conversation-40": { youtubeId: "M03vuos_nLI", videoTitle: "Looking Back & Moving Forward", videoContext: "Reflect on your learning journey and discuss achievements, growth, and future goals." },
+};
+
+export function applyVideoPatches(lessons: Record<string, LessonData>) {
   for (const [key, patch] of Object.entries(courseVideoPatches)) {
     if (lessons[key]) {
       lessons[key].youtubeId = patch.youtubeId;
