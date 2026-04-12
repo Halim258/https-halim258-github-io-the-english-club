@@ -582,6 +582,12 @@ export default function LessonPage() {
     );
   }
 
+  // Helper to create onAnswer callback for a score ref
+  const makeOnAnswer = (ref: React.MutableRefObject<{ correct: number; answered: number }>) => (correct: boolean) => {
+    ref.current.answered++;
+    if (correct) ref.current.correct++;
+  };
+
   // Build cards for the active tab
   const buildCards = (): React.ReactNode[] => {
     switch (activeTab) {
@@ -589,14 +595,16 @@ export default function LessonPage() {
         const vocabCards = lesson.vocabulary.map((w, i) => (
           <VocabCard key={`v-${i}`} item={w} showArabic={showArabic} speak={speak} speaking={speaking} />
         ));
+        const total = lesson.vocabExercises.length;
         const exerciseCards = lesson.vocabExercises.map((q, i) => (
-          <MCQCard key={`ve-${i}`} item={q} />
+          <MCQCard key={`ve-${i}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
         ));
         return [
           <SectionTitleCard key="title" title="Vocabulary" icon="📚" />,
           ...vocabCards,
-          <SectionTitleCard key="ex-title" title={`Exercises (${exerciseCards.length})`} icon="✏️" />,
+          <SectionTitleCard key="ex-title" title={`Exercises (${total})`} icon="✏️" />,
           ...exerciseCards,
+          <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} />,
         ];
       }
       case "conversation": {
@@ -608,56 +616,66 @@ export default function LessonPage() {
           const promptCards = prompts.map((p, i) => (
             <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} levelId={lesson.levelId} lessonNumber={lesson.lessonNumber} userId={user?.id ?? null} speak={speak} speaking={speaking} />
           ));
+          const total = lesson.conversationExercises.length;
           const exerciseCards = lesson.conversationExercises.map((q, i) => (
-            <MCQCard key={`ce-${i}`} item={q} />
+            <MCQCard key={`ce-${i}`} item={q} onAnswer={makeOnAnswer(convScore)} />
           ));
           return [
             <SectionTitleCard key="title" title="Discussion Questions" icon="🗣️" />,
             ...promptCards,
             <SectionTitleCard key="ex-title" title="Practice Questions" icon="✏️" />,
             ...exerciseCards,
+            <ScoreSummaryCard key="score" scoreRef={convScore} total={total} />,
           ];
         }
 
         const dialogueCards = lesson.dialogue.map((line, i) => (
           <DialogueCard key={`d-${i}`} line={line} index={i} speak={speak} speaking={speaking} />
         ));
+        const total = lesson.conversationExercises.length;
         const exerciseCards = lesson.conversationExercises.map((q, i) => (
-          <MCQCard key={`ce-${i}`} item={q} />
+          <MCQCard key={`ce-${i}`} item={q} onAnswer={makeOnAnswer(convScore)} />
         ));
         return [
           <SectionTitleCard key="title" title="Conversation" icon="💬" />,
           ...dialogueCards,
           <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
           ...exerciseCards,
+          <ScoreSummaryCard key="score" scoreRef={convScore} total={total} />,
         ];
       }
       case "grammar": {
         const exampleCards = lesson.grammar.examples.map((ex, i) => (
           <GrammarExampleCard key={`ge-${i}`} example={ex} speak={speak} speaking={speaking} />
         ));
+        const total = lesson.grammarExercises.length;
         const exerciseCards = lesson.grammarExercises.map((q, i) => (
-          <MCQCard key={`gex-${i}`} item={q} />
+          <MCQCard key={`gex-${i}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
         ));
         return [
           <GrammarCard key="grammar" lesson={lesson} speak={speak} speaking={speaking} />,
           ...exampleCards,
           <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
           ...exerciseCards,
+          <ScoreSummaryCard key="score" scoreRef={grammarScore} total={total} />,
         ];
       }
       case "speaking":
         return [<SpeakingCard key="speaking" lesson={lesson} speak={speak} speaking={speaking} />];
       case "exam": {
+        const total = lesson.examQuestions.length;
         return [
           <SectionTitleCard key="title" title={`Lesson ${lesson.lessonNumber} Exam`} icon="📝" />,
-          ...lesson.examQuestions.map((q, i) => <MCQCard key={`eq-${i}`} item={q} />),
+          ...lesson.examQuestions.map((q, i) => <MCQCard key={`eq-${i}`} item={q} onAnswer={makeOnAnswer(examScore)} />),
+          <ScoreSummaryCard key="score" scoreRef={examScore} total={total} />,
         ];
       }
       case "homework": {
+        const total = lesson.homeworkQuestions.length;
         return [
           <SectionTitleCard key="title" title="Homework" icon="📋" />,
-          ...lesson.homeworkQuestions.map((q, i) => <MCQCard key={`hq-${i}`} item={q} />),
+          ...lesson.homeworkQuestions.map((q, i) => <MCQCard key={`hq-${i}`} item={q} onAnswer={makeOnAnswer(homeworkScore)} />),
+          <ScoreSummaryCard key="score" scoreRef={homeworkScore} total={total} />,
         ];
       }
     }
