@@ -223,9 +223,15 @@ function GrammarExampleCard({ example, speak, speaking }: { example: { sentence:
 }
 
 /* ───── MCQ Card ───── */
-function MCQCard({ item }: { item: MCQItem }) {
+function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boolean) => void }) {
   const [selected, setSelected] = useState<number | null>(null);
   const answered = selected !== null;
+
+  const handleSelect = (i: number) => {
+    if (answered) return;
+    setSelected(i);
+    onAnswer?.(i === item.correct);
+  };
 
   return (
     <div className="flex flex-1 items-center justify-center px-4">
@@ -242,7 +248,7 @@ function MCQCard({ item }: { item: MCQItem }) {
               <button
                 key={i}
                 className={cls}
-                onClick={() => !answered && setSelected(i)}
+                onClick={() => handleSelect(i)}
                 disabled={answered}
               >
                 <span className="flex items-center gap-3">
@@ -272,6 +278,78 @@ function MCQCard({ item }: { item: MCQItem }) {
             )}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+/* ───── Score Summary Card ───── */
+function ScoreSummaryCard({ scoreRef, total }: { scoreRef: React.MutableRefObject<{ correct: number; answered: number }>; total: number }) {
+  const [, forceUpdate] = useState(0);
+  const { correct, answered } = scoreRef.current;
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const allDone = answered === total;
+
+  // Force re-render when this card is viewed
+  useEffect(() => {
+    const interval = setInterval(() => forceUpdate(n => n + 1), 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  let emoji = "🏆";
+  let message = "Perfect score! Amazing!";
+  let color = "border-accent/30 bg-accent/5";
+  if (pct < 100 && pct >= 80) { emoji = "🌟"; message = "Great job! Almost perfect!"; color = "border-accent/30 bg-accent/5"; }
+  else if (pct >= 60) { emoji = "👍"; message = "Good effort! Keep practicing!"; color = "border-primary/30 bg-primary/5"; }
+  else if (pct >= 1) { emoji = "💪"; message = "Keep going! Practice makes perfect."; color = "border-muted bg-muted/30"; }
+  else if (answered === 0) { emoji = "📝"; message = "Answer the exercises above, then come back!"; color = "border-muted bg-muted/30"; }
+
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className={`w-full max-w-sm rounded-2xl border-2 ${color} p-6 shadow-lg text-center`}>
+        <span className="text-5xl mb-3 block">{emoji}</span>
+        <h3 className="text-xl font-bold font-display text-foreground">
+          {allDone ? "Exercise Complete!" : "Score Summary"}
+        </h3>
+        <p className="text-sm text-muted-foreground mt-1 font-sans">{message}</p>
+
+        {/* Score ring */}
+        <div className="flex justify-center my-5">
+          <div className="relative h-28 w-28">
+            <svg className="h-28 w-28 -rotate-90" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" fill="none" stroke="hsl(var(--muted))" strokeWidth="8" />
+              <circle
+                cx="50" cy="50" r="42" fill="none"
+                stroke={pct >= 80 ? "hsl(var(--accent))" : pct >= 60 ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))"}
+                strokeWidth="8"
+                strokeLinecap="round"
+                strokeDasharray={`${2 * Math.PI * 42}`}
+                strokeDashoffset={`${2 * Math.PI * 42 * (1 - (answered > 0 ? pct / 100 : 0))}`}
+                className="transition-all duration-700 ease-out"
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-2xl font-bold font-display text-foreground">{answered > 0 ? `${pct}%` : "—"}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-center gap-6 text-sm font-sans">
+          <div className="text-center">
+            <p className="text-lg font-bold text-accent">{correct}</p>
+            <p className="text-[11px] text-muted-foreground">Correct</p>
+          </div>
+          <div className="h-8 w-px bg-border" />
+          <div className="text-center">
+            <p className="text-lg font-bold text-destructive">{answered - correct}</p>
+            <p className="text-[11px] text-muted-foreground">Incorrect</p>
+          </div>
+          <div className="h-8 w-px bg-border" />
+          <div className="text-center">
+            <p className="text-lg font-bold text-muted-foreground">{total - answered}</p>
+            <p className="text-[11px] text-muted-foreground">Remaining</p>
+          </div>
+        </div>
       </div>
     </div>
   );
