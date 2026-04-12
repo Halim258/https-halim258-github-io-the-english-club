@@ -8,7 +8,11 @@ import { categories } from "@/data/course-categories";
 import { getCourseImage } from "@/data/course-images";
 import { lessons } from "@/data/lessons";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Map course names to lesson level IDs
 const courseLevelMap: Record<string, string> = {
