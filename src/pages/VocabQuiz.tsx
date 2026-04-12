@@ -72,8 +72,8 @@ export default function VocabQuiz() {
     const current = quizWords[currentIdx];
     const wrong = shuffle(allWords.filter((w) => w.word !== current.word))
       .slice(0, 3)
-      .map((w) => w.definition);
-    setOptions(shuffle([current.definition, ...wrong]));
+      .map((w) => w.meaning);
+    setOptions(shuffle([current.meaning, ...wrong]));
   }, [currentIdx, phase, quizWords, allWords]);
 
   // Timer
@@ -90,7 +90,7 @@ export default function VocabQuiz() {
 
   function handleAnswer(option: string) {
     if (answered) return;
-    const correct = option === quizWords[currentIdx].definition;
+    const correct = option === quizWords[currentIdx].meaning;
     if (correct) setScore((s) => s + 1);
     setAnswered(option);
     setTimeout(() => nextQuestion(), 1200);
@@ -209,8 +209,8 @@ export default function VocabQuiz() {
                     <Volume2 className="h-4 w-4" />
                   </button>
                 </div>
-                {current.phonetic && (
-                  <p className="text-sm text-muted-foreground">{current.phonetic}</p>
+                {current.arabic && (
+                  <p className="text-sm text-muted-foreground">{current.arabic}</p>
                 )}
                 <p className="text-xs text-muted-foreground mt-1">Choose the correct definition:</p>
               </div>
@@ -218,7 +218,7 @@ export default function VocabQuiz() {
               {/* Options */}
               <div className="space-y-2">
                 {options.map((opt, i) => {
-                  const isCorrect = opt === current.definition;
+                  const isCorrect = opt === current.meaning;
                   const isSelected = answered === opt;
                   const isTimeout = answered === "__timeout__";
                   const showResult = answered !== null;
