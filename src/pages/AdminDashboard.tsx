@@ -391,6 +391,24 @@ export default function AdminDashboard() {
           />
         </motion.div>
       )}
+
+      {tab === "reports" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminStudentReports />
+        </motion.div>
+      )}
+
+      {tab === "schedule" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminTeacherSchedule sessions={sessions} employees={employees} />
+        </motion.div>
+      )}
+
+      {tab === "revenue-charts" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminRevenueCharts income={income} outcome={outcome} />
+        </motion.div>
+      )}
     </div>
   );
 }
