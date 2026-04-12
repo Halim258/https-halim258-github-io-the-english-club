@@ -161,7 +161,8 @@ export default function StudentDashboard() {
   const greeting = new Date().getHours() < 12 ? "morning" : new Date().getHours() < 17 ? "afternoon" : "evening";
 
   return (
-    <div className="container mx-auto px-4 py-6 md:py-10">
+    <div className="container mx-auto px-4 py-6 md:py-10 pb-24 md:pb-10">
+      <OnboardingWelcome />
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
         <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
@@ -240,6 +241,13 @@ export default function StudentDashboard() {
               </Link>
             ))}
           </div>
+        </div>
+      </FadeInUp>
+
+      {/* Daily Challenge */}
+      <FadeInUp delay={0.05}>
+        <div className="mb-6">
+          <DailyChallenge />
         </div>
       </FadeInUp>
 
