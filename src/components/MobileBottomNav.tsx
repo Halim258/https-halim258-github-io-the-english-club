@@ -1,11 +1,11 @@
 import { Link, useLocation } from "react-router-dom";
-import { BookOpen, Home, Trophy, User, Brain } from "lucide-react";
+import { BookOpen, Home, Trophy, User, PenLine } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const navItems = [
   { to: "/", icon: Home, label: "Home" },
   { to: "/courses", icon: BookOpen, label: "Courses" },
-  { to: "/ai-tutor", icon: Brain, label: "AI Tutor" },
+  { to: "/writing", icon: PenLine, label: "Writing" },
   { to: "/leaderboard", icon: Trophy, label: "Board" },
   { to: "/dashboard", icon: User, label: "Profile" },
 ];
