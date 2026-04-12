@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import {
   BookOpen, Clock, Award, CalendarDays, TrendingUp, CheckCircle2,
   GraduationCap, ArrowRight, History, BarChart3, Sparkles,
-  Bookmark, Trophy, Star, LogOut, Zap, Flame, Target, Mic2, Brain, Radio
+  Bookmark, Trophy, Star, LogOut, Zap, Flame, Target, Mic2, Brain, Radio, PenLine
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
