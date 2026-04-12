@@ -621,14 +621,14 @@ export default function LessonPage() {
         ));
         const total = lesson.vocabExercises.length;
         const exerciseCards = lesson.vocabExercises.map((q, i) => (
-          <MCQCard key={`ve-${i}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
+          <MCQCard key={`ve-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
         ));
         return [
           <SectionTitleCard key="title" title="Vocabulary" icon="📚" />,
           ...vocabCards,
           <SectionTitleCard key="ex-title" title={`Exercises (${total})`} icon="✏️" />,
           ...exerciseCards,
-          <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} />,
+          <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} onRetry={handleRetry(vocabScore)} />,
         ];
       }
       case "conversation": {
@@ -642,14 +642,14 @@ export default function LessonPage() {
           ));
           const total = lesson.conversationExercises.length;
           const exerciseCards = lesson.conversationExercises.map((q, i) => (
-            <MCQCard key={`ce-${i}`} item={q} onAnswer={makeOnAnswer(convScore)} />
+            <MCQCard key={`ce-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(convScore)} />
           ));
           return [
             <SectionTitleCard key="title" title="Discussion Questions" icon="🗣️" />,
             ...promptCards,
             <SectionTitleCard key="ex-title" title="Practice Questions" icon="✏️" />,
             ...exerciseCards,
-            <ScoreSummaryCard key="score" scoreRef={convScore} total={total} />,
+            <ScoreSummaryCard key="score" scoreRef={convScore} total={total} onRetry={handleRetry(convScore)} />,
           ];
         }
 
@@ -658,14 +658,14 @@ export default function LessonPage() {
         ));
         const total = lesson.conversationExercises.length;
         const exerciseCards = lesson.conversationExercises.map((q, i) => (
-          <MCQCard key={`ce-${i}`} item={q} onAnswer={makeOnAnswer(convScore)} />
+          <MCQCard key={`ce-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(convScore)} />
         ));
         return [
           <SectionTitleCard key="title" title="Conversation" icon="💬" />,
           ...dialogueCards,
           <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
           ...exerciseCards,
-          <ScoreSummaryCard key="score" scoreRef={convScore} total={total} />,
+          <ScoreSummaryCard key="score" scoreRef={convScore} total={total} onRetry={handleRetry(convScore)} />,
         ];
       }
       case "grammar": {
@@ -674,14 +674,14 @@ export default function LessonPage() {
         ));
         const total = lesson.grammarExercises.length;
         const exerciseCards = lesson.grammarExercises.map((q, i) => (
-          <MCQCard key={`gex-${i}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
+          <MCQCard key={`gex-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
         ));
         return [
           <GrammarCard key="grammar" lesson={lesson} speak={speak} speaking={speaking} />,
           ...exampleCards,
           <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
           ...exerciseCards,
-          <ScoreSummaryCard key="score" scoreRef={grammarScore} total={total} />,
+          <ScoreSummaryCard key="score" scoreRef={grammarScore} total={total} onRetry={handleRetry(grammarScore)} />,
         ];
       }
       case "speaking":
@@ -690,16 +690,16 @@ export default function LessonPage() {
         const total = lesson.examQuestions.length;
         return [
           <SectionTitleCard key="title" title={`Lesson ${lesson.lessonNumber} Exam`} icon="📝" />,
-          ...lesson.examQuestions.map((q, i) => <MCQCard key={`eq-${i}`} item={q} onAnswer={makeOnAnswer(examScore)} />),
-          <ScoreSummaryCard key="score" scoreRef={examScore} total={total} />,
+          ...lesson.examQuestions.map((q, i) => <MCQCard key={`eq-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(examScore)} />),
+          <ScoreSummaryCard key="score" scoreRef={examScore} total={total} onRetry={handleRetry(examScore)} />,
         ];
       }
       case "homework": {
         const total = lesson.homeworkQuestions.length;
         return [
           <SectionTitleCard key="title" title="Homework" icon="📋" />,
-          ...lesson.homeworkQuestions.map((q, i) => <MCQCard key={`hq-${i}`} item={q} onAnswer={makeOnAnswer(homeworkScore)} />),
-          <ScoreSummaryCard key="score" scoreRef={homeworkScore} total={total} />,
+          ...lesson.homeworkQuestions.map((q, i) => <MCQCard key={`hq-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(homeworkScore)} />),
+          <ScoreSummaryCard key="score" scoreRef={homeworkScore} total={total} onRetry={handleRetry(homeworkScore)} />,
         ];
       }
     }
