@@ -47,6 +47,7 @@ const CourseProgress = lazy(() => import("./pages/CourseProgress"));
 const NotificationCenter = lazy(() => import("./pages/NotificationCenter"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const BookmarksPage = lazy(() => import("./pages/BookmarksPage"));
+const GrammarReference = lazy(() => import("./pages/GrammarReference"));
 
 const queryClient = new QueryClient();
 
