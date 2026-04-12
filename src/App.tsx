@@ -47,6 +47,7 @@ const CourseProgress = lazy(() => import("./pages/CourseProgress"));
 const NotificationCenter = lazy(() => import("./pages/NotificationCenter"));
 const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const BookmarksPage = lazy(() => import("./pages/BookmarksPage"));
+const GrammarReference = lazy(() => import("./pages/GrammarReference"));
 
 const queryClient = new QueryClient();
 
@@ -102,6 +103,7 @@ const App = () => (
               <Route path="/notifications" element={<ProtectedRoute><NotificationCenter /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
               <Route path="/bookmarks" element={<ProtectedRoute><BookmarksPage /></ProtectedRoute>} />
+              <Route path="/grammar" element={<ProtectedRoute><GrammarReference /></ProtectedRoute>} />
               <Route path="/dashboard" element={
                 <ProtectedRoute>
                   <StudentDashboard />

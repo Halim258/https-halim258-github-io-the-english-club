@@ -30,8 +30,9 @@ import AdminStudentReports from "@/components/admin/AdminStudentReports";
 import AdminTeacherSchedule from "@/components/admin/AdminTeacherSchedule";
 import AdminRevenueCharts from "@/components/admin/AdminRevenueCharts";
 import AdminBulkNotifications from "@/components/admin/AdminBulkNotifications";
+import AdminAnalytics from "@/components/admin/AdminAnalytics";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts";
+type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -147,6 +148,7 @@ export default function AdminDashboard() {
     { id: "reports", label: "Reports", icon: FileText },
     { id: "schedule", label: "Schedule", icon: CalendarDays },
     { id: "revenue-charts", label: "Revenue", icon: TrendingUp },
+    { id: "analytics", label: "Analytics", icon: BarChart3 },
   ];
 
   const tabs = isSecretary
@@ -411,6 +413,12 @@ export default function AdminDashboard() {
       {tab === "revenue-charts" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <AdminRevenueCharts />
+        </motion.div>
+      )}
+
+      {tab === "analytics" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminAnalytics />
         </motion.div>
       )}
     </div>

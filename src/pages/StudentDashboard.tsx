@@ -13,6 +13,7 @@ import { useAuth } from "@/hooks/useAuth";
 import DailyChallenge from "@/components/DailyChallenge";
 import StudyStreakCalendar from "@/components/StudyStreakCalendar";
 import OnboardingWelcome from "@/components/OnboardingWelcome";
+import StudyGoals from "@/components/StudyGoals";
 
 interface TestResult {
   id: string;
@@ -248,6 +249,13 @@ export default function StudentDashboard() {
       <FadeInUp delay={0.05}>
         <div className="mb-6">
           <DailyChallenge />
+        </div>
+      </FadeInUp>
+
+      {/* Study Goals */}
+      <FadeInUp delay={0.06}>
+        <div className="mb-6">
+          <StudyGoals />
         </div>
       </FadeInUp>
 

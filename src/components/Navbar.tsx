@@ -22,6 +22,7 @@ const primaryLinks = [
 
 const moreLinks = [
   { to: "/writing", label: "✍️ Writing" },
+  { to: "/grammar", label: "📖 Grammar" },
   { to: "/progress", label: "📊 My Progress" },
   { to: "/leaderboard", label: "🏆 Leaderboard" },
   { to: "/pronunciation", label: "🎙️ Pronunciation" },
