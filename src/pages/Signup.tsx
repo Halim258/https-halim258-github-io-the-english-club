@@ -92,7 +92,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-8 relative overflow-hidden">
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-6 pb-24 md:pb-8 relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-10 -right-32 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
@@ -104,7 +104,7 @@ export default function Signup() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="rounded-2xl border-2 border-border/50 bg-card/80 backdrop-blur-sm p-8 shadow-card"
+          className="rounded-2xl border-2 border-border/50 bg-card/80 backdrop-blur-sm p-6 md:p-8 shadow-card"
         >
           {/* Header */}
           <div className="mb-6 text-center">
@@ -150,11 +150,11 @@ export default function Signup() {
           <form className="space-y-4" onSubmit={handleSignup}>
             <div className="space-y-1.5">
               <Label htmlFor="name" className="text-sm font-medium">Full Name</Label>
-              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" required className="h-11 rounded-xl" />
+              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" required className="h-12 rounded-xl text-base focus:ring-2 focus:ring-primary/20" />
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="email" className="text-sm font-medium">Email</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required className="h-11 rounded-xl" />
+              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required className="h-12 rounded-xl text-base focus:ring-2 focus:ring-primary/20" />
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="password" className="text-sm font-medium">Password</Label>
@@ -167,12 +167,12 @@ export default function Signup() {
                   placeholder="••••••••"
                   minLength={6}
                   required
-                  className="h-11 rounded-xl pr-10"
+                  className="h-12 rounded-xl pr-11 text-base focus:ring-2 focus:ring-primary/20"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1 rounded-lg"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -200,12 +200,12 @@ export default function Signup() {
                   onChange={(e) => setYoutubeUrl(e.target.value)}
                   placeholder="https://www.youtube.com/watch?v=..."
                   required={role === "teacher"}
-                  className="h-11 rounded-xl"
+                  className="h-12 rounded-xl text-base focus:ring-2 focus:ring-primary/20"
                 />
               </motion.div>
             )}
 
-            <Button className="w-full h-11 rounded-xl text-sm font-semibold" type="submit" disabled={loading}>
+            <Button className="w-full h-12 rounded-xl text-sm font-semibold active:scale-[0.98] transition-transform" type="submit" disabled={loading}>
               {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
               Create {role === "teacher" ? "Teacher" : "Student"} Account
             </Button>
