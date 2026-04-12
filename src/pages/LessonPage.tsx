@@ -539,6 +539,13 @@ export default function LessonPage() {
   const [showArabic, setShowArabic] = useState(false);
   const [lessonDone, setLessonDone] = useState(false);
 
+  // Score tracking refs (one per section)
+  const vocabScore = useRef({ correct: 0, answered: 0 });
+  const convScore = useRef({ correct: 0, answered: 0 });
+  const grammarScore = useRef({ correct: 0, answered: 0 });
+  const examScore = useRef({ correct: 0, answered: 0 });
+  const homeworkScore = useRef({ correct: 0, answered: 0 });
+
   // Swipe support
   const touchStart = useRef<number | null>(null);
 
