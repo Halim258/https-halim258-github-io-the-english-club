@@ -1,4 +1,4 @@
-import { LessonData, VocabWord, DialogueLine, GrammarRule, MCQItem } from "./lessons";
+import { LessonData, VocabWord, DialogueLine, GrammarRule, MCQItem, DiscussionQuestion } from "./lessons";
 
 /* ── Slide Types ── */
 export type SlideType =
@@ -94,17 +94,30 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   });
 
-  // 3. For conversation courses: discussion questions instead of dialogue
+  // 3. For conversation courses: use discussionQuestions if available
   const isConversation = lesson.levelId === "conversation";
-  if (isConversation) {
-    // Generate discussion questions from the dialogue
+  if (isConversation && lesson.discussionQuestions && lesson.discussionQuestions.length > 0) {
+    const discussionChunks = chunkArray(lesson.discussionQuestions, 3);
+    discussionChunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "discussion",
+        title: "Conversation Questions",
+        subtitle: discussionChunks.length > 1 ? `Part ${i + 1} of ${discussionChunks.length}` : undefined,
+        emoji: "💭",
+        bgColor: "from-emerald-500/10 to-emerald-500/5",
+        content: { kind: "discussion", questions: chunk },
+      });
+    });
+  } else if (isConversation) {
+    // Fallback: generate discussion from dialogue
     const discussionQuestions = generateDiscussionFromDialogue(lesson);
     const discussionChunks = chunkArray(discussionQuestions, 3);
     discussionChunks.forEach((chunk, i) => {
       slides.push({
         id: id(n++),
         type: "discussion",
-        title: "Discussion Questions",
+        title: "Conversation Questions",
         subtitle: discussionChunks.length > 1 ? `Part ${i + 1} of ${discussionChunks.length}` : undefined,
         emoji: "💭",
         bgColor: "from-emerald-500/10 to-emerald-500/5",
