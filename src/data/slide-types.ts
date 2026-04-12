@@ -1,4 +1,4 @@
-import { LessonData, VocabWord, DialogueLine, GrammarRule, MCQItem } from "./lessons";
+import { LessonData, VocabWord, DialogueLine, GrammarRule, MCQItem, DiscussionQuestion } from "./lessons";
 
 /* ── Slide Types ── */
 export type SlideType =
@@ -94,17 +94,30 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   });
 
-  // 3. For conversation courses: discussion questions instead of dialogue
+  // 3. For conversation courses: use discussionQuestions if available
   const isConversation = lesson.levelId === "conversation";
-  if (isConversation) {
-    // Generate discussion questions from the dialogue
+  if (isConversation && lesson.discussionQuestions && lesson.discussionQuestions.length > 0) {
+    const discussionChunks = chunkArray(lesson.discussionQuestions, 3);
+    discussionChunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "discussion",
+        title: "Conversation Questions",
+        subtitle: discussionChunks.length > 1 ? `Part ${i + 1} of ${discussionChunks.length}` : undefined,
+        emoji: "💭",
+        bgColor: "from-emerald-500/10 to-emerald-500/5",
+        content: { kind: "discussion", questions: chunk },
+      });
+    });
+  } else if (isConversation) {
+    // Fallback: generate discussion from dialogue
     const discussionQuestions = generateDiscussionFromDialogue(lesson);
     const discussionChunks = chunkArray(discussionQuestions, 3);
     discussionChunks.forEach((chunk, i) => {
       slides.push({
         id: id(n++),
         type: "discussion",
-        title: "Discussion Questions",
+        title: "Conversation Questions",
         subtitle: discussionChunks.length > 1 ? `Part ${i + 1} of ${discussionChunks.length}` : undefined,
         emoji: "💭",
         bgColor: "from-emerald-500/10 to-emerald-500/5",
@@ -127,32 +140,34 @@ export function generateSlides(lesson: LessonData): Slide[] {
     });
   }
 
-  // 4. Grammar slides (2 examples per slide)
-  const grammarChunks = lesson.grammar.examples.length > 0
-    ? chunkArray(lesson.grammar.examples, 2)
-    : [[]];
+  // 4. Grammar slides (2 examples per slide) — skip for conversation courses
+  if (!isConversation) {
+    const grammarChunks = lesson.grammar.examples.length > 0
+      ? chunkArray(lesson.grammar.examples, 2)
+      : [[]];
 
-  grammarChunks.forEach((chunk, i) => {
-    slides.push({
-      id: id(n++),
-      type: "grammar",
-      title: "Grammar",
-      subtitle:
-        grammarChunks.length > 1
-          ? `${lesson.grammar.title} — Part ${i + 1} of ${grammarChunks.length}`
-          : lesson.grammar.title,
-      emoji: "📝",
-      bgColor: "from-violet-500/10 to-violet-500/5",
-      content: {
-        kind: "grammar",
-        rule: {
-          ...lesson.grammar,
-          explanation: i === 0 ? lesson.grammar.explanation : "",
-          examples: chunk,
+    grammarChunks.forEach((chunk, i) => {
+      slides.push({
+        id: id(n++),
+        type: "grammar",
+        title: "Grammar",
+        subtitle:
+          grammarChunks.length > 1
+            ? `${lesson.grammar.title} — Part ${i + 1} of ${grammarChunks.length}`
+            : lesson.grammar.title,
+        emoji: "📝",
+        bgColor: "from-violet-500/10 to-violet-500/5",
+        content: {
+          kind: "grammar",
+          rule: {
+            ...lesson.grammar,
+            explanation: i === 0 ? lesson.grammar.explanation : "",
+            examples: chunk,
+          },
         },
-      },
+      });
     });
-  });
+  }
 
   // 5. Vocab exercises (2 questions per slide)
   if (lesson.vocabExercises.length > 0) {

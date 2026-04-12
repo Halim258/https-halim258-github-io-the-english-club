@@ -2,6 +2,7 @@ export type VocabWord = { word: string; meaning: string; example: string; emoji:
 export type DialogueLine = { speaker: string; text: string };
 export type GrammarRule = { title: string; explanation: string; examples: { sentence: string; note: string }[] };
 export type MCQItem = { question: string; options: string[]; correct: number };
+export type DiscussionQuestion = { question: string; modelAnswer: string; emoji: string };
 
 export interface LessonData {
   levelId: string;
@@ -20,6 +21,7 @@ export interface LessonData {
   youtubeId?: string;
   videoTitle?: string;
   videoContext?: string;
+  discussionQuestions?: DiscussionQuestion[];
 }
 
 import { readingLessons } from "./reading-lessons";
