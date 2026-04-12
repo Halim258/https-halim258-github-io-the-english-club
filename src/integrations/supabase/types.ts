@@ -469,6 +469,33 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+          rating: number
+          text: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          id?: string
+          rating?: number
+          text: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          rating?: number
+          text?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       school_attendance: {
         Row: {
           check_in: string | null
