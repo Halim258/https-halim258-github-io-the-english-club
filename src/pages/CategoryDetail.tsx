@@ -27,11 +27,12 @@ const courseLevelMap: Record<string, string> = {
   "English Grammar (Basic → Advanced)": "grammar-course",
   "Tenses Mastery": "grammar-course",
   "Sentence Structure": "grammar-course",
-  // Exam
-  "IELTS Preparation": "exam-prep",
-  "TOEFL Preparation": "exam-prep",
-  "Cambridge Exams (PET, FCE, CAE)": "exam-prep",
-  "SAT English": "exam-prep",
+  // Exam Prep (all map to same level)
+  "📖 Reading Skills": "exam-prep",
+  "🎧 Listening Skills": "exam-prep",
+  "✍️ Writing Skills": "exam-prep",
+  "🗣️ Speaking Skills": "exam-prep",
+  "📋 Exam Overview & Strategies": "exam-prep",
   // Professional
   "Business English": "professional",
   "English for Interviews": "professional",
