@@ -608,8 +608,24 @@ export default function LessonPage() {
       {/* Progress */}
       <ProgressBar current={cardIndex} total={totalCards} />
 
-      {/* Card area */}
-      <div className="flex flex-1 flex-col min-h-0">
+      {/* Jump to Exercises button — visible in vocab tab when viewing vocab cards */}
+      {activeTab === "vocabulary" && cardIndex < exerciseStartIndex && (
+        <div className="flex justify-center py-1 bg-muted/30 border-b">
+          <button
+            onClick={() => setCardIndex(exerciseStartIndex)}
+            className="flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors font-sans"
+          >
+            <ChevronRight className="h-3.5 w-3.5" /> Skip to Exercises ({lesson.vocabExercises.length})
+          </button>
+        </div>
+      )}
+
+      {/* Card area — swipe enabled */}
+      <div
+        className="flex flex-1 flex-col min-h-0"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         {cards[cardIndex]}
       </div>
 
