@@ -73,10 +73,6 @@ export const courseVideoPatches: Record<string, VideoPatch> = {
   "hospitality-18": { youtubeId: "5MgBikgcWnY", videoTitle: "Travel Agency Communication", videoContext: "Learn how travel agents communicate: booking tours, creating itineraries, and giving travel advice." },
   "hospitality-19": { youtubeId: "L_jWHffIx5E", videoTitle: "Building Customer Loyalty", videoContext: "Understand loyalty programs, collecting feedback, and strategies for retaining repeat guests." },
   "hospitality-20": { youtubeId: "Tt08KmFfIYQ", videoTitle: "Hospitality Career Development", videoContext: "Explore career paths in hospitality: preparing for interviews, writing CVs, and advancing your career." },
-};
-
-/** Apply video patches to lesson data */
-export function applyVideoPatches(lessons: Record<string, any>) {
   // ═══════════ CONVERSATION PRACTICE (40 lessons) ═══════════
   "conversation-1": { youtubeId: "BrVWq3Bz4aE", videoTitle: "How to Introduce Yourself in English", videoContext: "Watch how native speakers introduce themselves and learn common greetings and small talk phrases." },
   "conversation-2": { youtubeId: "jB7gqEg2GXo", videoTitle: "Talking About Your Day in English", videoContext: "Learn how to describe your daily routine and share what happened during your day." },
@@ -120,7 +116,8 @@ export function applyVideoPatches(lessons: Record<string, any>) {
   "conversation-40": { youtubeId: "M03vuos_nLI", videoTitle: "Looking Back & Moving Forward", videoContext: "Reflect on your learning journey and discuss achievements, growth, and future goals." },
 };
 
-export function applyVideoPatches(lessons: Record<string, LessonData>) {
+/** Apply video patches to lesson data */
+export function applyVideoPatches(lessons: Record<string, any>) {
   for (const [key, patch] of Object.entries(courseVideoPatches)) {
     if (lessons[key]) {
       lessons[key].youtubeId = patch.youtubeId;
