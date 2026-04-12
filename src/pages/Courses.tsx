@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -251,7 +251,7 @@ export default function Courses() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero Banner */}
-      <section className="relative py-16 md:py-20 overflow-hidden">
+      <section className="relative py-12 md:py-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
@@ -268,9 +268,28 @@ export default function Courses() {
               Our English{" "}
               <span className="text-primary">Courses</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-muted-foreground text-base md:text-lg">
+            <p className="mx-auto mt-3 max-w-xl text-muted-foreground text-sm md:text-base">
               Choose your level and start learning — from complete beginner to mastery.
             </p>
+
+            {/* Quick Level Jump */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap items-center justify-center gap-2 mt-6"
+            >
+              <span className="text-xs text-muted-foreground mr-1">Jump to:</span>
+              {cefrLevels.map((lvl) => (
+                <Link
+                  key={lvl.id}
+                  to={`/courses/${lvl.id}`}
+                  className={`inline-flex items-center gap-1 rounded-full bg-gradient-to-r ${lvl.color} px-3 py-1 text-xs font-bold text-white shadow-sm hover:shadow-md hover:scale-105 transition-all`}
+                >
+                  {lvl.label}
+                </Link>
+              ))}
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -427,22 +446,50 @@ export default function Courses() {
         </div>
       </section>
 
-      {/* ═══ IDIOMS & PHRASAL VERBS BANNER ═══ */}
-      <section className="border-t py-8">
+      {/* ═══ LEARNING TOOLS ═══ */}
+      <section className="border-t py-10 md:py-14">
         <div className="container mx-auto px-4">
           <FadeInUp>
-            <Link
-              to="/idioms"
-              className="group flex flex-col sm:flex-row items-center gap-4 rounded-2xl border bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 p-6 shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
-            >
-              <span className="text-5xl">🗣️</span>
-              <div className="flex-1 text-center sm:text-left">
-                <h3 className="font-bold font-display text-lg group-hover:text-primary transition-colors">Idioms & Phrasal Verbs</h3>
-                <p className="text-sm text-muted-foreground mt-1">Browse 45+ expressions, search by meaning, and test yourself with quizzes</p>
-              </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
-            </Link>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Practice & Review</p>
+            </div>
+            <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-3">
+              Learning Tools
+            </h2>
+            <p className="text-center text-muted-foreground max-w-lg mx-auto mb-8">
+              Supercharge your learning with AI tutoring, vocabulary drills, quizzes, and more.
+            </p>
           </FadeInUp>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px" }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
+          >
+            {[
+              { icon: Brain, label: "AI Tutor", to: "/ai-tutor", emoji: "🤖", color: "from-violet-500/15 to-violet-500/5", iconColor: "text-violet-600 dark:text-violet-400" },
+              { icon: BookMarked, label: "Dictionary", to: "/dictionary", emoji: "📖", color: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
+              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz", emoji: "🎯", color: "from-purple-500/15 to-purple-500/5", iconColor: "text-purple-600 dark:text-purple-400" },
+              { icon: BookOpen, label: "Flashcards", to: "/flashcards", emoji: "🃏", color: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
+              { icon: Mic2, label: "Speaking", to: "/practice", emoji: "🎙️", color: "from-rose-500/15 to-rose-500/5", iconColor: "text-rose-600 dark:text-rose-400" },
+              { icon: PenLine, label: "Idioms", to: "/idioms", emoji: "🗣️", color: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
+            ].map((tool, i) => (
+              <motion.div key={tool.to} variants={staggerItem}>
+                <Link
+                  to={tool.to}
+                  className={`group flex flex-col items-center gap-2 rounded-2xl border bg-gradient-to-br ${tool.color} p-5 shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full`}
+                >
+                  <div className={`h-11 w-11 rounded-xl bg-background/80 flex items-center justify-center ${tool.iconColor} group-hover:scale-110 transition-transform`}>
+                    <tool.icon className="h-5 w-5" />
+                  </div>
+                  <span className="text-sm font-semibold text-center">{tool.label}</span>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
