@@ -284,7 +284,7 @@ function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boole
 }
 
 /* ───── Score Summary Card ───── */
-function ScoreSummaryCard({ scoreRef, total }: { scoreRef: React.MutableRefObject<{ correct: number; answered: number }>; total: number }) {
+function ScoreSummaryCard({ scoreRef, total, onRetry }: { scoreRef: React.MutableRefObject<{ correct: number; answered: number }>; total: number; onRetry?: () => void }) {
   const [, forceUpdate] = useState(0);
   const { correct, answered } = scoreRef.current;
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
@@ -350,6 +350,15 @@ function ScoreSummaryCard({ scoreRef, total }: { scoreRef: React.MutableRefObjec
             <p className="text-[11px] text-muted-foreground">Remaining</p>
           </div>
         </div>
+
+        {answered > 0 && onRetry && (
+          <button
+            onClick={onRetry}
+            className="mt-5 inline-flex items-center gap-2 rounded-xl border-2 border-primary/30 bg-primary/10 px-5 py-2.5 text-sm font-semibold text-primary hover:bg-primary/20 transition-all duration-200 active:scale-95"
+          >
+            <RotateCcw className="h-4 w-4" /> Retry Exercises
+          </button>
+        )}
       </div>
     </div>
   );
@@ -538,6 +547,7 @@ export default function LessonPage() {
   const [cardIndex, setCardIndex] = useState(0);
   const [showArabic, setShowArabic] = useState(false);
   const [lessonDone, setLessonDone] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
 
   // Score tracking refs (one per section)
   const vocabScore = useRef({ correct: 0, answered: 0 });
