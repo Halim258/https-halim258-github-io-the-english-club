@@ -270,9 +270,8 @@ export function generateSlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 11. Song reward slide (for A1-C2 levels)
-  const cefrLevels = ["a1", "a2", "b1", "b2", "c1", "c2"];
-  if (cefrLevels.includes(lesson.levelId)) {
+  // 11. Song reward slide (for all courses)
+  {
     const songKey = `${lesson.levelId}-${lesson.lessonNumber}`;
     const song = songRewards[songKey];
     if (song) {
