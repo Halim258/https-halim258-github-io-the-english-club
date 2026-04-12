@@ -37,6 +37,7 @@ import { Button } from "@/components/ui/button";
 import { PetalTopRight, PetalBottomLeft } from "@/components/PetalDecoration";
 import { FadeInUp, FadeIn, ScaleIn, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import FAQSection from "@/components/home/FAQSection";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
 import LocationSection from "@/components/home/LocationSection";
 import CoursesSection from "@/components/home/CoursesSection";
 import ContinueLearning from "@/components/ContinueLearning";
@@ -886,6 +887,9 @@ export default function Home() {
 
       {/* ═══════════════ COURSES ═══════════════ */}
       <CoursesSection />
+
+      {/* ═══════════════ FAQ ═══════════════ */}
+      <TestimonialsSection />
 
       {/* ═══════════════ FAQ ═══════════════ */}
       <FAQSection />
