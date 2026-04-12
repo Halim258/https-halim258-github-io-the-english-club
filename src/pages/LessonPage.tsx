@@ -44,14 +44,42 @@ const NavFooter = ({
   total: number;
 }) => (
   <div className="flex items-center justify-between border-t bg-card px-4 py-3">
-    <Button variant="ghost" size="sm" onClick={onPrev} disabled={!canPrev}>
-      <ChevronLeft className="h-4 w-4 mr-1" /> Back
+    <Button
+      variant={canPrev ? "outline" : "ghost"}
+      size="sm"
+      onClick={onPrev}
+      disabled={!canPrev}
+      className="gap-1 transition-all duration-200"
+    >
+      <ChevronLeft className="h-4 w-4" /> Back
     </Button>
-    <span className="text-xs text-muted-foreground font-sans">
-      {current + 1} / {total}
-    </span>
-    <Button variant="ghost" size="sm" onClick={onNext} disabled={!canNext}>
-      Next <ChevronRight className="h-4 w-4 ml-1" />
+    <div className="flex flex-col items-center">
+      <span className="text-xs text-muted-foreground font-sans font-medium">
+        {current + 1} / {total}
+      </span>
+      {/* Mini dot progress */}
+      <div className="flex gap-0.5 mt-1">
+        {Array.from({ length: Math.min(total, 20) }, (_, i) => {
+          const dotIndex = total <= 20 ? i : Math.floor((i / 20) * total);
+          return (
+            <div
+              key={i}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                dotIndex <= current ? "bg-primary w-2" : "bg-muted w-1.5"
+              }`}
+            />
+          );
+        })}
+      </div>
+    </div>
+    <Button
+      variant={canNext ? "default" : "ghost"}
+      size="sm"
+      onClick={onNext}
+      disabled={!canNext}
+      className="gap-1 transition-all duration-200"
+    >
+      Next <ChevronRight className="h-4 w-4" />
     </Button>
   </div>
 );
@@ -97,12 +125,12 @@ function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; sho
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div
-        className="relative w-full max-w-sm aspect-[3/4] cursor-pointer"
+        className="relative w-full max-w-sm aspect-[3/4] cursor-pointer group"
         style={{ perspective: "800px" }}
         onClick={() => setFlipped(!flipped)}
       >
         <div
-          className="absolute inset-0 transition-transform duration-500"
+          className="absolute inset-0 transition-transform duration-600 ease-out"
           style={{
             transformStyle: "preserve-3d",
             transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -110,15 +138,19 @@ function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; sho
         >
           {/* Front */}
           <div
-            className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl border-2 border-primary/20 bg-card shadow-lg p-6"
+            className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl border-2 border-primary/20 bg-card shadow-lg p-6 group-hover:border-primary/40 group-hover:shadow-xl transition-all duration-300"
             style={{ backfaceVisibility: "hidden" }}
           >
-            <span className="text-6xl mb-4">{item.emoji}</span>
+            <span className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">{item.emoji}</span>
             <h2 className="text-3xl font-bold text-foreground">{item.word}</h2>
             <div className="mt-4">
               <AudioButton text={item.word} speak={speak} speaking={speaking} />
             </div>
             <p className="mt-2 text-sm text-muted-foreground font-sans">Tap to flip</p>
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1">
+              <div className={`h-1.5 w-6 rounded-full transition-colors ${!flipped ? "bg-primary" : "bg-muted"}`} />
+              <div className={`h-1.5 w-6 rounded-full transition-colors ${flipped ? "bg-primary" : "bg-muted"}`} />
+            </div>
           </div>
           {/* Back */}
           <div
@@ -133,6 +165,10 @@ function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; sho
             {showArabic && (
               <p className="mt-4 text-xl font-bold text-primary" dir="rtl">{item.arabic}</p>
             )}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1">
+              <div className={`h-1.5 w-6 rounded-full transition-colors ${!flipped ? "bg-primary" : "bg-muted"}`} />
+              <div className={`h-1.5 w-6 rounded-full transition-colors ${flipped ? "bg-primary" : "bg-muted"}`} />
+            </div>
           </div>
         </div>
       </div>
@@ -194,29 +230,47 @@ function MCQCard({ item }: { item: MCQItem }) {
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <p className="mb-4 text-lg font-semibold text-foreground text-center font-sans">{item.question}</p>
-        <div className="grid gap-2">
+        <p className="mb-5 text-lg font-semibold text-foreground text-center font-sans leading-relaxed">{item.question}</p>
+        <div className="grid gap-2.5">
           {item.options.map((opt, i) => {
-            let cls = "rounded-xl border-2 px-4 py-3 text-sm text-left transition-all font-sans ";
-            if (!answered) cls += "hover:bg-muted hover:border-primary/40 cursor-pointer border-border";
-            else if (i === item.correct) cls += "border-accent bg-accent/10 text-accent-foreground";
-            else if (i === selected) cls += "border-destructive bg-destructive/10";
-            else cls += "opacity-40 border-border";
+            let cls = "rounded-xl border-2 px-4 py-3.5 text-sm text-left transition-all duration-300 font-sans ";
+            if (!answered) cls += "hover:bg-muted hover:border-primary/40 hover:scale-[1.02] cursor-pointer border-border active:scale-[0.98]";
+            else if (i === item.correct) cls += "border-accent bg-accent/10 text-accent-foreground scale-[1.02] shadow-sm";
+            else if (i === selected) cls += "border-destructive bg-destructive/10 scale-[0.98] opacity-80";
+            else cls += "opacity-30 border-border scale-[0.97]";
             return (
-              <button key={i} className={cls} onClick={() => !answered && setSelected(i)} disabled={answered}>
-                {opt}
+              <button
+                key={i}
+                className={cls}
+                onClick={() => !answered && setSelected(i)}
+                disabled={answered}
+              >
+                <span className="flex items-center gap-3">
+                  <span className={`flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-bold shrink-0 transition-colors duration-300 ${
+                    answered && i === item.correct ? "bg-accent text-accent-foreground" :
+                    answered && i === selected ? "bg-destructive text-destructive-foreground" :
+                    "bg-muted text-muted-foreground"
+                  }`}>
+                    {String.fromCharCode(65 + i)}
+                  </span>
+                  <span>{opt}</span>
+                </span>
               </button>
             );
           })}
         </div>
         {answered && (
-          <p className={`mt-3 text-sm font-medium font-sans flex items-center justify-center gap-1 ${selected === item.correct ? "text-accent" : "text-destructive"}`}>
+          <div className={`mt-4 text-sm font-medium font-sans flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 transition-all duration-300 ${
+            selected === item.correct 
+              ? "text-accent bg-accent/10 border border-accent/20" 
+              : "text-destructive bg-destructive/10 border border-destructive/20"
+          }`}>
             {selected === item.correct ? (
-              <><CheckCircle2 className="h-4 w-4" /> Correct!</>
+              <><CheckCircle2 className="h-4 w-4" /> Correct! 🎉</>
             ) : (
               <><XCircle className="h-4 w-4" /> Answer: {item.options[item.correct]}</>
             )}
-          </p>
+          </div>
         )}
       </div>
     </div>
