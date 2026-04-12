@@ -415,6 +415,12 @@ export default function AdminDashboard() {
           <AdminRevenueCharts />
         </motion.div>
       )}
+
+      {tab === "analytics" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <AdminAnalytics />
+        </motion.div>
+      )}
     </div>
   );
 }
