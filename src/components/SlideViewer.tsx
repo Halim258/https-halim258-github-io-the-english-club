@@ -1076,9 +1076,9 @@ function DiscussionSlide({ questions }: { questions: { question: string; modelAn
 
 /* ═══════════ SONG REWARD SLIDE ═══════════ */
 function SongRewardSlide({ youtubeId, title, artist, message }: { youtubeId: string; title: string; artist: string; message: string }) {
-  const containerRef = React.useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
