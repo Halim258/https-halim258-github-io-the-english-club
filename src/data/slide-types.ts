@@ -15,7 +15,8 @@ export type SlideType =
   | "expressions"
   | "discussion"
   | "transcript"
-  | "song-reward";
+  | "song-reward"
+  | "listening";
 
 export interface Slide {
   id: string;
@@ -41,7 +42,8 @@ export type SlideContent =
   | { kind: "expressions"; items: { phrase: string; meaning: string; arabic: string; emoji: string }[] }
   | { kind: "discussion"; questions: { question: string; modelAnswer: string; emoji: string }[] }
   | { kind: "transcript"; lines: { time: string; text: string; translation: string }[]; vocabWords?: string[] }
-  | { kind: "song-reward"; youtubeId: string; title: string; artist: string; message: string };
+  | { kind: "song-reward"; youtubeId: string; title: string; artist: string; message: string }
+  | { kind: "listening"; audioContext: string; tip: string; questions: { question: string; options: string[]; correct: number }[] };
 
 /* ── Generate slides from lesson data ── */
 export function generateSlides(lesson: LessonData): Slide[] {
