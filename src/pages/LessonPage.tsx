@@ -125,12 +125,12 @@ function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; sho
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div
-        className="relative w-full max-w-sm aspect-[3/4] cursor-pointer"
+        className="relative w-full max-w-sm aspect-[3/4] cursor-pointer group"
         style={{ perspective: "800px" }}
         onClick={() => setFlipped(!flipped)}
       >
         <div
-          className="absolute inset-0 transition-transform duration-500"
+          className="absolute inset-0 transition-transform duration-600 ease-out"
           style={{
             transformStyle: "preserve-3d",
             transform: flipped ? "rotateY(180deg)" : "rotateY(0deg)",
@@ -138,15 +138,19 @@ function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; sho
         >
           {/* Front */}
           <div
-            className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl border-2 border-primary/20 bg-card shadow-lg p-6"
+            className="absolute inset-0 flex flex-col items-center justify-center rounded-2xl border-2 border-primary/20 bg-card shadow-lg p-6 group-hover:border-primary/40 group-hover:shadow-xl transition-all duration-300"
             style={{ backfaceVisibility: "hidden" }}
           >
-            <span className="text-6xl mb-4">{item.emoji}</span>
+            <span className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">{item.emoji}</span>
             <h2 className="text-3xl font-bold text-foreground">{item.word}</h2>
             <div className="mt-4">
               <AudioButton text={item.word} speak={speak} speaking={speaking} />
             </div>
             <p className="mt-2 text-sm text-muted-foreground font-sans">Tap to flip</p>
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1">
+              <div className={`h-1.5 w-6 rounded-full transition-colors ${!flipped ? "bg-primary" : "bg-muted"}`} />
+              <div className={`h-1.5 w-6 rounded-full transition-colors ${flipped ? "bg-primary" : "bg-muted"}`} />
+            </div>
           </div>
           {/* Back */}
           <div
@@ -161,6 +165,10 @@ function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; sho
             {showArabic && (
               <p className="mt-4 text-xl font-bold text-primary" dir="rtl">{item.arabic}</p>
             )}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1">
+              <div className={`h-1.5 w-6 rounded-full transition-colors ${!flipped ? "bg-primary" : "bg-muted"}`} />
+              <div className={`h-1.5 w-6 rounded-full transition-colors ${flipped ? "bg-primary" : "bg-muted"}`} />
+            </div>
           </div>
         </div>
       </div>
