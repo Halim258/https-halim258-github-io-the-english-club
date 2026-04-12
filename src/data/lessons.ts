@@ -118,6 +118,7 @@ import { aviationCompletion } from "./aviation-completion";
 import { conversationCompletion } from "./conversation-completion";
 import { financeCompletion } from "./finance-completion";
 import { healthcareCompletion } from "./healthcare-completion";
+import { examPrepExtra } from "./exam-prep-extra";
 import { social_mediaCompletion } from "./social-media-completion";
 import { engineeringCompletion } from "./engineering-completion";
 import { it_englishCompletion } from "./it-english-completion";
@@ -760,6 +761,7 @@ export const lessons: Record<string, LessonData> = {
   ...newsLesson2,
   ...hospitalityLesson1,
   ...legalLesson1,
+  ...examPrepExtra,
 };
 
 // Apply YouTube video patches to music, legal, and hospitality courses
