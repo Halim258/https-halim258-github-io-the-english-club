@@ -123,7 +123,7 @@ export default function TestimonialsSection() {
   const allReviews = [...reviews, ...defaultTestimonials];
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden">
+    <section className="py-12 md:py-24 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-primary/3 to-transparent pointer-events-none" />
       <div className="container mx-auto px-4 relative">
         <motion.div
@@ -135,10 +135,10 @@ export default function TestimonialsSection() {
           <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1.5 rounded-full mb-4">
             <Star className="h-3.5 w-3.5" /> Student Reviews
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold font-display mb-3">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-display mb-3">
             What Our Students Say
           </h2>
-          <p className="text-muted-foreground max-w-md mx-auto">
+          <p className="text-muted-foreground max-w-md mx-auto text-sm md:text-base">
             Join thousands of learners who have transformed their English skills with us.
           </p>
         </motion.div>
@@ -218,7 +218,7 @@ export default function TestimonialsSection() {
           )}
         </AnimatePresence>
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible md:pb-0">
           {allReviews.map((t, i) => (
             <motion.div
               key={t.id}
@@ -226,7 +226,7 @@ export default function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="group rounded-2xl border bg-card p-5 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 relative"
+              className="group rounded-2xl border bg-card p-5 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 relative min-w-[260px] max-w-[280px] md:min-w-0 md:max-w-none snap-start shrink-0 md:shrink"
             >
               <Quote className="absolute top-4 right-4 h-8 w-8 text-primary/10 group-hover:text-primary/20 transition-colors" />
               <div className="flex items-center gap-3 mb-3">

@@ -5,22 +5,22 @@ const WHATSAPP_URL = "https://api.whatsapp.com/send?phone=%2B201554901390";
 
 export default function BookTeacherFAB() {
   return (
-    <div className="fixed bottom-20 md:bottom-6 right-4 md:right-6 z-50 flex flex-col gap-2.5">
+    <div className="fixed bottom-[5.5rem] md:bottom-6 right-3 md:right-6 z-40 flex flex-col gap-2">
       <a
         href={WHATSAPP_URL}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 sm:px-5 py-3 font-semibold text-white shadow-lg transition-transform hover:scale-105 active:scale-95 text-sm"
+        className="flex items-center justify-center h-11 w-11 md:h-auto md:w-auto md:gap-2 rounded-full bg-[#25D366] md:px-5 md:py-3 font-semibold text-white shadow-lg transition-transform hover:scale-105 active:scale-95 text-sm"
       >
         <MessageCircle className="h-5 w-5" />
-        <span className="hidden sm:inline">WhatsApp</span>
+        <span className="hidden md:inline">WhatsApp</span>
       </a>
       <Link
         to="/teachers"
-        className="flex items-center gap-2 rounded-full bg-accent px-4 sm:px-5 py-3 font-semibold text-accent-foreground shadow-lg transition-transform hover:scale-105 active:scale-95 text-sm"
+        className="flex items-center justify-center h-11 w-11 md:h-auto md:w-auto md:gap-2 rounded-full bg-accent md:px-5 md:py-3 font-semibold text-accent-foreground shadow-lg transition-transform hover:scale-105 active:scale-95 text-sm"
       >
         <GraduationCap className="h-5 w-5" />
-        <span className="hidden sm:inline">Book a Teacher</span>
+        <span className="hidden md:inline">Book a Teacher</span>
       </Link>
     </div>
   );

@@ -28,7 +28,7 @@ const tools = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t bg-secondary text-secondary-foreground overflow-hidden">
+    <footer className="relative border-t bg-secondary text-secondary-foreground overflow-hidden pb-20 md:pb-0">
       {/* Subtle decorative gradient */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/[0.03] rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
 
