@@ -157,6 +157,7 @@ function SlideRenderer({ slide }: { slide: Slide }) {
         {content.kind === "expressions" && <ExpressionsSlide items={content.items} />}
         {content.kind === "discussion" && <DiscussionSlide questions={content.questions} />}
         {content.kind === "transcript" && <TranscriptSlide lines={content.lines} vocabWords={content.vocabWords} />}
+        {content.kind === "song-reward" && <SongRewardSlide youtubeId={content.youtubeId} title={content.title} artist={content.artist} message={content.message} />}
       </div>
     </div>
   );
@@ -1069,6 +1070,36 @@ function DiscussionSlide({ questions }: { questions: { question: string; modelAn
           )}
         </div>
       ))}
+    </div>
+  );
+}
+
+/* ═══════════ SONG REWARD SLIDE ═══════════ */
+function SongRewardSlide({ youtubeId, title, artist, message }: { youtubeId: string; title: string; artist: string; message: string }) {
+  return (
+    <div className="space-y-4 text-center">
+      <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-500/20 px-5 py-2">
+        <span className="text-2xl">🎵</span>
+        <span className="font-bold text-sm bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
+          Song Reward
+        </span>
+        <span className="text-2xl">🎵</span>
+      </div>
+      <p className="text-sm text-muted-foreground max-w-md mx-auto">{message}</p>
+      <div className="relative rounded-xl overflow-hidden border bg-black aspect-video max-w-lg mx-auto shadow-lg">
+        <iframe
+          src={`https://www.youtube.com/embed/${youtubeId}?autoplay=0`}
+          title={`${title} - ${artist}`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+          className="absolute inset-0 w-full h-full"
+        />
+      </div>
+      <div className="space-y-1">
+        <p className="font-bold text-lg">{title}</p>
+        <p className="text-sm text-muted-foreground">{artist}</p>
+      </div>
+      <p className="text-xs text-muted-foreground/60">🎧 Enjoy the music — you earned it!</p>
     </div>
   );
 }
