@@ -10,6 +10,9 @@ import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { FadeInUp, ScaleIn } from "@/components/AnimatedSection";
 import { useAuth } from "@/hooks/useAuth";
+import DailyChallenge from "@/components/DailyChallenge";
+import StudyStreakCalendar from "@/components/StudyStreakCalendar";
+import OnboardingWelcome from "@/components/OnboardingWelcome";
 
 interface TestResult {
   id: string;
