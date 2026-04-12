@@ -427,6 +427,25 @@ export default function Courses() {
         </div>
       </section>
 
+      {/* ═══ IDIOMS & PHRASAL VERBS BANNER ═══ */}
+      <section className="border-t py-8">
+        <div className="container mx-auto px-4">
+          <FadeInUp>
+            <Link
+              to="/idioms"
+              className="group flex flex-col sm:flex-row items-center gap-4 rounded-2xl border bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 p-6 shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
+            >
+              <span className="text-5xl">🗣️</span>
+              <div className="flex-1 text-center sm:text-left">
+                <h3 className="font-bold font-display text-lg group-hover:text-primary transition-colors">Idioms & Phrasal Verbs</h3>
+                <p className="text-sm text-muted-foreground mt-1">Browse 45+ expressions, search by meaning, and test yourself with quizzes</p>
+              </div>
+              <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
+            </Link>
+          </FadeInUp>
+        </div>
+      </section>
+
       {/* ═══ COURSE CATEGORIES ═══ */}
       <section className="border-t bg-muted/30 py-12 md:py-16">
         <div className="container mx-auto px-4">
