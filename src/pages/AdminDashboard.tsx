@@ -26,7 +26,11 @@ import AdminUnpaidStudents from "@/components/admin/AdminUnpaidStudents";
 import AdminRoles from "@/components/admin/AdminRoles";
 import AdminNotifications from "@/components/admin/AdminNotifications";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export";
+import AdminStudentReports from "@/components/admin/AdminStudentReports";
+import AdminTeacherSchedule from "@/components/admin/AdminTeacherSchedule";
+import AdminRevenueCharts from "@/components/admin/AdminRevenueCharts";
+
+type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",

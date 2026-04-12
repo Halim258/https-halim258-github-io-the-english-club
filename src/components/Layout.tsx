@@ -7,6 +7,7 @@ import PageTransition from "./PageTransition";
 import ScrollToTop from "./ScrollToTop";
 import Breadcrumbs from "./Breadcrumbs";
 import GlobalSearch from "./GlobalSearch";
+import MobileBottomNav from "./MobileBottomNav";
 
 const lessonRoutePatterns = [
   /^\/courses\/[^/]+\/[^/]+/,
@@ -40,6 +41,7 @@ export default function Layout() {
       <BookTeacherFAB />
       <ScrollToTop />
       <Footer />
+      <MobileBottomNav />
     </div>
   );
 }
