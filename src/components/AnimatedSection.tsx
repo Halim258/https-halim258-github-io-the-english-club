@@ -12,7 +12,7 @@ export const FadeInUp = forwardRef<HTMLDivElement, Props>(function FadeInUp({ ch
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
       ref={ref}
@@ -27,7 +27,7 @@ export const FadeIn = forwardRef<HTMLDivElement, Props>(function FadeIn({ childr
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.5, delay, ease: "easeOut" }}
       className={className}
       ref={ref}
@@ -42,7 +42,7 @@ export const ScaleIn = forwardRef<HTMLDivElement, Props>(function ScaleIn({ chil
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, amount: 0.05 }}
       transition={{ duration: 0.4, delay, ease: "easeOut" }}
       className={className}
       ref={ref}
