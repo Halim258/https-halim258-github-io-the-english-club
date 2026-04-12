@@ -156,6 +156,80 @@ export type Database = {
         }
         Relationships: []
       }
+      daily_challenge_completions: {
+        Row: {
+          challenge_id: string
+          completed_at: string
+          id: string
+          is_correct: boolean
+          user_id: string
+          xp_earned: number
+        }
+        Insert: {
+          challenge_id: string
+          completed_at?: string
+          id?: string
+          is_correct?: boolean
+          user_id: string
+          xp_earned?: number
+        }
+        Update: {
+          challenge_id?: string
+          completed_at?: string
+          id?: string
+          is_correct?: boolean
+          user_id?: string
+          xp_earned?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "daily_challenge_completions_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "daily_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      daily_challenges: {
+        Row: {
+          challenge_date: string
+          challenge_type: string
+          correct_answer: string
+          created_at: string
+          difficulty: string
+          hint: string | null
+          id: string
+          options: Json
+          question: string
+          xp_reward: number
+        }
+        Insert: {
+          challenge_date?: string
+          challenge_type?: string
+          correct_answer: string
+          created_at?: string
+          difficulty?: string
+          hint?: string | null
+          id?: string
+          options?: Json
+          question: string
+          xp_reward?: number
+        }
+        Update: {
+          challenge_date?: string
+          challenge_type?: string
+          correct_answer?: string
+          created_at?: string
+          difficulty?: string
+          hint?: string | null
+          id?: string
+          options?: Json
+          question?: string
+          xp_reward?: number
+        }
+        Relationships: []
+      }
       discussion_answers: {
         Row: {
           answer_text: string
