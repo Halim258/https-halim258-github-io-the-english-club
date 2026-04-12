@@ -1,4 +1,5 @@
 import { LessonData, VocabWord, DialogueLine, GrammarRule, MCQItem, DiscussionQuestion } from "./lessons";
+import { songRewards } from "./song-rewards";
 
 /* ── Slide Types ── */
 export type SlideType =
@@ -13,7 +14,8 @@ export type SlideType =
   | "video"
   | "expressions"
   | "discussion"
-  | "transcript";
+  | "transcript"
+  | "song-reward";
 
 export interface Slide {
   id: string;
@@ -38,7 +40,8 @@ export type SlideContent =
   | { kind: "video"; youtubeId: string; sceneContext: string; culturalNote?: string; movieTitle: string }
   | { kind: "expressions"; items: { phrase: string; meaning: string; arabic: string; emoji: string }[] }
   | { kind: "discussion"; questions: { question: string; modelAnswer: string; emoji: string }[] }
-  | { kind: "transcript"; lines: { time: string; text: string; translation: string }[]; vocabWords?: string[] };
+  | { kind: "transcript"; lines: { time: string; text: string; translation: string }[]; vocabWords?: string[] }
+  | { kind: "song-reward"; youtubeId: string; title: string; artist: string; message: string };
 
 /* ── Generate slides from lesson data ── */
 export function generateSlides(lesson: LessonData): Slide[] {
