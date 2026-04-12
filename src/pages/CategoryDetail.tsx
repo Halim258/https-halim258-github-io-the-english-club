@@ -156,7 +156,10 @@ export default function CategoryDetail() {
         </div>
       </section>
 
-      {/* Courses List */}
+      {/* Exam Prep — Custom Skill-Based Layout */}
+      {categorySlug === "exam-prep" ? (
+        <ExamPrepSkillView />
+      ) : (
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4 max-w-4xl">
           <FadeInUp>
