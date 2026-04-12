@@ -601,15 +601,6 @@ export default function LessonPage() {
   const handleRetry = (ref: React.MutableRefObject<{ correct: number; answered: number }>) => () => {
     ref.current = { correct: 0, answered: 0 };
     setRetryCount(c => c + 1);
-    // Navigate back to the first exercise card
-    setCardIndex(prev => {
-      const cards = buildCards();
-      const firstExIdx = cards.findIndex((_, i) => {
-        const c = cards[i];
-        return c && typeof c === 'object' && (c as any).key?.toString().match(/^(ve|ce|gex|eq|hq)-0$/);
-      });
-      return firstExIdx >= 0 ? firstExIdx : 0;
-    });
   };
 
   // Build cards for the active tab
