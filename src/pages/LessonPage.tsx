@@ -44,14 +44,42 @@ const NavFooter = ({
   total: number;
 }) => (
   <div className="flex items-center justify-between border-t bg-card px-4 py-3">
-    <Button variant="ghost" size="sm" onClick={onPrev} disabled={!canPrev}>
-      <ChevronLeft className="h-4 w-4 mr-1" /> Back
+    <Button
+      variant={canPrev ? "outline" : "ghost"}
+      size="sm"
+      onClick={onPrev}
+      disabled={!canPrev}
+      className="gap-1 transition-all duration-200"
+    >
+      <ChevronLeft className="h-4 w-4" /> Back
     </Button>
-    <span className="text-xs text-muted-foreground font-sans">
-      {current + 1} / {total}
-    </span>
-    <Button variant="ghost" size="sm" onClick={onNext} disabled={!canNext}>
-      Next <ChevronRight className="h-4 w-4 ml-1" />
+    <div className="flex flex-col items-center">
+      <span className="text-xs text-muted-foreground font-sans font-medium">
+        {current + 1} / {total}
+      </span>
+      {/* Mini dot progress */}
+      <div className="flex gap-0.5 mt-1">
+        {Array.from({ length: Math.min(total, 20) }, (_, i) => {
+          const dotIndex = total <= 20 ? i : Math.floor((i / 20) * total);
+          return (
+            <div
+              key={i}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                dotIndex <= current ? "bg-primary w-2" : "bg-muted w-1.5"
+              }`}
+            />
+          );
+        })}
+      </div>
+    </div>
+    <Button
+      variant={canNext ? "default" : "ghost"}
+      size="sm"
+      onClick={onNext}
+      disabled={!canNext}
+      className="gap-1 transition-all duration-200"
+    >
+      Next <ChevronRight className="h-4 w-4" />
     </Button>
   </div>
 );
