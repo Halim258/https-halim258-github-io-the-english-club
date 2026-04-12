@@ -527,18 +527,12 @@ export default function LessonPage() {
   const cards = buildCards();
   const totalCards = cards.length;
 
-  const goNext = useCallback(() => { stop(); setCardIndex((i) => Math.min(i + 1, totalCards - 1)); }, [totalCards, stop]);
-  const goPrev = useCallback(() => { stop(); setCardIndex((i) => Math.max(i - 1, 0)); }, [stop]);
+  // Clamp cardIndex to valid range
+  const safeIndex = Math.min(cardIndex, totalCards - 1);
+  if (safeIndex !== cardIndex) setCardIndex(safeIndex);
 
-  // Keyboard navigation
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); goNext(); }
-      if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); goPrev(); }
-    };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
-  }, [goNext, goPrev]);
+  const goNext = () => { stop(); setCardIndex((i) => Math.min(i + 1, totalCards - 1)); };
+  const goPrev = () => { stop(); setCardIndex((i) => Math.max(i - 1, 0)); };
 
   // Swipe navigation
   const onTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
@@ -556,8 +550,7 @@ export default function LessonPage() {
   };
 
   // Calculate exercise start index for "Jump to Exercises" button
-  const vocabCount = activeTab === "vocabulary" ? lesson.vocabulary.length + 1 : 0; // +1 for title card
-  const exerciseStartIndex = vocabCount + 1; // +1 for exercise title card
+  const exerciseStartIndex = activeTab === "vocabulary" ? lesson.vocabulary.length + 2 : 0;
 
   return (
     <Shell>
