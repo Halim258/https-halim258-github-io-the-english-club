@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronLeft, MessageCircle, CheckCircle2, PlayCircle, ArrowRight } from "lucide-react";
+import { ChevronLeft, MessageCircle, CheckCircle2, PlayCircle, ArrowRight, BookOpen, Headphones, PenLine, Mic2, ClipboardList } from "lucide-react";
 import { motion } from "framer-motion";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { Button } from "@/components/ui/button";
