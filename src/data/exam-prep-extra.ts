@@ -26,9 +26,9 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "Strategy: T/F/NG Step by Step",
       explanation: "Step 1: Read the statement carefully. Step 2: Locate the relevant section in the passage. Step 3: Compare — does it match (TRUE), contradict (FALSE), or is it absent (NOT GIVEN)? Step 4: Watch for paraphrasing — the passage rarely uses the exact same words as the question.",
       examples: [
-        "Passage: 'The bridge was completed in 1998.' | Statement: 'The bridge was finished in 1998.' → TRUE (completed = finished)",
-        "Passage: 'The project cost $2 million.' | Statement: 'The project cost $5 million.' → FALSE (contradicts)",
-        "Passage: 'The bridge connects two cities.' | Statement: 'The bridge is painted blue.' → NOT GIVEN (no mention of color)",
+        { sentence: "Passage: 'The bridge was completed in 1998.' | Statement: 'The bridge was finished in 1998.'", note: "TRUE (completed = finished)" },
+        { sentence: "Passage: 'The project cost $2 million.' | Statement: 'The project cost $5 million.'", note: "FALSE (contradicts)" },
+        { sentence: "Passage: 'The bridge connects two cities.' | Statement: 'The bridge is painted blue.'", note: "NOT GIVEN (no mention of color)" },
       ],
     },
     vocabExercises: [
@@ -62,8 +62,8 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "Matching Headings Technique",
       explanation: "1) Read all headings first and underline key words. 2) Skim each paragraph — focus on the first 2 sentences. 3) Match the most obvious paragraphs first. 4) Use elimination for harder ones. 5) The heading should reflect the MAIN idea, not a single detail.",
       examples: [
-        "Paragraph about rising sea levels affecting coastal cities → Heading: 'Environmental threats to urban areas' ✓",
-        "Paragraph about a new study on sleep → Don't pick 'Health benefits of exercise' just because health is mentioned once.",
+        { sentence: "Paragraph about rising sea levels affecting coastal cities", note: "Heading: 'Environmental threats to urban areas' ✓" },
+        { sentence: "Paragraph about a new study on sleep", note: "Don't pick 'Health benefits of exercise' just because health is mentioned once." },
       ],
     },
     vocabExercises: [
@@ -97,8 +97,8 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "Vocabulary-in-Context Strategy",
       explanation: "1) Read the sentence containing the word. 2) Read sentences before and after for more context. 3) Try to predict the meaning before looking at choices. 4) Substitute each choice into the sentence. 5) The correct answer keeps the overall meaning intact.",
       examples: [
-        "'The abundant rainfall led to flooding.' — abundant means: plentiful (not rare, not moderate)",
-        "'She resolved the conflict quickly.' — resolved means: settled (not started, not ignored)",
+        { sentence: "'The abundant rainfall led to flooding.'", note: "abundant means: plentiful (not rare, not moderate)" },
+        { sentence: "'She resolved the conflict quickly.'", note: "resolved means: settled (not started, not ignored)" },
       ],
     },
     vocabExercises: [
@@ -133,9 +133,9 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "Section 1 & 2 Question Types",
       explanation: "Section 1: Form/note completion (names, numbers, dates), multiple choice. Section 2: Map/plan labelling, matching, sentence completion. Key tips: Read ahead during pauses. Write answers as you hear them. Check word limits. Spelling counts! Numbers and dates are common in Section 1.",
       examples: [
-        "Q: Name: ___ → Listen for spelling: 'My name is Johnson, J-O-H-N-S-O-N'",
-        "Q: Check-in date: ___ → Listen for: '15th of March' or 'March 15'",
-        "Q: The museum is open from ___ to 5pm → Listen for the opening time",
+        { sentence: "Q: Name: ___", note: "Listen for spelling: 'My name is Johnson, J-O-H-N-S-O-N'" },
+        { sentence: "Q: Check-in date: ___", note: "Listen for: '15th of March' or 'March 15'" },
+        { sentence: "Q: The museum is open from ___ to 5pm", note: "Listen for the opening time" },
       ],
     },
     vocabExercises: [
@@ -169,8 +169,8 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "Sections 3 & 4 Advanced Techniques",
       explanation: "Section 3: Multiple speakers may change opinions — listen for who says what. Watch for 'I disagree', 'actually', 'well, I think...' Section 4: No pause in the middle — read all 10 questions before the audio. Focus on stressed words and examples that signal answers. Answers come in order.",
       examples: [
-        "Speaker A: 'I think we should survey 100 people.' Speaker B: 'Actually, 50 would be enough.' → Answer: 50",
-        "Lecturer: 'The PRIMARY cause — and I want to stress this — was deforestation.' → Key word: primary cause = deforestation",
+        { sentence: "Speaker A: 'I think we should survey 100 people.' Speaker B: 'Actually, 50 would be enough.'", note: "Answer: 50" },
+        { sentence: "Lecturer: 'The PRIMARY cause — and I want to stress this — was deforestation.'", note: "Key word: primary cause = deforestation" },
       ],
     },
     vocabExercises: [
@@ -204,8 +204,8 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "TOEFL Listening Question Types",
       explanation: "1) Main idea: What is the conversation mainly about? 2) Detail: According to the professor, what is...? 3) Inference: What can be inferred? 4) Function: Why does the speaker say...? 5) Attitude: What is the professor's opinion? Note-taking tip: Use abbreviations and symbols (→, =, ≠, +).",
       examples: [
-        "Main idea Q: 'Why does the student visit the professor?' → Listen to the first 30 seconds",
-        "Function Q: 'Why does the professor mention volcanoes?' → To give an example of geological activity",
+        { sentence: "Main idea Q: 'Why does the student visit the professor?'", note: "Listen to the first 30 seconds" },
+        { sentence: "Function Q: 'Why does the professor mention volcanoes?'", note: "To give an example of geological activity" },
       ],
     },
     vocabExercises: [
@@ -239,8 +239,8 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "Cambridge Listening Parts Breakdown",
       explanation: "Part 1: 8 short extracts with multiple choice (feeling, attitude, gist). Part 2: Sentence completion from a monologue (1-3 words). Part 3: Multiple matching — 5 speakers matched to 8 options. Part 4: Multiple choice from a long conversation/interview (7 questions). Total: 30 questions in ~40 minutes.",
       examples: [
-        "Part 1: 'How does the woman feel?' → Listen for tone and emotion words",
-        "Part 3: Match each speaker to what they say about their job → Listen for each speaker's unique point",
+        { sentence: "Part 1: 'How does the woman feel?'", note: "Listen for tone and emotion words" },
+        { sentence: "Part 3: Match each speaker to what they say about their job", note: "Listen for each speaker's unique point" },
       ],
     },
     vocabExercises: [
@@ -275,8 +275,8 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "TOEFL Speaking Templates",
       explanation: "Task 1 (Independent): 'I believe/prefer... for two main reasons. First,... For example,... Second,... For instance,...' Tasks 2-4 (Integrated): 'The reading discusses... The lecture/conversation adds... According to the professor,...' Key: Speak at a natural pace. Use transition words. Don't memorize — practice the structure.",
       examples: [
-        "Task 1: 'Do you prefer studying alone or in a group?' → 'I prefer studying in a group for two reasons...'",
-        "Task 3: 'The reading explains photosynthesis. The professor gives an example of...'",
+        { sentence: "Task 1: 'Do you prefer studying alone or in a group?'", note: "'I prefer studying in a group for two reasons...'" },
+        { sentence: "Task 3: 'The reading explains photosynthesis. The professor gives an example of...'", note: "" },
       ],
     },
     vocabExercises: [
@@ -310,8 +310,8 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "Cambridge Speaking Parts",
       explanation: "Part 1 (2 min): Personal questions — hobbies, studies, future plans. Part 2 (4 min): Compare two photos and answer a question (1 min each). Part 3 (4 min): Discuss visual prompts together and reach a decision. Part 4 (4 min): Discussion questions related to Part 3 topic. Key phrases: 'I'd say...', 'It seems to me...', 'What's your view?', 'Shall we decide on...?'",
       examples: [
-        "Part 2: 'These photos show people exercising. Compare them and say which person might enjoy it more.'",
-        "Part 3: 'Here are some ways to improve a city. Discuss which would be most effective.'",
+        { sentence: "Part 2: 'These photos show people exercising. Compare them and say which person might enjoy it more.'", note: "" },
+        { sentence: "Part 3: 'Here are some ways to improve a city. Discuss which would be most effective.'", note: "" },
       ],
     },
     vocabExercises: [
@@ -346,8 +346,8 @@ export const examPrepExtra: Record<string, LessonData> = {
       title: "SAT Reading Strategy",
       explanation: "5 passages: 1 literature, 2 science, 2 history/social studies. 52 questions in 65 minutes (~13 min per passage). For paired questions: Read the evidence choices FIRST, then answer the main question. For tone/purpose questions: Look at word choice — positive, negative, neutral? Always go back to the text — never answer from memory.",
       examples: [
-        "Q1: 'The author suggests that...' Q2: 'Which lines best support the answer to Q1?' → Read Q2 choices first!",
-        "Tone words: 'enthusiastic', 'skeptical', 'objective', 'dismissive' — know these!",
+        { sentence: "Q1: 'The author suggests that...' Q2: 'Which lines best support the answer to Q1?'", note: "Read Q2 choices first!" },
+        { sentence: "Tone words: 'enthusiastic', 'skeptical', 'objective', 'dismissive'", note: "know these!" },
       ],
     },
     vocabExercises: [
