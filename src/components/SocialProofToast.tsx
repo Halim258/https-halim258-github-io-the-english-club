@@ -50,7 +50,7 @@ export default function SocialProofToast() {
           animate={{ opacity: 1, x: 0, y: 0 }}
           exit={{ opacity: 0, x: -100 }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          className="fixed bottom-6 left-6 z-40 max-w-[280px] rounded-xl border bg-card/95 backdrop-blur-sm p-3.5 shadow-elevated flex items-center gap-3 cursor-default"
+          className="fixed bottom-20 md:bottom-6 left-4 md:left-6 z-40 max-w-[280px] rounded-xl border bg-card/95 backdrop-blur-sm p-3.5 shadow-elevated flex items-center gap-3 cursor-default"
         >
           <span className="text-xl shrink-0">{notif.icon}</span>
           <div className="min-w-0">
