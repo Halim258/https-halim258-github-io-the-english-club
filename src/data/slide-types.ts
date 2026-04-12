@@ -351,6 +351,54 @@ function generateDiscussionFromDialogue(lesson: LessonData): { question: string;
   return questions;
 }
 
+
+/* ── Generate listening comprehension questions from dialogue ── */
+function generateListeningQuestions(lesson: LessonData): { question: string; options: string[]; correct: number }[] {
+  const qs: { question: string; options: string[]; correct: number }[] = [];
+  const dialogue = lesson.dialogue;
+
+  if (dialogue.length >= 2) {
+    // Q1: Who said a specific line?
+    const randomLine = dialogue[Math.min(1, dialogue.length - 1)];
+    const speakers = [...new Set(dialogue.map(d => d.speaker))];
+    if (speakers.length >= 2) {
+      const correctSpeaker = randomLine.speaker;
+      const wrongSpeakers = speakers.filter(s => s !== correctSpeaker);
+      qs.push({
+        question: `Who said: "${randomLine.text.slice(0, 60)}${randomLine.text.length > 60 ? "..." : ""}"?`,
+        options: [correctSpeaker, wrongSpeakers[0] || "Someone else", "No one", "Both speakers"],
+        correct: 0,
+      });
+    }
+  }
+
+  if (dialogue.length >= 4) {
+    // Q2: What was the conversation about?
+    qs.push({
+      question: "What is the main topic of this conversation?",
+      options: [
+        lesson.title,
+        "The weather today",
+        "A cooking recipe",
+        "Sports results",
+      ],
+      correct: 0,
+    });
+  }
+
+  if (dialogue.length >= 3) {
+    // Q3: True/false style
+    const lastLine = dialogue[dialogue.length - 1];
+    qs.push({
+      question: `The conversation ends with ${lastLine.speaker} speaking. True or false?`,
+      options: ["True", "False", "Not mentioned", "Unclear"],
+      correct: 0,
+    });
+  }
+
+  return qs;
+}
+
 function chunkArray<T>(arr: T[], size: number): T[][] {
   const chunks: T[][] = [];
   for (let i = 0; i < arr.length; i += size) {
