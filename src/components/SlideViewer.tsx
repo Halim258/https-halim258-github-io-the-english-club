@@ -1076,9 +1076,55 @@ function DiscussionSlide({ questions }: { questions: { question: string; modelAn
 
 /* ═══════════ SONG REWARD SLIDE ═══════════ */
 function SongRewardSlide({ youtubeId, title, artist, message }: { youtubeId: string; title: string; artist: string; message: string }) {
+  const containerRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const colors = [
+      'hsl(var(--primary))', 'hsl(var(--accent))', '#ec4899', '#a855f7', '#3b82f6', '#22c55e', '#f59e0b', '#ef4444'
+    ];
+    const shapes = ['circle', 'square', 'triangle'];
+    const pieces: HTMLDivElement[] = [];
+
+    for (let i = 0; i < 60; i++) {
+      const piece = document.createElement('div');
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const shape = shapes[Math.floor(Math.random() * shapes.length)];
+      const size = Math.random() * 8 + 4;
+      const left = Math.random() * 100;
+      const delay = Math.random() * 1.5;
+      const duration = Math.random() * 2 + 2;
+      const rotation = Math.random() * 720 - 360;
+      const drift = Math.random() * 80 - 40;
+
+      piece.style.cssText = `
+        position: absolute; top: -12px; left: ${left}%;
+        width: ${size}px; height: ${size}px;
+        background: ${color}; opacity: 0;
+        border-radius: ${shape === 'circle' ? '50%' : shape === 'square' ? '2px' : '0'};
+        ${shape === 'triangle' ? `background: transparent; width: 0; height: 0; border-left: ${size/2}px solid transparent; border-right: ${size/2}px solid transparent; border-bottom: ${size}px solid ${color};` : ''}
+        pointer-events: none; z-index: 50;
+        animation: confetti-fall ${duration}s ease-in ${delay}s forwards;
+        --drift: ${drift}px; --rotation: ${rotation}deg;
+      `;
+      container.appendChild(piece);
+      pieces.push(piece);
+    }
+
+    return () => { pieces.forEach(p => p.remove()); };
+  }, []);
+
   return (
-    <div className="space-y-4 text-center">
-      <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-500/20 px-5 py-2">
+    <div ref={containerRef} className="space-y-4 text-center relative overflow-hidden">
+      <style>{`
+        @keyframes confetti-fall {
+          0% { opacity: 1; transform: translateY(0) translateX(0) rotate(0deg); }
+          100% { opacity: 0; transform: translateY(420px) translateX(var(--drift)) rotate(var(--rotation)); }
+        }
+      `}</style>
+      <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-500/20 px-5 py-2 animate-scale-in">
         <span className="text-2xl">🎵</span>
         <span className="font-bold text-sm bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-transparent">
           Song Reward
