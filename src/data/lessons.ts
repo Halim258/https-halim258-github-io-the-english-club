@@ -767,3 +767,7 @@ export const lessons: Record<string, LessonData> = {
 // Apply YouTube video patches to music, legal, and hospitality courses
 import { applyVideoPatches } from "./course-videos-patch";
 applyVideoPatches(lessons);
+
+// Generate comprehensive vocab exercises (4 types per word) for all lessons
+import { applyVocabExercises } from "./vocab-exercise-generator";
+applyVocabExercises(lessons);
