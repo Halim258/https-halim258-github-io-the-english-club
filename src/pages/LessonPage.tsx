@@ -704,6 +704,12 @@ export default function LessonPage() {
     stop();
     setActiveTab(tab);
     setCardIndex(0);
+    // Reset score refs
+    vocabScore.current = { correct: 0, answered: 0 };
+    convScore.current = { correct: 0, answered: 0 };
+    grammarScore.current = { correct: 0, answered: 0 };
+    examScore.current = { correct: 0, answered: 0 };
+    homeworkScore.current = { correct: 0, answered: 0 };
   };
 
   // Calculate exercise start index for "Jump to Exercises" button
