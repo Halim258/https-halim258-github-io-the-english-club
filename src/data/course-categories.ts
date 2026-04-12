@@ -114,12 +114,13 @@ export const categories: Category[] = [
     color: "from-orange-500/10 to-orange-500/5",
     iconBg: "bg-orange-500/15",
     image: examPrepImg,
-    description: "Get ready for international English exams with targeted practice, strategies, and mock tests.",
+    description: "Prepare for IELTS, TOEFL, Cambridge & SAT — structured by exam skill: Reading, Listening, Writing & Speaking.",
     courses: [
-      { name: "IELTS Preparation", description: "Comprehensive IELTS prep covering all four sections — Listening, Reading, Writing, and Speaking.", topics: ["Academic", "General Training", "Band Scores"] },
-      { name: "TOEFL Preparation", description: "Practice for the TOEFL iBT with timed exercises and section-specific strategies.", topics: ["iBT Format", "Integrated Tasks", "Scoring"] },
-      { name: "Cambridge Exams (PET, FCE, CAE)", description: "Prepare for Cambridge English qualifications with official practice materials.", topics: ["PET", "FCE", "CAE"] },
-      { name: "SAT English", description: "Boost your SAT verbal score with reading, writing, and grammar focused prep.", topics: ["Evidence-Based Reading", "Grammar", "Essay"] },
+      { name: "📖 Reading Skills", description: "Master skimming, scanning, inference, and timed reading passages for all major exams.", topics: ["IELTS Reading", "TOEFL Reading", "Cambridge Reading", "SAT Reading"] },
+      { name: "🎧 Listening Skills", description: "Train for all listening sections — note-taking, gap-fill, multiple choice, and map labelling.", topics: ["IELTS Listening", "TOEFL Listening", "Cambridge Listening"] },
+      { name: "✍️ Writing Skills", description: "Practice Task 1 & Task 2 essays, integrated writing, and timed essay strategies.", topics: ["IELTS Writing", "TOEFL Writing", "Cambridge Writing", "SAT Essay"] },
+      { name: "🗣️ Speaking Skills", description: "Prepare for speaking interviews, cue cards, discussions, and pronunciation scoring.", topics: ["IELTS Speaking", "TOEFL Speaking", "Cambridge Speaking"] },
+      { name: "📋 Exam Overview & Strategies", description: "Understand exam formats, scoring systems, time management, and test-day tips.", topics: ["IELTS Format", "TOEFL iBT", "Cambridge FCE/CAE", "SAT Structure"] },
     ],
   },
   {

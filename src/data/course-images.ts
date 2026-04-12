@@ -44,10 +44,11 @@ export const courseImages: Record<string, string> = {
   "Idioms & Expressions": readingImg,
   "Phrasal Verbs Course": readingImg,
   // Exam Preparation
-  "IELTS Preparation": examPrepImg,
-  "TOEFL Preparation": examPrepImg,
-  "Cambridge Exams (PET, FCE, CAE)": examPrepImg,
-  "SAT English": examPrepImg,
+  "📖 Reading Skills": examPrepImg,
+  "🎧 Listening Skills": examPrepImg,
+  "✍️ Writing Skills": examPrepImg,
+  "🗣️ Speaking Skills": examPrepImg,
+  "📋 Exam Overview & Strategies": examPrepImg,
   // Professional
   "Business English": professionalImg,
   "English for Interviews": professionalImg,
