@@ -761,3 +761,7 @@ export const lessons: Record<string, LessonData> = {
   ...hospitalityLesson1,
   ...legalLesson1,
 };
+
+// Apply YouTube video patches to music, legal, and hospitality courses
+import { applyVideoPatches } from "./course-videos-patch";
+applyVideoPatches(lessons);
