@@ -407,6 +407,10 @@ export default function LessonPage() {
   const [showArabic, setShowArabic] = useState(false);
   const [lessonDone, setLessonDone] = useState(false);
 
+  // Swipe support
+  const touchStart = useRef<number | null>(null);
+  const cardAreaRef = useRef<HTMLDivElement>(null);
+
   const handleCompleteLesson = async () => {
     if (!levelId || !lesson) return;
     await markComplete(levelId.toUpperCase(), lesson.lessonNumber);
@@ -442,7 +446,7 @@ export default function LessonPage() {
         return [
           <SectionTitleCard key="title" title="Vocabulary" icon="📚" />,
           ...vocabCards,
-          <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
+          <SectionTitleCard key="ex-title" title={`Exercises (${exerciseCards.length})`} icon="✏️" />,
           ...exerciseCards,
         ];
       }
@@ -452,7 +456,6 @@ export default function LessonPage() {
         const isCommunication = isCommunicationCourse(lesson.levelId);
 
         if (isCommunication && prompts && prompts.length > 0) {
-          // Show discussion prompts for communication courses
           const promptCards = prompts.map((p, i) => (
             <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} levelId={lesson.levelId} lessonNumber={lesson.lessonNumber} userId={user?.id ?? null} speak={speak} speaking={speaking} />
           ));
@@ -467,7 +470,6 @@ export default function LessonPage() {
           ];
         }
 
-        // Default dialogue cards for non-communication courses
         const dialogueCards = lesson.dialogue.map((line, i) => (
           <DialogueCard key={`d-${i}`} line={line} index={i} speak={speak} speaking={speaking} />
         ));
@@ -515,14 +517,37 @@ export default function LessonPage() {
   const cards = buildCards();
   const totalCards = cards.length;
 
-  const goNext = () => { stop(); setCardIndex((i) => Math.min(i + 1, totalCards - 1)); };
-  const goPrev = () => { stop(); setCardIndex((i) => Math.max(i - 1, 0)); };
+  const goNext = useCallback(() => { stop(); setCardIndex((i) => Math.min(i + 1, totalCards - 1)); }, [totalCards, stop]);
+  const goPrev = useCallback(() => { stop(); setCardIndex((i) => Math.max(i - 1, 0)); }, [stop]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") { e.preventDefault(); goNext(); }
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") { e.preventDefault(); goPrev(); }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [goNext, goPrev]);
+
+  // Swipe navigation
+  const onTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStart.current === null) return;
+    const diff = touchStart.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) { diff > 0 ? goNext() : goPrev(); }
+    touchStart.current = null;
+  };
 
   const switchTab = (tab: TabId) => {
     stop();
     setActiveTab(tab);
     setCardIndex(0);
   };
+
+  // Calculate exercise start index for "Jump to Exercises" button
+  const vocabCount = activeTab === "vocabulary" ? lesson.vocabulary.length + 1 : 0; // +1 for title card
+  const exerciseStartIndex = vocabCount + 1; // +1 for exercise title card
 
   return (
     <Shell>
