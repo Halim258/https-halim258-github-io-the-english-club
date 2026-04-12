@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy, MessageCircle, Save, Loader2 } from "lucide-react";
