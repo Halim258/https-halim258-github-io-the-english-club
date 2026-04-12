@@ -270,6 +270,29 @@ export function generateSlides(lesson: LessonData): Slide[] {
     },
   });
 
+  // 11. Song reward slide (for A1-C2 levels)
+  const cefrLevels = ["a1", "a2", "b1", "b2", "c1", "c2"];
+  if (cefrLevels.includes(lesson.levelId)) {
+    const songKey = `${lesson.levelId}-${lesson.lessonNumber}`;
+    const song = songRewards[songKey];
+    if (song) {
+      slides.push({
+        id: id(n++),
+        type: "song-reward",
+        title: "🎵 Song Reward!",
+        emoji: "🎶",
+        bgColor: "from-pink-500/10 to-purple-500/10",
+        content: {
+          kind: "song-reward",
+          youtubeId: song.youtubeId,
+          title: song.title,
+          artist: song.artist,
+          message: song.message,
+        },
+      });
+    }
+  }
+
   return slides;
 }
 
