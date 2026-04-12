@@ -35,7 +35,7 @@ newsLessons["news-2"] = {
     { sentence: "Stocks to Rise Next Month", note: "Infinitive for future plans" },
     { sentence: "Fire Destroys Hospital", note: "No article — A fire becomes Fire" },
     { sentence: "Scientists Discover New Species", note: "Present simple for recent discovery" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Catchy' mean?", options: ["Attention-grabbing", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Clickbait' mean?", options: ["Misleading headlines for clicks", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -101,7 +101,7 @@ newsLessons["news-3"] = {
     { sentence: "She read three articles this morning.", note: "Articles is countable" },
     { sentence: "There was extensive coverage of the event.", note: "Coverage is uncountable" },
     { sentence: "I need more information about this story.", note: "Information is uncountable" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Hard news' mean?", options: ["Urgent factual reporting", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Soft news' mean?", options: ["Light human-interest stories", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -167,7 +167,7 @@ newsLessons["news-4"] = {
     { sentence: "Prices are expected to rise.", note: "High probability but not confirmed" },
     { sentence: "The suspect may have fled the country.", note: "Possibility — not certain" },
     { sentence: "He is alleged to have stolen the money.", note: "Unconfirmed claim" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Objective' mean?", options: ["Based on facts not feelings", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Subjective' mean?", options: ["Based on personal feelings", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -232,7 +232,7 @@ newsLessons["news-5"] = {
     { sentence: "Sanctions were imposed on the country.", note: "Agent is less important" },
     { sentence: "Refugees are being helped by aid organizations.", note: "Present continuous passive" },
     { sentence: "A ceasefire has been declared.", note: "Present perfect passive" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Diplomacy' mean?", options: ["Managing relations between countries", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Summit' mean?", options: ["A meeting of world leaders", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -297,7 +297,7 @@ newsLessons["news-6"] = {
     { sentence: "Residents who signed the petition want change.", note: "Defining — essential info, no commas" },
     { sentence: "The park where volunteers gathered was full.", note: "Where for places" },
     { sentence: "The mayor, who has served for 10 years, will retire.", note: "Non-defining with who" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Council' mean?", options: ["Local governing body", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Community' mean?", options: ["People living in the same area", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -362,7 +362,7 @@ newsLessons["news-7"] = {
     { sentence: "It is going to rain — look at those clouds.", note: "Going to — evidence-based" },
     { sentence: "Temperatures are expected to drop tonight.", note: "Expected to — formal forecast" },
     { sentence: "There will be scattered showers by evening.", note: "Will be — professional prediction" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Forecast' mean?", options: ["Prediction of future weather", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Temperature' mean?", options: ["Degree of heat or cold", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -427,7 +427,7 @@ newsLessons["news-8"] = {
     { sentence: "She has broken the world record.", note: "Present perfect — current relevance" },
     { sentence: "They defeated the champions 3-1.", note: "Past simple — specific past time" },
     { sentence: "He has scored in every match this season.", note: "Present perfect — ongoing relevance" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Championship' mean?", options: ["Competition to determine the best", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Scoreboard' mean?", options: ["Display showing game scores", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -492,7 +492,7 @@ newsLessons["news-9"] = {
     { sentence: "This is the most profitable year on record.", note: "Superlative with the most" },
     { sentence: "Inflation grew faster than expected.", note: "Comparative adverb" },
     { sentence: "The stock market had its worst day since 2020.", note: "Superlative — extreme case" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Stock' mean?", options: ["Shares in a company", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Inflation' mean?", options: ["Rising prices over time", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -557,7 +557,7 @@ newsLessons["news-10"] = {
     { sentence: "Scientists have developed a new AI system.", note: "Completed action, time unspecified" },
     { sentence: "Cybersecurity threats have increased by 40%.", note: "Change from past to present" },
     { sentence: "The company has invested 5 billion in AI.", note: "Past action, present result" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Innovation' mean?", options: ["A new method or idea", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Algorithm' mean?", options: ["Set of rules for solving problems", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -622,7 +622,7 @@ newsLessons["news-11"] = {
     { sentence: "A new species has been discovered.", note: "Present perfect passive" },
     { sentence: "The results were published in Nature.", note: "Past simple passive" },
     { sentence: "The hypothesis is being tested.", note: "Present continuous passive" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Discovery' mean?", options: ["Finding something new", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Hypothesis' mean?", options: ["An educated guess to test", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -687,7 +687,7 @@ newsLessons["news-12"] = {
     { sentence: "Regular exercise can prevent heart disease.", note: "Can — ability" },
     { sentence: "Patients should consult their doctor.", note: "Should — advice" },
     { sentence: "Infected individuals must isolate for 5 days.", note: "Must — obligation" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Pandemic' mean?", options: ["Disease spreading worldwide", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Vaccine' mean?", options: ["Medicine preventing disease", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -752,7 +752,7 @@ newsLessons["news-13"] = {
     { sentence: "If we reduce emissions, we will slow climate change.", note: "Type 1 — real possibility" },
     { sentence: "If governments invested more, results would improve.", note: "Type 2 — hypothetical" },
     { sentence: "If we had acted sooner, less damage would have occurred.", note: "Type 3 — past regret" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Climate change' mean?", options: ["Long-term weather shifts", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Emission' mean?", options: ["Release of gases", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -817,7 +817,7 @@ newsLessons["news-14"] = {
     { sentence: "Officials confirmed they had reached an agreement.", note: "Past to Past Perfect" },
     { sentence: "She announced she would resign next month.", note: "Will to Would" },
     { sentence: "He denied that he had broken any laws.", note: "Past to Past Perfect with denied" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Election' mean?", options: ["Process of voting for leaders", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Campaign' mean?", options: ["Organized effort to win votes", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -882,7 +882,7 @@ newsLessons["news-15"] = {
     { sentence: "People need to learn to fact-check.", note: "Infinitive after need" },
     { sentence: "She enjoys scrolling through her feed.", note: "Gerund after enjoy" },
     { sentence: "It is important to verify information.", note: "Infinitive after adjective" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Viral' mean?", options: ["Spreading rapidly online", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Algorithm' mean?", options: ["System that decides what you see", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -948,7 +948,7 @@ newsLessons["news-16"] = {
     { sentence: "Some believe the story was fabricated.", note: "Opinion — some believe" },
     { sentence: "The evidence clearly shows manipulation.", note: "Fact — supported by evidence" },
     { sentence: "It seems unlikely that the claim is true.", note: "Opinion — hedging with seems" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Fabricated' mean?", options: ["Made up not real", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Propaganda' mean?", options: ["Biased info to promote a cause", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -1014,7 +1014,7 @@ newsLessons["news-17"] = {
     { sentence: "It has come to our attention that errors were made.", note: "Formal acknowledgment" },
     { sentence: "We would like to clarify our position.", note: "Polite formal clarification" },
     { sentence: "The matter is currently under review.", note: "Passive — formal and impersonal" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Spokesperson' mean?", options: ["Person speaking for a group", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Statement' mean?", options: ["An official announcement", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -1079,7 +1079,7 @@ newsLessons["news-18"] = {
     { sentence: "They discovered he had been hiding evidence.", note: "Past perfect continuous" },
     { sentence: "By 2020, the company had defrauded millions.", note: "Completed before reference point" },
     { sentence: "She had already contacted police when the article appeared.", note: "Sequence of events" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Expose' mean?", options: ["Report revealing wrongdoing", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Whistleblower' mean?", options: ["Person who reveals secrets", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -1145,7 +1145,7 @@ newsLessons["news-19"] = {
     { sentence: "Furthermore, recent studies support this view.", note: "Addition marker" },
     { sentence: "However, critics argue the approach is flawed.", note: "Opposition marker" },
     { sentence: "In conclusion, both sides have valid points.", note: "Summary marker" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Argument' mean?", options: ["A reason given to support a position", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Counterpoint' mean?", options: ["An opposing argument", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
@@ -1210,7 +1210,7 @@ newsLessons["news-20"] = {
     { sentence: "Will the policy change?", note: "Rising tone — question" },
     { sentence: "Markets in London, New York, and Tokyo all fell.", note: "List intonation pattern" },
     { sentence: "BREAKING news from the capital.", note: "Emphasis on key word" },
-  ] }},
+  ] },
   vocabExercises: [
       { question: "What does 'Teleprompter' mean?", options: ["Device displaying text for speakers", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
       { question: "What does 'Anchor' mean?", options: ["Main presenter on a news show", "The opposite meaning", "A type of food", "A greeting"], correct: 0 },
