@@ -201,7 +201,7 @@ export default function Home() {
     <div className="overflow-x-hidden">
       <OnboardingTour />
       {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative py-24 md:py-32 lg:py-40 overflow-hidden">
+      <section className="relative py-16 md:py-32 lg:py-40 overflow-hidden">
         <PetalTopRight />
         <PetalBottomLeft />
         {/* Animated background */}
@@ -261,7 +261,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-              className="text-4xl font-bold leading-[1.08] md:text-5xl lg:text-6xl xl:text-7xl font-display"
+              className="text-3xl font-bold leading-[1.1] md:text-5xl lg:text-6xl xl:text-7xl font-display"
             >
               Master English with{" "}
               <TypingHero />
@@ -271,7 +271,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-              className="mx-auto mt-6 max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed"
+              className="mx-auto mt-4 md:mt-6 max-w-2xl text-sm md:text-lg text-muted-foreground leading-relaxed px-2"
             >
               The English Club Language School — Cambridge-aligned curriculum, expert teachers, and modern learning tools. From beginner to advanced, we've got your English journey covered.
             </motion.p>
@@ -281,15 +281,15 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
-              className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3"
+              className="mt-6 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 px-4"
             >
               <Link to="/signup">
-                <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200">
+                <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200 w-full sm:w-auto">
                   Start Learning Free <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/courses">
-                <Button variant="outline" size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 hover:scale-[1.03] hover:border-primary/30 hover:bg-primary/5 transition-all duration-200">
+                <Button variant="outline" size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 hover:scale-[1.03] hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 w-full sm:w-auto">
                   Explore Courses
                 </Button>
               </Link>
@@ -322,7 +322,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
-              className="mt-14 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-2xl mx-auto"
+              className="mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-2"
             >
               {audiences.map((a, i) => (
                 <motion.div
