@@ -90,6 +90,217 @@ function getCourseLessonCount(courseName: string): number {
   return Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).length;
 }
 
+
+const EXAM_SKILLS = [
+  {
+    skill: "Reading",
+    icon: BookOpen,
+    color: "from-blue-500/15 to-blue-500/5",
+    iconColor: "text-blue-600 dark:text-blue-400",
+    description: "Skimming, scanning, inference, and timed reading passages",
+    keywords: ["reading", "skim", "scan", "passage", "comprehension"],
+    exams: ["IELTS Academic & General", "TOEFL iBT", "Cambridge FCE/CAE", "SAT"],
+  },
+  {
+    skill: "Listening",
+    icon: Headphones,
+    color: "from-violet-500/15 to-violet-500/5",
+    iconColor: "text-violet-600 dark:text-violet-400",
+    description: "Note-taking, gap-fill, multiple choice, and map labelling",
+    keywords: ["listening", "audio", "note-taking", "gap"],
+    exams: ["IELTS Listening", "TOEFL Listening", "Cambridge Listening"],
+  },
+  {
+    skill: "Writing",
+    icon: PenLine,
+    color: "from-emerald-500/15 to-emerald-500/5",
+    iconColor: "text-emerald-600 dark:text-emerald-400",
+    description: "Task 1, Task 2, integrated essays, and timed strategies",
+    keywords: ["writing", "essay", "task 1", "task 2", "paragraph"],
+    exams: ["IELTS Writing", "TOEFL Writing", "Cambridge Writing", "SAT Essay"],
+  },
+  {
+    skill: "Speaking",
+    icon: Mic2,
+    color: "from-rose-500/15 to-rose-500/5",
+    iconColor: "text-rose-600 dark:text-rose-400",
+    description: "Interview prep, cue cards, discussion, and pronunciation",
+    keywords: ["speaking", "interview", "cue card", "pronunciation", "fluency"],
+    exams: ["IELTS Speaking", "TOEFL Speaking", "Cambridge Speaking"],
+  },
+  {
+    skill: "Exam Overview & Strategy",
+    icon: ClipboardList,
+    color: "from-amber-500/15 to-amber-500/5",
+    iconColor: "text-amber-600 dark:text-amber-400",
+    description: "Format overview, scoring, time management, and test-day tips",
+    keywords: ["overview", "format", "strategy", "score", "structure", "tips", "fce", "cambridge", "toefl ibt", "sat"],
+    exams: ["IELTS", "TOEFL", "Cambridge", "SAT"],
+  },
+];
+
+function ExamPrepSkillView() {
+  const { user } = useAuth();
+  const [completedLessons, setCompletedLessons] = useState<Set<number>>(new Set());
+
+  // Get all exam-prep lessons
+  const examLessons = useMemo(() => {
+    return Object.entries(lessons)
+      .filter(([k]) => k.startsWith("exam-prep-"))
+      .map(([key, lesson]) => ({ key, ...lesson }))
+      .sort((a, b) => a.lessonNumber - b.lessonNumber);
+  }, []);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("lesson_progress")
+      .select("lesson_number")
+      .eq("user_id", user.id)
+      .eq("level_id", "exam-prep")
+      .eq("completed", true)
+      .then(({ data }) => {
+        if (data) setCompletedLessons(new Set(data.map((r) => r.lesson_number)));
+      });
+  }, [user]);
+
+  // Classify lessons into skills by title keywords
+  const classifiedLessons = useMemo(() => {
+    const result: Record<string, typeof examLessons> = {};
+    EXAM_SKILLS.forEach((s) => { result[s.skill] = []; });
+
+    examLessons.forEach((lesson) => {
+      const titleLower = lesson.title.toLowerCase();
+      let assigned = false;
+      for (const skill of EXAM_SKILLS) {
+        if (skill.keywords.some((kw) => titleLower.includes(kw))) {
+          result[skill.skill].push(lesson);
+          assigned = true;
+          break;
+        }
+      }
+      if (!assigned) {
+        // Default to Overview
+        result["Exam Overview & Strategy"].push(lesson);
+      }
+    });
+    return result;
+  }, [examLessons]);
+
+  return (
+    <section className="py-12 md:py-16">
+      <div className="container mx-auto px-4 max-w-4xl">
+        <FadeInUp>
+          <h2 className="text-lg font-bold font-display mb-2">Prepare Part by Part</h2>
+          <p className="text-sm text-muted-foreground mb-8">
+            Each exam tests 4 core skills. Master them one by one with targeted lessons.
+          </p>
+        </FadeInUp>
+
+        <div className="space-y-6">
+          {EXAM_SKILLS.map((skill, idx) => {
+            const skillLessons = classifiedLessons[skill.skill] || [];
+            const completedCount = skillLessons.filter((l) => completedLessons.has(l.lessonNumber)).length;
+            const SkillIcon = skill.icon;
+
+            return (
+              <motion.div
+                key={skill.skill}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="rounded-2xl border bg-card shadow-soft overflow-hidden"
+              >
+                {/* Skill Header */}
+                <div className={`p-5 bg-gradient-to-r ${skill.color}`}>
+                  <div className="flex items-center gap-3">
+                    <div className={`h-11 w-11 rounded-xl bg-background/80 backdrop-blur-sm flex items-center justify-center ${skill.iconColor}`}>
+                      <SkillIcon className="h-5 w-5" />
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-bold font-display text-base">{skill.skill}</h3>
+                        <Badge variant="secondary" className="text-[10px]">{skillLessons.length} lessons</Badge>
+                        {completedCount > 0 && (
+                          <Badge variant="outline" className="text-[10px] gap-1">
+                            <CheckCircle2 className="h-3 w-3" /> {completedCount}/{skillLessons.length}
+                          </Badge>
+                        )}
+                      </div>
+                      <p className="text-xs text-muted-foreground mt-0.5">{skill.description}</p>
+                    </div>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 mt-3">
+                    {skill.exams.map((exam) => (
+                      <span key={exam} className="rounded-full border border-border bg-background/60 backdrop-blur-sm px-2.5 py-0.5 text-[10px] font-medium text-muted-foreground">
+                        {exam}
+                      </span>
+                    ))}
+                  </div>
+                  {skillLessons.length > 0 && (
+                    <div className="mt-3">
+                      <Progress value={skillLessons.length > 0 ? (completedCount / skillLessons.length) * 100 : 0} className="h-1.5" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Lesson List */}
+                {skillLessons.length > 0 ? (
+                  <div className="divide-y">
+                    {skillLessons.map((lesson) => {
+                      const isCompleted = completedLessons.has(lesson.lessonNumber);
+                      return (
+                        <Link
+                          key={lesson.key}
+                          to={`/courses/exam-prep/${lesson.lessonNumber}`}
+                          className="flex items-center gap-3 px-5 py-3 hover:bg-muted/50 transition-colors group"
+                        >
+                          <div className={`flex h-8 w-8 items-center justify-center rounded-lg text-xs font-bold shrink-0 ${isCompleted ? 'bg-emerald-500 text-white' : 'bg-muted text-muted-foreground'}`}>
+                            {isCompleted ? <CheckCircle2 className="h-4 w-4" /> : lesson.lessonNumber}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-sm font-medium truncate group-hover:text-primary transition-colors">{lesson.title}</p>
+                            <p className="text-xs text-muted-foreground truncate">{lesson.description}</p>
+                          </div>
+                          <ArrowRight className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all shrink-0" />
+                        </Link>
+                      );
+                    })}
+                  </div>
+                ) : (
+                  <div className="p-5 text-center text-sm text-muted-foreground">
+                    Coming soon — lessons are being prepared!
+                  </div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* CTA */}
+        <FadeInUp delay={0.2}>
+          <div className="mt-10 rounded-2xl border bg-gradient-to-r from-primary/5 to-accent/5 p-6 text-center">
+            <p className="text-sm text-muted-foreground mb-3">Need help choosing the right exam?</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link to="/placement-test">
+                <Button variant="outline" className="rounded-full px-6 font-semibold font-display">
+                  Take Placement Test
+                </Button>
+              </Link>
+              <a href="https://wa.me/201234567890" target="_blank" rel="noopener noreferrer">
+                <Button className="rounded-full px-6 font-semibold font-display">
+                  <MessageCircle className="mr-2 h-4 w-4" />
+                  Ask Us on WhatsApp
+                </Button>
+              </a>
+            </div>
+          </div>
+        </FadeInUp>
+      </div>
+    </section>
+  );
+}
+
 export default function CategoryDetail() {
   const { categorySlug } = useParams();
   const cat = categories.find((c) => c.slug === categorySlug);
