@@ -223,9 +223,15 @@ function GrammarExampleCard({ example, speak, speaking }: { example: { sentence:
 }
 
 /* ───── MCQ Card ───── */
-function MCQCard({ item }: { item: MCQItem }) {
+function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boolean) => void }) {
   const [selected, setSelected] = useState<number | null>(null);
   const answered = selected !== null;
+
+  const handleSelect = (i: number) => {
+    if (answered) return;
+    setSelected(i);
+    onAnswer?.(i === item.correct);
+  };
 
   return (
     <div className="flex flex-1 items-center justify-center px-4">
@@ -242,7 +248,7 @@ function MCQCard({ item }: { item: MCQItem }) {
               <button
                 key={i}
                 className={cls}
-                onClick={() => !answered && setSelected(i)}
+                onClick={() => handleSelect(i)}
                 disabled={answered}
               >
                 <span className="flex items-center gap-3">
@@ -272,6 +278,78 @@ function MCQCard({ item }: { item: MCQItem }) {
             )}
           </div>
         )}
+      </div>
+    </div>
+  );
+}
+
+/* ───── Score Summary Card ───── */
+function ScoreSummaryCard({ scoreRef, total }: { scoreRef: React.MutableRefObject<{ correct: number; answered: number }>; total: number }) {
+  const [, forceUpdate] = useState(0);
+  const { correct, answered } = scoreRef.current;
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const allDone = answered === total;
+
+  // Force re-render when this card is viewed
+  useEffect(() => {
+    const interval = setInterval(() => forceUpdate(n => n + 1), 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  let emoji = "🏆";
+  let message = "Perfect score! Amazing!";
+  let color = "border-accent/30 bg-accent/5";
+  if (pct < 100 && pct >= 80) { emoji = "🌟"; message = "Great job! Almost perfect!"; color = "border-accent/30 bg-accent/5"; }
+  else if (pct >= 60) { emoji = "👍"; message = "Good effort! Keep practicing!"; color = "border-primary/30 bg-primary/5"; }
+  else if (pct >= 1) { emoji = "💪"; message = "Keep going! Practice makes perfect."; color = "border-muted bg-muted/30"; }
+  else if (answered === 0) { emoji = "📝"; message = "Answer the exercises above, then come back!"; color = "border-muted bg-muted/30"; }
+
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className={`w-full max-w-sm rounded-2xl border-2 ${color} p-6 shadow-lg text-center`}>
+        <span className="text-5xl mb-3 block">{emoji}</span>
+        <h3 className="text-xl font-bold font-display text-foreground">
+          {allDone ? "Exercise Complete!" : "Score Summary"}
+        </h3>
+        <p className="text-sm text-muted-foreground mt-1 font-sans">{message}</p>
+
+        {/* Score ring */}
+        <div className="flex justify-center my-5">
+          <div className="relative h-28 w-28">
+            <svg className="h-28 w-28 -rotate-90" viewBox="0 0 100 100">
+              <circle cx="50" cy="50" r="42" fill="none" stroke="hsl(var(--muted))" strokeWidth="8" />
+              <circle
+                cx="50" cy="50" r="42" fill="none"
+                stroke={pct >= 80 ? "hsl(var(--accent))" : pct >= 60 ? "hsl(var(--primary))" : "hsl(var(--muted-foreground))"}
+                strokeWidth="8"
+                strokeLinecap="round"
+                strokeDasharray={`${2 * Math.PI * 42}`}
+                strokeDashoffset={`${2 * Math.PI * 42 * (1 - (answered > 0 ? pct / 100 : 0))}`}
+                className="transition-all duration-700 ease-out"
+              />
+            </svg>
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <span className="text-2xl font-bold font-display text-foreground">{answered > 0 ? `${pct}%` : "—"}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex justify-center gap-6 text-sm font-sans">
+          <div className="text-center">
+            <p className="text-lg font-bold text-accent">{correct}</p>
+            <p className="text-[11px] text-muted-foreground">Correct</p>
+          </div>
+          <div className="h-8 w-px bg-border" />
+          <div className="text-center">
+            <p className="text-lg font-bold text-destructive">{answered - correct}</p>
+            <p className="text-[11px] text-muted-foreground">Incorrect</p>
+          </div>
+          <div className="h-8 w-px bg-border" />
+          <div className="text-center">
+            <p className="text-lg font-bold text-muted-foreground">{total - answered}</p>
+            <p className="text-[11px] text-muted-foreground">Remaining</p>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -461,6 +539,13 @@ export default function LessonPage() {
   const [showArabic, setShowArabic] = useState(false);
   const [lessonDone, setLessonDone] = useState(false);
 
+  // Score tracking refs (one per section)
+  const vocabScore = useRef({ correct: 0, answered: 0 });
+  const convScore = useRef({ correct: 0, answered: 0 });
+  const grammarScore = useRef({ correct: 0, answered: 0 });
+  const examScore = useRef({ correct: 0, answered: 0 });
+  const homeworkScore = useRef({ correct: 0, answered: 0 });
+
   // Swipe support
   const touchStart = useRef<number | null>(null);
 
@@ -497,6 +582,12 @@ export default function LessonPage() {
     );
   }
 
+  // Helper to create onAnswer callback for a score ref
+  const makeOnAnswer = (ref: React.MutableRefObject<{ correct: number; answered: number }>) => (correct: boolean) => {
+    ref.current.answered++;
+    if (correct) ref.current.correct++;
+  };
+
   // Build cards for the active tab
   const buildCards = (): React.ReactNode[] => {
     switch (activeTab) {
@@ -504,14 +595,16 @@ export default function LessonPage() {
         const vocabCards = lesson.vocabulary.map((w, i) => (
           <VocabCard key={`v-${i}`} item={w} showArabic={showArabic} speak={speak} speaking={speaking} />
         ));
+        const total = lesson.vocabExercises.length;
         const exerciseCards = lesson.vocabExercises.map((q, i) => (
-          <MCQCard key={`ve-${i}`} item={q} />
+          <MCQCard key={`ve-${i}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
         ));
         return [
           <SectionTitleCard key="title" title="Vocabulary" icon="📚" />,
           ...vocabCards,
-          <SectionTitleCard key="ex-title" title={`Exercises (${exerciseCards.length})`} icon="✏️" />,
+          <SectionTitleCard key="ex-title" title={`Exercises (${total})`} icon="✏️" />,
           ...exerciseCards,
+          <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} />,
         ];
       }
       case "conversation": {
@@ -523,56 +616,66 @@ export default function LessonPage() {
           const promptCards = prompts.map((p, i) => (
             <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} levelId={lesson.levelId} lessonNumber={lesson.lessonNumber} userId={user?.id ?? null} speak={speak} speaking={speaking} />
           ));
+          const total = lesson.conversationExercises.length;
           const exerciseCards = lesson.conversationExercises.map((q, i) => (
-            <MCQCard key={`ce-${i}`} item={q} />
+            <MCQCard key={`ce-${i}`} item={q} onAnswer={makeOnAnswer(convScore)} />
           ));
           return [
             <SectionTitleCard key="title" title="Discussion Questions" icon="🗣️" />,
             ...promptCards,
             <SectionTitleCard key="ex-title" title="Practice Questions" icon="✏️" />,
             ...exerciseCards,
+            <ScoreSummaryCard key="score" scoreRef={convScore} total={total} />,
           ];
         }
 
         const dialogueCards = lesson.dialogue.map((line, i) => (
           <DialogueCard key={`d-${i}`} line={line} index={i} speak={speak} speaking={speaking} />
         ));
+        const total = lesson.conversationExercises.length;
         const exerciseCards = lesson.conversationExercises.map((q, i) => (
-          <MCQCard key={`ce-${i}`} item={q} />
+          <MCQCard key={`ce-${i}`} item={q} onAnswer={makeOnAnswer(convScore)} />
         ));
         return [
           <SectionTitleCard key="title" title="Conversation" icon="💬" />,
           ...dialogueCards,
           <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
           ...exerciseCards,
+          <ScoreSummaryCard key="score" scoreRef={convScore} total={total} />,
         ];
       }
       case "grammar": {
         const exampleCards = lesson.grammar.examples.map((ex, i) => (
           <GrammarExampleCard key={`ge-${i}`} example={ex} speak={speak} speaking={speaking} />
         ));
+        const total = lesson.grammarExercises.length;
         const exerciseCards = lesson.grammarExercises.map((q, i) => (
-          <MCQCard key={`gex-${i}`} item={q} />
+          <MCQCard key={`gex-${i}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
         ));
         return [
           <GrammarCard key="grammar" lesson={lesson} speak={speak} speaking={speaking} />,
           ...exampleCards,
           <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
           ...exerciseCards,
+          <ScoreSummaryCard key="score" scoreRef={grammarScore} total={total} />,
         ];
       }
       case "speaking":
         return [<SpeakingCard key="speaking" lesson={lesson} speak={speak} speaking={speaking} />];
       case "exam": {
+        const total = lesson.examQuestions.length;
         return [
           <SectionTitleCard key="title" title={`Lesson ${lesson.lessonNumber} Exam`} icon="📝" />,
-          ...lesson.examQuestions.map((q, i) => <MCQCard key={`eq-${i}`} item={q} />),
+          ...lesson.examQuestions.map((q, i) => <MCQCard key={`eq-${i}`} item={q} onAnswer={makeOnAnswer(examScore)} />),
+          <ScoreSummaryCard key="score" scoreRef={examScore} total={total} />,
         ];
       }
       case "homework": {
+        const total = lesson.homeworkQuestions.length;
         return [
           <SectionTitleCard key="title" title="Homework" icon="📋" />,
-          ...lesson.homeworkQuestions.map((q, i) => <MCQCard key={`hq-${i}`} item={q} />),
+          ...lesson.homeworkQuestions.map((q, i) => <MCQCard key={`hq-${i}`} item={q} onAnswer={makeOnAnswer(homeworkScore)} />),
+          <ScoreSummaryCard key="score" scoreRef={homeworkScore} total={total} />,
         ];
       }
     }
@@ -601,6 +704,12 @@ export default function LessonPage() {
     stop();
     setActiveTab(tab);
     setCardIndex(0);
+    // Reset score refs
+    vocabScore.current = { correct: 0, answered: 0 };
+    convScore.current = { correct: 0, answered: 0 };
+    grammarScore.current = { correct: 0, answered: 0 };
+    examScore.current = { correct: 0, answered: 0 };
+    homeworkScore.current = { correct: 0, answered: 0 };
   };
 
   // Calculate exercise start index for "Jump to Exercises" button
