@@ -626,7 +626,9 @@ export default function LessonPage() {
         const lessonKey = `${lesson.levelId}-${lesson.lessonNumber}`;
         const prompts = getDiscussionPrompts(lessonKey);
         const isCommunication = isCommunicationCourse(lesson.levelId);
+        const isConversationCourse = lesson.levelId === "conversation";
 
+        // Communication courses with discussion prompts from external data
         if (isCommunication && prompts && prompts.length > 0) {
           const promptCards = prompts.map((p, i) => (
             <DiscussionPromptCard key={`dp-${i}`} prompt={p} index={i} levelId={lesson.levelId} lessonNumber={lesson.lessonNumber} userId={user?.id ?? null} speak={speak} speaking={speaking} />
@@ -638,9 +640,36 @@ export default function LessonPage() {
           return [
             <SectionTitleCard key="title" title="Discussion Questions" icon="🗣️" />,
             ...promptCards,
-            <SectionTitleCard key="ex-title" title="Practice Questions" icon="✏️" />,
+            ...(total > 0 ? [<SectionTitleCard key="ex-title" title="Practice Questions" icon="✏️" />] : []),
             ...exerciseCards,
-            <ScoreSummaryCard key="score" scoreRef={convScore} total={total} onRetry={handleRetry(convScore)} />,
+            ...(total > 0 ? [<ScoreSummaryCard key="score" scoreRef={convScore} total={total} onRetry={handleRetry(convScore)} />] : []),
+          ];
+        }
+
+        // Conversation Practice course with inline discussionQuestions
+        if (isConversationCourse && lesson.discussionQuestions && lesson.discussionQuestions.length > 0) {
+          const promptCards = lesson.discussionQuestions.map((dq, i) => (
+            <DiscussionPromptCard
+              key={`dq-${i}`}
+              prompt={{ question: dq.question, hint: dq.modelAnswer, emoji: dq.emoji }}
+              index={i}
+              levelId={lesson.levelId}
+              lessonNumber={lesson.lessonNumber}
+              userId={user?.id ?? null}
+              speak={speak}
+              speaking={speaking}
+            />
+          ));
+          const total = lesson.conversationExercises.length;
+          const exerciseCards = lesson.conversationExercises.map((q, i) => (
+            <MCQCard key={`ce-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(convScore)} />
+          ));
+          return [
+            <SectionTitleCard key="title" title="Conversation Questions" icon="💬" />,
+            ...promptCards,
+            ...(total > 0 ? [<SectionTitleCard key="ex-title" title="Practice Questions" icon="✏️" />] : []),
+            ...exerciseCards,
+            ...(total > 0 ? [<ScoreSummaryCard key="score" scoreRef={convScore} total={total} onRetry={handleRetry(convScore)} />] : []),
           ];
         }
 
@@ -654,9 +683,9 @@ export default function LessonPage() {
         return [
           <SectionTitleCard key="title" title="Conversation" icon="💬" />,
           ...dialogueCards,
-          <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
+          ...(total > 0 ? [<SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />] : []),
           ...exerciseCards,
-          <ScoreSummaryCard key="score" scoreRef={convScore} total={total} onRetry={handleRetry(convScore)} />,
+          ...(total > 0 ? [<ScoreSummaryCard key="score" scoreRef={convScore} total={total} onRetry={handleRetry(convScore)} />] : []),
         ];
       }
       case "grammar": {
