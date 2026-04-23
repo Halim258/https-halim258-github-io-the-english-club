@@ -78,6 +78,9 @@ const courseLevelMap: Record<string, string> = {
   "English for Healthcare": "healthcare",
   "English for Finance": "finance",
   "English for Aviation": "aviation",
+  "Public School English": "egyptian-public",
+  "National School English": "egyptian-national",
+  "International School English": "egyptian-international",
 };
 
 function getCourseHasLessons(courseName: string): boolean {
