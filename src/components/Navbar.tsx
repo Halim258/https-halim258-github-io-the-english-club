@@ -271,23 +271,33 @@ export default function Navbar() {
         </div>
 
         {/* Mobile hamburger */}
-        <motion.button
-          className="lg:hidden p-2 text-foreground rounded-lg hover:bg-muted/50 transition-colors"
-          onClick={() => setOpen(!open)}
-          whileTap={{ scale: 0.9 }}
-        >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={open ? "close" : "menu"}
-              initial={{ opacity: 0, rotate: -90 }}
-              animate={{ opacity: 1, rotate: 0 }}
-              exit={{ opacity: 0, rotate: 90 }}
-              transition={{ duration: 0.15 }}
-            >
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </motion.div>
-          </AnimatePresence>
-        </motion.button>
+        <div className="flex items-center gap-1.5 lg:hidden">
+          <button
+            onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
+            className="flex h-10 w-10 items-center justify-center rounded-xl border bg-muted/50 text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
+            aria-label="Search courses and tools"
+          >
+            <Search className="h-4 w-4" />
+          </button>
+          <motion.button
+            className="p-2 text-foreground rounded-lg hover:bg-muted/50 transition-colors"
+            onClick={() => setOpen(!open)}
+            whileTap={{ scale: 0.9 }}
+            aria-label="Open navigation menu"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={open ? "close" : "menu"}
+                initial={{ opacity: 0, rotate: -90 }}
+                animate={{ opacity: 1, rotate: 0 }}
+                exit={{ opacity: 0, rotate: 90 }}
+                transition={{ duration: 0.15 }}
+              >
+                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </motion.div>
+            </AnimatePresence>
+          </motion.button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -301,6 +311,17 @@ export default function Navbar() {
             className="overflow-hidden border-t bg-card/95 backdrop-blur-xl lg:hidden"
           >
             <div className="p-4 flex flex-col gap-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }));
+                }}
+                className="mb-2 flex items-center gap-3 rounded-xl border bg-muted/50 px-4 py-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
+              >
+                <Search className="h-4 w-4 shrink-0" />
+                <span className="flex-1">Search courses, lessons and tools</span>
+                <span className="rounded-md border bg-background px-1.5 py-0.5 text-[10px]">⌘K</span>
+              </button>
               {allNavLinks.map((l, i) => (
                 <motion.div
                   key={l.to}
