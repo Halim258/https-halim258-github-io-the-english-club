@@ -223,7 +223,7 @@ export default function Courses() {
 
   // Compute all level IDs and their lesson counts for progress tracking
   const allLevelIds = useMemo(() => {
-    const ids = [introductory.id, kidsLevel.id, ...cefrLevels.map(l => l.id)];
+    const ids = [introductory.id, kidsLevel.id, ...cefrLevels.map(l => l.id), ...egyptianSchoolTracks.map((track) => track.levelId)];
     return ids;
   }, []);
 
