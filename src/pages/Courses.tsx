@@ -600,6 +600,22 @@ export default function Courses() {
                     <p className="text-sm leading-relaxed text-muted-foreground">{track.description}</p>
 
                     <div className="mt-5 space-y-3">
+                      <Link
+                        to={`/courses/${track.levelId}`}
+                        className="flex w-full items-center justify-between rounded-xl bg-primary px-4 py-3 text-left text-sm font-bold text-primary-foreground shadow-sm transition-all hover:shadow-card"
+                      >
+                        Open full {lessonCounts[track.levelId] || 12}-lesson course
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                      {progress[track.levelId] && progress[track.levelId].completed > 0 && (
+                        <div className="space-y-1 rounded-xl border bg-muted/30 px-3 py-2">
+                          <div className="flex justify-between text-[10px] text-muted-foreground">
+                            <span>{progress[track.levelId].completed}/{progress[track.levelId].total} lessons complete</span>
+                            <span>{progress[track.levelId].percentage}%</span>
+                          </div>
+                          <Progress value={progress[track.levelId].percentage} className="h-1.5" />
+                        </div>
+                      )}
                       {track.books.map((book, index) => (
                         <Link
                           key={book}
