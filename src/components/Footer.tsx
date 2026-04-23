@@ -29,6 +29,7 @@ const tools = [
 
 const popularCourses = [
   { label: "IELTS & Exam Prep", to: "/courses/category/exam-prep" },
+  { label: "Egyptian Schools", to: "/courses/category/egyptian-schools" },
   { label: "Speaking Courses", to: "/courses/category/communication" },
   { label: "Business English", to: "/courses/category/professional" },
   { label: "Safety English", to: "/courses/safety" },
