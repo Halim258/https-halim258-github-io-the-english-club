@@ -18,6 +18,7 @@ const primaryLinks = [
   { to: "/flashcards", label: "Flashcards" },
   { to: "/ai-tutor", label: "AI Tutor" },
   { to: "/community", label: "Community" },
+  { to: "/blog", label: "Blog" },
 ];
 
 const moreLinks = [

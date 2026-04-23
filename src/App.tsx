@@ -49,6 +49,7 @@ const ProfilePage = lazy(() => import("./pages/ProfilePage"));
 const BookmarksPage = lazy(() => import("./pages/BookmarksPage"));
 const GrammarReference = lazy(() => import("./pages/GrammarReference"));
 const IdiomsPhrasalVerbs = lazy(() => import("./pages/IdiomsPhrasalVerbs"));
+const PlatformBlog = lazy(() => import("./pages/PlatformBlog"));
 
 const queryClient = new QueryClient();
 
@@ -112,6 +113,7 @@ const App = () => (
               <Route path="/bookmarks" element={<ProtectedRoute><BookmarksPage /></ProtectedRoute>} />
               <Route path="/grammar" element={<ProtectedRoute><GrammarReference /></ProtectedRoute>} />
               <Route path="/idioms" element={<ProtectedRoute><IdiomsPhrasalVerbs /></ProtectedRoute>} />
+              <Route path="/blog" element={<PlatformBlog />} />
               <Route path="/dashboard" element={
                 <ProtectedRoute>
                   <StudentDashboard />
