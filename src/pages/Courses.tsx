@@ -380,11 +380,12 @@ export default function Courses() {
           </FadeInUp>
 
           {/* Reading Course - Featured */}
-          <FadeInUp delay={0.05}>
-            <Link
-              to="/courses/reading"
-              className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
-            >
+          {showReadingCourse && (
+            <FadeInUp delay={0.05}>
+              <Link
+                to="/courses/reading"
+                className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
+              >
               <div className="flex flex-col sm:flex-row">
                 <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
                   <img src={introductory.image} alt={introductory.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -415,15 +416,17 @@ export default function Courses() {
                   )}
                 </div>
               </div>
-            </Link>
-          </FadeInUp>
+              </Link>
+            </FadeInUp>
+          )}
 
           {/* Kids Course - Featured */}
-          <FadeInUp delay={0.1}>
-            <Link
-              to="/courses/kids"
-              className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
-            >
+          {showKidsCourse && (
+            <FadeInUp delay={0.1}>
+              <Link
+                to="/courses/kids"
+                className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
+              >
               <div className="flex flex-col sm:flex-row">
                 <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
                   <img src={kidsLevel.image} alt={kidsLevel.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -454,8 +457,9 @@ export default function Courses() {
                   )}
                 </div>
               </div>
-            </Link>
-          </FadeInUp>
+              </Link>
+            </FadeInUp>
+          )}
 
           {/* CEFR Level Cards */}
           <motion.div
@@ -465,7 +469,7 @@ export default function Courses() {
             viewport={{ once: true, margin: "-40px" }}
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {cefrLevels.map((lvl, idx) => (
+            {filteredCefrLevels.map((lvl, idx) => (
               <motion.div key={lvl.id} variants={staggerItem}>
                 <Link
                   to={`/courses/${lvl.id}`}
