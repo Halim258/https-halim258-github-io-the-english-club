@@ -174,6 +174,34 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
             )}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold font-display">{levelLabel}</h1>
+          {schoolTrack && selectedMinistryBook && (
+            <div className="mt-5 rounded-2xl border bg-card p-4 shadow-soft">
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-primary">Ministry-style yearly plan</p>
+                  <label htmlFor="ministry-stage" className="mt-2 block text-sm font-semibold text-foreground">
+                    Select school stage
+                  </label>
+                  <select
+                    id="ministry-stage"
+                    value={selectedMinistryStage}
+                    onChange={(event) => setSelectedMinistryStage(event.target.value)}
+                    className="mt-2 h-10 w-full rounded-xl border border-input bg-background px-3 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-ring"
+                  >
+                    {schoolTrack.ministryBooks.map((book) => (
+                      <option key={book.stage} value={book.stage}>
+                        {book.stage} — {book.grades}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{selectedMinistryBook.books}</p>
+                </div>
+                <Button onClick={handleDownloadMinistryPlan} className="shrink-0 rounded-full font-semibold">
+                  <Download className="h-4 w-4" /> Download PDF Plan
+                </Button>
+              </div>
+            </div>
+          )}
           {allCompleted && (
             <div className="mt-2 flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-sm font-semibold">
               <Award className="h-4 w-4" /> Course completed! 🎉
