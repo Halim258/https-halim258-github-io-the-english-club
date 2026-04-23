@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane, Video, Code2, Cog } from "lucide-react";
+import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane, Video, Code2, Cog, ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import coreEnglishImg from "@/assets/courses/core-english.jpg";
@@ -319,6 +319,19 @@ export const categories: Category[] = [
     description: "Learn English by watching real documentaries — nature, science, history, and more — with word-by-word transcripts.",
     courses: [
       { name: "English through Documentary", description: "Watch free documentary clips, learn vocabulary word-by-word, and test comprehension.", topics: ["Nature", "Science", "History", "Technology", "Psychology"] },
+    ],
+  },
+  {
+    icon: ShieldCheck,
+    emoji: "🛡️",
+    title: "Safety English",
+    slug: "safety",
+    color: "from-red-500/10 to-amber-500/5",
+    iconBg: "bg-red-500/15",
+    image: specializedImg,
+    description: "High-quality safety communication for workplaces, sites, engineering teams, and HSE roles. Minimum requirement: B1 English.",
+    courses: [
+      { name: "Safety English", description: "Learn safety signs, PPE, hazards, risk assessment, incident reports, compliance, audits, and safety leadership in professional English.", topics: ["Minimum B1", "B1", "B2", "C1", "PPE", "Risk Assessment", "Incident Reports"] },
     ],
   },
   {
