@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -44,6 +44,30 @@ const cefrLevels: Level[] = [
   { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 20, description: "Passive voice, globalisation, science, art, ethics, digital society", color: "from-indigo-400 to-indigo-600", image: b2Img },
   { id: "c1", label: "C1", sublabel: "Advanced", lessons: 20, description: "Philosophy, sociolinguistics, environmental policy, psychology, academic writing", color: "from-violet-400 to-violet-600", image: c1Img },
   { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 20, description: "Rhetoric, translation, corpus linguistics, discourse analysis, language & identity", color: "from-purple-400 to-purple-600", image: c2Img },
+];
+
+const egyptianSchoolTracks = [
+  {
+    title: "Public School English",
+    audience: "Egyptian Ministry curriculum support",
+    description: "Step-by-step English support for government school students with Arabic-friendly explanations, workbook practice, and exam revision.",
+    books: ["Primary English Book", "Preparatory English Book", "Secondary Exam Book"],
+    skills: ["Unit vocabulary", "Grammar drills", "Reading passages", "Model answers"],
+  },
+  {
+    title: "National School English",
+    audience: "National curriculum learners",
+    description: "Stronger reading, writing, grammar, and school exam preparation for students who need confident classroom performance.",
+    books: ["National Reader", "Grammar Builder", "Writing Portfolio"],
+    skills: ["Comprehension", "Paragraph writing", "School projects", "Term revision"],
+  },
+  {
+    title: "International School English",
+    audience: "British, American, IB-style support",
+    description: "Advanced English for international-school students with literature, academic writing, presentations, and critical thinking.",
+    books: ["Literature Companion", "Academic Writing Book", "Presentation Workbook"],
+    skills: ["Literary analysis", "Essay structure", "Research language", "Speaking tasks"],
+  },
 ];
 
 
