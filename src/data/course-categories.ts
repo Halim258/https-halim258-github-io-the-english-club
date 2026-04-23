@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane, Video, Code2, Cog, ShieldCheck } from "lucide-react";
+import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane, Video, Code2, Cog, ShieldCheck, School } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import coreEnglishImg from "@/assets/courses/core-english.jpg";
@@ -157,6 +157,21 @@ export const categories: Category[] = [
       { name: "Engineering English", description: "Professional English for engineers covering site work, safety, materials, specifications, reports, and technical decisions from B1 to C1. Minimum requirement: B1 English.", topics: ["Minimum B1", "B1–C1", "Safety", "Materials", "Specifications", "Reports"] },
       { name: "IT English", description: "English for the tech industry — documentation, meetings, and technical discussions.", topics: ["Documentation", "Agile Terms", "Tech Vocab"] },
       { name: "Web Development English", description: "Frontend, backend, bugs, features, deployment, and stakeholder communication for learners at B1+.", topics: ["Minimum B1", "B1–C1", "Bugs", "Deployment", "Architecture"] },
+    ],
+  },
+  {
+    icon: School,
+    emoji: "🏫",
+    title: "Egyptian Schools English",
+    slug: "egyptian-schools",
+    color: "from-primary/10 to-emerald-500/5",
+    iconBg: "bg-primary/15",
+    image: coreEnglishImg,
+    description: "Book-based English support for Egyptian Public, National, and International school students.",
+    courses: [
+      { name: "Public School English", description: "Ministry-curriculum support with Arabic-friendly explanations, workbook practice, and exam revision.", topics: ["Egyptian Schools", "Public School", "Ministry", "Revision"] },
+      { name: "National School English", description: "Reading, writing, grammar, and school exam preparation for national school learners.", topics: ["National School", "Grammar", "Writing", "Term Exams"] },
+      { name: "International School English", description: "Literature, academic writing, presentations, and critical thinking for international school students.", topics: ["International School", "British", "American", "IB", "Literature"] },
     ],
   },
   {

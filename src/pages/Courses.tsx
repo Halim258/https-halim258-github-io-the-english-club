@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -44,6 +44,30 @@ const cefrLevels: Level[] = [
   { id: "b2", label: "B2", sublabel: "Upper-Intermediate", lessons: 20, description: "Passive voice, globalisation, science, art, ethics, digital society", color: "from-indigo-400 to-indigo-600", image: b2Img },
   { id: "c1", label: "C1", sublabel: "Advanced", lessons: 20, description: "Philosophy, sociolinguistics, environmental policy, psychology, academic writing", color: "from-violet-400 to-violet-600", image: c1Img },
   { id: "c2", label: "C2", sublabel: "Proficiency", lessons: 20, description: "Rhetoric, translation, corpus linguistics, discourse analysis, language & identity", color: "from-purple-400 to-purple-600", image: c2Img },
+];
+
+const egyptianSchoolTracks = [
+  {
+    title: "Public School English",
+    audience: "Egyptian Ministry curriculum support",
+    description: "Step-by-step English support for government school students with Arabic-friendly explanations, workbook practice, and exam revision.",
+    books: ["Primary English Book", "Preparatory English Book", "Secondary Exam Book"],
+    skills: ["Unit vocabulary", "Grammar drills", "Reading passages", "Model answers"],
+  },
+  {
+    title: "National School English",
+    audience: "National curriculum learners",
+    description: "Stronger reading, writing, grammar, and school exam preparation for students who need confident classroom performance.",
+    books: ["National Reader", "Grammar Builder", "Writing Portfolio"],
+    skills: ["Comprehension", "Paragraph writing", "School projects", "Term revision"],
+  },
+  {
+    title: "International School English",
+    audience: "British, American, IB-style support",
+    description: "Advanced English for international-school students with literature, academic writing, presentations, and critical thinking.",
+    books: ["Literature Companion", "Academic Writing Book", "Presentation Workbook"],
+    skills: ["Literary analysis", "Essay structure", "Research language", "Speaking tasks"],
+  },
 ];
 
 
@@ -235,9 +259,21 @@ export default function Courses() {
     [normalizedSearch]
   );
 
+  const filteredEgyptianSchoolTracks = useMemo(
+    () => egyptianSchoolTracks.filter((track) => matchesSearch([
+      "Egyptian schools English public school national school international school interactive books ministry curriculum",
+      track.title,
+      track.audience,
+      track.description,
+      track.books,
+      track.skills,
+    ])),
+    [normalizedSearch]
+  );
+
   const showReadingCourse = matchesSearch([introductory.label, introductory.sublabel, introductory.description, "alphabet phonics reading beginner"]);
   const showKidsCourse = matchesSearch([kidsLevel.label, kidsLevel.sublabel, kidsLevel.description, "children games young learners"]);
-  const resultCount = (showReadingCourse ? 1 : 0) + (showKidsCourse ? 1 : 0) + filteredCefrLevels.length + filteredCategories.reduce((total, cat) => total + cat.courses.length, 0);
+  const resultCount = (showReadingCourse ? 1 : 0) + (showKidsCourse ? 1 : 0) + filteredEgyptianSchoolTracks.length + filteredCefrLevels.length + filteredCategories.reduce((total, cat) => total + cat.courses.length, 0);
 
   // If a level is selected, show its lessons
   if (levelId && !window.location.pathname.match(/\/courses\/[^/]+\/\d+/)) {
@@ -328,7 +364,7 @@ export default function Courses() {
               </div>
               <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
                 <span>{courseSearch ? `${resultCount} matching results` : "Try:"}</span>
-                {["IELTS", "Safety", "Speaking", "Kids", "Business", "B1"].map((term) => (
+                {["Egyptian Schools", "Public School", "National", "International", "IELTS", "Kids"].map((term) => (
                   <button
                     key={term}
                     type="button"
@@ -518,6 +554,75 @@ export default function Courses() {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══ EGYPTIAN SCHOOL ENGLISH ═══ */}
+      {filteredEgyptianSchoolTracks.length > 0 && (
+        <section className="border-t bg-muted/30 py-12 md:py-16">
+          <div className="container mx-auto px-4">
+            <FadeInUp>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <School className="h-4 w-4 text-primary" />
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary">Egyptian Schools English</p>
+              </div>
+              <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-3">
+                Interactive Books for School Students
+              </h2>
+              <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-10">
+                English support divided for Public, National, and International schools with book-based lessons, revision, and practice activities.
+              </p>
+            </FadeInUp>
+
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-40px" }}
+              className="grid gap-5 lg:grid-cols-3"
+            >
+              {filteredEgyptianSchoolTracks.map((track) => (
+                <motion.div key={track.title} variants={staggerItem}>
+                  <div className="group h-full rounded-2xl border bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-card">
+                    <div className="mb-4 flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="font-display text-lg font-bold group-hover:text-primary transition-colors">{track.title}</h3>
+                        <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-primary">{track.audience}</p>
+                      </div>
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <BookMarked className="h-5 w-5" />
+                      </div>
+                    </div>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{track.description}</p>
+
+                    <div className="mt-5 space-y-3">
+                      {track.books.map((book, index) => (
+                        <button
+                          key={book}
+                          type="button"
+                          className="flex w-full items-center justify-between rounded-xl border bg-muted/40 px-3 py-3 text-left transition-colors hover:border-primary/30 hover:bg-primary/5"
+                        >
+                          <span className="flex items-center gap-3 text-sm font-semibold">
+                            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-background text-xs text-primary shadow-sm">{index + 1}</span>
+                            {book}
+                          </span>
+                          <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {track.skills.map((skill) => (
+                        <span key={skill} className="rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* ═══ LEARNING TOOLS ═══ */}
       <section className="border-t py-10 md:py-14">
