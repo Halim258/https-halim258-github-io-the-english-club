@@ -140,6 +140,7 @@ import { academicWritingLessons } from "./academic-writing-lessons";
 import { newsLesson2, hospitalityLesson1, legalLesson1 } from "./missing-lesson-1s";
 import { webDevelopmentEnglishLessons } from "./web-development-english";
 import { engineeringEnglishLessons } from "./engineering-english";
+import { safetyEnglishLessons } from "./safety-english";
 const baseLessons: Record<string, LessonData> = {
   "reading-1": {
     levelId: "reading",
@@ -766,6 +767,7 @@ export const lessons: Record<string, LessonData> = {
   ...examPrepExtra,
   ...webDevelopmentEnglishLessons,
   ...engineeringEnglishLessons,
+  ...safetyEnglishLessons,
 };
 
 // Apply YouTube video patches to music, legal, and hospitality courses

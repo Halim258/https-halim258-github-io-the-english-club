@@ -64,6 +64,7 @@ const courseLevelMap: Record<string, string> = {
   "English for Teenagers": "teens",
   "Medical English": "medical",
   "Engineering English": "engineering",
+  "Safety English": "safety",
   "IT English": "it-english",
   "Web Development English": "web-development",
   "ESP (Specific Purposes)": "professional",

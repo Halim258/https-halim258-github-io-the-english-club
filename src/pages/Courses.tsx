@@ -241,6 +241,7 @@ export default function Courses() {
       teens: "English for Teenagers",
       medical: "Medical English",
       engineering: "Engineering English",
+      safety: "Safety English — Minimum B1",
       "it-english": "IT English",
       "web-development": "Web Development English — Minimum B1",
     };
