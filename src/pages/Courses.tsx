@@ -100,6 +100,9 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
   // Fetch completed lessons for prerequisite locking & certificate
   const { user } = useAuth();
   const [completedLessons, setCompletedLessons] = useState<Set<number>>(new Set());
+  const schoolTrack = egyptianSchoolTracks.find((track) => track.levelId === levelId);
+  const [selectedMinistryStage, setSelectedMinistryStage] = useState("");
+  const selectedMinistryBook = schoolTrack?.ministryBooks.find((book) => book.stage === selectedMinistryStage) ?? schoolTrack?.ministryBooks[0];
 
   useEffect(() => {
     if (!user) return;
@@ -114,6 +117,10 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
       });
   }, [user, levelId]);
 
+  useEffect(() => {
+    setSelectedMinistryStage(schoolTrack?.ministryBooks[0]?.stage ?? "");
+  }, [schoolTrack?.levelId]);
+
   const allCompleted = lessonKeys.length > 0 && completedLessons.size >= lessonKeys.length;
 
   const handleDownloadCertificate = async () => {
@@ -125,6 +132,26 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
       lessonsCompleted: lessonKeys.length,
       totalLessons: lessonKeys.length,
       date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
+    });
+  };
+
+  const handleDownloadMinistryPlan = async () => {
+    if (!schoolTrack || !selectedMinistryBook) return;
+    const { generateMinistryWorkbookPlan } = await import("@/lib/generate-ministry-workbook-plan");
+    generateMinistryWorkbookPlan({
+      schoolSystem: schoolTrack.title,
+      courseName: levelLabel,
+      stage: selectedMinistryBook.stage,
+      grades: selectedMinistryBook.grades,
+      bookSeries: selectedMinistryBook.books,
+      lessons: lessonKeys.map((key) => {
+        const lesson = lessons[key];
+        return {
+          lessonNumber: lesson.lessonNumber,
+          title: lesson.title,
+          description: lesson.description,
+        };
+      }),
     });
   };
 
@@ -147,6 +174,34 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
             )}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold font-display">{levelLabel}</h1>
+          {schoolTrack && selectedMinistryBook && (
+            <div className="mt-5 rounded-2xl border bg-card p-4 shadow-soft">
+              <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-primary">Ministry-style yearly plan</p>
+                  <label htmlFor="ministry-stage" className="mt-2 block text-sm font-semibold text-foreground">
+                    Select school stage
+                  </label>
+                  <select
+                    id="ministry-stage"
+                    value={selectedMinistryStage}
+                    onChange={(event) => setSelectedMinistryStage(event.target.value)}
+                    className="mt-2 h-10 w-full rounded-xl border border-input bg-background px-3 text-sm text-foreground outline-none transition-colors focus:border-primary focus:ring-2 focus:ring-ring"
+                  >
+                    {schoolTrack.ministryBooks.map((book) => (
+                      <option key={book.stage} value={book.stage}>
+                        {book.stage} — {book.grades}
+                      </option>
+                    ))}
+                  </select>
+                  <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{selectedMinistryBook.books}</p>
+                </div>
+                <Button onClick={handleDownloadMinistryPlan} className="shrink-0 rounded-full font-semibold">
+                  <Download className="h-4 w-4" /> Download PDF Plan
+                </Button>
+              </div>
+            </div>
+          )}
           {allCompleted && (
             <div className="mt-2 flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-sm font-semibold">
               <Award className="h-4 w-4" /> Course completed! 🎉
