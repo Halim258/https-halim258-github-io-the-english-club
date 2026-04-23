@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, Volume2, ChevronLeft, BookOpen } from "lucide-react";
+import { Search, Volume2, ChevronLeft, BookOpen, Loader2, ExternalLink, Languages, ListChecks } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,8 +15,26 @@ interface DictionaryWord extends VocabWord {
   lessonTitle: string;
 }
 
+interface ApiMeaning {
+  partOfSpeech: string;
+  definitions: { definition: string; example?: string; synonyms?: string[] }[];
+  synonyms?: string[];
+}
+
+interface ApiDictionaryEntry {
+  word: string;
+  phonetic?: string;
+  phonetics?: { text?: string; audio?: string }[];
+  meanings?: ApiMeaning[];
+  sourceUrls?: string[];
+}
+
 export default function Dictionary() {
   const [query, setQuery] = useState("");
+  const [selectedWord, setSelectedWord] = useState("");
+  const [apiEntry, setApiEntry] = useState<ApiDictionaryEntry | null>(null);
+  const [apiLoading, setApiLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
   const { speak } = useTTS();
 
   const allWords = useMemo(() => {
@@ -44,6 +62,53 @@ export default function Dictionary() {
         w.arabic.toLowerCase().includes(q)
     );
   }, [query, allWords]);
+
+  const selectedLocalWord = useMemo(
+    () => allWords.find((w) => w.word.toLowerCase() === selectedWord.toLowerCase()),
+    [allWords, selectedWord]
+  );
+
+  const audioUrl = useMemo(
+    () => apiEntry?.phonetics?.find((p) => p.audio)?.audio || "",
+    [apiEntry]
+  );
+
+  useEffect(() => {
+    const word = query.trim().split(/\s+/)[0];
+    if (!word || /[^a-zA-Z'-]/.test(word)) {
+      setSelectedWord("");
+      setApiEntry(null);
+      setApiError("");
+      return;
+    }
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setSelectedWord(word);
+      setApiLoading(true);
+      setApiError("");
+      try {
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error("No enhanced entry found");
+        const data = (await response.json()) as ApiDictionaryEntry[];
+        setApiEntry(data[0] ?? null);
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          setApiEntry(null);
+          setApiError(error instanceof Error ? error.message : "No enhanced entry found");
+        }
+      } finally {
+        if (!controller.signal.aborted) setApiLoading(false);
+      }
+    }, 450);
+
+    return () => {
+      controller.abort();
+      window.clearTimeout(timer);
+    };
+  }, [query]);
 
   return (
     <div className="min-h-screen">
