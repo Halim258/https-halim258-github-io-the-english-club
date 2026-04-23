@@ -242,6 +242,7 @@ export default function Courses() {
       medical: "Medical English",
       engineering: "Engineering English",
       "it-english": "IT English",
+      "web-development": "Web Development English — Minimum B1",
     };
     if (specializedLevelLabels[levelId]) {
       return <LevelLessons levelId={levelId} levelLabel={specializedLevelLabels[levelId]} />;

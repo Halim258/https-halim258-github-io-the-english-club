@@ -65,6 +65,7 @@ const courseLevelMap: Record<string, string> = {
   "Medical English": "medical",
   "Engineering English": "engineering",
   "IT English": "it-english",
+  "Web Development English": "web-development",
   "ESP (Specific Purposes)": "professional",
   // New courses
   "English through Music": "music",
