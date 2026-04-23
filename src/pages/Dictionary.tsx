@@ -1,6 +1,6 @@
-import { useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, Volume2, ChevronLeft, BookOpen } from "lucide-react";
+import { Search, Volume2, ChevronLeft, BookOpen, Loader2, ExternalLink, Languages, ListChecks } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -15,8 +15,26 @@ interface DictionaryWord extends VocabWord {
   lessonTitle: string;
 }
 
+interface ApiMeaning {
+  partOfSpeech: string;
+  definitions: { definition: string; example?: string; synonyms?: string[] }[];
+  synonyms?: string[];
+}
+
+interface ApiDictionaryEntry {
+  word: string;
+  phonetic?: string;
+  phonetics?: { text?: string; audio?: string }[];
+  meanings?: ApiMeaning[];
+  sourceUrls?: string[];
+}
+
 export default function Dictionary() {
   const [query, setQuery] = useState("");
+  const [selectedWord, setSelectedWord] = useState("");
+  const [apiEntry, setApiEntry] = useState<ApiDictionaryEntry | null>(null);
+  const [apiLoading, setApiLoading] = useState(false);
+  const [apiError, setApiError] = useState("");
   const { speak } = useTTS();
 
   const allWords = useMemo(() => {
@@ -45,6 +63,53 @@ export default function Dictionary() {
     );
   }, [query, allWords]);
 
+  const selectedLocalWord = useMemo(
+    () => allWords.find((w) => w.word.toLowerCase() === selectedWord.toLowerCase()),
+    [allWords, selectedWord]
+  );
+
+  const audioUrl = useMemo(
+    () => apiEntry?.phonetics?.find((p) => p.audio)?.audio || "",
+    [apiEntry]
+  );
+
+  useEffect(() => {
+    const word = query.trim().split(/\s+/)[0];
+    if (!word || /[^a-zA-Z'-]/.test(word)) {
+      setSelectedWord("");
+      setApiEntry(null);
+      setApiError("");
+      return;
+    }
+
+    const controller = new AbortController();
+    const timer = window.setTimeout(async () => {
+      setSelectedWord(word);
+      setApiLoading(true);
+      setApiError("");
+      try {
+        const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`, {
+          signal: controller.signal,
+        });
+        if (!response.ok) throw new Error("No enhanced entry found");
+        const data = (await response.json()) as ApiDictionaryEntry[];
+        setApiEntry(data[0] ?? null);
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          setApiEntry(null);
+          setApiError(error instanceof Error ? error.message : "No enhanced entry found");
+        }
+      } finally {
+        if (!controller.signal.aborted) setApiLoading(false);
+      }
+    }, 450);
+
+    return () => {
+      controller.abort();
+      window.clearTimeout(timer);
+    };
+  }, [query]);
+
   return (
     <div className="min-h-screen">
       <section className="bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 dark:from-blue-950/20 dark:via-background dark:to-purple-950/20 py-12">
@@ -72,7 +137,76 @@ export default function Dictionary() {
       </section>
 
       <section className="py-8">
-        <div className="container mx-auto px-4 max-w-3xl">
+        <div className="container mx-auto px-4 max-w-6xl">
+          {(selectedWord || apiLoading) && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 rounded-2xl border bg-card p-5 shadow-soft"
+            >
+              <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                <div>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <Badge variant="secondary" className="gap-1"><Languages className="h-3 w-3" /> Free Dictionary API</Badge>
+                    {selectedLocalWord && <Badge variant="outline">{selectedLocalWord.level}</Badge>}
+                    {apiEntry?.phonetic && <span className="text-sm text-muted-foreground">{apiEntry.phonetic}</span>}
+                  </div>
+                  <h2 className="mt-2 text-2xl font-bold font-display capitalize">{selectedWord}</h2>
+                  {selectedLocalWord && <p className="text-sm text-muted-foreground">{selectedLocalWord.arabic} · {selectedLocalWord.meaning}</p>}
+                </div>
+                <div className="flex gap-2">
+                  {audioUrl && (
+                    <Button variant="secondary" size="sm" className="gap-2" onClick={() => new Audio(audioUrl).play()}>
+                      <Volume2 className="h-4 w-4" /> Native audio
+                    </Button>
+                  )}
+                  <Button variant="outline" size="sm" className="gap-2" onClick={() => speak(selectedWord)}>
+                    <Volume2 className="h-4 w-4" /> TTS
+                  </Button>
+                </div>
+              </div>
+
+              {apiLoading ? (
+                <div className="mt-5 flex items-center gap-2 text-sm text-muted-foreground">
+                  <Loader2 className="h-4 w-4 animate-spin" /> Loading enhanced word data...
+                </div>
+              ) : apiEntry?.meanings?.length ? (
+                <div className="mt-5 grid gap-4 md:grid-cols-2">
+                  {apiEntry.meanings.slice(0, 4).map((meaning, index) => (
+                    <div key={`${meaning.partOfSpeech}-${index}`} className="rounded-xl border bg-background p-4">
+                      <div className="mb-2 flex items-center gap-2">
+                        <ListChecks className="h-4 w-4 text-primary" />
+                        <span className="text-sm font-semibold capitalize">{meaning.partOfSpeech}</span>
+                      </div>
+                      <div className="space-y-3">
+                        {meaning.definitions.slice(0, 2).map((definition, defIndex) => (
+                          <div key={defIndex}>
+                            <p className="text-sm text-foreground">{definition.definition}</p>
+                            {definition.example && <p className="mt-1 text-xs italic text-primary/80">“{definition.example}”</p>}
+                          </div>
+                        ))}
+                      </div>
+                      {(meaning.synonyms?.length || meaning.definitions.flatMap((d) => d.synonyms ?? []).length) ? (
+                        <div className="mt-3 flex flex-wrap gap-1.5">
+                          {[...(meaning.synonyms ?? []), ...meaning.definitions.flatMap((d) => d.synonyms ?? [])].slice(0, 8).map((synonym) => (
+                            <Badge key={synonym} variant="outline" className="text-[10px]">{synonym}</Badge>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              ) : apiError ? (
+                <p className="mt-5 text-sm text-muted-foreground">Enhanced API data is not available for this word yet. Local course results are still shown below.</p>
+              ) : null}
+
+              {apiEntry?.sourceUrls?.[0] && (
+                <a href={apiEntry.sourceUrls[0]} target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-primary">
+                  Source <ExternalLink className="h-3 w-3" />
+                </a>
+              )}
+            </motion.div>
+          )}
           <p className="text-sm text-muted-foreground mb-4">
             {query ? `${filtered.length} results` : `Showing first 50 of ${allWords.length} words`}
           </p>

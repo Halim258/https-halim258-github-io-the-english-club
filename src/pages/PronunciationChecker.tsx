@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, Mic, MicOff, RotateCcw, Volume2, CheckCircle2, XCircle } from "lucide-react";
+import { ChevronLeft, Mic, MicOff, RotateCcw, Volume2, CheckCircle2, XCircle, Target, Waves } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -35,12 +35,19 @@ function similarity(a: string, b: string): number {
   return Math.round((matches / wb.length) * 100);
 }
 
+function wordFeedback(spoken: string, target: string) {
+  const normalize = (s: string) => s.toLowerCase().replace(/[^a-z\s]/g, "").trim().split(/\s+/).filter(Boolean);
+  const spokenWords = new Set(normalize(spoken));
+  return normalize(target).map((word) => ({ word, matched: spokenWords.has(word) }));
+}
+
 export default function PronunciationChecker() {
   const { speak } = useTTS();
   const [currentIdx, setCurrentIdx] = useState(0);
   const [listening, setListening] = useState(false);
   const [transcript, setTranscript] = useState("");
   const [score, setScore] = useState<number | null>(null);
+  const [confidence, setConfidence] = useState<number | null>(null);
   const [history, setHistory] = useState<{ phrase: string; score: number }[]>([]);
   const recognitionRef = useRef<any>(null);
 
@@ -53,6 +60,7 @@ export default function PronunciationChecker() {
     }
     setTranscript("");
     setScore(null);
+    setConfidence(null);
     const SR = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SR();
     recognition.lang = "en-US";
@@ -60,8 +68,10 @@ export default function PronunciationChecker() {
     recognition.maxAlternatives = 1;
 
     recognition.onresult = (e: any) => {
-      const text = e.results[0][0].transcript;
+      const result = e.results[0][0];
+      const text = result.transcript;
       setTranscript(text);
+      setConfidence(typeof result.confidence === "number" ? Math.round(result.confidence * 100) : null);
       const s = similarity(text, phrase.text);
       setScore(s);
       setHistory((h) => [...h, { phrase: phrase.text, score: s }]);
@@ -83,6 +93,7 @@ export default function PronunciationChecker() {
     setCurrentIdx((i) => (i + 1) % PHRASES.length);
     setTranscript("");
     setScore(null);
+    setConfidence(null);
   };
 
   const avgScore = history.length > 0
@@ -94,6 +105,8 @@ export default function PronunciationChecker() {
 
   const getScoreLabel = (s: number) =>
     s >= 90 ? "Excellent! 🌟" : s >= 75 ? "Great job! 👏" : s >= 50 ? "Good try! 💪" : "Keep practicing! 📖";
+
+  const feedbackWords = score !== null ? wordFeedback(transcript, phrase.text) : [];
 
   return (
     <div className="min-h-screen">
@@ -205,8 +218,33 @@ export default function PronunciationChecker() {
                     <p className="font-medium">"{transcript}"</p>
                   </div>
 
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-lg bg-muted/30 p-3 text-left">
+                      <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        <Target className="h-3.5 w-3.5" /> Word accuracy
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {feedbackWords.map(({ word, matched }, index) => (
+                          <span
+                            key={`${word}-${index}`}
+                            className={`rounded-full px-2 py-1 text-xs font-medium ${matched ? "bg-primary/10 text-primary" : "bg-destructive/10 text-destructive"}`}
+                          >
+                            {word}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="rounded-lg bg-muted/30 p-3 text-left">
+                      <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        <Waves className="h-3.5 w-3.5" /> Recognition confidence
+                      </div>
+                      <p className="text-2xl font-bold text-foreground">{confidence ?? "—"}{confidence !== null ? "%" : ""}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">Browser speech recognition signal</p>
+                    </div>
+                  </div>
+
                   <div className="flex gap-3 justify-center mt-4">
-                    <Button variant="outline" size="sm" className="rounded-full gap-1" onClick={() => { setScore(null); setTranscript(""); }}>
+                    <Button variant="outline" size="sm" className="rounded-full gap-1" onClick={() => { setScore(null); setTranscript(""); setConfidence(null); }}>
                       <RotateCcw className="h-3.5 w-3.5" /> Try Again
                     </Button>
                     <Button size="sm" className="rounded-full" onClick={nextPhrase}>
