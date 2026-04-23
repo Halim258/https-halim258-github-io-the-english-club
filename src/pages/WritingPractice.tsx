@@ -179,7 +179,7 @@ Be encouraging but honest. Keep feedback concise.`;
           <div className="relative">
             <Textarea
               value={text}
-              onChange={(e) => setText(e.target.value)}
+              onChange={(e) => { setText(e.target.value); setGrammarMatches([]); }}
               placeholder="Start writing here..."
               className="min-h-[200px] rounded-2xl text-sm leading-relaxed resize-y"
               disabled={submitted}
@@ -208,6 +208,10 @@ Be encouraging but honest. Keep feedback concise.`;
                 <Button variant="ghost" onClick={handleReset} className="rounded-full">
                   <RotateCcw className="h-4 w-4 mr-1" /> Change Topic
                 </Button>
+                <Button variant="secondary" onClick={handleGrammarCheck} disabled={grammarLoading || !text.trim()} className="rounded-full gap-2">
+                  {grammarLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Wand2 className="h-4 w-4" />}
+                  Free Grammar Check
+                </Button>
               </>
             ) : (
               <Button onClick={handleReset} className="rounded-full gap-2">
@@ -215,6 +219,36 @@ Be encouraging but honest. Keep feedback concise.`;
               </Button>
             )}
           </div>
+
+          {grammarMatches.length > 0 && (
+            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="rounded-2xl border bg-card p-5 shadow-soft">
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <Wand2 className="h-5 w-5 text-primary" />
+                  <h3 className="font-semibold font-display">Free Grammar Suggestions</h3>
+                </div>
+                <Badge variant="secondary">{grammarMatches.length} found</Badge>
+              </div>
+              <div className="space-y-3">
+                {grammarMatches.map((match, index) => (
+                  <div key={`${match.offset}-${index}`} className="rounded-xl border bg-background p-4">
+                    <div className="mb-2 flex flex-wrap items-center gap-2">
+                      <Badge variant="outline" className="text-[10px]">{match.rule.category?.name || match.rule.issueType || "Suggestion"}</Badge>
+                      <span className="text-sm font-medium">{match.shortMessage || match.message}</span>
+                    </div>
+                    <p className="text-xs text-muted-foreground">“{match.context.text}”</p>
+                    {match.replacements.length > 0 && (
+                      <div className="mt-3 flex flex-wrap gap-1.5">
+                        {match.replacements.slice(0, 5).map((replacement) => (
+                          <Badge key={replacement.value} variant="secondary" className="text-[10px]">{replacement.value}</Badge>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* AI Feedback */}
           <AnimatePresence>
