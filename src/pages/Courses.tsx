@@ -20,6 +20,7 @@ import b1Img from "@/assets/levels/b1.jpg";
 import b2Img from "@/assets/levels/b2.jpg";
 import c1Img from "@/assets/levels/c1.jpg";
 import c2Img from "@/assets/levels/c2.jpg";
+import schoolEnglishImg from "@/assets/classroom-aerial.jpg";
 
 type Level = { id: string; label: string; sublabel: string; lessons: number; description: string; color: string; image: string };
 
@@ -404,6 +405,103 @@ export default function Courses() {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══ EGYPTIAN SCHOOL ENGLISH ═══ */}
+      {filteredEgyptianSchoolTracks.length > 0 && (
+        <section className="py-8 md:py-12">
+          <div className="container mx-auto px-4">
+            <FadeInUp>
+              <div className="mb-6 overflow-hidden rounded-2xl border bg-card shadow-soft">
+                <div className="relative h-56 md:h-72">
+                  <img
+                    src={schoolEnglishImg}
+                    alt="Egyptian school students learning English with interactive books"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/30 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
+                    <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-background/90 px-3 py-1.5 text-xs font-semibold text-primary shadow-sm backdrop-blur">
+                      <School className="h-3.5 w-3.5" />
+                      Egyptian Schools English
+                    </div>
+                    <h2 className="max-w-3xl font-display text-2xl font-bold text-background md:text-4xl">
+                      Interactive Books for Public, National, and International Schools
+                    </h2>
+                    <p className="mt-2 max-w-2xl text-sm text-background/85 md:text-base">
+                      School-by-school English lessons with book practice, revision, and exam support.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </FadeInUp>
+
+            <motion.div
+              variants={staggerContainer}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-40px" }}
+              className="grid gap-5 lg:grid-cols-3"
+            >
+              {filteredEgyptianSchoolTracks.map((track) => (
+                <motion.div key={track.title} variants={staggerItem}>
+                  <div className="group h-full rounded-2xl border bg-card p-5 shadow-soft transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-card">
+                    <div className="mb-4 flex items-start justify-between gap-3">
+                      <div>
+                        <h3 className="font-display text-lg font-bold group-hover:text-primary transition-colors">{track.title}</h3>
+                        <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-primary">{track.audience}</p>
+                      </div>
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                        <BookMarked className="h-5 w-5" />
+                      </div>
+                    </div>
+                    <p className="text-sm leading-relaxed text-muted-foreground">{track.description}</p>
+
+                    <div className="mt-5 space-y-3">
+                      <Link
+                        to={`/courses/${track.levelId}`}
+                        className="flex w-full items-center justify-between rounded-xl bg-primary px-4 py-3 text-left text-sm font-bold text-primary-foreground shadow-sm transition-all hover:shadow-card"
+                      >
+                        Open full {lessonCounts[track.levelId] || 12}-lesson course
+                        <ArrowRight className="h-4 w-4" />
+                      </Link>
+                      {progress[track.levelId] && progress[track.levelId].completed > 0 && (
+                        <div className="space-y-1 rounded-xl border bg-muted/30 px-3 py-2">
+                          <div className="flex justify-between text-[10px] text-muted-foreground">
+                            <span>{progress[track.levelId].completed}/{progress[track.levelId].total} lessons complete</span>
+                            <span>{progress[track.levelId].percentage}%</span>
+                          </div>
+                          <Progress value={progress[track.levelId].percentage} className="h-1.5" />
+                        </div>
+                      )}
+                      {track.books.map((book, index) => (
+                        <Link
+                          key={book}
+                          to={`/courses/${track.levelId}/${index + 1}`}
+                          className="flex w-full items-center justify-between rounded-xl border bg-muted/40 px-3 py-3 text-left transition-colors hover:border-primary/30 hover:bg-primary/5"
+                        >
+                          <span className="flex items-center gap-3 text-sm font-semibold">
+                            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-background text-xs text-primary shadow-sm">{index + 1}</span>
+                            {book}
+                          </span>
+                          <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-primary" />
+                        </Link>
+                      ))}
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {track.skills.map((skill) => (
+                        <span key={skill} className="rounded-full bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* ═══ MAIN CEFR LEVELS ═══ */}
       <section className="py-12 md:py-16">
