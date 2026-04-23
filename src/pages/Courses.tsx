@@ -54,6 +54,11 @@ const egyptianSchoolTracks = [
     audience: "Egyptian Ministry curriculum support",
     description: "Step-by-step English support for government school students with Arabic-friendly explanations, workbook practice, and exam revision.",
     books: ["Primary English Book", "Preparatory English Book", "Secondary Exam Book"],
+    ministryBooks: [
+      { stage: "Primary", grades: "Grade 4 → Grade 6", books: "Connect / Ministry English Student Book + Workbook" },
+      { stage: "Preparatory", grades: "Prep 1 → Prep 3", books: "New Hello! / Ministry English Student Book + Workbook" },
+      { stage: "Secondary", grades: "Secondary 1 → Secondary 3", books: "Ministry English curriculum + exam revision book" },
+    ],
     skills: ["Unit vocabulary", "Grammar drills", "Reading passages", "Model answers"],
   },
   {
@@ -62,6 +67,11 @@ const egyptianSchoolTracks = [
     audience: "National curriculum learners",
     description: "Stronger reading, writing, grammar, and school exam preparation for students who need confident classroom performance.",
     books: ["National Reader", "Grammar Builder", "Writing Portfolio"],
+    ministryBooks: [
+      { stage: "Primary", grades: "Grade 4 → Grade 6", books: "Connect Plus / school English book + workbook practice" },
+      { stage: "Preparatory", grades: "Prep 1 → Prep 3", books: "National English reader + Ministry-aligned grammar book" },
+      { stage: "Secondary", grades: "Secondary 1 → Secondary 3", books: "National school English + Thanaweya-style writing and comprehension" },
+    ],
     skills: ["Comprehension", "Paragraph writing", "School projects", "Term revision"],
   },
   {
@@ -70,6 +80,11 @@ const egyptianSchoolTracks = [
     audience: "British, American, IB-style support",
     description: "Advanced English for international-school students with literature, academic writing, presentations, and critical thinking.",
     books: ["Literature Companion", "Academic Writing Book", "Presentation Workbook"],
+    ministryBooks: [
+      { stage: "Lower School", grades: "Grade 4 → Grade 6", books: "School reader + vocabulary workbook mapped to Egyptian grade skills" },
+      { stage: "Middle School", grades: "Grade 7 → Grade 9", books: "Literature companion + grammar and writing workbook" },
+      { stage: "High School", grades: "Grade 10 → Grade 12", books: "Academic writing, presentation, and exam-prep book" },
+    ],
     skills: ["Literary analysis", "Essay structure", "Research language", "Speaking tasks"],
   },
 ];
