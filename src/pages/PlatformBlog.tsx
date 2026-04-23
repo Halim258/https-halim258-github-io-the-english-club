@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { BookOpen, CalendarDays, CheckCircle2, Clipboard, Facebook, GraduationCap, LayoutDashboard, MessageCircle, Search, Sparkles, Users } from "lucide-react";
+import { BarChart3, BookMarked, BookOpen, CalendarDays, CheckCircle2, Clipboard, Download, Facebook, FileText, GraduationCap, LayoutDashboard, MessageCircle, PenLine, Search, Sparkles, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 
@@ -92,6 +92,61 @@ const dailyPosts: HelpPost[] = [
     arabic: "مسار مدارس الحكومة بيساعد الطالب على منهج الوزارة من خلال كلمات، تدريبات وورك بوك، قراءة، كتابة، ومراجعة الترم.",
     steps: ["Open Courses", "Choose Public School English", "Select Primary, Preparatory, or Secondary", "Download the yearly plan if needed"],
     facebookIntro: "Today’s platform tip: public-school students can study with a Ministry-style support plan.",
+  },
+  {
+    id: "placement-level",
+    title: "Find your English level before choosing a book",
+    section: "Placement Test",
+    route: "/placement-test",
+    icon: BarChart3,
+    english: "The placement test helps students identify their current level before starting lessons, so they can choose the correct book, course, and practice path.",
+    arabic: "اختبار تحديد المستوى بيساعد الطالب يعرف مستواه الحقيقي قبل ما يبدأ، علشان يختار الكتاب والكورس والتدريبات المناسبة ليه.",
+    steps: ["Log in", "Open Placement Test", "Answer all questions carefully", "Use the result to choose your level"],
+    facebookIntro: "Today’s platform tip: students should identify their level before starting a book or course.",
+  },
+  {
+    id: "book-materials",
+    title: "Use the lesson materials with your school book",
+    section: "Books & Materials",
+    route: "/courses/egyptian-public",
+    icon: BookMarked,
+    english: "Each school-track lesson supports the book with vocabulary, reading, grammar, writing practice, and workbook-style activities for revision at home.",
+    arabic: "كل درس في مسار المدرسة بيساعد الطالب يستخدم الكتاب من خلال كلمات، قراءة، جرامر، كتابة، وتدريبات شبه الورك بوك للمراجعة في البيت.",
+    steps: ["Open Public School English", "Choose your stage", "Start the matching lesson", "Complete the practice after reading"],
+    facebookIntro: "Today’s platform tip: students can use the website beside the school book for guided practice.",
+  },
+  {
+    id: "yearly-plan",
+    title: "Download the yearly reading and workbook plan",
+    section: "Ministry Plan PDF",
+    route: "/courses/egyptian-public",
+    icon: Download,
+    english: "Families can download a yearly plan that organizes reading, workbook practice, revision, and exam preparation month by month.",
+    arabic: "الأهالي يقدروا ينزلوا خطة سنوية بتنظم القراءة وتدريبات الورك بوك والمراجعة والاستعداد للامتحانات شهر بشهر.",
+    steps: ["Open the Egyptian Public School course", "Select the correct stage", "Press Download PDF Plan", "Follow the monthly plan"],
+    facebookIntro: "Today’s platform tip: parents can download a clear yearly study plan from the website.",
+  },
+  {
+    id: "workbook-practice",
+    title: "Practise workbook questions after each lesson",
+    section: "Workbook Practice",
+    route: "/courses/egyptian-public",
+    icon: PenLine,
+    english: "Workbook practice helps students check understanding after studying the lesson, especially vocabulary, grammar, reading questions, and short writing tasks.",
+    arabic: "تدريبات الورك بوك بتساعد الطالب يتأكد إنه فاهم بعد الدرس، خصوصًا الكلمات والجرامر وأسئلة القراءة والكتابة القصيرة.",
+    steps: ["Finish the lesson", "Review the vocabulary", "Answer the workbook-style tasks", "Repeat difficult questions"],
+    facebookIntro: "Today’s platform tip: workbook practice should come after the lesson, not before it.",
+  },
+  {
+    id: "revision-exams",
+    title: "Revise before monthly and term exams",
+    section: "Exams & Revision",
+    route: "/courses/egyptian-public",
+    icon: FileText,
+    english: "Revision activities help students prepare for monthly tests and term exams by reviewing key vocabulary, grammar, comprehension, and writing tasks.",
+    arabic: "أنشطة المراجعة بتجهز الطالب لاختبارات الشهر وامتحانات الترم من خلال مراجعة الكلمات المهمة والجرامر والفهم والكتابة.",
+    steps: ["Open your school stage", "Review completed lessons", "Practise exam-style questions", "Check weak points before the test"],
+    facebookIntro: "Today’s platform tip: students can use the platform for monthly and term revision.",
   },
 ];
 
