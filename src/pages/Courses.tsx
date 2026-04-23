@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -8,6 +8,7 @@ import { lessons } from "@/data/lessons";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 
@@ -191,6 +192,7 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
 
 export default function Courses() {
   const { levelId } = useParams();
+  const [courseSearch, setCourseSearch] = useState("");
 
   // Compute all level IDs and their lesson counts for progress tracking
   const allLevelIds = useMemo(() => {
@@ -207,6 +209,35 @@ export default function Courses() {
   }, [allLevelIds]);
 
   const { progress } = useCourseProgress(allLevelIds, lessonCounts);
+
+  const normalizedSearch = courseSearch.trim().toLowerCase();
+  const matchesSearch = (parts: Array<string | string[] | undefined>) => {
+    if (!normalizedSearch) return true;
+    return parts
+      .flatMap((part) => Array.isArray(part) ? part : [part])
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase()
+      .includes(normalizedSearch);
+  };
+
+  const filteredCefrLevels = useMemo(
+    () => cefrLevels.filter((lvl) => matchesSearch([lvl.label, lvl.sublabel, lvl.description, `${lvl.lessons} lessons`, "CEFR Cambridge level grammar vocabulary speaking writing"])),
+    [normalizedSearch]
+  );
+
+  const filteredCategories = useMemo(
+    () => categories.filter((cat) => matchesSearch([
+      cat.title,
+      cat.description,
+      cat.courses.map((course) => `${course.name} ${course.description} ${(course.topics ?? []).join(" ")}`),
+    ])),
+    [normalizedSearch]
+  );
+
+  const showReadingCourse = matchesSearch([introductory.label, introductory.sublabel, introductory.description, "alphabet phonics reading beginner"]);
+  const showKidsCourse = matchesSearch([kidsLevel.label, kidsLevel.sublabel, kidsLevel.description, "children games young learners"]);
+  const resultCount = (showReadingCourse ? 1 : 0) + (showKidsCourse ? 1 : 0) + filteredCefrLevels.length + filteredCategories.reduce((total, cat) => total + cat.courses.length, 0);
 
   // If a level is selected, show its lessons
   if (levelId && !window.location.pathname.match(/\/courses\/[^/]+\/\d+/)) {
@@ -274,6 +305,42 @@ export default function Courses() {
               Choose your level and start learning — from complete beginner to mastery.
             </p>
 
+            <div className="mx-auto mt-6 max-w-2xl rounded-2xl border bg-card/95 p-3 shadow-soft backdrop-blur">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  value={courseSearch}
+                  onChange={(event) => setCourseSearch(event.target.value)}
+                  placeholder="Search courses, skills, exams, levels, jobs..."
+                  className="h-12 rounded-xl pl-10 pr-10 text-base"
+                  aria-label="Search courses"
+                />
+                {courseSearch && (
+                  <button
+                    type="button"
+                    onClick={() => setCourseSearch("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    aria-label="Clear course search"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
+                <span>{courseSearch ? `${resultCount} matching results` : "Try:"}</span>
+                {["IELTS", "Safety", "Speaking", "Kids", "Business", "B1"].map((term) => (
+                  <button
+                    key={term}
+                    type="button"
+                    onClick={() => setCourseSearch(term)}
+                    className="rounded-full bg-muted px-2.5 py-1 font-medium transition-colors hover:bg-primary/10 hover:text-primary"
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Quick Level Jump */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
@@ -313,11 +380,12 @@ export default function Courses() {
           </FadeInUp>
 
           {/* Reading Course - Featured */}
-          <FadeInUp delay={0.05}>
-            <Link
-              to="/courses/reading"
-              className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
-            >
+          {showReadingCourse && (
+            <FadeInUp delay={0.05}>
+              <Link
+                to="/courses/reading"
+                className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
+              >
               <div className="flex flex-col sm:flex-row">
                 <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
                   <img src={introductory.image} alt={introductory.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -348,15 +416,17 @@ export default function Courses() {
                   )}
                 </div>
               </div>
-            </Link>
-          </FadeInUp>
+              </Link>
+            </FadeInUp>
+          )}
 
           {/* Kids Course - Featured */}
-          <FadeInUp delay={0.1}>
-            <Link
-              to="/courses/kids"
-              className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
-            >
+          {showKidsCourse && (
+            <FadeInUp delay={0.1}>
+              <Link
+                to="/courses/kids"
+                className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
+              >
               <div className="flex flex-col sm:flex-row">
                 <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
                   <img src={kidsLevel.image} alt={kidsLevel.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -387,8 +457,9 @@ export default function Courses() {
                   )}
                 </div>
               </div>
-            </Link>
-          </FadeInUp>
+              </Link>
+            </FadeInUp>
+          )}
 
           {/* CEFR Level Cards */}
           <motion.div
@@ -398,7 +469,7 @@ export default function Courses() {
             viewport={{ once: true, margin: "-40px" }}
             className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
           >
-            {cefrLevels.map((lvl, idx) => (
+            {filteredCefrLevels.map((lvl, idx) => (
               <motion.div key={lvl.id} variants={staggerItem}>
                 <Link
                   to={`/courses/${lvl.id}`}
@@ -518,7 +589,7 @@ export default function Courses() {
             viewport={{ once: true, margin: "-60px" }}
             className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
           >
-            {categories.map((cat) => (
+            {filteredCategories.map((cat) => (
               <motion.div key={cat.title} variants={staggerItem}>
                 <Link
                   to={`/courses/category/${cat.slug}`}
@@ -565,6 +636,15 @@ export default function Courses() {
               </motion.div>
             ))}
           </motion.div>
+
+          {courseSearch && resultCount === 0 && (
+            <div className="mx-auto mt-8 max-w-md rounded-2xl border bg-card p-6 text-center shadow-soft">
+              <Search className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
+              <h3 className="font-semibold font-display">No courses found</h3>
+              <p className="mt-1 text-sm text-muted-foreground">Try a broader search like speaking, writing, exam, kids, B1, or business.</p>
+              <Button variant="secondary" className="mt-4 rounded-full" onClick={() => setCourseSearch("")}>Show all courses</Button>
+            </div>
+          )}
 
           {/* WhatsApp CTA */}
           <FadeInUp delay={0.2}>
