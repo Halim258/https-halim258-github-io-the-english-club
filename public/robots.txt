@@ -12,3 +12,5 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+Sitemap: https://https-halim258-github-io-the-english-club.lovable.app/sitemap.xml
