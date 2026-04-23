@@ -589,7 +589,7 @@ export default function Courses() {
             viewport={{ once: true, margin: "-60px" }}
             className="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
           >
-            {categories.map((cat) => (
+            {filteredCategories.map((cat) => (
               <motion.div key={cat.title} variants={staggerItem}>
                 <Link
                   to={`/courses/category/${cat.slug}`}
@@ -636,6 +636,15 @@ export default function Courses() {
               </motion.div>
             ))}
           </motion.div>
+
+          {courseSearch && resultCount === 0 && (
+            <div className="mx-auto mt-8 max-w-md rounded-2xl border bg-card p-6 text-center shadow-soft">
+              <Search className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
+              <h3 className="font-semibold font-display">No courses found</h3>
+              <p className="mt-1 text-sm text-muted-foreground">Try a broader search like speaking, writing, exam, kids, B1, or business.</p>
+              <Button variant="secondary" className="mt-4 rounded-full" onClick={() => setCourseSearch("")}>Show all courses</Button>
+            </div>
+          )}
 
           {/* WhatsApp CTA */}
           <FadeInUp delay={0.2}>
