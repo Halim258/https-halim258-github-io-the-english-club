@@ -167,6 +167,9 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
   const schoolTrack = egyptianSchoolTracks.find((track) => track.levelId === levelId);
   const [selectedMinistryStage, setSelectedMinistryStage] = useState("");
   const selectedMinistryBook = schoolTrack?.ministryBooks.find((book) => book.stage === selectedMinistryStage) ?? schoolTrack?.ministryBooks[0];
+  const selectedPublicStageDetails = levelId === "egyptian-public" && selectedMinistryBook
+    ? publicStageCurriculum[selectedMinistryBook.stage as keyof typeof publicStageCurriculum]
+    : undefined;
 
   useEffect(() => {
     if (!user) return;
