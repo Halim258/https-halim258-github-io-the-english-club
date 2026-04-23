@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { PenLine, Send, Sparkles, RotateCcw, CheckCircle2, AlertCircle, BookOpen, ArrowRight } from "lucide-react";
+import { PenLine, Send, Sparkles, RotateCcw, CheckCircle2, AlertCircle, ArrowRight, Wand2, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
@@ -20,13 +21,51 @@ const PROMPTS = [
   { level: "C2", emoji: "⚖️", topic: "Write a persuasive essay on remote work", hint: "Use formal language, topic sentences, and a clear conclusion." },
 ];
 
+interface GrammarMatch {
+  message: string;
+  shortMessage?: string;
+  offset: number;
+  length: number;
+  replacements: { value: string }[];
+  rule: { issueType?: string; category?: { name?: string } };
+  context: { text: string; offset: number; length: number };
+}
+
 export default function WritingPractice() {
   const { user } = useAuth();
   const [selectedPrompt, setSelectedPrompt] = useState<typeof PROMPTS[0] | null>(null);
   const [text, setText] = useState("");
   const [feedback, setFeedback] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [grammarLoading, setGrammarLoading] = useState(false);
+  const [grammarMatches, setGrammarMatches] = useState<GrammarMatch[]>([]);
   const [submitted, setSubmitted] = useState(false);
+
+  const handleGrammarCheck = async () => {
+    if (!text.trim() || text.trim().split(/\s+/).length < 3) {
+      toast.error("Write at least 3 words to check grammar.");
+      return;
+    }
+
+    setGrammarLoading(true);
+    try {
+      const body = new URLSearchParams({ text, language: "en-US" });
+      const response = await fetch("https://api.languagetool.org/v2/check", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
+      });
+      if (!response.ok) throw new Error("Grammar API unavailable");
+      const data = await response.json();
+      setGrammarMatches((data.matches ?? []).slice(0, 12));
+      toast.success(data.matches?.length ? "Grammar suggestions ready." : "No grammar issues found.");
+    } catch (error) {
+      console.error(error);
+      toast.error("Free grammar checker is busy. Try again shortly.");
+    } finally {
+      setGrammarLoading(false);
+    }
+  };
 
   const handleSubmit = async () => {
     if (!text.trim() || text.trim().split(/\s+/).length < 5) {
@@ -77,6 +116,7 @@ Be encouraging but honest. Keep feedback concise.`;
   const handleReset = () => {
     setText("");
     setFeedback(null);
+    setGrammarMatches([]);
     setSubmitted(false);
     setSelectedPrompt(null);
   };
