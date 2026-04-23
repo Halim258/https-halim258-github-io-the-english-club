@@ -305,6 +305,42 @@ export default function Courses() {
               Choose your level and start learning — from complete beginner to mastery.
             </p>
 
+            <div className="mx-auto mt-6 max-w-2xl rounded-2xl border bg-card/95 p-3 shadow-soft backdrop-blur">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  value={courseSearch}
+                  onChange={(event) => setCourseSearch(event.target.value)}
+                  placeholder="Search courses, skills, exams, levels, jobs..."
+                  className="h-12 rounded-xl pl-10 pr-10 text-base"
+                  aria-label="Search courses"
+                />
+                {courseSearch && (
+                  <button
+                    type="button"
+                    onClick={() => setCourseSearch("")}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    aria-label="Clear course search"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
+              </div>
+              <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
+                <span>{courseSearch ? `${resultCount} matching results` : "Try:"}</span>
+                {["IELTS", "Safety", "Speaking", "Kids", "Business", "B1"].map((term) => (
+                  <button
+                    key={term}
+                    type="button"
+                    onClick={() => setCourseSearch(term)}
+                    className="rounded-full bg-muted px-2.5 py-1 font-medium transition-colors hover:bg-primary/10 hover:text-primary"
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Quick Level Jump */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
