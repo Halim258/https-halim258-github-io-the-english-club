@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -8,6 +8,7 @@ import { lessons } from "@/data/lessons";
 import { FadeInUp, staggerContainer, staggerItem } from "@/components/AnimatedSection";
 import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 
@@ -191,6 +192,7 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
 
 export default function Courses() {
   const { levelId } = useParams();
+  const [courseSearch, setCourseSearch] = useState("");
 
   // Compute all level IDs and their lesson counts for progress tracking
   const allLevelIds = useMemo(() => {
@@ -207,6 +209,35 @@ export default function Courses() {
   }, [allLevelIds]);
 
   const { progress } = useCourseProgress(allLevelIds, lessonCounts);
+
+  const normalizedSearch = courseSearch.trim().toLowerCase();
+  const matchesSearch = (parts: Array<string | string[] | undefined>) => {
+    if (!normalizedSearch) return true;
+    return parts
+      .flatMap((part) => Array.isArray(part) ? part : [part])
+      .filter(Boolean)
+      .join(" ")
+      .toLowerCase()
+      .includes(normalizedSearch);
+  };
+
+  const filteredCefrLevels = useMemo(
+    () => cefrLevels.filter((lvl) => matchesSearch([lvl.label, lvl.sublabel, lvl.description, `${lvl.lessons} lessons`, "CEFR Cambridge level grammar vocabulary speaking writing"])),
+    [normalizedSearch]
+  );
+
+  const filteredCategories = useMemo(
+    () => categories.filter((cat) => matchesSearch([
+      cat.title,
+      cat.description,
+      cat.courses.map((course) => `${course.name} ${course.description} ${(course.topics ?? []).join(" ")}`),
+    ])),
+    [normalizedSearch]
+  );
+
+  const showReadingCourse = matchesSearch([introductory.label, introductory.sublabel, introductory.description, "alphabet phonics reading beginner"]);
+  const showKidsCourse = matchesSearch([kidsLevel.label, kidsLevel.sublabel, kidsLevel.description, "children games young learners"]);
+  const resultCount = (showReadingCourse ? 1 : 0) + (showKidsCourse ? 1 : 0) + filteredCefrLevels.length + filteredCategories.reduce((total, cat) => total + cat.courses.length, 0);
 
   // If a level is selected, show its lessons
   if (levelId && !window.location.pathname.match(/\/courses\/[^/]+\/\d+/)) {
