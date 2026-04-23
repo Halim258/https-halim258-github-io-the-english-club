@@ -100,6 +100,9 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
   // Fetch completed lessons for prerequisite locking & certificate
   const { user } = useAuth();
   const [completedLessons, setCompletedLessons] = useState<Set<number>>(new Set());
+  const schoolTrack = egyptianSchoolTracks.find((track) => track.levelId === levelId);
+  const [selectedMinistryStage, setSelectedMinistryStage] = useState("");
+  const selectedMinistryBook = schoolTrack?.ministryBooks.find((book) => book.stage === selectedMinistryStage) ?? schoolTrack?.ministryBooks[0];
 
   useEffect(() => {
     if (!user) return;
@@ -114,6 +117,10 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
       });
   }, [user, levelId]);
 
+  useEffect(() => {
+    setSelectedMinistryStage(schoolTrack?.ministryBooks[0]?.stage ?? "");
+  }, [schoolTrack?.levelId]);
+
   const allCompleted = lessonKeys.length > 0 && completedLessons.size >= lessonKeys.length;
 
   const handleDownloadCertificate = async () => {
@@ -125,6 +132,26 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
       lessonsCompleted: lessonKeys.length,
       totalLessons: lessonKeys.length,
       date: new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" }),
+    });
+  };
+
+  const handleDownloadMinistryPlan = async () => {
+    if (!schoolTrack || !selectedMinistryBook) return;
+    const { generateMinistryWorkbookPlan } = await import("@/lib/generate-ministry-workbook-plan");
+    generateMinistryWorkbookPlan({
+      schoolSystem: schoolTrack.title,
+      courseName: levelLabel,
+      stage: selectedMinistryBook.stage,
+      grades: selectedMinistryBook.grades,
+      bookSeries: selectedMinistryBook.books,
+      lessons: lessonKeys.map((key) => {
+        const lesson = lessons[key];
+        return {
+          lessonNumber: lesson.lessonNumber,
+          title: lesson.title,
+          description: lesson.description,
+        };
+      }),
     });
   };
 
