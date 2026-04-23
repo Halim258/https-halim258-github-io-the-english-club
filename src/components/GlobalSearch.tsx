@@ -80,6 +80,8 @@ export default function GlobalSearch() {
     }
   };
 
+  const quickSearches = ["IELTS", "Speaking", "Kids", "Business", "Safety", "Engineering"];
+
   return (
     <AnimatePresence>
       {open && (
@@ -112,6 +114,22 @@ export default function GlobalSearch() {
                 ESC
               </kbd>
             </div>
+            {!query.trim() && (
+              <div className="border-b px-4 py-3">
+                <div className="flex flex-wrap gap-2">
+                  {quickSearches.map((term) => (
+                    <button
+                      key={term}
+                      type="button"
+                      onClick={() => setQuery(term)}
+                      className="rounded-full border bg-muted/40 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
+                    >
+                      {term}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             <div className="max-h-[300px] overflow-y-auto py-2">
               {filtered.length === 0 ? (
                 <p className="px-4 py-8 text-center text-sm text-muted-foreground">No results found</p>
