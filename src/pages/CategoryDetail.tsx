@@ -389,10 +389,11 @@ export default function CategoryDetail() {
               const hasLessons = getCourseHasLessons(course.name);
               const lessonCount = getCourseLessonCount(course.name);
               const levelId = courseLevelMap[course.name];
+              const coursePath = course.name === "English for Kids" ? "/courses/kids" : course.name === "English through Stories" ? "/courses/stories" : course.name === "English through Movies & Series" ? "/courses/movies" : hasLessons ? `/courses/${levelId}` : `/courses/${levelId || cat.slug}`;
 
               return (
                 <motion.div key={course.name} variants={staggerItem}>
-                  <div className="group relative rounded-2xl border bg-card shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 overflow-hidden h-full">
+                  <Link to={coursePath} className="group relative block rounded-2xl border bg-card shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 overflow-hidden h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
                     {/* Course Image */}
                     <div className="relative h-40 overflow-hidden">
                       <img
@@ -439,15 +440,13 @@ export default function CategoryDetail() {
                         </div>
                       )}
                       <div className="mt-4">
-                        <Link to={course.name === "English for Kids" ? "/courses/kids" : course.name === "English through Stories" ? "/courses/stories" : course.name === "English through Movies & Series" ? "/courses/movies" : hasLessons ? `/courses/${levelId}` : `/courses/${levelId || cat.slug}`}>
-                          <Button size="sm" className="rounded-full px-5 text-xs font-semibold gap-2 w-full">
-                            <PlayCircle className="h-3.5 w-3.5" />
-                            Start Learning
-                          </Button>
-                        </Link>
+                        <Button size="sm" className="rounded-full px-5 text-xs font-semibold gap-2 w-full pointer-events-none" tabIndex={-1}>
+                          <PlayCircle className="h-3.5 w-3.5" />
+                          Start Learning
+                        </Button>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </motion.div>
               );
             })}
