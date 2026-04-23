@@ -269,6 +269,47 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
               </div>
             </div>
           )}
+          {selectedPublicStageDetails && (
+            <div className="mt-5 space-y-4">
+              <div className="rounded-2xl border bg-muted/30 p-4">
+                <p className="text-xs font-semibold uppercase tracking-wider text-primary">Actual public-school curriculum match</p>
+                <div className="mt-3 grid gap-3">
+                  {selectedPublicStageDetails.map((detail) => (
+                    <div key={detail} className="flex items-start gap-3 rounded-xl bg-card p-3 shadow-soft">
+                      <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                      <p className="text-sm leading-relaxed text-muted-foreground">{detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                {publicSchoolFeatureSets.map((feature) => {
+                  const FeatureIcon = feature.icon;
+                  return (
+                    <div key={feature.title} className="rounded-2xl border bg-card p-4 shadow-soft">
+                      <div className="flex items-start gap-3">
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                          <FeatureIcon className="h-5 w-5" />
+                        </div>
+                        <div>
+                          <h2 className="font-display text-base font-bold text-foreground">{feature.title}</h2>
+                          <p className="text-xs text-muted-foreground">{feature.subtitle}</p>
+                        </div>
+                      </div>
+                      <ul className="mt-4 space-y-2">
+                        {feature.items.map((item) => (
+                          <li key={item} className="flex items-start gap-2 text-xs leading-relaxed text-muted-foreground">
+                            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
           {allCompleted && (
             <div className="mt-2 flex items-center gap-2 text-emerald-600 dark:text-emerald-400 text-sm font-semibold">
               <Award className="h-4 w-4" /> Course completed! 🎉
