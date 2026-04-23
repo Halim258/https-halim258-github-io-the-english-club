@@ -21,9 +21,18 @@ const levels = [
 const tools = [
   { label: "Dictionary", to: "/dictionary" },
   { label: "Flashcards", to: "/flashcards" },
+  { label: "Pronunciation", to: "/pronunciation" },
+  { label: "Writing Practice", to: "/writing" },
+  { label: "Grammar", to: "/grammar" },
   { label: "FM Radio", to: "/fm" },
-  { label: "Community", to: "/community" },
-  { label: "Leaderboard", to: "/leaderboard" },
+];
+
+const popularCourses = [
+  { label: "IELTS & Exam Prep", to: "/courses/category/exam-prep" },
+  { label: "Speaking Courses", to: "/courses/category/communication" },
+  { label: "Business English", to: "/courses/category/professional" },
+  { label: "Safety English", to: "/courses/safety" },
+  { label: "Engineering English", to: "/courses/engineering" },
 ];
 
 export default function Footer() {
@@ -46,7 +55,7 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-sm text-secondary-foreground/60 leading-relaxed max-w-xs">
-              Cutting-edge methods for fast-paced English language acquisition. Join thousands of learners since 2019.
+              English courses in Alexandria for A1-C2, IELTS, speaking, kids, business, safety, engineering and professional communication.
             </p>
             <div className="mt-5 flex gap-2.5">
               <a
@@ -106,6 +115,18 @@ export default function Footer() {
                 <li key={tool.to}>
                   <Link to={tool.to} className="group flex items-center gap-1 text-sm text-secondary-foreground/60 transition-colors hover:text-primary">
                     {tool.label}
+                    <ArrowUpRight className="h-3 w-3 opacity-0 -translate-y-0.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all" />
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <h4 className="text-xs font-bold uppercase tracking-widest text-secondary-foreground/40 mb-4">Popular Courses</h4>
+            <ul className="space-y-2.5 mb-6">
+              {popularCourses.map((course) => (
+                <li key={course.to}>
+                  <Link to={course.to} className="group flex items-center gap-1 text-sm text-secondary-foreground/60 transition-colors hover:text-primary">
+                    {course.label}
                     <ArrowUpRight className="h-3 w-3 opacity-0 -translate-y-0.5 group-hover:opacity-100 group-hover:translate-y-0 transition-all" />
                   </Link>
                 </li>
