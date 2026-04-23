@@ -259,9 +259,21 @@ export default function Courses() {
     [normalizedSearch]
   );
 
+  const filteredEgyptianSchoolTracks = useMemo(
+    () => egyptianSchoolTracks.filter((track) => matchesSearch([
+      "Egyptian schools English public school national school international school interactive books ministry curriculum",
+      track.title,
+      track.audience,
+      track.description,
+      track.books,
+      track.skills,
+    ])),
+    [normalizedSearch]
+  );
+
   const showReadingCourse = matchesSearch([introductory.label, introductory.sublabel, introductory.description, "alphabet phonics reading beginner"]);
   const showKidsCourse = matchesSearch([kidsLevel.label, kidsLevel.sublabel, kidsLevel.description, "children games young learners"]);
-  const resultCount = (showReadingCourse ? 1 : 0) + (showKidsCourse ? 1 : 0) + filteredCefrLevels.length + filteredCategories.reduce((total, cat) => total + cat.courses.length, 0);
+  const resultCount = (showReadingCourse ? 1 : 0) + (showKidsCourse ? 1 : 0) + filteredEgyptianSchoolTracks.length + filteredCefrLevels.length + filteredCategories.reduce((total, cat) => total + cat.courses.length, 0);
 
   // If a level is selected, show its lessons
   if (levelId && !window.location.pathname.match(/\/courses\/[^/]+\/\d+/)) {
