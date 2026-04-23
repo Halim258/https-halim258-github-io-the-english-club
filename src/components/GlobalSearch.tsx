@@ -12,6 +12,7 @@ const pages = [
   { path: "/courses/c1", label: "C1 — Advanced", icon: GraduationCap, keywords: "advanced" },
   { path: "/courses/c2", label: "C2 — Proficiency", icon: GraduationCap, keywords: "proficiency mastery" },
   { path: "/courses/kids", label: "Kids Course", icon: BookOpen, keywords: "children young" },
+  { path: "/courses/category/egyptian-schools", label: "Egyptian Schools English", icon: GraduationCap, keywords: "egypt public school national school international school books ministry curriculum" },
   { path: "/courses/stories", label: "Stories Course", icon: BookOpen, keywords: "reading stories" },
   { path: "/courses/movies", label: "Movies Course", icon: BookOpen, keywords: "film cinema" },
   { path: "/fm", label: "FM Radio", icon: Radio, keywords: "listen music radio" },
