@@ -914,4 +914,113 @@ export const webDevelopmentEnglishLessons: Record<string, LessonData> = {
     ],
   },
 
+  "web-development-17": {
+    levelId: "web-development",
+    levelLabel: "Web Development English — B2",
+    lessonNumber: 17,
+    title: "B2: Performance and Page Speed",
+    description: "Learn practical English for discussing loading speed, images, caching, scripts, and user experience improvements.",
+    vocabulary: [
+      { word: "Performance", meaning: "How fast and smoothly a website or app works", example: "Website performance affects user satisfaction.", emoji: "⚡", arabic: "الأداء" },
+      { word: "Load time", meaning: "The time a page takes to appear", example: "The homepage load time is too long on mobile.", emoji: "⏱️", arabic: "وقت التحميل" },
+      { word: "Optimize", meaning: "To improve something so it works better", example: "We need to optimize images before launch.", emoji: "🔧", arabic: "يحسّن" },
+      { word: "Compress", meaning: "To make a file smaller", example: "Compress the hero image to reduce load time.", emoji: "🗜️", arabic: "يضغط" },
+      { word: "Cache", meaning: "Stored data used to load content faster", example: "The browser cache helps repeat visitors load pages quickly.", emoji: "🗄️", arabic: "ذاكرة مؤقتة" },
+      { word: "Script", meaning: "Code that runs on a page", example: "Too many scripts can slow down the website.", emoji: "📜", arabic: "سكريبت" },
+      { word: "Lazy loading", meaning: "Loading content only when needed", example: "Lazy loading images improves initial page speed.", emoji: "🪄", arabic: "تحميل عند الحاجة" },
+      { word: "Metric", meaning: "A measurement used to evaluate performance", example: "Load time is an important performance metric.", emoji: "📏", arabic: "مقياس" },
+    ],
+    dialogue: [
+      { speaker: "Client", text: "The homepage feels slow, especially on mobile." },
+      { speaker: "Developer", text: "I checked the performance metrics. The largest images are increasing the load time." },
+      { speaker: "Client", text: "Can we fix it without changing the design?" },
+      { speaker: "Developer", text: "Yes. We can compress the images, use lazy loading, and remove unnecessary scripts." },
+      { speaker: "Client", text: "Will users notice the difference?" },
+      { speaker: "Developer", text: "They should. The page will appear faster, and navigation should feel smoother." },
+    ],
+    grammar: { title: "Comparatives for Improvement", explanation: "Use comparatives to explain performance improvements: faster, smoother, smaller, more reliable, less expensive.", examples: [
+      { sentence: "The optimized page loads faster than the old version.", note: "Comparing speed" },
+      { sentence: "Compressed images are smaller and easier to load.", note: "Comparing file size" },
+      { sentence: "The new experience feels smoother on mobile.", note: "Comparing user experience" },
+      { sentence: "Caching makes repeat visits more reliable.", note: "Comparing stability" },
+    ] },
+    vocabExercises: [
+      { question: "Load time means:", options: ["The time a page takes to appear", "The size of a logo", "The name of a user", "The color of a button"], correct: 0 },
+      { question: "To compress a file means to:", options: ["Make it smaller", "Make it private", "Translate it", "Delete the page"], correct: 0 },
+      { question: "Lazy loading means:", options: ["Loading content only when needed", "Never loading images", "Opening all pages at once", "Removing all scripts"], correct: 0 },
+    ],
+    conversationExercises: [
+      { question: "Where does the homepage feel slow?", options: ["On mobile", "Only in print", "In the office", "On paper"], correct: 0 },
+      { question: "What increases the load time?", options: ["Large images", "Short text", "Small buttons", "Clear labels"], correct: 0 },
+      { question: "What will be removed?", options: ["Unnecessary scripts", "All content", "All users", "The domain"], correct: 0 },
+    ],
+    grammarExercises: [
+      { question: "Choose the comparative sentence:", options: ["The optimized page loads faster than the old version.", "Fast page old.", "Page fastestly load.", "Load the page fasted."], correct: 0 },
+      { question: "Complete: 'Compressed images are ___ and easier to load.'", options: ["smaller", "smallest only", "smallly", "smalling"], correct: 0 },
+      { question: "Comparatives are used to show:", options: ["Improvement or difference", "Only past time", "A greeting", "A password"], correct: 0 },
+    ],
+    examQuestions: [
+      { question: "Best performance update:", options: ["We can compress images, enable lazy loading, and remove unnecessary scripts to improve load time.", "Site slow maybe.", "Images bad no.", "Mobile problem thing."], correct: 0 },
+      { question: "A metric is:", options: ["A measurement used to evaluate performance", "A support email", "A page color", "A login role"], correct: 0 },
+    ],
+    homeworkQuestions: [
+      { question: "Optimize means:", options: ["Improve something so it works better", "Break something", "Hide a form", "Change a password"], correct: 0 },
+      { question: "Complete: 'The page will appear ___.'", options: ["faster", "fastly", "fasted", "fasting"], correct: 0 },
+    ],
+  },
+  "web-development-18": {
+    levelId: "web-development",
+    levelLabel: "Web Development English — C1",
+    lessonNumber: 18,
+    title: "C1: Security Discussions and Data Protection",
+    description: "Use advanced English to discuss security risks, vulnerabilities, encryption, privacy, permissions, and responsible disclosure.",
+    vocabulary: [
+      { word: "Vulnerability", meaning: "A weakness that could be exploited", example: "The audit found a vulnerability in the upload feature.", emoji: "🕳️", arabic: "ثغرة" },
+      { word: "Exploit", meaning: "To use a weakness to attack a system", example: "Attackers may exploit weak passwords.", emoji: "🎯", arabic: "يستغل ثغرة" },
+      { word: "Encryption", meaning: "Protecting data by making it unreadable without a key", example: "Encryption protects sensitive customer information.", emoji: "🔐", arabic: "تشفير" },
+      { word: "Sensitive data", meaning: "Private information that must be protected", example: "Passwords and payment details are sensitive data.", emoji: "🧾", arabic: "بيانات حساسة" },
+      { word: "Permission", meaning: "A rule that controls what someone can access", example: "Admin permission should be limited to trusted staff.", emoji: "🛂", arabic: "صلاحية" },
+      { word: "Audit", meaning: "A careful security or quality check", example: "The team scheduled a security audit before launch.", emoji: "🔎", arabic: "تدقيق" },
+      { word: "Breach", meaning: "An incident where private data is accessed without permission", example: "The company reported a data breach.", emoji: "🚨", arabic: "اختراق بيانات" },
+      { word: "Disclosure", meaning: "The act of reporting a security issue responsibly", example: "Responsible disclosure helps teams fix vulnerabilities safely.", emoji: "📣", arabic: "إفصاح" },
+    ],
+    dialogue: [
+      { speaker: "Security Reviewer", text: "The upload feature may expose sensitive data if permissions are too broad." },
+      { speaker: "Developer", text: "I agree. We should restrict access and verify each request before storing files." },
+      { speaker: "Security Reviewer", text: "The audit also recommends encryption for documents that contain personal information." },
+      { speaker: "Developer", text: "That makes sense. We can prioritize encryption and add monitoring for unusual activity." },
+      { speaker: "Security Reviewer", text: "Please document the vulnerability, the mitigation plan, and the timeline." },
+      { speaker: "Developer", text: "I will prepare a responsible disclosure note and avoid sharing technical exploit details publicly." },
+    ],
+    grammar: { title: "Obligation and Risk with Should, Must, and May", explanation: "Security communication often combines strict obligation with possible risk. Use must for non-negotiable rules, should for recommendations, and may for possible threats.", examples: [
+      { sentence: "Sensitive data must be encrypted.", note: "Strict security rule" },
+      { sentence: "Permissions should be reviewed before launch.", note: "Professional recommendation" },
+      { sentence: "Attackers may exploit broad access rules.", note: "Possible risk" },
+      { sentence: "Security details must not be shared publicly before a fix is ready.", note: "Confidentiality rule" },
+    ] },
+    vocabExercises: [
+      { question: "A vulnerability is:", options: ["A weakness that could be exploited", "A homepage title", "A color palette", "A support ticket only"], correct: 0 },
+      { question: "Encryption protects data by:", options: ["Making it unreadable without a key", "Deleting every user", "Changing the font", "Opening access to everyone"], correct: 0 },
+      { question: "A breach is:", options: ["Unauthorized access to private data", "A successful design review", "A new icon", "A fast page"], correct: 0 },
+    ],
+    conversationExercises: [
+      { question: "Which feature may expose sensitive data?", options: ["Upload feature", "Footer links", "Color picker", "Search icon"], correct: 0 },
+      { question: "What is recommended for personal documents?", options: ["Encryption", "Larger buttons", "More emojis", "Shorter titles"], correct: 0 },
+      { question: "What should not be shared publicly?", options: ["Technical exploit details", "General safety notice", "Launch date", "Contact email"], correct: 0 },
+    ],
+    grammarExercises: [
+      { question: "Choose the strict security rule:", options: ["Sensitive data must be encrypted.", "Sensitive data maybe encrypting.", "Encrypt data nice.", "Data should maybe."], correct: 0 },
+      { question: "Complete: 'Attackers may ___ broad access rules.'", options: ["exploit", "exploits", "exploited", "exploiting"], correct: 0 },
+      { question: "Must is used for:", options: ["Non-negotiable rules", "Weak suggestions only", "Past habits", "Friendly greetings"], correct: 0 },
+    ],
+    examQuestions: [
+      { question: "Best security update:", options: ["We should restrict permissions, encrypt sensitive documents, and document the mitigation plan.", "Security bad maybe.", "Upload dangerous no details.", "Make it private somehow."], correct: 0 },
+      { question: "Responsible disclosure means:", options: ["Reporting a security issue safely and responsibly", "Posting exploit details publicly", "Ignoring a bug", "Deleting audit notes"], correct: 0 },
+    ],
+    homeworkQuestions: [
+      { question: "An audit is:", options: ["A careful security or quality check", "A button click", "A browser window", "A password reset only"], correct: 0 },
+      { question: "Complete: 'Permissions should be reviewed ___ launch.'", options: ["before", "because", "duringly", "withing"], correct: 0 },
+    ],
+  },
+
 };
