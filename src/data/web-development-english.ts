@@ -805,4 +805,113 @@ export const webDevelopmentEnglishLessons: Record<string, LessonData> = {
     ],
   },
 
+  "web-development-15": {
+    levelId: "web-development",
+    levelLabel: "Web Development English — B1",
+    lessonNumber: 15,
+    title: "B1: User Accounts and Login Problems",
+    description: "Learn practical English for accounts, passwords, login errors, permissions, and simple support messages.",
+    vocabulary: [
+      { word: "Account", meaning: "A personal profile used to access a website or app", example: "Users need an account to save their progress.", emoji: "👤", arabic: "حساب" },
+      { word: "Login", meaning: "To enter a website or app with account details", example: "I cannot login with my email address.", emoji: "🔑", arabic: "تسجيل الدخول" },
+      { word: "Password", meaning: "A secret word or phrase used to access an account", example: "Please choose a strong password.", emoji: "🔒", arabic: "كلمة مرور" },
+      { word: "Permission", meaning: "The right to access or do something", example: "Students do not have permission to open the admin page.", emoji: "🛂", arabic: "صلاحية" },
+      { word: "Access", meaning: "The ability to enter or use something", example: "The teacher has access to student reports.", emoji: "🚪", arabic: "وصول" },
+      { word: "Reset", meaning: "To create a new password or return settings to default", example: "Click the link to reset your password.", emoji: "🔄", arabic: "إعادة تعيين" },
+      { word: "Error message", meaning: "Text that explains what went wrong", example: "The error message says the password is incorrect.", emoji: "⚠️", arabic: "رسالة خطأ" },
+      { word: "Confirm", meaning: "To check or prove that something is correct", example: "Please confirm your email address.", emoji: "✅", arabic: "يؤكد" },
+    ],
+    dialogue: [
+      { speaker: "User", text: "I cannot login to my account." },
+      { speaker: "Support", text: "Can you confirm the email address you used to sign up?" },
+      { speaker: "User", text: "Yes, but the error message says my password is incorrect." },
+      { speaker: "Support", text: "Please use the reset password link and check your email inbox." },
+      { speaker: "User", text: "Will I still have access to my lessons after resetting it?" },
+      { speaker: "Support", text: "Yes, resetting your password will not remove your lesson progress." },
+    ],
+    grammar: { title: "Giving Clear Support Instructions", explanation: "Use short imperative sentences for support steps: click, enter, check, confirm, try again.", examples: [
+      { sentence: "Click the reset password link.", note: "Direct instruction" },
+      { sentence: "Enter your email address carefully.", note: "Clear action" },
+      { sentence: "Check your inbox for a confirmation email.", note: "Next step" },
+      { sentence: "Try again after changing your password.", note: "Final action" },
+    ] },
+    vocabExercises: [
+      { question: "An account is:", options: ["A personal profile used to access a website", "A button color", "A server room", "A photo only"], correct: 0 },
+      { question: "Permission means:", options: ["The right to access or do something", "A wrong password", "A website image", "A footer link"], correct: 0 },
+      { question: "An error message explains:", options: ["What went wrong", "The company logo", "A price list", "A design style"], correct: 0 },
+    ],
+    conversationExercises: [
+      { question: "What problem does the user have?", options: ["Cannot login", "Cannot print", "Cannot choose a color", "Cannot open lunch"], correct: 0 },
+      { question: "What does support ask the user to confirm?", options: ["Email address", "Office address", "Button size", "Browser color"], correct: 0 },
+      { question: "What will not be removed?", options: ["Lesson progress", "The homepage", "The browser", "The logo"], correct: 0 },
+    ],
+    grammarExercises: [
+      { question: "Choose the clear instruction:", options: ["Click the reset password link.", "Password maybe click thing.", "Reset it wrong.", "You no login."], correct: 0 },
+      { question: "Complete: 'Check your inbox ___ a confirmation email.'", options: ["for", "to", "by", "with"], correct: 0 },
+      { question: "Support instructions should be:", options: ["Clear and short", "Confusing and long", "Angry", "Unrelated"], correct: 0 },
+    ],
+    examQuestions: [
+      { question: "Best support message:", options: ["Please use the reset password link and check your email inbox.", "Wrong password bad.", "No account maybe.", "Try things."], correct: 0 },
+      { question: "Access means:", options: ["The ability to enter or use something", "A style rule", "A page title", "A file size"], correct: 0 },
+    ],
+    homeworkQuestions: [
+      { question: "Confirm means:", options: ["Check or prove something is correct", "Delete everything", "Change color", "Hide a page"], correct: 0 },
+      { question: "Complete: 'Enter your email address ___.'", options: ["carefully", "careful", "care", "caring"], correct: 0 },
+    ],
+  },
+  "web-development-16": {
+    levelId: "web-development",
+    levelLabel: "Web Development English — C1",
+    lessonNumber: 16,
+    title: "C1: Incident Reports and Postmortems",
+    description: "Develop advanced English for describing production incidents, root causes, impact, timelines, and prevention plans.",
+    vocabulary: [
+      { word: "Incident", meaning: "A serious problem affecting a live system", example: "The outage was recorded as a production incident.", emoji: "🚨", arabic: "حادث تقني" },
+      { word: "Outage", meaning: "A period when a service is unavailable", example: "The outage lasted twenty minutes.", emoji: "📴", arabic: "انقطاع الخدمة" },
+      { word: "Root cause", meaning: "The main reason a problem happened", example: "The root cause was an expired certificate.", emoji: "🌱", arabic: "السبب الجذري" },
+      { word: "Impact", meaning: "The effect or damage caused by a problem", example: "The impact was limited to checkout users.", emoji: "💥", arabic: "تأثير" },
+      { word: "Mitigation", meaning: "An action that reduces damage or risk", example: "The mitigation was to route traffic to a backup service.", emoji: "🛡️", arabic: "تخفيف الضرر" },
+      { word: "Timeline", meaning: "A sequence of events in time order", example: "The timeline shows when the alert started and when service recovered.", emoji: "🕒", arabic: "جدول زمني" },
+      { word: "Prevent", meaning: "To stop something from happening again", example: "Better monitoring can prevent similar incidents.", emoji: "🧯", arabic: "يمنع" },
+      { word: "Monitoring", meaning: "Systems that watch performance and problems", example: "Monitoring alerted the team when errors increased.", emoji: "📊", arabic: "مراقبة" },
+    ],
+    dialogue: [
+      { speaker: "Engineering Manager", text: "Let’s prepare a postmortem for yesterday’s checkout outage." },
+      { speaker: "Developer", text: "The incident started at 10:05 and was resolved at 10:27." },
+      { speaker: "Engineering Manager", text: "What was the customer impact?" },
+      { speaker: "Developer", text: "Users could browse products, but they could not complete payment during that period." },
+      { speaker: "Engineering Manager", text: "Do we know the root cause?" },
+      { speaker: "Developer", text: "Yes. A deployment changed an environment variable, and monitoring did not catch it quickly enough." },
+    ],
+    grammar: { title: "Formal Past Passive", explanation: "Use past passive to describe incidents objectively: was affected, was resolved, was caused by, was detected.", examples: [
+      { sentence: "Checkout was affected for twenty-two minutes.", note: "Objective impact" },
+      { sentence: "The issue was caused by a configuration change.", note: "Root cause" },
+      { sentence: "The incident was detected by monitoring alerts.", note: "Detection" },
+      { sentence: "Service was restored after the variable was corrected.", note: "Resolution" },
+    ] },
+    vocabExercises: [
+      { question: "An outage is:", options: ["A period when a service is unavailable", "A new feature", "A design meeting", "A password field"], correct: 0 },
+      { question: "Root cause means:", options: ["The main reason a problem happened", "A backup button", "A user profile", "A visual style"], correct: 0 },
+      { question: "Monitoring is used to:", options: ["Watch performance and problems", "Write invoices", "Choose fonts", "Translate buttons only"], correct: 0 },
+    ],
+    conversationExercises: [
+      { question: "What incident happened?", options: ["Checkout outage", "Logo outage", "Printer outage", "Lunch outage"], correct: 0 },
+      { question: "How long did it last?", options: ["About twenty-two minutes", "Two days", "Five seconds", "One year"], correct: 0 },
+      { question: "What changed during deployment?", options: ["An environment variable", "The office door", "A teacher profile", "A phone number"], correct: 0 },
+    ],
+    grammarExercises: [
+      { question: "Choose the past passive sentence:", options: ["Checkout was affected for twenty-two minutes.", "Checkout affect yesterday.", "Affecting checkout was.", "Checkout will affecting."], correct: 0 },
+      { question: "Complete: 'The issue was caused ___ a configuration change.'", options: ["by", "to", "for", "with"], correct: 0 },
+      { question: "Past passive is useful because it sounds:", options: ["Objective and professional", "Angry", "Unclear", "Informal only"], correct: 0 },
+    ],
+    examQuestions: [
+      { question: "Best incident sentence:", options: ["The incident was detected by monitoring alerts and resolved after the configuration was corrected.", "Site bad yesterday.", "Payment no because thing.", "Maybe fixed."], correct: 0 },
+      { question: "Mitigation means:", options: ["An action that reduces damage or risk", "A homepage image", "A deleted account", "A font style"], correct: 0 },
+    ],
+    homeworkQuestions: [
+      { question: "A timeline shows:", options: ["Events in time order", "Only colors", "Only prices", "Random passwords"], correct: 0 },
+      { question: "Prevent means:", options: ["Stop something from happening again", "Cause a bug", "Hide a report", "Open a modal"], correct: 0 },
+    ],
+  },
+
 };
