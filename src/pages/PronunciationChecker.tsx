@@ -218,8 +218,33 @@ export default function PronunciationChecker() {
                     <p className="font-medium">"{transcript}"</p>
                   </div>
 
+                  <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                    <div className="rounded-lg bg-muted/30 p-3 text-left">
+                      <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        <Target className="h-3.5 w-3.5" /> Word accuracy
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {feedbackWords.map(({ word, matched }, index) => (
+                          <span
+                            key={`${word}-${index}`}
+                            className={`rounded-full px-2 py-1 text-xs font-medium ${matched ? "bg-primary/10 text-primary" : "bg-destructive/10 text-destructive"}`}
+                          >
+                            {word}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="rounded-lg bg-muted/30 p-3 text-left">
+                      <div className="mb-2 flex items-center gap-2 text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        <Waves className="h-3.5 w-3.5" /> Recognition confidence
+                      </div>
+                      <p className="text-2xl font-bold text-foreground">{confidence ?? "—"}{confidence !== null ? "%" : ""}</p>
+                      <p className="mt-1 text-xs text-muted-foreground">Browser speech recognition signal</p>
+                    </div>
+                  </div>
+
                   <div className="flex gap-3 justify-center mt-4">
-                    <Button variant="outline" size="sm" className="rounded-full gap-1" onClick={() => { setScore(null); setTranscript(""); }}>
+                    <Button variant="outline" size="sm" className="rounded-full gap-1" onClick={() => { setScore(null); setTranscript(""); setConfidence(null); }}>
                       <RotateCcw className="h-3.5 w-3.5" /> Try Again
                     </Button>
                     <Button size="sm" className="rounded-full" onClick={nextPhrase}>
