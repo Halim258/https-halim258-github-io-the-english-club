@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane, Video } from "lucide-react";
+import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane, Video, Code2 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import coreEnglishImg from "@/assets/courses/core-english.jpg";
@@ -156,6 +156,7 @@ export const categories: Category[] = [
       { name: "Medical English", description: "Medical terminology, patient communication, and healthcare English.", topics: ["Terminology", "Patient Care", "Reports"] },
       { name: "Engineering English", description: "Technical English for engineering contexts — reports, specifications, and collaboration.", topics: ["Technical Writing", "Specifications", "Safety"] },
       { name: "IT English", description: "English for the tech industry — documentation, meetings, and technical discussions.", topics: ["Documentation", "Agile Terms", "Tech Vocab"] },
+      { name: "Web Development English", description: "Frontend, backend, bugs, features, deployment, and stakeholder communication for learners at B1+.", topics: ["Minimum B1", "B1–C1", "Bugs", "Deployment", "Architecture"] },
     ],
   },
   {
@@ -318,6 +319,19 @@ export const categories: Category[] = [
     description: "Learn English by watching real documentaries — nature, science, history, and more — with word-by-word transcripts.",
     courses: [
       { name: "English through Documentary", description: "Watch free documentary clips, learn vocabulary word-by-word, and test comprehension.", topics: ["Nature", "Science", "History", "Technology", "Psychology"] },
+    ],
+  },
+  {
+    icon: Code2,
+    emoji: "💻",
+    title: "Web Development English",
+    slug: "web-development",
+    color: "from-cyan-500/10 to-emerald-500/5",
+    iconBg: "bg-cyan-500/15",
+    image: specializedImg,
+    description: "High-quality English for web developers covering B1, B2, and C1 communication. Minimum requirement: B1 English.",
+    courses: [
+      { name: "Web Development English", description: "Learn to discuss websites, bugs, features, code reviews, deployment, architecture, and performance in professional English.", topics: ["Minimum B1", "B1", "B2", "C1", "Frontend", "Backend"] },
     ],
   },
 ];
