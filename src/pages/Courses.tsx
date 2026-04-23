@@ -483,6 +483,19 @@ export default function Courses() {
                         </div>
                       </div>
                       <p className="text-sm leading-relaxed text-muted-foreground">{track.description}</p>
+                      <div className="mt-5 space-y-3">
+                        {track.ministryBooks.map((book) => (
+                          <div key={`${track.levelId}-${book.stage}`} className="rounded-xl border bg-muted/40 p-3">
+                            <div className="flex flex-wrap items-center gap-2">
+                              <span className="rounded-full bg-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-primary">
+                                {book.stage}
+                              </span>
+                              <span className="text-xs font-semibold text-foreground">{book.grades}</span>
+                            </div>
+                            <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{book.books}</p>
+                          </div>
+                        ))}
+                      </div>
                       <div className="mt-5 flex items-center justify-between rounded-xl bg-primary px-4 py-3 text-sm font-bold text-primary-foreground shadow-sm">
                         Open full {lessonCounts[track.levelId] || 12}-lesson course
                         <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
