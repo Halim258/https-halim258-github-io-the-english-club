@@ -286,6 +286,7 @@ export default function Courses() {
       track.audience,
       track.description,
       track.books,
+      track.ministryBooks.map((book) => `${book.stage} ${book.grades} ${book.books}`),
       track.skills,
     ])),
     [normalizedSearch]
