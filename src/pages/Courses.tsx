@@ -89,6 +89,70 @@ const egyptianSchoolTracks = [
   },
 ];
 
+const publicSchoolFeatureSets = [
+  {
+    title: "Lessons & Workbook",
+    subtitle: "Book-by-book classroom practice",
+    icon: BookMarked,
+    items: [
+      "Unit vocabulary and Arabic-supported meaning checks",
+      "Workbook grammar drills after every reading skill",
+      "Reading passages with comprehension and model answers",
+      "Paragraph, email, dialogue, and story-writing practice",
+    ],
+  },
+  {
+    title: "Exams & Revision",
+    subtitle: "Term-ready assessment practice",
+    icon: Target,
+    items: [
+      "Monthly quizzes based on ministry-style question formats",
+      "Term 1 and Term 2 revision packs",
+      "Reading, grammar, writing, and vocabulary mock exams",
+      "Model-answer correction points for full-mark responses",
+    ],
+  },
+  {
+    title: "Teacher Tools",
+    subtitle: "Classroom delivery support",
+    icon: GraduationCap,
+    items: [
+      "Weekly lesson-plan checklist for the selected stage",
+      "Homework review flow with answer-discussion prompts",
+      "Attendance, participation, and weak-skill follow-up ideas",
+      "Printable yearly reading/workbook plan PDF",
+    ],
+  },
+  {
+    title: "Student Tools",
+    subtitle: "Home study and parent follow-up",
+    icon: Brain,
+    items: [
+      "Self-study checklist for each book unit",
+      "Vocabulary notebook, spelling, and reading-log routine",
+      "Progress tracking through lesson completion",
+      "Practice downloads for revision before school exams",
+    ],
+  },
+];
+
+const publicStageCurriculum = {
+  Primary: [
+    "Connect themes: identity, school life, family, community, food, nature, and daily routines",
+    "Phonics, spelling, picture-supported reading, short writing, and workbook completion",
+    "Simple grammar: present simple, can/can't, there is/are, prepositions, and question words",
+  ],
+  Preparatory: [
+    "New Hello-style units: reading texts, dialogues, vocabulary sets, grammar presentation, and workbook drills",
+    "Skills: comprehension, sentence transformation, paragraph writing, listening tasks, and speaking functions",
+    "Exam focus: vocabulary choice, grammar accuracy, reading questions, and guided writing",
+  ],
+  Secondary: [
+    "Secondary English units: reading passages, language notes, critical vocabulary, translation-style support, and writing",
+    "Skills: inference, essay/paragraph development, summary ideas, grammar review, and exam timing",
+    "Exam focus: ministry-style comprehension, language functions, writing task planning, and model answers",
+  ],
+};
 
 function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: string }) {
   const lessonKeys = Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).sort((a, b) => {
