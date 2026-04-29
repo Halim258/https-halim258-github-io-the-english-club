@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { forwardRef, useState, useEffect, useCallback, useRef } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy, MessageCircle, Save, Loader2 } from "lucide-react";
@@ -85,9 +85,10 @@ const NavFooter = ({
 );
 
 /* ───── Audio Button ───── */
-function AudioButton({ text, speak, speaking }: { text: string; speak: (t: string) => void; speaking: boolean }) {
+const AudioButton = forwardRef<HTMLButtonElement, { text: string; speak: (t: string) => void; speaking: boolean }>(function AudioButton({ text, speak, speaking }, ref) {
   return (
     <button
+      ref={ref}
       onClick={(e) => { e.stopPropagation(); speak(text); }}
       className="flex items-center justify-center rounded-full h-9 w-9 bg-primary/10 hover:bg-primary/20 text-primary transition-colors shrink-0"
       aria-label="Listen"
@@ -95,7 +96,7 @@ function AudioButton({ text, speak, speaking }: { text: string; speak: (t: strin
       {speaking ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
     </button>
   );
-}
+});
 
 /* ───── Difficulty Badge ───── */
 function DifficultyBadge({ lessonNumber }: { lessonNumber: number }) {
