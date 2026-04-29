@@ -129,16 +129,18 @@ serve(async (req) => {
       });
     }
 
-    const response = await fetch(googleTTSUrl(text, accent), {
-      headers: {
-        "Accept": "audio/mpeg,audio/*;q=0.9,*/*;q=0.8",
-        "User-Agent": "Mozilla/5.0 (compatible; TheEnglishClub/1.0)",
-      },
+    let audio = await synthesizeEdge(text, accent).catch(async () => {
+      const response = await fetch(googleTTSUrl(text, accent), {
+        headers: {
+          "Accept": "audio/mpeg,audio/*;q=0.9,*/*;q=0.8",
+          "User-Agent": "Mozilla/5.0 (compatible; TheEnglishClub/1.0)",
+        },
+      });
+
+      if (!response.ok) throw new Error(`Voice provider returned ${response.status}`);
+      return new Uint8Array(await response.arrayBuffer());
     });
 
-    if (!response.ok) throw new Error(`Voice provider returned ${response.status}`);
-
-    const audio = await response.arrayBuffer();
     if (audio.byteLength < 100) throw new Error("Empty voice response");
 
     return new Response(audio, {
