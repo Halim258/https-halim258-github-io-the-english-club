@@ -160,14 +160,14 @@ function getDailyPostIndex() {
 function FeatureScreenshot({ post }: { post: HelpPost }) {
   const Icon = post.icon;
   return (
-    <div className="overflow-hidden rounded-lg border bg-card shadow-elevated">
-      <div className="flex h-9 items-center gap-2 border-b bg-muted/60 px-4">
+    <div className="overflow-hidden rounded-lg border bg-card shadow-elevated min-w-0">
+      <div className="flex h-9 items-center gap-2 border-b bg-muted/60 px-3 sm:px-4">
         <span className="h-2.5 w-2.5 rounded-full bg-primary/70" />
         <span className="h-2.5 w-2.5 rounded-full bg-accent/80" />
         <span className="h-2.5 w-2.5 rounded-full bg-success/80" />
-        <span className="ml-2 text-xs text-muted-foreground">theenglishclub.app{post.route}</span>
+        <span className="ml-2 truncate text-xs text-muted-foreground">theenglishclub.app{post.route}</span>
       </div>
-      <div className="grid gap-4 p-5 md:grid-cols-[0.9fr_1.1fr]">
+      <div className="grid gap-4 p-4 sm:p-5 md:grid-cols-[0.9fr_1.1fr]">
         <div className="rounded-lg border bg-background p-4">
           <div className="mb-5 flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
