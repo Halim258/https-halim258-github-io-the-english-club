@@ -11,7 +11,7 @@ async function fetchNaturalVoice(text: string, accent: Accent): Promise<string> 
   });
 
   if (error) throw error;
-  const blob = data instanceof Blob ? data : new Blob([data], { type: "audio/mpeg" });
+  const blob = data instanceof Blob ? data.slice(0, data.size, "audio/mpeg") : new Blob([data], { type: "audio/mpeg" });
   if (blob.size < 100) throw new Error("Empty natural voice response");
   return URL.createObjectURL(blob);
 }
