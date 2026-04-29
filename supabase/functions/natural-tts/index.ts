@@ -143,7 +143,9 @@ serve(async (req) => {
 
     if (audio.byteLength < 100) throw new Error("Empty voice response");
 
-    return new Response(audio, {
+    const audioBody = audio.buffer.slice(audio.byteOffset, audio.byteOffset + audio.byteLength) as ArrayBuffer;
+
+    return new Response(audioBody, {
       headers: {
         ...corsHeaders,
         "Content-Type": "application/octet-stream",
