@@ -1,15 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 export type Accent = "us" | "uk";
 
 const ACCENT_KEY = "tts-accent";
 
-// Google Translate TTS endpoint — free, no API key, natural human-like voices.
-// "tl" controls accent: en (US) vs en-gb (UK).
-function googleTTSUrl(text: string, accent: Accent): string {
-  const tl = accent === "uk" ? "en-gb" : "en";
-  const q = encodeURIComponent(text);
-  return `https://translate.google.com/translate_tts?ie=UTF-8&q=${q}&tl=${tl}&client=tw-ob`;
+async function fetchNaturalVoice(text: string, accent: Accent): Promise<string> {
+  const { data, error } = await supabase.functions.invoke("natural-tts", {
+    body: { text, accent },
+  });
+
+  if (error) throw error;
+  const blob = data instanceof Blob ? data : new Blob([data], { type: "audio/mpeg" });
+  if (blob.size < 100) throw new Error("Empty natural voice response");
+  return URL.createObjectURL(blob);
 }
 
 // Google's endpoint limits each request to ~200 chars.
@@ -157,13 +161,15 @@ export function useTTS() {
       try {
         for (const chunk of chunks) {
           if (myToken !== cancelTokenRef.current) return;
-          const url = googleTTSUrl(chunk, useAccent);
+          const url = await fetchNaturalVoice(chunk, useAccent);
           const audio = new Audio(url);
-          audio.crossOrigin = "anonymous";
           audio.playbackRate = rate;
           audioRef.current = audio;
           await new Promise<void>((resolve, reject) => {
-            audio.onended = () => resolve();
+            audio.onended = () => {
+              URL.revokeObjectURL(url);
+              resolve();
+            };
             audio.onerror = () => reject(new Error("audio error"));
             audio.play().catch(reject);
           });
