@@ -245,31 +245,33 @@ export default function PlatformBlog() {
       </section>
 
       <section className="container mx-auto grid gap-6 px-4 py-8 lg:grid-cols-[280px_1fr]">
-        <aside className="space-y-2">
-          {dailyPosts.map((item, index) => {
-            const Icon = item.icon;
-            const active = item.id === post.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setSelectedId(item.id)}
-                className={`flex w-full items-center gap-3 rounded-lg border px-3 py-3 text-left transition-colors ${active ? "border-primary bg-primary/10 text-primary" : "bg-card text-muted-foreground hover:bg-muted/60 hover:text-foreground"}`}
-              >
-                <Icon className="h-4 w-4 shrink-0" />
-                <span className="min-w-0 flex-1">
-                  <span className="block text-xs font-semibold uppercase tracking-widest">Day {index + 1}</span>
-                  <span className="block truncate text-sm font-medium">{item.section}</span>
-                </span>
-              </button>
-            );
-          })}
+        <aside className="lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto -mx-4 px-4 lg:mx-0 lg:px-0">
+          <div className="flex gap-2 overflow-x-auto scrollbar-none pb-2 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0">
+            {dailyPosts.map((item, index) => {
+              const Icon = item.icon;
+              const active = item.id === post.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setSelectedId(item.id)}
+                  className={`flex shrink-0 lg:w-full items-center gap-2 lg:gap-3 rounded-lg border px-3 py-2.5 lg:py-3 text-left transition-colors ${active ? "border-primary bg-primary/10 text-primary" : "bg-card text-muted-foreground hover:bg-muted/60 hover:text-foreground"}`}
+                >
+                  <Icon className="h-4 w-4 shrink-0" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[10px] lg:text-xs font-semibold uppercase tracking-widest">Day {index + 1}</span>
+                    <span className="block whitespace-nowrap lg:whitespace-normal lg:truncate text-sm font-medium">{item.section}</span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
         </aside>
 
-        <article className="rounded-lg border bg-card p-5 shadow-soft md:p-7">
+        <article className="rounded-lg border bg-card p-4 sm:p-5 shadow-soft md:p-7 min-w-0">
           <div className="mb-5 flex flex-wrap items-start justify-between gap-4">
-            <div>
+            <div className="min-w-0">
               <p className="text-sm font-semibold uppercase tracking-widest text-primary">{post.section}</p>
-              <h2 className="mt-2 font-display text-2xl font-bold md:text-3xl">{post.title}</h2>
+              <h2 className="mt-2 font-display text-xl sm:text-2xl font-bold md:text-3xl break-words">{post.title}</h2>
             </div>
             <Button variant="outline" onClick={copyFacebookPost} className="gap-2">
               <Clipboard className="h-4 w-4" /> Copy
@@ -289,7 +291,7 @@ export default function PlatformBlog() {
 
           <div className="mt-6 rounded-lg border bg-background p-4">
             <h3 className="mb-3 font-semibold">Where to find it</h3>
-            <div className="mb-4 rounded-md bg-muted px-3 py-2 font-mono text-sm text-muted-foreground">{post.route}</div>
+            <div className="mb-4 rounded-md bg-muted px-3 py-2 font-mono text-xs sm:text-sm text-muted-foreground break-all">{post.route}</div>
             <div className="grid gap-2 md:grid-cols-2">
               {post.steps.map((step, index) => (
                 <div key={step} className="flex items-start gap-2 rounded-md border bg-card px-3 py-2 text-sm">
