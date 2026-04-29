@@ -7,6 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import StudyReminder from "@/components/StudyReminder";
 import NotificationBell from "@/components/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
+import { useTTS } from "@/hooks/useTTS";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.jpg";
 
@@ -57,6 +58,7 @@ export default function Navbar() {
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
   const { user, loading: authLoading } = useAuth();
+  const { accent, setAccent, speak } = useTTS();
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -219,6 +221,19 @@ export default function Navbar() {
           </button>
           <StudyReminder />
           {user && <NotificationBell />}
+          <button
+            onClick={() => {
+              const next = accent === "us" ? "uk" : "us";
+              setAccent(next);
+              speak(next === "uk" ? "British accent selected" : "American accent selected", undefined, 0.95, next);
+            }}
+            className="flex items-center gap-1 rounded-full border bg-muted/50 px-2.5 py-1.5 text-[11px] font-semibold text-foreground hover:border-primary/30 hover:text-primary transition-colors"
+            aria-label="Toggle voice accent"
+            title={accent === "us" ? "Voice: American — click for British" : "Voice: British — click for American"}
+          >
+            <span>{accent === "us" ? "🇺🇸" : "🇬🇧"}</span>
+            <span className="uppercase">{accent === "us" ? "US" : "UK"}</span>
+          </button>
           <motion.button
             onClick={() => setDark(!dark)}
             className="rounded-full p-2 text-foreground hover:text-primary hover:bg-muted/50 transition-colors"
