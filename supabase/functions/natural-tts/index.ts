@@ -54,7 +54,7 @@ serve(async (req) => {
     return new Response(audio, {
       headers: {
         ...corsHeaders,
-        "Content-Type": "audio/mpeg",
+        "Content-Type": "application/octet-stream",
         "Cache-Control": "public, max-age=604800",
       },
     });
