@@ -1,0 +1,3 @@
+ALTER TABLE public.library_history
+  ADD COLUMN IF NOT EXISTS completed BOOLEAN NOT NULL DEFAULT false,
+  ADD COLUMN IF NOT EXISTS completed_at TIMESTAMPTZ;
