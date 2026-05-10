@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Library from "./pages/Library";
 
 // Lazy-loaded pages for better performance
 const Courses = lazy(() => import("./pages/Courses"));
@@ -50,8 +51,6 @@ const BookmarksPage = lazy(() => import("./pages/BookmarksPage"));
 const GrammarReference = lazy(() => import("./pages/GrammarReference"));
 const IdiomsPhrasalVerbs = lazy(() => import("./pages/IdiomsPhrasalVerbs"));
 const PlatformBlog = lazy(() => import("./pages/PlatformBlog"));
-const Library = lazy(() => import("./pages/Library"));
-
 const queryClient = new QueryClient();
 
 function PageLoader() {

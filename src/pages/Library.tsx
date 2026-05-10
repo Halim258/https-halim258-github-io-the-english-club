@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, Volume2, ChevronLeft, Star, Clock, Trash2, Play, Pause, SkipBack, SkipForward, X, AlertTriangle, RefreshCw, ListMusic, Check } from "lucide-react";
@@ -60,11 +61,14 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
 
   useEffect(() => { localStorage.setItem("reader.fontSize", String(fontSize)); }, [fontSize]);
 
-  // Strip Jina's leading metadata block (Title:/URL Source:/Markdown Content:)
-  const cleaned = text.replace(/^Title:.*\n(?:URL Source:.*\n)?(?:Published Time:.*\n)?(?:Markdown Content:\s*\n)?/i, "").trim();
+  // Strip Jina's leading metadata block and empty markdown image/link titles.
+  const cleaned = text
+    .replace(/^Title:.*\n(?:URL Source:.*\n)?(?:Published Time:.*\n)?(?:Markdown Content:\s*\n)?/i, "")
+    .replace(/^#+\s*\[\]\([^)]*\)\s*/m, "")
+    .trim();
 
-  return (
-    <div className="fixed inset-0 z-[100] bg-background flex flex-col">
+  return createPortal(
+    <div className="fixed inset-0 z-[9999] bg-background flex flex-col">
       <div className="flex items-center gap-2 border-b px-3 py-2 bg-card sticky top-0">
         <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full">
           <ChevronLeft className="h-4 w-4 mr-1" /> Back
@@ -117,7 +121,8 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
           )}
         </article>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
