@@ -645,6 +645,7 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
 function NewsTab({ collections }: { collections: Coll }) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
+  const [reading, setReading] = useState<{ url: string; title: string } | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -676,7 +677,11 @@ function NewsTab({ collections }: { collections: Coll }) {
           };
           return (
             <motion.div key={a.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="relative">
-              <a href={a.url} target="_blank" rel="noreferrer" onClick={() => collections.recordView(item)} className="block">
+              <button
+                type="button"
+                onClick={() => { collections.recordView(item); setReading({ url: a.url, title: a.title }); }}
+                className="block text-left w-full"
+              >
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full">
                   {a.image_url && <img src={a.image_url} alt={a.title} loading="lazy" className="w-full h-40 object-cover bg-muted" />}
                   <div className="p-4">
@@ -688,7 +693,7 @@ function NewsTab({ collections }: { collections: Coll }) {
                     <p className="text-xs text-muted-foreground line-clamp-3">{a.summary}</p>
                   </div>
                 </Card>
-              </a>
+              </button>
               <div className="absolute top-2 right-2 bg-background/85 backdrop-blur rounded-full">
                 <FavBtn item={item} collections={collections} />
               </div>
@@ -697,6 +702,9 @@ function NewsTab({ collections }: { collections: Coll }) {
         })}
       </div>
       <p className="text-xs text-muted-foreground text-center mt-6">News feed via Spaceflight News API — free & open.</p>
+      {reading && (
+        <InAppReader url={reading.url} title={reading.title} onClose={() => setReading(null)} />
+      )}
     </div>
   );
 }
