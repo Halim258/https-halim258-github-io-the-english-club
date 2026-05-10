@@ -28,7 +28,7 @@ const fmtTime = (s: number) => {
   return `${m}:${sec}`;
 };
 
-type PlayerTrack = { bookId: string; bookTitle: string; author: string; sections: Section[]; index: number };
+type PlayerTrack = { bookId: string; bookTitle: string; author: string; sections: Section[]; index: number; resumeAt?: number; baseMetadata?: Record<string, any> };
 
 export default function Library() {
   const [tab, setTab] = useState("books");
