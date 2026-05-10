@@ -30,51 +30,97 @@ const fmtTime = (s: number) => {
 };
 
 /**
- * In-app reader: opens external book/article URLs inside our site
- * via an iframe overlay. Provides a fallback "Open in new tab" button
- * for sources that refuse to be framed (X-Frame-Options / CSP).
+ * In-app reader: fetches the source content (book HTML or article text)
+ * and renders it inside our site with our own styling — no external pages,
+ * no iframes. Uses Jina's free reader proxy to bypass CORS.
  */
-function InAppReader({ url, title, onClose }: { url: string; title: string; onClose: () => void }) {
-  const [blocked, setBlocked] = useState(false);
+function InAppReader({ url, title, subtitle, onClose }: { url: string; title: string; subtitle?: string; onClose: () => void }) {
+  const [text, setText] = useState<string>("");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [fontSize, setFontSize] = useState<number>(() => {
+    const v = Number(localStorage.getItem("reader.fontSize"));
+    return v >= 14 && v <= 28 ? v : 18;
+  });
+
   useEffect(() => {
-    const t = setTimeout(() => {
-      // Heuristic: many framed pages load almost instantly. If still no load
-      // after 6s, surface the "open in new tab" fallback.
-      setBlocked((b) => b);
-    }, 6000);
+    let cancelled = false;
+    setLoading(true);
+    setError(null);
+    setText("");
+    // r.jina.ai returns clean readable markdown/text for any URL — free, no key.
+    const proxy = `https://r.jina.ai/${url}`;
+    fetch(proxy, { headers: { Accept: "text/plain" } })
+      .then((r) => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.text(); })
+      .then((t) => { if (!cancelled) { setText(t); setLoading(false); } })
+      .catch((e) => { if (!cancelled) { setError(e.message || "Could not load content"); setLoading(false); } });
     document.body.style.overflow = "hidden";
-    return () => { clearTimeout(t); document.body.style.overflow = ""; };
+    return () => { cancelled = true; document.body.style.overflow = ""; };
   }, [url]);
+
+  useEffect(() => { localStorage.setItem("reader.fontSize", String(fontSize)); }, [fontSize]);
+
+  // Strip Jina's leading metadata block (Title:/URL Source:/Markdown Content:)
+  const cleaned = text.replace(/^Title:.*\n(?:URL Source:.*\n)?(?:Published Time:.*\n)?(?:Markdown Content:\s*\n)?/i, "").trim();
+
   return (
     <div className="fixed inset-0 z-[100] bg-background flex flex-col">
-      <div className="flex items-center gap-2 border-b px-3 py-2 bg-card">
+      <div className="flex items-center gap-2 border-b px-3 py-2 bg-card sticky top-0">
         <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full">
           <ChevronLeft className="h-4 w-4 mr-1" /> Back
         </Button>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold line-clamp-1">{title}</p>
+          {subtitle && <p className="text-[11px] text-muted-foreground line-clamp-1">{subtitle}</p>}
         </div>
-        <Button asChild variant="outline" size="sm" className="rounded-full">
-          <a href={url} target="_blank" rel="noreferrer">
-            <ExternalLink className="h-3.5 w-3.5 mr-1" /> New tab
-          </a>
+        <div className="hidden sm:flex items-center gap-1 mr-1">
+          <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={() => setFontSize((s) => Math.max(14, s - 2))} aria-label="Smaller text">
+            <span className="text-xs font-bold">A−</span>
+          </Button>
+          <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={() => setFontSize((s) => Math.min(28, s + 2))} aria-label="Larger text">
+            <span className="text-sm font-bold">A+</span>
+          </Button>
+        </div>
+        <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-full" title="Open original">
+          <a href={url} target="_blank" rel="noreferrer"><ExternalLink className="h-4 w-4" /></a>
         </Button>
-        <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full">
+        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={onClose}>
           <X className="h-4 w-4" />
         </Button>
       </div>
-      <iframe
-        src={url}
-        title={title}
-        className="flex-1 w-full bg-white"
-        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
-        onError={() => setBlocked(true)}
-      />
-      {blocked && (
-        <div className="absolute inset-x-0 bottom-4 mx-auto w-fit rounded-full bg-card border px-3 py-1.5 text-xs text-muted-foreground shadow">
-          Trouble loading? <a href={url} target="_blank" rel="noreferrer" className="text-primary font-medium underline ml-1">Open in new tab</a>
-        </div>
-      )}
+      <div className="flex-1 overflow-y-auto">
+        <article className="container mx-auto max-w-3xl px-4 py-6 md:py-10">
+          <header className="mb-6 pb-4 border-b">
+            <h1 className="text-2xl md:text-3xl font-bold font-display leading-tight">{title}</h1>
+            {subtitle && <p className="text-sm text-muted-foreground mt-1.5">{subtitle}</p>}
+          </header>
+          {loading && (
+            <div className="space-y-3">
+              <div className="h-4 bg-muted/50 rounded w-3/4 animate-pulse" />
+              <div className="h-4 bg-muted/50 rounded w-full animate-pulse" />
+              <div className="h-4 bg-muted/50 rounded w-5/6 animate-pulse" />
+              <div className="h-4 bg-muted/50 rounded w-2/3 animate-pulse" />
+              <div className="h-4 bg-muted/50 rounded w-full animate-pulse" />
+              <p className="text-center text-xs text-muted-foreground pt-4">Loading content…</p>
+            </div>
+          )}
+          {error && !loading && (
+            <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm">
+              <p className="font-semibold text-destructive mb-1">Couldn't load this in-app.</p>
+              <p className="text-muted-foreground mb-3">The source may be temporarily unavailable.</p>
+              <a href={url} target="_blank" rel="noreferrer" className="text-primary font-medium underline">Open the original page</a>
+            </div>
+          )}
+          {!loading && !error && (
+            <div
+              className="leading-relaxed whitespace-pre-wrap font-serif text-foreground/90"
+              style={{ fontSize: `${fontSize}px`, lineHeight: 1.75 }}
+            >
+              {cleaned}
+            </div>
+          )}
+        </article>
+      </div>
     </div>
   );
 }
@@ -147,7 +193,7 @@ function BooksTab({ collections }: { collections: Coll }) {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
-  const [reading, setReading] = useState<{ url: string; title: string } | null>(null);
+  const [reading, setReading] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -205,7 +251,7 @@ function BooksTab({ collections }: { collections: Coll }) {
                     <Button asChild size="sm" variant="outline" className="rounded-full mt-auto w-full">
                       <button
                         type="button"
-                        onClick={() => { collections.recordView(item); setReading({ url: read, title: b.title }); }}
+                        onClick={() => { collections.recordView(item); setReading({ url: read, title: b.title, subtitle: b.authors.map((a) => a.name).join(", ") || "Unknown" }); }}
                       >
                         Read <BookOpen className="h-3 w-3 ml-1" />
                       </button>
@@ -219,7 +265,7 @@ function BooksTab({ collections }: { collections: Coll }) {
       )}
       <p className="text-xs text-muted-foreground text-center mt-6">Powered by Project Gutenberg via Gutendex — public-domain books.</p>
       {reading && (
-        <InAppReader url={reading.url} title={reading.title} onClose={() => setReading(null)} />
+        <InAppReader url={reading.url} title={reading.title} subtitle={reading.subtitle} onClose={() => setReading(null)} />
       )}
     </div>
   );
@@ -645,7 +691,7 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
 function NewsTab({ collections }: { collections: Coll }) {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
-  const [reading, setReading] = useState<{ url: string; title: string } | null>(null);
+  const [reading, setReading] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -679,7 +725,7 @@ function NewsTab({ collections }: { collections: Coll }) {
             <motion.div key={a.id} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="relative">
               <button
                 type="button"
-                onClick={() => { collections.recordView(item); setReading({ url: a.url, title: a.title }); }}
+                onClick={() => { collections.recordView(item); setReading({ url: a.url, title: a.title, subtitle: a.news_site }); }}
                 className="block text-left w-full"
               >
                 <Card className="overflow-hidden hover:shadow-lg transition-shadow h-full">
@@ -703,7 +749,7 @@ function NewsTab({ collections }: { collections: Coll }) {
       </div>
       <p className="text-xs text-muted-foreground text-center mt-6">News feed via Spaceflight News API — free & open.</p>
       {reading && (
-        <InAppReader url={reading.url} title={reading.title} onClose={() => setReading(null)} />
+        <InAppReader url={reading.url} title={reading.title} subtitle={reading.subtitle} onClose={() => setReading(null)} />
       )}
     </div>
   );
