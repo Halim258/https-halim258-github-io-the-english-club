@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { useTTS } from "@/hooks/useTTS";
 import { useLibraryCollections, type LibItem, type LibRow } from "@/hooks/useLibraryCollections";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 
 type Book = { id: number; title: string; authors: { name: string }[]; formats: Record<string, string>; download_count: number };
 type Section = { id: string; section_number: string; title: string; listen_url: string; playtime: string };
@@ -265,6 +267,7 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
 
 function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: PlayerTrack | null) => void }) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const { user } = useAuth();
   const [playing, setPlaying] = useState(true);
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -303,7 +306,21 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
         ref={audioRef}
         onTimeUpdate={(e) => setCurrent((e.target as HTMLAudioElement).currentTime)}
         onLoadedMetadata={(e) => { setDuration((e.target as HTMLAudioElement).duration); setLoading(false); }}
-        onEnded={() => { if (hasNext) next(); else setPlaying(false); }}
+        onEnded={async () => {
+          if (hasNext) {
+            next();
+          } else {
+            setPlaying(false);
+            if (user) {
+              await supabase
+                .from("library_history")
+                .update({ completed: true, completed_at: new Date().toISOString() })
+                .eq("user_id", user.id)
+                .eq("item_type", "audiobook")
+                .eq("item_key", track.bookId);
+            }
+          }
+        }}
         onWaiting={() => setLoading(true)}
         onPlaying={() => setLoading(false)}
         preload="metadata"
