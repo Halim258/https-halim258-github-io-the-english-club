@@ -1,27 +1,38 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, ExternalLink, Volume2, ChevronLeft, Star, Clock, Trash2 } from "lucide-react";
+import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, ExternalLink, Volume2, ChevronLeft, Star, Clock, Trash2, Play, Pause, SkipBack, SkipForward, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Slider } from "@/components/ui/slider";
 import { useTTS } from "@/hooks/useTTS";
 import { useLibraryCollections, type LibItem, type LibRow } from "@/hooks/useLibraryCollections";
 
 type Book = { id: number; title: string; authors: { name: string }[]; formats: Record<string, string>; download_count: number };
-type Audiobook = { id: string; title: string; description: string; authors: { first_name: string; last_name: string }[]; url_librivox: string; url_zip_file: string; totaltime: string; language: string };
+type Section = { id: string; section_number: string; title: string; listen_url: string; playtime: string };
+type Audiobook = { id: string; title: string; description: string; authors: { first_name: string; last_name: string }[]; url_librivox: string; url_zip_file: string; totaltime: string; language: string; sections?: Section[] };
 type Article = { id: number; title: string; url: string; image_url: string; news_site: string; summary: string; published_at: string };
 type DictEntry = { word: string; phonetic?: string; phonetics: { text?: string; audio?: string }[]; meanings: { partOfSpeech: string; definitions: { definition: string; example?: string }[]; synonyms: string[] }[] };
 
 const stripHtml = (s = "") => s.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+const fmtTime = (s: number) => {
+  if (!isFinite(s) || s < 0) return "0:00";
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60).toString().padStart(2, "0");
+  return `${m}:${sec}`;
+};
+
+type PlayerTrack = { bookId: string; bookTitle: string; author: string; sections: Section[]; index: number };
 
 export default function Library() {
   const [tab, setTab] = useState("books");
   const collections = useLibraryCollections();
+  const [track, setTrack] = useState<PlayerTrack | null>(null);
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pb-32">
       <section className="bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50 dark:from-amber-950/20 dark:via-background dark:to-rose-950/20 py-8">
         <div className="container mx-auto px-4">
           <Link to="/" className="mb-3 inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
@@ -49,13 +60,15 @@ export default function Library() {
           </TabsList>
 
           <TabsContent value="books"><BooksTab collections={collections} /></TabsContent>
-          <TabsContent value="audio"><AudiobooksTab collections={collections} /></TabsContent>
+          <TabsContent value="audio"><AudiobooksTab collections={collections} onPlay={setTrack} currentBookId={track?.bookId} /></TabsContent>
           <TabsContent value="news"><NewsTab collections={collections} /></TabsContent>
           <TabsContent value="dict"><DictionaryTab collections={collections} /></TabsContent>
           <TabsContent value="favs"><CollectionTab rows={collections.favorites} loading={collections.loading} emptyText="No favorites yet. Tap the ⭐ on any item to save it here." onRemove={(r) => collections.toggleFavorite(r)} /></TabsContent>
           <TabsContent value="hist"><CollectionTab rows={collections.history} loading={collections.loading} emptyText="Your recently opened items will appear here." onClear={collections.clearHistory} /></TabsContent>
         </Tabs>
       </div>
+
+      {track && <AudioPlayer track={track} setTrack={setTrack} />}
     </div>
   );
 }
@@ -149,7 +162,7 @@ function BooksTab({ collections }: { collections: Coll }) {
   );
 }
 
-function AudiobooksTab({ collections }: { collections: Coll }) {
+function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Coll; onPlay: (t: PlayerTrack) => void; currentBookId?: string }) {
   const [items, setItems] = useState<Audiobook[]>([]);
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
@@ -200,8 +213,11 @@ function AudiobooksTab({ collections }: { collections: Coll }) {
               url: b.url_librivox,
               metadata: { totaltime: b.totaltime, language: b.language },
             };
+            const author = (b.authors || []).map((a) => `${a.first_name} ${a.last_name}`).join(", ") || "Various";
+            const sections = b.sections || [];
+            const isPlaying = currentBookId === String(b.id);
             return (
-            <Card key={b.id} className="p-4 hover:shadow-lg transition-shadow">
+            <Card key={b.id} className={`p-4 hover:shadow-lg transition-shadow ${isPlaying ? "ring-2 ring-primary" : ""}`}>
               <div className="flex items-start gap-3 mb-2">
                 <div className="h-12 w-12 rounded-lg bg-gradient-to-br from-orange-400 to-rose-500 flex items-center justify-center shrink-0">
                   <Headphones className="h-6 w-6 text-white" />
@@ -209,7 +225,7 @@ function AudiobooksTab({ collections }: { collections: Coll }) {
                 <div className="flex-1 min-w-0">
                   <h3 className="font-semibold text-sm line-clamp-2">{b.title}</h3>
                   <p className="text-xs text-muted-foreground line-clamp-1">
-                    {(b.authors || []).map((a) => `${a.first_name} ${a.last_name}`).join(", ") || "Various"}
+                    {author}
                   </p>
                 </div>
                 <FavBtn item={item} collections={collections} />
@@ -218,10 +234,24 @@ function AudiobooksTab({ collections }: { collections: Coll }) {
               <div className="flex items-center gap-2 flex-wrap">
                 <Badge variant="secondary" className="text-[10px]">⏱ {b.totaltime}</Badge>
                 <Badge variant="outline" className="text-[10px]">{b.language}</Badge>
+                {sections.length > 0 && <Badge variant="outline" className="text-[10px]">{sections.length} chapters</Badge>}
                 <div className="flex-1" />
-                <Button asChild size="sm" variant="outline" className="rounded-full">
-                  <a href={b.url_librivox} target="_blank" rel="noreferrer" onClick={() => collections.recordView(item)}>Listen <ExternalLink className="h-3 w-3 ml-1" /></a>
-                </Button>
+                {sections.length > 0 ? (
+                  <Button
+                    size="sm"
+                    className="rounded-full"
+                    onClick={() => {
+                      collections.recordView(item);
+                      onPlay({ bookId: String(b.id), bookTitle: b.title, author, sections, index: 0 });
+                    }}
+                  >
+                    <Play className="h-3.5 w-3.5 mr-1" /> {isPlaying ? "Playing" : "Play"}
+                  </Button>
+                ) : (
+                  <Button asChild size="sm" variant="outline" className="rounded-full">
+                    <a href={b.url_librivox} target="_blank" rel="noreferrer" onClick={() => collections.recordView(item)}>Open <ExternalLink className="h-3 w-3 ml-1" /></a>
+                  </Button>
+                )}
               </div>
             </Card>
           ); })}
@@ -229,6 +259,94 @@ function AudiobooksTab({ collections }: { collections: Coll }) {
         </div>
       )}
       <p className="text-xs text-muted-foreground text-center mt-6">Powered by LibriVox — free public-domain audiobooks.</p>
+    </div>
+  );
+}
+
+function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: PlayerTrack | null) => void }) {
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const [playing, setPlaying] = useState(true);
+  const [current, setCurrent] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const section = track.sections[track.index];
+  const hasPrev = track.index > 0;
+  const hasNext = track.index < track.sections.length - 1;
+
+  useEffect(() => {
+    const a = audioRef.current;
+    if (!a) return;
+    setLoading(true);
+    setCurrent(0);
+    a.src = section.listen_url;
+    a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+  }, [section.listen_url]);
+
+  const toggle = () => {
+    const a = audioRef.current;
+    if (!a) return;
+    if (a.paused) { a.play(); setPlaying(true); }
+    else { a.pause(); setPlaying(false); }
+  };
+  const seek = (v: number) => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.currentTime = v;
+    setCurrent(v);
+  };
+  const next = () => hasNext && setTrack({ ...track, index: track.index + 1 });
+  const prev = () => hasPrev && setTrack({ ...track, index: track.index - 1 });
+
+  return (
+    <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur-md shadow-2xl md:bottom-0 pb-[env(safe-area-inset-bottom)]">
+      <audio
+        ref={audioRef}
+        onTimeUpdate={(e) => setCurrent((e.target as HTMLAudioElement).currentTime)}
+        onLoadedMetadata={(e) => { setDuration((e.target as HTMLAudioElement).duration); setLoading(false); }}
+        onEnded={() => { if (hasNext) next(); else setPlaying(false); }}
+        onWaiting={() => setLoading(true)}
+        onPlaying={() => setLoading(false)}
+        preload="metadata"
+      />
+      <div className="container mx-auto px-3 py-2.5 max-w-5xl">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-orange-400 to-rose-500 flex items-center justify-center shrink-0">
+            <Headphones className="h-5 w-5 text-white" />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-semibold line-clamp-1">{track.bookTitle}</p>
+            <p className="text-[10px] text-muted-foreground line-clamp-1">
+              Ch {track.index + 1}/{track.sections.length} · {stripHtml(section.title)}
+            </p>
+          </div>
+          <div className="flex items-center gap-1">
+            <Button onClick={prev} disabled={!hasPrev} size="icon" variant="ghost" className="h-9 w-9 rounded-full" aria-label="Previous chapter">
+              <SkipBack className="h-4 w-4" />
+            </Button>
+            <Button onClick={toggle} size="icon" className="h-10 w-10 rounded-full" aria-label={playing ? "Pause" : "Play"}>
+              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : playing ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 ml-0.5" />}
+            </Button>
+            <Button onClick={next} disabled={!hasNext} size="icon" variant="ghost" className="h-9 w-9 rounded-full" aria-label="Next chapter">
+              <SkipForward className="h-4 w-4" />
+            </Button>
+            <Button onClick={() => setTrack(null)} size="icon" variant="ghost" className="h-9 w-9 rounded-full text-muted-foreground" aria-label="Close player">
+              <X className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 mt-1.5">
+          <span className="text-[10px] text-muted-foreground tabular-nums w-10 text-right">{fmtTime(current)}</span>
+          <Slider
+            value={[current]}
+            min={0}
+            max={duration || 1}
+            step={1}
+            onValueChange={(v) => seek(v[0])}
+            className="flex-1"
+          />
+          <span className="text-[10px] text-muted-foreground tabular-nums w-10">{fmtTime(duration)}</span>
+        </div>
+      </div>
     </div>
   );
 }
