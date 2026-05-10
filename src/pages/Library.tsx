@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, ExternalLink, Volume2, ChevronLeft, Star, Clock, Trash2, Play, Pause, SkipBack, SkipForward, X } from "lucide-react";
+import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, ExternalLink, Volume2, ChevronLeft, Star, Clock, Trash2, Play, Pause, SkipBack, SkipForward, X, AlertTriangle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -272,6 +272,11 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [retryAttempt, setRetryAttempt] = useState(0);
+  const [retryNonce, setRetryNonce] = useState(0);
+  const retryTimerRef = useRef<number | null>(null);
+  const MAX_AUTO_RETRIES = 3;
   const SPEEDS = [0.75, 1, 1.25, 1.5] as const;
   const [rate, setRate] = useState<number>(() => {
     const saved = parseFloat(localStorage.getItem("librivox:rate") || "1");
@@ -285,12 +290,58 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
     const a = audioRef.current;
     if (!a) return;
     setLoading(true);
+    setError(null);
     setCurrent(0);
     a.src = section.listen_url;
     a.playbackRate = rate;
     a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    return () => {
+      if (retryTimerRef.current) {
+        window.clearTimeout(retryTimerRef.current);
+        retryTimerRef.current = null;
+      }
+    };
   // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section.listen_url, retryNonce]);
+
+  // Reset retry counter when chapter changes
+  useEffect(() => {
+    setRetryAttempt(0);
   }, [section.listen_url]);
+
+  const scheduleAutoRetry = () => {
+    if (retryTimerRef.current) window.clearTimeout(retryTimerRef.current);
+    const attempt = retryAttempt + 1;
+    setRetryAttempt(attempt);
+    if (attempt > MAX_AUTO_RETRIES) return;
+    const delay = Math.min(8000, 1000 * 2 ** (attempt - 1));
+    retryTimerRef.current = window.setTimeout(() => {
+      setRetryNonce((n) => n + 1);
+    }, delay);
+  };
+
+  const handleError = () => {
+    setLoading(false);
+    setPlaying(false);
+    const offline = typeof navigator !== "undefined" && navigator.onLine === false;
+    setError(
+      offline
+        ? "You appear to be offline. Check your connection and try again."
+        : "We couldn't load this audio chapter. The stream may be temporarily unavailable."
+    );
+    scheduleAutoRetry();
+  };
+
+  const manualRetry = () => {
+    if (retryTimerRef.current) {
+      window.clearTimeout(retryTimerRef.current);
+      retryTimerRef.current = null;
+    }
+    setRetryAttempt(0);
+    setError(null);
+    setLoading(true);
+    setRetryNonce((n) => n + 1);
+  };
 
   // Apply rate changes to active audio element + persist preference
   useEffect(() => {
@@ -301,6 +352,7 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
   const toggle = () => {
     const a = audioRef.current;
     if (!a) return;
+    if (error) { manualRetry(); return; }
     if (a.paused) { a.play(); setPlaying(true); }
     else { a.pause(); setPlaying(false); }
   };
@@ -318,7 +370,9 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
       <audio
         ref={audioRef}
         onTimeUpdate={(e) => setCurrent((e.target as HTMLAudioElement).currentTime)}
-        onLoadedMetadata={(e) => { setDuration((e.target as HTMLAudioElement).duration); setLoading(false); }}
+        onLoadedMetadata={(e) => { setDuration((e.target as HTMLAudioElement).duration); setLoading(false); setError(null); setRetryAttempt(0); }}
+        onError={handleError}
+        onStalled={() => setLoading(true)}
         onEnded={async () => {
           if (hasNext) {
             next();
@@ -335,10 +389,29 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
           }
         }}
         onWaiting={() => setLoading(true)}
-        onPlaying={() => setLoading(false)}
+        onPlaying={() => { setLoading(false); setError(null); }}
         preload="metadata"
       />
       <div className="container mx-auto px-3 py-2.5 max-w-5xl">
+        {error && (
+          <div className="mb-2 flex items-center gap-2 rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-xs text-destructive">
+            <AlertTriangle className="h-4 w-4 shrink-0" />
+            <span className="flex-1 line-clamp-2">{error}</span>
+            {retryAttempt > 0 && retryAttempt <= MAX_AUTO_RETRIES && (
+              <span className="text-[10px] opacity-80 tabular-nums shrink-0">
+                Auto-retry {retryAttempt}/{MAX_AUTO_RETRIES}…
+              </span>
+            )}
+            <Button onClick={manualRetry} size="sm" variant="outline" className="h-7 px-2 text-xs gap-1 shrink-0">
+              <RefreshCw className="h-3 w-3" /> Retry
+            </Button>
+            {hasNext && (
+              <Button onClick={next} size="sm" variant="ghost" className="h-7 px-2 text-xs shrink-0">
+                Skip
+              </Button>
+            )}
+          </div>
+        )}
         <div className="flex items-center gap-3">
           <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-orange-400 to-rose-500 flex items-center justify-center shrink-0">
             <Headphones className="h-5 w-5 text-white" />
@@ -353,8 +426,8 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
             <Button onClick={prev} disabled={!hasPrev} size="icon" variant="ghost" className="h-9 w-9 rounded-full" aria-label="Previous chapter">
               <SkipBack className="h-4 w-4" />
             </Button>
-            <Button onClick={toggle} size="icon" className="h-10 w-10 rounded-full" aria-label={playing ? "Pause" : "Play"}>
-              {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : playing ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 ml-0.5" />}
+            <Button onClick={toggle} size="icon" className="h-10 w-10 rounded-full" aria-label={error ? "Retry" : playing ? "Pause" : "Play"}>
+              {error ? <RefreshCw className="h-4 w-4" /> : loading ? <Loader2 className="h-4 w-4 animate-spin" /> : playing ? <Pause className="h-5 w-5" /> : <Play className="h-5 w-5 ml-0.5" />}
             </Button>
             <Button onClick={next} disabled={!hasNext} size="icon" variant="ghost" className="h-9 w-9 rounded-full" aria-label="Next chapter">
               <SkipForward className="h-4 w-4" />
