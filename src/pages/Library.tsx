@@ -244,13 +244,19 @@ function BooksTab({ collections }: { collections: Coll }) {
                   <p className="text-xs text-muted-foreground line-clamp-1 mb-2">{b.authors.map((a) => a.name).join(", ") || "Unknown"}</p>
                   <Badge variant="secondary" className="text-[10px] w-fit mb-2">{b.download_count.toLocaleString()} downloads</Badge>
                   {read && (
-                    <Button asChild size="sm" variant="outline" className="rounded-full mt-auto w-full">
-                      <button
-                        type="button"
-                        onClick={() => { collections.recordView(item); setReading({ url: read, title: b.title, subtitle: b.authors.map((a) => a.name).join(", ") || "Unknown" }); }}
-                      >
-                        Read <BookOpen className="h-3 w-3 ml-1" />
-                      </button>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      className="rounded-full mt-auto w-full"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        collections.recordView(item);
+                        setReading({ url: read, title: b.title, subtitle: b.authors.map((a) => a.name).join(", ") || "Unknown" });
+                      }}
+                    >
+                      Read <BookOpen className="h-3 w-3 ml-1" />
                     </Button>
                   )}
                 </div>
