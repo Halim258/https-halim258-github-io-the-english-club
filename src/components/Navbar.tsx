@@ -8,6 +8,7 @@ import StudyReminder from "@/components/StudyReminder";
 import NotificationBell from "@/components/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
 import { useTTS } from "@/hooks/useTTS";
+import { useUnfinishedAudiobook } from "@/hooks/useUnfinishedAudiobook";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.jpg";
 
@@ -46,6 +47,7 @@ const homeSections = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const unfinishedChapters = useUnfinishedAudiobook();
   const [dark, setDark] = useState(() => {
     const stored = localStorage.getItem("theme");
     if (stored === "dark") return true;
