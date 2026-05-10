@@ -8,6 +8,7 @@ import StudyReminder from "@/components/StudyReminder";
 import NotificationBell from "@/components/NotificationBell";
 import { useAuth } from "@/hooks/useAuth";
 import { useTTS } from "@/hooks/useTTS";
+import { useUnfinishedAudiobook } from "@/hooks/useUnfinishedAudiobook";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.jpg";
 
@@ -46,6 +47,7 @@ const homeSections = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [moreOpen, setMoreOpen] = useState(false);
+  const unfinishedChapters = useUnfinishedAudiobook();
   const [dark, setDark] = useState(() => {
     const stored = localStorage.getItem("theme");
     if (stored === "dark") return true;
@@ -353,7 +355,17 @@ export default function Navbar() {
                       location.pathname === l.to ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground hover:bg-muted/50 active:bg-muted"
                     }`}
                   >
-                    {l.label}
+                    <span className="flex items-center gap-2">
+                      {l.label}
+                      {l.to === "/library" && unfinishedChapters > 0 && (
+                        <span
+                          className="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold tabular-nums"
+                          title={`${unfinishedChapters} unfinished chapter${unfinishedChapters === 1 ? "" : "s"}`}
+                        >
+                          {unfinishedChapters > 99 ? "99+" : unfinishedChapters}
+                        </span>
+                      )}
+                    </span>
                     {location.pathname === l.to && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                   </Link>
                 </motion.div>
