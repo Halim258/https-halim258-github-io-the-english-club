@@ -272,6 +272,11 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
   const [current, setCurrent] = useState(0);
   const [duration, setDuration] = useState(0);
   const [loading, setLoading] = useState(true);
+  const SPEEDS = [0.75, 1, 1.25, 1.5] as const;
+  const [rate, setRate] = useState<number>(() => {
+    const saved = parseFloat(localStorage.getItem("librivox:rate") || "1");
+    return SPEEDS.includes(saved as any) ? saved : 1;
+  });
   const section = track.sections[track.index];
   const hasPrev = track.index > 0;
   const hasNext = track.index < track.sections.length - 1;
@@ -282,8 +287,16 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
     setLoading(true);
     setCurrent(0);
     a.src = section.listen_url;
+    a.playbackRate = rate;
     a.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [section.listen_url]);
+
+  // Apply rate changes to active audio element + persist preference
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.playbackRate = rate;
+    localStorage.setItem("librivox:rate", String(rate));
+  }, [rate]);
 
   const toggle = () => {
     const a = audioRef.current;
@@ -345,6 +358,19 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
             </Button>
             <Button onClick={next} disabled={!hasNext} size="icon" variant="ghost" className="h-9 w-9 rounded-full" aria-label="Next chapter">
               <SkipForward className="h-4 w-4" />
+            </Button>
+            <Button
+              onClick={() => {
+                const i = SPEEDS.indexOf(rate as any);
+                setRate(SPEEDS[(i + 1) % SPEEDS.length]);
+              }}
+              size="sm"
+              variant="ghost"
+              className="h-9 px-2 rounded-full text-xs font-semibold tabular-nums"
+              aria-label="Playback speed"
+              title="Playback speed"
+            >
+              {rate}x
             </Button>
             <Button onClick={() => setTrack(null)} size="icon" variant="ghost" className="h-9 w-9 rounded-full text-muted-foreground" aria-label="Close player">
               <X className="h-4 w-4" />
