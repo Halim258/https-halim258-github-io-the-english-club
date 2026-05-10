@@ -45,6 +45,13 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
     const v = Number(localStorage.getItem("reader.fontSize"));
     return v >= 14 && v <= 28 ? v : 18;
   });
+  const [theme, setTheme] = useState<"light" | "sepia" | "dark">(() => {
+    const v = localStorage.getItem("reader.theme");
+    return v === "sepia" || v === "dark" ? v : "light";
+  });
+  const [progress, setProgress] = useState(0);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollKey = `reader.scroll:${url}`;
 
   useEffect(() => {
     let cancelled = false;
@@ -62,6 +69,36 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
   }, [url]);
 
   useEffect(() => { localStorage.setItem("reader.fontSize", String(fontSize)); }, [fontSize]);
+  useEffect(() => { localStorage.setItem("reader.theme", theme); }, [theme]);
+
+  // Restore scroll position once content has rendered
+  useEffect(() => {
+    if (loading || error) return;
+    const saved = Number(localStorage.getItem(scrollKey));
+    if (saved && scrollRef.current) {
+      requestAnimationFrame(() => { if (scrollRef.current) scrollRef.current.scrollTop = saved; });
+    }
+  }, [loading, error, scrollKey]);
+
+  // Keyboard shortcuts: Esc closes, +/- adjusts font
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      else if (e.key === "+" || e.key === "=") setFontSize((s) => Math.min(28, s + 2));
+      else if (e.key === "-" || e.key === "_") setFontSize((s) => Math.max(14, s - 2));
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
+
+  const onScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const max = el.scrollHeight - el.clientHeight;
+    const pct = max > 0 ? Math.min(100, Math.max(0, (el.scrollTop / max) * 100)) : 0;
+    setProgress(pct);
+    localStorage.setItem(scrollKey, String(el.scrollTop));
+  };
 
   // Strip Jina's metadata block and clean up noisy markdown so the reader
   // shows clean, readable prose instead of raw URLs/footnotes.
@@ -82,53 +119,85 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
+  const themeBg = theme === "sepia" ? "bg-[hsl(39,45%,94%)] text-[hsl(28,30%,18%)]" : theme === "dark" ? "bg-[hsl(220,15%,10%)] text-[hsl(40,10%,88%)]" : "bg-background text-foreground";
+  const themeCard = theme === "sepia" ? "bg-[hsl(39,45%,90%)] border-[hsl(39,30%,80%)]" : theme === "dark" ? "bg-[hsl(220,15%,13%)] border-[hsl(220,10%,20%)]" : "bg-card";
+
   return createPortal(
-    <div className="fixed inset-0 z-[9999] bg-background flex flex-col">
-      <div className="flex items-center gap-2 border-b px-3 py-2 bg-card sticky top-0">
+    <div className={`fixed inset-0 z-[9999] flex flex-col transition-colors ${themeBg}`}>
+      <div className={`flex items-center gap-2 border-b px-3 py-2 sticky top-0 ${themeCard}`}>
         <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full">
           <ChevronLeft className="h-4 w-4 mr-1" /> Back
         </Button>
         <div className="flex-1 min-w-0">
           <p className="text-sm font-semibold line-clamp-1">{title}</p>
-          {subtitle && <p className="text-[11px] text-muted-foreground line-clamp-1">{subtitle}</p>}
+          {subtitle && <p className="text-[11px] opacity-70 line-clamp-1">{subtitle}</p>}
         </div>
-        <div className="hidden sm:flex items-center gap-1 mr-1">
-          <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={() => setFontSize((s) => Math.max(14, s - 2))} aria-label="Smaller text">
-            <span className="text-xs font-bold">A−</span>
-          </Button>
-          <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={() => setFontSize((s) => Math.min(28, s + 2))} aria-label="Larger text">
-            <span className="text-sm font-bold">A+</span>
-          </Button>
-        </div>
-        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={onClose}>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" aria-label="Reader settings">
+              <span className="text-sm font-bold">Aa</span>
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent align="end" className="w-56 p-3 space-y-3">
+            <div>
+              <p className="text-xs font-semibold mb-1.5 opacity-70">Text size</p>
+              <div className="flex items-center gap-1">
+                <Button variant="outline" size="sm" className="flex-1 h-8" onClick={() => setFontSize((s) => Math.max(14, s - 2))}>A−</Button>
+                <span className="text-xs w-8 text-center tabular-nums">{fontSize}</span>
+                <Button variant="outline" size="sm" className="flex-1 h-8" onClick={() => setFontSize((s) => Math.min(28, s + 2))}>A+</Button>
+              </div>
+            </div>
+            <div>
+              <p className="text-xs font-semibold mb-1.5 opacity-70">Theme</p>
+              <div className="grid grid-cols-3 gap-1">
+                {(["light", "sepia", "dark"] as const).map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => setTheme(t)}
+                    className={`h-8 rounded-md border text-xs capitalize transition ${theme === t ? "ring-2 ring-primary" : ""} ${
+                      t === "light" ? "bg-white text-black border-gray-200" : t === "sepia" ? "bg-[hsl(39,45%,90%)] text-[hsl(28,30%,18%)] border-[hsl(39,30%,75%)]" : "bg-[hsl(220,15%,13%)] text-white border-[hsl(220,10%,25%)]"
+                    }`}
+                  >
+                    {t}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </PopoverContent>
+        </Popover>
+        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={onClose} aria-label="Close">
           <X className="h-4 w-4" />
         </Button>
       </div>
-      <div className="flex-1 overflow-y-auto">
+      {/* Reading progress bar */}
+      <div className="h-0.5 bg-transparent">
+        <div className="h-full bg-primary transition-[width] duration-150" style={{ width: `${progress}%` }} />
+      </div>
+      <div ref={scrollRef} onScroll={onScroll} className="flex-1 overflow-y-auto">
         <article className="container mx-auto max-w-3xl px-4 py-6 md:py-10">
-          <header className="mb-6 pb-4 border-b">
+          <header className="mb-6 pb-4 border-b border-current/10">
             <h1 className="text-2xl md:text-3xl font-bold font-display leading-tight">{title}</h1>
-            {subtitle && <p className="text-sm text-muted-foreground mt-1.5">{subtitle}</p>}
+            {subtitle && <p className="text-sm opacity-70 mt-1.5">{subtitle}</p>}
           </header>
           {loading && (
             <div className="space-y-3">
-              <div className="h-4 bg-muted/50 rounded w-3/4 animate-pulse" />
-              <div className="h-4 bg-muted/50 rounded w-full animate-pulse" />
-              <div className="h-4 bg-muted/50 rounded w-5/6 animate-pulse" />
-              <div className="h-4 bg-muted/50 rounded w-2/3 animate-pulse" />
-              <div className="h-4 bg-muted/50 rounded w-full animate-pulse" />
-              <p className="text-center text-xs text-muted-foreground pt-4">Loading content…</p>
+              <div className="h-4 bg-current/10 rounded w-3/4 animate-pulse" />
+              <div className="h-4 bg-current/10 rounded w-full animate-pulse" />
+              <div className="h-4 bg-current/10 rounded w-5/6 animate-pulse" />
+              <div className="h-4 bg-current/10 rounded w-2/3 animate-pulse" />
+              <div className="h-4 bg-current/10 rounded w-full animate-pulse" />
+              <p className="text-center text-xs opacity-60 pt-4">Loading content…</p>
             </div>
           )}
           {error && !loading && (
             <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm">
               <p className="font-semibold text-destructive mb-1">Couldn't load this in-app.</p>
-              <p className="text-muted-foreground">The source may be temporarily unavailable. Please go back and try another item.</p>
+              <p className="opacity-70">The source may be temporarily unavailable. Please go back and try another item.</p>
             </div>
           )}
           {!loading && !error && (
             <div
-              className="reader-prose font-serif text-foreground/90"
+              className="reader-prose font-serif"
               style={{ fontSize: `${fontSize}px`, lineHeight: 1.8 }}
             >
               <ReactMarkdown
@@ -142,13 +211,16 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
                   p: ({ children }) => <p className="mb-4">{children}</p>,
                   ul: ({ children }) => <ul className="list-disc pl-6 mb-4 space-y-1">{children}</ul>,
                   ol: ({ children }) => <ol className="list-decimal pl-6 mb-4 space-y-1">{children}</ol>,
-                  blockquote: ({ children }) => <blockquote className="border-l-4 border-primary/40 pl-4 italic my-4 text-foreground/80">{children}</blockquote>,
-                  hr: () => <hr className="my-6 border-border" />,
-                  code: ({ children }) => <code className="px-1.5 py-0.5 rounded bg-muted text-[0.9em]">{children}</code>,
+                  blockquote: ({ children }) => <blockquote className="border-l-4 border-primary/40 pl-4 italic my-4 opacity-80">{children}</blockquote>,
+                  hr: () => <hr className="my-6 border-current/20" />,
+                  code: ({ children }) => <code className="px-1.5 py-0.5 rounded bg-current/10 text-[0.9em]">{children}</code>,
                 }}
               >
                 {cleaned}
               </ReactMarkdown>
+              <div className="mt-12 pt-6 border-t border-current/10 text-center text-xs opacity-60">
+                — End of content —
+              </div>
             </div>
           )}
         </article>
