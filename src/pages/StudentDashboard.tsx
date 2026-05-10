@@ -14,6 +14,7 @@ import DailyChallenge from "@/components/DailyChallenge";
 import StudyStreakCalendar from "@/components/StudyStreakCalendar";
 import OnboardingWelcome from "@/components/OnboardingWelcome";
 import StudyGoals from "@/components/StudyGoals";
+import LibraryProgressCard from "@/components/LibraryProgressCard";
 
 interface TestResult {
   id: string;
