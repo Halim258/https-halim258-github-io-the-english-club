@@ -147,6 +147,7 @@ function BooksTab({ collections }: { collections: Coll }) {
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
+  const [reading, setReading] = useState<{ url: string; title: string } | null>(null);
 
   useEffect(() => {
     setLoading(true);
@@ -202,7 +203,12 @@ function BooksTab({ collections }: { collections: Coll }) {
                   <Badge variant="secondary" className="text-[10px] w-fit mb-2">{b.download_count.toLocaleString()} downloads</Badge>
                   {read && (
                     <Button asChild size="sm" variant="outline" className="rounded-full mt-auto w-full">
-                      <a href={read} target="_blank" rel="noreferrer" onClick={() => collections.recordView(item)}>Read <ExternalLink className="h-3 w-3 ml-1" /></a>
+                      <button
+                        type="button"
+                        onClick={() => { collections.recordView(item); setReading({ url: read, title: b.title }); }}
+                      >
+                        Read <BookOpen className="h-3 w-3 ml-1" />
+                      </button>
                     </Button>
                   )}
                 </div>
@@ -212,6 +218,9 @@ function BooksTab({ collections }: { collections: Coll }) {
         </div>
       )}
       <p className="text-xs text-muted-foreground text-center mt-6">Powered by Project Gutenberg via Gutendex — public-domain books.</p>
+      {reading && (
+        <InAppReader url={reading.url} title={reading.title} onClose={() => setReading(null)} />
+      )}
     </div>
   );
 }
