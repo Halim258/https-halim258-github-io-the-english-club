@@ -381,7 +381,7 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
                       setReading({ url: b.url_librivox, title: b.title, subtitle: author });
                     }}
                   >
-                    Open <ExternalLink className="h-3 w-3 ml-1" />
+                    Open <BookOpen className="h-3 w-3 ml-1" />
                   </Button>
                 )}
               </div>
@@ -863,6 +863,8 @@ function CollectionTab({
   rows: LibRow[]; loading: boolean; emptyText: string;
   onRemove?: (r: LibRow) => void; onClear?: () => void;
 }) {
+  const [reading, setReading] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
+
   if (loading) return <Loading />;
   if (!rows.length) return <p className="text-sm text-muted-foreground text-center py-12">{emptyText}</p>;
 
@@ -872,10 +874,8 @@ function CollectionTab({
     article: { icon: Newspaper, label: "Article" },
     word: { icon: BookMarked, label: "Word" },
   };
-  const [reading, setReading] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
-
   const openInApp = (r: LibRow) =>
-    r.url && (r.item_type === "book" || r.item_type === "article")
+    r.url && (r.item_type === "book" || r.item_type === "article" || r.item_type === "audiobook")
       ? () => setReading({ url: r.url!, title: r.title, subtitle: r.subtitle || undefined })
       : null;
 
@@ -916,10 +916,10 @@ function CollectionTab({
                   <Trash2 className="h-4 w-4" />
                 </button>
               )}
-              {r.url && !onRemove && !inApp && (
-                <a href={r.url} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary p-1.5" aria-label="Open">
-                  <ExternalLink className="h-4 w-4" />
-                </a>
+              {r.url && !onRemove && inApp && (
+                <button type="button" onClick={inApp} className="text-muted-foreground hover:text-primary p-1.5" aria-label="Open in app">
+                  <BookOpen className="h-4 w-4" />
+                </button>
               )}
             </Card>
           );
