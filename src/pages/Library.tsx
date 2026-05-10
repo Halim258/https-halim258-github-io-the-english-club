@@ -169,6 +169,7 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
   const [items, setItems] = useState<Audiobook[]>([]);
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
+  const { user } = useAuth();
 
   useEffect(() => {
     setLoading(true);
@@ -242,9 +243,27 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
                   <Button
                     size="sm"
                     className="rounded-full"
-                    onClick={() => {
+                    onClick={async () => {
                       collections.recordView(item);
-                      onPlay({ bookId: String(b.id), bookTitle: b.title, author, sections, index: 0 });
+                      let resumeIndex = 0;
+                      let resumeAt = 0;
+                      let baseMetadata: Record<string, any> = {};
+                      if (user) {
+                        const { data } = await supabase
+                          .from("library_history")
+                          .select("metadata")
+                          .eq("user_id", user.id)
+                          .eq("item_type", "audiobook")
+                          .eq("item_key", String(b.id))
+                          .maybeSingle();
+                        const meta = ((data?.metadata as any) || {}) as Record<string, any>;
+                        baseMetadata = meta;
+                        const idx = Number(meta.resume_index);
+                        const pos = Number(meta.resume_position);
+                        if (Number.isFinite(idx) && idx >= 0 && idx < sections.length) resumeIndex = idx;
+                        if (Number.isFinite(pos) && pos > 5) resumeAt = pos;
+                      }
+                      onPlay({ bookId: String(b.id), bookTitle: b.title, author, sections, index: resumeIndex, resumeAt, baseMetadata });
                     }}
                   >
                     <Play className="h-3.5 w-3.5 mr-1" /> {isPlaying ? "Playing" : "Play"}
