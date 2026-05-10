@@ -28,7 +28,7 @@ const fmtTime = (s: number) => {
   return `${m}:${sec}`;
 };
 
-type PlayerTrack = { bookId: string; bookTitle: string; author: string; sections: Section[]; index: number };
+type PlayerTrack = { bookId: string; bookTitle: string; author: string; sections: Section[]; index: number; resumeAt?: number; baseMetadata?: Record<string, any> };
 
 export default function Library() {
   const [tab, setTab] = useState("books");
@@ -169,6 +169,7 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
   const [items, setItems] = useState<Audiobook[]>([]);
   const [loading, setLoading] = useState(true);
   const [q, setQ] = useState("");
+  const { user } = useAuth();
 
   useEffect(() => {
     setLoading(true);
@@ -242,9 +243,27 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
                   <Button
                     size="sm"
                     className="rounded-full"
-                    onClick={() => {
+                    onClick={async () => {
                       collections.recordView(item);
-                      onPlay({ bookId: String(b.id), bookTitle: b.title, author, sections, index: 0 });
+                      let resumeIndex = 0;
+                      let resumeAt = 0;
+                      let baseMetadata: Record<string, any> = {};
+                      if (user) {
+                        const { data } = await supabase
+                          .from("library_history")
+                          .select("metadata")
+                          .eq("user_id", user.id)
+                          .eq("item_type", "audiobook")
+                          .eq("item_key", String(b.id))
+                          .maybeSingle();
+                        const meta = ((data?.metadata as any) || {}) as Record<string, any>;
+                        baseMetadata = meta;
+                        const idx = Number(meta.resume_index);
+                        const pos = Number(meta.resume_position);
+                        if (Number.isFinite(idx) && idx >= 0 && idx < sections.length) resumeIndex = idx;
+                        if (Number.isFinite(pos) && pos > 5) resumeAt = pos;
+                      }
+                      onPlay({ bookId: String(b.id), bookTitle: b.title, author, sections, index: resumeIndex, resumeAt, baseMetadata });
                     }}
                   >
                     <Play className="h-3.5 w-3.5 mr-1" /> {isPlaying ? "Playing" : "Play"}
@@ -285,6 +304,21 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
   const section = track.sections[track.index];
   const hasPrev = track.index > 0;
   const hasNext = track.index < track.sections.length - 1;
+  const resumePendingRef = useRef<number>(track.resumeAt && track.index === (track as any).index ? track.resumeAt : 0);
+  const lastSavedRef = useRef<number>(0);
+  const baseMetaRef = useRef<Record<string, any>>(track.baseMetadata || {});
+
+  const persistResume = async (chapterIndex: number, position: number) => {
+    if (!user) return;
+    const merged = { ...baseMetaRef.current, resume_index: chapterIndex, resume_position: Math.floor(position) };
+    baseMetaRef.current = merged;
+    await supabase
+      .from("library_history")
+      .update({ metadata: merged, viewed_at: new Date().toISOString() })
+      .eq("user_id", user.id)
+      .eq("item_type", "audiobook")
+      .eq("item_key", track.bookId);
+  };
 
   useEffect(() => {
     const a = audioRef.current;
@@ -303,6 +337,27 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [section.listen_url, retryNonce]);
+
+  // When chapter changes via prev/next, set pending resume offset (0 unless this is the initial resumed chapter)
+  useEffect(() => {
+    resumePendingRef.current = track.resumeAt && track.index === (track.baseMetadata?.resume_index ?? track.index) ? track.resumeAt : 0;
+    // After applying once, clear so subsequent chapter changes don't reseek
+    // (handled in onLoadedMetadata)
+  }, [track.index]);
+
+  // Persist resume on unmount (player closed)
+  useEffect(() => {
+    return () => {
+      const a = audioRef.current;
+      if (!a) return;
+      const pos = a.currentTime;
+      if (pos > 5) {
+        // fire-and-forget
+        persistResume(track.index, pos);
+      }
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Reset retry counter when chapter changes
   useEffect(() => {
@@ -354,7 +409,11 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
     if (!a) return;
     if (error) { manualRetry(); return; }
     if (a.paused) { a.play(); setPlaying(true); }
-    else { a.pause(); setPlaying(false); }
+    else {
+      a.pause();
+      setPlaying(false);
+      if (a.currentTime > 5) persistResume(track.index, a.currentTime);
+    }
   };
   const seek = (v: number) => {
     const a = audioRef.current;
@@ -369,19 +428,40 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
     <div className="fixed bottom-16 md:bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur-md shadow-2xl pb-[env(safe-area-inset-bottom)]">
       <audio
         ref={audioRef}
-        onTimeUpdate={(e) => setCurrent((e.target as HTMLAudioElement).currentTime)}
-        onLoadedMetadata={(e) => { setDuration((e.target as HTMLAudioElement).duration); setLoading(false); setError(null); setRetryAttempt(0); }}
+        onTimeUpdate={(e) => {
+          const a = e.target as HTMLAudioElement;
+          setCurrent(a.currentTime);
+          const now = Date.now();
+          if (now - lastSavedRef.current > 5000 && a.currentTime > 5 && !a.paused) {
+            lastSavedRef.current = now;
+            persistResume(track.index, a.currentTime);
+          }
+        }}
+        onLoadedMetadata={(e) => {
+          const a = e.target as HTMLAudioElement;
+          setDuration(a.duration);
+          setLoading(false);
+          setError(null);
+          setRetryAttempt(0);
+          const seekTo = resumePendingRef.current;
+          if (seekTo && seekTo < (a.duration || Infinity) - 2) {
+            try { a.currentTime = seekTo; setCurrent(seekTo); } catch {}
+          }
+          resumePendingRef.current = 0;
+        }}
         onError={handleError}
         onStalled={() => setLoading(true)}
         onEnded={async () => {
           if (hasNext) {
+            // Save resume pointer to next chapter at position 0
+            persistResume(track.index + 1, 0);
             next();
           } else {
             setPlaying(false);
             if (user) {
               await supabase
                 .from("library_history")
-                .update({ completed: true, completed_at: new Date().toISOString() })
+                .update({ completed: true, completed_at: new Date().toISOString(), metadata: { ...baseMetaRef.current, resume_index: 0, resume_position: 0 } })
                 .eq("user_id", user.id)
                 .eq("item_type", "audiobook")
                 .eq("item_key", track.bookId);
