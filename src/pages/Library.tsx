@@ -119,6 +119,15 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 
+  // Smart typography: curly quotes, em-dashes, ellipses
+  const typographic = cleaned
+    .replace(/(^|[\s(\[{])"/g, "$1\u201C")
+    .replace(/"/g, "\u201D")
+    .replace(/(^|[\s(\[{])'/g, "$1\u2018")
+    .replace(/'/g, "\u2019")
+    .replace(/--/g, "\u2014")
+    .replace(/\.{3}/g, "\u2026");
+
   const themeBg = theme === "sepia" ? "bg-[hsl(39,45%,94%)] text-[hsl(28,30%,18%)]" : theme === "dark" ? "bg-[hsl(220,15%,10%)] text-[hsl(40,10%,88%)]" : "bg-background text-foreground";
   const themeCard = theme === "sepia" ? "bg-[hsl(39,45%,90%)] border-[hsl(39,30%,80%)]" : theme === "dark" ? "bg-[hsl(220,15%,13%)] border-[hsl(220,10%,20%)]" : "bg-card";
 
@@ -197,7 +206,7 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
           )}
           {!loading && !error && (
             <div
-              className="reader-prose font-serif"
+              className="reader-prose"
               style={{ fontSize: `${fontSize}px`, lineHeight: 1.8 }}
             >
               <ReactMarkdown
@@ -216,7 +225,7 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
                   code: ({ children }) => <code className="px-1.5 py-0.5 rounded bg-current/10 text-[0.9em]">{children}</code>,
                 }}
               >
-                {cleaned}
+                {typographic}
               </ReactMarkdown>
               <div className="mt-12 pt-6 border-t border-current/10 text-center text-xs opacity-60">
                 — End of content —

@@ -4,6 +4,72 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+
+/* ============================================================
+   In-app Reader typography — book-like reading experience
+   ============================================================ */
+.reader-prose {
+  font-family: "Lora", "Crimson Pro", Georgia, "Times New Roman", serif;
+  font-feature-settings: "liga", "kern", "onum";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  word-spacing: 0.01em;
+  letter-spacing: 0.005em;
+}
+
+.reader-prose p {
+  text-align: justify;
+  text-justify: inter-word;
+  margin-bottom: 1.1em;
+  orphans: 2;
+  widows: 2;
+}
+
+/* First paragraph after a header gets a drop cap */
+.reader-prose h2 + p::first-letter,
+.reader-prose h3 + p::first-letter,
+.reader-prose > p:first-of-type::first-letter {
+  font-family: "Crimson Pro", "Lora", Georgia, serif;
+  font-weight: 700;
+  font-size: 3.4em;
+  float: left;
+  line-height: 0.88;
+  margin: 0.08em 0.08em 0 0;
+  color: hsl(var(--primary));
+}
+
+/* Following paragraphs in the same flow get a first-line indent for book feel */
+.reader-prose p + p {
+  text-indent: 1.4em;
+  margin-top: -0.2em;
+}
+
+.reader-prose h2,
+.reader-prose h3,
+.reader-prose h4 {
+  font-family: "Poppins", "Lora", Georgia, serif;
+  letter-spacing: -0.01em;
+  text-align: left;
+  hyphens: manual;
+}
+
+.reader-prose blockquote {
+  font-style: italic;
+  font-family: "Crimson Pro", "Lora", Georgia, serif;
+}
+
+.reader-prose blockquote p {
+  text-indent: 0;
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .reader-prose p { text-align: left; hyphens: none; }
+  .reader-prose p + p { text-indent: 1em; }
+}
 
 @layer base {
   :root {
