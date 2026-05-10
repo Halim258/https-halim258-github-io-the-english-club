@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { motion } from "framer-motion";
 import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, Volume2, ChevronLeft, Star, Clock, Trash2, Play, Pause, SkipBack, SkipForward, X, AlertTriangle, RefreshCw, ListMusic, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
