@@ -355,7 +355,17 @@ export default function Navbar() {
                       location.pathname === l.to ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground hover:bg-muted/50 active:bg-muted"
                     }`}
                   >
-                    {l.label}
+                    <span className="flex items-center gap-2">
+                      {l.label}
+                      {l.to === "/library" && unfinishedChapters > 0 && (
+                        <span
+                          className="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold tabular-nums"
+                          title={`${unfinishedChapters} unfinished chapter${unfinishedChapters === 1 ? "" : "s"}`}
+                        >
+                          {unfinishedChapters > 99 ? "99+" : unfinishedChapters}
+                        </span>
+                      )}
+                    </span>
                     {location.pathname === l.to && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                   </Link>
                 </motion.div>
