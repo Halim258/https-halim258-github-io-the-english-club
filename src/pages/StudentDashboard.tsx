@@ -267,6 +267,13 @@ export default function StudentDashboard() {
         </div>
       </FadeInUp>
 
+      {/* Library Progress */}
+      <FadeInUp delay={0.09}>
+        <div className="mb-6">
+          <LibraryProgressCard />
+        </div>
+      </FadeInUp>
+
       {/* Recently Completed */}
       {progress.filter(p => p.completed).length > 0 && (
         <FadeInUp delay={0.05}>
