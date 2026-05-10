@@ -109,12 +109,20 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
     .replace(/!?\[\]\([^)]*\)/g, "")
     // Inline images
     .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
-    // Footnote-style links like [177](https://...) -> [177]
-    .replace(/\[(\d+)\]\((?:https?:[^)]+)\)/g, "[$1]")
+    // Footnote-style links like [177](https://...) -> ⁠ ⁠ (drop entirely; they pollute the page)
+    .replace(/,?\s*\[\d+\]\((?:https?:[^)]+)\)/g, "")
+    // Standalone footnote refs like ,[177] or [177]
+    .replace(/,?\s*\[\d+\](?!\()/g, "")
+    // Gutenberg page markers: [Pg vi], [[Pg 12]], [Pg_12]
+    .replace(/\[+\s*Pg[\s_]*[ivxlcdmIVXLCDM\d]+\s*\]+/g, "")
     // Bare "(https://...)" trailing parens left from stripped links
     .replace(/\((https?:\/\/[^\s)]+)\)/g, "")
     // Stray bare URLs on their own
     .replace(/^\s*https?:\/\/\S+\s*$/gim, "")
+    // Promote ALL-CAPS short lines (e.g. "BOOK VI.", "CHAPTER 1") to H2
+    .replace(/^([A-Z][A-Z0-9 .,'\-]{2,40})\s*$/gm, "## $1")
+    // Trim trailing whitespace on every line
+    .replace(/[ \t]+$/gm, "")
     // Collapse 3+ blank lines
     .replace(/\n{3,}/g, "\n\n")
     .trim();
