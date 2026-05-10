@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { BookOpen, Headphones, Newspaper, BookMarked, Library as LibraryIcon, ArrowRight, CheckCircle2 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -26,11 +26,12 @@ const TYPE_META = {
 
 export default function LibraryProgressCard() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [rows, setRows] = useState<Row[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) { setLoading(false); return; }
     supabase
       .from("library_history")
       .select("id,item_type,item_key,title,subtitle,image_url,url,viewed_at,completed")
@@ -42,7 +43,31 @@ export default function LibraryProgressCard() {
       });
   }, [user]);
 
-  if (loading) return null;
+  // Always render a card so the parent FadeInUp/in-view animation has stable
+  // content from the first paint — otherwise the wrapper can stay at opacity:0
+  // and clicks on the "Open Library" link land on layers behind it.
+  const goLibrary = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    navigate("/library");
+  };
+
+  if (loading) {
+    return (
+      <div className="rounded-2xl border bg-card p-5 shadow-soft">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-sm font-semibold font-display flex items-center gap-2">
+            <LibraryIcon className="h-4 w-4 text-primary" />
+            Library Progress
+          </h2>
+          <Link to="/library" onClick={goLibrary} className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+            Open Library <ArrowRight className="h-3 w-3" />
+          </Link>
+        </div>
+        <div className="h-16 rounded-xl bg-muted/40 animate-pulse" />
+      </div>
+    );
+  }
 
   const counts = (Object.keys(TYPE_META) as (keyof typeof TYPE_META)[]).map((t) => ({
     type: t,
@@ -60,7 +85,7 @@ export default function LibraryProgressCard() {
           <LibraryIcon className="h-4 w-4 text-primary" />
           Library Progress
         </h2>
-        <Link to="/library" className="text-xs text-primary hover:underline inline-flex items-center gap-1">
+        <Link to="/library" onClick={goLibrary} className="relative z-10 text-xs text-primary hover:underline inline-flex items-center gap-1">
           Open Library <ArrowRight className="h-3 w-3" />
         </Link>
       </div>
@@ -68,7 +93,7 @@ export default function LibraryProgressCard() {
       {totalViewed === 0 ? (
         <div className="text-center py-6">
           <p className="text-sm text-muted-foreground mb-3">You haven't opened anything from the Library yet.</p>
-          <Link to="/library" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
+          <Link to="/library" onClick={goLibrary} className="relative z-10 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
             Browse free books, audiobooks & news <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>
