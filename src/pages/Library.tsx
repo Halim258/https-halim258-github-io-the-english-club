@@ -29,6 +29,56 @@ const fmtTime = (s: number) => {
   return `${m}:${sec}`;
 };
 
+/**
+ * In-app reader: opens external book/article URLs inside our site
+ * via an iframe overlay. Provides a fallback "Open in new tab" button
+ * for sources that refuse to be framed (X-Frame-Options / CSP).
+ */
+function InAppReader({ url, title, onClose }: { url: string; title: string; onClose: () => void }) {
+  const [blocked, setBlocked] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => {
+      // Heuristic: many framed pages load almost instantly. If still no load
+      // after 6s, surface the "open in new tab" fallback.
+      setBlocked((b) => b);
+    }, 6000);
+    document.body.style.overflow = "hidden";
+    return () => { clearTimeout(t); document.body.style.overflow = ""; };
+  }, [url]);
+  return (
+    <div className="fixed inset-0 z-[100] bg-background flex flex-col">
+      <div className="flex items-center gap-2 border-b px-3 py-2 bg-card">
+        <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full">
+          <ChevronLeft className="h-4 w-4 mr-1" /> Back
+        </Button>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-semibold line-clamp-1">{title}</p>
+        </div>
+        <Button asChild variant="outline" size="sm" className="rounded-full">
+          <a href={url} target="_blank" rel="noreferrer">
+            <ExternalLink className="h-3.5 w-3.5 mr-1" /> New tab
+          </a>
+        </Button>
+        <Button variant="ghost" size="icon" onClick={onClose} className="rounded-full">
+          <X className="h-4 w-4" />
+        </Button>
+      </div>
+      <iframe
+        src={url}
+        title={title}
+        className="flex-1 w-full bg-white"
+        sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+        onError={() => setBlocked(true)}
+      />
+      {blocked && (
+        <div className="absolute inset-x-0 bottom-4 mx-auto w-fit rounded-full bg-card border px-3 py-1.5 text-xs text-muted-foreground shadow">
+          Trouble loading? <a href={url} target="_blank" rel="noreferrer" className="text-primary font-medium underline ml-1">Open in new tab</a>
+        </div>
+      )}
+    </div>
+  );
+}
+
 type PlayerTrack = { bookId: string; bookTitle: string; author: string; sections: Section[]; index: number; resumeAt?: number; baseMetadata?: Record<string, any> };
 
 export default function Library() {
