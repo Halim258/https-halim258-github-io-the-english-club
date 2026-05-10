@@ -26,6 +26,7 @@ const moreLinks = [
   { to: "/idioms", label: "🗣️ Idioms & Phrasal Verbs" },
   { to: "/writing", label: "✍️ Writing" },
   { to: "/grammar", label: "📖 Grammar" },
+  { to: "/library", label: "📚 Library" },
   { to: "/progress", label: "📊 My Progress" },
   { to: "/leaderboard", label: "🏆 Leaderboard" },
   { to: "/pronunciation", label: "🎙️ Pronunciation" },
