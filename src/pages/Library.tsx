@@ -12,6 +12,7 @@ import { useTTS } from "@/hooks/useTTS";
 import { useLibraryCollections, type LibItem, type LibRow } from "@/hooks/useLibraryCollections";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { cachedJson } from "@/lib/apiCache";
 
 type Book = { id: number; title: string; authors: { name: string }[]; formats: Record<string, string>; download_count: number };
 type Section = { id: string; section_number: string; title: string; listen_url: string; playtime: string };
@@ -101,8 +102,8 @@ function BooksTab({ collections }: { collections: Coll }) {
     const url = query
       ? `https://gutendex.com/books/?languages=en&search=${encodeURIComponent(query)}`
       : `https://gutendex.com/books/?languages=en&sort=popular`;
-    fetch(url)
-      .then((r) => r.json())
+    // Books rarely change — cache 1 hour
+    cachedJson<{ results: Book[] }>(url, { ttlMs: 60 * 60 * 1000 })
       .then((d) => setBooks((d.results || []).slice(0, 24)))
       .catch(() => setBooks([]))
       .finally(() => setLoading(false));
@@ -173,16 +174,15 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
     setLoading(true);
     const base = "https://librivox.org/api/feed/audiobooks/?format=json&limit=30&extended=1";
     const url = q ? `${base}&title=^${encodeURIComponent(q)}` : base;
-    // LibriVox sometimes blocks CORS; use a fallback proxy if direct fails
-    const tryFetch = async () => {
+    const cacheKey = `librivox:${url}`;
+    const ttl = 60 * 60 * 1000; // 1h
+    const tryFetch = async (): Promise<Audiobook[]> => {
       try {
-        const r = await fetch(url);
-        if (!r.ok) throw new Error();
-        const d = await r.json();
+        const d = await cachedJson<{ books: Audiobook[] }>(url, { ttlMs: ttl, cacheKey });
         return d.books || [];
       } catch {
-        const r = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
-        const d = await r.json();
+        const proxied = `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+        const d = await cachedJson<{ books: Audiobook[] }>(proxied, { ttlMs: ttl, cacheKey });
         return d.books || [];
       }
     };
@@ -374,8 +374,11 @@ function NewsTab({ collections }: { collections: Coll }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch("https://api.spaceflightnewsapi.net/v4/articles/?limit=20")
-      .then((r) => r.json())
+    // News refreshes more often — cache 5 minutes
+    cachedJson<{ results: Article[] }>(
+      "https://api.spaceflightnewsapi.net/v4/articles/?limit=20",
+      { ttlMs: 5 * 60 * 1000 }
+    )
       .then((d) => setArticles(d.results || []))
       .catch(() => setArticles([]))
       .finally(() => setLoading(false));
@@ -436,8 +439,11 @@ function DictionaryTab({ collections }: { collections: Coll }) {
     if (!word) return;
     setLoading(true);
     setError(null);
-    fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`)
-      .then((r) => r.ok ? r.json() : Promise.reject("Word not found"))
+    // Dictionary entries are very stable — cache 24h
+    cachedJson<DictEntry[]>(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(word)}`,
+      { ttlMs: 24 * 60 * 60 * 1000 }
+    )
       .then((d) => {
         setData(d);
         const first = (d as DictEntry[])[0];
