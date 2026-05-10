@@ -409,7 +409,11 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
     if (!a) return;
     if (error) { manualRetry(); return; }
     if (a.paused) { a.play(); setPlaying(true); }
-    else { a.pause(); setPlaying(false); }
+    else {
+      a.pause();
+      setPlaying(false);
+      if (a.currentTime > 5) persistResume(track.index, a.currentTime);
+    }
   };
   const seek = (v: number) => {
     const a = audioRef.current;
