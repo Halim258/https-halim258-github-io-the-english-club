@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, ExternalLink, Volume2, ChevronLeft, Star, Clock, Trash2, Play, Pause, SkipBack, SkipForward, X, AlertTriangle, RefreshCw, ListMusic, Check } from "lucide-react";
+import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, Volume2, ChevronLeft, Star, Clock, Trash2, Play, Pause, SkipBack, SkipForward, X, AlertTriangle, RefreshCw, ListMusic, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
@@ -81,9 +81,6 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
             <span className="text-sm font-bold">A+</span>
           </Button>
         </div>
-        <Button asChild variant="ghost" size="icon" className="h-8 w-8 rounded-full" title="Open original">
-          <a href={url} target="_blank" rel="noreferrer"><ExternalLink className="h-4 w-4" /></a>
-        </Button>
         <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={onClose}>
           <X className="h-4 w-4" />
         </Button>
@@ -107,8 +104,7 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
           {error && !loading && (
             <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-4 text-sm">
               <p className="font-semibold text-destructive mb-1">Couldn't load this in-app.</p>
-              <p className="text-muted-foreground mb-3">The source may be temporarily unavailable.</p>
-              <a href={url} target="_blank" rel="noreferrer" className="text-primary font-medium underline">Open the original page</a>
+              <p className="text-muted-foreground">The source may be temporarily unavailable. Please go back and try another item.</p>
             </div>
           )}
           {!loading && !error && (
@@ -385,7 +381,7 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
                       setReading({ url: b.url_librivox, title: b.title, subtitle: author });
                     }}
                   >
-                    Open <ExternalLink className="h-3 w-3 ml-1" />
+                    Open <BookOpen className="h-3 w-3 ml-1" />
                   </Button>
                 )}
               </div>
@@ -867,6 +863,8 @@ function CollectionTab({
   rows: LibRow[]; loading: boolean; emptyText: string;
   onRemove?: (r: LibRow) => void; onClear?: () => void;
 }) {
+  const [reading, setReading] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
+
   if (loading) return <Loading />;
   if (!rows.length) return <p className="text-sm text-muted-foreground text-center py-12">{emptyText}</p>;
 
@@ -876,10 +874,8 @@ function CollectionTab({
     article: { icon: Newspaper, label: "Article" },
     word: { icon: BookMarked, label: "Word" },
   };
-  const [reading, setReading] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
-
   const openInApp = (r: LibRow) =>
-    r.url && (r.item_type === "book" || r.item_type === "article")
+    r.url && (r.item_type === "book" || r.item_type === "article" || r.item_type === "audiobook")
       ? () => setReading({ url: r.url!, title: r.title, subtitle: r.subtitle || undefined })
       : null;
 
@@ -920,10 +916,10 @@ function CollectionTab({
                   <Trash2 className="h-4 w-4" />
                 </button>
               )}
-              {r.url && !onRemove && !inApp && (
-                <a href={r.url} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary p-1.5" aria-label="Open">
-                  <ExternalLink className="h-4 w-4" />
-                </a>
+              {r.url && !onRemove && inApp && (
+                <button type="button" onClick={inApp} className="text-muted-foreground hover:text-primary p-1.5" aria-label="Open in app">
+                  <BookOpen className="h-4 w-4" />
+                </button>
               )}
             </Card>
           );
