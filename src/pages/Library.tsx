@@ -376,16 +376,16 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
                     <Play className="h-3.5 w-3.5 mr-1" /> {isPlaying ? "Playing" : "Play"}
                   </Button>
                 ) : (
-                  <Button asChild size="sm" variant="outline" className="rounded-full">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        collections.recordView(item);
-                        setReading({ url: b.url_librivox, title: b.title, subtitle: author });
-                      }}
-                    >
-                      Open <ExternalLink className="h-3 w-3 ml-1" />
-                    </button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="rounded-full"
+                    onClick={() => {
+                      collections.recordView(item);
+                      setReading({ url: b.url_librivox, title: b.title, subtitle: author });
+                    }}
+                  >
+                    Open <ExternalLink className="h-3 w-3 ml-1" />
                   </Button>
                 )}
               </div>
