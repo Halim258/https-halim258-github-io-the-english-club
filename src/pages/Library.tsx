@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, ExternalLink, Volume2, ChevronLeft, Star, Clock, Trash2, Play, Pause, SkipBack, SkipForward, X, AlertTriangle, RefreshCw } from "lucide-react";
+import { BookOpen, Headphones, Newspaper, BookMarked, Search, Loader2, ExternalLink, Volume2, ChevronLeft, Star, Clock, Trash2, Play, Pause, SkipBack, SkipForward, X, AlertTriangle, RefreshCw, ListMusic, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useTTS } from "@/hooks/useTTS";
 import { useLibraryCollections, type LibItem, type LibRow } from "@/hooks/useLibraryCollections";
 import { supabase } from "@/integrations/supabase/client";
@@ -512,6 +513,41 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
             <Button onClick={next} disabled={!hasNext} size="icon" variant="ghost" className="h-9 w-9 rounded-full" aria-label="Next chapter">
               <SkipForward className="h-4 w-4" />
             </Button>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button size="icon" variant="ghost" className="h-9 w-9 rounded-full" aria-label="Chapters" title="Chapters">
+                  <ListMusic className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent align="end" side="top" className="w-72 p-0">
+                <div className="px-3 py-2 border-b">
+                  <p className="text-xs font-semibold">Chapters</p>
+                  <p className="text-[10px] text-muted-foreground line-clamp-1">{track.bookTitle}</p>
+                </div>
+                <div className="max-h-72 overflow-y-auto py-1">
+                  {track.sections.map((s, i) => {
+                    const active = i === track.index;
+                    return (
+                      <button
+                        key={s.id || i}
+                        onClick={() => {
+                          if (i !== track.index) {
+                            persistResume(i, 0);
+                            setTrack({ ...track, index: i, resumeAt: 0 });
+                          }
+                        }}
+                        className={`w-full flex items-center gap-2 px-3 py-2 text-left text-xs hover:bg-muted transition-colors ${active ? "bg-muted/60 font-semibold text-primary" : ""}`}
+                      >
+                        <span className="tabular-nums w-6 shrink-0 text-muted-foreground">{String(i + 1).padStart(2, "0")}</span>
+                        <span className="flex-1 line-clamp-1">{stripHtml(s.title) || `Chapter ${i + 1}`}</span>
+                        {s.playtime && <span className="text-[10px] text-muted-foreground tabular-nums shrink-0">{s.playtime}</span>}
+                        {active && <Check className="h-3.5 w-3.5 text-primary shrink-0" />}
+                      </button>
+                    );
+                  })}
+                </div>
+              </PopoverContent>
+            </Popover>
             <Button
               onClick={() => {
                 const i = SPEEDS.indexOf(rate as any);
