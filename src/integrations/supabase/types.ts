@@ -376,6 +376,84 @@ export type Database = {
         }
         Relationships: []
       }
+      library_favorites: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          item_key: string
+          item_type: string
+          metadata: Json
+          subtitle: string | null
+          title: string
+          url: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          item_key: string
+          item_type: string
+          metadata?: Json
+          subtitle?: string | null
+          title: string
+          url?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          item_key?: string
+          item_type?: string
+          metadata?: Json
+          subtitle?: string | null
+          title?: string
+          url?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      library_history: {
+        Row: {
+          id: string
+          image_url: string | null
+          item_key: string
+          item_type: string
+          metadata: Json
+          subtitle: string | null
+          title: string
+          url: string | null
+          user_id: string
+          viewed_at: string
+        }
+        Insert: {
+          id?: string
+          image_url?: string | null
+          item_key: string
+          item_type: string
+          metadata?: Json
+          subtitle?: string | null
+          title: string
+          url?: string | null
+          user_id: string
+          viewed_at?: string
+        }
+        Update: {
+          id?: string
+          image_url?: string | null
+          item_key?: string
+          item_type?: string
+          metadata?: Json
+          subtitle?: string | null
+          title?: string
+          url?: string | null
+          user_id?: string
+          viewed_at?: string
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string
