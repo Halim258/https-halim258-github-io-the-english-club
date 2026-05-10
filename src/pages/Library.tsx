@@ -311,7 +311,7 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
 
   const persistResume = async (chapterIndex: number, position: number) => {
     if (!user) return;
-    const merged = { ...baseMetaRef.current, resume_index: chapterIndex, resume_position: Math.floor(position) };
+    const merged = { ...baseMetaRef.current, resume_index: chapterIndex, resume_position: Math.floor(position), total_sections: track.sections.length };
     baseMetaRef.current = merged;
     await supabase
       .from("library_history")
