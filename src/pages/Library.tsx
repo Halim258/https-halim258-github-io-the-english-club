@@ -298,7 +298,7 @@ function AudioPlayer({ track, setTrack }: { track: PlayerTrack; setTrack: (t: Pl
   const prev = () => hasPrev && setTrack({ ...track, index: track.index - 1 });
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur-md shadow-2xl md:bottom-0 pb-[env(safe-area-inset-bottom)]">
+    <div className="fixed bottom-16 md:bottom-0 left-0 right-0 z-40 border-t bg-background/95 backdrop-blur-md shadow-2xl pb-[env(safe-area-inset-bottom)]">
       <audio
         ref={audioRef}
         onTimeUpdate={(e) => setCurrent((e.target as HTMLAudioElement).currentTime)}
