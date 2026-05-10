@@ -300,6 +300,7 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
   }, [q]);
 
   const [search, setSearch] = useState("");
+  const [reading, setReading] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
 
   return (
     <div>
@@ -376,7 +377,15 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
                   </Button>
                 ) : (
                   <Button asChild size="sm" variant="outline" className="rounded-full">
-                    <a href={b.url_librivox} target="_blank" rel="noreferrer" onClick={() => collections.recordView(item)}>Open <ExternalLink className="h-3 w-3 ml-1" /></a>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        collections.recordView(item);
+                        setReading({ url: b.url_librivox, title: b.title, subtitle: author });
+                      }}
+                    >
+                      Open <ExternalLink className="h-3 w-3 ml-1" />
+                    </button>
                   </Button>
                 )}
               </div>
@@ -386,6 +395,9 @@ function AudiobooksTab({ collections, onPlay, currentBookId }: { collections: Co
         </div>
       )}
       <p className="text-xs text-muted-foreground text-center mt-6">Powered by LibriVox — free public-domain audiobooks.</p>
+      {reading && (
+        <InAppReader url={reading.url} title={reading.title} subtitle={reading.subtitle} onClose={() => setReading(null)} />
+      )}
     </div>
   );
 }
