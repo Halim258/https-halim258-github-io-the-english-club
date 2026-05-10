@@ -311,26 +311,59 @@ function FavBtn({ item, collections, className = "" }: { item: LibItem; collecti
 function BooksTab({ collections }: { collections: Coll }) {
   const [q, setQ] = useState("");
   const [query, setQuery] = useState("");
+  const [topic, setTopic] = useState<string>("");
   const [books, setBooks] = useState<Book[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [nextUrl, setNextUrl] = useState<string | null>(null);
   const [reading, setReading] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
+
+  const TOPICS = [
+    { label: "Popular", value: "" },
+    { label: "Adventure", value: "adventure" },
+    { label: "Mystery", value: "mystery detective" },
+    { label: "Romance", value: "romance" },
+    { label: "Sci-Fi", value: "science fiction" },
+    { label: "Fantasy", value: "fantasy" },
+    { label: "Horror", value: "horror" },
+    { label: "Children", value: "children" },
+    { label: "History", value: "history" },
+    { label: "Philosophy", value: "philosophy" },
+    { label: "Poetry", value: "poetry" },
+    { label: "Short Stories", value: "short stories" },
+  ];
 
   useEffect(() => {
     setLoading(true);
-    const url = query
-      ? `https://gutendex.com/books/?languages=en&search=${encodeURIComponent(query)}`
+    const search = query || topic;
+    const url = search
+      ? `https://gutendex.com/books/?languages=en&search=${encodeURIComponent(search)}`
       : `https://gutendex.com/books/?languages=en&sort=popular`;
     // Books rarely change — cache 1 hour
-    cachedJson<{ results: Book[] }>(url, { ttlMs: 60 * 60 * 1000 })
-      .then((d) => setBooks((d.results || []).slice(0, 24)))
-      .catch(() => setBooks([]))
+    cachedJson<{ results: Book[]; next: string | null }>(url, { ttlMs: 60 * 60 * 1000 })
+      .then((d) => { setBooks(d.results || []); setNextUrl(d.next || null); })
+      .catch(() => { setBooks([]); setNextUrl(null); })
       .finally(() => setLoading(false));
-  }, [query]);
+  }, [query, topic]);
+
+  const loadMore = async () => {
+    if (!nextUrl || loadingMore) return;
+    setLoadingMore(true);
+    try {
+      const d = await cachedJson<{ results: Book[]; next: string | null }>(nextUrl, { ttlMs: 60 * 60 * 1000 });
+      setBooks((prev) => [...prev, ...(d.results || [])]);
+      setNextUrl(d.next || null);
+    } catch {
+      // ignore
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   return (
     <div>
       <form
-        onSubmit={(e) => { e.preventDefault(); setQuery(q.trim()); }}
+        onSubmit={(e) => { e.preventDefault(); setQuery(q.trim()); setTopic(""); }}
         className="flex gap-2 mb-5"
       >
         <div className="relative flex-1">
@@ -340,7 +373,29 @@ function BooksTab({ collections }: { collections: Coll }) {
         <Button type="submit" className="rounded-full">Search</Button>
       </form>
 
+      {/* Topic chips for quick browsing */}
+      <div className="flex gap-2 overflow-x-auto pb-2 mb-4 -mx-1 px-1 scrollbar-hide">
+        {TOPICS.map((t) => {
+          const active = !query && topic === t.value;
+          return (
+            <button
+              key={t.label}
+              type="button"
+              onClick={() => { setTopic(t.value); setQuery(""); setQ(""); }}
+              className={`shrink-0 px-3.5 py-1.5 rounded-full text-xs font-medium border transition ${
+                active
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
+                  : "bg-card hover:bg-muted border-border text-foreground/80"
+              }`}
+            >
+              {t.label}
+            </button>
+          );
+        })}
+      </div>
+
       {loading ? <Loading /> : (
+        <>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {books.map((b) => {
             const cover = b.formats["image/jpeg"];
@@ -388,6 +443,17 @@ function BooksTab({ collections }: { collections: Coll }) {
             );
           })}
         </div>
+        {books.length === 0 && (
+          <p className="text-center text-sm text-muted-foreground py-12">No books found. Try a different search or topic.</p>
+        )}
+        {nextUrl && books.length > 0 && (
+          <div className="flex justify-center mt-8">
+            <Button onClick={loadMore} disabled={loadingMore} variant="outline" size="lg" className="rounded-full min-w-[200px]">
+              {loadingMore ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" /> Loading…</> : <>Load more books</>}
+            </Button>
+          </div>
+        )}
+        </>
       )}
       <p className="text-xs text-muted-foreground text-center mt-6">Powered by Project Gutenberg via Gutendex — public-domain books.</p>
       {reading && (
