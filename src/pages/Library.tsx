@@ -63,10 +63,23 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
 
   useEffect(() => { localStorage.setItem("reader.fontSize", String(fontSize)); }, [fontSize]);
 
-  // Strip Jina's leading metadata block and empty markdown image/link titles.
+  // Strip Jina's metadata block and clean up noisy markdown so the reader
+  // shows clean, readable prose instead of raw URLs/footnotes.
   const cleaned = text
-    .replace(/^Title:.*\n(?:URL Source:.*\n)?(?:Published Time:.*\n)?(?:Markdown Content:\s*\n)?/i, "")
-    .replace(/^#+\s*\[\]\([^)]*\)\s*/m, "")
+    // Remove Jina's header lines (Title:, URL Source:, etc.)
+    .replace(/^(Title|URL Source|Published Time|Markdown Content|Warning|Author):.*$/gim, "")
+    // Empty markdown image/link wrappers like ![](...) or [](...)
+    .replace(/!?\[\]\([^)]*\)/g, "")
+    // Inline images
+    .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+    // Footnote-style links like [177](https://...) -> [177]
+    .replace(/\[(\d+)\]\((?:https?:[^)]+)\)/g, "[$1]")
+    // Bare "(https://...)" trailing parens left from stripped links
+    .replace(/\((https?:\/\/[^\s)]+)\)/g, "")
+    // Stray bare URLs on their own
+    .replace(/^\s*https?:\/\/\S+\s*$/gim, "")
+    // Collapse 3+ blank lines
+    .replace(/\n{3,}/g, "\n\n")
     .trim();
 
   return createPortal(
@@ -115,10 +128,27 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
           )}
           {!loading && !error && (
             <div
-              className="leading-relaxed whitespace-pre-wrap font-serif text-foreground/90"
-              style={{ fontSize: `${fontSize}px`, lineHeight: 1.75 }}
+              className="reader-prose font-serif text-foreground/90"
+              style={{ fontSize: `${fontSize}px`, lineHeight: 1.8 }}
             >
-              {cleaned}
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  a: ({ children }) => <span className="underline decoration-dotted">{children}</span>,
+                  img: () => null,
+                  h1: ({ children }) => <h2 className="text-2xl font-bold font-display mt-8 mb-3">{children}</h2>,
+                  h2: ({ children }) => <h3 className="text-xl font-bold font-display mt-6 mb-2">{children}</h3>,
+                  h3: ({ children }) => <h4 className="text-lg font-semibold mt-5 mb-2">{children}</h4>,
+                  p: ({ children }) => <p className="mb-4">{children}</p>,
+                  ul: ({ children }) => <ul className="list-disc pl-6 mb-4 space-y-1">{children}</ul>,
+                  ol: ({ children }) => <ol className="list-decimal pl-6 mb-4 space-y-1">{children}</ol>,
+                  blockquote: ({ children }) => <blockquote className="border-l-4 border-primary/40 pl-4 italic my-4 text-foreground/80">{children}</blockquote>,
+                  hr: () => <hr className="my-6 border-border" />,
+                  code: ({ children }) => <code className="px-1.5 py-0.5 rounded bg-muted text-[0.9em]">{children}</code>,
+                }}
+              >
+                {cleaned}
+              </ReactMarkdown>
             </div>
           )}
         </article>
