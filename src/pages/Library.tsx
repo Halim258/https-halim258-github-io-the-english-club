@@ -864,6 +864,12 @@ function CollectionTab({
     article: { icon: Newspaper, label: "Article" },
     word: { icon: BookMarked, label: "Word" },
   };
+  const [reading, setReading] = useState<{ url: string; title: string; subtitle?: string } | null>(null);
+
+  const openInApp = (r: LibRow) =>
+    r.url && (r.item_type === "book" || r.item_type === "article")
+      ? () => setReading({ url: r.url!, title: r.title, subtitle: r.subtitle || undefined })
+      : null;
 
   return (
     <div>
@@ -878,8 +884,11 @@ function CollectionTab({
         {rows.map((r) => {
           const t = typeLabel[r.item_type];
           const Icon = t.icon;
-          const Wrapper: any = r.url ? "a" : "div";
-          const wrapperProps = r.url ? { href: r.url, target: "_blank", rel: "noreferrer" } : {};
+          const inApp = openInApp(r);
+          const Wrapper: any = inApp ? "button" : r.url ? "a" : "div";
+          const wrapperProps: any = inApp
+            ? { type: "button", onClick: inApp }
+            : r.url ? { href: r.url, target: "_blank", rel: "noreferrer" } : {};
           return (
             <Card key={r.id} className="p-3 flex items-center gap-3 hover:shadow-md transition-shadow">
               {r.image_url ? (
@@ -889,7 +898,7 @@ function CollectionTab({
                   <Icon className="h-6 w-6 text-amber-600 dark:text-amber-400" />
                 </div>
               )}
-              <Wrapper {...wrapperProps} className="flex-1 min-w-0 block">
+              <Wrapper {...wrapperProps} className="flex-1 min-w-0 block text-left">
                 <Badge variant="secondary" className="text-[10px] mb-0.5">{t.label}</Badge>
                 <h3 className="font-semibold text-sm line-clamp-1">{r.title}</h3>
                 {r.subtitle && <p className="text-xs text-muted-foreground line-clamp-1">{r.subtitle}</p>}
@@ -899,7 +908,7 @@ function CollectionTab({
                   <Trash2 className="h-4 w-4" />
                 </button>
               )}
-              {r.url && !onRemove && (
+              {r.url && !onRemove && !inApp && (
                 <a href={r.url} target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-primary p-1.5" aria-label="Open">
                   <ExternalLink className="h-4 w-4" />
                 </a>
@@ -908,6 +917,9 @@ function CollectionTab({
           );
         })}
       </div>
+      {reading && (
+        <InAppReader url={reading.url} title={reading.title} subtitle={reading.subtitle} onClose={() => setReading(null)} />
+      )}
     </div>
   );
 }
