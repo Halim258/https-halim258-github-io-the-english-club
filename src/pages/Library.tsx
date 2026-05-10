@@ -109,12 +109,20 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
     .replace(/!?\[\]\([^)]*\)/g, "")
     // Inline images
     .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
-    // Footnote-style links like [177](https://...) -> [177]
-    .replace(/\[(\d+)\]\((?:https?:[^)]+)\)/g, "[$1]")
+    // Footnote-style links like [177](https://...) -> ⁠ ⁠ (drop entirely; they pollute the page)
+    .replace(/,?\s*\[\d+\]\((?:https?:[^)]+)\)/g, "")
+    // Standalone footnote refs like ,[177] or [177]
+    .replace(/,?\s*\[\d+\](?!\()/g, "")
+    // Gutenberg page markers: [Pg vi], [[Pg 12]], [Pg_12]
+    .replace(/\[+\s*Pg[\s_]*[ivxlcdmIVXLCDM\d]+\s*\]+/g, "")
     // Bare "(https://...)" trailing parens left from stripped links
     .replace(/\((https?:\/\/[^\s)]+)\)/g, "")
     // Stray bare URLs on their own
     .replace(/^\s*https?:\/\/\S+\s*$/gim, "")
+    // Promote ALL-CAPS short lines (e.g. "BOOK VI.", "CHAPTER 1") to H2
+    .replace(/^([A-Z][A-Z0-9 .,'\-]{2,40})\s*$/gm, "## $1")
+    // Trim trailing whitespace on every line
+    .replace(/[ \t]+$/gm, "")
     // Collapse 3+ blank lines
     .replace(/\n{3,}/g, "\n\n")
     .trim();
@@ -133,37 +141,38 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
 
   return createPortal(
     <div className={`fixed inset-0 z-[9999] flex flex-col transition-colors ${themeBg}`}>
-      <div className={`flex items-center gap-2 border-b px-3 py-2 sticky top-0 ${themeCard}`}>
-        <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full">
-          <ChevronLeft className="h-4 w-4 mr-1" /> Back
+      <div className={`grid grid-cols-[auto_1fr_auto] items-center gap-3 border-b px-4 h-14 sticky top-0 backdrop-blur-md ${themeCard}`}>
+        <Button variant="ghost" size="sm" onClick={onClose} className="rounded-full -ml-2 h-9 px-3 gap-1">
+          <ChevronLeft className="h-4 w-4" />
+          <span className="hidden sm:inline text-sm">Library</span>
         </Button>
-        <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold line-clamp-1">{title}</p>
-          {subtitle && <p className="text-[11px] opacity-70 line-clamp-1">{subtitle}</p>}
+        <div className="min-w-0 text-center">
+          <p className="text-sm font-semibold line-clamp-1 leading-tight">{title}</p>
+          {subtitle && <p className="text-[11px] opacity-60 line-clamp-1 leading-tight mt-0.5">{subtitle}</p>}
         </div>
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" aria-label="Reader settings">
-              <span className="text-sm font-bold">Aa</span>
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full" aria-label="Reader settings">
+              <span className="text-base font-bold tracking-tight">Aa</span>
             </Button>
           </PopoverTrigger>
-          <PopoverContent align="end" className="w-56 p-3 space-y-3">
+          <PopoverContent align="end" className="w-64 p-4 space-y-4">
             <div>
-              <p className="text-xs font-semibold mb-1.5 opacity-70">Text size</p>
-              <div className="flex items-center gap-1">
-                <Button variant="outline" size="sm" className="flex-1 h-8" onClick={() => setFontSize((s) => Math.max(14, s - 2))}>A−</Button>
-                <span className="text-xs w-8 text-center tabular-nums">{fontSize}</span>
-                <Button variant="outline" size="sm" className="flex-1 h-8" onClick={() => setFontSize((s) => Math.min(28, s + 2))}>A+</Button>
+              <p className="text-[11px] font-semibold mb-2 opacity-60 uppercase tracking-wider">Text size</p>
+              <div className="flex items-center gap-2">
+                <Button variant="outline" size="sm" className="flex-1 h-9" onClick={() => setFontSize((s) => Math.max(14, s - 2))}>A−</Button>
+                <span className="text-sm w-10 text-center tabular-nums font-medium">{fontSize}</span>
+                <Button variant="outline" size="sm" className="flex-1 h-9" onClick={() => setFontSize((s) => Math.min(28, s + 2))}>A+</Button>
               </div>
             </div>
             <div>
-              <p className="text-xs font-semibold mb-1.5 opacity-70">Theme</p>
-              <div className="grid grid-cols-3 gap-1">
+              <p className="text-[11px] font-semibold mb-2 opacity-60 uppercase tracking-wider">Theme</p>
+              <div className="grid grid-cols-3 gap-2">
                 {(["light", "sepia", "dark"] as const).map((t) => (
                   <button
                     key={t}
                     onClick={() => setTheme(t)}
-                    className={`h-8 rounded-md border text-xs capitalize transition ${theme === t ? "ring-2 ring-primary" : ""} ${
+                    className={`h-10 rounded-lg border text-xs font-medium capitalize transition ${theme === t ? "ring-2 ring-primary ring-offset-2 ring-offset-background" : "hover:scale-105"} ${
                       t === "light" ? "bg-white text-black border-gray-200" : t === "sepia" ? "bg-[hsl(39,45%,90%)] text-[hsl(28,30%,18%)] border-[hsl(39,30%,75%)]" : "bg-[hsl(220,15%,13%)] text-white border-[hsl(220,10%,25%)]"
                     }`}
                   >
@@ -174,9 +183,6 @@ function InAppReader({ url, title, subtitle, onClose }: { url: string; title: st
             </div>
           </PopoverContent>
         </Popover>
-        <Button variant="ghost" size="icon" className="h-8 w-8 rounded-full" onClick={onClose} aria-label="Close">
-          <X className="h-4 w-4" />
-        </Button>
       </div>
       {/* Reading progress bar */}
       <div className="h-0.5 bg-transparent">

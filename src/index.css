@@ -28,10 +28,9 @@
   widows: 2;
 }
 
-/* First paragraph after a header gets a drop cap */
-.reader-prose h2 + p::first-letter,
-.reader-prose h3 + p::first-letter,
-.reader-prose > p:first-of-type::first-letter {
+/* Only the very first paragraph of the article gets a drop cap */
+.reader-prose > p:first-child::first-letter,
+.reader-prose > p:first-of-type:first-child::first-letter {
   font-family: "Crimson Pro", "Lora", Georgia, serif;
   font-weight: 700;
   font-size: 3.4em;
@@ -41,10 +40,19 @@
   color: hsl(var(--primary));
 }
 
-/* Following paragraphs in the same flow get a first-line indent for book feel */
+/* Following paragraphs get a first-line indent for book feel */
 .reader-prose p + p {
   text-indent: 1.4em;
   margin-top: -0.2em;
+}
+
+/* Reset indent right after headings — first para after a heading shouldn't indent */
+.reader-prose h2 + p,
+.reader-prose h3 + p,
+.reader-prose h4 + p,
+.reader-prose hr + p {
+  text-indent: 0;
+  margin-top: 0;
 }
 
 .reader-prose h2,
@@ -54,6 +62,25 @@
   letter-spacing: -0.01em;
   text-align: left;
   hyphens: manual;
+}
+
+.reader-prose h2 {
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid currentColor;
+  border-color: hsl(var(--primary) / 0.25);
+  color: hsl(var(--primary));
+  text-transform: none;
+}
+
+.reader-prose h3 {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin-top: 1.6em;
+  margin-bottom: 0.5em;
 }
 
 .reader-prose blockquote {
