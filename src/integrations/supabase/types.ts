@@ -417,6 +417,8 @@ export type Database = {
       }
       library_history: {
         Row: {
+          completed: boolean
+          completed_at: string | null
           id: string
           image_url: string | null
           item_key: string
@@ -429,6 +431,8 @@ export type Database = {
           viewed_at: string
         }
         Insert: {
+          completed?: boolean
+          completed_at?: string | null
           id?: string
           image_url?: string | null
           item_key: string
@@ -441,6 +445,8 @@ export type Database = {
           viewed_at?: string
         }
         Update: {
+          completed?: boolean
+          completed_at?: string | null
           id?: string
           image_url?: string | null
           item_key?: string

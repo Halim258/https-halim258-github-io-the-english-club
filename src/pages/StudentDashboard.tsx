@@ -14,6 +14,7 @@ import DailyChallenge from "@/components/DailyChallenge";
 import StudyStreakCalendar from "@/components/StudyStreakCalendar";
 import OnboardingWelcome from "@/components/OnboardingWelcome";
 import StudyGoals from "@/components/StudyGoals";
+import LibraryProgressCard from "@/components/LibraryProgressCard";
 
 interface TestResult {
   id: string;
@@ -263,6 +264,13 @@ export default function StudentDashboard() {
       <FadeInUp delay={0.08}>
         <div className="mb-6">
           <StudyStreakCalendar />
+        </div>
+      </FadeInUp>
+
+      {/* Library Progress */}
+      <FadeInUp delay={0.09}>
+        <div className="mb-6">
+          <LibraryProgressCard />
         </div>
       </FadeInUp>
 
