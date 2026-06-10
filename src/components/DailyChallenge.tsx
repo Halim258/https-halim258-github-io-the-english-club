@@ -10,7 +10,7 @@ interface Challenge {
   challenge_type: string;
   question: string;
   options: string[];
-  correct_answer: string;
+  correct_answer: string | null;
   xp_reward: number;
   difficulty: string;
   hint: string | null;
@@ -46,7 +46,7 @@ export default function DailyChallenge() {
     // Check DB for today's challenge
     const { data: dbChallenge } = await supabase
       .from("daily_challenges")
-      .select("*")
+      .select("id, challenge_type, question, options, xp_reward, difficulty, hint")
       .eq("challenge_date", today)
       .maybeSingle();
 
@@ -71,7 +71,7 @@ export default function DailyChallenge() {
         challenge_type: dbChallenge.challenge_type,
         question: dbChallenge.question,
         options: dbChallenge.options as string[],
-        correct_answer: dbChallenge.correct_answer,
+        correct_answer: null,
         xp_reward: dbChallenge.xp_reward,
         difficulty: dbChallenge.difficulty,
         hint: dbChallenge.hint,
@@ -97,33 +97,21 @@ export default function DailyChallenge() {
   async function handleAnswer(answer: string) {
     if (completed || !challenge) return;
     setSelected(answer);
-    const correct = answer === challenge.correct_answer;
-    setIsCorrect(correct);
-    setCompleted(true);
 
     if (user && !challenge.id.startsWith("fallback")) {
-      await supabase.from("daily_challenge_completions").insert({
-        user_id: user.id,
-        challenge_id: challenge.id,
-        is_correct: correct,
-        xp_earned: correct ? challenge.xp_reward : 0,
+      const { data, error } = await supabase.rpc("submit_daily_challenge", {
+        _challenge_id: challenge.id,
+        _answer: answer,
       });
-
-      if (correct) {
-        // Award XP
-        const { data: xpData } = await supabase
-          .from("user_xp")
-          .select("total_xp")
-          .eq("user_id", user.id)
-          .maybeSingle();
-
-        if (xpData) {
-          await supabase
-            .from("user_xp")
-            .update({ total_xp: xpData.total_xp + challenge.xp_reward })
-            .eq("user_id", user.id);
-        }
-      }
+      const row = Array.isArray(data) ? data[0] : data;
+      const correct = !error && row ? row.is_correct : false;
+      setIsCorrect(correct);
+      setChallenge({ ...challenge, correct_answer: row?.correct_answer ?? null });
+      setCompleted(true);
+    } else {
+      const correct = answer === challenge.correct_answer;
+      setIsCorrect(correct);
+      setCompleted(true);
     }
   }
 
