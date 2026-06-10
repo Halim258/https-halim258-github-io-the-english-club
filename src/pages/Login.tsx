@@ -30,7 +30,7 @@ export default function Login() {
     if (authLoading || !user) return;
     if (role === "admin" || role === "secretary") navigate("/admin", { replace: true });
     else if (role === "teacher") navigate("/teacher-dashboard", { replace: true });
-    else navigate("/dashboard", { replace: true });
+    else navigate("/courses", { replace: true });
   }, [user, role, authLoading, navigate]);
 
   useEffect(() => {
@@ -71,9 +71,9 @@ export default function Login() {
 
       if (data?.role === "admin") navigate("/admin");
       else if (data?.role === "teacher") navigate("/teacher-dashboard");
-      else navigate("/dashboard");
+      else navigate("/courses");
     } else {
-      navigate("/dashboard");
+      navigate("/courses");
     }
   };
 
