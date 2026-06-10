@@ -8,6 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+import { useAuth } from "@/hooks/useAuth";
 
 const benefits = [
   "200+ structured lessons from A1 to C2",
@@ -23,11 +24,27 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, role, loading: authLoading } = useAuth();
+
+  useEffect(() => {
+    if (authLoading || !user) return;
+    if (role === "admin" || role === "secretary") navigate("/admin", { replace: true });
+    else if (role === "teacher") navigate("/teacher-dashboard", { replace: true });
+    else navigate("/dashboard", { replace: true });
+  }, [user, role, authLoading, navigate]);
 
   useEffect(() => {
     const saved = localStorage.getItem("remembered_email");
     if (saved) { setEmail(saved); setRememberMe(true); }
   }, []);
+
+  if (authLoading || user) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
