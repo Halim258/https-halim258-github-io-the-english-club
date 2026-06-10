@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import PublicOnlyRoute from "./components/PublicOnlyRoute";
 import Library from "./pages/Library";
 
 // Lazy-loaded pages for better performance
@@ -130,9 +131,9 @@ const App = () => (
                   <TeacherDashboard />
                 </ProtectedRoute>
               } />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/login" element={<PublicOnlyRoute><Login /></PublicOnlyRoute>} />
+              <Route path="/signup" element={<PublicOnlyRoute><Signup /></PublicOnlyRoute>} />
+              <Route path="/forgot-password" element={<PublicOnlyRoute><ForgotPassword /></PublicOnlyRoute>} />
               <Route path="/reset-password" element={<ResetPassword />} />
             </Route>
             <Route path="*" element={<NotFound />} />
