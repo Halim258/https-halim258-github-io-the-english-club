@@ -71,9 +71,9 @@ export default function Login() {
 
       if (data?.role === "admin") navigate("/admin");
       else if (data?.role === "teacher") navigate("/teacher-dashboard");
-      else navigate("/dashboard");
+      else navigate("/courses");
     } else {
-      navigate("/dashboard");
+      navigate("/courses");
     }
   };
 
