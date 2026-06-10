@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Users2, Calendar, Clock, Mail, CheckCircle2, Loader2, UserPlus } from "lucide-react";
+import { Users2, Calendar, Clock, CheckCircle2, Loader2, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,7 +15,6 @@ interface PublicGroup {
   start_time: string | null;
   end_time: string | null;
   teacher_name: string | null;
-  teacher_email: string | null;
   description: string | null;
   max_students: number | null;
   is_public: boolean;
@@ -39,11 +38,7 @@ export default function Groups() {
 
   const fetchGroups = async () => {
     setLoading(true);
-    const { data } = await supabase
-      .from("school_groups")
-      .select("id, level, days, start_time, end_time, teacher_name, teacher_email, description, max_students, is_public")
-      .eq("is_public", true);
-
+    const { data } = await supabase.rpc("get_public_school_groups");
     const groupList = (data as PublicGroup[]) || [];
     setGroups(groupList);
 
@@ -168,12 +163,6 @@ export default function Groups() {
                 </div>
                 <div>
                   <p className="font-semibold text-sm">{g.teacher_name || "TBA"}</p>
-                  {g.teacher_email && (
-                    <a href={`mailto:${g.teacher_email}`} className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors">
-                      <Mail className="h-3 w-3" />
-                      {g.teacher_email}
-                    </a>
-                  )}
                 </div>
               </div>
 

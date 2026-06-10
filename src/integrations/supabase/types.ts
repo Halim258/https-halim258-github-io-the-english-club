@@ -1091,6 +1091,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_public_school_groups: {
+        Args: never
+        Returns: {
+          days: string
+          description: string
+          end_time: string
+          id: string
+          is_public: boolean
+          level: string
+          max_students: number
+          start_time: string
+          teacher_name: string
+        }[]
+      }
+      get_school_group_teacher_email: {
+        Args: { _group_id: string }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
