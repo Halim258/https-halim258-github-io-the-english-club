@@ -1098,6 +1098,14 @@ export type Database = {
         }
         Returns: boolean
       }
+      submit_daily_challenge: {
+        Args: { _answer: string; _challenge_id: string }
+        Returns: {
+          correct_answer: string
+          is_correct: boolean
+          xp_earned: number
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "student" | "teacher" | "secretary"
