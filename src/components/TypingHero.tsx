@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const words = ["Confidence", "Fluency", "Success", "Excellence", "Passion"];
+const words = ["Confidence", "Fluency", "Your Future", "Excellence", "vable"];
 
 export default function TypingHero() {
   const [wordIdx, setWordIdx] = useState(0);
