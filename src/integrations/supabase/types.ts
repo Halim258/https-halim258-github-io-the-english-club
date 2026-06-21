@@ -1169,6 +1169,18 @@ export type Database = {
         Args: { _group_id: string }
         Returns: string
       }
+      get_teacher_group_enrollments: {
+        Args: never
+        Returns: {
+          created_at: string
+          group_days: string
+          group_id: string
+          group_level: string
+          id: string
+          status: string
+          student_name: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
