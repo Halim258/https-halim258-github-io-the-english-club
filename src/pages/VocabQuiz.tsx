@@ -112,7 +112,7 @@ export default function VocabQuiz() {
 
   async function awardXP(amount: number) {
     if (!user) return;
-    await (supabase as any).rpc("award_learning_activity_xp", {
+    await supabase.rpc("award_learning_activity_xp", {
       _activity: "vocab_quiz",
       _score: Math.max(0, Math.min(QUIZ_SIZE, Math.round(amount / 10))),
     });
