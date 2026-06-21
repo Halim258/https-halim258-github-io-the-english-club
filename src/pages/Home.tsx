@@ -41,7 +41,7 @@ import TestimonialsSection from "@/components/home/TestimonialsSection";
 import LocationSection from "@/components/home/LocationSection";
 import CoursesSection from "@/components/home/CoursesSection";
 import ContinueLearning from "@/components/ContinueLearning";
-import TypingHero from "@/components/TypingHero";
+
 import SocialProofToast from "@/components/SocialProofToast";
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import LearningGuide from "@/components/home/LearningGuide";
