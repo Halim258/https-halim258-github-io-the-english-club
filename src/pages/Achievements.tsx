@@ -31,7 +31,8 @@ export default function Achievements() {
 
   useEffect(() => {
     if (!user) return;
-    supabase
+    (supabase as any).rpc("sync_my_achievements").finally(() => {
+      supabase
       .from("achievements")
       .select("badge_key")
       .eq("user_id", user.id)
@@ -39,6 +40,7 @@ export default function Achievements() {
         if (data) setEarned(new Set(data.map(d => d.badge_key)));
         setLoading(false);
       });
+    });
   }, [user]);
 
   const earnedCount = earned.size;
