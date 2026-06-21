@@ -252,7 +252,7 @@ export default function Home() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              Serving Alexandria since 2019
+              In Agamy, Alexandria since 2019
               <span className="h-3.5 w-px bg-border" />
               <span className="text-primary font-bold">500+ Students</span>
             </motion.div>
@@ -263,7 +263,7 @@ export default function Home() {
               transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-3xl font-bold leading-[1.1] md:text-5xl lg:text-6xl xl:text-7xl font-display"
             >
-              Master English with{" "}
+              Everything You Need to Speak with{" "}
               <TypingHero />
             </motion.h1>
 
@@ -273,7 +273,7 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               className="mx-auto mt-4 md:mt-6 max-w-2xl text-sm md:text-lg text-muted-foreground leading-relaxed px-2"
             >
-              The English Club Language School — Cambridge-aligned curriculum, expert teachers, and modern learning tools. From beginner to advanced, we've got your English journey covered.
+              Since 2019 in Agamy, Alexandria — we build confident speakers, not just rule memorizers. Courses, expert teachers, live conversation, exams, self-study tools, and a certificate at the end — all in one place.
             </motion.p>
 
             {/* CTAs */}
