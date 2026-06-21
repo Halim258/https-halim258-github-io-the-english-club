@@ -99,9 +99,8 @@ Be encouraging but honest. Keep feedback concise.`;
 
       // Award XP
       if (user) {
-        const { data: xpResult } = await (supabase as any).rpc("award_learning_activity_xp", {
+        const { data: xpResult } = await supabase.rpc("award_learning_activity_xp", {
           _activity: "writing_practice",
-          _score: null,
         });
         const xpEarned = Array.isArray(xpResult) ? xpResult[0]?.xp_earned ?? 0 : 0;
         toast.success(xpEarned > 0 ? "🎉 +15 XP earned for writing practice!" : "Writing feedback saved for today!");
