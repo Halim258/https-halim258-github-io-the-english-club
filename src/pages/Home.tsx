@@ -72,9 +72,9 @@ function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: str
 }
 
 const audiences = [
-  { image: audienceSelfLearning, title: "Self-Learning Students", desc: "Study at your own pace", to: "/courses", tag: "Free" },
-  { image: audienceInternational, title: "International Learners", desc: "Learn from anywhere", to: "/courses", tag: "Online" },
-  { image: audienceTeacher, title: "Learn with a Teacher", desc: "1-on-1 expert guidance", to: "/teachers", tag: "Premium" },
+  { image: audienceSelfLearning, title: "ذاكر لوحدك", subtitle: "Self-Study", desc: "كورسات مجانية بنظامك ووقتك", to: "/courses", tag: "مجاني" },
+  { image: audienceInternational, title: "اتعلم أونلاين", subtitle: "Online Learning", desc: "من أي مكان في مصر والعالم", to: "/courses", tag: "أونلاين" },
+  { image: audienceTeacher, title: "مع مدرّس خاص", subtitle: "1-on-1 Teacher", desc: "حصص فردية مع مدرسين معتمدين", to: "/teachers", tag: "بريميوم" },
 ];
 
 const stats = [
@@ -252,9 +252,9 @@ export default function Home() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              In Agamy, Alexandria since 2019
+              🇪🇬 في العجمي · إسكندرية · من 2019
               <span className="h-3.5 w-px bg-border" />
-              <span className="text-primary font-bold">500+ Students</span>
+              <span className="text-primary font-bold">+500 طالب</span>
             </motion.div>
 
             <motion.h1
@@ -263,7 +263,7 @@ export default function Home() {
               transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-3xl font-bold leading-[1.1] md:text-5xl lg:text-6xl xl:text-7xl font-display"
             >
-              Everything You Need to Speak with{" "}
+              مدرسة لغات حقيقية تبنيلك{" "}
               <TypingHero />
             </motion.h1>
 
@@ -273,7 +273,7 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               className="mx-auto mt-4 md:mt-6 max-w-2xl text-sm md:text-lg text-muted-foreground leading-relaxed px-2"
             >
-              Since 2019 in Agamy, Alexandria — we build confident speakers, not just rule memorizers. Courses, expert teachers, live conversation, exams, self-study tools, and a certificate at the end — all in one place.
+              من 2019 في العجمي بإسكندرية، بنخرّج متحدثين واثقين مش مجرد حافظين قواعد. كورسات منظمة، مدرسين خبراء، محادثة لايف، امتحانات، أدوات تعلم ذاتي، وشهادة معتمدة في الآخر — كله في مكان واحد.
             </motion.p>
 
             {/* CTAs */}
@@ -285,12 +285,12 @@ export default function Home() {
             >
               <Link to="/signup">
                 <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200 w-full sm:w-auto">
-                  Start Learning Free <ArrowRight className="ml-2 h-4 w-4" />
+                  ابدأ مجاناً دلوقتي <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/courses">
                 <Button variant="outline" size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 hover:scale-[1.03] hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 w-full sm:w-auto">
-                  Explore Courses
+                  استكشف الكورسات
                 </Button>
               </Link>
             </motion.div>
@@ -310,8 +310,8 @@ export default function Home() {
                   <GraduationCap className="h-4.5 w-4.5 text-primary" />
                 </div>
                 <div className="text-left">
-                  <p className="text-sm font-semibold font-display">Don't know your level?</p>
-                  <p className="text-[11px] text-muted-foreground">Take our free Cambridge Placement Test →</p>
+                  <p className="text-sm font-semibold font-display">مش عارف مستواك؟</p>
+                  <p className="text-[11px] text-muted-foreground">اختبار تحديد مستوى كامبريدج · مجاني ←</p>
                 </div>
                 <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-200" />
               </Link>
