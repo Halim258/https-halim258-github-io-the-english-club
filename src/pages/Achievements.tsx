@@ -31,7 +31,7 @@ export default function Achievements() {
 
   useEffect(() => {
     if (!user) return;
-    (supabase as any).rpc("sync_my_achievements").finally(() => {
+    supabase.rpc("sync_my_achievements").finally(() => {
       supabase
       .from("achievements")
       .select("badge_key")
