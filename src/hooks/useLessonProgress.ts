@@ -10,10 +10,10 @@ export function useLessonProgress() {
     async (levelId: string, lessonNumber: number, score?: number) => {
       if (!user) return;
 
-      const { data, error } = await (supabase as any).rpc("complete_lesson", {
+      const { data, error } = await supabase.rpc("complete_lesson", {
         _level_id: levelId,
         _lesson_number: lessonNumber,
-        _score: score ?? null,
+        _score: score,
       });
 
       if (error) {
