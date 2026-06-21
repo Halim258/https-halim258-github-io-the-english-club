@@ -1086,11 +1086,71 @@ export type Database = {
         }
         Relationships: []
       }
+      xp_award_events: {
+        Row: {
+          amount: number
+          awarded_at: string
+          id: string
+          source: string
+          source_key: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          awarded_at?: string
+          id?: string
+          source: string
+          source_key: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          awarded_at?: string
+          id?: string
+          source?: string
+          source_key?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      apply_user_xp_award: {
+        Args: {
+          _amount: number
+          _source: string
+          _source_key: string
+          _user_id: string
+        }
+        Returns: {
+          current_streak: number
+          longest_streak: number
+          total_xp: number
+          xp_earned: number
+        }[]
+      }
+      award_learning_activity_xp: {
+        Args: { _activity: string; _score?: number }
+        Returns: {
+          current_streak: number
+          longest_streak: number
+          total_xp: number
+          xp_earned: number
+        }[]
+      }
+      complete_lesson: {
+        Args: { _lesson_number: number; _level_id: string; _score?: number }
+        Returns: {
+          completed: boolean
+          current_streak: number
+          longest_streak: number
+          total_xp: number
+          xp_earned: number
+        }[]
+      }
       get_public_school_groups: {
         Args: never
         Returns: {
@@ -1116,6 +1176,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_group_teacher: { Args: { _group_id: string }; Returns: boolean }
       submit_daily_challenge: {
         Args: { _answer: string; _challenge_id: string }
         Returns: {
@@ -1123,6 +1184,12 @@ export type Database = {
           is_correct: boolean
           xp_earned: number
         }[]
+      }
+      sync_my_achievements: { Args: never; Returns: undefined }
+      sync_user_achievements: { Args: { _user_id: string }; Returns: undefined }
+      update_group_enrollment_status: {
+        Args: { _enrollment_id: string; _status: string }
+        Returns: boolean
       }
     }
     Enums: {

@@ -112,10 +112,10 @@ export default function VocabQuiz() {
 
   async function awardXP(amount: number) {
     if (!user) return;
-    const { data } = await supabase.from("user_xp").select("total_xp").eq("user_id", user.id).maybeSingle();
-    if (data) {
-      await supabase.from("user_xp").update({ total_xp: data.total_xp + amount }).eq("user_id", user.id);
-    }
+    await supabase.rpc("award_learning_activity_xp", {
+      _activity: "vocab_quiz",
+      _score: Math.max(0, Math.min(QUIZ_SIZE, Math.round(amount / 10))),
+    });
   }
 
   const current = quizWords[currentIdx];

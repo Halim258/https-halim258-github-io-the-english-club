@@ -31,14 +31,18 @@ export default function Achievements() {
 
   useEffect(() => {
     if (!user) return;
-    supabase
-      .from("achievements")
-      .select("badge_key")
-      .eq("user_id", user.id)
-      .then(({ data }) => {
-        if (data) setEarned(new Set(data.map(d => d.badge_key)));
-        setLoading(false);
-      });
+    const userId = user.id;
+    async function loadAchievements() {
+      await supabase.rpc("sync_my_achievements");
+      const { data } = await supabase
+        .from("achievements")
+        .select("badge_key")
+        .eq("user_id", userId);
+
+      if (data) setEarned(new Set(data.map(d => d.badge_key)));
+      setLoading(false);
+    }
+    loadAchievements();
   }, [user]);
 
   const earnedCount = earned.size;

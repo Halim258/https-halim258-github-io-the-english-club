@@ -53,7 +53,10 @@ export default function TeacherEnrollments() {
 
   const updateStatus = async (id: string, status: "approved" | "rejected") => {
     setUpdating(id);
-    const { error } = await supabase.from("group_enrollments").update({ status }).eq("id", id);
+    const { error } = await supabase.rpc("update_group_enrollment_status", {
+      _enrollment_id: id,
+      _status: status,
+    });
     setUpdating(null);
     if (error) {
       toast({ title: "Error", description: error.message, variant: "destructive" });
