@@ -246,16 +246,23 @@ export default function Home() {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 rounded-full border bg-card/80 backdrop-blur-sm px-5 py-2.5 text-xs font-semibold text-muted-foreground shadow-soft mb-8"
+              className="inline-flex items-center gap-2.5 rounded-full border bg-card/80 backdrop-blur-sm px-5 py-2.5 text-xs font-semibold text-muted-foreground shadow-soft mb-3"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              🇪🇬 في العجمي · إسكندرية · من 2019
-              <span className="h-3.5 w-px bg-border" />
-              <span className="text-primary font-bold">+500 طالب</span>
+              🇪🇬 The English Club • Agami, Alexandria • Since 2019
             </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-xs md:text-sm font-medium text-muted-foreground mb-8"
+            >
+              500+ Students • Thousands of Lessons • One Mission: Fluency
+            </motion.p>
 
             <motion.h1
               initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
@@ -263,34 +270,82 @@ export default function Home() {
               transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-3xl font-bold leading-[1.1] md:text-5xl lg:text-6xl xl:text-7xl font-display"
             >
-              مدرسة لغات حقيقية تبنيلك{" "}
-              <TypingHero />
+              Learn Languages. Speak with Confidence.
             </motion.h1>
 
-            <motion.p
+            <motion.div
               initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-              className="mx-auto mt-4 md:mt-6 max-w-2xl text-sm md:text-lg text-muted-foreground leading-relaxed px-2"
+              className="mx-auto mt-4 md:mt-6 max-w-2xl space-y-3 text-sm md:text-lg text-muted-foreground leading-relaxed px-2"
             >
-              من 2019 في العجمي بإسكندرية، بنخرّج متحدثين واثقين مش مجرد حافظين قواعد. كورسات منظمة، مدرسين خبراء، محادثة لايف، امتحانات، أدوات تعلم ذاتي، وشهادة معتمدة في الآخر — كله في مكان واحد.
+              <p>في The English Club إحنا مش بنعلم قواعد وبس، إحنا بنساعدك تستخدم اللغة في حياتك الحقيقية بثقة وطلاقة.</p>
+              <p>من سنة 2019 وإحنا بنساعد الطلاب يحققوا أهدافهم في تعلم اللغات من خلال كورسات منظمة، مدرسين محترفين، Live Conversation Sessions، وأدوات Self-Study تقدر تتعلم بيها في أي وقت.</p>
+            </motion.div>
+
+            {/* Features */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.38, ease: "easeOut" }}
+              className="mt-8 md:mt-10"
+            >
+              <h3 className="text-base md:text-lg font-semibold font-display text-foreground">Everything You Need to Learn a Language</h3>
+              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left max-w-xl mx-auto">
+                {[
+                  "Expert Teachers",
+                  "Live Speaking Practice",
+                  "Structured Courses",
+                  "Self-Study Platform",
+                  "Progress Tracking & Exams",
+                  "Certificates of Completion",
+                ].map((item) => (
+                  <div key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
+                    <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.42, ease: "easeOut" }}
+              className="mx-auto mt-6 md:mt-8 max-w-2xl text-sm md:text-base text-muted-foreground leading-relaxed px-2"
+            >
+              سواء هدفك شغل أفضل، دراسة، سفر، أو تطوير نفسك، هتلاقي في The English Club كل الأدوات والدعم اللي محتاجهم عشان توصل للـ Fluency.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.46, ease: "easeOut" }}
+              className="mt-8 md:mt-10"
+            >
+              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
+                Don't Just Study a Language. <span className="text-gradient">Live It.</span>
+              </h2>
+              <p className="mt-2 text-sm md:text-base text-muted-foreground">
+                ابدأ رحلتك النهارده وخلي كل درس يقربك خطوة من الطلاقة.
+              </p>
+            </motion.div>
 
             {/* CTAs */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
               className="mt-6 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 px-4"
             >
               <Link to="/signup">
                 <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200 w-full sm:w-auto">
-                  ابدأ مجاناً دلوقتي <ArrowRight className="ml-2 h-4 w-4" />
+                  Start Learning for Free <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/courses">
                 <Button variant="outline" size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 hover:scale-[1.03] hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 w-full sm:w-auto">
-                  استكشف الكورسات
+                  Explore Courses
                 </Button>
               </Link>
             </motion.div>
@@ -299,7 +354,7 @@ export default function Home() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.48, ease: "easeOut" }}
+              transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
               className="mt-6"
             >
               <Link
@@ -310,8 +365,8 @@ export default function Home() {
                   <GraduationCap className="h-4.5 w-4.5 text-primary" />
                 </div>
                 <div className="text-left">
-                  <p className="text-sm font-semibold font-display">مش عارف مستواك؟</p>
-                  <p className="text-[11px] text-muted-foreground">اختبار تحديد مستوى كامبريدج · مجاني ←</p>
+                  <p className="text-sm font-semibold font-display">Not sure about your level?</p>
+                  <p className="text-[11px] text-muted-foreground">Take our Free Cambridge Placement Test and get a personalized learning path in minutes. ←</p>
                 </div>
                 <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-200" />
               </Link>
