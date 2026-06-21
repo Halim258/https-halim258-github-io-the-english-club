@@ -350,10 +350,27 @@ export default function Home() {
                       height={56}
                     />
                     <p className="text-sm font-semibold font-display">{a.title}</p>
+                    <p className="text-[10px] uppercase tracking-wider text-primary/70 font-bold">{a.subtitle}</p>
                     <p className="text-[11px] text-muted-foreground">{a.desc}</p>
                   </Link>
                 </motion.div>
               ))}
+            </motion.div>
+
+            {/* Trust strip — bilingual */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+              className="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] md:text-xs text-muted-foreground"
+            >
+              <span className="inline-flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-emerald-500" /> منهج كامبريدج · A1–C2</span>
+              <span className="hidden md:inline text-border">•</span>
+              <span className="inline-flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-primary" /> فرع حضوري في العجمي</span>
+              <span className="hidden md:inline text-border">•</span>
+              <span className="inline-flex items-center gap-1.5"><Award className="h-3.5 w-3.5 text-amber-500" /> شهادة معتمدة في الآخر</span>
+              <span className="hidden md:inline text-border">•</span>
+              <span className="inline-flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-blue-500" /> 7 سنين خبرة</span>
             </motion.div>
           </div>
         </div>
