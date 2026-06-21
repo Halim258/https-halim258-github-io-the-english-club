@@ -7,8 +7,6 @@ import { useToast } from "@/hooks/use-toast";
 interface Enrollment {
   id: string;
   student_name: string;
-  student_email: string | null;
-  student_phone: string | null;
   status: string;
   created_at: string;
   group_id: string;
@@ -26,28 +24,11 @@ export default function TeacherEnrollments() {
 
   const fetchEnrollments = async () => {
     setLoading(true);
-    const { data } = await supabase
-      .from("group_enrollments")
-      .select("id, student_name, student_email, student_phone, status, created_at, group_id")
-      .order("created_at", { ascending: false });
-
-    if (!data) { setLoading(false); return; }
-
-    // Fetch group info for each enrollment
-    const groupIds = [...new Set(data.map((e: any) => e.group_id))];
-    const { data: groups } = await supabase
-      .from("school_groups")
-      .select("id, level, days")
-      .in("id", groupIds);
-
-    const groupMap: Record<string, any> = {};
-    groups?.forEach((g: any) => { groupMap[g.id] = g; });
-
-    setEnrollments(data.map((e: any) => ({
-      ...e,
-      group_level: groupMap[e.group_id]?.level || null,
-      group_days: groupMap[e.group_id]?.days || null,
-    })));
+    const { data } = await supabase.rpc("get_teacher_group_enrollments");
+    const sorted = ((data as any[]) || []).sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
+    setEnrollments(sorted as Enrollment[]);
     setLoading(false);
   };
 
@@ -91,9 +72,6 @@ export default function TeacherEnrollments() {
                   </div>
                   <div className="min-w-0">
                     <p className="font-medium text-sm">{e.student_name}</p>
-                    <p className="text-xs text-muted-foreground truncate">
-                      {e.student_email || "No email"} {e.student_phone && `· ${e.student_phone}`}
-                    </p>
                     <p className="text-xs text-muted-foreground mt-0.5">
                       {e.group_level && <span className="font-medium text-primary">{e.group_level}</span>}
                       {e.group_days && ` · ${e.group_days}`}
