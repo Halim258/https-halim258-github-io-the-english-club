@@ -246,6 +246,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 20, scale: 0.95 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ duration: 0.5 }}
+              dir="ltr"
               className="inline-flex items-center gap-2.5 rounded-full border bg-card/80 backdrop-blur-sm px-5 py-2.5 text-xs font-semibold text-muted-foreground shadow-soft mb-3"
             >
               <span className="relative flex h-2 w-2">
@@ -259,6 +260,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
+              dir="ltr"
               className="text-xs md:text-sm font-medium text-muted-foreground mb-8"
             >
               500+ Students • Thousands of Lessons • One Mission: Fluency
@@ -268,6 +270,7 @@ export default function Home() {
               initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+              dir="ltr"
               className="text-3xl font-bold leading-[1.1] md:text-5xl lg:text-6xl xl:text-7xl font-display"
             >
               Learn Languages. Speak with Confidence.
