@@ -293,8 +293,8 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.38, ease: "easeOut" }}
               className="mt-8 md:mt-10"
             >
-              <h3 className="text-base md:text-lg font-semibold font-display text-foreground">Everything You Need to Learn a Language</h3>
-              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left max-w-xl mx-auto">
+              <h3 dir="ltr" className="text-base md:text-lg font-semibold font-display text-foreground">Everything You Need to Learn a Language</h3>
+              <div dir="ltr" className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left max-w-xl mx-auto">
                 {[
                   "Expert Teachers",
                   "Live Speaking Practice",
@@ -326,7 +326,7 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.46, ease: "easeOut" }}
               className="mt-8 md:mt-10"
             >
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
+              <h2 dir="ltr" className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
                 Don't Just Study a Language. <span className="text-gradient">Live It.</span>
               </h2>
               <p className="mt-2 text-sm md:text-base text-muted-foreground">
@@ -340,6 +340,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
               className="mt-6 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 px-4"
+              dir="ltr"
             >
               <Link to="/signup">
                 <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200 w-full sm:w-auto">
@@ -362,6 +363,7 @@ export default function Home() {
             >
               <Link
                 to="/placement-test"
+                dir="ltr"
                 className="group inline-flex items-center gap-3 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/8 to-accent/8 px-6 py-3.5 shadow-soft transition-all hover:shadow-elevated hover:border-primary/40 hover:-translate-y-0.5 duration-300"
               >
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 group-hover:bg-primary/25 group-hover:scale-110 transition-all duration-300">
