@@ -730,7 +730,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ CLASSROOM BANNER ═══════════════ */}
-      <section className="relative h-72 md:h-80 lg:h-[28rem] overflow-hidden">
+      <section dir="ltr" className="relative h-72 md:h-80 lg:h-[28rem] overflow-hidden">
         <motion.img
           src={studentsLearning}
           alt="Students learning at The English Club"
@@ -770,7 +770,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ MEET OUR TEACHERS ═══════════════ */}
-      <section className="py-14 md:py-20 lg:py-28">
+      <section dir="ltr" className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -835,7 +835,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ MILESTONES BANNER ═══════════════ */}
-      <section className="relative h-48 md:h-56 overflow-hidden">
+      <section dir="ltr" className="relative h-48 md:h-56 overflow-hidden">
         <img src={classroomAerial} alt="The English Club classroom" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={512} />
         <div className="absolute inset-0 bg-secondary/75 backdrop-blur-[2px]" />
         <div className="absolute inset-0 flex items-center">
@@ -864,7 +864,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="gallery" className="border-y bg-muted/20 py-20 md:py-28">
+      <section id="gallery" dir="ltr" className="border-y bg-muted/20 py-20 md:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -900,7 +900,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ PCC COMPETITION ═══════════════ */}
-      <section id="pcc" className="py-20 md:py-28 relative overflow-hidden">
+      <section id="pcc" dir="ltr" className="py-20 md:py-28 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -986,7 +986,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ TESTIMONIALS ═══════════════ */}
-      <section id="testimonials" className="border-y bg-muted/20 py-20 md:py-28 relative overflow-hidden">
+      <section id="testimonials" dir="ltr" className="border-y bg-muted/20 py-20 md:py-28 relative overflow-hidden">
         <div className="absolute top-10 right-10 text-[200px] text-primary/[0.03] font-serif select-none pointer-events-none leading-none">"</div>
         <div className="container mx-auto px-4 relative z-10">
           <FadeInUp>
@@ -1061,7 +1061,7 @@ export default function Home() {
       <LocationSection />
 
       {/* ═══════════════ FINAL CTA ═══════════════ */}
-      <section className="gradient-primary py-24 md:py-32 relative overflow-hidden">
+      <section dir="ltr" className="gradient-primary py-24 md:py-32 relative overflow-hidden">
         {/* Decorative shapes + floating particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-primary-foreground/5 blur-3xl" />
