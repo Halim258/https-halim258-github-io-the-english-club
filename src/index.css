@@ -161,8 +161,8 @@
     --sidebar-border: 220 15% 88%;
     --sidebar-ring: 0 72% 45%;
 
-    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Poppins', 'Inter', ui-sans-serif, sans-serif;
+    --font-sans: 'Work Sans', 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Instrument Serif', 'Lora', Georgia, ui-serif, serif;
 
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
