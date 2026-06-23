@@ -1,0 +1,1 @@
+REVOKE SELECT (correct_answer) ON public.daily_challenges FROM anon, authenticated;
