@@ -437,7 +437,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ PLACEMENT TEST BANNER ═══════════════ */}
-      <section className="py-10 md:py-14 bg-gradient-to-b from-muted/30 to-background border-y">
+      <section dir="ltr" className="py-10 md:py-14 bg-gradient-to-b from-muted/30 to-background border-y">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -466,7 +466,7 @@ export default function Home() {
                 <p className="mt-2 text-sm md:text-base text-muted-foreground">
                   Take our Free Cambridge Placement Test and get a personalized learning path in minutes.
                 </p>
-                <p className="mt-1.5 text-sm text-muted-foreground/80">
+                <p dir="rtl" className="mt-1.5 text-sm text-muted-foreground/80">
                   متأكدش من مستواك؟ اعمل اختبار تحديد المستوى المجاني واعرف هتبدأ منين.
                 </p>
                 <div className="mt-4 flex flex-wrap justify-center lg:justify-start gap-2">
@@ -515,7 +515,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
-      <section className="border-y bg-muted/30 py-14 md:py-20 lg:py-24 relative overflow-hidden">
+      <section dir="ltr" className="border-y bg-muted/30 py-14 md:py-20 lg:py-24 relative overflow-hidden">
         {/* Subtle gradient accent */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.02] via-transparent to-accent/[0.02] pointer-events-none" />
         <div className="container mx-auto px-4 relative z-10">
@@ -550,7 +550,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ TRUST BADGES ═══════════════ */}
-      <section className="py-8 md:py-10 overflow-hidden">
+      <section dir="ltr" className="py-8 md:py-10 overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -582,7 +582,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ HOW IT WORKS ═══════════════ */}
-      <section className="py-14 md:py-20 lg:py-28">
+      <section dir="ltr" className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -632,7 +632,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ FEATURES ═══════════════ */}
-      <section className="relative py-14 md:py-20 lg:py-28 overflow-hidden border-y bg-muted/20">
+      <section dir="ltr" className="relative py-14 md:py-20 lg:py-28 overflow-hidden border-y bg-muted/20">
         <PetalTopRight className="opacity-50" />
         <div className="container mx-auto px-4 relative z-10">
           <FadeInUp>
@@ -692,7 +692,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ EVERY LESSON INCLUDES ═══════════════ */}
-      <section className="py-14 md:py-20 lg:py-28">
+      <section dir="ltr" className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
