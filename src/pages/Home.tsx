@@ -282,8 +282,8 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               className="mx-auto mt-4 md:mt-6 max-w-2xl space-y-3 text-sm md:text-lg text-muted-foreground leading-relaxed px-2"
             >
-              <p>في The English Club إحنا مش بنعلم قواعد وبس، إحنا بنساعدك تستخدم اللغة في حياتك الحقيقية بثقة وطلاقة.</p>
-              <p>من سنة 2019 وإحنا بنساعد الطلاب يحققوا أهدافهم في تعلم اللغات من خلال كورسات منظمة، مدرسين محترفين، Live Conversation Sessions، وأدوات Self-Study تقدر تتعلم بيها في أي وقت.</p>
+              <p dir="rtl">في The English Club إحنا مش بنعلم قواعد وبس، إحنا بنساعدك تستخدم اللغة في حياتك الحقيقية بثقة وطلاقة.</p>
+              <p dir="rtl">من سنة 2019 وإحنا بنساعد الطلاب يحققوا أهدافهم في تعلم اللغات من خلال كورسات منظمة، مدرسين محترفين، Live Conversation Sessions، وأدوات Self-Study تقدر تتعلم بيها في أي وقت.</p>
             </motion.div>
 
             {/* Features */}
@@ -293,8 +293,8 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.38, ease: "easeOut" }}
               className="mt-8 md:mt-10"
             >
-              <h3 className="text-base md:text-lg font-semibold font-display text-foreground">Everything You Need to Learn a Language</h3>
-              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left max-w-xl mx-auto">
+              <h3 dir="ltr" className="text-base md:text-lg font-semibold font-display text-foreground">Everything You Need to Learn a Language</h3>
+              <div dir="ltr" className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left max-w-xl mx-auto">
                 {[
                   "Expert Teachers",
                   "Live Speaking Practice",
@@ -316,6 +316,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.42, ease: "easeOut" }}
               className="mx-auto mt-6 md:mt-8 max-w-2xl text-sm md:text-base text-muted-foreground leading-relaxed px-2"
+              dir="rtl"
             >
               سواء هدفك شغل أفضل، دراسة، سفر، أو تطوير نفسك، هتلاقي في The English Club كل الأدوات والدعم اللي محتاجهم عشان توصل للـ Fluency.
             </motion.p>
@@ -326,10 +327,10 @@ export default function Home() {
               transition={{ duration: 0.6, delay: 0.46, ease: "easeOut" }}
               className="mt-8 md:mt-10"
             >
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
+              <h2 dir="ltr" className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
                 Don't Just Study a Language. <span className="text-gradient">Live It.</span>
               </h2>
-              <p className="mt-2 text-sm md:text-base text-muted-foreground">
+              <p dir="rtl" className="mt-2 text-sm md:text-base text-muted-foreground">
                 ابدأ رحلتك النهارده وخلي كل درس يقربك خطوة من الطلاقة.
               </p>
             </motion.div>
@@ -340,6 +341,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
               className="mt-6 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 px-4"
+              dir="ltr"
             >
               <Link to="/signup">
                 <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200 w-full sm:w-auto">
@@ -362,6 +364,7 @@ export default function Home() {
             >
               <Link
                 to="/placement-test"
+                dir="ltr"
                 className="group inline-flex items-center gap-3 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/8 to-accent/8 px-6 py-3.5 shadow-soft transition-all hover:shadow-elevated hover:border-primary/40 hover:-translate-y-0.5 duration-300"
               >
                 <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 group-hover:bg-primary/25 group-hover:scale-110 transition-all duration-300">
@@ -435,7 +438,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ PLACEMENT TEST BANNER ═══════════════ */}
-      <section className="py-10 md:py-14 bg-gradient-to-b from-muted/30 to-background border-y">
+      <section dir="ltr" className="py-10 md:py-14 bg-gradient-to-b from-muted/30 to-background border-y">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -464,7 +467,7 @@ export default function Home() {
                 <p className="mt-2 text-sm md:text-base text-muted-foreground">
                   Take our Free Cambridge Placement Test and get a personalized learning path in minutes.
                 </p>
-                <p className="mt-1.5 text-sm text-muted-foreground/80">
+                <p dir="rtl" className="mt-1.5 text-sm text-muted-foreground/80">
                   متأكدش من مستواك؟ اعمل اختبار تحديد المستوى المجاني واعرف هتبدأ منين.
                 </p>
                 <div className="mt-4 flex flex-wrap justify-center lg:justify-start gap-2">
@@ -513,7 +516,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
-      <section className="border-y bg-muted/30 py-14 md:py-20 lg:py-24 relative overflow-hidden">
+      <section dir="ltr" className="border-y bg-muted/30 py-14 md:py-20 lg:py-24 relative overflow-hidden">
         {/* Subtle gradient accent */}
         <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.02] via-transparent to-accent/[0.02] pointer-events-none" />
         <div className="container mx-auto px-4 relative z-10">
@@ -548,7 +551,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ TRUST BADGES ═══════════════ */}
-      <section className="py-8 md:py-10 overflow-hidden">
+      <section dir="ltr" className="py-8 md:py-10 overflow-hidden">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -580,7 +583,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ HOW IT WORKS ═══════════════ */}
-      <section className="py-14 md:py-20 lg:py-28">
+      <section dir="ltr" className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -630,7 +633,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ FEATURES ═══════════════ */}
-      <section className="relative py-14 md:py-20 lg:py-28 overflow-hidden border-y bg-muted/20">
+      <section dir="ltr" className="relative py-14 md:py-20 lg:py-28 overflow-hidden border-y bg-muted/20">
         <PetalTopRight className="opacity-50" />
         <div className="container mx-auto px-4 relative z-10">
           <FadeInUp>
@@ -690,7 +693,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ EVERY LESSON INCLUDES ═══════════════ */}
-      <section className="py-14 md:py-20 lg:py-28">
+      <section dir="ltr" className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -728,7 +731,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ CLASSROOM BANNER ═══════════════ */}
-      <section className="relative h-72 md:h-80 lg:h-[28rem] overflow-hidden">
+      <section dir="ltr" className="relative h-72 md:h-80 lg:h-[28rem] overflow-hidden">
         <motion.img
           src={studentsLearning}
           alt="Students learning at The English Club"
@@ -768,7 +771,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ MEET OUR TEACHERS ═══════════════ */}
-      <section className="py-14 md:py-20 lg:py-28">
+      <section dir="ltr" className="py-14 md:py-20 lg:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -833,7 +836,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ MILESTONES BANNER ═══════════════ */}
-      <section className="relative h-48 md:h-56 overflow-hidden">
+      <section dir="ltr" className="relative h-48 md:h-56 overflow-hidden">
         <img src={classroomAerial} alt="The English Club classroom" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={512} />
         <div className="absolute inset-0 bg-secondary/75 backdrop-blur-[2px]" />
         <div className="absolute inset-0 flex items-center">
@@ -862,7 +865,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section id="gallery" className="border-y bg-muted/20 py-20 md:py-28">
+      <section id="gallery" dir="ltr" className="border-y bg-muted/20 py-20 md:py-28">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -898,7 +901,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ PCC COMPETITION ═══════════════ */}
-      <section id="pcc" className="py-20 md:py-28 relative overflow-hidden">
+      <section id="pcc" dir="ltr" className="py-20 md:py-28 relative overflow-hidden">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -984,7 +987,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ TESTIMONIALS ═══════════════ */}
-      <section id="testimonials" className="border-y bg-muted/20 py-20 md:py-28 relative overflow-hidden">
+      <section id="testimonials" dir="ltr" className="border-y bg-muted/20 py-20 md:py-28 relative overflow-hidden">
         <div className="absolute top-10 right-10 text-[200px] text-primary/[0.03] font-serif select-none pointer-events-none leading-none">"</div>
         <div className="container mx-auto px-4 relative z-10">
           <FadeInUp>
@@ -1059,7 +1062,7 @@ export default function Home() {
       <LocationSection />
 
       {/* ═══════════════ FINAL CTA ═══════════════ */}
-      <section className="gradient-primary py-24 md:py-32 relative overflow-hidden">
+      <section dir="ltr" className="gradient-primary py-24 md:py-32 relative overflow-hidden">
         {/* Decorative shapes + floating particles */}
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div className="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-primary-foreground/5 blur-3xl" />
