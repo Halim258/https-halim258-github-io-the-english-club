@@ -200,234 +200,225 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       <OnboardingTour />
-      {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative py-16 md:py-32 lg:py-40 overflow-hidden">
-        <PetalTopRight />
-        <PetalBottomLeft />
-        {/* Animated background */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
-          <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] dark:opacity-[0.04]" aria-hidden="true" />
+      {/* ═══════════════ HERO — Editorial split ═══════════════ */}
+      <section className="relative overflow-hidden border-b border-border/60">
+        {/* Ambient background */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/40" />
           <motion.div
-            className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]"
-            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3], x: [0, 30, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute -bottom-32 -left-20 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px]"
-            animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2], y: [0, -20, 0] }}
+            className="absolute -top-40 -right-32 w-[520px] h-[520px] rounded-full bg-primary/10 blur-[120px]"
+            animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.7, 0.5] }}
             transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           />
           <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-secondary/3 blur-[120px]"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute -bottom-32 -left-32 w-[460px] h-[460px] rounded-full bg-accent/10 blur-[120px]"
+            animate={{ scale: [1.1, 1, 1.1], opacity: [0.4, 0.6, 0.4] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
           />
-          {/* Animated floating dots */}
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={`dot-${i}`}
-              className="absolute w-1.5 h-1.5 rounded-full bg-primary/15"
-              style={{ left: `${10 + i * 12}%`, top: `${15 + (i % 4) * 22}%` }}
-              animate={{ y: [0, -40, 0], opacity: [0.2, 0.6, 0.2] }}
-              transition={{ duration: 5 + i * 0.7, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
-            />
-          ))}
-          {/* Grid pattern overlay */}
-          <div className="absolute inset-0 opacity-[0.02]" style={{
+          <div className="absolute inset-0 opacity-[0.025]" style={{
             backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "60px 60px"
+            backgroundSize: "72px 72px",
           }} />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 rounded-full border bg-card/80 backdrop-blur-sm px-5 py-2.5 text-xs font-semibold text-muted-foreground shadow-soft mb-3"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              🇪🇬 The English Club • Agami, Alexandria • Since 2019
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-xs md:text-sm font-medium text-muted-foreground mb-8"
-            >
-              500+ Students • Thousands of Lessons • One Mission: Fluency
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-              className="text-3xl font-bold leading-[1.1] md:text-5xl lg:text-6xl xl:text-7xl font-display"
-            >
-              Learn Languages. Speak with Confidence.
-            </motion.h1>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-              className="mx-auto mt-4 md:mt-6 max-w-2xl space-y-3 text-sm md:text-lg text-muted-foreground leading-relaxed px-2"
-            >
-              <p>في The English Club إحنا مش بنعلم قواعد وبس، إحنا بنساعدك تستخدم اللغة في حياتك الحقيقية بثقة وطلاقة.</p>
-              <p>من سنة 2019 وإحنا بنساعد الطلاب يحققوا أهدافهم في تعلم اللغات من خلال كورسات منظمة، مدرسين محترفين، Live Conversation Sessions، وأدوات Self-Study تقدر تتعلم بيها في أي وقت.</p>
-            </motion.div>
-
-            {/* Features */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.38, ease: "easeOut" }}
-              className="mt-8 md:mt-10"
-            >
-              <h3 className="text-base md:text-lg font-semibold font-display text-foreground">Everything You Need to Learn a Language</h3>
-              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left max-w-xl mx-auto">
-                {[
-                  "Expert Teachers",
-                  "Live Speaking Practice",
-                  "Structured Courses",
-                  "Self-Study Platform",
-                  "Progress Tracking & Exams",
-                  "Certificates of Completion",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.42, ease: "easeOut" }}
-              className="mx-auto mt-6 md:mt-8 max-w-2xl text-sm md:text-base text-muted-foreground leading-relaxed px-2"
-            >
-              سواء هدفك شغل أفضل، دراسة، سفر، أو تطوير نفسك، هتلاقي في The English Club كل الأدوات والدعم اللي محتاجهم عشان توصل للـ Fluency.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.46, ease: "easeOut" }}
-              className="mt-8 md:mt-10"
-            >
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
-                Don't Just Study a Language. <span className="text-gradient">Live It.</span>
-              </h2>
-              <p className="mt-2 text-sm md:text-base text-muted-foreground">
-                ابدأ رحلتك النهارده وخلي كل درس يقربك خطوة من الطلاقة.
-              </p>
-            </motion.div>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-              className="mt-6 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 px-4"
-            >
-              <Link to="/signup">
-                <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200 w-full sm:w-auto">
-                  Start Learning for Free <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/courses">
-                <Button variant="outline" size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 hover:scale-[1.03] hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 w-full sm:w-auto">
-                  Explore Courses
-                </Button>
-              </Link>
-            </motion.div>
-
-            {/* Placement Test CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6, ease: "easeOut" }}
-              className="mt-6"
-            >
-              <Link
-                to="/placement-test"
-                className="group inline-flex items-center gap-3 rounded-2xl border border-primary/20 bg-gradient-to-r from-primary/8 to-accent/8 px-6 py-3.5 shadow-soft transition-all hover:shadow-elevated hover:border-primary/40 hover:-translate-y-0.5 duration-300"
+        <div className="container relative z-10 mx-auto px-4 py-12 md:py-20 lg:py-24">
+          <div className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            {/* LEFT — Editorial copy */}
+            <div className="lg:col-span-7">
+              <motion.div
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="inline-flex items-center gap-2.5 rounded-full border border-border/80 bg-card/70 backdrop-blur-sm px-4 py-1.5 text-[11px] font-medium tracking-wide text-muted-foreground shadow-soft"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 group-hover:bg-primary/25 group-hover:scale-110 transition-all duration-300">
-                  <GraduationCap className="h-4.5 w-4.5 text-primary" />
-                </div>
-                <div className="text-left">
-                  <p className="text-sm font-semibold font-display">Not sure about your level?</p>
-                  <p className="text-[11px] text-muted-foreground">Take our Free Cambridge Placement Test and get a personalized learning path in minutes. ←</p>
-                </div>
-                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all duration-200" />
-              </Link>
-            </motion.div>
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent/70 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+                </span>
+                <span className="uppercase tracking-[0.18em]">Agami, Alexandria · Since 2019</span>
+              </motion.div>
 
-            {/* Audience cards */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
-              className="mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-2"
-            >
-              {audiences.map((a, i) => (
-                <motion.div
-                  key={a.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
-                  whileHover={{ y: -6, scale: 1.02 }}
+              <motion.h1
+                initial={{ opacity: 0, y: 30, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+                className="mt-6 font-display text-[2.6rem] sm:text-5xl lg:text-[5.25rem] xl:text-[6rem] leading-[0.95] tracking-[-0.02em] text-foreground"
+              >
+                Learn Languages.
+                <span className="block italic text-primary">Speak with Confidence.</span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.25 }}
+                className="mt-7 max-w-xl text-base md:text-lg text-muted-foreground leading-relaxed"
+              >
+                في <span className="font-semibold text-foreground">The English Club</span> إحنا مش بنعلم قواعد وبس — بنساعدك تستخدم اللغة في حياتك بثقة وطلاقة، من خلال كورسات منظمة، مدرسين محترفين، وLive Conversation Sessions.
+              </motion.p>
+
+              {/* CTAs */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
+              >
+                <Link to="/signup" className="w-full sm:w-auto">
+                  <Button size="lg" className="rounded-full px-8 h-12 text-base font-medium shadow-lg hover:shadow-elevated transition-all hover:-translate-y-0.5 w-full sm:w-auto">
+                    Start Learning for Free <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/courses" className="w-full sm:w-auto">
+                  <Button variant="outline" size="lg" className="rounded-full px-8 h-12 text-base font-medium border-foreground/20 hover:border-primary hover:bg-primary/5 transition-all hover:-translate-y-0.5 w-full sm:w-auto">
+                    Explore Courses
+                  </Button>
+                </Link>
+              </motion.div>
+
+              {/* Placement Test inline */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="mt-6"
+              >
+                <Link
+                  to="/placement-test"
+                  className="group inline-flex items-center gap-3 rounded-2xl border border-accent/30 bg-card/70 backdrop-blur-sm pl-3 pr-5 py-2.5 shadow-soft transition-all hover:shadow-elevated hover:border-accent/60 hover:-translate-y-0.5"
                 >
-                  <Link
-                    to={a.to}
-                    className="group relative flex flex-col items-center gap-2.5 rounded-2xl border bg-card/80 backdrop-blur-sm px-4 py-6 shadow-soft transition-all hover:shadow-elevated hover:border-primary/30 duration-300"
-                  >
-                    <span className="absolute top-2.5 right-2.5 text-[9px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2 py-0.5">
-                      {a.tag}
-                    </span>
-                    <motion.img 
-                      src={a.image}
-                      alt={a.title}
-                      className="h-14 w-14 rounded-xl object-cover"
-                      whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
-                      transition={{ duration: 0.4 }}
-                      loading="lazy"
-                      width={56}
-                      height={56}
-                    />
-                    <p className="text-sm font-semibold font-display">{a.title}</p>
-                    <p className="text-[10px] uppercase tracking-wider text-primary/70 font-bold">{a.subtitle}</p>
-                    <p className="text-[11px] text-muted-foreground">{a.desc}</p>
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent/15 text-accent">
+                    <GraduationCap className="h-4.5 w-4.5" />
+                  </span>
+                  <span className="text-sm">
+                    <span className="font-semibold font-display italic text-foreground">Not sure about your level?</span>
+                    <span className="hidden sm:inline text-muted-foreground"> — Take the free Cambridge placement test</span>
+                  </span>
+                  <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-accent group-hover:translate-x-1 transition-all" />
+                </Link>
+              </motion.div>
 
-            {/* Trust strip — bilingual */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] md:text-xs text-muted-foreground"
-            >
-              <span className="inline-flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-emerald-500" /> منهج كامبريدج · A1–C2</span>
-              <span className="hidden md:inline text-border">•</span>
-              <span className="inline-flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-primary" /> فرع حضوري في العجمي</span>
-              <span className="hidden md:inline text-border">•</span>
-              <span className="inline-flex items-center gap-1.5"><Award className="h-3.5 w-3.5 text-amber-500" /> شهادة معتمدة في الآخر</span>
-              <span className="hidden md:inline text-border">•</span>
-              <span className="inline-flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-blue-500" /> 7 سنين خبرة</span>
-            </motion.div>
+              {/* Trust strip */}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+                className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] md:text-xs text-muted-foreground border-t border-border/60 pt-6"
+              >
+                <span className="inline-flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-accent" /> منهج كامبريدج · A1–C2</span>
+                <span className="hidden sm:inline text-border">·</span>
+                <span className="inline-flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-primary" /> فرع حضوري في العجمي</span>
+                <span className="hidden sm:inline text-border">·</span>
+                <span className="inline-flex items-center gap-1.5"><Award className="h-3.5 w-3.5 text-accent" /> شهادة معتمدة</span>
+                <span className="hidden sm:inline text-border">·</span>
+                <span className="inline-flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-primary" /> 7 سنين خبرة</span>
+              </motion.div>
+            </div>
+
+            {/* RIGHT — Image collage */}
+            <div className="lg:col-span-5 relative">
+              <div className="relative aspect-[4/5] max-w-md mx-auto lg:max-w-none">
+                {/* Large primary image */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+                  className="absolute inset-0 rounded-[2rem] overflow-hidden shadow-2xl ring-1 ring-border/60"
+                >
+                  <img
+                    src={studentsLearning}
+                    alt="Students at The English Club"
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/40 via-transparent to-transparent" />
+                  {/* Pull quote */}
+                  <div className="absolute bottom-5 left-5 right-5 text-background/95">
+                    <Quote className="h-5 w-5 mb-2 opacity-80" />
+                    <p className="font-display italic text-lg leading-snug">
+                      Don't just study a language. Live it.
+                    </p>
+                  </div>
+                </motion.div>
+
+                {/* Floating stat card — top right */}
+                <motion.div
+                  initial={{ opacity: 0, x: 30, y: -10 }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.4 }}
+                  className="absolute -top-4 -right-3 md:-right-6 rounded-2xl border bg-card/95 backdrop-blur shadow-elevated px-4 py-3 flex items-center gap-3"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <Users className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <div className="font-display text-2xl leading-none">
+                      <AnimatedCounter target={500} suffix="+" />
+                    </div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Students</div>
+                  </div>
+                </motion.div>
+
+                {/* Floating stat card — bottom left */}
+                <motion.div
+                  initial={{ opacity: 0, x: -30, y: 10 }}
+                  animate={{ opacity: 1, x: 0, y: 0 }}
+                  transition={{ duration: 0.7, delay: 0.55 }}
+                  className="absolute -bottom-5 -left-3 md:-left-6 rounded-2xl border bg-card/95 backdrop-blur shadow-elevated px-4 py-3 flex items-center gap-3"
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/15 text-accent">
+                    <Star className="h-5 w-5 fill-accent" />
+                  </div>
+                  <div>
+                    <div className="font-display text-2xl leading-none">4.9 / 5</div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground mt-1">Student Rating</div>
+                  </div>
+                </motion.div>
+
+                {/* Floating badge — right middle */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                  className="absolute top-1/2 -right-4 md:-right-8 -translate-y-1/2 hidden sm:flex flex-col items-center justify-center h-20 w-20 rounded-full bg-primary text-primary-foreground shadow-2xl ring-4 ring-background"
+                >
+                  <span className="font-display italic text-2xl leading-none">A1</span>
+                  <span className="font-display italic text-xs leading-none mt-0.5">→ C2</span>
+                </motion.div>
+              </div>
+            </div>
           </div>
+
+          {/* Audience strip under hero */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.7 }}
+            className="mt-14 lg:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4"
+          >
+            {audiences.map((a, i) => (
+              <Link
+                key={a.title}
+                to={a.to}
+                className="group relative flex items-center gap-4 rounded-2xl border border-border/80 bg-card/80 backdrop-blur-sm px-4 py-4 shadow-soft transition-all hover:shadow-elevated hover:border-primary/40 hover:-translate-y-1 duration-300"
+              >
+                <img
+                  src={a.image}
+                  alt={a.title}
+                  className="h-14 w-14 rounded-xl object-cover shrink-0"
+                  loading="lazy"
+                  width={56}
+                  height={56}
+                />
+                <div className="min-w-0">
+                  <p className="text-[10px] uppercase tracking-[0.18em] text-accent font-semibold">{a.subtitle}</p>
+                  <p className="font-display text-lg leading-tight mt-0.5 truncate">{a.title}</p>
+                  <p className="text-[11px] text-muted-foreground truncate">{a.desc}</p>
+                </div>
+                <ChevronRight className="ml-auto h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all shrink-0" />
+              </Link>
+            ))}
+          </motion.div>
         </div>
       </section>
 
