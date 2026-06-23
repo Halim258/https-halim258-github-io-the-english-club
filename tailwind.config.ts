@@ -87,8 +87,7 @@ export default {
   		},
   		fontFamily: {
   			sans: [
-				'Work Sans',
-				'Inter',
+  				'Inter',
   				'ui-sans-serif',
   				'system-ui',
   				'-apple-system',
@@ -100,13 +99,6 @@ export default {
   				'Noto Sans',
   				'sans-serif'
   			],
-			display: [
-				'Instrument Serif',
-				'Lora',
-				'Georgia',
-				'ui-serif',
-				'serif'
-			],
   			serif: [
   				'Lora',
   				'ui-serif',
