@@ -282,8 +282,8 @@ export default function Home() {
               transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
               className="mx-auto mt-4 md:mt-6 max-w-2xl space-y-3 text-sm md:text-lg text-muted-foreground leading-relaxed px-2"
             >
-              <p>في The English Club إحنا مش بنعلم قواعد وبس، إحنا بنساعدك تستخدم اللغة في حياتك الحقيقية بثقة وطلاقة.</p>
-              <p>من سنة 2019 وإحنا بنساعد الطلاب يحققوا أهدافهم في تعلم اللغات من خلال كورسات منظمة، مدرسين محترفين، Live Conversation Sessions، وأدوات Self-Study تقدر تتعلم بيها في أي وقت.</p>
+              <p dir="rtl">في The English Club إحنا مش بنعلم قواعد وبس، إحنا بنساعدك تستخدم اللغة في حياتك الحقيقية بثقة وطلاقة.</p>
+              <p dir="rtl">من سنة 2019 وإحنا بنساعد الطلاب يحققوا أهدافهم في تعلم اللغات من خلال كورسات منظمة، مدرسين محترفين، Live Conversation Sessions، وأدوات Self-Study تقدر تتعلم بيها في أي وقت.</p>
             </motion.div>
 
             {/* Features */}
@@ -316,6 +316,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.42, ease: "easeOut" }}
               className="mx-auto mt-6 md:mt-8 max-w-2xl text-sm md:text-base text-muted-foreground leading-relaxed px-2"
+              dir="rtl"
             >
               سواء هدفك شغل أفضل، دراسة، سفر، أو تطوير نفسك، هتلاقي في The English Club كل الأدوات والدعم اللي محتاجهم عشان توصل للـ Fluency.
             </motion.p>
@@ -329,7 +330,7 @@ export default function Home() {
               <h2 dir="ltr" className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
                 Don't Just Study a Language. <span className="text-gradient">Live It.</span>
               </h2>
-              <p className="mt-2 text-sm md:text-base text-muted-foreground">
+              <p dir="rtl" className="mt-2 text-sm md:text-base text-muted-foreground">
                 ابدأ رحلتك النهارده وخلي كل درس يقربك خطوة من الطلاقة.
               </p>
             </motion.div>
