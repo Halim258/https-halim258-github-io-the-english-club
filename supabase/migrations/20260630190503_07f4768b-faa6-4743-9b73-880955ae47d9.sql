@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Users can insert own completions" ON public.daily_challenge_completions;
