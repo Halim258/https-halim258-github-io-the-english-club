@@ -119,7 +119,7 @@ export default function Navbar() {
       {scrollProgress > 0 && (
         <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary via-accent to-primary transition-none z-50" style={{ width: `${scrollProgress}%` }} />
       )}
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div dir="ltr" className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 group">
           <motion.img 
