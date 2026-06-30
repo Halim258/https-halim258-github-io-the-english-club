@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -100,38 +101,38 @@
 
 @layer base {
   :root {
-    /* 60% — Warm neutral background */
-    --background: 30 20% 98%;
-    --foreground: 220 25% 14%;
+    /* 60% — Warm linen background (Oxford & Brass) */
+    --background: 40 33% 94%;
+    --foreground: 217 66% 12%;
 
     /* Cards sit slightly off-white */
     --card: 0 0% 100%;
-    --card-foreground: 220 25% 14%;
+    --card-foreground: 217 66% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 25% 14%;
+    --popover-foreground: 217 66% 12%;
 
-    /* 10% — Rich crimson red accent */
-    --primary: 0 72% 45%;
+    /* Deep claret — primary CTA / emphasis */
+    --primary: 353 64% 33%;
     --primary-foreground: 0 0% 100%;
 
-    /* 30% — Deep slate for secondary surfaces */
-    --secondary: 220 20% 22%;
+    /* Oxford navy secondary surfaces */
+    --secondary: 217 66% 12%;
     --secondary-foreground: 0 0% 100%;
 
-    --muted: 30 12% 94%;
-    --muted-foreground: 220 12% 45%;
+    --muted: 40 25% 90%;
+    --muted-foreground: 217 30% 30%;
 
-    /* Warm gold accent (sparingly) */
-    --accent: 38 80% 52%;
-    --accent-foreground: 0 0% 100%;
+    /* Brass accent — eyebrows, rules, underlines */
+    --accent: 42 54% 54%;
+    --accent-foreground: 217 66% 12%;
 
-    --destructive: 0 72% 50%;
+    --destructive: 353 64% 33%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 88%;
-    --input: 220 15% 88%;
-    --ring: 0 72% 45%;
+    --border: 217 30% 82%;
+    --input: 217 30% 82%;
+    --ring: 353 64% 33%;
 
     --radius: 0.625rem;
 
@@ -162,7 +163,7 @@
     --sidebar-ring: 0 72% 45%;
 
     --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-    --font-display: 'Poppins', 'Inter', ui-sans-serif, sans-serif;
+    --font-display: 'Playfair Display', 'Lora', Georgia, ui-serif, serif;
 
     --shadow-2xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
     --shadow-xs: 0 1px 3px 0px hsl(0 0% 0% / 0.05);
@@ -257,8 +258,9 @@
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', 'Inter', sans-serif;
-    @apply font-semibold;
+    font-family: 'Playfair Display', 'Lora', Georgia, serif;
+    @apply font-bold;
+    letter-spacing: -0.01em;
   }
 
   /* Avoid iOS auto-zoom on focus by ensuring inputs are at least 16px */
@@ -302,7 +304,7 @@
   }
 
   .font-display {
-    font-family: 'Poppins', 'Inter', sans-serif;
+    font-family: 'Playfair Display', 'Lora', Georgia, serif;
   }
 
   .glass-morphism {
