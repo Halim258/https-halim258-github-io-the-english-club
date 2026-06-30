@@ -52,29 +52,14 @@ export default function Login() {
     if (rememberMe) localStorage.setItem("remembered_email", email);
     else localStorage.removeItem("remembered_email");
 
-    const { data: signInData, error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
       setLoading(false);
       toast({ title: "Login failed", description: error.message, variant: "destructive" });
       return;
     }
-
-    const userId = signInData.user?.id;
-    if (userId) {
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId)
-        .limit(1)
-        .single();
-
-      if (data?.role === "admin") navigate("/admin");
-      else if (data?.role === "teacher") navigate("/teacher-dashboard");
-      else navigate("/courses");
-    } else {
-      navigate("/courses");
-    }
+    // Navigation handled by the useEffect above once useAuth resolves the role.
   };
 
   return (

@@ -17,17 +17,19 @@ export default function ResetPassword() {
   const { toast } = useToast();
 
   useEffect(() => {
-    // Listen for the PASSWORD_RECOVERY event from the URL token
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY") {
+    // Listen for recovery/sign-in events from the email link
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "PASSWORD_RECOVERY" || (session && (event === "SIGNED_IN" || event === "INITIAL_SESSION" || event === "TOKEN_REFRESHED"))) {
         setReady(true);
       }
     });
-    // Also check if we already have a session (user clicked the link)
+    // Also check if we already have a session (link already processed)
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) setReady(true);
     });
-    return () => subscription.unsubscribe();
+    // Fallback: give Supabase ~4s to exchange the URL code, then stop blocking
+    const t = setTimeout(() => setReady(true), 4000);
+    return () => { subscription.unsubscribe(); clearTimeout(t); };
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
