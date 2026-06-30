@@ -393,69 +393,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════ PLACEMENT TEST BANNER ═══════════════ */}
-      <section dir="ltr" className="py-10 md:py-14 bg-gradient-to-b from-muted/30 to-background border-y">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
-            className="relative overflow-hidden rounded-3xl border border-primary/15 bg-card/80 backdrop-blur-sm p-6 md:p-10 lg:p-12 shadow-soft"
-          >
-            {/* Decorative gradient blobs */}
-            <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-primary/8 blur-[80px] pointer-events-none" />
-            <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-accent/8 blur-[80px] pointer-events-none" />
-
-            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-6 lg:gap-10">
-              {/* Icon / badge */}
-              <div className="shrink-0">
-                <div className="h-16 w-16 md:h-20 md:w-20 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                  <GraduationCap className="h-8 w-8 md:h-10 md:w-10 text-primary" />
-                </div>
-              </div>
-
-              {/* Text */}
-              <div className="flex-1 text-center lg:text-left">
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
-                  Not Sure About Your English Level?
-                </h2>
-                <p className="mt-2 text-sm md:text-base text-muted-foreground">
-                  Take our Free Cambridge Placement Test and get a personalized learning path in minutes.
-                </p>
-                <p dir="rtl" className="mt-1.5 text-sm text-muted-foreground/80">
-                  متأكدش من مستواك؟ اعمل اختبار تحديد المستوى المجاني واعرف هتبدأ منين.
-                </p>
-                <div className="mt-4 flex flex-wrap justify-center lg:justify-start gap-2">
-                  {["25 Smart Questions", "A1 to C2 Result", "Instant Learning Plan"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center gap-1 text-[11px] font-medium text-primary bg-primary/10 rounded-full px-3 py-1"
-                    >
-                      <CheckCircle2 className="h-3 w-3" />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA */}
-              <div className="shrink-0">
-                <Link to="/placement-test">
-                  <Button
-                    size="lg"
-                    className="rounded-full px-7 md:px-9 font-semibold font-display text-sm md:text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200"
-                  >
-                    Start Free Placement Test
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* ═══════════════ CONTINUE LEARNING ═══════════════ */}
       <ContinueLearning />
 
