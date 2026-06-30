@@ -200,280 +200,196 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       <OnboardingTour />
-      {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative py-16 md:py-32 lg:py-40 overflow-hidden">
-        <PetalTopRight />
-        <PetalBottomLeft />
-        {/* Animated background */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none hidden md:block">
-          <img src={heroBg} alt="" className="absolute inset-0 w-full h-full object-cover opacity-[0.06] dark:opacity-[0.04]" aria-hidden="true" />
-          <motion.div
-            className="absolute -top-20 -right-20 w-[500px] h-[500px] rounded-full bg-primary/5 blur-[100px]"
-            animate={{ scale: [1, 1.3, 1], opacity: [0.3, 0.5, 0.3], x: [0, 30, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute -bottom-32 -left-20 w-[400px] h-[400px] rounded-full bg-accent/5 blur-[100px]"
-            animate={{ scale: [1.2, 1, 1.2], opacity: [0.2, 0.4, 0.2], y: [0, -20, 0] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <motion.div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-secondary/3 blur-[120px]"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
-            transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-          />
-          {/* Animated floating dots */}
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={`dot-${i}`}
-              className="absolute w-1.5 h-1.5 rounded-full bg-primary/15"
-              style={{ left: `${10 + i * 12}%`, top: `${15 + (i % 4) * 22}%` }}
-              animate={{ y: [0, -40, 0], opacity: [0.2, 0.6, 0.2] }}
-              transition={{ duration: 5 + i * 0.7, repeat: Infinity, delay: i * 0.4, ease: "easeInOut" }}
-            />
-          ))}
-          {/* Grid pattern overlay */}
-          <div className="absolute inset-0 opacity-[0.02]" style={{
-            backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "60px 60px"
-          }} />
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-4xl mx-auto text-center">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              dir="ltr"
-              className="inline-flex items-center gap-2.5 rounded-full border bg-card/80 backdrop-blur-sm px-5 py-2.5 text-xs font-semibold text-muted-foreground shadow-soft mb-3"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-              </span>
-              🇪🇬 The English Club • Agami, Alexandria • Since 2019
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              dir="ltr"
-              className="text-xs md:text-sm font-medium text-muted-foreground mb-8"
-            >
-              500+ Students • Thousands of Lessons • One Mission: Fluency
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-              dir="ltr"
-              className="text-3xl font-bold leading-[1.1] md:text-5xl lg:text-6xl xl:text-7xl font-display"
-            >
-              Learn Languages. Speak with Confidence.
-            </motion.h1>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20, filter: "blur(4px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.7, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-              className="mx-auto mt-4 md:mt-6 max-w-2xl space-y-3 text-sm md:text-lg text-muted-foreground leading-relaxed px-2"
-            >
-              <p dir="rtl">في The English Club إحنا مش بنعلم قواعد وبس، إحنا بنساعدك تستخدم اللغة في حياتك الحقيقية بثقة وطلاقة.</p>
-              <p dir="rtl">من سنة 2019 وإحنا بنساعد الطلاب يحققوا أهدافهم في تعلم اللغات من خلال كورسات منظمة، مدرسين محترفين، Live Conversation Sessions، وأدوات Self-Study تقدر تتعلم بيها في أي وقت.</p>
-            </motion.div>
-
-            {/* Features */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.38, ease: "easeOut" }}
-              className="mt-8 md:mt-10"
-            >
-              <h3 dir="ltr" className="text-base md:text-lg font-semibold font-display text-foreground">Everything You Need to Learn a Language</h3>
-              <div dir="ltr" className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left max-w-xl mx-auto">
-                {[
-                  "Expert Teachers",
-                  "Live Speaking Practice",
-                  "Structured Courses",
-                  "Self-Study Platform",
-                  "Progress Tracking & Exams",
-                  "Certificates of Completion",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <CheckCircle2 className="h-4 w-4 text-emerald-500 shrink-0" />
-                    <span>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.42, ease: "easeOut" }}
-              className="mx-auto mt-6 md:mt-8 max-w-2xl text-sm md:text-base text-muted-foreground leading-relaxed px-2"
-              dir="rtl"
-            >
-              سواء هدفك شغل أفضل، دراسة، سفر، أو تطوير نفسك، هتلاقي في The English Club كل الأدوات والدعم اللي محتاجهم عشان توصل للـ Fluency.
-            </motion.p>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.46, ease: "easeOut" }}
-              className="mt-8 md:mt-10"
-            >
-              <h2 dir="ltr" className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
-                Don't Just Study a Language. <span className="text-gradient">Live It.</span>
-              </h2>
-              <p dir="rtl" className="mt-2 text-sm md:text-base text-muted-foreground">
-                ابدأ رحلتك النهارده وخلي كل درس يقربك خطوة من الطلاقة.
-              </p>
-            </motion.div>
-
-            {/* CTAs */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-              className="mt-6 md:mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 px-4"
-              dir="ltr"
-            >
-              <Link to="/signup">
-                <Button size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200 w-full sm:w-auto">
-                  Start Learning for Free <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-              <Link to="/courses">
-                <Button variant="outline" size="lg" className="rounded-full px-8 font-semibold font-display text-base h-12 hover:scale-[1.03] hover:border-primary/30 hover:bg-primary/5 transition-all duration-200 w-full sm:w-auto">
-                  Explore Courses
-                </Button>
-              </Link>
-            </motion.div>
-
-            {/* Audience cards */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.55, ease: "easeOut" }}
-              className="mt-10 md:mt-14 grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 max-w-2xl mx-auto px-2"
-            >
-              {audiences.map((a, i) => (
-                <motion.div
-                  key={a.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 + i * 0.1 }}
-                  whileHover={{ y: -6, scale: 1.02 }}
-                >
-                  <Link
-                    to={a.to}
-                    className="group relative flex flex-col items-center gap-2.5 rounded-2xl border bg-card/80 backdrop-blur-sm px-4 py-6 shadow-soft transition-all hover:shadow-elevated hover:border-primary/30 duration-300"
-                  >
-                    <span className="absolute top-2.5 right-2.5 text-[9px] font-bold uppercase tracking-wider text-primary bg-primary/10 rounded-full px-2 py-0.5">
-                      {a.tag}
-                    </span>
-                    <motion.img 
-                      src={a.image}
-                      alt={a.title}
-                      className="h-14 w-14 rounded-xl object-cover"
-                      whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
-                      transition={{ duration: 0.4 }}
-                      loading="lazy"
-                      width={56}
-                      height={56}
-                    />
-                    <p className="text-sm font-semibold font-display">{a.title}</p>
-                    <p className="text-[10px] uppercase tracking-wider text-primary/70 font-bold">{a.subtitle}</p>
-                    <p className="text-[11px] text-muted-foreground">{a.desc}</p>
-                  </Link>
-                </motion.div>
-              ))}
-            </motion.div>
-
-            {/* Trust strip — bilingual */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.7 }}
-              className="mt-8 md:mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11px] md:text-xs text-muted-foreground"
-            >
-              <span className="inline-flex items-center gap-1.5"><Shield className="h-3.5 w-3.5 text-emerald-500" /> منهج كامبريدج · A1–C2</span>
-              <span className="hidden md:inline text-border">•</span>
-              <span className="inline-flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-primary" /> فرع حضوري في العجمي</span>
-              <span className="hidden md:inline text-border">•</span>
-              <span className="inline-flex items-center gap-1.5"><Award className="h-3.5 w-3.5 text-amber-500" /> شهادة معتمدة في الآخر</span>
-              <span className="hidden md:inline text-border">•</span>
-              <span className="inline-flex items-center gap-1.5"><Clock className="h-3.5 w-3.5 text-blue-500" /> 7 سنين خبرة</span>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══════════════ PLACEMENT TEST BANNER ═══════════════ */}
-      <section dir="ltr" className="py-10 md:py-14 bg-gradient-to-b from-muted/30 to-background border-y">
-        <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
+      {/* ═══════════════ HERO — Literary Journal Editorial ═══════════════ */}
+      <section dir="ltr" className="bg-background text-foreground">
+        <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-10 md:pt-16 pb-12 md:pb-20">
+          {/* Masthead */}
+          <motion.header
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative overflow-hidden rounded-3xl border border-primary/15 bg-card/80 backdrop-blur-sm p-6 md:p-10 lg:p-12 shadow-soft"
+            className="border-b border-foreground/20 pb-6 md:pb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
           >
-            {/* Decorative gradient blobs */}
-            <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-primary/8 blur-[80px] pointer-events-none" />
-            <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-accent/8 blur-[80px] pointer-events-none" />
-
-            <div className="relative z-10 flex flex-col lg:flex-row items-center gap-6 lg:gap-10">
-              {/* Icon / badge */}
-              <div className="shrink-0">
-                <div className="h-16 w-16 md:h-20 md:w-20 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                  <GraduationCap className="h-8 w-8 md:h-10 md:w-10 text-primary" />
-                </div>
-              </div>
-
-              {/* Text */}
-              <div className="flex-1 text-center lg:text-left">
-                <h2 className="text-xl md:text-2xl lg:text-3xl font-bold font-display">
-                  Not Sure About Your English Level?
-                </h2>
-                <p className="mt-2 text-sm md:text-base text-muted-foreground">
-                  Take our Free Cambridge Placement Test and get a personalized learning path in minutes.
-                </p>
-                <p dir="rtl" className="mt-1.5 text-sm text-muted-foreground/80">
-                  متأكدش من مستواك؟ اعمل اختبار تحديد المستوى المجاني واعرف هتبدأ منين.
-                </p>
-                <div className="mt-4 flex flex-wrap justify-center lg:justify-start gap-2">
-                  {["25 Smart Questions", "A1 to C2 Result", "Instant Learning Plan"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center gap-1 text-[11px] font-medium text-primary bg-primary/10 rounded-full px-3 py-1"
-                    >
-                      <CheckCircle2 className="h-3 w-3" />
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA */}
-              <div className="shrink-0">
-                <Link to="/placement-test">
-                  <Button
-                    size="lg"
-                    className="rounded-full px-7 md:px-9 font-semibold font-display text-sm md:text-base h-12 shadow-lg hover:shadow-elevated transition-all hover:scale-[1.03] duration-200"
-                  >
-                    Start Free Placement Test
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </div>
+            <div className="space-y-3">
+              <span className="block text-[10px] uppercase tracking-[0.25em] font-semibold text-accent">
+                Agamy, Alexandria • Since 2019
+              </span>
+              <h1 className="font-display text-5xl md:text-7xl leading-[0.9] italic">
+                The English <br /> Club
+              </h1>
             </div>
-          </motion.div>
+            <div className="md:text-right max-w-sm md:ml-auto space-y-2">
+              <p className="text-sm leading-relaxed text-foreground/80">
+                A premium educational collective mastering the Cambridge curriculum from A1 to C2. Modernity meets tradition in the heart of Alexandria.
+              </p>
+              <p dir="rtl" className="text-sm leading-relaxed text-foreground/70 font-serif">
+                مدرسة لغات بريميوم في العجمي — منهج كامبريدج كامل من A1 لـ C2، بأسلوب تعليم بيخليك تتكلم بثقة.
+              </p>
+            </div>
+          </motion.header>
+
+          {/* Editorial grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 pt-10 md:pt-14">
+            {/* Lead story */}
+            <div className="lg:col-span-8 flex flex-col gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-secondary group"
+              >
+                <img
+                  src={studentsLearning}
+                  alt="Students learning at The English Club Alexandria"
+                  className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.03] transition-transform duration-[1200ms]"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/60 to-transparent" />
+                <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 max-w-xl">
+                  <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-accent block mb-3">
+                    Issue 01 — The Method
+                  </span>
+                  <h2 className="font-display text-3xl md:text-5xl lg:text-6xl leading-[1.05] text-background">
+                    Refining the Art of <em className="text-accent not-italic font-display italic">Language Acquisition.</em>
+                  </h2>
+                  <div className="mt-6 flex flex-wrap gap-3">
+                    <Link to="/signup">
+                      <Button size="lg" className="rounded-none px-7 h-12 font-semibold text-sm uppercase tracking-widest bg-accent text-secondary hover:bg-accent/90 hover:-translate-y-0.5 transition-all">
+                        Start Learning
+                      </Button>
+                    </Link>
+                    <Link to="/courses">
+                      <Button size="lg" variant="outline" className="rounded-none px-7 h-12 font-semibold text-sm uppercase tracking-widest border-background/70 text-background bg-transparent hover:bg-background hover:text-foreground">
+                        Our Curriculum
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Placement test rule-line banner */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="border-y border-foreground/15 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+              >
+                <div>
+                  <span className="block text-[10px] uppercase tracking-[0.25em] font-bold text-primary mb-1">
+                    Assessment
+                  </span>
+                  <p className="font-display text-xl md:text-2xl leading-snug">
+                    Where do you stand? Take our Cambridge placement test.
+                  </p>
+                  <p dir="rtl" className="text-sm text-muted-foreground mt-1 font-serif">
+                    اعمل اختبار تحديد المستوى المجاني واعرف هتبدأ منين.
+                  </p>
+                </div>
+                <Link
+                  to="/placement-test"
+                  className="shrink-0 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest underline underline-offset-[6px] decoration-accent decoration-2 hover:text-accent transition-colors"
+                >
+                  Begin Assessment <ArrowRight className="h-4 w-4" />
+                </Link>
+              </motion.div>
+
+              {/* Audience cards — editorial row */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-foreground/15"
+              >
+                {audiences.map((a, i) => (
+                  <Link
+                    key={a.title}
+                    to={a.to}
+                    className="group bg-background hover:bg-card transition-colors p-6 flex flex-col gap-2"
+                  >
+                    <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-accent">
+                      0{i + 1} / {a.subtitle}
+                    </span>
+                    <h3 dir="rtl" className="font-display text-2xl leading-tight">{a.title}</h3>
+                    <p dir="rtl" className="text-sm text-muted-foreground font-serif">{a.desc}</p>
+                    <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-foreground/70 group-hover:text-primary transition-colors">
+                      Enter <ArrowRight className="h-3.5 w-3.5" />
+                    </span>
+                  </Link>
+                ))}
+              </motion.div>
+            </div>
+
+            {/* Right column — Word of the Day + Inside the Club */}
+            <aside className="lg:col-span-4 flex flex-col gap-10">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="bg-card text-card-foreground p-8 border border-foreground/10 shadow-soft"
+              >
+                <span className="text-[10px] uppercase tracking-[0.25em] text-accent font-bold mb-4 block">
+                  Word of the Day
+                </span>
+                <h3 className="font-display text-4xl italic mb-1">Eloquent</h3>
+                <span className="block text-xs text-muted-foreground italic mb-4">
+                  adjective / ˈel.ə.kwənt /
+                </span>
+                <p className="text-sm leading-relaxed mb-5 italic text-foreground/80 font-serif">
+                  “Fluent or persuasive in speaking or writing.”
+                </p>
+                <div className="border-t border-foreground/10 pt-4">
+                  <p className="text-[11px] leading-snug text-muted-foreground">
+                    Use it today: “Her eloquent speech captivated the entire English Club cohort.”
+                  </p>
+                </div>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="space-y-6"
+              >
+                <h4 className="font-display text-xl border-b border-foreground/20 pb-2">
+                  Inside the Club
+                </h4>
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-5 bg-secondary text-secondary-foreground">
+                    <span className="font-display text-3xl block">500+</span>
+                    <span className="text-[10px] uppercase tracking-widest opacity-70">Active Students</span>
+                  </div>
+                  <div className="p-5 border border-foreground/15">
+                    <span className="font-display text-3xl block text-primary">100%</span>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Cambridge Success</span>
+                  </div>
+                  <div className="p-5 border border-foreground/15">
+                    <span className="font-display text-3xl block">A1–C2</span>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Level Spectrum</span>
+                  </div>
+                  <div className="p-5 bg-accent/15">
+                    <span className="font-display text-3xl block text-accent-foreground">07</span>
+                    <span className="text-[10px] uppercase tracking-widest text-foreground/70">Years in Agamy</span>
+                  </div>
+                </div>
+
+                <ul className="space-y-2.5 pt-2">
+                  {[
+                    "Cambridge-aligned A1–C2 curriculum",
+                    "Live speaking sessions, weekly",
+                    "Certified teachers, in-branch + online",
+                    "Certificate on completion",
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2 text-sm text-foreground/80">
+                      <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </aside>
+          </div>
         </div>
       </section>
 
