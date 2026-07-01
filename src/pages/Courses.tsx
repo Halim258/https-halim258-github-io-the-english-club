@@ -241,6 +241,29 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
             )}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold font-display">{levelLabel}</h1>
+          {lessonKeys.length > 0 && (() => {
+            const firstIncomplete = lessonKeys
+              .map((k) => lessons[k].lessonNumber)
+              .sort((a, b) => a - b)
+              .find((n) => !completedLessons.has(n)) ?? 1;
+            const isResume = completedLessons.size > 0 && !allCompleted;
+            return (
+              <div className="mt-4 flex flex-wrap items-center gap-3">
+                <Link to={`/courses/${levelId}/${firstIncomplete}/slides`}>
+                  <Button size="lg" className="rounded-full font-semibold gap-2 px-6 shadow-md">
+                    <BookOpen className="h-4 w-4" />
+                    {isResume ? `Resume — Lesson ${firstIncomplete}` : "Start Lesson 1"}
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </Link>
+                {completedLessons.size > 0 && (
+                  <span className="text-xs text-muted-foreground">
+                    {completedLessons.size} / {lessonKeys.length} completed
+                  </span>
+                )}
+              </div>
+            );
+          })()}
           {schoolTrack && selectedMinistryBook && (
             <div className="mt-5 rounded-2xl border bg-card p-4 shadow-soft">
               <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
