@@ -247,19 +247,31 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
               .sort((a, b) => a - b)
               .find((n) => !completedLessons.has(n)) ?? 1;
             const isResume = completedLessons.size > 0 && !allCompleted;
+            const progressPercent = Math.round((completedLessons.size / lessonKeys.length) * 100);
             return (
-              <div className="mt-4 flex flex-wrap items-center gap-3">
-                <Link to={`/courses/${levelId}/${firstIncomplete}/slides`}>
-                  <Button size="lg" className="rounded-full font-semibold gap-2 px-6 shadow-md">
-                    <BookOpen className="h-4 w-4" />
-                    {isResume ? `Resume — Lesson ${firstIncomplete}` : "Start Lesson 1"}
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-                {completedLessons.size > 0 && (
-                  <span className="text-xs text-muted-foreground">
-                    {completedLessons.size} / {lessonKeys.length} completed
-                  </span>
+              <div className="mt-4 space-y-3">
+                <div className="flex flex-wrap items-center gap-3">
+                  <Link to={`/courses/${levelId}/${firstIncomplete}/slides`}>
+                    <Button size="lg" className="rounded-full font-semibold gap-2 px-6 shadow-md">
+                      <BookOpen className="h-4 w-4" />
+                      {isResume ? `Resume — Lesson ${firstIncomplete}` : "Start Lesson 1"}
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
+                  {completedLessons.size > 0 && (
+                    <span className="text-xs text-muted-foreground">
+                      {completedLessons.size} / {lessonKeys.length} completed
+                    </span>
+                  )}
+                </div>
+                {user && (
+                  <div className="w-full max-w-md">
+                    <div className="mb-1.5 flex items-center justify-between text-xs">
+                      <span className="font-medium text-foreground">Course progress</span>
+                      <span className="font-semibold text-primary">{progressPercent}%</span>
+                    </div>
+                    <Progress value={progressPercent} className="h-2.5" />
+                  </div>
                 )}
               </div>
             );
