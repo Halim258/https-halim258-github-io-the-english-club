@@ -236,8 +236,8 @@ export default function Home() {
                 className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-secondary group"
               >
                 <img
-                  src={studentsLearning}
-                  alt="Students learning at The English Club Alexandria"
+                  src={studentsLearning.url}
+                  alt="PCC competition winners with medals, certificates and trophies at The English Club Alexandria"
                   className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.03] transition-transform duration-[1200ms]"
                   loading="eager"
                 />
