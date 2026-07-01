@@ -8,25 +8,36 @@ import { supabase } from "@/integrations/supabase/client";
 
 export default function ContinueLearning() {
   const { user } = useAuth();
-  const [lastLesson, setLastLesson] = useState<{ level_id: string; lesson_number: number } | null>(null);
+  const [next, setNext] = useState<{ level_id: string; lesson_number: number; fresh: boolean } | null>(null);
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) {
+      setNext({ level_id: "a1", lesson_number: 1, fresh: true });
+      return;
+    }
     supabase
       .from("lesson_progress")
-      .select("level_id, lesson_number")
+      .select("level_id, lesson_number, completed, completed_at, updated_at")
       .eq("user_id", user.id)
-      .eq("completed", true)
-      .order("completed_at", { ascending: false })
-      .limit(1)
+      .order("updated_at", { ascending: false })
       .then(({ data }) => {
-        if (data && data.length > 0) setLastLesson(data[0]);
+        if (!data || data.length === 0) {
+          setNext({ level_id: "a1", lesson_number: 1, fresh: true });
+          return;
+        }
+        // Pick most recently touched level
+        const level = data[0].level_id;
+        const completedInLevel = new Set(
+          data.filter((r) => r.level_id === level && r.completed).map((r) => r.lesson_number)
+        );
+        // Find first gap starting at 1
+        let n = 1;
+        while (completedInLevel.has(n)) n++;
+        setNext({ level_id: level, lesson_number: n, fresh: false });
       });
   }, [user]);
 
-  if (!lastLesson) return null;
-
-  const nextNum = lastLesson.lesson_number + 1;
+  if (!next) return null;
 
   return (
     <motion.section
