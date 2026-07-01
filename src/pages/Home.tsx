@@ -214,7 +214,7 @@ export default function Home() {
               <span className="block text-[10px] uppercase tracking-[0.25em] font-semibold text-accent">
                 Agamy, Alexandria • Since 2019
               </span>
-              <h1 className="font-display text-5xl md:text-7xl leading-[0.9] italic">
+              <h1 className="font-display text-5xl md:text-7xl leading-[0.9] italic text-primary">
                 The English <br /> Club
               </h1>
             </div>
