@@ -24,7 +24,7 @@ import lessonSpeaking from "@/assets/lesson-speaking.png";
 import lessonExam from "@/assets/lesson-exam.png";
 import lessonHomework from "@/assets/lesson-homework.png";
 import heroBg from "@/assets/hero-bg.jpg";
-import studentsLearning from "@/assets/students-learning.jpg";
+import studentsLearning from "@/assets/pcc-awards-table.png.asset.json";
 import pccPresentation from "@/assets/pcc-presentation.jpg";
 import pccAwards from "@/assets/pcc-awards.jpg";
 import teacher1 from "@/assets/teacher-1.jpg";
@@ -236,8 +236,8 @@ export default function Home() {
                 className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-secondary group"
               >
                 <img
-                  src={studentsLearning}
-                  alt="Students learning at The English Club Alexandria"
+                  src={studentsLearning.url}
+                  alt="PCC competition winners with medals, certificates and trophies at The English Club Alexandria"
                   className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.03] transition-transform duration-[1200ms]"
                   loading="eager"
                 />
@@ -623,8 +623,8 @@ export default function Home() {
       {/* ═══════════════ CLASSROOM BANNER ═══════════════ */}
       <section dir="ltr" className="relative h-72 md:h-80 lg:h-[28rem] overflow-hidden">
         <motion.img
-          src={studentsLearning}
-          alt="Students learning at The English Club"
+          src={studentsLearning.url}
+          alt="PCC competition winners with medals, certificates and trophies at The English Club Alexandria"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
           width={1280}
