@@ -222,9 +222,6 @@ export default function Home() {
               <p className="text-sm leading-relaxed text-foreground/80">
                 A premium educational collective mastering the Cambridge curriculum from A1 to C2. Modernity meets tradition in the heart of Alexandria.
               </p>
-              <p dir="rtl" className="text-sm leading-relaxed text-foreground/70 font-serif">
-                مدرسة لغات بريميوم في العجمي — منهج كامبريدج كامل من A1 لـ C2، بأسلوب تعليم بيخليك تتكلم بثقة.
-              </p>
             </div>
           </motion.header>
 
