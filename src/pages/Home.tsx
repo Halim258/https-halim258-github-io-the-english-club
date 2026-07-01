@@ -250,7 +250,7 @@ export default function Home() {
                     Refining the Art of <em className="text-accent not-italic font-display italic">Language Acquisition.</em>
                   </h2>
                   <div className="mt-6 flex flex-wrap gap-3">
-                    <Link to="/signup">
+                    <Link to="/courses">
                       <Button size="lg" className="rounded-none px-7 h-12 font-semibold text-sm uppercase tracking-widest bg-accent text-secondary hover:bg-accent/90 hover:-translate-y-0.5 transition-all">
                         Start Learning
                       </Button>
