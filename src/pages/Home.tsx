@@ -527,9 +527,9 @@ export default function Home() {
         <PetalTopRight className="opacity-50" />
         <div className="container mx-auto px-4 relative z-10">
           <FadeInUp>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">Why Choose Us</p>
+            <div className="flex items-center justify-center gap-2 md:gap-3 mb-3">
+              <Sparkles className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+              <p className="text-center text-sm md:text-base lg:text-lg font-bold uppercase tracking-widest text-primary">Why Choose Us</p>
             </div>
             <h2 className="text-center text-2xl md:text-3xl lg:text-4xl font-bold font-display">
               A Complete English Learning Platform
