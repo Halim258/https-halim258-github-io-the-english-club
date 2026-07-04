@@ -403,7 +403,7 @@ export default function CategoryDetail() {
                 ? `/curriculum/${cat.slug}/${i}`
                 : hasLessons
                 ? `/courses/${levelId}`
-                : `/curriculum/${cat.slug}/${i}`;
+                : `/courses/${levelId || cat.slug}`;
 
               return (
                 <motion.div key={course.name} variants={staggerItem}>
