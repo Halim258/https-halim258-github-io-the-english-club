@@ -455,7 +455,14 @@ export default function CurriculumPlan() {
                 </TabsContent>
 
                 <TabsContent value="quiz" className="mt-5">
-                  <Quiz items={quizItems} storageKey={stepQuizKey} />
+                  <Quiz
+                    items={quizItems}
+                    answers={quizAnswers as Record<number, number | undefined>}
+                    submitted={quizSubmitted}
+                    onAnswersChange={setQuizAnswers}
+                    onSubmit={submitQuiz}
+                    onReset={resetQuiz}
+                  />
                 </TabsContent>
 
                 <TabsContent value="notes" className="mt-5 space-y-2">
