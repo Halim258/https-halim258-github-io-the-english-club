@@ -392,7 +392,18 @@ export default function CategoryDetail() {
               const hasLessons = getCourseHasLessons(course.name);
               const lessonCount = getCourseLessonCount(course.name);
               const levelId = courseLevelMap[course.name];
-              const coursePath = course.name === "English for Kids" ? "/courses/kids" : course.name === "English through Stories" ? "/courses/stories" : course.name === "English through Movies & Series" ? "/courses/movies" : hasLessons ? `/courses/${levelId}` : `/courses/${levelId || cat.slug}`;
+              const hasModules = Array.isArray(course.modules) && course.modules.length > 0;
+              const coursePath = course.name === "English for Kids"
+                ? "/courses/kids"
+                : course.name === "English through Stories"
+                ? "/courses/stories"
+                : course.name === "English through Movies & Series"
+                ? "/courses/movies"
+                : hasModules
+                ? `/curriculum/${cat.slug}/${i}`
+                : hasLessons
+                ? `/courses/${levelId}`
+                : `/curriculum/${cat.slug}/${i}`;
 
               return (
                 <motion.div key={course.name} variants={staggerItem}>
