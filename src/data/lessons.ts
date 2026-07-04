@@ -129,6 +129,7 @@ import { teensCompletion } from "./teens-completion";
 import { travelCompletion } from "./travel-completion";
 import { conversationExpansion } from "./conversation-expansion";
 import { esA1Lessons } from "./es-a1-lessons";
+import { esA1Lessons6to20 } from "./es-a1-lessons-6-20";
 import { businessEnglishLessons } from "./business-english-lessons";
 import { businessEnglishLessons2 } from "./business-english-2";
 import { businessEnglishLessons3 } from "./business-english-3";
@@ -658,6 +659,7 @@ export const lessons: Record<string, LessonData> = {
   ...readingLessons,
   ...a1Lessons,
   ...esA1Lessons,
+  ...esA1Lessons6to20,
   ...a2Lessons,
   ...b1Lessons,
   ...b2Lessons,
