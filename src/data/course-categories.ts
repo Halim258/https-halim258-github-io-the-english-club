@@ -22,6 +22,7 @@ import aviationImg from "@/assets/courses/aviation.jpg";
 import documentaryImg from "@/assets/courses/documentary.jpg";
 import speechTherapyArImg from "@/assets/courses/speech-therapy-ar.jpg";
 import drawingArImg from "@/assets/courses/drawing-ar.jpg";
+import musicArImg from "@/assets/courses/music-ar.jpg";
 
 export interface Course {
   name: string;
@@ -767,6 +768,55 @@ export const categories: Category[] = [
         description:
           "تصميم شخصية كرتونية، قصة مصورة قصيرة، منظر خيالي، رسم من صورة، ومشروع نهائي يجمع كل المهارات.",
         topics: ["Character Design", "Comics", "Imagination", "Final Project"],
+      },
+    ],
+  },
+  {
+    icon: Music2,
+    emoji: "🎼",
+    title: "منهج الموسيقى — Arabic Music Course",
+    slug: "arabic-music",
+    color: "from-indigo-500/10 to-fuchsia-500/5",
+    iconBg: "bg-indigo-500/15",
+    image: musicArImg,
+    description:
+      "منهج موسيقي عربي شامل من الصفر إلى الهارموني — 6 مستويات متدرجة تناسب الأطفال والكبار. من الأساسيات والإيقاع إلى الغناء والعزف والقراءة والتأليف.",
+    courses: [
+      {
+        name: "المستوى الأول — أساسيات الموسيقى",
+        description:
+          "خصائص الصوت (طبقة، شدة، مدة، لون)، المدرج الموسيقي، النغمات السبع، وقراءة وكتابة النوتة، وتدريب الأذن.",
+        topics: ["Sound", "Staff", "Notes", "Ear Training"],
+      },
+      {
+        name: "المستوى الثاني — الإيقاع",
+        description:
+          "النبض، الميزان، القيم الزمنية (روند، بلانش، نوار، كروش)، السكتات، والتصفيق الإيقاعي.",
+        topics: ["Pulse", "Meter", "Note Values", "Rests"],
+      },
+      {
+        name: "المستوى الثالث — الغناء",
+        description:
+          "تمارين التنفس، إخراج الصوت، السلم الصوتي، الغناء الجماعي، وأداء أغانٍ بسيطة.",
+        topics: ["Breathing", "Vocal", "Scales", "Choir"],
+      },
+      {
+        name: "المستوى الرابع — العزف الأساسي",
+        description:
+          "وضعية الجلوس، مسكة الآلة، أولى النغمات، وعزف ألحان قصيرة على البيانو أو الجيتار أو العود أو الكمان.",
+        topics: ["Posture", "Instrument", "First Notes", "Short Melodies"],
+      },
+      {
+        name: "المستوى الخامس — القراءة الموسيقية",
+        description:
+          "قراءة مقاطع أطول، السرعة (Tempo)، الديناميك، علامات التكرار، وعلامات التحويل (دييز، بيمول، بيكار).",
+        topics: ["Sight Reading", "Tempo", "Dynamics", "Accidentals"],
+      },
+      {
+        name: "المستوى السادس — الهارموني والتأليف",
+        description:
+          "السلالم الكبرى والصغرى، التآلفات (Chords)، التقدمات الهارمونية، تأليف لحن قصير، والارتجال الأساسي.",
+        topics: ["Scales", "Chords", "Progressions", "Composition"],
       },
     ],
   },
