@@ -25,6 +25,12 @@ export interface Course {
   name: string;
   description: string;
   topics?: string[];
+  modules?: {
+    week: string;
+    title: string;
+    goal: string;
+    activities: string[];
+  }[];
 }
 
 export interface Category {
