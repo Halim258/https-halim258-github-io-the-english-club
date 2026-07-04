@@ -485,6 +485,29 @@ export default function CurriculumPlan() {
                   <CheckCircle2 className="h-4 w-4 mr-1.5" />
                   {isFinished ? "Marked as done" : "Mark step as done"}
                 </Button>
+                <Button
+                  variant="outline"
+                  className="rounded-full flex-1 font-semibold"
+                  onClick={() => {
+                    downloadWorksheet({
+                      categoryTitle: cat.title,
+                      courseName: course.name,
+                      stepNumber: activeStep + 1,
+                      totalSteps,
+                      week: currentModule.week,
+                      title: currentModule.title,
+                      goal: currentModule.goal,
+                      activities: currentModule.activities,
+                      topics: course.topics,
+                      tips,
+                      quiz: quizItems.map((q) => ({ question: q.question, options: q.options })),
+                      estimatedMinutes: minutes,
+                    });
+                    toast.success("Worksheet downloaded — practice offline anytime.");
+                  }}
+                >
+                  <Download className="h-4 w-4 mr-1.5" /> Download worksheet
+                </Button>
                 <a
                   href={`https://wa.me/201554901390?text=${encodeURIComponent(`Hi! I want to join the "${course.name}" (${cat.title}) — starting with ${currentModule.week}: ${currentModule.title}.`)}`}
                   target="_blank"
