@@ -1,77 +1,72 @@
-## Direction
 
-Reposition the site as a serious editorial-institution: **Paper & Ink** — off-white paper (#f5f3ee), soft ink rules (#e8e4dd), rich ink (#2d2d2d), single claret accent (#8A1E2C). Headlines set in **Libre Baskerville**, UI/body in **IBM Plex Sans**. High density: eyebrows, hairline rules, small-caps, tight leading, layered sections — think *The Economist* meets a university course catalog.
+# Spanish A1–C2 Course — Cervantes-style, mirrors English A1–C2
 
-## 1. Design tokens (`src/index.css`, `tailwind.config.ts`)
+## Goal
+Ship a complete Spanish course with the same shape as the English course: 6 CEFR levels × 20 lessons = 120 lessons, each with vocabulary, dialogue, grammar, four exercise sets, exam questions, and homework. Content follows the Instituto Cervantes Plan Curricular / DELE curriculum sequencing (saludos → presente → pretéritos → subjuntivo → registros formales → discurso académico).
 
-- Rewrite `:root` palette:
-  - `--background 40 30% 96%` (paper)
-  - `--foreground 0 0% 12%` (ink)
-  - `--card 0 0% 100%`, subtle `--muted 40 20% 92%`
-  - `--primary 353 64% 33%` (claret, kept)
-  - `--accent 0 0% 12%` (ink accent — replaces brass to fit editorial)
-  - `--border 30 12% 82%` (hairline)
-  - Editorial-only tokens: `--rule` (1px ink hairline), `--paper-grain` (very subtle noise bg), `--shadow-editorial` (crisp low shadow, no glow)
-- Dark mode: inverted (ink paper #131211, cream foreground, same claret).
-- Remove purple/teal petal colors; keep 2 muted tones only.
+## Structure (mirrors existing English course)
 
-## 2. Typography
+Files under `src/data/`:
+- `es-a1-lessons.ts` (lessons 1–5), `es-a1-lessons-6-10.ts`, `es-a1-lessons-11-15.ts`, `es-a1-lessons-16-20.ts`
+- Same 4-file split for A2, B1, B2, C1, C2 → **24 lesson files total**
+- `spanish-course-index.ts` — aggregates all Spanish lessons into a single record
 
-- Install via bun: `@fontsource/libre-baskerville`, `@fontsource/ibm-plex-sans`, `@fontsource/ibm-plex-mono` (for eyebrows/numbers).
-- Import in `src/main.tsx`.
-- Tailwind `fontFamily`: `serif: Libre Baskerville`, `sans: IBM Plex Sans`, `mono: IBM Plex Mono`, `display: Libre Baskerville`.
-- Remove Google Fonts `@import` lines from `index.css` (Playfair, Poppins, Inter, Lora, Crimson).
-- Add utilities: `.eyebrow` (mono, uppercase, tracking-widest, tiny), `.rule` (1px ink line), `.dropcap`.
+Wire-up:
+- `src/data/lessons.ts` — spread the Spanish record into the master `lessons` map with level IDs `es-a1`, `es-a2`, `es-b1`, `es-b2`, `es-c1`, `es-c2`
+- `src/data/course-categories.ts` — replace the current "Spanish Language" curriculum card with a real course category "Español A1–C2 (Estilo Cervantes)" listing the 6 levels as courses
+- `src/pages/CategoryDetail.tsx` — add the 6 Spanish course names to `courseLevelMap`
+- Slug pattern: `/courses/es-a1`, `/courses/es-a2`, … reusing the existing `LessonPage` viewer
 
-## 3. Homepage (`src/pages/Home.tsx` + `src/components/home/*`)
+## Lesson data shape (identical to English `LessonData`)
 
-- **Hero**: replace generic centered hero with an editorial split — left: oversized serif headline with an italic pull, small-caps kicker "Est. Alexandria", claret rule, twin CTAs (filled claret / ghost ink); right: single portrait/classroom photo in a bordered plate with caption + volume/issue numbering ("Vol. VI · Cambridge & British Council standards").
-- **Why Choose Us**: convert to a 3-column "masthead" grid with numbered items (01–06), hairline dividers, mono numerals, italic serif titles.
-- **Learning Guide**: keep 4 steps but restyle as a horizontal timeline with vertical hairline rule + mono step numbers; drop colored gradient tiles.
-- **Testimonials**: quote-first layout, huge italic pull-quote per slide, cited author in small caps.
-- **Courses preview / FAQ / Location**: unify with card style below.
+Each lesson:
+- `levelId` (`es-a1`…`es-c2`), `levelLabel`, `lessonNumber`, `title`, `description`
+- `vocabulary[15]`: `{ word (Spanish), meaning (English), example (Spanish sentence), emoji }`
+- `dialogue[10]`: Spanish lines with speakers
+- `grammar`: `{ title, explanation (English + Spanish examples), examples[5–6] }`
+- `vocabExercises`, `conversationExercises`, `grammarExercises`, `examQuestions`, `homeworkQuestions` — MCQs following existing English shape
 
-## 4. Global cards & buttons
+Note: skipping the Arabic gloss per your choice; keeping English meanings/notes.
 
-- Card: white paper, 1px hairline border, no radius soup (radius 6px), crisp shadow only on hover, top-left eyebrow.
-- Buttons (`button.tsx` variants): add `editorial` (claret solid, square-ish), `ghost-ink` (ink border), keep default; remove glossy gradients.
-- Badge: outlined pill in mono.
+## Cervantes-aligned curriculum (20 lessons per level)
 
-## 5. Navigation & mobile UX
+**A1 — Acceso** (greetings → self, family, routines)
+1 Saludos y presentaciones · 2 Los números y la edad · 3 El alfabeto y deletrear · 4 Nacionalidades y países · 5 La familia · 6 Profesiones · 7 Colores y descripción física · 8 La ropa · 9 La casa y los muebles · 10 Comidas y bebidas básicas · 11 En el restaurante (pedir) · 12 La hora y los días · 13 Rutinas diarias (verbos regulares -ar/-er/-ir) · 14 El tiempo libre y hobbies · 15 En la ciudad (direcciones) · 16 Transporte · 17 De compras (números y precios) · 18 El cuerpo y la salud básica · 19 El clima y las estaciones · 20 Repaso A1 + mini DELE A1
 
-- **Navbar**: two-tier — top thin bar with date + level pill + login; main bar with wordmark in serif, section links in mono small-caps. Sticky with hairline underline.
-- **Breadcrumbs**: single mono line, `/` separators, muted.
-- **MobileBottomNav**: swap heavy pills for minimal ink icons + label, active = claret underline (not filled tile). Bigger 48px targets.
-- **GlobalSearch**: command-palette look, mono input, keyboard hint chip.
-- **PageTransition**: reduce to opacity fade 200ms (drop blur/translate for a snappier editorial feel).
+**A2 — Plataforma** (past narration, future plans)
+Pretérito perfecto y indefinido, futuro con "ir a", comparativos, imperativo básico, viajes, servicios (correos, banco), biografías, experiencias, planes.
 
-## 6. Courses & lessons UI
+**B1 — Umbral** (opinion, hypothesis, connectors)
+Imperfecto vs. indefinido, condicional simple, subjuntivo presente (deseos/consejos), estilo indirecto, marcadores del discurso, trabajo, medio ambiente, salud, medios de comunicación.
 
-- **Courses grid** (`Courses.tsx`, `CoursesSection.tsx`): masonry-lite bento with one featured "cover story" course + smaller cards; each card shows level tag (A1–C2) in mono, lesson count, hairline divider, italic subtitle.
-- **CategoryDetail / CourseProgress**: add a chapter-index sidebar on desktop, roman-numeral chapters, progress as a thin claret bar.
-- **LessonPage / SlideViewer**: tighten reader — keep Lora prose but align to new tokens; add running header (course · lesson · slide n/N) and thin footer progress. Move controls into a compact bottom bar with mono labels.
-- **BookTeacherFAB**: shrink to a rectangular ink chip with claret dot; no pulse-glow.
+**B2 — Avanzado** (argumentation, register)
+Subjuntivo imperfecto, todas las condicionales, voz pasiva, perífrasis verbales, léxico académico, debates, cultura hispana (Cervantes, Lorca, Borges), noticias, economía, tecnología.
 
-## 7. Cleanup
+**C1 — Dominio operativo** (nuance, idioms, discourse)
+Subjuntivo pluscuamperfecto, matices modales, conectores complejos, expresiones idiomáticas, español coloquial vs. formal, ensayo argumentativo, literatura, arte, filosofía.
 
-- Remove/retire: petal decorations on marketing pages, purple/teal accents, pulse-glow utility, drop shadows with color glow.
-- Keep animations minimal: fade + 8px rise, 200–300ms, standard ease.
+**C2 — Maestría** (native-like precision, DELE C2)
+Registros especializados (jurídico, científico, periodístico), pragmática, variedades del español (peninsular, mexicano, rioplatense, andaluz), traducción, tarea integrada estilo DELE C2, oratoria.
+
+Every 20th lesson is a level review + mock mini-DELE.
+
+## Rollout plan (multi-turn, since 120 rich lessons don't fit in one turn)
+
+1. **Turn 1 (this one)**: scaffolding — create the aggregator file, wire routing, update category card, plus **A1 lessons 1–5** fully written.
+2. **Turn 2**: A1 lessons 6–20.
+3. **Turn 3**: A2 (all 20).
+4. **Turn 4**: B1 (all 20).
+5. **Turn 5**: B2 (all 20).
+6. **Turn 6**: C1 (all 20).
+7. **Turn 7**: C2 (all 20) + final polish + placement-test hooks.
+
+After each turn the whole course is functional up to the levels shipped — no broken routes. Later levels show a friendly "próximamente" placeholder until their turn.
+
+## What I need from you
+Just say **"go"** and I'll ship turn 1 now. After each turn I'll pause so you can preview before I continue with the next level.
 
 ## Technical notes
-
-- Files touched (approx):
-  - `src/index.css`, `tailwind.config.ts`, `src/main.tsx`
-  - `src/pages/Home.tsx`
-  - `src/components/home/{LearningGuide,TestimonialsSection,CoursesSection,FAQSection,LocationSection}.tsx`
-  - `src/components/{Navbar,Breadcrumbs,MobileBottomNav,GlobalSearch,BookTeacherFAB,PageTransition,Footer}.tsx`
-  - `src/components/ui/{button,card,badge}.tsx` (variant additions only)
-  - `src/pages/{Courses,CategoryDetail,CourseProgress,LessonPage}.tsx`, `src/components/SlideViewer.tsx`
-- No schema/RLS changes. No new deps beyond `@fontsource/*`.
-- Verify with Playwright screenshots of `/`, `/courses`, one lesson, mobile 390px after implementation.
-
-## Out of scope
-
-- Rewriting lesson data, backend, auth, or admin surfaces.
-- New illustrations/photos beyond restyling existing assets.
-
-Approve and I'll ship it in this pass.
+- No new dependencies; reuses the existing `LessonPage`, exercise components, TTS, and progress tracking.
+- Level IDs prefixed with `es-` so English/Spanish progress don't collide.
+- Course-category iconography uses the existing `Languages` icon plus the Spanish flag emoji.
+- Data-only additions; existing English course, admin, and RBAC surfaces are untouched.
