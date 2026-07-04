@@ -128,6 +128,7 @@ import { slangCompletion } from "./slang-completion";
 import { teensCompletion } from "./teens-completion";
 import { travelCompletion } from "./travel-completion";
 import { conversationExpansion } from "./conversation-expansion";
+import { esA1Lessons } from "./es-a1-lessons";
 import { businessEnglishLessons } from "./business-english-lessons";
 import { businessEnglishLessons2 } from "./business-english-2";
 import { businessEnglishLessons3 } from "./business-english-3";
