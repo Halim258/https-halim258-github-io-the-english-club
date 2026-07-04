@@ -21,6 +21,7 @@ import financeImg from "@/assets/courses/finance.jpg";
 import aviationImg from "@/assets/courses/aviation.jpg";
 import documentaryImg from "@/assets/courses/documentary.jpg";
 import speechTherapyArImg from "@/assets/courses/speech-therapy-ar.jpg";
+import drawingArImg from "@/assets/courses/drawing-ar.jpg";
 
 export interface Course {
   name: string;
@@ -717,6 +718,55 @@ export const categories: Category[] = [
         description:
           "الوعي الصوتي، مطابقة الحروف بالأصوات، التسلسل والتصنيف، والذاكرة السمعية والبصرية.",
         topics: ["Phonological Awareness", "Letter-Sound", "Sequencing", "Memory"],
+      },
+    ],
+  },
+  {
+    icon: Palette,
+    emoji: "🎨",
+    title: "دورة الرسم — Arabic Drawing Course",
+    slug: "arabic-drawing",
+    color: "from-amber-500/10 to-rose-500/5",
+    iconBg: "bg-amber-500/15",
+    image: drawingArImg,
+    description:
+      "دورة رسم عربية شاملة من الصفر إلى الإبداع — 6 مراحل متدرجة تناسب الأطفال والكبار المبتدئين. من الخطوط والأشكال إلى الشخصيات والمناظر والظل والإضاءة والمشاريع الإبداعية.",
+    courses: [
+      {
+        name: "المرحلة الأولى — أساسيات الرسم",
+        description:
+          "أدوات الرسم، مسك القلم، الخطوط الأساسية، الأشكال الهندسية، والألوان والتلوين داخل الحدود.",
+        topics: ["Tools", "Lines", "Shapes", "Color Basics"],
+      },
+      {
+        name: "المرحلة الثانية — رسم الأشياء البسيطة",
+        description:
+          "الفواكه، الخضروات، الألعاب، الحيوانات الأليفة، الطيور، والحشرات — النسب والخط الخارجي والتفاصيل.",
+        topics: ["Fruits", "Animals", "Proportion", "Outline"],
+      },
+      {
+        name: "المرحلة الثالثة — الشخصيات والوجوه",
+        description:
+          "رسم الوجه وتعبيراته، العيون، الأنف، الفم، الشعر، والجسم المبسط وأوضاع الحركة.",
+        topics: ["Face", "Expressions", "Body", "Poses"],
+      },
+      {
+        name: "المرحلة الرابعة — الطبيعة والمناظر",
+        description:
+          "الأشجار، الجبال، السماء، السحب، البحر، الغروب، الحدائق، والبيوت في تكوين واحد.",
+        topics: ["Trees", "Skies", "Landscapes", "Composition"],
+      },
+      {
+        name: "المرحلة الخامسة — الظل والإضاءة",
+        description:
+          "مصدر الضوء، الظل، التدرج بالقلم الرصاص، التظليل الناعم، ورسم الكرة والمكعب والأسطوانة.",
+        topics: ["Light Source", "Shadow", "Gradient", "3D Forms"],
+      },
+      {
+        name: "المرحلة السادسة — الإبداع والمشاريع",
+        description:
+          "تصميم شخصية كرتونية، قصة مصورة قصيرة، منظر خيالي، رسم من صورة، ومشروع نهائي يجمع كل المهارات.",
+        topics: ["Character Design", "Comics", "Imagination", "Final Project"],
       },
     ],
   },
