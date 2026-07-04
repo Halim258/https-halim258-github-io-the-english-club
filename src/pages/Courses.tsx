@@ -533,6 +533,12 @@ export default function Courses() {
       "egyptian-public": "Egyptian Public School English",
       "egyptian-national": "Egyptian National School English",
       "egyptian-international": "Egyptian International School English",
+      "es-a1": "Español A1 — Acceso",
+      "es-a2": "Español A2 — Plataforma",
+      "es-b1": "Español B1 — Umbral",
+      "es-b2": "Español B2 — Avanzado",
+      "es-c1": "Español C1 — Dominio operativo",
+      "es-c2": "Español C2 — Maestría",
     };
     if (specializedLevelLabels[levelId]) {
       return <LevelLessons levelId={levelId} levelLabel={specializedLevelLabels[levelId]} />;
