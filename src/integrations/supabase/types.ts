@@ -156,6 +156,48 @@ export type Database = {
         }
         Relationships: []
       }
+      curriculum_progress: {
+        Row: {
+          category_slug: string
+          checklists: Json
+          completed_steps: number[]
+          course_index: number
+          created_at: string
+          id: string
+          notes: Json
+          quiz_answers: Json
+          quiz_submitted: Json
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category_slug: string
+          checklists?: Json
+          completed_steps?: number[]
+          course_index: number
+          created_at?: string
+          id?: string
+          notes?: Json
+          quiz_answers?: Json
+          quiz_submitted?: Json
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category_slug?: string
+          checklists?: Json
+          completed_steps?: number[]
+          course_index?: number
+          created_at?: string
+          id?: string
+          notes?: Json
+          quiz_answers?: Json
+          quiz_submitted?: Json
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       daily_challenge_completions: {
         Row: {
           challenge_id: string
