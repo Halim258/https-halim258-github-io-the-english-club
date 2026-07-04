@@ -88,6 +88,15 @@ const courseLevelMap: Record<string, string> = {
   "Español B2 — Avanzado": "es-b2",
   "Español C1 — Dominio operativo": "es-c1",
   "Español C2 — Maestría": "es-c2",
+  // Arabic Speech Therapy — التخاطب
+  "المستوى الأول — الانتباه والتواصل": "ar-th-1",
+  "المستوى الثاني — اللغة الاستقبالية": "ar-th-2",
+  "المستوى الثالث — اللغة التعبيرية": "ar-th-3",
+  "المستوى الرابع — المفاهيم الأساسية": "ar-th-4",
+  "المستوى الخامس — النطق (Articulation)": "ar-th-5",
+  "المستوى السادس — القواعد اللغوية": "ar-th-6",
+  "المستوى السابع — المهارات الاجتماعية": "ar-th-7",
+  "المستوى الثامن — الاستعداد الأكاديمي": "ar-th-8",
 };
 
 function getCourseHasLessons(courseName: string): boolean {

@@ -20,6 +20,7 @@ import healthcareImg from "@/assets/courses/healthcare.jpg";
 import financeImg from "@/assets/courses/finance.jpg";
 import aviationImg from "@/assets/courses/aviation.jpg";
 import documentaryImg from "@/assets/courses/documentary.jpg";
+import speechTherapyArImg from "@/assets/courses/speech-therapy-ar.jpg";
 
 export interface Course {
   name: string;
