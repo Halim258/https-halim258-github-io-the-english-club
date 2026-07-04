@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft, ChevronRight, CheckCircle2, Circle, Sparkles, Target, ListChecks,
   Trophy, MessageCircle, Clock, BookOpen, Youtube, NotebookPen, GraduationCap,
-  Lightbulb, RotateCcw, Loader2,
+  Lightbulb, RotateCcw, Loader2, Download,
 } from "lucide-react";
 import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurriculumProgress } from "@/hooks/useCurriculumProgress";
+import { downloadWorksheet } from "@/lib/generate-worksheet";
 
 const CATEGORY_TIPS: Record<string, string[]> = {
   painting: [
@@ -483,6 +484,29 @@ export default function CurriculumPlan() {
                 <Button onClick={() => toggleComplete(activeStep)} variant={isFinished ? "outline" : "default"} className="rounded-full flex-1 font-semibold">
                   <CheckCircle2 className="h-4 w-4 mr-1.5" />
                   {isFinished ? "Marked as done" : "Mark step as done"}
+                </Button>
+                <Button
+                  variant="outline"
+                  className="rounded-full flex-1 font-semibold"
+                  onClick={() => {
+                    downloadWorksheet({
+                      categoryTitle: cat.title,
+                      courseName: course.name,
+                      stepNumber: activeStep + 1,
+                      totalSteps,
+                      week: currentModule.week,
+                      title: currentModule.title,
+                      goal: currentModule.goal,
+                      activities: currentModule.activities,
+                      topics: course.topics,
+                      tips,
+                      quiz: quizItems.map((q) => ({ question: q.question, options: q.options })),
+                      estimatedMinutes: minutes,
+                    });
+                    toast.success("Worksheet downloaded — practice offline anytime.");
+                  }}
+                >
+                  <Download className="h-4 w-4 mr-1.5" /> Download worksheet
                 </Button>
                 <a
                   href={`https://wa.me/201554901390?text=${encodeURIComponent(`Hi! I want to join the "${course.name}" (${cat.title}) — starting with ${currentModule.week}: ${currentModule.title}.`)}`}
