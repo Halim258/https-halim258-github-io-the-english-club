@@ -24,7 +24,7 @@ import lessonSpeaking from "@/assets/lesson-speaking.png";
 import lessonExam from "@/assets/lesson-exam.png";
 import lessonHomework from "@/assets/lesson-homework.png";
 import heroBg from "@/assets/hero-bg.jpg";
-import studentsLearning from "@/assets/pcc-awards-table.png.asset.json";
+import studentsLearning from "@/assets/hero-new.jpg.asset.json";
 import pccPresentation from "@/assets/pcc-presentation.jpg";
 import pccAwards from "@/assets/pcc-awards.jpg";
 import teacher1 from "@/assets/teacher-1.jpg";
@@ -237,7 +237,7 @@ export default function Home() {
               >
                 <img
                   src={studentsLearning.url}
-                  alt="PCC competition winners with medals, certificates and trophies at The English Club Alexandria"
+                  alt="Students learning English together in a modern classroom at The English Club Alexandria"
                   className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.03] transition-transform duration-[1200ms]"
                   loading="eager"
                 />
