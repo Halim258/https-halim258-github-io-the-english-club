@@ -21,27 +21,34 @@ export default function MobileBottomNav() {
   if (pathname.includes("/slides") || pathname.includes("/admin") || pathname.includes("/teacher")) return null;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t bg-card/95 backdrop-blur-xl md:hidden shadow-[0_-2px_20px_-4px_rgba(0,0,0,0.1)]" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
-      <div className="flex items-center justify-around py-1 px-2">
+    <nav
+      className="fixed bottom-0 left-0 right-0 z-50 border-t border-foreground/15 bg-background/95 backdrop-blur-xl md:hidden"
+      style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+    >
+      <div className="flex items-center justify-around px-2">
         {navItems.map(item => {
           const isActive = pathname === item.to || (item.to !== "/" && pathname.startsWith(item.to));
           return (
             <Link
               key={item.to}
               to={item.to}
-              className={`relative flex flex-col items-center gap-0.5 px-3 py-2.5 rounded-2xl transition-all min-w-[56px] min-h-[48px] justify-center touch-manipulation active:scale-90 duration-150 ${
-                isActive ? "text-primary" : "text-muted-foreground active:text-foreground"
+              className={`relative flex flex-col items-center gap-1 px-3 pt-2.5 pb-2 min-w-[56px] min-h-[52px] justify-center touch-manipulation active:opacity-70 transition-colors ${
+                isActive ? "text-primary" : "text-foreground/60"
               }`}
             >
+              <item.icon className="h-[22px] w-[22px]" strokeWidth={isActive ? 2.2 : 1.6} />
+              <span
+                className="text-[10px] font-editorial-mono uppercase tracking-widest font-semibold"
+              >
+                {item.label}
+              </span>
               {isActive && (
                 <motion.div
                   layoutId="mobile-nav-indicator"
-                  className="absolute inset-0 rounded-2xl bg-primary/8"
-                  transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  className="absolute -top-px left-1/2 -translate-x-1/2 h-[2px] w-8 bg-primary"
+                  transition={{ type: "spring", stiffness: 500, damping: 40 }}
                 />
               )}
-              <item.icon className={`h-5 w-5 relative z-10 transition-transform duration-200 ${isActive ? "scale-110" : ""}`} />
-              <span className={`text-[10px] relative z-10 font-medium transition-colors ${isActive ? "font-bold text-primary" : ""}`}>{item.label}</span>
             </Link>
           );
         })}

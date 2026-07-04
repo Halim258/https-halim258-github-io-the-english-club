@@ -111,13 +111,13 @@ export default function Navbar() {
 
   return (
     <nav className={`sticky top-0 z-50 border-b transition-all duration-300 ${
-      scrolled 
-        ? "bg-card/85 glass-morphism shadow-soft border-border/80" 
-        : "bg-card/95 backdrop-blur-md border-transparent"
+      scrolled
+        ? "bg-background/92 glass-morphism border-foreground/15"
+        : "bg-background/98 backdrop-blur-md border-foreground/10"
     }`}>
       {/* Scroll progress bar */}
       {scrollProgress > 0 && (
-        <div className="absolute bottom-0 left-0 h-[2px] bg-gradient-to-r from-primary via-accent to-primary transition-none z-50" style={{ width: `${scrollProgress}%` }} />
+        <div className="absolute bottom-0 left-0 h-[2px] bg-primary transition-none z-50" style={{ width: `${scrollProgress}%` }} />
       )}
       <div dir="ltr" className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
@@ -125,12 +125,15 @@ export default function Navbar() {
           <motion.img 
             src={logo} 
             alt="The English Club Logo" 
-            className="h-10 w-10 flex-shrink-0 rounded-lg shadow-sm"
+            className="h-10 w-10 flex-shrink-0 rounded-none border border-foreground/15"
             whileHover={{ scale: 1.05, rotate: 2 }}
             transition={{ type: "spring", stiffness: 400 }}
           />
-          <span className="text-lg font-bold text-foreground font-display tracking-tight whitespace-nowrap leading-tight group-hover:text-primary transition-colors duration-200">
-            The English Club
+          <span className="flex flex-col leading-none">
+            <span className="text-[9px] font-editorial-mono uppercase tracking-[0.22em] text-foreground/60">Est. 2019</span>
+            <span className="text-lg font-bold text-foreground font-display tracking-tight whitespace-nowrap group-hover:text-primary transition-colors duration-200 mt-0.5">
+              The English Club
+            </span>
           </span>
         </Link>
 
@@ -142,15 +145,15 @@ export default function Navbar() {
               <Link
                 key={l.to}
                 to={l.to}
-                className="relative rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 group"
+                className="relative px-3 py-2 text-[11px] font-editorial-mono uppercase tracking-[0.18em] font-semibold transition-colors duration-200 group"
               >
-                <span className={isActive ? "text-primary font-semibold" : "text-muted-foreground group-hover:text-foreground"}>
+                <span className={isActive ? "text-primary" : "text-foreground/65 group-hover:text-foreground"}>
                   {l.label}
                 </span>
                 {isActive && (
                   <motion.div
                     layoutId="nav-indicator"
-                    className="absolute inset-0 rounded-full bg-primary/8 border border-primary/15"
+                    className="absolute left-3 right-3 -bottom-0.5 h-[2px] bg-primary"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
@@ -162,15 +165,15 @@ export default function Navbar() {
           <div className="relative" ref={moreRef}>
             <button
               onClick={() => setMoreOpen(!moreOpen)}
-              className={`relative flex items-center gap-1 rounded-full px-3 py-2 text-sm font-medium transition-all duration-200 ${
-                moreLinks.some(l => location.pathname === l.to) ? "text-primary font-semibold" : "text-muted-foreground hover:text-foreground"
+              className={`relative flex items-center gap-1 px-3 py-2 text-[11px] font-editorial-mono uppercase tracking-[0.18em] font-semibold transition-all duration-200 ${
+                moreLinks.some(l => location.pathname === l.to) ? "text-primary" : "text-foreground/65 hover:text-foreground"
               }`}
             >
               More <ChevronDown className={`h-3.5 w-3.5 transition-transform ${moreOpen ? "rotate-180" : ""}`} />
               {moreLinks.some(l => location.pathname === l.to) && (
                 <motion.div
                   layoutId="nav-indicator"
-                  className="absolute inset-0 rounded-full bg-primary/8 border border-primary/15"
+                  className="absolute left-3 right-3 -bottom-0.5 h-[2px] bg-primary"
                   transition={{ type: "spring", stiffness: 350, damping: 30 }}
                 />
               )}
