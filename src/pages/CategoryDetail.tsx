@@ -393,14 +393,14 @@ export default function CategoryDetail() {
               const lessonCount = getCourseLessonCount(course.name);
               const levelId = courseLevelMap[course.name];
               const hasModules = Array.isArray(course.modules) && course.modules.length > 0;
-              const coursePath = course.name === "English for Kids"
+              const coursePath = hasModules
+                ? `/curriculum/${cat.slug}/${i}`
+                : course.name === "English for Kids"
                 ? "/courses/kids"
                 : course.name === "English through Stories"
                 ? "/courses/stories"
                 : course.name === "English through Movies & Series"
                 ? "/courses/movies"
-                : hasModules
-                ? `/curriculum/${cat.slug}/${i}`
                 : hasLessons
                 ? `/courses/${levelId}`
                 : `/courses/${levelId || cat.slug}`;
