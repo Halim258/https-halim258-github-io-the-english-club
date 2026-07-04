@@ -81,6 +81,13 @@ const courseLevelMap: Record<string, string> = {
   "Public School English": "egyptian-public",
   "National School English": "egyptian-national",
   "International School English": "egyptian-international",
+  // Spanish A1–C2 (Cervantes-style)
+  "Español A1 — Acceso": "es-a1",
+  "Español A2 — Plataforma": "es-a2",
+  "Español B1 — Umbral": "es-b1",
+  "Español B2 — Avanzado": "es-b2",
+  "Español C1 — Dominio operativo": "es-c1",
+  "Español C2 — Maestría": "es-c2",
 };
 
 function getCourseHasLessons(courseName: string): boolean {
