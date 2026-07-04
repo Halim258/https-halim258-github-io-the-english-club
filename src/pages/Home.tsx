@@ -624,7 +624,7 @@ export default function Home() {
       {/* ═══════════════ CLASSROOM BANNER ═══════════════ */}
       <section dir="ltr" className="relative h-72 md:h-80 lg:h-[28rem] overflow-hidden">
         <motion.img
-          src={studentsLearning.url}
+          src={studentsLearning}
           alt="PCC competition winners with medals, certificates and trophies at The English Club Alexandria"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
