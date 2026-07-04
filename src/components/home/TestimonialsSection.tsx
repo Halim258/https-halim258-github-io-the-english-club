@@ -123,23 +123,22 @@ export default function TestimonialsSection() {
   const allReviews = [...reviews, ...defaultTestimonials];
 
   return (
-    <section className="py-12 md:py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-primary/3 to-transparent pointer-events-none" />
-      <div className="container mx-auto px-4 relative">
+    <section className="py-16 md:py-28 relative overflow-hidden bg-background border-y border-foreground/10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-6 pb-6 border-b border-foreground/20"
         >
-          <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-primary bg-primary/10 px-3 py-1.5 rounded-full mb-4">
-            <Star className="h-3.5 w-3.5" /> Student Reviews
-          </span>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold font-display mb-3">
-            What Our Students Say
-          </h2>
-          <p className="text-muted-foreground max-w-md mx-auto text-sm md:text-base">
-            Join thousands of learners who have transformed their English skills with us.
+          <div>
+            <span className="eyebrow block mb-3">Vol. VI · Field Notes</span>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-display leading-[0.95]">
+              What our <em className="text-primary">students</em> say.
+            </h2>
+          </div>
+          <p className="text-sm md:text-base text-foreground/70 max-w-sm font-serif italic leading-relaxed">
+            Unedited voices from the cohort — collected in Alexandria, printed here in full.
           </p>
         </motion.div>
 
@@ -218,43 +217,47 @@ export default function TestimonialsSection() {
           )}
         </AnimatePresence>
 
-        <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-4 md:overflow-visible md:pb-0">
+        <div className="flex gap-px bg-foreground/15 overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible">
           {allReviews.map((t, i) => (
             <motion.div
               key={t.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              className="group rounded-2xl border bg-card p-5 shadow-soft hover:shadow-card hover:-translate-y-1 transition-all duration-300 relative min-w-[260px] max-w-[280px] md:min-w-0 md:max-w-none snap-start shrink-0 md:shrink"
+              transition={{ delay: Math.min(i, 6) * 0.05 }}
+              className="group bg-background hover:bg-card p-6 md:p-8 transition-colors relative min-w-[280px] max-w-[320px] md:min-w-0 md:max-w-none snap-start shrink-0 md:shrink flex flex-col"
             >
-              <Quote className="absolute top-4 right-4 h-8 w-8 text-primary/10 group-hover:text-primary/20 transition-colors" />
-              <div className="flex items-center gap-3 mb-3">
-                <span className="text-3xl">{getAvatar(t.display_name)}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold truncate">{t.display_name}</p>
+              <div className="flex items-start justify-between mb-4">
+                <span className="eyebrow">№ {String(i + 1).padStart(2, "0")}</span>
+                <div className="flex gap-px">
+                  {Array.from({ length: t.rating }).map((_, j) => (
+                    <Star key={j} className="h-3 w-3 fill-primary text-primary" />
+                  ))}
+                </div>
+              </div>
+              <Quote className="h-5 w-5 text-primary mb-3" strokeWidth={2.5} />
+              <p className="font-display italic text-lg md:text-xl leading-snug text-foreground mb-6 flex-1">
+                “{t.text}”
+              </p>
+              <div className="mt-auto pt-4 border-t border-foreground/15 flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wider">{t.display_name}</p>
                   {t.created_at && (
-                    <p className="text-[10px] text-muted-foreground">
-                      {new Date(t.created_at).toLocaleDateString()}
+                    <p className="text-[10px] font-editorial-mono text-foreground/50 uppercase tracking-widest mt-0.5">
+                      {new Date(t.created_at).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" })}
                     </p>
                   )}
                 </div>
                 {user && t.user_id === user.id && (
                   <button
                     onClick={() => handleDelete(t.id)}
-                    className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition-all"
+                    className="opacity-0 group-hover:opacity-100 text-foreground/40 hover:text-primary transition-all"
                     title="Delete review"
                   >
                     <Trash2 className="h-3.5 w-3.5" />
                   </button>
                 )}
               </div>
-              <div className="flex gap-0.5 mb-3">
-                {Array.from({ length: t.rating }).map((_, j) => (
-                  <Star key={j} className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
-                ))}
-              </div>
-              <p className="text-sm text-muted-foreground leading-relaxed">{t.text}</p>
             </motion.div>
           ))}
         </div>
