@@ -161,13 +161,7 @@ export default function CurriculumPlan() {
     try { const raw = localStorage.getItem(storageKey); return new Set(raw ? JSON.parse(raw) : []); }
     catch { return new Set(); }
   });
-  const [activeStep, setActiveStep] = useState<number>(() => {
-    try {
-      const raw = localStorage.getItem(storageKey);
-      const done: number[] = raw ? JSON.parse(raw) : [];
-      return Math.min(done.length, Math.max(0, (course?.modules?.length ?? 1) - 1));
-    } catch { return 0; }
-  });
+  const [activeStep, setActiveStep] = useState<number>(0);
   const [tab, setTab] = useState("overview");
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [notes, setNotes] = useState<string>("");
