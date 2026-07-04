@@ -475,7 +475,7 @@ export default function CurriculumPlan() {
                     placeholder="Write reflections, questions, or new words you learned this week…"
                     className="min-h-[180px]"
                   />
-                  <p className="text-[11px] text-muted-foreground">Saved automatically on this device.</p>
+                  <p className="text-[11px] text-muted-foreground">Saved automatically to your account and synced across devices.</p>
                 </TabsContent>
               </Tabs>
 
