@@ -52,6 +52,7 @@ const BookmarksPage = lazy(() => import("./pages/BookmarksPage"));
 const GrammarReference = lazy(() => import("./pages/GrammarReference"));
 const IdiomsPhrasalVerbs = lazy(() => import("./pages/IdiomsPhrasalVerbs"));
 const PlatformBlog = lazy(() => import("./pages/PlatformBlog"));
+const CurriculumPlan = lazy(() => import("./pages/CurriculumPlan"));
 const queryClient = new QueryClient();
 
 function PageLoader() {
@@ -83,6 +84,7 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
               <Route path="/courses/category/:categorySlug" element={<ProtectedRoute><CategoryDetail /></ProtectedRoute>} />
+              <Route path="/curriculum/:categorySlug/:courseIndex" element={<ProtectedRoute><CurriculumPlan /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId/slides" element={<ProtectedRoute><SlideLesson /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId" element={<ProtectedRoute><LessonPage /></ProtectedRoute>} />
               <Route path="/courses/kids" element={<ProtectedRoute><KidsCourse /></ProtectedRoute>} />
