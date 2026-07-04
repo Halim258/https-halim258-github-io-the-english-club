@@ -539,6 +539,14 @@ export default function Courses() {
       "es-b2": "Español B2 — Avanzado",
       "es-c1": "Español C1 — Dominio operativo",
       "es-c2": "Español C2 — Maestría",
+      "ar-th-1": "التخاطب — المستوى الأول: الانتباه والتواصل",
+      "ar-th-2": "التخاطب — المستوى الثاني: اللغة الاستقبالية",
+      "ar-th-3": "التخاطب — المستوى الثالث: اللغة التعبيرية",
+      "ar-th-4": "التخاطب — المستوى الرابع: المفاهيم الأساسية",
+      "ar-th-5": "التخاطب — المستوى الخامس: النطق",
+      "ar-th-6": "التخاطب — المستوى السادس: القواعد اللغوية",
+      "ar-th-7": "التخاطب — المستوى السابع: المهارات الاجتماعية",
+      "ar-th-8": "التخاطب — المستوى الثامن: الاستعداد الأكاديمي",
     };
     if (specializedLevelLabels[levelId]) {
       return <LevelLessons levelId={levelId} levelLabel={specializedLevelLabels[levelId]} />;

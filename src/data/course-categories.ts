@@ -20,6 +20,7 @@ import healthcareImg from "@/assets/courses/healthcare.jpg";
 import financeImg from "@/assets/courses/finance.jpg";
 import aviationImg from "@/assets/courses/aviation.jpg";
 import documentaryImg from "@/assets/courses/documentary.jpg";
+import speechTherapyArImg from "@/assets/courses/speech-therapy-ar.jpg";
 
 export interface Course {
   name: string;
@@ -655,6 +656,67 @@ export const categories: Category[] = [
           { week: "Week 3", title: "Talking Confidently", goal: "Speak in front of small groups.", activities: ["Show and tell", "Puppet presentations", "1-min story"] },
           { week: "Week 4", title: "Real Situations", goal: "Order, ask, and greet in the real world.", activities: ["Cafe role-play", "Asking a question", "Family showcase"] },
         ],
+      },
+    ],
+  },
+  {
+    icon: HeartPulse,
+    emoji: "🗣️",
+    title: "التخاطب — Speech & Language Therapy",
+    slug: "arabic-speech-therapy",
+    color: "from-rose-500/10 to-amber-500/5",
+    iconBg: "bg-rose-500/15",
+    image: speechTherapyArImg,
+    description:
+      "منهج تخاطب عربي شامل مبني على 8 مستويات متدرجة — من الانتباه والتواصل إلى الاستعداد الأكاديمي. مناسب للأهل والأخصائيين والمراكز.",
+    courses: [
+      {
+        name: "المستوى الأول — الانتباه والتواصل",
+        description:
+          "التواصل البصري، الانتباه المشترك، تقليد الحركات والأصوات، وتنفيذ الأوامر البسيطة — أساس كل ما يليه.",
+        topics: ["Eye Contact", "Joint Attention", "Imitation", "Simple Commands"],
+      },
+      {
+        name: "المستوى الثاني — اللغة الاستقبالية",
+        description:
+          "التعرف على الأشياء وأفراد الأسرة والحيوانات والألوان والأشكال وأجزاء الجسم، وفهم أسئلة أين/من/ماذا.",
+        topics: ["Object Recognition", "WH-Questions", "Body Parts", "Colors"],
+      },
+      {
+        name: "المستوى الثالث — اللغة التعبيرية",
+        description:
+          "نطق الكلمات الأولى، طلب الاحتياجات، تسمية الصور، جمل من كلمتين، الضمائر والجمل القصيرة.",
+        topics: ["First Words", "Requesting", "2-Word Phrases", "Pronouns"],
+      },
+      {
+        name: "المستوى الرابع — المفاهيم الأساسية",
+        description:
+          "كبير/صغير، طويل/قصير، فوق/تحت، داخل/خارج، أمام/خلف، أكثر/أقل، قبل/بعد.",
+        topics: ["Size", "Position", "Quantity", "Time Order"],
+      },
+      {
+        name: "المستوى الخامس — النطق (Articulation)",
+        description:
+          "تدريب مخارج الحروف، التمييز السمعي، ونطق الأصوات منفردة وفي الكلمة والجملة والمحادثة.",
+        topics: ["Phonemes", "Auditory Discrimination", "Word Positions", "Carryover"],
+      },
+      {
+        name: "المستوى السادس — القواعد اللغوية",
+        description:
+          "المفرد والجمع، المذكر والمؤنث، الأزمنة، أدوات الاستفهام، النفي، وحروف الجر.",
+        topics: ["Number", "Gender", "Tenses", "Prepositions"],
+      },
+      {
+        name: "المستوى السابع — المهارات الاجتماعية",
+        description:
+          "بدء الحوار، تبادل الأدوار، طلب المساعدة، التعبير عن المشاعر، آداب الحديث وحل المشكلات.",
+        topics: ["Turn-Taking", "Emotions", "Politeness", "Problem Solving"],
+      },
+      {
+        name: "المستوى الثامن — الاستعداد الأكاديمي",
+        description:
+          "الوعي الصوتي، مطابقة الحروف بالأصوات، التسلسل والتصنيف، والذاكرة السمعية والبصرية.",
+        topics: ["Phonological Awareness", "Letter-Sound", "Sequencing", "Memory"],
       },
     ],
   },
