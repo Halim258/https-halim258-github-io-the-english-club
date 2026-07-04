@@ -137,12 +137,12 @@ const howItWorks = [
 ];
 
 const lessonIncludes = [
-  { image: lessonVocabulary, label: "Vocabulary", desc: "New words in context" },
-  { image: lessonConversation, label: "Conversation", desc: "Real dialogue practice" },
-  { image: lessonGrammar, label: "Grammar", desc: "Rules & exercises" },
-  { image: lessonSpeaking, label: "Speaking", desc: "Pronunciation drills" },
-  { image: lessonExam, label: "Exam", desc: "Level assessments" },
-  { image: lessonHomework, label: "Homework", desc: "Reinforce learning" },
+  { image: lessonVocabulary, label: "Vocabulary", desc: "New words in context", to: "/vocab-quiz" },
+  { image: lessonConversation, label: "Conversation", desc: "Real dialogue practice", to: "/practice" },
+  { image: lessonGrammar, label: "Grammar", desc: "Rules & exercises", to: "/grammar" },
+  { image: lessonSpeaking, label: "Speaking", desc: "Pronunciation drills", to: "/pronunciation" },
+  { image: lessonExam, label: "Exam", desc: "Level assessments", to: "/placement-test" },
+  { image: lessonHomework, label: "Homework", desc: "Reinforce learning", to: "/writing" },
 ];
 
 const testimonials = [
@@ -604,17 +604,18 @@ export default function Home() {
             viewport={{ once: true, margin: "-60px" }}
             className="mt-10 md:mt-12 grid grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4"
           >
-            {lessonIncludes.map((item, i) => (
-              <motion.div
-                key={item.label}
-                variants={staggerItem}
-                className="relative flex flex-col items-center rounded-2xl border bg-card p-4 md:p-6 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 group overflow-hidden"
-              >
-                <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <img src={item.image} alt={item.label} className="relative h-10 w-10 md:h-12 md:w-12 mb-2 md:mb-3 object-contain group-hover:scale-110 transition-transform duration-300 rounded-lg" loading="lazy" width={48} height={48} />
-                <span className="relative text-xs md:text-sm font-semibold font-display text-center">{item.label}</span>
-                <span className="relative text-[10px] md:text-[11px] text-muted-foreground mt-1 text-center hidden sm:block">{item.desc}</span>
-              </motion.div>
+            {lessonIncludes.map((item) => (
+              <Link key={item.label} to={item.to} className="block group">
+                <motion.div
+                  variants={staggerItem}
+                  className="relative flex flex-col items-center rounded-2xl border bg-card p-4 md:p-6 shadow-soft transition-all hover:shadow-card hover:-translate-y-1.5 duration-300 overflow-hidden h-full"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <img src={item.image} alt={item.label} className="relative h-10 w-10 md:h-12 md:w-12 mb-2 md:mb-3 object-contain group-hover:scale-110 transition-transform duration-300 rounded-lg" loading="lazy" width={48} height={48} />
+                  <span className="relative text-xs md:text-sm font-semibold font-display text-center group-hover:text-primary transition-colors">{item.label}</span>
+                  <span className="relative text-[10px] md:text-[11px] text-muted-foreground mt-1 text-center hidden sm:block">{item.desc}</span>
+                </motion.div>
+              </Link>
             ))}
           </motion.div>
         </div>
