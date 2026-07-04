@@ -1,4 +1,4 @@
-import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane, Video, Code2, Cog, ShieldCheck, School } from "lucide-react";
+import { BookOpen, MessageCircle, PenLine, BookMarked, Target, Briefcase, Globe2, Headphones, Brain, Music, Newspaper, Scale, Hotel, MessageSquare, Smartphone, HeartPulse, DollarSign, Plane, Video, Code2, Cog, ShieldCheck, School, Palette, Music2, Languages, Baby } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 import coreEnglishImg from "@/assets/courses/core-english.jpg";
@@ -373,6 +373,78 @@ export const categories: Category[] = [
     description: "High-quality English for web developers covering B1, B2, and C1 communication. Minimum requirement: B1 English.",
     courses: [
       { name: "Web Development English", description: "Learn to discuss websites, bugs, features, code reviews, deployment, architecture, and performance in professional English.", topics: ["Minimum B1", "B1", "B2", "C1", "Frontend", "Backend"] },
+    ],
+  },
+  {
+    icon: Palette,
+    emoji: "🎨",
+    title: "Painting Classes",
+    slug: "painting",
+    color: "from-rose-500/10 to-orange-500/5",
+    iconBg: "bg-rose-500/15",
+    image: specializedImg,
+    description: "Learn to paint from scratch — color theory, sketching, watercolor, acrylics, and portraits. Structured 12-week curriculum.",
+    courses: [
+      { name: "Foundations of Drawing", description: "Week 1–2: Lines, shapes, shading, perspective, and observational sketching.", topics: ["Lines & Shapes", "Shading", "Perspective", "Still Life"] },
+      { name: "Color Theory", description: "Week 3–4: Color wheel, mixing, warm vs cool tones, harmony and contrast.", topics: ["Color Wheel", "Mixing", "Harmony", "Contrast"] },
+      { name: "Watercolor Techniques", description: "Week 5–6: Wet-on-wet, washes, layering, landscapes, and floral studies.", topics: ["Wet-on-Wet", "Washes", "Landscapes", "Florals"] },
+      { name: "Acrylic Painting", description: "Week 7–9: Brush control, texture, palette knife, abstract and figurative works.", topics: ["Brushwork", "Texture", "Abstract", "Figurative"] },
+      { name: "Portrait Painting", description: "Week 10–11: Face proportions, skin tones, expression, and portrait composition.", topics: ["Proportions", "Skin Tones", "Expression"] },
+      { name: "Final Project & Exhibition", description: "Week 12: Complete a personal signature piece and present it in a class showcase.", topics: ["Personal Style", "Presentation", "Critique"] },
+    ],
+  },
+  {
+    icon: Music2,
+    emoji: "🎼",
+    title: "Music Lessons",
+    slug: "music-lessons",
+    color: "from-purple-500/10 to-pink-500/5",
+    iconBg: "bg-purple-500/15",
+    image: musicImg,
+    description: "Complete music curriculum — theory, instruments, and singing. Structured path from beginner to performer.",
+    courses: [
+      { name: "Music Theory Basics", description: "Notes, rhythm, scales, keys, and reading sheet music from the ground up.", topics: ["Notes", "Rhythm", "Scales", "Sight-Reading"] },
+      { name: "Piano / Keyboard", description: "Finger technique, chords, popular songs, and progression from beginner to intermediate.", topics: ["Technique", "Chords", "Songs", "Improvisation"] },
+      { name: "Guitar", description: "Acoustic and electric guitar — chords, strumming, fingerpicking, and full songs.", topics: ["Chords", "Strumming", "Fingerpicking", "Songs"] },
+      { name: "Singing & Vocal Training", description: "Breathing, pitch, range, tone control, and performing songs with confidence.", topics: ["Breathing", "Pitch", "Range", "Performance"] },
+      { name: "Ear Training & Rhythm", description: "Recognize intervals, chords, melodies, and develop a strong sense of timing.", topics: ["Intervals", "Melody", "Timing"] },
+      { name: "Songwriting & Performance", description: "Compose your own songs and perform live in end-of-term recitals.", topics: ["Composition", "Lyrics", "Recital"] },
+    ],
+  },
+  {
+    icon: Languages,
+    emoji: "🇪🇸",
+    title: "Spanish Language",
+    slug: "spanish",
+    color: "from-yellow-500/10 to-red-500/5",
+    iconBg: "bg-yellow-500/15",
+    image: coreEnglishImg,
+    description: "Learn Spanish from A1 to B2 — pronunciation, grammar, vocabulary, and real conversation with native-style materials.",
+    courses: [
+      { name: "Spanish A1 — Beginner", description: "Alphabet, greetings, numbers, present tense, and basic self-introduction.", topics: ["Alphabet", "Greetings", "Numbers", "Present Tense"] },
+      { name: "Spanish A2 — Elementary", description: "Past tense, daily routines, food, shopping, and short conversations.", topics: ["Past Tense", "Routines", "Food", "Shopping"] },
+      { name: "Spanish B1 — Intermediate", description: "Subjunctive introduction, opinions, travel, work, and cultural topics.", topics: ["Subjunctive", "Opinions", "Travel", "Culture"] },
+      { name: "Spanish B2 — Upper Intermediate", description: "Complex grammar, debates, news, literature, and fluent conversation.", topics: ["Advanced Grammar", "Debates", "News", "Literature"] },
+      { name: "Spanish Conversation Club", description: "Weekly live speaking practice on real-world topics with guided prompts.", topics: ["Speaking", "Fluency", "Role Play"] },
+      { name: "Spanish for Travel", description: "Practical phrases for airports, hotels, restaurants, and asking for directions in Spain and Latin America.", topics: ["Travel Phrases", "Hotels", "Restaurants", "Directions"] },
+    ],
+  },
+  {
+    icon: Baby,
+    emoji: "🧒",
+    title: "Kids Language Therapy",
+    slug: "kids-language-therapy",
+    color: "from-emerald-500/10 to-sky-500/5",
+    iconBg: "bg-emerald-500/15",
+    image: specializedImg,
+    description: "Specialized speech and language therapy for children — articulation, vocabulary, sentence-building, and confident communication.",
+    courses: [
+      { name: "Speech Sounds & Articulation", description: "Individual sound practice, minimal pairs, and clear pronunciation with playful drills.", topics: ["Sounds", "Minimal Pairs", "Articulation"] },
+      { name: "Vocabulary Building for Kids", description: "Themed word banks — family, animals, food, school — through games and stories.", topics: ["Themes", "Games", "Stories"] },
+      { name: "Sentence Structure & Grammar", description: "Building simple to complex sentences, questions, and correct word order.", topics: ["Sentences", "Questions", "Word Order"] },
+      { name: "Listening & Following Instructions", description: "Auditory processing games, multi-step instructions, and comprehension activities.", topics: ["Listening", "Instructions", "Comprehension"] },
+      { name: "Social Communication Skills", description: "Turn-taking, greetings, expressing feelings, and interacting with peers.", topics: ["Turn-Taking", "Feelings", "Peer Interaction"] },
+      { name: "Fluency & Confidence", description: "Reducing stuttering, building rhythm, and boosting confidence when speaking in front of others.", topics: ["Fluency", "Rhythm", "Confidence"] },
     ],
   },
 ];
