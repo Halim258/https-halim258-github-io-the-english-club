@@ -137,12 +137,12 @@ const howItWorks = [
 ];
 
 const lessonIncludes = [
-  { image: lessonVocabulary, label: "Vocabulary", desc: "New words in context" },
-  { image: lessonConversation, label: "Conversation", desc: "Real dialogue practice" },
-  { image: lessonGrammar, label: "Grammar", desc: "Rules & exercises" },
-  { image: lessonSpeaking, label: "Speaking", desc: "Pronunciation drills" },
-  { image: lessonExam, label: "Exam", desc: "Level assessments" },
-  { image: lessonHomework, label: "Homework", desc: "Reinforce learning" },
+  { image: lessonVocabulary, label: "Vocabulary", desc: "New words in context", to: "/vocab-quiz" },
+  { image: lessonConversation, label: "Conversation", desc: "Real dialogue practice", to: "/practice" },
+  { image: lessonGrammar, label: "Grammar", desc: "Rules & exercises", to: "/grammar" },
+  { image: lessonSpeaking, label: "Speaking", desc: "Pronunciation drills", to: "/pronunciation" },
+  { image: lessonExam, label: "Exam", desc: "Level assessments", to: "/placement-test" },
+  { image: lessonHomework, label: "Homework", desc: "Reinforce learning", to: "/writing" },
 ];
 
 const testimonials = [
