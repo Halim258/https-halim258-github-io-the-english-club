@@ -1,10 +1,10 @@
-import { Link, useParams, useNavigate } from "react-router-dom";
+import { Link, useParams, useNavigate, Navigate, useLocation } from "react-router-dom";
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft, ChevronRight, CheckCircle2, Circle, Sparkles, Target, ListChecks,
   Trophy, MessageCircle, Clock, BookOpen, Youtube, NotebookPen, GraduationCap,
-  Lightbulb, RotateCcw,
+  Lightbulb, RotateCcw, Loader2,
 } from "lucide-react";
 import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,8 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { useAuth } from "@/hooks/useAuth";
+import { useCurriculumProgress } from "@/hooks/useCurriculumProgress";
 
 const CATEGORY_TIPS: Record<string, string[]> = {
   painting: [
@@ -71,33 +73,25 @@ function generateQuiz(title: string, activities: string[], goal: string) {
 
 type QuizItem = { question: string; options: string[]; correct: number };
 
-function Quiz({ items, storageKey }: { items: QuizItem[]; storageKey: string }) {
-  const [answers, setAnswers] = useState<Record<number, number | undefined>>(() => {
-    try { return JSON.parse(localStorage.getItem(storageKey) ?? "{}"); } catch { return {}; }
-  });
-  const [submitted, setSubmitted] = useState<boolean>(() => !!localStorage.getItem(storageKey + ":done"));
-
-  useEffect(() => {
-    try {
-      setAnswers(JSON.parse(localStorage.getItem(storageKey) ?? "{}"));
-      setSubmitted(!!localStorage.getItem(storageKey + ":done"));
-    } catch { setAnswers({}); setSubmitted(false); }
-  }, [storageKey]);
-
-  const save = (next: typeof answers) => {
-    setAnswers(next);
-    try { localStorage.setItem(storageKey, JSON.stringify(next)); } catch {}
-  };
+function Quiz({
+  items,
+  answers,
+  submitted,
+  onAnswersChange,
+  onSubmit,
+  onReset,
+}: {
+  items: QuizItem[];
+  answers: Record<number, number | undefined>;
+  submitted: boolean;
+  onAnswersChange: (next: Record<number, number | undefined>) => void;
+  onSubmit: (score: number) => void;
+  onReset: () => void;
+}) {
   const score = items.reduce((s, it, i) => s + (answers[i] === it.correct ? 1 : 0), 0);
   const submit = () => {
-    setSubmitted(true);
-    try { localStorage.setItem(storageKey + ":done", "1"); } catch {}
+    onSubmit(score);
     toast.success(`You scored ${score}/${items.length}`);
-  };
-  const reset = () => {
-    setSubmitted(false);
-    setAnswers({});
-    try { localStorage.removeItem(storageKey); localStorage.removeItem(storageKey + ":done"); } catch {}
   };
 
   return (
@@ -112,7 +106,7 @@ function Quiz({ items, storageKey }: { items: QuizItem[]; storageKey: string }) 
               return (
                 <button
                   key={oi}
-                  onClick={() => !submitted && save({ ...answers, [qi]: oi })}
+                  onClick={() => !submitted && onAnswersChange({ ...answers, [qi]: oi })}
                   disabled={submitted}
                   className={`w-full text-left text-sm rounded-lg border px-3 py-2 transition-all ${
                     submitted && isCorrect
@@ -139,7 +133,7 @@ function Quiz({ items, storageKey }: { items: QuizItem[]; storageKey: string }) 
         ) : (
           <>
             <Badge className="text-sm px-3 py-1">Score: {score}/{items.length}</Badge>
-            <Button onClick={reset} variant="outline" size="sm" className="rounded-full">
+            <Button onClick={onReset} variant="outline" size="sm" className="rounded-full">
               <RotateCcw className="h-3.5 w-3.5 mr-1" /> Try again
             </Button>
           </>
@@ -152,53 +146,69 @@ function Quiz({ items, storageKey }: { items: QuizItem[]; storageKey: string }) 
 export default function CurriculumPlan() {
   const { categorySlug, courseIndex } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const { user, loading: authLoading } = useAuth();
   const cat = categories.find((c) => c.slug === categorySlug);
   const idx = Number(courseIndex ?? 0);
   const course = cat?.courses[idx];
 
-  const storageKey = `curriculum:${categorySlug}:${idx}`;
-  const [completed, setCompleted] = useState<Set<number>>(() => {
-    try { const raw = localStorage.getItem(storageKey); return new Set(raw ? JSON.parse(raw) : []); }
-    catch { return new Set(); }
-  });
+  const { state, update, loading: progressLoading, isAuthed } = useCurriculumProgress(categorySlug, idx);
+  const completed = useMemo(() => new Set(state.completedSteps), [state.completedSteps]);
   const [activeStep, setActiveStep] = useState<number>(0);
   const [tab, setTab] = useState("overview");
-  const [checked, setChecked] = useState<Record<string, boolean>>({});
-  const [notes, setNotes] = useState<string>("");
 
   const modules = course?.modules ?? [];
   const totalSteps = modules.length;
   const percent = totalSteps > 0 ? Math.round((completed.size / totalSteps) * 100) : 0;
   const currentModule = modules[activeStep];
 
-  const stepChecklistKey = `${storageKey}:step${activeStep}:checklist`;
-  const stepNotesKey = `${storageKey}:step${activeStep}:notes`;
-  const stepQuizKey = `${storageKey}:step${activeStep}:quiz`;
+  useEffect(() => { setTab("overview"); }, [activeStep]);
 
-  useEffect(() => {
-    try {
-      setChecked(JSON.parse(localStorage.getItem(stepChecklistKey) ?? "{}"));
-      setNotes(localStorage.getItem(stepNotesKey) ?? "");
-    } catch { setChecked({}); setNotes(""); }
-    setTab("overview");
-  }, [activeStep, stepChecklistKey, stepNotesKey]);
+  const stepKey = String(activeStep);
+  const checked = state.checklists[stepKey] ?? {};
+  const notes = state.notes[stepKey] ?? "";
+  const quizAnswers = state.quizAnswers[stepKey] ?? {};
+  const quizSubmitted = !!state.quizSubmitted[stepKey];
 
   const toggleActivity = (i: number) => {
-    const next = { ...checked, [i]: !checked[i] };
-    setChecked(next);
-    try { localStorage.setItem(stepChecklistKey, JSON.stringify(next)); } catch {}
+    update((prev) => {
+      const cur = prev.checklists[stepKey] ?? {};
+      return {
+        ...prev,
+        checklists: { ...prev.checklists, [stepKey]: { ...cur, [i]: !cur[i] } },
+      };
+    });
   };
   const saveNotes = (v: string) => {
-    setNotes(v);
-    try { localStorage.setItem(stepNotesKey, v); } catch {}
+    update((prev) => ({ ...prev, notes: { ...prev.notes, [stepKey]: v } }));
+  };
+  const setQuizAnswers = (next: Record<number, number | undefined>) => {
+    update((prev) => ({
+      ...prev,
+      quizAnswers: { ...prev.quizAnswers, [stepKey]: next as Record<string, number> },
+    }));
+  };
+  const submitQuiz = (_score: number) => {
+    update((prev) => ({
+      ...prev,
+      quizSubmitted: { ...prev.quizSubmitted, [stepKey]: true },
+    }));
+  };
+  const resetQuiz = () => {
+    update((prev) => {
+      const nextAns = { ...prev.quizAnswers }; delete nextAns[stepKey];
+      const nextSub = { ...prev.quizSubmitted }; delete nextSub[stepKey];
+      return { ...prev, quizAnswers: nextAns, quizSubmitted: nextSub };
+    });
   };
 
   const toggleComplete = (i: number) => {
-    const next = new Set(completed);
-    const wasDone = next.has(i);
-    if (wasDone) next.delete(i); else next.add(i);
-    setCompleted(next);
-    try { localStorage.setItem(storageKey, JSON.stringify([...next])); } catch {}
+    const wasDone = completed.has(i);
+    update((prev) => {
+      const set = new Set(prev.completedSteps);
+      if (wasDone) set.delete(i); else set.add(i);
+      return { ...prev, completedSteps: [...set].sort((a, b) => a - b) };
+    });
     if (!wasDone) toast.success("Great work! Step marked complete 🎉");
   };
 
@@ -212,11 +222,24 @@ export default function CurriculumPlan() {
     [currentModule?.title, currentModule?.goal, currentModule?.activities.join("|")]
   );
 
+  if (!authLoading && !user) {
+    return <Navigate to={`/login?redirect=${encodeURIComponent(location.pathname)}`} replace />;
+  }
+
   if (!cat || !course || !currentModule) {
     return (
       <div className="container mx-auto px-4 py-20 text-center">
         <h1 className="text-xl font-bold">Curriculum not found</h1>
         <Button className="mt-4" onClick={() => navigate("/courses")}>Back to Courses</Button>
+      </div>
+    );
+  }
+
+  if (progressLoading) {
+    return (
+      <div className="container mx-auto px-4 py-20 text-center text-muted-foreground">
+        <Loader2 className="h-6 w-6 animate-spin mx-auto mb-3" />
+        Loading your progress…
       </div>
     );
   }
@@ -432,7 +455,14 @@ export default function CurriculumPlan() {
                 </TabsContent>
 
                 <TabsContent value="quiz" className="mt-5">
-                  <Quiz items={quizItems} storageKey={stepQuizKey} />
+                  <Quiz
+                    items={quizItems}
+                    answers={quizAnswers as Record<number, number | undefined>}
+                    submitted={quizSubmitted}
+                    onAnswersChange={setQuizAnswers}
+                    onSubmit={submitQuiz}
+                    onReset={resetQuiz}
+                  />
                 </TabsContent>
 
                 <TabsContent value="notes" className="mt-5 space-y-2">
@@ -445,7 +475,7 @@ export default function CurriculumPlan() {
                     placeholder="Write reflections, questions, or new words you learned this week…"
                     className="min-h-[180px]"
                   />
-                  <p className="text-[11px] text-muted-foreground">Saved automatically on this device.</p>
+                  <p className="text-[11px] text-muted-foreground">Saved automatically to your account and synced across devices.</p>
                 </TabsContent>
               </Tabs>
 
