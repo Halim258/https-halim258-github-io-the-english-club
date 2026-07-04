@@ -42,7 +42,7 @@ import LocationSection from "@/components/home/LocationSection";
 import CoursesSection from "@/components/home/CoursesSection";
 import ContinueLearning from "@/components/ContinueLearning";
 
-import SocialProofToast from "@/components/SocialProofToast";
+
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import LearningGuide from "@/components/home/LearningGuide";
 import OnboardingTour from "@/components/OnboardingTour";
@@ -1009,7 +1009,7 @@ export default function Home() {
           </FadeInUp>
         </div>
       </section>
-      <SocialProofToast />
+      
       <ScrollToTopButton />
     </div>
   );
