@@ -237,7 +237,7 @@ export default function Home() {
               >
                 <img
                   src={studentsLearning.url}
-                  alt="PCC competition winners with medals, certificates and trophies at The English Club Alexandria"
+                  alt="Students learning English together in a modern classroom at The English Club Alexandria"
                   className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.03] transition-transform duration-[1200ms]"
                   loading="eager"
                 />
