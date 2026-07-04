@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft, ChevronRight, CheckCircle2, Circle, Sparkles, Target, ListChecks,
   Trophy, MessageCircle, Clock, BookOpen, Youtube, NotebookPen, GraduationCap,
-  Lightbulb, RotateCcw, Loader2,
+  Lightbulb, RotateCcw, Loader2, Download,
 } from "lucide-react";
 import { categories } from "@/data/course-categories";
 import { Button } from "@/components/ui/button";
@@ -15,6 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurriculumProgress } from "@/hooks/useCurriculumProgress";
+import { downloadWorksheet } from "@/lib/generate-worksheet";
 
 const CATEGORY_TIPS: Record<string, string[]> = {
   painting: [
