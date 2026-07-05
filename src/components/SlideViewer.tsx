@@ -86,16 +86,28 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
       </div>
 
       {/* Bottom nav */}
-      <div className="flex items-center justify-between px-4 py-3 border-t bg-card/95 backdrop-blur-sm shrink-0">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => go(-1)}
-          disabled={current === 0}
-          className="rounded-full gap-1.5 text-xs font-semibold min-w-[100px] hover:bg-primary/5 hover:text-primary hover:border-primary/30 disabled:opacity-40"
-        >
-          <ChevronLeft className="h-3.5 w-3.5" /> Previous
-        </Button>
+      <div className="flex items-center justify-between px-4 py-3 border-t bg-card/95 backdrop-blur-sm shrink-0 gap-2">
+        <div className="flex items-center gap-2">
+          {onBack && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onBack}
+              className="rounded-full gap-1.5 text-xs font-semibold min-w-[90px] hover:bg-primary/10 hover:text-primary hover:border-primary/40"
+            >
+              <ChevronLeft className="h-3.5 w-3.5" /> Back
+            </Button>
+          )}
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => go(-1)}
+            disabled={current === 0}
+            className="rounded-full gap-1.5 text-xs font-semibold min-w-[100px] hover:bg-primary/5 hover:text-primary hover:border-primary/30 disabled:opacity-40"
+          >
+            <ChevronLeft className="h-3.5 w-3.5" /> Previous
+          </Button>
+        </div>
 
         {/* Slide dots (show max 12) */}
         <div className="hidden sm:flex items-center gap-1.5">
