@@ -544,6 +544,13 @@ export default function LessonPage() {
   const { markComplete } = useLessonProgress();
   const { user } = useAuth();
 
+  // Arabic courses use the unified 12-section slide template.
+  useEffect(() => {
+    if (typeof levelId === "string" && levelId.startsWith("ar-")) {
+      navigate(`/courses/${levelId}/${lessonId}/slides`, { replace: true });
+    }
+  }, [levelId, lessonId, navigate]);
+
   const [activeTab, setActiveTab] = useState<TabId>("vocabulary");
   const [cardIndex, setCardIndex] = useState(0);
   const [showArabic, setShowArabic] = useState(false);
