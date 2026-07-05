@@ -544,9 +544,9 @@ export default function LessonPage() {
   const { markComplete } = useLessonProgress();
   const { user } = useAuth();
 
-  // Arabic courses use the unified 12-section slide template.
+  // Music course uses the unified 12-section slide template.
   useEffect(() => {
-    if (typeof levelId === "string" && levelId.startsWith("ar-")) {
+    if (typeof levelId === "string" && levelId.startsWith("ar-mus")) {
       navigate(`/courses/${levelId}/${lessonId}/slides`, { replace: true });
     }
   }, [levelId, lessonId, navigate]);
