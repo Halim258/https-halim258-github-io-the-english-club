@@ -29,8 +29,8 @@ export default function SlideLesson() {
     );
   }
 
-  const isArabicCourse = typeof levelId === "string" && levelId.startsWith("ar-");
-  const slides = isArabicCourse
+  const isMusicCourse = typeof levelId === "string" && levelId.startsWith("ar-mus");
+  const slides = isMusicCourse
     ? generateArabicLessonSlides(lesson)
     : generateSlides(lesson);
 
