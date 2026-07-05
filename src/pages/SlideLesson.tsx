@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { lessons } from "@/data/lessons";
 import { generateSlides } from "@/data/slide-types";
+import { generateArabicLessonSlides } from "@/data/arabic-lesson-slide-generator";
 import SlideViewer from "@/components/SlideViewer";
 
 export default function SlideLesson() {
@@ -28,7 +29,10 @@ export default function SlideLesson() {
     );
   }
 
-  const slides = generateSlides(lesson);
+  const isArabicCourse = typeof levelId === "string" && levelId.startsWith("ar-");
+  const slides = isArabicCourse
+    ? generateArabicLessonSlides(lesson)
+    : generateSlides(lesson);
 
   return (
     <SlideViewer
