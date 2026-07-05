@@ -43,8 +43,11 @@ export function useCurriculumProgress(categorySlug: string | undefined, courseIn
       .eq("category_slug", categorySlug)
       .eq("course_index", courseIndex)
       .maybeSingle()
-      .then(({ data }) => {
+      .then(({ data, error }) => {
         if (cancelled) return;
+        if (error) {
+          console.warn("curriculum_progress load failed:", error.message);
+        }
         const next: CurriculumProgressState = data
           ? {
               completedSteps: (data.completed_steps as number[]) ?? [],
@@ -56,6 +59,12 @@ export function useCurriculumProgress(categorySlug: string | undefined, courseIn
           : empty;
         setState(next);
         latest.current = next;
+        setLoading(false);
+      }, (err) => {
+        if (cancelled) return;
+        console.warn("curriculum_progress load rejected:", err);
+        setState(empty);
+        latest.current = empty;
         setLoading(false);
       });
     return () => {
