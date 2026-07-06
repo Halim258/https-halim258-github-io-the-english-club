@@ -648,9 +648,86 @@ export default function Courses() {
         </div>
       </section>
 
+      {/* Continue where you left off */}
+      {!normalizedSearch && <ContinueLearning />}
+
+      {/* Sticky section jump nav */}
+      <div className="sticky top-14 md:top-16 z-30 border-y bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+        <div className="container mx-auto px-4">
+          <div className="flex items-center gap-1.5 overflow-x-auto py-2.5 scrollbar-hide -mx-1 px-1">
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pr-2 shrink-0 hidden sm:inline">Jump to</span>
+            {[
+              { id: "schools", label: "Egyptian Schools", show: filteredEgyptianSchoolTracks.length > 0 },
+              { id: "levels", label: "CEFR Levels", show: filteredCefrLevels.length > 0 || showReadingCourse || showKidsCourse },
+              { id: "tools", label: "Learning Tools", show: !normalizedSearch },
+              { id: "categories", label: "Specialized", show: filteredCategories.length > 0 },
+            ].filter((s) => s.show).map((s) => (
+              <a
+                key={s.id}
+                href={`#${s.id}`}
+                onClick={(e) => {
+                  e.preventDefault();
+                  const el = document.getElementById(s.id);
+                  if (el) {
+                    const y = el.getBoundingClientRect().top + window.scrollY - 120;
+                    window.scrollTo({ top: y, behavior: "smooth" });
+                  }
+                }}
+                className="shrink-0 rounded-full border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground/80 shadow-sm transition-all hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+              >
+                {s.label}
+              </a>
+            ))}
+            {courseSearch && (
+              <button
+                type="button"
+                onClick={() => setCourseSearch("")}
+                className="ml-auto shrink-0 inline-flex items-center gap-1 rounded-full bg-muted px-3 py-1.5 text-[11px] font-semibold text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+              >
+                <X className="h-3 w-3" /> Clear "{courseSearch}"
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Global empty state when a search returns nothing */}
+      {normalizedSearch && resultCount === 0 && (
+        <section className="container mx-auto px-4 py-16">
+          <div className="mx-auto max-w-lg text-center rounded-2xl border bg-card p-8 shadow-soft">
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
+              <Search className="h-6 w-6" />
+            </div>
+            <h2 className="font-display text-xl font-bold">No courses match "{courseSearch}"</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Try a shorter phrase, a level (A1, B2, C1), a skill (speaking, writing), or an exam name (IELTS, TOEFL).
+            </p>
+            <div className="mt-5 flex flex-wrap justify-center gap-2">
+              {["IELTS", "Speaking", "Kids", "Business", "Grammar"].map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setCourseSearch(t)}
+                  className="rounded-full border bg-muted/40 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary"
+                >
+                  {t}
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={() => setCourseSearch("")}
+                className="rounded-full bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground shadow-sm hover:bg-primary/90"
+              >
+                Show all courses
+              </button>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ═══ EGYPTIAN SCHOOL ENGLISH ═══ */}
       {filteredEgyptianSchoolTracks.length > 0 && (
-        <section className="py-8 md:py-12">
+        <section id="schools" className="py-8 md:py-12 scroll-mt-32">
           <div className="container mx-auto px-4">
             <FadeInUp>
               <button
