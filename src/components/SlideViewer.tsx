@@ -102,6 +102,26 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
 
       {/* Slide area */}
       <div className="flex-1 relative overflow-hidden">
+        {/* Keyboard shortcut hint (desktop only, dismissible) */}
+        <AnimatePresence>
+          {showKbdHint && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              className="hidden md:flex absolute top-3 left-1/2 -translate-x-1/2 z-20 items-center gap-2 rounded-full border bg-card/95 backdrop-blur px-3 py-1.5 shadow-md text-[11px] text-muted-foreground"
+            >
+              <span>Use</span>
+              <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">←</kbd>
+              <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">→</kbd>
+              <span>to navigate ·</span>
+              <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">Esc</kbd>
+              <span>to exit ·</span>
+              <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">?</kbd>
+              <span>help</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={slide.id}
