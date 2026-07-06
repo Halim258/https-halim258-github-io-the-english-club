@@ -18,6 +18,7 @@ interface SlideViewerProps {
 export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [showKbdHint, setShowKbdHint] = useState(false);
   const slide = slides[current];
 
   const go = useCallback(
@@ -31,6 +32,37 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   );
 
   const progress = ((current + 1) / slides.length) * 100;
+
+  // Keyboard navigation: ←/→ page, Home/End jump, Esc go back, ? toggles hint
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable) return;
+      if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); go(1); }
+      else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(-1); }
+      else if (e.key === "Home") { e.preventDefault(); setDirection(-1); setCurrent(0); }
+      else if (e.key === "End") { e.preventDefault(); setDirection(1); setCurrent(slides.length - 1); }
+      else if (e.key === "Escape" && onBack) { e.preventDefault(); onBack(); }
+      else if (e.key === "?" || (e.shiftKey && e.key === "/")) { e.preventDefault(); setShowKbdHint((v) => !v); }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [go, slides.length, onBack]);
+
+  // Auto-dismiss the shortcuts pill after a few seconds on first mount
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(hover: none)").matches) return; // touch — skip
+    const seen = window.localStorage.getItem("slide-kbd-hint-seen");
+    if (seen) return;
+    setShowKbdHint(true);
+    const t = setTimeout(() => {
+      setShowKbdHint(false);
+      window.localStorage.setItem("slide-kbd-hint-seen", "1");
+    }, 4500);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] bg-background">
