@@ -18,6 +18,7 @@ interface SlideViewerProps {
 export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
+  const [showKbdHint, setShowKbdHint] = useState(false);
   const slide = slides[current];
 
   const go = useCallback(
@@ -31,6 +32,37 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   );
 
   const progress = ((current + 1) / slides.length) * 100;
+
+  // Keyboard navigation: ←/→ page, Home/End jump, Esc go back, ? toggles hint
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA" || target?.isContentEditable) return;
+      if (e.key === "ArrowRight" || e.key === "PageDown") { e.preventDefault(); go(1); }
+      else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); go(-1); }
+      else if (e.key === "Home") { e.preventDefault(); setDirection(-1); setCurrent(0); }
+      else if (e.key === "End") { e.preventDefault(); setDirection(1); setCurrent(slides.length - 1); }
+      else if (e.key === "Escape" && onBack) { e.preventDefault(); onBack(); }
+      else if (e.key === "?" || (e.shiftKey && e.key === "/")) { e.preventDefault(); setShowKbdHint((v) => !v); }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [go, slides.length, onBack]);
+
+  // Auto-dismiss the shortcuts pill after a few seconds on first mount
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(hover: none)").matches) return; // touch — skip
+    const seen = window.localStorage.getItem("slide-kbd-hint-seen");
+    if (seen) return;
+    setShowKbdHint(true);
+    const t = setTimeout(() => {
+      setShowKbdHint(false);
+      window.localStorage.setItem("slide-kbd-hint-seen", "1");
+    }, 4500);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] bg-background">
@@ -70,6 +102,26 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
 
       {/* Slide area */}
       <div className="flex-1 relative overflow-hidden">
+        {/* Keyboard shortcut hint (desktop only, dismissible) */}
+        <AnimatePresence>
+          {showKbdHint && (
+            <motion.div
+              initial={{ opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              className="hidden md:flex absolute top-3 left-1/2 -translate-x-1/2 z-20 items-center gap-2 rounded-full border bg-card/95 backdrop-blur px-3 py-1.5 shadow-md text-[11px] text-muted-foreground"
+            >
+              <span>Use</span>
+              <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">←</kbd>
+              <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">→</kbd>
+              <span>to navigate ·</span>
+              <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">Esc</kbd>
+              <span>to exit ·</span>
+              <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">?</kbd>
+              <span>help</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={slide.id}
