@@ -812,7 +812,7 @@ export default function Courses() {
       )}
 
       {/* ═══ MAIN CEFR LEVELS ═══ */}
-      <section className="py-12 md:py-16">
+      <section id="levels" className="py-12 md:py-16 scroll-mt-32">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -968,7 +968,7 @@ export default function Courses() {
       </section>
 
       {/* ═══ LEARNING TOOLS ═══ */}
-      <section className="border-t py-10 md:py-14">
+      <section id="tools" className="border-t py-10 md:py-14 scroll-mt-32">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
@@ -1015,7 +1015,7 @@ export default function Courses() {
       </section>
 
       {/* ═══ COURSE CATEGORIES ═══ */}
-      <section className="border-t bg-muted/30 py-12 md:py-16">
+      <section id="categories" className="border-t bg-muted/30 py-12 md:py-16 scroll-mt-32">
         <div className="container mx-auto px-4">
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
