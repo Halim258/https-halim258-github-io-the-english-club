@@ -19,7 +19,13 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
   const [showKbdHint, setShowKbdHint] = useState(false);
-  const slide = slides[current];
+  // Clamp current if slides array shrank (e.g. after a template change).
+  useEffect(() => {
+    if (current > slides.length - 1) setCurrent(Math.max(0, slides.length - 1));
+  }, [slides.length, current]);
+
+  const slide = slides[current] ?? slides[0];
+  if (!slide) return null;
 
   const go = useCallback(
     (dir: number) => {
