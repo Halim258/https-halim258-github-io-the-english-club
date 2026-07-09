@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { lessons } from "@/data/lessons";
 import { generateSlides } from "@/data/slide-types";
 import { generateArabicLessonSlides } from "@/data/arabic-lesson-slide-generator";
+import { generateArabicDrawingSlides } from "@/data/arabic-drawing-slide-generator";
 import SlideViewer from "@/components/SlideViewer";
 
 export default function SlideLesson() {
@@ -30,7 +31,10 @@ export default function SlideLesson() {
   }
 
   const isMusicCourse = typeof levelId === "string" && levelId.startsWith("ar-mus");
-  const slides = isMusicCourse
+  const isDrawingCourse = typeof levelId === "string" && levelId.startsWith("ar-draw");
+  const slides = isDrawingCourse
+    ? generateArabicDrawingSlides(lesson)
+    : isMusicCourse
     ? generateArabicLessonSlides(lesson)
     : generateSlides(lesson);
 
