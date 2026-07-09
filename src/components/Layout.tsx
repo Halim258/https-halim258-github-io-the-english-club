@@ -32,7 +32,7 @@ export default function Layout() {
       <GlobalSearch />
       {showBreadcrumbs && <Breadcrumbs />}
       <main className="flex-1 pb-mobile-nav md:pb-0">
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           <PageTransition key={pathname}>
             <Outlet />
           </PageTransition>
