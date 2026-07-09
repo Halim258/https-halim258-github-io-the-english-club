@@ -213,6 +213,17 @@ function SlideRenderer({ slide }: { slide: Slide }) {
           </div>
         </div>
 
+        {slide.image && (
+          <div className="mb-6 overflow-hidden rounded-2xl border shadow-sm">
+            <img
+              src={slide.image}
+              alt={slide.title}
+              loading="lazy"
+              className="w-full h-auto object-cover max-h-[360px]"
+            />
+          </div>
+        )}
+
         {/* Content by type */}
         {content.kind === "title" && <TitleSlide content={content} />}
         {content.kind === "vocab" && <VocabSlide words={content.words} />}
