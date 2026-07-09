@@ -132,6 +132,11 @@ import { esA1Lessons } from "./es-a1-lessons";
 import { esA1Lessons6to20 } from "./es-a1-lessons-6-20";
 import { arTherapyLessonsL1 } from "./ar-therapy-lessons-l1";
 import { arDrawingLessonsP1 } from "./ar-drawing-lessons-p1";
+import { arDrawingLessonsP2 } from "./ar-drawing-lessons-p2";
+import { arDrawingLessonsP3 } from "./ar-drawing-lessons-p3";
+import { arDrawingLessonsP4 } from "./ar-drawing-lessons-p4";
+import { arDrawingLessonsP5 } from "./ar-drawing-lessons-p5";
+import { arDrawingLessonsP6 } from "./ar-drawing-lessons-p6";
 import { arMusicLessonsL1 } from "./ar-music-lessons-l1";
 import { businessEnglishLessons } from "./business-english-lessons";
 import { businessEnglishLessons2 } from "./business-english-2";
@@ -665,6 +670,11 @@ export const lessons: Record<string, LessonData> = {
   ...esA1Lessons6to20,
   ...arTherapyLessonsL1,
   ...arDrawingLessonsP1,
+  ...arDrawingLessonsP2,
+  ...arDrawingLessonsP3,
+  ...arDrawingLessonsP4,
+  ...arDrawingLessonsP5,
+  ...arDrawingLessonsP6,
   ...arMusicLessonsL1,
   ...a2Lessons,
   ...b1Lessons,
