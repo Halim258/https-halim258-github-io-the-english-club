@@ -131,6 +131,13 @@ import { conversationExpansion } from "./conversation-expansion";
 import { esA1Lessons } from "./es-a1-lessons";
 import { esA1Lessons6to20 } from "./es-a1-lessons-6-20";
 import { arTherapyLessonsL1 } from "./ar-therapy-lessons-l1";
+import { arTherapyLessonsL2 } from "./ar-therapy-lessons-l2";
+import { arTherapyLessonsL3 } from "./ar-therapy-lessons-l3";
+import { arTherapyLessonsL4 } from "./ar-therapy-lessons-l4";
+import { arTherapyLessonsL5 } from "./ar-therapy-lessons-l5";
+import { arTherapyLessonsL6 } from "./ar-therapy-lessons-l6";
+import { arTherapyLessonsL7 } from "./ar-therapy-lessons-l7";
+import { arTherapyLessonsL8 } from "./ar-therapy-lessons-l8";
 import { arDrawingLessonsP1 } from "./ar-drawing-lessons-p1";
 import { arDrawingLessonsP2 } from "./ar-drawing-lessons-p2";
 import { arDrawingLessonsP3 } from "./ar-drawing-lessons-p3";
@@ -669,6 +676,13 @@ export const lessons: Record<string, LessonData> = {
   ...esA1Lessons,
   ...esA1Lessons6to20,
   ...arTherapyLessonsL1,
+  ...arTherapyLessonsL2,
+  ...arTherapyLessonsL3,
+  ...arTherapyLessonsL4,
+  ...arTherapyLessonsL5,
+  ...arTherapyLessonsL6,
+  ...arTherapyLessonsL7,
+  ...arTherapyLessonsL8,
   ...arDrawingLessonsP1,
   ...arDrawingLessonsP2,
   ...arDrawingLessonsP3,
