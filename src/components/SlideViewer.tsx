@@ -206,9 +206,14 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
 /* ═══════════ SLIDE RENDERER ═══════════ */
 function SlideRenderer({ slide }: { slide: Slide }) {
   const { content } = slide;
+  // Detect Arabic content and switch to RTL for correct layout.
+  const hasArabic = /[\u0600-\u06FF]/.test(
+    `${slide.title} ${slide.subtitle ?? ""}`
+  );
+  const dir = hasArabic ? "rtl" : "ltr";
 
   return (
-    <div className={`min-h-full bg-gradient-to-br ${slide.bgColor || ""} p-3 md:p-6`}>
+    <div dir={dir} className={`min-h-full bg-gradient-to-br ${slide.bgColor || ""} p-3 md:p-6`}>
       <div className="max-w-3xl mx-auto">
         {/* Slide header */}
         <div className="flex items-center gap-3 mb-6">
