@@ -544,11 +544,11 @@ export default function LessonPage() {
   const { markComplete } = useLessonProgress();
   const { user } = useAuth();
 
-  // Music & drawing courses use the slide-based template.
+  // Music, drawing, and speech therapy courses use the slide-based template.
   useEffect(() => {
     if (
       typeof levelId === "string" &&
-      (levelId.startsWith("ar-mus") || levelId.startsWith("ar-draw"))
+      (levelId.startsWith("ar-mus") || levelId.startsWith("ar-draw") || levelId.startsWith("ar-th"))
     ) {
       navigate(`/courses/${levelId}/${lessonId}/slides`, { replace: true });
     }

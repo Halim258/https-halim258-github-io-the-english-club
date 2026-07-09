@@ -206,11 +206,16 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
 /* ═══════════ SLIDE RENDERER ═══════════ */
 function SlideRenderer({ slide }: { slide: Slide }) {
   const { content } = slide;
+  const isTherapyKidsSlide = slide.id.startsWith("th-slide-");
   // Detect Arabic content and switch to RTL for correct layout.
   const hasArabic = /[\u0600-\u06FF]/.test(
     `${slide.title} ${slide.subtitle ?? ""}`
   );
   const dir = hasArabic ? "rtl" : "ltr";
+
+  if (isTherapyKidsSlide) {
+    return <TherapyKidsSlideRenderer slide={slide} dir={dir} />;
+  }
 
   return (
     <div dir={dir} className={`min-h-full bg-gradient-to-br ${slide.bgColor || ""} p-3 md:p-6`}>
@@ -250,6 +255,230 @@ function SlideRenderer({ slide }: { slide: Slide }) {
         {content.kind === "transcript" && <TranscriptSlide lines={content.lines} vocabWords={content.vocabWords} />}
         {content.kind === "song-reward" && <SongRewardSlide youtubeId={content.youtubeId} title={content.title} artist={content.artist} message={content.message} />}
         {content.kind === "listening" && <ListeningSlide audioContext={content.audioContext} tip={content.tip} questions={content.questions} />}
+      </div>
+    </div>
+  );
+}
+
+/* ═══════════ KID-FRIENDLY THERAPY RENDERER ═══════════ */
+function TherapyKidsSlideRenderer({ slide, dir }: { slide: Slide; dir: "rtl" | "ltr" }) {
+  const { content } = slide;
+
+  return (
+    <div dir={dir} className={`min-h-full bg-gradient-to-br ${slide.bgColor || "from-primary/10 to-accent/10"} p-3 md:p-6`}>
+      <div className="mx-auto max-w-4xl">
+        <div className="relative overflow-hidden rounded-[2rem] border-4 border-background/70 bg-card/90 p-4 shadow-2xl md:p-6">
+          <div className="pointer-events-none absolute inset-x-0 top-0 flex justify-around text-2xl opacity-70 md:text-3xl">
+            <span>⭐</span><span>🎈</span><span>🌈</span><span>🧸</span><span>⭐</span>
+          </div>
+          <div className="relative z-10">
+            <div className="mb-5 flex flex-col items-center gap-2 text-center">
+              <motion.div
+                initial={{ scale: 0.7, rotate: -8 }}
+                animate={{ scale: 1, rotate: [0, -3, 3, 0] }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
+                className="flex h-16 w-16 items-center justify-center rounded-full border-4 border-background bg-primary/10 text-4xl shadow-lg md:h-20 md:w-20 md:text-5xl"
+              >
+                {slide.emoji || "🌟"}
+              </motion.div>
+              <div className="inline-flex rounded-full bg-primary/10 px-4 py-1 text-xs font-black text-primary">
+                {slide.subtitle || "مغامرة ممتعة"}
+              </div>
+              <h2 className="max-w-2xl text-2xl font-black leading-tight md:text-4xl">{slide.title}</h2>
+            </div>
+
+            {content.kind === "title" && <TherapyTitleSlide content={content} />}
+            {content.kind === "vocab" && <TherapyVocabSlide words={content.words} />}
+            {content.kind === "dialogue" && <TherapyDialogueSlide lines={content.lines} />}
+            {content.kind === "exercise" && <TherapyExerciseSlide questions={content.questions} />}
+            {content.kind === "summary" && <TherapySummarySlide points={content.points} />}
+            {content.kind === "info" && <TherapyInfoSlide paragraphs={content.paragraphs} />}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TherapyTitleSlide({ content }: { content: { heading: string; description: string; level: string; lessonNumber: number } }) {
+  return (
+    <div className="py-4 text-center md:py-8">
+      <div className="mx-auto mb-5 grid max-w-md grid-cols-3 gap-3 text-center">
+        {["اسمع", "قلّد", "العب"].map((label, i) => (
+          <motion.div
+            key={label}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.12 }}
+            className="rounded-3xl border-2 border-primary/20 bg-background/70 p-3 shadow-soft"
+          >
+            <div className="text-3xl">{["👂", "🎤", "🎮"][i]}</div>
+            <p className="mt-1 text-sm font-black text-primary">{label}</p>
+          </motion.div>
+        ))}
+      </div>
+      <h1 className="text-3xl font-black leading-tight md:text-5xl">{content.heading}</h1>
+      <p className="mx-auto mt-4 max-w-xl text-base font-bold text-muted-foreground md:text-lg">{content.description}</p>
+      <div className="mx-auto mt-6 flex max-w-md flex-wrap justify-center gap-2 text-sm font-black">
+        <span className="rounded-full bg-primary/10 px-4 py-2 text-primary">نجمة {content.lessonNumber}</span>
+        <span className="rounded-full bg-accent/20 px-4 py-2 text-foreground">{content.level}</span>
+      </div>
+    </div>
+  );
+}
+
+function TherapyInfoSlide({ paragraphs }: { paragraphs: string[] }) {
+  return (
+    <div className="grid gap-3 md:grid-cols-2">
+      {paragraphs.map((p, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: i * 0.08 }}
+          className="rounded-3xl border-2 border-primary/15 bg-background/75 p-4 shadow-soft"
+        >
+          <div className="mb-2 text-3xl">{["🌟", "🗣️", "🎮", "🏆", "💡", "🎨"][i % 6]}</div>
+          <p className="whitespace-pre-line text-base font-bold leading-relaxed text-foreground">{p}</p>
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
+function TherapyVocabSlide({ words }: { words: VocabWord[] }) {
+  const { speak } = useTTS();
+
+  return (
+    <div className="grid gap-3 sm:grid-cols-3">
+      {words.map((w, i) => (
+        <motion.button
+          key={`${w.word}-${i}`}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: i * 0.08 }}
+          whileTap={{ scale: 0.96 }}
+          onClick={() => speak(`${w.word}. ${w.example}`, "ar-EG", 0.85)}
+          className="group min-h-44 rounded-[1.75rem] border-4 border-background bg-gradient-to-br from-background to-primary/10 p-4 text-center shadow-lg transition-transform hover:-translate-y-1"
+        >
+          <div className="mx-auto mb-3 flex h-20 w-20 items-center justify-center rounded-full bg-card text-5xl shadow-soft group-hover:animate-bounce">
+            {w.emoji || "⭐"}
+          </div>
+          <p className="text-xl font-black leading-tight">{w.word}</p>
+          <p className="mt-2 text-sm font-bold text-muted-foreground">{w.meaning}</p>
+          <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 text-xs font-black text-primary">
+            <Volume2 className="h-3 w-3" /> اسمع
+          </div>
+        </motion.button>
+      ))}
+    </div>
+  );
+}
+
+function TherapyDialogueSlide({ lines }: { lines: { speaker: string; text: string }[] }) {
+  const { speak } = useTTS();
+
+  return (
+    <div className="mx-auto max-w-2xl space-y-3">
+      {lines.map((line, i) => {
+        const child = /طفل|طفلة|الطفل|الطفلة/.test(line.speaker);
+        return (
+          <motion.div
+            key={`${line.speaker}-${i}`}
+            initial={{ opacity: 0, x: child ? -18 : 18 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.08 }}
+            className={`flex items-end gap-2 ${child ? "justify-start" : "justify-end"}`}
+          >
+            {child && <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-2xl">🧒</div>}
+            <button
+              onClick={() => speak(line.text, "ar-EG", 0.85)}
+              className={`max-w-[82%] rounded-[1.5rem] border-2 p-4 text-start shadow-soft ${child ? "rounded-bl-md border-primary/20 bg-primary/10" : "rounded-br-md border-accent/30 bg-background/80"}`}
+            >
+              <p className="mb-1 text-xs font-black text-primary">{line.speaker}</p>
+              <p className="text-base font-bold leading-relaxed">{line.text}</p>
+            </button>
+            {!child && <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/30 text-2xl">👩‍🏫</div>}
+          </motion.div>
+        );
+      })}
+    </div>
+  );
+}
+
+function TherapyExerciseSlide({ questions }: { questions: MCQItem[] }) {
+  const [answers, setAnswers] = useState<Record<number, number>>({});
+  const [showResults, setShowResults] = useState(false);
+  const score = questions.reduce((acc, q, i) => acc + (answers[i] === q.correct ? 1 : 0), 0);
+  const allAnswered = Object.keys(answers).length === questions.length;
+
+  return (
+    <div className="space-y-4">
+      {questions.map((q, qi) => (
+        <div key={qi} className="rounded-[1.75rem] border-4 border-background bg-background/80 p-4 shadow-lg">
+          <p className="mb-3 text-base font-black leading-relaxed"><span className="text-2xl">🎯</span> {q.question}</p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {q.options.map((opt, oi) => {
+              const selected = answers[qi] === oi;
+              const correct = q.correct === oi;
+              const resultClass = showResults && correct
+                ? "border-primary bg-primary/15 text-primary"
+                : showResults && selected
+                ? "border-destructive bg-destructive/10 text-destructive"
+                : selected
+                ? "border-primary bg-primary/10 text-primary"
+                : "border-border bg-card hover:border-primary/30";
+
+              return (
+                <button
+                  key={`${opt}-${oi}`}
+                  onClick={() => !showResults && setAnswers((prev) => ({ ...prev, [qi]: oi }))}
+                  className={`rounded-2xl border-2 px-4 py-3 text-start text-sm font-black transition-all ${resultClass}`}
+                >
+                  <span className="me-2 inline-flex h-7 w-7 items-center justify-center rounded-full bg-background font-black shadow-sm">{String.fromCharCode(65 + oi)}</span>
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      ))}
+      <div className="flex justify-center">
+        {showResults ? (
+          <div className="rounded-full bg-primary/10 px-6 py-3 text-lg font-black text-primary">⭐ نتيجتك {score}/{questions.length}</div>
+        ) : (
+          <Button disabled={!allAnswered} onClick={() => setShowResults(true)} className="rounded-full px-8 font-black">
+            شوف النجوم ✨
+          </Button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+function TherapySummarySlide({ points }: { points: string[] }) {
+  return (
+    <div className="py-4 text-center">
+      <motion.div
+        initial={{ scale: 0 }}
+        animate={{ scale: 1, rotate: [0, -6, 6, 0] }}
+        transition={{ type: "spring", stiffness: 180, damping: 12 }}
+        className="mb-5 text-7xl"
+      >
+        🏆
+      </motion.div>
+      <div className="mx-auto grid max-w-2xl gap-3 sm:grid-cols-2">
+        {points.map((p, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.12 }}
+            className="rounded-3xl border-2 border-primary/15 bg-background/80 p-4 text-start shadow-soft"
+          >
+            <p className="text-base font-black leading-relaxed"><span className="text-2xl">⭐</span> {p}</p>
+          </motion.div>
+        ))}
       </div>
     </div>
   );
