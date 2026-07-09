@@ -3,6 +3,7 @@ import { lessons } from "@/data/lessons";
 import { generateSlides } from "@/data/slide-types";
 import { generateArabicLessonSlides } from "@/data/arabic-lesson-slide-generator";
 import { generateArabicDrawingSlides } from "@/data/arabic-drawing-slide-generator";
+import { generateArabicTherapySlides } from "@/data/arabic-therapy-slide-generator";
 import SlideViewer from "@/components/SlideViewer";
 import DrawingSubmissionPanel from "@/components/DrawingSubmissionPanel";
 
@@ -33,8 +34,11 @@ export default function SlideLesson() {
 
   const isMusicCourse = typeof levelId === "string" && levelId.startsWith("ar-mus");
   const isDrawingCourse = typeof levelId === "string" && levelId.startsWith("ar-draw");
+  const isTherapyCourse = typeof levelId === "string" && levelId.startsWith("ar-th");
   const slides = isDrawingCourse
     ? generateArabicDrawingSlides(lesson)
+    : isTherapyCourse
+    ? generateArabicTherapySlides(lesson)
     : isMusicCourse
     ? generateArabicLessonSlides(lesson)
     : generateSlides(lesson);
