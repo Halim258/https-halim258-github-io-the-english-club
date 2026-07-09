@@ -1,5 +1,6 @@
 import type { LessonData } from "./lessons";
 import type { Slide } from "./slide-types";
+import drawingToolsHero from "@/assets/drawing-tools-hero.jpg";
 
 /**
  * منشئ الشرائح لدروس الرسم — قالب فني (لا لغوي).
@@ -25,6 +26,7 @@ export function generateArabicDrawingSlides(lesson: LessonData): Slide[] {
     subtitle: `الدرس رقم (${lesson.lessonNumber}) — ${lesson.levelLabel}`,
     emoji: "🎨",
     bgColor: "from-rose-500/10 to-amber-500/10",
+    image: drawingToolsHero,
     content: {
       kind: "title",
       heading: lesson.title,
@@ -149,6 +151,7 @@ export function generateArabicDrawingSlides(lesson: LessonData): Slide[] {
     subtitle: "ارسم الآن بنفسك",
     emoji: "🖌️",
     bgColor: "from-pink-500/10 to-pink-500/5",
+    image: drawingToolsHero,
     content: {
       kind: "info",
       paragraphs: [
