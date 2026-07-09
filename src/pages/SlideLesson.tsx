@@ -4,6 +4,7 @@ import { generateSlides } from "@/data/slide-types";
 import { generateArabicLessonSlides } from "@/data/arabic-lesson-slide-generator";
 import { generateArabicDrawingSlides } from "@/data/arabic-drawing-slide-generator";
 import SlideViewer from "@/components/SlideViewer";
+import DrawingSubmissionPanel from "@/components/DrawingSubmissionPanel";
 
 export default function SlideLesson() {
   const { levelId, lessonId } = useParams();
@@ -39,9 +40,18 @@ export default function SlideLesson() {
     : generateSlides(lesson);
 
   return (
-    <SlideViewer
-      slides={slides}
-      onBack={() => navigate(`/courses/${levelId}`)}
-    />
+    <>
+      <SlideViewer
+        slides={slides}
+        onBack={() => navigate(`/courses/${levelId}`)}
+      />
+      {isDrawingCourse && (
+        <DrawingSubmissionPanel
+          levelId={levelId!}
+          lessonNumber={lesson.lessonNumber}
+          lessonTitle={lesson.title}
+        />
+      )}
+    </>
   );
 }
