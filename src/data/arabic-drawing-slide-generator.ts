@@ -122,28 +122,7 @@ export function generateArabicDrawingSlides(lesson: LessonData): Slide[] {
     });
   }
 
-  // 7) تدريب موجّه (mini-quiz على المفاهيم)
-  const quickCheck = [
-    ...lesson.vocabExercises.slice(0, 2),
-    ...lesson.grammarExercises.slice(0, 2),
-  ];
-  if (quickCheck.length > 0) {
-    slides.push({
-      id: id(),
-      type: "exercise",
-      title: "🧠 تحقّق من فهمك",
-      subtitle: "أسئلة سريعة قبل التطبيق",
-      emoji: "🧠",
-      bgColor: "from-orange-500/10 to-orange-500/5",
-      content: {
-        kind: "exercise",
-        label: "سؤال",
-        questions: quickCheck,
-      },
-    });
-  }
-
-  // 8) نشاط الرسم العملي
+  // 7) نشاط الرسم العملي — تطبيق مباشر
   slides.push({
     id: id(),
     type: "info",
@@ -165,27 +144,27 @@ export function generateArabicDrawingSlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 9) تحديات إضافية (باقي التمارين — اختياري)
-  const challenges = [
-    ...lesson.vocabExercises.slice(2),
-    ...lesson.conversationExercises,
-    ...lesson.grammarExercises.slice(2),
-  ];
-  if (challenges.length > 0) {
-    chunk(challenges, 2).forEach((c, i, arr) => {
-      slides.push({
-        id: id(),
-        type: "exercise",
-        title: "🎯 تحديات فنية",
-        subtitle: arr.length > 1 ? `تحدي ${i + 1} من ${arr.length}` : undefined,
-        emoji: "🎯",
-        bgColor: "from-teal-500/10 to-teal-500/5",
-        content: { kind: "exercise", label: "تحدي", questions: c },
-      });
-    });
-  }
+  // 8) تحديات فنية — أفكار رسم إضافية (بدون أسئلة اختيارية)
+  slides.push({
+    id: id(),
+    type: "info",
+    title: "🎯 تحديات فنية",
+    subtitle: "جرّب هذه الأفكار الإضافية",
+    emoji: "🎯",
+    bgColor: "from-teal-500/10 to-teal-500/5",
+    content: {
+      kind: "info",
+      paragraphs: [
+        "التحدي 1: كرّر نفس الرسمة بحجم أصغر مع الحفاظ على النسب.",
+        "التحدي 2: ارسم نفس الموضوع من زاوية مختلفة (جانبية أو من الأعلى).",
+        "التحدي 3: نفّذ الرسمة بألوان بدل الرصاص فقط.",
+        "التحدي 4: ارسم نفس الموضوع بأسلوب كرتوني مبسّط.",
+        "لا يهم الكمال — الهدف تجريب وتطوير أسلوبك الشخصي.",
+      ],
+    },
+  });
 
-  // 10) ملخّص الدرس
+  // 9) ملخّص الدرس
   slides.push({
     id: id(),
     type: "summary",
@@ -203,35 +182,25 @@ export function generateArabicDrawingSlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 11) التقويم الفني
-  if (lesson.examQuestions.length > 0) {
-    chunk(lesson.examQuestions, 2).forEach((c, i, arr) => {
-      slides.push({
-        id: id(),
-        type: "exercise",
-        title: "✅ تقويم الدرس",
-        subtitle: arr.length > 1 ? `الجزء ${i + 1} من ${arr.length}` : undefined,
-        emoji: "✅",
-        bgColor: "from-red-500/10 to-red-500/5",
-        content: { kind: "exercise", label: "اختبار", questions: c },
-      });
-    });
-  }
-
-  // 12) المشروع المنزلي
-  if (lesson.homeworkQuestions.length > 0) {
-    chunk(lesson.homeworkQuestions, 2).forEach((c, i, arr) => {
-      slides.push({
-        id: id(),
-        type: "exercise",
-        title: "🏠 المشروع المنزلي",
-        subtitle: arr.length > 1 ? `الجزء ${i + 1} من ${arr.length}` : "طبّق ما تعلّمته في البيت",
-        emoji: "🏠",
-        bgColor: "from-emerald-500/10 to-emerald-500/5",
-        content: { kind: "exercise", label: "مشروع", questions: c },
-      });
-    });
-  }
+  // 10) المشروع المنزلي — نشاط رسم كامل
+  slides.push({
+    id: id(),
+    type: "info",
+    title: "🏠 المشروع المنزلي",
+    subtitle: "طبّق ما تعلّمته في البيت",
+    emoji: "🏠",
+    bgColor: "from-emerald-500/10 to-emerald-500/5",
+    content: {
+      kind: "info",
+      paragraphs: [
+        `المشروع: ارسم لوحة كاملة تعتمد على درس «${lesson.title}».`,
+        "خصّص 30–45 دقيقة في مكان هادئ بإضاءة جيدة.",
+        "استخدم كل الأدوات والنصائح التي تعلّمتها اليوم.",
+        "التقط صورة للرسمة قبل التلوين وبعده لمقارنة التقدّم.",
+        "شارك النتيجة مع المعلم في الدرس القادم للحصول على تقييم.",
+      ],
+    },
+  });
 
   return slides;
 }
