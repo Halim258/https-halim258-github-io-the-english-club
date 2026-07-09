@@ -544,9 +544,12 @@ export default function LessonPage() {
   const { markComplete } = useLessonProgress();
   const { user } = useAuth();
 
-  // Music course uses the unified 12-section slide template.
+  // Music & drawing courses use the slide-based template.
   useEffect(() => {
-    if (typeof levelId === "string" && levelId.startsWith("ar-mus")) {
+    if (
+      typeof levelId === "string" &&
+      (levelId.startsWith("ar-mus") || levelId.startsWith("ar-draw"))
+    ) {
       navigate(`/courses/${levelId}/${lessonId}/slides`, { replace: true });
     }
   }, [levelId, lessonId, navigate]);
