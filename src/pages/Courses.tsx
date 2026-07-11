@@ -1034,54 +1034,8 @@ export default function Courses() {
       </section>
       )}
 
-      {/* ═══ LEARNING TOOLS ═══ */}
-      <section id="tools" className="border-t py-10 md:py-14 scroll-mt-32">
-        <div className="container mx-auto px-4">
-          <FadeInUp>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Practice & Review</p>
-            </div>
-            <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-3">
-              Learning Tools
-            </h2>
-            <p className="text-center text-muted-foreground max-w-lg mx-auto mb-8">
-              Supercharge your learning with AI tutoring, vocabulary drills, quizzes, and more.
-            </p>
-          </FadeInUp>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-40px" }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
-          >
-            {[
-              { icon: Brain, label: "AI Tutor", to: "/ai-tutor", emoji: "🤖", color: "from-violet-500/15 to-violet-500/5", iconColor: "text-violet-600 dark:text-violet-400" },
-              { icon: BookMarked, label: "Dictionary", to: "/dictionary", emoji: "📖", color: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
-              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz", emoji: "🎯", color: "from-purple-500/15 to-purple-500/5", iconColor: "text-purple-600 dark:text-purple-400" },
-              { icon: BookOpen, label: "Flashcards", to: "/flashcards", emoji: "🃏", color: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
-              { icon: Mic2, label: "Speaking", to: "/practice", emoji: "🎙️", color: "from-rose-500/15 to-rose-500/5", iconColor: "text-rose-600 dark:text-rose-400" },
-              { icon: PenLine, label: "Idioms", to: "/idioms", emoji: "🗣️", color: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
-            ].map((tool, i) => (
-              <motion.div key={tool.to} variants={staggerItem}>
-                <Link
-                  to={tool.to}
-                  className={`group flex flex-col items-center gap-2 rounded-2xl border bg-gradient-to-br ${tool.color} p-5 shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full`}
-                >
-                  <div className={`h-11 w-11 rounded-xl bg-background/80 flex items-center justify-center ${tool.iconColor} group-hover:scale-110 transition-transform`}>
-                    <tool.icon className="h-5 w-5" />
-                  </div>
-                  <span className="text-sm font-semibold text-center">{tool.label}</span>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
       {/* ═══ COURSE CATEGORIES ═══ */}
+      {(audience === "all" || audience === "specialized") && (
       <section id="categories" className="border-t bg-muted/30 py-12 md:py-16 scroll-mt-32">
         <div className="container mx-auto px-4">
           <FadeInUp>
@@ -1175,6 +1129,56 @@ export default function Courses() {
           </FadeInUp>
         </div>
       </section>
+      )}
+
+      {/* ═══ LEARNING TOOLS ═══ */}
+      {audience === "all" && (
+      <section id="tools" className="border-t py-10 md:py-14 scroll-mt-32">
+        <div className="container mx-auto px-4">
+          <FadeInUp>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Practice & Review</p>
+            </div>
+            <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-3">
+              Learning Tools
+            </h2>
+            <p className="text-center text-muted-foreground max-w-lg mx-auto mb-8">
+              Supercharge your learning with AI tutoring, vocabulary drills, quizzes, and more.
+            </p>
+          </FadeInUp>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px" }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
+          >
+            {[
+              { icon: Brain, label: "AI Tutor", to: "/ai-tutor", color: "from-violet-500/15 to-violet-500/5", iconColor: "text-violet-600 dark:text-violet-400" },
+              { icon: BookMarked, label: "Dictionary", to: "/dictionary", color: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
+              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz", color: "from-purple-500/15 to-purple-500/5", iconColor: "text-purple-600 dark:text-purple-400" },
+              { icon: BookOpen, label: "Flashcards", to: "/flashcards", color: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
+              { icon: Mic2, label: "Speaking", to: "/practice", color: "from-rose-500/15 to-rose-500/5", iconColor: "text-rose-600 dark:text-rose-400" },
+              { icon: PenLine, label: "Idioms", to: "/idioms", color: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
+            ].map((tool) => (
+              <motion.div key={tool.to} variants={staggerItem}>
+                <Link
+                  to={tool.to}
+                  className={`group flex flex-col items-center gap-2 rounded-2xl border bg-gradient-to-br ${tool.color} p-5 shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full`}
+                >
+                  <div className={`h-11 w-11 rounded-xl bg-background/80 flex items-center justify-center ${tool.iconColor} group-hover:scale-110 transition-transform`}>
+                    <tool.icon className="h-5 w-5" />
+                  </div>
+                  <span className="text-sm font-semibold text-center">{tool.label}</span>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      )}
     </div>
   );
 }
