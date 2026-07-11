@@ -10,7 +10,6 @@ import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import { z } from "zod";
-import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 
 const loginSchema = z.object({
   email: z.string().trim().email("Please enter a valid email address").max(255),
@@ -172,15 +171,6 @@ export default function Login() {
             </motion.div>
             <h1 className="text-2xl font-bold font-display">Welcome Back</h1>
             <p className="mt-1.5 text-sm text-muted-foreground">Log in to continue your learning journey</p>
-          </div>
-
-          <div className="mb-5">
-            <GoogleSignInButton label="Continue with Google" />
-            <div className="my-5 flex items-center gap-3">
-              <span className="h-px flex-1 bg-border" />
-              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">or use email</span>
-              <span className="h-px flex-1 bg-border" />
-            </div>
           </div>
 
           {errors.form && (
