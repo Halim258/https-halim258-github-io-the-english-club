@@ -22,7 +22,12 @@ export default function LocationSection() {
                 <MapPin className="h-5 w-5 text-primary" />
               </div>
               <h3 className="text-sm font-semibold font-display">Our Address</h3>
-              <p className="mt-1 text-sm text-muted-foreground">Alexandria, Egypt</p>
+              <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+                عنوانا البطاش بيانكي فوق سوبر ماركت اولاد العدل ٢
+              </p>
+              <p className="text-xs text-muted-foreground/70">
+                Al-Batash, Bianchi — above Awlad Al-Adl 2 Supermarket
+              </p>
             </div>
 
             <div className="flex flex-col items-center rounded-xl border bg-card p-6 shadow-soft text-center">

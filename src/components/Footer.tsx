@@ -136,9 +136,16 @@ export default function Footer() {
 
             <h4 className="text-xs font-bold uppercase tracking-widest text-secondary-foreground/40 mb-3">Contact</h4>
             <ul className="space-y-2.5">
-              <li className="flex items-start gap-2 text-sm text-secondary-foreground/60">
-                <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary/70" />
-                Alexandria, Egypt
+              <li>
+                <Link
+                  to="/contact"
+                  className="flex items-start gap-2 text-sm text-secondary-foreground/60 transition-colors hover:text-primary"
+                >
+                  <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary/70" />
+                  <span className="leading-relaxed">
+                    عنوانا البطاش بيانكي فوق سوبر ماركت اولاد العدل ٢
+                  </span>
+                </Link>
               </li>
               <li>
                 <a
