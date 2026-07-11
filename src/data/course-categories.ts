@@ -584,6 +584,49 @@ export const categories: Category[] = [
     ],
   },
   {
+    icon: Languages,
+    emoji: "🇩🇪",
+    title: "Deutsch A1–C2 (Goethe-Institut)",
+    slug: "german",
+    color: "from-yellow-500/10 to-slate-800/5",
+    iconBg: "bg-yellow-500/15",
+    image: coreEnglishImg,
+    description:
+      "Kompletter Deutschkurs von A1 bis C2 im Stil des Goethe-Instituts — Wortschatz, Dialoge, Grammatik, Übungen und Prüfungstraining nach GER-Standard.",
+    courses: [
+      {
+        name: "Deutsch A1 — Goethe-Zertifikat",
+        description: "Einstiegsniveau: Begrüßungen, Familie, Alltag, Zahlen, Präsens und Akkusativ.",
+        topics: ["Begrüßungen", "der/die/das", "Präsens", "Akkusativ", "Modalverben"],
+      },
+      {
+        name: "Deutsch A2 — Goethe-Zertifikat",
+        description: "Perfekt, Dativ, Präpositionen, Alltag, Arbeit, Reisen und Behördengänge.",
+        topics: ["Perfekt", "Dativ", "Reflexive Verben", "Konjunktionen", "Reisen"],
+      },
+      {
+        name: "Deutsch B1 — Goethe-Zertifikat",
+        description: "Meinungen, Konjunktiv II, Passiv, Relativsätze, formelle Briefe und Kultur.",
+        topics: ["Konjunktiv II", "Passiv", "Relativsätze", "Genitiv", "Prüfungstraining"],
+      },
+      {
+        name: "Deutsch B2 — Goethe-Zertifikat",
+        description: "Argumentation, Präsentationen, Wirtschaft, Politik, Literatur und Erörterungen.",
+        topics: ["Argumentation", "Nominalstil", "Konjunktiv I", "Erörterung", "B2-Prüfung"],
+      },
+      {
+        name: "Deutsch C1 — Goethe-Zertifikat",
+        description: "Akademisches Deutsch, Rhetorik, Fachsprachen, Textanalyse und kreatives Schreiben.",
+        topics: ["Akademisches Schreiben", "Idiome", "Fachsprache", "Textanalyse", "C1-Prüfung"],
+      },
+      {
+        name: "Deutsch C2 — Großes Deutsches Sprachdiplom",
+        description: "Muttersprachliches Niveau: Literatur, Übersetzung, Rhetorik und feine sprachliche Nuancen.",
+        topics: ["Literatur", "Übersetzung", "Rhetorik", "Dialekte", "GDS-Prüfung"],
+      },
+    ],
+  },
+  {
     icon: Baby,
     emoji: "🧒",
     title: "Kids Language Therapy",
