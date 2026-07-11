@@ -8,14 +8,21 @@ import { Button } from "@/components/ui/button";
 import type { Slide, SlideContent } from "@/data/slide-types";
 import type { VocabWord, MCQItem } from "@/data/lessons";
 import { useTTS } from "@/hooks/useTTS";
+import { setSlideProgress } from "@/hooks/useSlideProgress";
 
 /* ═══════════ MAIN VIEWER ═══════════ */
 interface SlideViewerProps {
   slides: Slide[];
   onBack?: () => void;
+  /**
+   * Optional `${levelId}-${lessonNumber}` key used to persist how far
+   * the student progressed inside this lesson (per-slide / per-exercise
+   * tracking, visible in the course lesson list).
+   */
+  lessonKey?: string;
 }
 
-export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
+export default function SlideViewer({ slides, onBack, lessonKey }: SlideViewerProps) {
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
   const [showKbdHint, setShowKbdHint] = useState(false);
@@ -23,6 +30,13 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   useEffect(() => {
     if (current > slides.length - 1) setCurrent(Math.max(0, slides.length - 1));
   }, [slides.length, current]);
+
+  // Persist per-slide progress so the lesson list can show
+  // "3 / 12 slides · 25%" for lessons in progress.
+  useEffect(() => {
+    if (!lessonKey || slides.length === 0) return;
+    setSlideProgress(lessonKey, current, slides.length);
+  }, [lessonKey, current, slides.length]);
 
   const slide = slides[current] ?? slides[0];
   if (!slide) return null;
@@ -38,6 +52,7 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   );
 
   const progress = ((current + 1) / slides.length) * 100;
+  const percent = Math.round(progress);
 
   // Keyboard navigation: ←/→ page, Home/End jump, Esc go back, ? toggles hint
   useEffect(() => {
@@ -90,6 +105,9 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
             <span className="text-[10px] text-muted-foreground">/</span>
             <span className="text-xs text-muted-foreground">{slides.length}</span>
           </div>
+          <span className="hidden sm:inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-bold text-primary tabular-nums shrink-0">
+            {percent}%
+          </span>
         </div>
         <div className="flex-1 mx-2 max-w-md min-w-0">
           <div className="h-1.5 rounded-full bg-muted overflow-hidden">

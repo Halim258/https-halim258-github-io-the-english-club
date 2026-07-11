@@ -48,6 +48,7 @@ export default function SlideLesson() {
       <SlideViewer
         slides={slides}
         onBack={() => navigate(`/courses/${levelId}`)}
+        lessonKey={key}
       />
       {isDrawingCourse && (
         <DrawingSubmissionPanel
