@@ -27,7 +27,7 @@ export function useCourseProgress(levelIds: string[], lessonCounts: Record<strin
     const fetchProgress = async () => {
       const { data, error } = await supabase
         .from("lesson_progress")
-        .select("level_id, lesson_number, completed_at, updated_at")
+        .select("level_id, lesson_number, completed_at")
         .eq("user_id", user.id)
         .eq("completed", true)
         .in("level_id", levelIds);
@@ -45,7 +45,7 @@ export function useCourseProgress(levelIds: string[], lessonCounts: Record<strin
           completedByLevel[row.level_id] = new Set();
         }
         completedByLevel[row.level_id].add(row.lesson_number);
-        const at = (row as any).completed_at ?? (row as any).updated_at ?? null;
+        const at = (row as any).completed_at ?? null;
         if (at) {
           const prev = lastByLevel[row.level_id];
           if (!prev || new Date(at).getTime() > new Date(prev.at).getTime()) {
