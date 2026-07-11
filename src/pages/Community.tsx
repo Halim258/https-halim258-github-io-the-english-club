@@ -61,7 +61,7 @@ export default function Community() {
     if (!postsData) { setLoading(false); return; }
 
     const userIds = [...new Set(postsData.map((p) => p.user_id))];
-    const { data: profiles } = await supabase.from("profiles").select("id, full_name").in("id", userIds);
+    const { data: profiles } = await supabase.rpc("get_public_profiles", { _user_ids: userIds });
     const profileMap = new Map(profiles?.map((p) => [p.id, p.full_name || "Student"]) || []);
 
     let likedPostIds = new Set<string>();
@@ -127,7 +127,7 @@ export default function Community() {
       .order("created_at", { ascending: true });
     if (!data) return;
     const userIds = [...new Set(data.map((c) => c.user_id))];
-    const { data: profiles } = await supabase.from("profiles").select("id, full_name").in("id", userIds);
+    const { data: profiles } = await supabase.rpc("get_public_profiles", { _user_ids: userIds });
     const profileMap = new Map(profiles?.map((p) => [p.id, p.full_name || "Student"]) || []);
     setComments((prev) => ({
       ...prev,
