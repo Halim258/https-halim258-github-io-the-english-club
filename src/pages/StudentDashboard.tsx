@@ -20,6 +20,7 @@ import { Progress } from "@/components/ui/progress";
 import { getSlideProgress } from "@/hooks/useSlideProgress";
 import { formatRelativeTime } from "@/lib/format-time";
 import CourseProgress from "@/components/CourseProgress";
+import { useProgressEvents } from "@/lib/progress-events";
 
 interface TestResult {
   id: string;
@@ -113,9 +114,8 @@ export default function StudentDashboard() {
 
   const todayTip = dailyTips[new Date().getDay() % dailyTips.length];
 
-  useEffect(() => {
+  const loadDashboard = async () => {
     if (!user) return;
-    async function load() {
       const [testsRes, progressRes, bookmarksRes, achievementsRes, profileRes, xpRes] = await Promise.all([
         supabase.from("placement_test_results").select("id, score, total_questions, cefr_level, time_taken_seconds, created_at")
           .eq("user_id", user!.id).order("created_at", { ascending: true }),
@@ -136,9 +136,14 @@ export default function StudentDashboard() {
       if (profileRes.data) setProfile(profileRes.data);
       setXp(xpRes.data || null);
       setLoading(false);
-    }
-    load();
+  };
+
+  useEffect(() => {
+    loadDashboard();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useProgressEvents(() => loadDashboard());
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
