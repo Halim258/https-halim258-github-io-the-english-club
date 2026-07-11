@@ -33,7 +33,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Personalpronomen und „sein“",
-    explanation: "In German, personal pronouns change with the verb 'sein' (to be): ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind.",
     examples: [
       { sentence: "Ich bin Anna.", note: "I am Anna." },
       { sentence: "Du bist mein Freund.", note: "You are my friend." },
@@ -46,31 +45,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"Guten Morgen\"?",
       options: ["good morning", "good day", "good evening", "to be called"],
       correct: 0,
-      explanation: "\"Guten Morgen\" means \"good morning\"."
     },
     {
       question: "What does this word mean: \"Tschüss\"?",
       options: ["bye", "name", "to be called", "language"],
       correct: 0,
-      explanation: "\"Tschüss\" means \"bye\"."
     },
     {
       question: "What does this word mean: \"kommen\"?",
       options: ["to come", "to live", "language", "hello"],
       correct: 0,
-      explanation: "\"kommen\" means \"to come\"."
     },
     {
       question: "What does this word mean: \"das Land\"?",
       options: ["country", "thank you", "hello", "good evening"],
       correct: 0,
-      explanation: "\"das Land\" means \"country\"."
     },
     {
       question: "What does this word mean: \"Guten Morgen\"?",
       options: ["good morning", "good day", "good evening", "to be called"],
       correct: 0,
-      explanation: "\"Guten Morgen\" means \"good morning\"."
     }
     ],
     conversationExercises: [
@@ -78,19 +72,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Hallo Anna, ich heiße Tom.\"?",
       options: ["Tom", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Tom in the dialogue."
     },
     {
       question: "Who says: \"Ich komme aus Berlin. Und du?\"?",
       options: ["Tom", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Tom in the dialogue."
     },
     {
       question: "Who says: \"Schön, dich kennenzulernen!\"?",
       options: ["Tom", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Tom in the dialogue."
     }
     ],
     grammarExercises: [
@@ -98,25 +89,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Du bist mein Freund.\" mean?",
       options: ["You are my friend.", "We are from Germany.", "They/You are very nice.", "I am Anna."],
       correct: 0,
-      explanation: "This relates to: In German, personal pronouns change with the verb 'sein' (to be): ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind."
     },
     {
       question: "What does \"Wir sind aus Deutschland.\" mean?",
       options: ["We are from Germany.", "They/You are very nice.", "I am Anna.", "You are my friend."],
       correct: 0,
-      explanation: "This relates to: In German, personal pronouns change with the verb 'sein' (to be): ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind."
     },
     {
       question: "What does \"Sie sind sehr nett.\" mean?",
       options: ["They/You are very nice.", "I am Anna.", "You are my friend.", "We are from Germany."],
       correct: 0,
-      explanation: "This relates to: In German, personal pronouns change with the verb 'sein' (to be): ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind."
     },
     {
       question: "What does \"Ich bin Anna.\" mean?",
       options: ["I am Anna.", "You are my friend.", "We are from Germany.", "They/You are very nice."],
       correct: 0,
-      explanation: "This relates to: In German, personal pronouns change with the verb 'sein' (to be): ich bin, du bist, er/sie/es ist, wir sind, ihr seid, sie/Sie sind."
     }
     ],
     examQuestions: [
@@ -124,31 +111,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"Guten Tag\"?",
       options: ["good day", "good evening", "bye", "to come"],
       correct: 0,
-      explanation: "\"Guten Tag\" means \"good day\"."
     },
     {
       question: "Choose the correct meaning: \"der Name\"?",
       options: ["name", "to be called", "to come", "country"],
       correct: 0,
-      explanation: "\"der Name\" means \"name\"."
     },
     {
       question: "Choose the correct meaning: \"wohnen\"?",
       options: ["to live", "language", "country", "good morning"],
       correct: 0,
-      explanation: "\"wohnen\" means \"to live\"."
     },
     {
       question: "Choose the correct meaning: \"danke\"?",
       options: ["thank you", "hello", "good morning", "bye"],
       correct: 0,
-      explanation: "\"danke\" means \"thank you\"."
     },
     {
       question: "Choose the correct meaning: \"Guten Tag\"?",
       options: ["good day", "good evening", "bye", "to come"],
       correct: 0,
-      explanation: "\"Guten Tag\" means \"good day\"."
     }
     ],
     homeworkQuestions: [
@@ -156,25 +138,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"Guten Abend\"?",
       options: ["good evening", "bye", "name", "to live"],
       correct: 0,
-      explanation: "\"Guten Abend\" means \"good evening\"."
     },
     {
       question: "Choose the correct meaning: \"heißen\"?",
       options: ["to be called", "to come", "to live", "thank you"],
       correct: 0,
-      explanation: "\"heißen\" means \"to be called\"."
     },
     {
       question: "Choose the correct meaning: \"die Sprache\"?",
       options: ["language", "country", "thank you", "good day"],
       correct: 0,
-      explanation: "\"die Sprache\" means \"language\"."
     },
     {
       question: "Choose the correct meaning: \"Hallo\"?",
       options: ["hello", "good morning", "good day", "name"],
       correct: 0,
-      explanation: "\"Hallo\" means \"hello\"."
     }
     ],
     youtubeId: "A1Lek00001a",
@@ -213,7 +191,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Zahlen und „haben“",
-    explanation: "Numbers combine with 'haben' (to have) to talk about age and possessions: ich habe, du hast, er/sie/es hat, wir haben.",
     examples: [
       { sentence: "Ich habe zwei Brüder.", note: "I have two brothers." },
       { sentence: "Er hat zwanzig Euro.", note: "He has twenty euros." },
@@ -226,31 +203,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"drei\"?",
       options: ["three", "ten", "twenty", "old"],
       correct: 0,
-      explanation: "\"drei\" means \"three\"."
     },
     {
       question: "What does this word mean: \"hundert\"?",
       options: ["hundred", "age", "old", "birthday"],
       correct: 0,
-      explanation: "\"hundert\" means \"hundred\"."
     },
     {
       question: "What does this word mean: \"jung\"?",
       options: ["young", "to have", "birthday", "two"],
       correct: 0,
-      explanation: "\"jung\" means \"young\"."
     },
     {
       question: "What does this word mean: \"das Jahr\"?",
       options: ["year", "one", "two", "twenty"],
       correct: 0,
-      explanation: "\"das Jahr\" means \"year\"."
     },
     {
       question: "What does this word mean: \"drei\"?",
       options: ["three", "ten", "twenty", "old"],
       correct: 0,
-      explanation: "\"drei\" means \"three\"."
     }
     ],
     conversationExercises: [
@@ -258,19 +230,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Ich bin neunzehn.\"?",
       options: ["Lisa", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Lisa in the dialogue."
     },
     {
       question: "Who says: \"Ja, ich habe zwei Brüder.\"?",
       options: ["Lisa", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Lisa in the dialogue."
     },
     {
       question: "Who says: \"Wann ist dein Geburtstag?\"?",
       options: ["Lisa", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Lisa in the dialogue."
     }
     ],
     grammarExercises: [
@@ -278,25 +247,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Wie alt bist du?\" mean?",
       options: ["How old are you?", "I am thirty years old.", "I have two brothers.", "He has twenty euros."],
       correct: 0,
-      explanation: "This relates to: Numbers combine with 'haben' (to have) to talk about age and possessions: ich habe, du hast, er/sie/es hat, wir haben."
     },
     {
       question: "What does \"Ich bin dreißig Jahre alt.\" mean?",
       options: ["I am thirty years old.", "I have two brothers.", "He has twenty euros.", "How old are you?"],
       correct: 0,
-      explanation: "This relates to: Numbers combine with 'haben' (to have) to talk about age and possessions: ich habe, du hast, er/sie/es hat, wir haben."
     },
     {
       question: "What does \"Ich habe zwei Brüder.\" mean?",
       options: ["I have two brothers.", "He has twenty euros.", "How old are you?", "I am thirty years old."],
       correct: 0,
-      explanation: "This relates to: Numbers combine with 'haben' (to have) to talk about age and possessions: ich habe, du hast, er/sie/es hat, wir haben."
     },
     {
       question: "What does \"Er hat zwanzig Euro.\" mean?",
       options: ["He has twenty euros.", "How old are you?", "I am thirty years old.", "I have two brothers."],
       correct: 0,
-      explanation: "This relates to: Numbers combine with 'haben' (to have) to talk about age and possessions: ich habe, du hast, er/sie/es hat, wir haben."
     }
     ],
     examQuestions: [
@@ -304,31 +269,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"zehn\"?",
       options: ["ten", "twenty", "hundred", "young"],
       correct: 0,
-      explanation: "\"zehn\" means \"ten\"."
     },
     {
       question: "Choose the correct meaning: \"das Alter\"?",
       options: ["age", "old", "young", "year"],
       correct: 0,
-      explanation: "\"das Alter\" means \"age\"."
     },
     {
       question: "Choose the correct meaning: \"haben\"?",
       options: ["to have", "birthday", "year", "three"],
       correct: 0,
-      explanation: "\"haben\" means \"to have\"."
     },
     {
       question: "Choose the correct meaning: \"eins\"?",
       options: ["one", "two", "three", "hundred"],
       correct: 0,
-      explanation: "\"eins\" means \"one\"."
     },
     {
       question: "Choose the correct meaning: \"zehn\"?",
       options: ["ten", "twenty", "hundred", "young"],
       correct: 0,
-      explanation: "\"zehn\" means \"ten\"."
     }
     ],
     homeworkQuestions: [
@@ -336,25 +296,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"zwanzig\"?",
       options: ["twenty", "hundred", "age", "to have"],
       correct: 0,
-      explanation: "\"zwanzig\" means \"twenty\"."
     },
     {
       question: "Choose the correct meaning: \"alt\"?",
       options: ["old", "young", "to have", "one"],
       correct: 0,
-      explanation: "\"alt\" means \"old\"."
     },
     {
       question: "Choose the correct meaning: \"der Geburtstag\"?",
       options: ["birthday", "year", "one", "ten"],
       correct: 0,
-      explanation: "\"der Geburtstag\" means \"birthday\"."
     },
     {
       question: "Choose the correct meaning: \"zwei\"?",
       options: ["two", "three", "ten", "age"],
       correct: 0,
-      explanation: "\"zwei\" means \"two\"."
     }
     ],
     youtubeId: "A1Lek00002a",
@@ -393,7 +349,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Possessivpronomen",
-    explanation: "Possessive pronouns agree with the gender of the noun: mein/meine, dein/deine, sein/seine, ihr/ihre.",
     examples: [
       { sentence: "Mein Vater ist Lehrer.", note: "My father is a teacher." },
       { sentence: "Meine Mutter kocht gern.", note: "My mother likes to cook." },
@@ -406,31 +361,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"die Schwester\"?",
       options: ["sister", "brother", "parents", "grandmother"],
       correct: 0,
-      explanation: "\"die Schwester\" means \"sister\"."
     },
     {
       question: "What does this word mean: \"der Sohn\"?",
       options: ["son", "daughter", "grandmother", "married"],
       correct: 0,
-      explanation: "\"der Sohn\" means \"son\"."
     },
     {
       question: "What does this word mean: \"der Großvater\"?",
       options: ["grandfather", "children", "married", "father"],
       correct: 0,
-      explanation: "\"der Großvater\" means \"grandfather\"."
     },
     {
       question: "What does this word mean: \"die Familie\"?",
       options: ["family", "mother", "father", "parents"],
       correct: 0,
-      explanation: "\"die Familie\" means \"family\"."
     },
     {
       question: "What does this word mean: \"die Schwester\"?",
       options: ["sister", "brother", "parents", "grandmother"],
       correct: 0,
-      explanation: "\"die Schwester\" means \"sister\"."
     }
     ],
     conversationExercises: [
@@ -438,19 +388,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Ich habe eine Schwester.\"?",
       options: ["Ben", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Ben in the dialogue."
     },
     {
       question: "Who says: \"Sie heißt Lena.\"?",
       options: ["Ben", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Ben in the dialogue."
     },
     {
       question: "Who says: \"Ja, sie wohnen bei uns.\"?",
       options: ["Ben", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Ben in the dialogue."
     }
     ],
     grammarExercises: [
@@ -458,25 +405,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Ihre Familie ist groß.\" mean?",
       options: ["Her family is big.", "My father is a teacher.", "My mother likes to cook.", "His brother is young."],
       correct: 0,
-      explanation: "This relates to: Possessive pronouns agree with the gender of the noun: mein/meine, dein/deine, sein/seine, ihr/ihre."
     },
     {
       question: "What does \"Mein Vater ist Lehrer.\" mean?",
       options: ["My father is a teacher.", "My mother likes to cook.", "His brother is young.", "Her family is big."],
       correct: 0,
-      explanation: "This relates to: Possessive pronouns agree with the gender of the noun: mein/meine, dein/deine, sein/seine, ihr/ihre."
     },
     {
       question: "What does \"Meine Mutter kocht gern.\" mean?",
       options: ["My mother likes to cook.", "His brother is young.", "Her family is big.", "My father is a teacher."],
       correct: 0,
-      explanation: "This relates to: Possessive pronouns agree with the gender of the noun: mein/meine, dein/deine, sein/seine, ihr/ihre."
     },
     {
       question: "What does \"Sein Bruder ist jung.\" mean?",
       options: ["His brother is young.", "Her family is big.", "My father is a teacher.", "My mother likes to cook."],
       correct: 0,
-      explanation: "This relates to: Possessive pronouns agree with the gender of the noun: mein/meine, dein/deine, sein/seine, ihr/ihre."
     }
     ],
     examQuestions: [
@@ -484,31 +427,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"der Bruder\"?",
       options: ["brother", "parents", "son", "grandfather"],
       correct: 0,
-      explanation: "\"der Bruder\" means \"brother\"."
     },
     {
       question: "Choose the correct meaning: \"die Tochter\"?",
       options: ["daughter", "grandmother", "grandfather", "family"],
       correct: 0,
-      explanation: "\"die Tochter\" means \"daughter\"."
     },
     {
       question: "Choose the correct meaning: \"die Kinder\"?",
       options: ["children", "married", "family", "sister"],
       correct: 0,
-      explanation: "\"die Kinder\" means \"children\"."
     },
     {
       question: "Choose the correct meaning: \"die Mutter\"?",
       options: ["mother", "father", "sister", "son"],
       correct: 0,
-      explanation: "\"die Mutter\" means \"mother\"."
     },
     {
       question: "Choose the correct meaning: \"der Bruder\"?",
       options: ["brother", "parents", "son", "grandfather"],
       correct: 0,
-      explanation: "\"der Bruder\" means \"brother\"."
     }
     ],
     homeworkQuestions: [
@@ -516,25 +454,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"die Eltern\"?",
       options: ["parents", "son", "daughter", "children"],
       correct: 0,
-      explanation: "\"die Eltern\" means \"parents\"."
     },
     {
       question: "Choose the correct meaning: \"die Großmutter\"?",
       options: ["grandmother", "grandfather", "children", "mother"],
       correct: 0,
-      explanation: "\"die Großmutter\" means \"grandmother\"."
     },
     {
       question: "Choose the correct meaning: \"verheiratet\"?",
       options: ["married", "family", "mother", "brother"],
       correct: 0,
-      explanation: "\"verheiratet\" means \"married\"."
     },
     {
       question: "Choose the correct meaning: \"der Vater\"?",
       options: ["father", "sister", "brother", "daughter"],
       correct: 0,
-      explanation: "\"der Vater\" means \"father\"."
     }
     ],
     youtubeId: "A1Lek00003a",
@@ -573,7 +507,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Verb „mögen“ und Akkusativ",
-    explanation: "'Mögen' (to like) is used with food preferences and takes the Akkusativ case: ich mag, du magst, er/sie/es mag.",
     examples: [
       { sentence: "Ich mag Pizza.", note: "I like pizza." },
       { sentence: "Er mag keinen Fisch.", note: "He doesn't like fish." },
@@ -586,31 +519,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"die Milch\"?",
       options: ["milk", "cheese", "egg", "to drink"],
       correct: 0,
-      explanation: "\"die Milch\" means \"milk\"."
     },
     {
       question: "What does this word mean: \"mögen\"?",
       options: ["to like", "to eat", "to drink", "bread"],
       correct: 0,
-      explanation: "\"mögen\" means \"to like\"."
     },
     {
       question: "What does this word mean: \"der Reis\"?",
       options: ["rice", "vegetable", "bread", "apple"],
       correct: 0,
-      explanation: "\"der Reis\" means \"rice\"."
     },
     {
       question: "What does this word mean: \"das Wasser\"?",
       options: ["water", "coffee", "apple", "egg"],
       correct: 0,
-      explanation: "\"das Wasser\" means \"water\"."
     },
     {
       question: "What does this word mean: \"die Milch\"?",
       options: ["milk", "cheese", "egg", "to drink"],
       correct: 0,
-      explanation: "\"die Milch\" means \"milk\"."
     }
     ],
     conversationExercises: [
@@ -618,19 +546,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Nein, ich trinke Tee.\"?",
       options: ["Emma", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Emma in the dialogue."
     },
     {
       question: "Who says: \"Ja, sehr gern!\"?",
       options: ["Emma", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Emma in the dialogue."
     },
     {
       question: "Who says: \"Was isst du gern?\"?",
       options: ["Emma", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Emma in the dialogue."
     }
     ],
     grammarExercises: [
@@ -638,25 +563,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Ich mag Pizza.\" mean?",
       options: ["I like pizza.", "He doesn't like fish.", "Do you like coffee?", "We like fruit."],
       correct: 0,
-      explanation: "This relates to: 'Mögen' (to like) is used with food preferences and takes the Akkusativ case: ich mag, du magst, er/sie/es mag."
     },
     {
       question: "What does \"Er mag keinen Fisch.\" mean?",
       options: ["He doesn't like fish.", "Do you like coffee?", "We like fruit.", "I like pizza."],
       correct: 0,
-      explanation: "This relates to: 'Mögen' (to like) is used with food preferences and takes the Akkusativ case: ich mag, du magst, er/sie/es mag."
     },
     {
       question: "What does \"Magst du Kaffee?\" mean?",
       options: ["Do you like coffee?", "We like fruit.", "I like pizza.", "He doesn't like fish."],
       correct: 0,
-      explanation: "This relates to: 'Mögen' (to like) is used with food preferences and takes the Akkusativ case: ich mag, du magst, er/sie/es mag."
     },
     {
       question: "What does \"Wir mögen Obst.\" mean?",
       options: ["We like fruit.", "I like pizza.", "He doesn't like fish.", "Do you like coffee?"],
       correct: 0,
-      explanation: "This relates to: 'Mögen' (to like) is used with food preferences and takes the Akkusativ case: ich mag, du magst, er/sie/es mag."
     }
     ],
     examQuestions: [
@@ -664,31 +585,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"der Käse\"?",
       options: ["cheese", "egg", "to like", "rice"],
       correct: 0,
-      explanation: "\"der Käse\" means \"cheese\"."
     },
     {
       question: "Choose the correct meaning: \"essen\"?",
       options: ["to eat", "to drink", "rice", "water"],
       correct: 0,
-      explanation: "\"essen\" means \"to eat\"."
     },
     {
       question: "Choose the correct meaning: \"das Gemüse\"?",
       options: ["vegetable", "bread", "water", "milk"],
       correct: 0,
-      explanation: "\"das Gemüse\" means \"vegetable\"."
     },
     {
       question: "Choose the correct meaning: \"der Kaffee\"?",
       options: ["coffee", "apple", "milk", "to like"],
       correct: 0,
-      explanation: "\"der Kaffee\" means \"coffee\"."
     },
     {
       question: "Choose the correct meaning: \"der Käse\"?",
       options: ["cheese", "egg", "to like", "rice"],
       correct: 0,
-      explanation: "\"der Käse\" means \"cheese\"."
     }
     ],
     homeworkQuestions: [
@@ -696,25 +612,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"das Ei\"?",
       options: ["egg", "to like", "to eat", "vegetable"],
       correct: 0,
-      explanation: "\"das Ei\" means \"egg\"."
     },
     {
       question: "Choose the correct meaning: \"trinken\"?",
       options: ["to drink", "rice", "vegetable", "coffee"],
       correct: 0,
-      explanation: "\"trinken\" means \"to drink\"."
     },
     {
       question: "Choose the correct meaning: \"das Brot\"?",
       options: ["bread", "water", "coffee", "cheese"],
       correct: 0,
-      explanation: "\"das Brot\" means \"bread\"."
     },
     {
       question: "Choose the correct meaning: \"der Apfel\"?",
       options: ["apple", "milk", "cheese", "to eat"],
       correct: 0,
-      explanation: "\"der Apfel\" means \"apple\"."
     }
     ],
     youtubeId: "A1Lek00004a",
@@ -753,7 +665,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Bestellen mit Modalverben",
-    explanation: "Use 'möchten' (would like) politely to order in a restaurant: ich möchte, du möchtest, er/sie/es möchte.",
     examples: [
       { sentence: "Ich möchte einen Salat.", note: "I would like a salad." },
       { sentence: "Möchten Sie Wasser?", note: "Would you like water?" },
@@ -766,31 +677,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"der Salat\"?",
       options: ["salad", "bill", "waiter", "starter"],
       correct: 0,
-      explanation: "\"der Salat\" means \"salad\"."
     },
     {
       question: "What does this word mean: \"möchten\"?",
       options: ["would like", "tasty", "starter", "menu"],
       correct: 0,
-      explanation: "\"möchten\" means \"would like\"."
     },
     {
       question: "What does this word mean: \"der Nachtisch\"?",
       options: ["dessert", "restaurant", "menu", "meat"],
       correct: 0,
-      explanation: "\"der Nachtisch\" means \"dessert\"."
     },
     {
       question: "What does this word mean: \"bestellen\"?",
       options: ["to order", "soup", "meat", "waiter"],
       correct: 0,
-      explanation: "\"bestellen\" means \"to order\"."
     },
     {
       question: "What does this word mean: \"der Salat\"?",
       options: ["salad", "bill", "waiter", "starter"],
       correct: 0,
-      explanation: "\"der Salat\" means \"salad\"."
     }
     ],
     conversationExercises: [
@@ -798,19 +704,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Nein, danke.\"?",
       options: ["Gast", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Gast in the dialogue."
     },
     {
       question: "Who says: \"Sofort, bitte schön.\"?",
       options: ["Kellner", "Gast", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Kellner in the dialogue."
     },
     {
       question: "Who says: \"Ich möchte eine Suppe, bitte.\"?",
       options: ["Gast", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Gast in the dialogue."
     }
     ],
     grammarExercises: [
@@ -818,25 +721,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Möchten Sie Wasser?\" mean?",
       options: ["Would you like water?", "We would like to order.", "He would like the bill.", "I would like a salad."],
       correct: 0,
-      explanation: "This relates to: Use 'möchten' (would like) politely to order in a restaurant: ich möchte, du möchtest, er/sie/es möchte."
     },
     {
       question: "What does \"Wir möchten bestellen.\" mean?",
       options: ["We would like to order.", "He would like the bill.", "I would like a salad.", "Would you like water?"],
       correct: 0,
-      explanation: "This relates to: Use 'möchten' (would like) politely to order in a restaurant: ich möchte, du möchtest, er/sie/es möchte."
     },
     {
       question: "What does \"Er möchte die Rechnung.\" mean?",
       options: ["He would like the bill.", "I would like a salad.", "Would you like water?", "We would like to order."],
       correct: 0,
-      explanation: "This relates to: Use 'möchten' (would like) politely to order in a restaurant: ich möchte, du möchtest, er/sie/es möchte."
     },
     {
       question: "What does \"Ich möchte einen Salat.\" mean?",
       options: ["I would like a salad.", "Would you like water?", "We would like to order.", "He would like the bill."],
       correct: 0,
-      explanation: "This relates to: Use 'möchten' (would like) politely to order in a restaurant: ich möchte, du möchtest, er/sie/es möchte."
     }
     ],
     examQuestions: [
@@ -844,31 +743,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"die Rechnung\"?",
       options: ["bill", "waiter", "would like", "dessert"],
       correct: 0,
-      explanation: "\"die Rechnung\" means \"bill\"."
     },
     {
       question: "Choose the correct meaning: \"lecker\"?",
       options: ["tasty", "starter", "dessert", "to order"],
       correct: 0,
-      explanation: "\"lecker\" means \"tasty\"."
     },
     {
       question: "Choose the correct meaning: \"das Restaurant\"?",
       options: ["restaurant", "menu", "to order", "salad"],
       correct: 0,
-      explanation: "\"das Restaurant\" means \"restaurant\"."
     },
     {
       question: "Choose the correct meaning: \"die Suppe\"?",
       options: ["soup", "meat", "salad", "would like"],
       correct: 0,
-      explanation: "\"die Suppe\" means \"soup\"."
     },
     {
       question: "Choose the correct meaning: \"die Rechnung\"?",
       options: ["bill", "waiter", "would like", "dessert"],
       correct: 0,
-      explanation: "\"die Rechnung\" means \"bill\"."
     }
     ],
     homeworkQuestions: [
@@ -876,25 +770,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"der Kellner\"?",
       options: ["waiter", "would like", "tasty", "restaurant"],
       correct: 0,
-      explanation: "\"der Kellner\" means \"waiter\"."
     },
     {
       question: "Choose the correct meaning: \"die Vorspeise\"?",
       options: ["starter", "dessert", "restaurant", "soup"],
       correct: 0,
-      explanation: "\"die Vorspeise\" means \"starter\"."
     },
     {
       question: "Choose the correct meaning: \"die Speisekarte\"?",
       options: ["menu", "to order", "soup", "bill"],
       correct: 0,
-      explanation: "\"die Speisekarte\" means \"menu\"."
     },
     {
       question: "Choose the correct meaning: \"das Fleisch\"?",
       options: ["meat", "salad", "bill", "tasty"],
       correct: 0,
-      explanation: "\"das Fleisch\" means \"meat\"."
     }
     ],
     youtubeId: "A1Lek00005a",
@@ -933,7 +823,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Die Uhrzeit",
-    explanation: "Telling time in German uses 'Es ist...' with hours and minutes, using 'nach', 'vor', and 'halb'.",
     examples: [
       { sentence: "Es ist zehn Uhr.", note: "It is ten o'clock." },
       { sentence: "Es ist halb neun.", note: "It is half past eight." },
@@ -946,31 +835,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"spät\"?",
       options: ["late", "alarm clock", "on time", "to last"],
       correct: 0,
-      explanation: "\"spät\" means \"late\"."
     },
     {
       question: "What does this word mean: \"die Zeit\"?",
       options: ["time", "now", "to last", "minute"],
       correct: 0,
-      explanation: "\"die Zeit\" means \"time\"."
     },
     {
       question: "What does this word mean: \"die Uhr\"?",
       options: ["clock", "hour", "minute", "early"],
       correct: 0,
-      explanation: "\"die Uhr\" means \"clock\"."
     },
     {
       question: "What does this word mean: \"halb\"?",
       options: ["half", "quarter", "early", "on time"],
       correct: 0,
-      explanation: "\"halb\" means \"half\"."
     },
     {
       question: "What does this word mean: \"spät\"?",
       options: ["late", "alarm clock", "on time", "to last"],
       correct: 0,
-      explanation: "\"spät\" means \"late\"."
     }
     ],
     conversationExercises: [
@@ -978,19 +862,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Wann bist du zurück?\"?",
       options: ["Tim", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Tim in the dialogue."
     },
     {
       question: "Who says: \"Wie viel Uhr ist es?\"?",
       options: ["Tim", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Tim in the dialogue."
     },
     {
       question: "Who says: \"Wann beginnt der Film?\"?",
       options: ["Tim", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Tim in the dialogue."
     }
     ],
     grammarExercises: [
@@ -998,25 +879,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Es ist Viertel nach drei.\" mean?",
       options: ["It is quarter past three.", "It is five to twelve.", "It is ten o'clock.", "It is half past eight."],
       correct: 0,
-      explanation: "This relates to: Telling time in German uses 'Es ist...' with hours and minutes, using 'nach', 'vor', and 'halb'."
     },
     {
       question: "What does \"Es ist fünf vor zwölf.\" mean?",
       options: ["It is five to twelve.", "It is ten o'clock.", "It is half past eight.", "It is quarter past three."],
       correct: 0,
-      explanation: "This relates to: Telling time in German uses 'Es ist...' with hours and minutes, using 'nach', 'vor', and 'halb'."
     },
     {
       question: "What does \"Es ist zehn Uhr.\" mean?",
       options: ["It is ten o'clock.", "It is half past eight.", "It is quarter past three.", "It is five to twelve."],
       correct: 0,
-      explanation: "This relates to: Telling time in German uses 'Es ist...' with hours and minutes, using 'nach', 'vor', and 'halb'."
     },
     {
       question: "What does \"Es ist halb neun.\" mean?",
       options: ["It is half past eight.", "It is quarter past three.", "It is five to twelve.", "It is ten o'clock."],
       correct: 0,
-      explanation: "This relates to: Telling time in German uses 'Es ist...' with hours and minutes, using 'nach', 'vor', and 'halb'."
     }
     ],
     examQuestions: [
@@ -1024,31 +901,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"der Wecker\"?",
       options: ["alarm clock", "on time", "time", "clock"],
       correct: 0,
-      explanation: "\"der Wecker\" means \"alarm clock\"."
     },
     {
       question: "Choose the correct meaning: \"jetzt\"?",
       options: ["now", "to last", "clock", "half"],
       correct: 0,
-      explanation: "\"jetzt\" means \"now\"."
     },
     {
       question: "Choose the correct meaning: \"die Stunde\"?",
       options: ["hour", "minute", "half", "late"],
       correct: 0,
-      explanation: "\"die Stunde\" means \"hour\"."
     },
     {
       question: "Choose the correct meaning: \"Viertel\"?",
       options: ["quarter", "early", "late", "time"],
       correct: 0,
-      explanation: "\"Viertel\" means \"quarter\"."
     },
     {
       question: "Choose the correct meaning: \"der Wecker\"?",
       options: ["alarm clock", "on time", "time", "clock"],
       correct: 0,
-      explanation: "\"der Wecker\" means \"alarm clock\"."
     }
     ],
     homeworkQuestions: [
@@ -1056,25 +928,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"pünktlich\"?",
       options: ["on time", "time", "now", "hour"],
       correct: 0,
-      explanation: "\"pünktlich\" means \"on time\"."
     },
     {
       question: "Choose the correct meaning: \"dauern\"?",
       options: ["to last", "clock", "hour", "quarter"],
       correct: 0,
-      explanation: "\"dauern\" means \"to last\"."
     },
     {
       question: "Choose the correct meaning: \"die Minute\"?",
       options: ["minute", "half", "quarter", "alarm clock"],
       correct: 0,
-      explanation: "\"die Minute\" means \"minute\"."
     },
     {
       question: "Choose the correct meaning: \"früh\"?",
       options: ["early", "late", "alarm clock", "now"],
       correct: 0,
-      explanation: "\"früh\" means \"early\"."
     }
     ],
     youtubeId: "A1Lek00006a",
@@ -1113,7 +981,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Wochentage mit „am“",
-    explanation: "Use the preposition 'am' with days of the week and 'im' with months: am Montag, im Sommer.",
     examples: [
       { sentence: "Am Montag arbeite ich.", note: "On Monday I work." },
       { sentence: "Am Wochenende habe ich frei.", note: "On the weekend I am free." },
@@ -1126,31 +993,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"heute\"?",
       options: ["today", "tomorrow", "yesterday", "Monday"],
       correct: 0,
-      explanation: "\"heute\" means \"today\"."
     },
     {
       question: "What does this word mean: \"der Monat\"?",
       options: ["month", "in summer", "Monday", "Thursday"],
       correct: 0,
-      explanation: "\"der Monat\" means \"month\"."
     },
     {
       question: "What does this word mean: \"der Dienstag\"?",
       options: ["Tuesday", "Wednesday", "Thursday", "week"],
       correct: 0,
-      explanation: "\"der Dienstag\" means \"Tuesday\"."
     },
     {
       question: "What does this word mean: \"der Freitag\"?",
       options: ["Friday", "weekend", "week", "yesterday"],
       correct: 0,
-      explanation: "\"der Freitag\" means \"Friday\"."
     },
     {
       question: "What does this word mean: \"heute\"?",
       options: ["today", "tomorrow", "yesterday", "Monday"],
       correct: 0,
-      explanation: "\"heute\" means \"today\"."
     }
     ],
     conversationExercises: [
@@ -1158,19 +1020,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Gute Idee!\"?",
       options: ["Mia", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Mia in the dialogue."
     },
     {
       question: "Who says: \"Am Montag arbeite ich.\"?",
       options: ["Mia", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Mia in the dialogue."
     },
     {
       question: "Who says: \"Am Wochenende habe ich frei.\"?",
       options: ["Mia", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Mia in the dialogue."
     }
     ],
     grammarExercises: [
@@ -1178,25 +1037,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Im Mai habe ich Geburtstag.\" mean?",
       options: ["In May I have my birthday.", "On Monday I work.", "On the weekend I am free.", "In summer it is warm."],
       correct: 0,
-      explanation: "This relates to: Use the preposition 'am' with days of the week and 'im' with months: am Montag, im Sommer."
     },
     {
       question: "What does \"Am Montag arbeite ich.\" mean?",
       options: ["On Monday I work.", "On the weekend I am free.", "In summer it is warm.", "In May I have my birthday."],
       correct: 0,
-      explanation: "This relates to: Use the preposition 'am' with days of the week and 'im' with months: am Montag, im Sommer."
     },
     {
       question: "What does \"Am Wochenende habe ich frei.\" mean?",
       options: ["On the weekend I am free.", "In summer it is warm.", "In May I have my birthday.", "On Monday I work."],
       correct: 0,
-      explanation: "This relates to: Use the preposition 'am' with days of the week and 'im' with months: am Montag, im Sommer."
     },
     {
       question: "What does \"Im Sommer ist es warm.\" mean?",
       options: ["In summer it is warm.", "In May I have my birthday.", "On Monday I work.", "On the weekend I am free."],
       correct: 0,
-      explanation: "This relates to: Use the preposition 'am' with days of the week and 'im' with months: am Montag, im Sommer."
     }
     ],
     examQuestions: [
@@ -1204,31 +1059,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"morgen\"?",
       options: ["tomorrow", "yesterday", "month", "Tuesday"],
       correct: 0,
-      explanation: "\"morgen\" means \"tomorrow\"."
     },
     {
       question: "Choose the correct meaning: \"im Sommer\"?",
       options: ["in summer", "Monday", "Tuesday", "Friday"],
       correct: 0,
-      explanation: "\"im Sommer\" means \"in summer\"."
     },
     {
       question: "Choose the correct meaning: \"der Mittwoch\"?",
       options: ["Wednesday", "Thursday", "Friday", "today"],
       correct: 0,
-      explanation: "\"der Mittwoch\" means \"Wednesday\"."
     },
     {
       question: "Choose the correct meaning: \"das Wochenende\"?",
       options: ["weekend", "week", "today", "month"],
       correct: 0,
-      explanation: "\"das Wochenende\" means \"weekend\"."
     },
     {
       question: "Choose the correct meaning: \"morgen\"?",
       options: ["tomorrow", "yesterday", "month", "Tuesday"],
       correct: 0,
-      explanation: "\"morgen\" means \"tomorrow\"."
     }
     ],
     homeworkQuestions: [
@@ -1236,25 +1086,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"gestern\"?",
       options: ["yesterday", "month", "in summer", "Wednesday"],
       correct: 0,
-      explanation: "\"gestern\" means \"yesterday\"."
     },
     {
       question: "Choose the correct meaning: \"der Montag\"?",
       options: ["Monday", "Tuesday", "Wednesday", "weekend"],
       correct: 0,
-      explanation: "\"der Montag\" means \"Monday\"."
     },
     {
       question: "Choose the correct meaning: \"der Donnerstag\"?",
       options: ["Thursday", "Friday", "weekend", "tomorrow"],
       correct: 0,
-      explanation: "\"der Donnerstag\" means \"Thursday\"."
     },
     {
       question: "Choose the correct meaning: \"die Woche\"?",
       options: ["week", "today", "tomorrow", "in summer"],
       correct: 0,
-      explanation: "\"die Woche\" means \"week\"."
     }
     ],
     youtubeId: "A1Lek00007a",
@@ -1293,7 +1139,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "„Es gibt“ und Akkusativ-Artikel",
-    explanation: "'Es gibt' (there is/are) is followed by the Akkusativ case: es gibt einen Tisch, es gibt eine Lampe.",
     examples: [
       { sentence: "Es gibt einen Tisch im Zimmer.", note: "There is a table in the room." },
       { sentence: "Es gibt einen Stuhl.", note: "There is a chair." },
@@ -1306,31 +1151,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"der Schrank\"?",
       options: ["cupboard", "sofa", "there is/are", "apartment"],
       correct: 0,
-      explanation: "\"der Schrank\" means \"cupboard\"."
     },
     {
       question: "What does this word mean: \"wohnen\"?",
       options: ["to live", "house", "apartment", "bathroom"],
       correct: 0,
-      explanation: "\"wohnen\" means \"to live\"."
     },
     {
       question: "What does this word mean: \"das Zimmer\"?",
       options: ["room", "kitchen", "bathroom", "bed"],
       correct: 0,
-      explanation: "\"das Zimmer\" means \"room\"."
     },
     {
       question: "What does this word mean: \"der Tisch\"?",
       options: ["table", "chair", "bed", "there is/are"],
       correct: 0,
-      explanation: "\"der Tisch\" means \"table\"."
     },
     {
       question: "What does this word mean: \"der Schrank\"?",
       options: ["cupboard", "sofa", "there is/are", "apartment"],
       correct: 0,
-      explanation: "\"der Schrank\" means \"cupboard\"."
     }
     ],
     conversationExercises: [
@@ -1338,19 +1178,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Wie ist deine Wohnung?\"?",
       options: ["Paul", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Paul in the dialogue."
     },
     {
       question: "Who says: \"Gibt es eine Küche?\"?",
       options: ["Paul", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Paul in the dialogue."
     },
     {
       question: "Who says: \"Und wie viele Zimmer?\"?",
       options: ["Paul", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Paul in the dialogue."
     }
     ],
     grammarExercises: [
@@ -1358,25 +1195,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Es gibt einen Tisch im Zimmer.\" mean?",
       options: ["There is a table in the room.", "There is a chair.", "There is no kitchen.", "Is there a bathroom?"],
       correct: 0,
-      explanation: "This relates to: 'Es gibt' (there is/are) is followed by the Akkusativ case: es gibt einen Tisch, es gibt eine Lampe."
     },
     {
       question: "What does \"Es gibt einen Stuhl.\" mean?",
       options: ["There is a chair.", "There is no kitchen.", "Is there a bathroom?", "There is a table in the room."],
       correct: 0,
-      explanation: "This relates to: 'Es gibt' (there is/are) is followed by the Akkusativ case: es gibt einen Tisch, es gibt eine Lampe."
     },
     {
       question: "What does \"Es gibt keine Küche.\" mean?",
       options: ["There is no kitchen.", "Is there a bathroom?", "There is a table in the room.", "There is a chair."],
       correct: 0,
-      explanation: "This relates to: 'Es gibt' (there is/are) is followed by the Akkusativ case: es gibt einen Tisch, es gibt eine Lampe."
     },
     {
       question: "What does \"Gibt es ein Bad?\" mean?",
       options: ["Is there a bathroom?", "There is a table in the room.", "There is a chair.", "There is no kitchen."],
       correct: 0,
-      explanation: "This relates to: 'Es gibt' (there is/are) is followed by the Akkusativ case: es gibt einen Tisch, es gibt eine Lampe."
     }
     ],
     examQuestions: [
@@ -1384,31 +1217,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"das Sofa\"?",
       options: ["sofa", "there is/are", "to live", "room"],
       correct: 0,
-      explanation: "\"das Sofa\" means \"sofa\"."
     },
     {
       question: "Choose the correct meaning: \"das Haus\"?",
       options: ["house", "apartment", "room", "table"],
       correct: 0,
-      explanation: "\"das Haus\" means \"house\"."
     },
     {
       question: "Choose the correct meaning: \"die Küche\"?",
       options: ["kitchen", "bathroom", "table", "cupboard"],
       correct: 0,
-      explanation: "\"die Küche\" means \"kitchen\"."
     },
     {
       question: "Choose the correct meaning: \"der Stuhl\"?",
       options: ["chair", "bed", "cupboard", "to live"],
       correct: 0,
-      explanation: "\"der Stuhl\" means \"chair\"."
     },
     {
       question: "Choose the correct meaning: \"das Sofa\"?",
       options: ["sofa", "there is/are", "to live", "room"],
       correct: 0,
-      explanation: "\"das Sofa\" means \"sofa\"."
     }
     ],
     homeworkQuestions: [
@@ -1416,25 +1244,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"es gibt\"?",
       options: ["there is/are", "to live", "house", "kitchen"],
       correct: 0,
-      explanation: "\"es gibt\" means \"there is/are\"."
     },
     {
       question: "Choose the correct meaning: \"die Wohnung\"?",
       options: ["apartment", "room", "kitchen", "chair"],
       correct: 0,
-      explanation: "\"die Wohnung\" means \"apartment\"."
     },
     {
       question: "Choose the correct meaning: \"das Bad\"?",
       options: ["bathroom", "table", "chair", "sofa"],
       correct: 0,
-      explanation: "\"das Bad\" means \"bathroom\"."
     },
     {
       question: "Choose the correct meaning: \"das Bett\"?",
       options: ["bed", "cupboard", "sofa", "house"],
       correct: 0,
-      explanation: "\"das Bett\" means \"bed\"."
     }
     ],
     youtubeId: "A1Lek00008a",
@@ -1473,7 +1297,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Fragewörter „wo“ und „wohin“",
-    explanation: "'Wo' asks about location (dative), 'wohin' asks about direction (accusative).",
     examples: [
       { sentence: "Wo ist der Bahnhof?", note: "Where is the train station?" },
       { sentence: "Wohin gehst du?", note: "Where are you going?" },
@@ -1486,31 +1309,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"links\"?",
       options: ["left", "right", "straight ahead", "market"],
       correct: 0,
-      explanation: "\"links\" means \"left\"."
     },
     {
       question: "What does this word mean: \"die Stadt\"?",
       options: ["city", "street", "market", "park"],
       correct: 0,
-      explanation: "\"die Stadt\" means \"city\"."
     },
     {
       question: "What does this word mean: \"die Bank\"?",
       options: ["bank", "church", "park", "where to"],
       correct: 0,
-      explanation: "\"die Bank\" means \"bank\"."
     },
     {
       question: "What does this word mean: \"das Museum\"?",
       options: ["museum", "where", "where to", "straight ahead"],
       correct: 0,
-      explanation: "\"das Museum\" means \"museum\"."
     },
     {
       question: "What does this word mean: \"links\"?",
       options: ["left", "right", "straight ahead", "market"],
       correct: 0,
-      explanation: "\"links\" means \"left\"."
     }
     ],
     conversationExercises: [
@@ -1518,19 +1336,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Die Bank ist rechts.\"?",
       options: ["Mann", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Mann in the dialogue."
     },
     {
       question: "Who says: \"Gehen Sie geradeaus.\"?",
       options: ["Mann", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Mann in the dialogue."
     },
     {
       question: "Who says: \"Nein, er ist ganz nah.\"?",
       options: ["Mann", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Mann in the dialogue."
     }
     ],
     grammarExercises: [
@@ -1538,25 +1353,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Wohin gehst du?\" mean?",
       options: ["Where are you going?", "Where do you live?", "Where are you driving today?", "Where is the train station?"],
       correct: 0,
-      explanation: "This relates to: 'Wo' asks about location (dative), 'wohin' asks about direction (accusative)."
     },
     {
       question: "What does \"Wo wohnst du?\" mean?",
       options: ["Where do you live?", "Where are you driving today?", "Where is the train station?", "Where are you going?"],
       correct: 0,
-      explanation: "This relates to: 'Wo' asks about location (dative), 'wohin' asks about direction (accusative)."
     },
     {
       question: "What does \"Wohin fährst du heute?\" mean?",
       options: ["Where are you driving today?", "Where is the train station?", "Where are you going?", "Where do you live?"],
       correct: 0,
-      explanation: "This relates to: 'Wo' asks about location (dative), 'wohin' asks about direction (accusative)."
     },
     {
       question: "What does \"Wo ist der Bahnhof?\" mean?",
       options: ["Where is the train station?", "Where are you going?", "Where do you live?", "Where are you driving today?"],
       correct: 0,
-      explanation: "This relates to: 'Wo' asks about location (dative), 'wohin' asks about direction (accusative)."
     }
     ],
     examQuestions: [
@@ -1564,31 +1375,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"rechts\"?",
       options: ["right", "straight ahead", "city", "bank"],
       correct: 0,
-      explanation: "\"rechts\" means \"right\"."
     },
     {
       question: "Choose the correct meaning: \"die Straße\"?",
       options: ["street", "market", "bank", "museum"],
       correct: 0,
-      explanation: "\"die Straße\" means \"street\"."
     },
     {
       question: "Choose the correct meaning: \"die Kirche\"?",
       options: ["church", "park", "museum", "left"],
       correct: 0,
-      explanation: "\"die Kirche\" means \"church\"."
     },
     {
       question: "Choose the correct meaning: \"wo\"?",
       options: ["where", "where to", "left", "city"],
       correct: 0,
-      explanation: "\"wo\" means \"where\"."
     },
     {
       question: "Choose the correct meaning: \"rechts\"?",
       options: ["right", "straight ahead", "city", "bank"],
       correct: 0,
-      explanation: "\"rechts\" means \"right\"."
     }
     ],
     homeworkQuestions: [
@@ -1596,25 +1402,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"geradeaus\"?",
       options: ["straight ahead", "city", "street", "church"],
       correct: 0,
-      explanation: "\"geradeaus\" means \"straight ahead\"."
     },
     {
       question: "Choose the correct meaning: \"der Markt\"?",
       options: ["market", "bank", "church", "where"],
       correct: 0,
-      explanation: "\"der Markt\" means \"market\"."
     },
     {
       question: "Choose the correct meaning: \"der Park\"?",
       options: ["park", "museum", "where", "right"],
       correct: 0,
-      explanation: "\"der Park\" means \"park\"."
     },
     {
       question: "Choose the correct meaning: \"wohin\"?",
       options: ["where to", "left", "right", "street"],
       correct: 0,
-      explanation: "\"wohin\" means \"where to\"."
     }
     ],
     youtubeId: "A1Lek00009a",
@@ -1653,7 +1455,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Präposition „mit“ + Dativ",
-    explanation: "The preposition 'mit' always takes the Dative case: mit dem Bus, mit der Bahn.",
     examples: [
       { sentence: "Ich fahre mit dem Bus.", note: "I go by bus." },
       { sentence: "Sie fährt mit der Bahn.", note: "She goes by train." },
@@ -1666,31 +1467,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"mit\"?",
       options: ["with", "airplane", "bus", "bicycle"],
       correct: 0,
-      explanation: "\"mit\" means \"with\"."
     },
     {
       question: "What does this word mean: \"die Bahn\"?",
       options: ["train", "car", "bicycle", "bus stop"],
       correct: 0,
-      explanation: "\"die Bahn\" means \"train\"."
     },
     {
       question: "What does this word mean: \"das Taxi\"?",
       options: ["taxi", "train station", "bus stop", "on foot"],
       correct: 0,
-      explanation: "\"das Taxi\" means \"taxi\"."
     },
     {
       question: "What does this word mean: \"fahren\"?",
       options: ["to drive/ride", "ticket", "on foot", "bus"],
       correct: 0,
-      explanation: "\"fahren\" means \"to drive/ride\"."
     },
     {
       question: "What does this word mean: \"mit\"?",
       options: ["with", "airplane", "bus", "bicycle"],
       correct: 0,
-      explanation: "\"mit\" means \"with\"."
     }
     ],
     conversationExercises: [
@@ -1698,19 +1494,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Ich fahre mit dem Fahrrad.\"?",
       options: ["Tom", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Tom in the dialogue."
     },
     {
       question: "Who says: \"Nein, es ist nah.\"?",
       options: ["Tom", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Tom in the dialogue."
     },
     {
       question: "Who says: \"Fährst du auch mit der Bahn?\"?",
       options: ["Tom", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Tom in the dialogue."
     }
     ],
     grammarExercises: [
@@ -1718,25 +1511,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Wir fahren mit dem Auto.\" mean?",
       options: ["We go by car.", "He comes by bicycle.", "I go by bus.", "She goes by train."],
       correct: 0,
-      explanation: "This relates to: The preposition 'mit' always takes the Dative case: mit dem Bus, mit der Bahn."
     },
     {
       question: "What does \"Er kommt mit dem Fahrrad.\" mean?",
       options: ["He comes by bicycle.", "I go by bus.", "She goes by train.", "We go by car."],
       correct: 0,
-      explanation: "This relates to: The preposition 'mit' always takes the Dative case: mit dem Bus, mit der Bahn."
     },
     {
       question: "What does \"Ich fahre mit dem Bus.\" mean?",
       options: ["I go by bus.", "She goes by train.", "We go by car.", "He comes by bicycle."],
       correct: 0,
-      explanation: "This relates to: The preposition 'mit' always takes the Dative case: mit dem Bus, mit der Bahn."
     },
     {
       question: "What does \"Sie fährt mit der Bahn.\" mean?",
       options: ["She goes by train.", "We go by car.", "He comes by bicycle.", "I go by bus."],
       correct: 0,
-      explanation: "This relates to: The preposition 'mit' always takes the Dative case: mit dem Bus, mit der Bahn."
     }
     ],
     examQuestions: [
@@ -1744,31 +1533,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"das Flugzeug\"?",
       options: ["airplane", "bus", "train", "taxi"],
       correct: 0,
-      explanation: "\"das Flugzeug\" means \"airplane\"."
     },
     {
       question: "Choose the correct meaning: \"das Auto\"?",
       options: ["car", "bicycle", "taxi", "to drive/ride"],
       correct: 0,
-      explanation: "\"das Auto\" means \"car\"."
     },
     {
       question: "Choose the correct meaning: \"der Bahnhof\"?",
       options: ["train station", "bus stop", "to drive/ride", "with"],
       correct: 0,
-      explanation: "\"der Bahnhof\" means \"train station\"."
     },
     {
       question: "Choose the correct meaning: \"das Ticket\"?",
       options: ["ticket", "on foot", "with", "train"],
       correct: 0,
-      explanation: "\"das Ticket\" means \"ticket\"."
     },
     {
       question: "Choose the correct meaning: \"das Flugzeug\"?",
       options: ["airplane", "bus", "train", "taxi"],
       correct: 0,
-      explanation: "\"das Flugzeug\" means \"airplane\"."
     }
     ],
     homeworkQuestions: [
@@ -1776,25 +1560,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"der Bus\"?",
       options: ["bus", "train", "car", "train station"],
       correct: 0,
-      explanation: "\"der Bus\" means \"bus\"."
     },
     {
       question: "Choose the correct meaning: \"das Fahrrad\"?",
       options: ["bicycle", "taxi", "train station", "ticket"],
       correct: 0,
-      explanation: "\"das Fahrrad\" means \"bicycle\"."
     },
     {
       question: "Choose the correct meaning: \"die Haltestelle\"?",
       options: ["bus stop", "to drive/ride", "ticket", "airplane"],
       correct: 0,
-      explanation: "\"die Haltestelle\" means \"bus stop\"."
     },
     {
       question: "Choose the correct meaning: \"zu Fuß\"?",
       options: ["on foot", "with", "airplane", "car"],
       correct: 0,
-      explanation: "\"zu Fuß\" means \"on foot\"."
     }
     ],
     youtubeId: "A1Lek00010a",
@@ -1833,7 +1613,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "„Gern“ mit Verben",
-    explanation: "Add 'gern' after a verb to say you like doing something: ich lese gern, ich schwimme gern.",
     examples: [
       { sentence: "Ich lese gern Bücher.", note: "I like reading books." },
       { sentence: "Er schwimmt gern.", note: "He likes swimming." },
@@ -1846,31 +1625,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"wandern\"?",
       options: ["to hike", "hobby", "to read", "to sing"],
       correct: 0,
-      explanation: "\"wandern\" means \"to hike\"."
     },
     {
       question: "What does this word mean: \"schwimmen\"?",
       options: ["to swim", "to dance", "to sing", "sport"],
       correct: 0,
-      explanation: "\"schwimmen\" means \"to swim\"."
     },
     {
       question: "What does this word mean: \"malen\"?",
       options: ["to paint", "music", "sport", "free time"],
       correct: 0,
-      explanation: "\"malen\" means \"to paint\"."
     },
     {
       question: "What does this word mean: \"das Spiel\"?",
       options: ["game", "gladly", "free time", "to read"],
       correct: 0,
-      explanation: "\"das Spiel\" means \"game\"."
     },
     {
       question: "What does this word mean: \"wandern\"?",
       options: ["to hike", "hobby", "to read", "to sing"],
       correct: 0,
-      explanation: "\"wandern\" means \"to hike\"."
     }
     ],
     conversationExercises: [
@@ -1878,19 +1652,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Machst du auch Sport?\"?",
       options: ["Felix", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Felix in the dialogue."
     },
     {
       question: "Who says: \"Ich höre gern Musik.\"?",
       options: ["Felix", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Felix in the dialogue."
     },
     {
       question: "Who says: \"Ja, sehr gern!\"?",
       options: ["Felix", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Felix in the dialogue."
     }
     ],
     grammarExercises: [
@@ -1898,25 +1669,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Magst du auch gern Musik hören?\" mean?",
       options: ["Do you also like listening to music?", "I like reading books.", "He likes swimming.", "We like dancing."],
       correct: 0,
-      explanation: "This relates to: Add 'gern' after a verb to say you like doing something: ich lese gern, ich schwimme gern."
     },
     {
       question: "What does \"Ich lese gern Bücher.\" mean?",
       options: ["I like reading books.", "He likes swimming.", "We like dancing.", "Do you also like listening to music?"],
       correct: 0,
-      explanation: "This relates to: Add 'gern' after a verb to say you like doing something: ich lese gern, ich schwimme gern."
     },
     {
       question: "What does \"Er schwimmt gern.\" mean?",
       options: ["He likes swimming.", "We like dancing.", "Do you also like listening to music?", "I like reading books."],
       correct: 0,
-      explanation: "This relates to: Add 'gern' after a verb to say you like doing something: ich lese gern, ich schwimme gern."
     },
     {
       question: "What does \"Wir tanzen gern.\" mean?",
       options: ["We like dancing.", "Do you also like listening to music?", "I like reading books.", "He likes swimming."],
       correct: 0,
-      explanation: "This relates to: Add 'gern' after a verb to say you like doing something: ich lese gern, ich schwimme gern."
     }
     ],
     examQuestions: [
@@ -1924,31 +1691,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"das Hobby\"?",
       options: ["hobby", "to read", "to swim", "to paint"],
       correct: 0,
-      explanation: "\"das Hobby\" means \"hobby\"."
     },
     {
       question: "Choose the correct meaning: \"tanzen\"?",
       options: ["to dance", "to sing", "to paint", "game"],
       correct: 0,
-      explanation: "\"tanzen\" means \"to dance\"."
     },
     {
       question: "Choose the correct meaning: \"die Musik\"?",
       options: ["music", "sport", "game", "to hike"],
       correct: 0,
-      explanation: "\"die Musik\" means \"music\"."
     },
     {
       question: "Choose the correct meaning: \"gern\"?",
       options: ["gladly", "free time", "to hike", "to swim"],
       correct: 0,
-      explanation: "\"gern\" means \"gladly\"."
     },
     {
       question: "Choose the correct meaning: \"das Hobby\"?",
       options: ["hobby", "to read", "to swim", "to paint"],
       correct: 0,
-      explanation: "\"das Hobby\" means \"hobby\"."
     }
     ],
     homeworkQuestions: [
@@ -1956,25 +1718,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"lesen\"?",
       options: ["to read", "to swim", "to dance", "music"],
       correct: 0,
-      explanation: "\"lesen\" means \"to read\"."
     },
     {
       question: "Choose the correct meaning: \"singen\"?",
       options: ["to sing", "to paint", "music", "gladly"],
       correct: 0,
-      explanation: "\"singen\" means \"to sing\"."
     },
     {
       question: "Choose the correct meaning: \"der Sport\"?",
       options: ["sport", "game", "gladly", "hobby"],
       correct: 0,
-      explanation: "\"der Sport\" means \"sport\"."
     },
     {
       question: "Choose the correct meaning: \"die Freizeit\"?",
       options: ["free time", "to hike", "hobby", "to dance"],
       correct: 0,
-      explanation: "\"die Freizeit\" means \"free time\"."
     }
     ],
     youtubeId: "A1Lek00011a",
@@ -2013,7 +1771,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Akkusativ mit „ein/einen“",
-    explanation: "Masculine articles change in the Akkusativ case: ein becomes einen, der becomes den.",
     examples: [
       { sentence: "Ich kaufe einen Rock.", note: "I am buying a skirt." },
       { sentence: "Er nimmt einen Mantel.", note: "He takes a coat." },
@@ -2026,31 +1783,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"kaufen\"?",
       options: ["to buy", "shop", "price", "bag"],
       correct: 0,
-      explanation: "\"kaufen\" means \"to buy\"."
     },
     {
       question: "What does this word mean: \"billig\"?",
       options: ["cheap", "expensive", "bag", "to pay"],
       correct: 0,
-      explanation: "\"billig\" means \"cheap\"."
     },
     {
       question: "What does this word mean: \"brauchen\"?",
       options: ["to need", "to take", "to pay", "offer"],
       correct: 0,
-      explanation: "\"brauchen\" means \"to need\"."
     },
     {
       question: "What does this word mean: \"die Kasse\"?",
       options: ["cashier", "to search", "offer", "price"],
       correct: 0,
-      explanation: "\"die Kasse\" means \"cashier\"."
     },
     {
       question: "What does this word mean: \"kaufen\"?",
       options: ["to buy", "shop", "price", "bag"],
       correct: 0,
-      explanation: "\"kaufen\" means \"to buy\"."
     }
     ],
     conversationExercises: [
@@ -2058,19 +1810,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Hier ist ein schöner Mantel.\"?",
       options: ["Verkäufer", "Kellner", "Arzt", "Kunde"],
       correct: 0,
-      explanation: "This line is spoken by Verkäufer in the dialogue."
     },
     {
       question: "Who says: \"Er kostet fünfzig Euro.\"?",
       options: ["Verkäufer", "Kellner", "Arzt", "Kunde"],
       correct: 0,
-      explanation: "This line is spoken by Verkäufer in the dialogue."
     },
     {
       question: "Who says: \"Kann ich Ihnen helfen?\"?",
       options: ["Verkäufer", "Kellner", "Arzt", "Kunde"],
       correct: 0,
-      explanation: "This line is spoken by Verkäufer in the dialogue."
     }
     ],
     grammarExercises: [
@@ -2078,25 +1827,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Ich kaufe einen Rock.\" mean?",
       options: ["I am buying a skirt.", "He takes a coat.", "She is looking for a bag.", "We need a book."],
       correct: 0,
-      explanation: "This relates to: Masculine articles change in the Akkusativ case: ein becomes einen, der becomes den."
     },
     {
       question: "What does \"Er nimmt einen Mantel.\" mean?",
       options: ["He takes a coat.", "She is looking for a bag.", "We need a book.", "I am buying a skirt."],
       correct: 0,
-      explanation: "This relates to: Masculine articles change in the Akkusativ case: ein becomes einen, der becomes den."
     },
     {
       question: "What does \"Sie sucht eine Tasche.\" mean?",
       options: ["She is looking for a bag.", "We need a book.", "I am buying a skirt.", "He takes a coat."],
       correct: 0,
-      explanation: "This relates to: Masculine articles change in the Akkusativ case: ein becomes einen, der becomes den."
     },
     {
       question: "What does \"Wir brauchen ein Buch.\" mean?",
       options: ["We need a book.", "I am buying a skirt.", "He takes a coat.", "She is looking for a bag."],
       correct: 0,
-      explanation: "This relates to: Masculine articles change in the Akkusativ case: ein becomes einen, der becomes den."
     }
     ],
     examQuestions: [
@@ -2104,31 +1849,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"das Geschäft\"?",
       options: ["shop", "price", "cheap", "to need"],
       correct: 0,
-      explanation: "\"das Geschäft\" means \"shop\"."
     },
     {
       question: "Choose the correct meaning: \"teuer\"?",
       options: ["expensive", "bag", "to need", "cashier"],
       correct: 0,
-      explanation: "\"teuer\" means \"expensive\"."
     },
     {
       question: "Choose the correct meaning: \"nehmen\"?",
       options: ["to take", "to pay", "cashier", "to buy"],
       correct: 0,
-      explanation: "\"nehmen\" means \"to take\"."
     },
     {
       question: "Choose the correct meaning: \"suchen\"?",
       options: ["to search", "offer", "to buy", "cheap"],
       correct: 0,
-      explanation: "\"suchen\" means \"to search\"."
     },
     {
       question: "Choose the correct meaning: \"das Geschäft\"?",
       options: ["shop", "price", "cheap", "to need"],
       correct: 0,
-      explanation: "\"das Geschäft\" means \"shop\"."
     }
     ],
     homeworkQuestions: [
@@ -2136,25 +1876,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"der Preis\"?",
       options: ["price", "cheap", "expensive", "to take"],
       correct: 0,
-      explanation: "\"der Preis\" means \"price\"."
     },
     {
       question: "Choose the correct meaning: \"die Tasche\"?",
       options: ["bag", "to need", "to take", "to search"],
       correct: 0,
-      explanation: "\"die Tasche\" means \"bag\"."
     },
     {
       question: "Choose the correct meaning: \"bezahlen\"?",
       options: ["to pay", "cashier", "to search", "shop"],
       correct: 0,
-      explanation: "\"bezahlen\" means \"to pay\"."
     },
     {
       question: "Choose the correct meaning: \"das Angebot\"?",
       options: ["offer", "to buy", "shop", "expensive"],
       correct: 0,
-      explanation: "\"das Angebot\" means \"offer\"."
     }
     ],
     youtubeId: "A1Lek00012a",
@@ -2193,7 +1929,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Adjektive und Farben",
-    explanation: "Color adjectives after 'sein' remain unchanged, but agree with the noun before it: der rote Mantel, die blaue Hose.",
     examples: [
       { sentence: "Der Mantel ist rot.", note: "The coat is red." },
       { sentence: "Die Hose ist blau.", note: "The trousers are blue." },
@@ -2206,31 +1941,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"das Hemd\"?",
       options: ["shirt", "trousers", "dress", "blue"],
       correct: 0,
-      explanation: "\"das Hemd\" means \"shirt\"."
     },
     {
       question: "What does this word mean: \"die Schuhe\"?",
       options: ["shoes", "red", "blue", "yellow"],
       correct: 0,
-      explanation: "\"die Schuhe\" means \"shoes\"."
     },
     {
       question: "What does this word mean: \"grün\"?",
       options: ["green", "black", "yellow", "clothing"],
       correct: 0,
-      explanation: "\"grün\" means \"green\"."
     },
     {
       question: "What does this word mean: \"die Farbe\"?",
       options: ["color", "to wear", "clothing", "dress"],
       correct: 0,
-      explanation: "\"die Farbe\" means \"color\"."
     },
     {
       question: "What does this word mean: \"das Hemd\"?",
       options: ["shirt", "trousers", "dress", "blue"],
       correct: 0,
-      explanation: "\"das Hemd\" means \"shirt\"."
     }
     ],
     conversationExercises: [
@@ -2238,19 +1968,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Das sieht schön aus.\"?",
       options: ["Leo", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Leo in the dialogue."
     },
     {
       question: "Who says: \"Danke schön!\"?",
       options: ["Leo", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Leo in the dialogue."
     },
     {
       question: "Who says: \"Ich mag Blau. Und du?\"?",
       options: ["Leo", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Leo in the dialogue."
     }
     ],
     grammarExercises: [
@@ -2258,25 +1985,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Die Hose ist blau.\" mean?",
       options: ["The trousers are blue.", "The dress is green.", "I am wearing a yellow shirt.", "The coat is red."],
       correct: 0,
-      explanation: "This relates to: Color adjectives after 'sein' remain unchanged, but agree with the noun before it: der rote Mantel, die blaue Hose."
     },
     {
       question: "What does \"Das Kleid ist grün.\" mean?",
       options: ["The dress is green.", "I am wearing a yellow shirt.", "The coat is red.", "The trousers are blue."],
       correct: 0,
-      explanation: "This relates to: Color adjectives after 'sein' remain unchanged, but agree with the noun before it: der rote Mantel, die blaue Hose."
     },
     {
       question: "What does \"Ich trage ein gelbes Hemd.\" mean?",
       options: ["I am wearing a yellow shirt.", "The coat is red.", "The trousers are blue.", "The dress is green."],
       correct: 0,
-      explanation: "This relates to: Color adjectives after 'sein' remain unchanged, but agree with the noun before it: der rote Mantel, die blaue Hose."
     },
     {
       question: "What does \"Der Mantel ist rot.\" mean?",
       options: ["The coat is red.", "The trousers are blue.", "The dress is green.", "I am wearing a yellow shirt."],
       correct: 0,
-      explanation: "This relates to: Color adjectives after 'sein' remain unchanged, but agree with the noun before it: der rote Mantel, die blaue Hose."
     }
     ],
     examQuestions: [
@@ -2284,31 +2007,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"die Hose\"?",
       options: ["trousers", "dress", "shoes", "green"],
       correct: 0,
-      explanation: "\"die Hose\" means \"trousers\"."
     },
     {
       question: "Choose the correct meaning: \"rot\"?",
       options: ["red", "blue", "green", "color"],
       correct: 0,
-      explanation: "\"rot\" means \"red\"."
     },
     {
       question: "Choose the correct meaning: \"schwarz\"?",
       options: ["black", "yellow", "color", "shirt"],
       correct: 0,
-      explanation: "\"schwarz\" means \"black\"."
     },
     {
       question: "Choose the correct meaning: \"tragen\"?",
       options: ["to wear", "clothing", "shirt", "shoes"],
       correct: 0,
-      explanation: "\"tragen\" means \"to wear\"."
     },
     {
       question: "Choose the correct meaning: \"die Hose\"?",
       options: ["trousers", "dress", "shoes", "green"],
       correct: 0,
-      explanation: "\"die Hose\" means \"trousers\"."
     }
     ],
     homeworkQuestions: [
@@ -2316,25 +2034,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"das Kleid\"?",
       options: ["dress", "shoes", "red", "black"],
       correct: 0,
-      explanation: "\"das Kleid\" means \"dress\"."
     },
     {
       question: "Choose the correct meaning: \"blau\"?",
       options: ["blue", "green", "black", "to wear"],
       correct: 0,
-      explanation: "\"blau\" means \"blue\"."
     },
     {
       question: "Choose the correct meaning: \"gelb\"?",
       options: ["yellow", "color", "to wear", "trousers"],
       correct: 0,
-      explanation: "\"gelb\" means \"yellow\"."
     },
     {
       question: "Choose the correct meaning: \"die Kleidung\"?",
       options: ["clothing", "shirt", "trousers", "red"],
       correct: 0,
-      explanation: "\"die Kleidung\" means \"clothing\"."
     }
     ],
     youtubeId: "A1Lek00013a",
@@ -2373,7 +2087,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Adjektive zur Beschreibung",
-    explanation: "Descriptive adjectives with 'sein' describe people: Er ist groß, sie ist freundlich.",
     examples: [
       { sentence: "Er ist sehr groß.", note: "He is very tall." },
       { sentence: "Sie ist freundlich und nett.", note: "She is friendly and nice." },
@@ -2386,31 +2099,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"dünn\"?",
       options: ["thin", "hair", "eyes", "funny"],
       correct: 0,
-      explanation: "\"dünn\" means \"thin\"."
     },
     {
       question: "What does this word mean: \"freundlich\"?",
       options: ["friendly", "nice", "funny", "to look like"],
       correct: 0,
-      explanation: "\"freundlich\" means \"friendly\"."
     },
     {
       question: "What does this word mean: \"intelligent\"?",
       options: ["intelligent", "face", "to look like", "small"],
       correct: 0,
-      explanation: "\"intelligent\" means \"intelligent\"."
     },
     {
       question: "What does this word mean: \"hübsch\"?",
       options: ["pretty", "tall/big", "small", "eyes"],
       correct: 0,
-      explanation: "\"hübsch\" means \"pretty\"."
     },
     {
       question: "What does this word mean: \"dünn\"?",
       options: ["thin", "hair", "eyes", "funny"],
       correct: 0,
-      explanation: "\"dünn\" means \"thin\"."
     }
     ],
     conversationExercises: [
@@ -2418,19 +2126,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Er sieht nett aus.\"?",
       options: ["Sophie", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Sophie in the dialogue."
     },
     {
       question: "Who says: \"Wie sieht dein Bruder aus?\"?",
       options: ["Sophie", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Sophie in the dialogue."
     },
     {
       question: "Who says: \"Ist er freundlich?\"?",
       options: ["Sophie", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Sophie in the dialogue."
     }
     ],
     grammarExercises: [
@@ -2438,25 +2143,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Meine Schwester ist lustig.\" mean?",
       options: ["My sister is funny.", "He has blue eyes.", "He is very tall.", "She is friendly and nice."],
       correct: 0,
-      explanation: "This relates to: Descriptive adjectives with 'sein' describe people: Er ist groß, sie ist freundlich."
     },
     {
       question: "What does \"Er hat blaue Augen.\" mean?",
       options: ["He has blue eyes.", "He is very tall.", "She is friendly and nice.", "My sister is funny."],
       correct: 0,
-      explanation: "This relates to: Descriptive adjectives with 'sein' describe people: Er ist groß, sie ist freundlich."
     },
     {
       question: "What does \"Er ist sehr groß.\" mean?",
       options: ["He is very tall.", "She is friendly and nice.", "My sister is funny.", "He has blue eyes."],
       correct: 0,
-      explanation: "This relates to: Descriptive adjectives with 'sein' describe people: Er ist groß, sie ist freundlich."
     },
     {
       question: "What does \"Sie ist freundlich und nett.\" mean?",
       options: ["She is friendly and nice.", "My sister is funny.", "He has blue eyes.", "He is very tall."],
       correct: 0,
-      explanation: "This relates to: Descriptive adjectives with 'sein' describe people: Er ist groß, sie ist freundlich."
     }
     ],
     examQuestions: [
@@ -2464,31 +2165,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"die Haare\"?",
       options: ["hair", "eyes", "friendly", "intelligent"],
       correct: 0,
-      explanation: "\"die Haare\" means \"hair\"."
     },
     {
       question: "Choose the correct meaning: \"nett\"?",
       options: ["nice", "funny", "intelligent", "pretty"],
       correct: 0,
-      explanation: "\"nett\" means \"nice\"."
     },
     {
       question: "Choose the correct meaning: \"das Gesicht\"?",
       options: ["face", "to look like", "pretty", "thin"],
       correct: 0,
-      explanation: "\"das Gesicht\" means \"face\"."
     },
     {
       question: "Choose the correct meaning: \"groß\"?",
       options: ["tall/big", "small", "thin", "friendly"],
       correct: 0,
-      explanation: "\"groß\" means \"tall/big\"."
     },
     {
       question: "Choose the correct meaning: \"die Haare\"?",
       options: ["hair", "eyes", "friendly", "intelligent"],
       correct: 0,
-      explanation: "\"die Haare\" means \"hair\"."
     }
     ],
     homeworkQuestions: [
@@ -2496,25 +2192,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"die Augen\"?",
       options: ["eyes", "friendly", "nice", "face"],
       correct: 0,
-      explanation: "\"die Augen\" means \"eyes\"."
     },
     {
       question: "Choose the correct meaning: \"lustig\"?",
       options: ["funny", "intelligent", "face", "tall/big"],
       correct: 0,
-      explanation: "\"lustig\" means \"funny\"."
     },
     {
       question: "Choose the correct meaning: \"aussehen\"?",
       options: ["to look like", "pretty", "tall/big", "hair"],
       correct: 0,
-      explanation: "\"aussehen\" means \"to look like\"."
     },
     {
       question: "Choose the correct meaning: \"klein\"?",
       options: ["small", "thin", "hair", "nice"],
       correct: 0,
-      explanation: "\"klein\" means \"small\"."
     }
     ],
     youtubeId: "A1Lek00014a",
@@ -2553,7 +2245,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Unpersönliches „es“ beim Wetter",
-    explanation: "Weather expressions use the impersonal 'es': es regnet, es ist kalt, es schneit.",
     examples: [
       { sentence: "Es regnet heute.", note: "It is raining today." },
       { sentence: "Es ist kalt im Winter.", note: "It is cold in winter." },
@@ -2566,31 +2257,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"der Schnee\"?",
       options: ["snow", "wind", "warm", "to rain"],
       correct: 0,
-      explanation: "\"der Schnee\" means \"snow\"."
     },
     {
       question: "What does this word mean: \"kalt\"?",
       options: ["cold", "cloud", "to rain", "sky"],
       correct: 0,
-      explanation: "\"kalt\" means \"cold\"."
     },
     {
       question: "What does this word mean: \"schneien\"?",
       options: ["to snow", "temperature", "sky", "rain"],
       correct: 0,
-      explanation: "\"schneien\" means \"to snow\"."
     },
     {
       question: "What does this word mean: \"das Wetter\"?",
       options: ["weather", "sun", "rain", "warm"],
       correct: 0,
-      explanation: "\"das Wetter\" means \"weather\"."
     },
     {
       question: "What does this word mean: \"der Schnee\"?",
       options: ["snow", "wind", "warm", "to rain"],
       correct: 0,
-      explanation: "\"der Schnee\" means \"snow\"."
     }
     ],
     conversationExercises: [
@@ -2598,19 +2284,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Ich auch!\"?",
       options: ["Julia", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Julia in the dialogue."
     },
     {
       question: "Who says: \"Es ist sonnig und warm.\"?",
       options: ["Julia", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Julia in the dialogue."
     },
     {
       question: "Who says: \"Ja, es soll regnen.\"?",
       options: ["Julia", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Julia in the dialogue."
     }
     ],
     grammarExercises: [
@@ -2618,25 +2301,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Es ist warm und sonnig.\" mean?",
       options: ["It is warm and sunny.", "It is raining today.", "It is cold in winter.", "It often snows."],
       correct: 0,
-      explanation: "This relates to: Weather expressions use the impersonal 'es': es regnet, es ist kalt, es schneit."
     },
     {
       question: "What does \"Es regnet heute.\" mean?",
       options: ["It is raining today.", "It is cold in winter.", "It often snows.", "It is warm and sunny."],
       correct: 0,
-      explanation: "This relates to: Weather expressions use the impersonal 'es': es regnet, es ist kalt, es schneit."
     },
     {
       question: "What does \"Es ist kalt im Winter.\" mean?",
       options: ["It is cold in winter.", "It often snows.", "It is warm and sunny.", "It is raining today."],
       correct: 0,
-      explanation: "This relates to: Weather expressions use the impersonal 'es': es regnet, es ist kalt, es schneit."
     },
     {
       question: "What does \"Es schneit oft.\" mean?",
       options: ["It often snows.", "It is warm and sunny.", "It is raining today.", "It is cold in winter."],
       correct: 0,
-      explanation: "This relates to: Weather expressions use the impersonal 'es': es regnet, es ist kalt, es schneit."
     }
     ],
     examQuestions: [
@@ -2644,31 +2323,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"der Wind\"?",
       options: ["wind", "warm", "cold", "to snow"],
       correct: 0,
-      explanation: "\"der Wind\" means \"wind\"."
     },
     {
       question: "Choose the correct meaning: \"die Wolke\"?",
       options: ["cloud", "to rain", "to snow", "weather"],
       correct: 0,
-      explanation: "\"die Wolke\" means \"cloud\"."
     },
     {
       question: "Choose the correct meaning: \"die Temperatur\"?",
       options: ["temperature", "sky", "weather", "snow"],
       correct: 0,
-      explanation: "\"die Temperatur\" means \"temperature\"."
     },
     {
       question: "Choose the correct meaning: \"die Sonne\"?",
       options: ["sun", "rain", "snow", "cold"],
       correct: 0,
-      explanation: "\"die Sonne\" means \"sun\"."
     },
     {
       question: "Choose the correct meaning: \"der Wind\"?",
       options: ["wind", "warm", "cold", "to snow"],
       correct: 0,
-      explanation: "\"der Wind\" means \"wind\"."
     }
     ],
     homeworkQuestions: [
@@ -2676,25 +2350,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"warm\"?",
       options: ["warm", "cold", "cloud", "temperature"],
       correct: 0,
-      explanation: "\"warm\" means \"warm\"."
     },
     {
       question: "Choose the correct meaning: \"regnen\"?",
       options: ["to rain", "to snow", "temperature", "sun"],
       correct: 0,
-      explanation: "\"regnen\" means \"to rain\"."
     },
     {
       question: "Choose the correct meaning: \"der Himmel\"?",
       options: ["sky", "weather", "sun", "wind"],
       correct: 0,
-      explanation: "\"der Himmel\" means \"sky\"."
     },
     {
       question: "Choose the correct meaning: \"der Regen\"?",
       options: ["rain", "snow", "wind", "cloud"],
       correct: 0,
-      explanation: "\"der Regen\" means \"rain\"."
     }
     ],
     youtubeId: "A1Lek00015a",
@@ -2733,7 +2403,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Modalverb „wollen“",
-    explanation: "'Wollen' (to want) expresses future plans: ich will, du willst, er/sie/es will.",
     examples: [
       { sentence: "Ich will ins Kino gehen.", note: "I want to go to the cinema." },
       { sentence: "Wir wollen uns treffen.", note: "We want to meet." },
@@ -2746,31 +2415,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"planen\"?",
       options: ["to plan", "free", "busy", "cinema"],
       correct: 0,
-      explanation: "\"planen\" means \"to plan\"."
     },
     {
       question: "What does this word mean: \"absagen\"?",
       options: ["to cancel", "to arrange", "cinema", "appointment"],
       correct: 0,
-      explanation: "\"absagen\" means \"to cancel\"."
     },
     {
       question: "What does this word mean: \"einladen\"?",
       options: ["to invite", "party", "appointment", "to want"],
       correct: 0,
-      explanation: "\"einladen\" means \"to invite\"."
     },
     {
       question: "What does this word mean: \"treffen\"?",
       options: ["to meet", "date/meeting", "to want", "busy"],
       correct: 0,
-      explanation: "\"treffen\" means \"to meet\"."
     },
     {
       question: "What does this word mean: \"planen\"?",
       options: ["to plan", "free", "busy", "cinema"],
       correct: 0,
-      explanation: "\"planen\" means \"to plan\"."
     }
     ],
     conversationExercises: [
@@ -2778,19 +2442,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Hast du am Samstag Zeit?\"?",
       options: ["Laura", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Laura in the dialogue."
     },
     {
       question: "Who says: \"Wollen wir uns treffen?\"?",
       options: ["Laura", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Laura in the dialogue."
     },
     {
       question: "Who says: \"Im Café um drei Uhr.\"?",
       options: ["Laura", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Laura in the dialogue."
     }
     ],
     grammarExercises: [
@@ -2798,25 +2459,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Ich will ins Kino gehen.\" mean?",
       options: ["I want to go to the cinema.", "We want to meet.", "Do you want to come?", "She wants to make an appointment."],
       correct: 0,
-      explanation: "This relates to: 'Wollen' (to want) expresses future plans: ich will, du willst, er/sie/es will."
     },
     {
       question: "What does \"Wir wollen uns treffen.\" mean?",
       options: ["We want to meet.", "Do you want to come?", "She wants to make an appointment.", "I want to go to the cinema."],
       correct: 0,
-      explanation: "This relates to: 'Wollen' (to want) expresses future plans: ich will, du willst, er/sie/es will."
     },
     {
       question: "What does \"Willst du kommen?\" mean?",
       options: ["Do you want to come?", "She wants to make an appointment.", "I want to go to the cinema.", "We want to meet."],
       correct: 0,
-      explanation: "This relates to: 'Wollen' (to want) expresses future plans: ich will, du willst, er/sie/es will."
     },
     {
       question: "What does \"Sie will einen Termin machen.\" mean?",
       options: ["She wants to make an appointment.", "I want to go to the cinema.", "We want to meet.", "Do you want to come?"],
       correct: 0,
-      explanation: "This relates to: 'Wollen' (to want) expresses future plans: ich will, du willst, er/sie/es will."
     }
     ],
     examQuestions: [
@@ -2824,31 +2481,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"frei\"?",
       options: ["free", "busy", "to cancel", "to invite"],
       correct: 0,
-      explanation: "\"frei\" means \"free\"."
     },
     {
       question: "Choose the correct meaning: \"vereinbaren\"?",
       options: ["to arrange", "cinema", "to invite", "to meet"],
       correct: 0,
-      explanation: "\"vereinbaren\" means \"to arrange\"."
     },
     {
       question: "Choose the correct meaning: \"die Party\"?",
       options: ["party", "appointment", "to meet", "to plan"],
       correct: 0,
-      explanation: "\"die Party\" means \"party\"."
     },
     {
       question: "Choose the correct meaning: \"die Verabredung\"?",
       options: ["date/meeting", "to want", "to plan", "to cancel"],
       correct: 0,
-      explanation: "\"die Verabredung\" means \"date/meeting\"."
     },
     {
       question: "Choose the correct meaning: \"frei\"?",
       options: ["free", "busy", "to cancel", "to invite"],
       correct: 0,
-      explanation: "\"frei\" means \"free\"."
     }
     ],
     homeworkQuestions: [
@@ -2856,25 +2508,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"beschäftigt\"?",
       options: ["busy", "to cancel", "to arrange", "party"],
       correct: 0,
-      explanation: "\"beschäftigt\" means \"busy\"."
     },
     {
       question: "Choose the correct meaning: \"das Kino\"?",
       options: ["cinema", "to invite", "party", "date/meeting"],
       correct: 0,
-      explanation: "\"das Kino\" means \"cinema\"."
     },
     {
       question: "Choose the correct meaning: \"der Termin\"?",
       options: ["appointment", "to meet", "date/meeting", "free"],
       correct: 0,
-      explanation: "\"der Termin\" means \"appointment\"."
     },
     {
       question: "Choose the correct meaning: \"wollen\"?",
       options: ["to want", "to plan", "free", "to arrange"],
       correct: 0,
-      explanation: "\"wollen\" means \"to want\"."
     }
     ],
     youtubeId: "A1Lek00016a",
@@ -2913,7 +2561,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "„Weh tun“ mit Dativ",
-    explanation: "'Weh tun' (to hurt) uses the Dative pronoun: mir tut der Kopf weh.",
     examples: [
       { sentence: "Mir tut der Kopf weh.", note: "My head hurts." },
       { sentence: "Ihm tut der Bauch weh.", note: "His stomach hurts." },
@@ -2926,31 +2573,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"weh tun\"?",
       options: ["to hurt", "pharmacy", "medicine", "cold (illness)"],
       correct: 0,
-      explanation: "\"weh tun\" means \"to hurt\"."
     },
     {
       question: "What does this word mean: \"der Termin\"?",
       options: ["appointment", "to feel", "cold (illness)", "sick"],
       correct: 0,
-      explanation: "\"der Termin\" means \"appointment\"."
     },
     {
       question: "What does this word mean: \"das Fieber\"?",
       options: ["fever", "doctor", "sick", "stomach"],
       correct: 0,
-      explanation: "\"das Fieber\" means \"fever\"."
     },
     {
       question: "What does this word mean: \"gesund\"?",
       options: ["healthy", "head", "stomach", "medicine"],
       correct: 0,
-      explanation: "\"gesund\" means \"healthy\"."
     },
     {
       question: "What does this word mean: \"weh tun\"?",
       options: ["to hurt", "pharmacy", "medicine", "cold (illness)"],
       correct: 0,
-      explanation: "\"weh tun\" means \"to hurt\"."
     }
     ],
     conversationExercises: [
@@ -2958,19 +2600,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Mir tut der Kopf weh.\"?",
       options: ["Patient", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Patient in the dialogue."
     },
     {
       question: "Who says: \"Ja, ein bisschen.\"?",
       options: ["Patient", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Patient in the dialogue."
     },
     {
       question: "Who says: \"Brauche ich Medikamente?\"?",
       options: ["Patient", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Patient in the dialogue."
     }
     ],
     grammarExercises: [
@@ -2978,25 +2617,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Ihm tut der Bauch weh.\" mean?",
       options: ["His stomach hurts.", "Does your back hurt?", "Our feet hurt.", "My head hurts."],
       correct: 0,
-      explanation: "This relates to: 'Weh tun' (to hurt) uses the Dative pronoun: mir tut der Kopf weh."
     },
     {
       question: "What does \"Tut dir der Rücken weh?\" mean?",
       options: ["Does your back hurt?", "Our feet hurt.", "My head hurts.", "His stomach hurts."],
       correct: 0,
-      explanation: "This relates to: 'Weh tun' (to hurt) uses the Dative pronoun: mir tut der Kopf weh."
     },
     {
       question: "What does \"Uns tun die Füße weh.\" mean?",
       options: ["Our feet hurt.", "My head hurts.", "His stomach hurts.", "Does your back hurt?"],
       correct: 0,
-      explanation: "This relates to: 'Weh tun' (to hurt) uses the Dative pronoun: mir tut der Kopf weh."
     },
     {
       question: "What does \"Mir tut der Kopf weh.\" mean?",
       options: ["My head hurts.", "His stomach hurts.", "Does your back hurt?", "Our feet hurt."],
       correct: 0,
-      explanation: "This relates to: 'Weh tun' (to hurt) uses the Dative pronoun: mir tut der Kopf weh."
     }
     ],
     examQuestions: [
@@ -3004,31 +2639,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"die Apotheke\"?",
       options: ["pharmacy", "medicine", "appointment", "fever"],
       correct: 0,
-      explanation: "\"die Apotheke\" means \"pharmacy\"."
     },
     {
       question: "Choose the correct meaning: \"fühlen\"?",
       options: ["to feel", "cold (illness)", "fever", "healthy"],
       correct: 0,
-      explanation: "\"fühlen\" means \"to feel\"."
     },
     {
       question: "Choose the correct meaning: \"der Arzt\"?",
       options: ["doctor", "sick", "healthy", "to hurt"],
       correct: 0,
-      explanation: "\"der Arzt\" means \"doctor\"."
     },
     {
       question: "Choose the correct meaning: \"der Kopf\"?",
       options: ["head", "stomach", "to hurt", "appointment"],
       correct: 0,
-      explanation: "\"der Kopf\" means \"head\"."
     },
     {
       question: "Choose the correct meaning: \"die Apotheke\"?",
       options: ["pharmacy", "medicine", "appointment", "fever"],
       correct: 0,
-      explanation: "\"die Apotheke\" means \"pharmacy\"."
     }
     ],
     homeworkQuestions: [
@@ -3036,25 +2666,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"das Medikament\"?",
       options: ["medicine", "appointment", "to feel", "doctor"],
       correct: 0,
-      explanation: "\"das Medikament\" means \"medicine\"."
     },
     {
       question: "Choose the correct meaning: \"die Erkältung\"?",
       options: ["cold (illness)", "fever", "doctor", "head"],
       correct: 0,
-      explanation: "\"die Erkältung\" means \"cold (illness)\"."
     },
     {
       question: "Choose the correct meaning: \"krank\"?",
       options: ["sick", "healthy", "head", "pharmacy"],
       correct: 0,
-      explanation: "\"krank\" means \"sick\"."
     },
     {
       question: "Choose the correct meaning: \"der Bauch\"?",
       options: ["stomach", "to hurt", "pharmacy", "to feel"],
       correct: 0,
-      explanation: "\"der Bauch\" means \"stomach\"."
     }
     ],
     youtubeId: "A1Lek00017a",
@@ -3093,7 +2719,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Trennbare Verben",
-    explanation: "Separable verbs split in the present tense: the prefix goes to the end of the sentence, e.g. aufstehen → ich stehe auf.",
     examples: [
       { sentence: "Ich stehe um sieben auf.", note: "I get up at seven." },
       { sentence: "Er räumt das Zimmer auf.", note: "He tidies up the room." },
@@ -3106,31 +2731,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"einkaufen\"?",
       options: ["to shop", "to call", "daily routine", "to come back"],
       correct: 0,
-      explanation: "\"einkaufen\" means \"to shop\"."
     },
     {
       question: "What does this word mean: \"schlafen gehen\"?",
       options: ["to go to sleep", "work", "to come back", "to have breakfast"],
       correct: 0,
-      explanation: "\"schlafen gehen\" means \"to go to sleep\"."
     },
     {
       question: "What does this word mean: \"aufstehen\"?",
       options: ["to get up", "to wake up", "to have breakfast", "to watch TV"],
       correct: 0,
-      explanation: "\"aufstehen\" means \"to get up\"."
     },
     {
       question: "What does this word mean: \"anfangen\"?",
       options: ["to begin", "to tidy up", "to watch TV", "daily routine"],
       correct: 0,
-      explanation: "\"anfangen\" means \"to begin\"."
     },
     {
       question: "What does this word mean: \"einkaufen\"?",
       options: ["to shop", "to call", "daily routine", "to come back"],
       correct: 0,
-      explanation: "\"einkaufen\" means \"to shop\"."
     }
     ],
     conversationExercises: [
@@ -3138,19 +2758,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Was machst du dann?\"?",
       options: ["Petra", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Petra in the dialogue."
     },
     {
       question: "Who says: \"Wann kommst du zurück?\"?",
       options: ["Petra", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Petra in the dialogue."
     },
     {
       question: "Who says: \"Siehst du abends fern?\"?",
       options: ["Petra", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Petra in the dialogue."
     }
     ],
     grammarExercises: [
@@ -3158,25 +2775,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Wir kaufen Gemüse ein.\" mean?",
       options: ["We buy vegetables.", "She calls her mother.", "I get up at seven.", "He tidies up the room."],
       correct: 0,
-      explanation: "This relates to: Separable verbs split in the present tense: the prefix goes to the end of the sentence, e.g. aufstehen → ich stehe auf."
     },
     {
       question: "What does \"Sie ruft ihre Mutter an.\" mean?",
       options: ["She calls her mother.", "I get up at seven.", "He tidies up the room.", "We buy vegetables."],
       correct: 0,
-      explanation: "This relates to: Separable verbs split in the present tense: the prefix goes to the end of the sentence, e.g. aufstehen → ich stehe auf."
     },
     {
       question: "What does \"Ich stehe um sieben auf.\" mean?",
       options: ["I get up at seven.", "He tidies up the room.", "We buy vegetables.", "She calls her mother."],
       correct: 0,
-      explanation: "This relates to: Separable verbs split in the present tense: the prefix goes to the end of the sentence, e.g. aufstehen → ich stehe auf."
     },
     {
       question: "What does \"Er räumt das Zimmer auf.\" mean?",
       options: ["He tidies up the room.", "We buy vegetables.", "She calls her mother.", "I get up at seven."],
       correct: 0,
-      explanation: "This relates to: Separable verbs split in the present tense: the prefix goes to the end of the sentence, e.g. aufstehen → ich stehe auf."
     }
     ],
     examQuestions: [
@@ -3184,31 +2797,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"anrufen\"?",
       options: ["to call", "daily routine", "to go to sleep", "to get up"],
       correct: 0,
-      explanation: "\"anrufen\" means \"to call\"."
     },
     {
       question: "Choose the correct meaning: \"die Arbeit\"?",
       options: ["work", "to come back", "to get up", "to begin"],
       correct: 0,
-      explanation: "\"die Arbeit\" means \"work\"."
     },
     {
       question: "Choose the correct meaning: \"aufwachen\"?",
       options: ["to wake up", "to have breakfast", "to begin", "to shop"],
       correct: 0,
-      explanation: "\"aufwachen\" means \"to wake up\"."
     },
     {
       question: "Choose the correct meaning: \"aufräumen\"?",
       options: ["to tidy up", "to watch TV", "to shop", "to go to sleep"],
       correct: 0,
-      explanation: "\"aufräumen\" means \"to tidy up\"."
     },
     {
       question: "Choose the correct meaning: \"anrufen\"?",
       options: ["to call", "daily routine", "to go to sleep", "to get up"],
       correct: 0,
-      explanation: "\"anrufen\" means \"to call\"."
     }
     ],
     homeworkQuestions: [
@@ -3216,25 +2824,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"der Alltag\"?",
       options: ["daily routine", "to go to sleep", "work", "to wake up"],
       correct: 0,
-      explanation: "\"der Alltag\" means \"daily routine\"."
     },
     {
       question: "Choose the correct meaning: \"zurückkommen\"?",
       options: ["to come back", "to get up", "to wake up", "to tidy up"],
       correct: 0,
-      explanation: "\"zurückkommen\" means \"to come back\"."
     },
     {
       question: "Choose the correct meaning: \"frühstücken\"?",
       options: ["to have breakfast", "to begin", "to tidy up", "to call"],
       correct: 0,
-      explanation: "\"frühstücken\" means \"to have breakfast\"."
     },
     {
       question: "Choose the correct meaning: \"fernsehen\"?",
       options: ["to watch TV", "to shop", "to call", "work"],
       correct: 0,
-      explanation: "\"fernsehen\" means \"to watch TV\"."
     }
     ],
     youtubeId: "A1Lek00018a",
@@ -3273,7 +2877,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Perfekt mit „haben“ und „sein“",
-    explanation: "The Perfekt tense is formed with 'haben'/'sein' + past participle: ich habe gemacht, ich bin gefahren.",
     examples: [
       { sentence: "Ich habe ein Zimmer gebucht.", note: "I have booked a room." },
       { sentence: "Wir sind nach Rom geflogen.", note: "We flew to Rome." },
@@ -3286,31 +2889,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"das Meer\"?",
       options: ["sea", "beach", "camera", "trip"],
       correct: 0,
-      explanation: "\"das Meer\" means \"sea\"."
     },
     {
       question: "What does this word mean: \"übernachten\"?",
       options: ["to stay overnight", "abroad", "trip", "suitcase"],
       correct: 0,
-      explanation: "\"übernachten\" means \"to stay overnight\"."
     },
     {
       question: "What does this word mean: \"der Urlaub\"?",
       options: ["vacation", "hotel", "suitcase", "to visit"],
       correct: 0,
-      explanation: "\"der Urlaub\" means \"vacation\"."
     },
     {
       question: "What does this word mean: \"fliegen\"?",
       options: ["to fly", "to book", "to visit", "camera"],
       correct: 0,
-      explanation: "\"fliegen\" means \"to fly\"."
     },
     {
       question: "What does this word mean: \"das Meer\"?",
       options: ["sea", "beach", "camera", "trip"],
       correct: 0,
-      explanation: "\"das Meer\" means \"sea\"."
     }
     ],
     conversationExercises: [
@@ -3318,19 +2916,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Ja, ich habe ein Zimmer gebucht.\"?",
       options: ["Marco", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Marco in the dialogue."
     },
     {
       question: "Who says: \"Ja, ich war letztes Jahr dort.\"?",
       options: ["Marco", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Marco in the dialogue."
     },
     {
       question: "Who says: \"Es war wunderschön.\"?",
       options: ["Marco", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Marco in the dialogue."
     }
     ],
     grammarExercises: [
@@ -3338,25 +2933,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Sie ist am Strand gewesen.\" mean?",
       options: ["She was at the beach.", "I have booked a room.", "We flew to Rome.", "He visited Berlin."],
       correct: 0,
-      explanation: "This relates to: The Perfekt tense is formed with 'haben'/'sein' + past participle: ich habe gemacht, ich bin gefahren."
     },
     {
       question: "What does \"Ich habe ein Zimmer gebucht.\" mean?",
       options: ["I have booked a room.", "We flew to Rome.", "He visited Berlin.", "She was at the beach."],
       correct: 0,
-      explanation: "This relates to: The Perfekt tense is formed with 'haben'/'sein' + past participle: ich habe gemacht, ich bin gefahren."
     },
     {
       question: "What does \"Wir sind nach Rom geflogen.\" mean?",
       options: ["We flew to Rome.", "He visited Berlin.", "She was at the beach.", "I have booked a room."],
       correct: 0,
-      explanation: "This relates to: The Perfekt tense is formed with 'haben'/'sein' + past participle: ich habe gemacht, ich bin gefahren."
     },
     {
       question: "What does \"Er hat Berlin besucht.\" mean?",
       options: ["He visited Berlin.", "She was at the beach.", "I have booked a room.", "We flew to Rome."],
       correct: 0,
-      explanation: "This relates to: The Perfekt tense is formed with 'haben'/'sein' + past participle: ich habe gemacht, ich bin gefahren."
     }
     ],
     examQuestions: [
@@ -3364,31 +2955,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"der Strand\"?",
       options: ["beach", "camera", "to stay overnight", "vacation"],
       correct: 0,
-      explanation: "\"der Strand\" means \"beach\"."
     },
     {
       question: "Choose the correct meaning: \"das Ausland\"?",
       options: ["abroad", "trip", "vacation", "to fly"],
       correct: 0,
-      explanation: "\"das Ausland\" means \"abroad\"."
     },
     {
       question: "Choose the correct meaning: \"das Hotel\"?",
       options: ["hotel", "suitcase", "to fly", "sea"],
       correct: 0,
-      explanation: "\"das Hotel\" means \"hotel\"."
     },
     {
       question: "Choose the correct meaning: \"buchen\"?",
       options: ["to book", "to visit", "sea", "to stay overnight"],
       correct: 0,
-      explanation: "\"buchen\" means \"to book\"."
     },
     {
       question: "Choose the correct meaning: \"der Strand\"?",
       options: ["beach", "camera", "to stay overnight", "vacation"],
       correct: 0,
-      explanation: "\"der Strand\" means \"beach\"."
     }
     ],
     homeworkQuestions: [
@@ -3396,25 +2982,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"die Kamera\"?",
       options: ["camera", "to stay overnight", "abroad", "hotel"],
       correct: 0,
-      explanation: "\"die Kamera\" means \"camera\"."
     },
     {
       question: "Choose the correct meaning: \"die Reise\"?",
       options: ["trip", "vacation", "hotel", "to book"],
       correct: 0,
-      explanation: "\"die Reise\" means \"trip\"."
     },
     {
       question: "Choose the correct meaning: \"der Koffer\"?",
       options: ["suitcase", "to fly", "to book", "beach"],
       correct: 0,
-      explanation: "\"der Koffer\" means \"suitcase\"."
     },
     {
       question: "Choose the correct meaning: \"besuchen\"?",
       options: ["to visit", "sea", "beach", "abroad"],
       correct: 0,
-      explanation: "\"besuchen\" means \"to visit\"."
     }
     ],
     youtubeId: "A1Lek00019a",
@@ -3453,7 +3035,6 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Modalverben im Überblick",
-    explanation: "Modal verbs (können, müssen, dürfen, sollen, wollen, mögen) send the main verb to the end in infinitive form.",
     examples: [
       { sentence: "Ich kann gut kochen.", note: "I can cook well." },
       { sentence: "Du musst früh aufstehen.", note: "You must get up early." },
@@ -3466,31 +3047,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does this word mean: \"die Erlaubnis\"?",
       options: ["permission", "duty", "ability", "must"],
       correct: 0,
-      explanation: "\"die Erlaubnis\" means \"permission\"."
     },
     {
       question: "What does this word mean: \"der Wunsch\"?",
       options: ["wish", "can/to be able", "must", "to want"],
       correct: 0,
-      explanation: "\"der Wunsch\" means \"wish\"."
     },
     {
       question: "What does this word mean: \"dürfen\"?",
       options: ["may", "should", "to want", "rule"],
       correct: 0,
-      explanation: "\"dürfen\" means \"may\"."
     },
     {
       question: "What does this word mean: \"mögen\"?",
       options: ["to like", "would like", "rule", "ability"],
       correct: 0,
-      explanation: "\"mögen\" means \"to like\"."
     },
     {
       question: "What does this word mean: \"die Erlaubnis\"?",
       options: ["permission", "duty", "ability", "must"],
       correct: 0,
-      explanation: "\"die Erlaubnis\" means \"permission\"."
     }
     ],
     conversationExercises: [
@@ -3498,19 +3074,16 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Who says: \"Darf ich mitkommen?\"?",
       options: ["Sami", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Sami in the dialogue."
     },
     {
       question: "Who says: \"Was sollen wir mitbringen?\"?",
       options: ["Sami", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Sami in the dialogue."
     },
     {
       question: "Who says: \"Kannst du gut kochen?\"?",
       options: ["Sami", "Kellner", "Arzt", "Verkäufer"],
       correct: 0,
-      explanation: "This line is spoken by Sami in the dialogue."
     }
     ],
     grammarExercises: [
@@ -3518,25 +3091,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "What does \"Ich kann gut kochen.\" mean?",
       options: ["I can cook well.", "You must get up early.", "We are allowed to park here.", "She should be on time."],
       correct: 0,
-      explanation: "This relates to: Modal verbs (können, müssen, dürfen, sollen, wollen, mögen) send the main verb to the end in infinitive form."
     },
     {
       question: "What does \"Du musst früh aufstehen.\" mean?",
       options: ["You must get up early.", "We are allowed to park here.", "She should be on time.", "I can cook well."],
       correct: 0,
-      explanation: "This relates to: Modal verbs (können, müssen, dürfen, sollen, wollen, mögen) send the main verb to the end in infinitive form."
     },
     {
       question: "What does \"Wir dürfen hier parken.\" mean?",
       options: ["We are allowed to park here.", "She should be on time.", "I can cook well.", "You must get up early."],
       correct: 0,
-      explanation: "This relates to: Modal verbs (können, müssen, dürfen, sollen, wollen, mögen) send the main verb to the end in infinitive form."
     },
     {
       question: "What does \"Sie soll pünktlich sein.\" mean?",
       options: ["She should be on time.", "I can cook well.", "You must get up early.", "We are allowed to park here."],
       correct: 0,
-      explanation: "This relates to: Modal verbs (können, müssen, dürfen, sollen, wollen, mögen) send the main verb to the end in infinitive form."
     }
     ],
     examQuestions: [
@@ -3544,31 +3113,26 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"die Pflicht\"?",
       options: ["duty", "ability", "wish", "may"],
       correct: 0,
-      explanation: "\"die Pflicht\" means \"duty\"."
     },
     {
       question: "Choose the correct meaning: \"können\"?",
       options: ["can/to be able", "must", "may", "to like"],
       correct: 0,
-      explanation: "\"können\" means \"can/to be able\"."
     },
     {
       question: "Choose the correct meaning: \"sollen\"?",
       options: ["should", "to want", "to like", "permission"],
       correct: 0,
-      explanation: "\"sollen\" means \"should\"."
     },
     {
       question: "Choose the correct meaning: \"möchten\"?",
       options: ["would like", "rule", "permission", "wish"],
       correct: 0,
-      explanation: "\"möchten\" means \"would like\"."
     },
     {
       question: "Choose the correct meaning: \"die Pflicht\"?",
       options: ["duty", "ability", "wish", "may"],
       correct: 0,
-      explanation: "\"die Pflicht\" means \"duty\"."
     }
     ],
     homeworkQuestions: [
@@ -3576,25 +3140,21 @@ export const deA1Lessons: Record<string, LessonData> = {
       question: "Choose the correct meaning: \"die Fähigkeit\"?",
       options: ["ability", "wish", "can/to be able", "should"],
       correct: 0,
-      explanation: "\"die Fähigkeit\" means \"ability\"."
     },
     {
       question: "Choose the correct meaning: \"müssen\"?",
       options: ["must", "may", "should", "would like"],
       correct: 0,
-      explanation: "\"müssen\" means \"must\"."
     },
     {
       question: "Choose the correct meaning: \"wollen\"?",
       options: ["to want", "to like", "would like", "duty"],
       correct: 0,
-      explanation: "\"wollen\" means \"to want\"."
     },
     {
       question: "Choose the correct meaning: \"die Regel\"?",
       options: ["rule", "permission", "duty", "can/to be able"],
       correct: 0,
-      explanation: "\"die Regel\" means \"rule\"."
     }
     ],
     youtubeId: "A1Lek00020a",
