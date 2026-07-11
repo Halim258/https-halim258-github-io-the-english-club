@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, Phone, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, Phone, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -14,9 +14,6 @@ import { useCourseProgress } from "@/hooks/useCourseProgress";
 import ContinueLearning from "@/components/ContinueLearning";
 import { useSlideProgressMap } from "@/hooks/useSlideProgress";
 import CourseProgress from "@/components/CourseProgress";
-import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
-
-const WHATSAPP_URL = getWhatsAppUrl();
 
 function CardProgress({
   p,
