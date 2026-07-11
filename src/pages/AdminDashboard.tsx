@@ -31,8 +31,9 @@ import AdminTeacherSchedule from "@/components/admin/AdminTeacherSchedule";
 import AdminRevenueCharts from "@/components/admin/AdminRevenueCharts";
 import AdminBulkNotifications from "@/components/admin/AdminBulkNotifications";
 import AdminAnalytics from "@/components/admin/AdminAnalytics";
+import CohortAnalytics from "@/components/analytics/CohortAnalytics";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics";
+type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics" | "cohorts";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -149,6 +150,7 @@ export default function AdminDashboard() {
     { id: "schedule", label: "Schedule", icon: CalendarDays },
     { id: "revenue-charts", label: "Revenue", icon: TrendingUp },
     { id: "analytics", label: "Analytics", icon: BarChart3 },
+    { id: "cohorts", label: "Cohort Analytics", icon: TrendingUp },
   ];
 
   const tabs = isSecretary
@@ -419,6 +421,12 @@ export default function AdminDashboard() {
       {tab === "analytics" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           <AdminAnalytics />
+        </motion.div>
+      )}
+
+      {tab === "cohorts" && (
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          <CohortAnalytics />
         </motion.div>
       )}
     </div>
