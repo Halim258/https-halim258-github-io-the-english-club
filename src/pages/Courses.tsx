@@ -863,14 +863,8 @@ export default function Courses() {
                       Begin <ArrowRight className="h-3 w-3" />
                     </span>
                   </div>
-                  {progress[introductory.id] && progress[introductory.id].completed > 0 && (
-                    <div className="mt-3 space-y-1">
-                      <div className="flex justify-between text-[10px] text-muted-foreground">
-                        <span>{progress[introductory.id].completed}/{progress[introductory.id].total} lessons</span>
-                        <span>{progress[introductory.id].percentage}%</span>
-                      </div>
-                      <Progress value={progress[introductory.id].percentage} className="h-1.5" />
-                    </div>
+                  {progress[introductory.id] && progress[introductory.id].total > 0 && (
+                    <CardProgress p={progress[introductory.id]} />
                   )}
                 </div>
               </div>
@@ -904,14 +898,8 @@ export default function Courses() {
                       Begin <ArrowRight className="h-3 w-3" />
                     </span>
                   </div>
-                  {progress[kidsLevel.id] && progress[kidsLevel.id].completed > 0 && (
-                    <div className="mt-3 space-y-1">
-                      <div className="flex justify-between text-[10px] text-muted-foreground">
-                        <span>{progress[kidsLevel.id].completed}/{progress[kidsLevel.id].total} lessons</span>
-                        <span>{progress[kidsLevel.id].percentage}%</span>
-                      </div>
-                      <Progress value={progress[kidsLevel.id].percentage} className="h-1.5" />
-                    </div>
+                  {progress[kidsLevel.id] && progress[kidsLevel.id].total > 0 && (
+                    <CardProgress p={progress[kidsLevel.id]} accent="amber" />
                   )}
                 </div>
               </div>
@@ -954,14 +942,8 @@ export default function Courses() {
                     <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
                       {lvl.description}
                     </p>
-                    {progress[lvl.id] && progress[lvl.id].completed > 0 ? (
-                      <div className="mt-3 space-y-1.5">
-                        <div className="flex justify-between text-[10px] text-muted-foreground font-medium">
-                          <span>{progress[lvl.id].completed}/{progress[lvl.id].total} lessons</span>
-                          <span className="text-primary font-bold">{progress[lvl.id].percentage}%</span>
-                        </div>
-                        <Progress value={progress[lvl.id].percentage} className="h-1.5" />
-                      </div>
+                    {progress[lvl.id] && progress[lvl.id].total > 0 && progress[lvl.id].completed > 0 ? (
+                      <CardProgress p={progress[lvl.id]} />
                     ) : (
                       <div className="mt-3 pt-3 border-t border-border/50">
                         <div className="flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:gap-2.5 transition-all">
