@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 import ContinueLearning from "@/components/ContinueLearning";
+import { useSlideProgressMap } from "@/hooks/useSlideProgress";
 
 function CardProgress({ p, accent = "primary" }: { p: { completed: number; total: number; percentage: number }; accent?: "primary" | "amber" }) {
   const done = p.percentage >= 100;
@@ -187,6 +188,7 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
     const bNum = parseInt(b.split("-").pop() || "0");
     return aNum - bNum;
   });
+  const slideProgressMap = useSlideProgressMap(lessonKeys);
 
   // Fetch completed lessons for prerequisite locking & certificate
   const { user } = useAuth();
@@ -397,6 +399,11 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
           const isCompleted = completedLessons.has(l.lessonNumber);
           const isLocked = false; // All lessons are accessible
           const isMilestone = l.lessonNumber === 5 || l.lessonNumber === 10 || l.lessonNumber === 15;
+          const slideProg = slideProgressMap[key];
+          const slidePercent = slideProg && slideProg.total > 0
+            ? Math.round(((slideProg.reached + 1) / slideProg.total) * 100)
+            : 0;
+          const showSlideBar = !isCompleted && slideProg && slideProg.total > 0 && slidePercent > 0 && slidePercent < 100;
 
           return (
             <motion.div key={key} variants={staggerItem}>
@@ -443,8 +450,34 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
                         <span className="flex items-center gap-0.5 text-[9px] text-muted-foreground">
                           <Clock className="h-2.5 w-2.5" /> {estTime}
                         </span>
+                        {isCompleted && (
+                          <span className="inline-flex items-center gap-0.5 rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[9px] font-bold text-emerald-700 dark:text-emerald-400">
+                            <CheckCircle2 className="h-2.5 w-2.5" /> Done
+                          </span>
+                        )}
+                        {showSlideBar && (
+                          <span className="inline-flex items-center rounded-full bg-primary/10 px-1.5 py-0.5 text-[9px] font-bold text-primary tabular-nums">
+                            In progress · {slidePercent}%
+                          </span>
+                        )}
                       </div>
                       <p className="text-xs text-muted-foreground mt-0.5">{l.description}</p>
+                      {showSlideBar && (
+                        <div className="mt-2 max-w-xs">
+                          <div className="mb-1 flex items-center justify-between text-[10px] text-muted-foreground">
+                            <span className="font-medium">
+                              Slide {slideProg!.reached + 1} / {slideProg!.total}
+                            </span>
+                            <span className="font-semibold text-primary">Resume →</span>
+                          </div>
+                          <div className="h-1 rounded-full bg-muted overflow-hidden">
+                            <div
+                              className="h-full rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-500"
+                              style={{ width: `${slidePercent}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all shrink-0" />
