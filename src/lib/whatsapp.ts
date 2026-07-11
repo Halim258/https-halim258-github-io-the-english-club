@@ -10,19 +10,22 @@ export function getWhatsAppUrl({
   message?: string;
 } = {}) {
   const cleanPhone = phone.replace(/[^0-9]/g, "");
-  const textPart = message ? `&text=${encodeURIComponent(message)}` : "&text";
-  return `https://api.whatsapp.com/send/?phone=${cleanPhone}${textPart}&type=phone_number&app_absent=0`;
+  const textPart = message ? `&text=${encodeURIComponent(message)}` : "";
+  return `https://wa.me/${cleanPhone}${textPart}`;
+}
+
+function getWhatsAppAppUrl(url: string) {
+  const parsedUrl = new URL(url);
+  const phone = parsedUrl.pathname.replace(/[^0-9]/g, "");
+  const text = parsedUrl.searchParams.get("text");
+  return `whatsapp://send?phone=${phone}${text ? `&text=${encodeURIComponent(text)}` : ""}`;
 }
 
 export function openWhatsAppUrl(url: string, event?: MouseEvent<HTMLElement>) {
   event?.preventDefault();
 
-  const openedWindow = window.open(url, "_blank");
-  if (openedWindow) {
-    openedWindow.opener = null;
-    openedWindow.focus();
-    return;
-  }
-
-  window.location.assign(url);
+  window.location.href = getWhatsAppAppUrl(url);
+  window.setTimeout(() => {
+    window.open(url, "_blank", "noopener,noreferrer");
+  }, 700);
 }
