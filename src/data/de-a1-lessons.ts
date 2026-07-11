@@ -33,6 +33,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Personalpronomen und „sein“",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich bin Anna.", note: "I am Anna." },
       { sentence: "Du bist mein Freund.", note: "You are my friend." },
@@ -191,6 +192,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Zahlen und „haben“",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich habe zwei Brüder.", note: "I have two brothers." },
       { sentence: "Er hat zwanzig Euro.", note: "He has twenty euros." },
@@ -349,6 +351,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Possessivpronomen",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Mein Vater ist Lehrer.", note: "My father is a teacher." },
       { sentence: "Meine Mutter kocht gern.", note: "My mother likes to cook." },
@@ -507,6 +510,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Verb „mögen“ und Akkusativ",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich mag Pizza.", note: "I like pizza." },
       { sentence: "Er mag keinen Fisch.", note: "He doesn't like fish." },
@@ -665,6 +669,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Bestellen mit Modalverben",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich möchte einen Salat.", note: "I would like a salad." },
       { sentence: "Möchten Sie Wasser?", note: "Would you like water?" },
@@ -823,6 +828,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Die Uhrzeit",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Es ist zehn Uhr.", note: "It is ten o'clock." },
       { sentence: "Es ist halb neun.", note: "It is half past eight." },
@@ -981,6 +987,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Wochentage mit „am“",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Am Montag arbeite ich.", note: "On Monday I work." },
       { sentence: "Am Wochenende habe ich frei.", note: "On the weekend I am free." },
@@ -1139,6 +1146,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "„Es gibt“ und Akkusativ-Artikel",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Es gibt einen Tisch im Zimmer.", note: "There is a table in the room." },
       { sentence: "Es gibt einen Stuhl.", note: "There is a chair." },
@@ -1297,6 +1305,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Fragewörter „wo“ und „wohin“",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Wo ist der Bahnhof?", note: "Where is the train station?" },
       { sentence: "Wohin gehst du?", note: "Where are you going?" },
@@ -1455,6 +1464,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Präposition „mit“ + Dativ",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich fahre mit dem Bus.", note: "I go by bus." },
       { sentence: "Sie fährt mit der Bahn.", note: "She goes by train." },
@@ -1613,6 +1623,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "„Gern“ mit Verben",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich lese gern Bücher.", note: "I like reading books." },
       { sentence: "Er schwimmt gern.", note: "He likes swimming." },
@@ -1771,6 +1782,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Akkusativ mit „ein/einen“",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich kaufe einen Rock.", note: "I am buying a skirt." },
       { sentence: "Er nimmt einen Mantel.", note: "He takes a coat." },
@@ -1929,6 +1941,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Adjektive und Farben",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Der Mantel ist rot.", note: "The coat is red." },
       { sentence: "Die Hose ist blau.", note: "The trousers are blue." },
@@ -2087,6 +2100,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Adjektive zur Beschreibung",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Er ist sehr groß.", note: "He is very tall." },
       { sentence: "Sie ist freundlich und nett.", note: "She is friendly and nice." },
@@ -2245,6 +2259,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Unpersönliches „es“ beim Wetter",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Es regnet heute.", note: "It is raining today." },
       { sentence: "Es ist kalt im Winter.", note: "It is cold in winter." },
@@ -2403,6 +2418,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Modalverb „wollen“",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich will ins Kino gehen.", note: "I want to go to the cinema." },
       { sentence: "Wir wollen uns treffen.", note: "We want to meet." },
@@ -2561,6 +2577,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "„Weh tun“ mit Dativ",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Mir tut der Kopf weh.", note: "My head hurts." },
       { sentence: "Ihm tut der Bauch weh.", note: "His stomach hurts." },
@@ -2719,6 +2736,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Trennbare Verben",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich stehe um sieben auf.", note: "I get up at seven." },
       { sentence: "Er räumt das Zimmer auf.", note: "He tidies up the room." },
@@ -2877,6 +2895,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Perfekt mit „haben“ und „sein“",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich habe ein Zimmer gebucht.", note: "I have booked a room." },
       { sentence: "Wir sind nach Rom geflogen.", note: "We flew to Rome." },
@@ -3035,6 +3054,7 @@ export const deA1Lessons: Record<string, LessonData> = {
     ],
     grammar: {
     title: "Modalverben im Überblick",
+    explanation: "See lesson grammar notes for details.",
     examples: [
       { sentence: "Ich kann gut kochen.", note: "I can cook well." },
       { sentence: "Du musst früh aufstehen.", note: "You must get up early." },
