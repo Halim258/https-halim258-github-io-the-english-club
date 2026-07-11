@@ -45,7 +45,7 @@ export default function LocationSection() {
               </div>
               <h3 className="text-sm font-semibold font-display">Get in Touch</h3>
               <a
-                href="https://api.whatsapp.com/send?phone=%2B201554901390"
+                href="https://wa.me/201554901390"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-1 inline-flex items-center gap-1 text-sm text-primary hover:underline"

@@ -68,7 +68,7 @@ export default function Footer() {
                 <Facebook className="h-4 w-4" />
               </a>
               <a
-                href="https://api.whatsapp.com/send?phone=%2B201554901390"
+                href="https://wa.me/201554901390"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-foreground/5 border border-secondary-foreground/10 transition-all hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105"
@@ -149,7 +149,7 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://api.whatsapp.com/send?phone=%2B201554901390"
+                  href="https://wa.me/201554901390"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-2 text-sm text-secondary-foreground/60 transition-colors hover:text-primary"
