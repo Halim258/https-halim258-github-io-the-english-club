@@ -16,6 +16,7 @@ import { toast } from "sonner";
 import { useAuth } from "@/hooks/useAuth";
 import { useCurriculumProgress } from "@/hooks/useCurriculumProgress";
 import { downloadWorksheet } from "@/lib/generate-worksheet";
+import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
 
 const CATEGORY_TIPS: Record<string, string[]> = {
   painting: [
@@ -503,9 +504,10 @@ export default function CurriculumPlan() {
                   <Download className="h-4 w-4 mr-1.5" /> Download worksheet
                 </Button>
                 <a
-                  href={`https://api.whatsapp.com/send/?phone=201554901390&text=${encodeURIComponent(`Hi! I want to join the "${course.name}" (${cat.title}) — starting with ${currentModule.week}: ${currentModule.title}.`)}&type=phone_number&app_absent=0`}
-                  target="_top"
+                  href={getWhatsAppUrl({ message: `Hi! I want to join the "${course.name}" (${cat.title}) — starting with ${currentModule.week}: ${currentModule.title}.` })}
+                  target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(event) => openWhatsAppUrl(getWhatsAppUrl({ message: `Hi! I want to join the "${course.name}" (${cat.title}) — starting with ${currentModule.week}: ${currentModule.title}.` }), event)}
                   className="flex-1"
                 >
                   <Button variant="outline" className="rounded-full w-full font-semibold">

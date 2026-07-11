@@ -1,5 +1,8 @@
 import { MapPin, Clock, Phone, MessageCircle } from "lucide-react";
 import { FadeInUp } from "@/components/AnimatedSection";
+import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
+
+const WHATSAPP_URL = getWhatsAppUrl();
 
 export default function LocationSection() {
   return (
@@ -45,9 +48,10 @@ export default function LocationSection() {
               </div>
               <h3 className="text-sm font-semibold font-display">Get in Touch</h3>
               <a
-                href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
-                target="_top"
+                href={WHATSAPP_URL}
+                target="_blank"
                 rel="noopener noreferrer"
+                onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}
                 className="mt-1 inline-flex items-center gap-1 text-sm text-primary hover:underline"
               >
                 <MessageCircle className="h-3.5 w-3.5" />

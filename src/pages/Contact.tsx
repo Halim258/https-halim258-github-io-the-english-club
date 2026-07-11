@@ -1,6 +1,9 @@
 import { MapPin, Phone, MessageCircle, Clock, ArrowUpRight, Mail } from "lucide-react";
 import { FadeInUp, FadeIn } from "@/components/AnimatedSection";
 import { Button } from "@/components/ui/button";
+import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
+
+const WHATSAPP_URL = getWhatsAppUrl();
 
 export default function Contact() {
   return (
@@ -53,9 +56,10 @@ export default function Contact() {
                   +20 155 490 1390
                 </p>
                 <a
-                  href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
-                  target="_top"
+                  href={WHATSAPP_URL}
+                  target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}
                   className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
                 >
                   <MessageCircle className="h-3.5 w-3.5" />
@@ -117,9 +121,10 @@ export default function Contact() {
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a
-                    href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
-                    target="_top"
+                    href={WHATSAPP_URL}
+                    target="_blank"
                     rel="noopener noreferrer"
+                    onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}
                   >
                     <Button className="rounded-full gap-2">
                       <MessageCircle className="h-4 w-4" />

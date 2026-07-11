@@ -14,6 +14,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
+
+const WHATSAPP_URL = getWhatsAppUrl();
 
 // Map course names to lesson level IDs
 const courseLevelMap: Record<string, string> = {
@@ -334,7 +337,7 @@ function ExamPrepSkillView() {
                   Take Placement Test
                 </Button>
               </Link>
-              <a href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0" target="_top" rel="noopener noreferrer">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}>
                 <Button className="rounded-full px-6 font-semibold font-display">
                   <MessageCircle className="mr-2 h-4 w-4" />
                   Ask Us on WhatsApp
@@ -518,7 +521,7 @@ export default function CategoryDetail() {
                     Take Placement Test
                   </Button>
                 </Link>
-                <a href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0" target="_top" rel="noopener noreferrer">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}>
                   <Button className="rounded-full px-6 font-semibold font-display">
                     <MessageCircle className="mr-2 h-4 w-4" />
                     Ask Us on WhatsApp

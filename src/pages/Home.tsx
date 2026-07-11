@@ -41,12 +41,15 @@ import TestimonialsSection from "@/components/home/TestimonialsSection";
 import LocationSection from "@/components/home/LocationSection";
 import CoursesSection from "@/components/home/CoursesSection";
 import ContinueLearning from "@/components/ContinueLearning";
+import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
 
 
 import ScrollToTopButton from "@/components/ScrollToTopButton";
 import LearningGuide from "@/components/home/LearningGuide";
 import OnboardingTour from "@/components/OnboardingTour";
 import WordOfTheDay from "@/components/home/WordOfTheDay";
+
+const WHATSAPP_URL = getWhatsAppUrl();
 
 /* ── Animated Counter ── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -1000,7 +1003,7 @@ export default function Home() {
                   Sign Up Free <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <a href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0" target="_top" rel="noopener noreferrer">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}>
                 <Button size="lg" variant="outline" className="rounded-full px-8 font-semibold font-display h-13 text-base border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:scale-[1.03] transition-all">
                   <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp Us
                 </Button>

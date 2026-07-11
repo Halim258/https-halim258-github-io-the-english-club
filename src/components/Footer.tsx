@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 import { Facebook, MapPin, Phone, MessageCircle, GraduationCap, Heart, ArrowUpRight } from "lucide-react";
+import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
+
+const WHATSAPP_URL = getWhatsAppUrl();
 
 const quickLinks = [
   { label: "Home", to: "/" },
@@ -61,16 +64,17 @@ export default function Footer() {
             <div className="mt-5 flex gap-2.5">
               <a
                 href="https://www.facebook.com/TheEnglishClubEG"
-                target="_top"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-foreground/5 border border-secondary-foreground/10 transition-all hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105"
               >
                 <Facebook className="h-4 w-4" />
               </a>
               <a
-                href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
+                href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}
                 className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-foreground/5 border border-secondary-foreground/10 transition-all hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105"
               >
                 <MessageCircle className="h-4 w-4" />
@@ -149,9 +153,10 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
-                  target="_top"
+                  href={WHATSAPP_URL}
+                  target="_blank"
                   rel="noopener noreferrer"
+                  onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}
                   className="flex items-start gap-2 text-sm text-secondary-foreground/60 transition-colors hover:text-primary"
                 >
                   <Phone className="h-4 w-4 mt-0.5 shrink-0 text-primary/70" />
