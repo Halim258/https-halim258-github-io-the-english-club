@@ -492,6 +492,7 @@ export default function Courses() {
   const { levelId } = useParams();
   const [courseSearch, setCourseSearch] = useState("");
   const [showEgyptianSchoolTracks, setShowEgyptianSchoolTracks] = useState(false);
+  const [audience, setAudience] = useState<"all" | "beginners" | "cefr" | "schools" | "specialized">("all");
 
   // Compute all level IDs and their lesson counts for progress tracking
   const allLevelIds = useMemo(() => {
@@ -717,33 +718,47 @@ export default function Courses() {
       {/* Continue where you left off */}
       {!normalizedSearch && <ContinueLearning />}
 
-      {/* Sticky section jump nav */}
+      {/* Sticky filter tabs — filter + scroll in one bar */}
       <div className="sticky top-14 md:top-16 z-30 border-y bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-1.5 overflow-x-auto py-2.5 scrollbar-hide -mx-1 px-1">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pr-2 shrink-0 hidden sm:inline">Jump to</span>
-            {[
-              { id: "schools", label: "Egyptian Schools", show: filteredEgyptianSchoolTracks.length > 0 },
-              { id: "levels", label: "CEFR Levels", show: filteredCefrLevels.length > 0 || showReadingCourse || showKidsCourse },
-              { id: "tools", label: "Learning Tools", show: !normalizedSearch },
-              { id: "categories", label: "Specialized", show: filteredCategories.length > 0 },
-            ].filter((s) => s.show).map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const el = document.getElementById(s.id);
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.scrollY - 120;
-                    window.scrollTo({ top: y, behavior: "smooth" });
-                  }
-                }}
-                className="shrink-0 rounded-full border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground/80 shadow-sm transition-all hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
-              >
-                {s.label}
-              </a>
-            ))}
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pr-2 shrink-0 hidden sm:inline">Filter</span>
+            {([
+              { id: "all", label: "All Courses", anchor: null },
+              { id: "beginners", label: "For Beginners & Kids", anchor: "beginners" },
+              { id: "cefr", label: "CEFR Levels", anchor: "levels" },
+              { id: "schools", label: "Egyptian Schools", anchor: "schools" },
+              { id: "specialized", label: "Specialized", anchor: "categories" },
+            ] as const).map((s) => {
+              const active = audience === s.id;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => {
+                    setAudience(s.id);
+                    if (s.anchor) {
+                      requestAnimationFrame(() => {
+                        const el = document.getElementById(s.anchor!);
+                        if (el) {
+                          const y = el.getBoundingClientRect().top + window.scrollY - 120;
+                          window.scrollTo({ top: y, behavior: "smooth" });
+                        }
+                      });
+                    } else {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-sm transition-all ${
+                    active
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "bg-card text-foreground/80 hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              );
+            })}
             {courseSearch && (
               <button
                 type="button"
@@ -792,7 +807,7 @@ export default function Courses() {
       )}
 
       {/* ═══ EGYPTIAN SCHOOL ENGLISH ═══ */}
-      {filteredEgyptianSchoolTracks.length > 0 && (
+      {filteredEgyptianSchoolTracks.length > 0 && (audience === "all" || audience === "schools") && (
         <section id="schools" className="py-8 md:py-12 scroll-mt-32">
           <div className="container mx-auto px-4">
             <FadeInUp>
@@ -877,7 +892,80 @@ export default function Courses() {
         </section>
       )}
 
+      {/* ═══ FOR BEGINNERS & KIDS ═══ */}
+      {(showReadingCourse || showKidsCourse) && (audience === "all" || audience === "beginners") && (
+        <section id="beginners" className="py-10 md:py-14 scroll-mt-32">
+          <div className="container mx-auto px-4">
+            <FadeInUp>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary">Start Here</p>
+              </div>
+              <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-3">
+                For Beginners & Kids
+              </h2>
+              <p className="text-center text-muted-foreground max-w-lg mx-auto mb-8">
+                Pick a foundation course if you're new to English or learning with a young child.
+              </p>
+            </FadeInUp>
+            <div className="grid gap-5 md:grid-cols-2">
+              {showReadingCourse && (
+                <Link
+                  to="/courses/reading"
+                  className="group block rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full"
+                >
+                  <div className="relative h-44 overflow-hidden">
+                    <img src={introductory.image} alt={introductory.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    <span className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-primary-foreground uppercase tracking-wider">
+                      Start Here
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold font-display text-lg group-hover:text-primary transition-colors">{introductory.label}</h3>
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{introductory.sublabel}</p>
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold text-primary">{introductory.lessons} lessons</span>
+                      <span className="text-xs font-semibold text-primary flex items-center gap-1">Begin <ArrowRight className="h-3 w-3" /></span>
+                    </div>
+                    {progress[introductory.id] && progress[introductory.id].total > 0 && (
+                      <CardProgress p={progress[introductory.id]} />
+                    )}
+                  </div>
+                </Link>
+              )}
+              {showKidsCourse && (
+                <Link
+                  to="/courses/kids"
+                  className="group block rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full"
+                >
+                  <div className="relative h-44 overflow-hidden">
+                    <img src={kidsLevel.image} alt={kidsLevel.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    <span className="absolute top-3 left-3 rounded-full bg-amber-500 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">
+                      For Kids
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold font-display text-lg group-hover:text-primary transition-colors">{kidsLevel.label}</h3>
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{kidsLevel.sublabel}</p>
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-amber-600">{kidsLevel.lessons} lessons</span>
+                      <span className="text-xs font-semibold text-primary flex items-center gap-1">Begin <ArrowRight className="h-3 w-3" /></span>
+                    </div>
+                    {progress[kidsLevel.id] && progress[kidsLevel.id].total > 0 && (
+                      <CardProgress p={progress[kidsLevel.id]} accent="amber" />
+                    )}
+                  </div>
+                </Link>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ═══ MAIN CEFR LEVELS ═══ */}
+      {filteredCefrLevels.length > 0 && (audience === "all" || audience === "cefr") && (
       <section id="levels" className="py-12 md:py-16 scroll-mt-32">
         <div className="container mx-auto px-4">
           <FadeInUp>
@@ -889,79 +977,9 @@ export default function Courses() {
               Choose Your Level
             </h2>
             <p className="text-center text-muted-foreground max-w-lg mx-auto mb-10">
-              Start from the Reading Course or pick your CEFR level. Each level has 15 interactive lessons.
+              A1 to C2 — each level has 20 interactive lessons aligned with CEFR standards.
             </p>
           </FadeInUp>
-
-          {/* Reading Course - Featured */}
-          {showReadingCourse && (
-            <FadeInUp delay={0.05}>
-              <Link
-                to="/courses/reading"
-                className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
-              >
-              <div className="flex flex-col sm:flex-row">
-                <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
-                  <img src={introductory.image} alt={introductory.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 sm:bg-gradient-to-l" />
-                  <span className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-primary-foreground uppercase tracking-wider">
-                    Start Here
-                  </span>
-                </div>
-                <div className="flex-1 p-5 sm:p-6 flex flex-col justify-center">
-                  <h3 className="font-bold font-display text-xl group-hover:text-primary transition-colors">
-                    {introductory.label}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">{introductory.sublabel}</p>
-                  <div className="mt-3 flex items-center gap-3">
-                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold text-primary">{introductory.lessons} lessons</span>
-                    <span className="text-xs font-semibold text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Begin <ArrowRight className="h-3 w-3" />
-                    </span>
-                  </div>
-                  {progress[introductory.id] && progress[introductory.id].total > 0 && (
-                    <CardProgress p={progress[introductory.id]} />
-                  )}
-                </div>
-              </div>
-              </Link>
-            </FadeInUp>
-          )}
-
-          {/* Kids Course - Featured */}
-          {showKidsCourse && (
-            <FadeInUp delay={0.1}>
-              <Link
-                to="/courses/kids"
-                className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
-              >
-              <div className="flex flex-col sm:flex-row">
-                <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
-                  <img src={kidsLevel.image} alt={kidsLevel.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 sm:bg-gradient-to-l" />
-                  <span className="absolute top-3 left-3 rounded-full bg-amber-500 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">
-                    🧒 For Kids
-                  </span>
-                </div>
-                <div className="flex-1 p-5 sm:p-6 flex flex-col justify-center">
-                  <h3 className="font-bold font-display text-xl group-hover:text-primary transition-colors">
-                    {kidsLevel.label}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">{kidsLevel.sublabel}</p>
-                  <div className="mt-3 flex items-center gap-3">
-                    <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-amber-600">{kidsLevel.lessons} lessons</span>
-                    <span className="text-xs font-semibold text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Begin <ArrowRight className="h-3 w-3" />
-                    </span>
-                  </div>
-                  {progress[kidsLevel.id] && progress[kidsLevel.id].total > 0 && (
-                    <CardProgress p={progress[kidsLevel.id]} accent="amber" />
-                  )}
-                </div>
-              </div>
-              </Link>
-            </FadeInUp>
-          )}
 
           {/* CEFR Level Cards */}
           <motion.div
@@ -1014,55 +1032,10 @@ export default function Courses() {
           </motion.div>
         </div>
       </section>
-
-      {/* ═══ LEARNING TOOLS ═══ */}
-      <section id="tools" className="border-t py-10 md:py-14 scroll-mt-32">
-        <div className="container mx-auto px-4">
-          <FadeInUp>
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <Sparkles className="h-4 w-4 text-primary" />
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Practice & Review</p>
-            </div>
-            <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-3">
-              Learning Tools
-            </h2>
-            <p className="text-center text-muted-foreground max-w-lg mx-auto mb-8">
-              Supercharge your learning with AI tutoring, vocabulary drills, quizzes, and more.
-            </p>
-          </FadeInUp>
-
-          <motion.div
-            variants={staggerContainer}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true, margin: "-40px" }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
-          >
-            {[
-              { icon: Brain, label: "AI Tutor", to: "/ai-tutor", emoji: "🤖", color: "from-violet-500/15 to-violet-500/5", iconColor: "text-violet-600 dark:text-violet-400" },
-              { icon: BookMarked, label: "Dictionary", to: "/dictionary", emoji: "📖", color: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
-              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz", emoji: "🎯", color: "from-purple-500/15 to-purple-500/5", iconColor: "text-purple-600 dark:text-purple-400" },
-              { icon: BookOpen, label: "Flashcards", to: "/flashcards", emoji: "🃏", color: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
-              { icon: Mic2, label: "Speaking", to: "/practice", emoji: "🎙️", color: "from-rose-500/15 to-rose-500/5", iconColor: "text-rose-600 dark:text-rose-400" },
-              { icon: PenLine, label: "Idioms", to: "/idioms", emoji: "🗣️", color: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
-            ].map((tool, i) => (
-              <motion.div key={tool.to} variants={staggerItem}>
-                <Link
-                  to={tool.to}
-                  className={`group flex flex-col items-center gap-2 rounded-2xl border bg-gradient-to-br ${tool.color} p-5 shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full`}
-                >
-                  <div className={`h-11 w-11 rounded-xl bg-background/80 flex items-center justify-center ${tool.iconColor} group-hover:scale-110 transition-transform`}>
-                    <tool.icon className="h-5 w-5" />
-                  </div>
-                  <span className="text-sm font-semibold text-center">{tool.label}</span>
-                </Link>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+      )}
 
       {/* ═══ COURSE CATEGORIES ═══ */}
+      {(audience === "all" || audience === "specialized") && (
       <section id="categories" className="border-t bg-muted/30 py-12 md:py-16 scroll-mt-32">
         <div className="container mx-auto px-4">
           <FadeInUp>
@@ -1156,6 +1129,56 @@ export default function Courses() {
           </FadeInUp>
         </div>
       </section>
+      )}
+
+      {/* ═══ LEARNING TOOLS ═══ */}
+      {audience === "all" && (
+      <section id="tools" className="border-t py-10 md:py-14 scroll-mt-32">
+        <div className="container mx-auto px-4">
+          <FadeInUp>
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <Sparkles className="h-4 w-4 text-primary" />
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Practice & Review</p>
+            </div>
+            <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-3">
+              Learning Tools
+            </h2>
+            <p className="text-center text-muted-foreground max-w-lg mx-auto mb-8">
+              Supercharge your learning with AI tutoring, vocabulary drills, quizzes, and more.
+            </p>
+          </FadeInUp>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-40px" }}
+            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
+          >
+            {[
+              { icon: Brain, label: "AI Tutor", to: "/ai-tutor", color: "from-violet-500/15 to-violet-500/5", iconColor: "text-violet-600 dark:text-violet-400" },
+              { icon: BookMarked, label: "Dictionary", to: "/dictionary", color: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
+              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz", color: "from-purple-500/15 to-purple-500/5", iconColor: "text-purple-600 dark:text-purple-400" },
+              { icon: BookOpen, label: "Flashcards", to: "/flashcards", color: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
+              { icon: Mic2, label: "Speaking", to: "/practice", color: "from-rose-500/15 to-rose-500/5", iconColor: "text-rose-600 dark:text-rose-400" },
+              { icon: PenLine, label: "Idioms", to: "/idioms", color: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
+            ].map((tool) => (
+              <motion.div key={tool.to} variants={staggerItem}>
+                <Link
+                  to={tool.to}
+                  className={`group flex flex-col items-center gap-2 rounded-2xl border bg-gradient-to-br ${tool.color} p-5 shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full`}
+                >
+                  <div className={`h-11 w-11 rounded-xl bg-background/80 flex items-center justify-center ${tool.iconColor} group-hover:scale-110 transition-transform`}>
+                    <tool.icon className="h-5 w-5" />
+                  </div>
+                  <span className="text-sm font-semibold text-center">{tool.label}</span>
+                </Link>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+      )}
     </div>
   );
 }
