@@ -54,24 +54,37 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
     content: { kind: "info", paragraphs: objectives },
   });
 
-  // 3) شرح بسيط بدل بطاقات المفردات
+  // 3) شرح مترابط ومنطقي بدل بطاقات المفردات
   if (lesson.vocabulary.length > 0) {
-    const items = lesson.vocabulary.slice(0, 6);
+    const items = lesson.vocabulary.slice(0, 5);
+    const intro = `درس اليوم بعنوان «${lesson.title}». ${lesson.description}`;
+    const body =
+      "لكي نفهم الدرس فهمًا سليمًا، لا بد أن نتعرّف أولًا على المفاهيم الأساسية التي يقوم عليها. " +
+      items
+        .map((v, idx) => {
+          const meaning = v.meaning.split("—")[0].trim();
+          const connector =
+            idx === 0
+              ? "فأول مفهوم هو"
+              : idx === items.length - 1
+              ? "وأخيرًا"
+              : ["ثم يأتي", "ويرتبط به", "كذلك نجد"][idx % 3];
+          return `${connector} «${v.word}»، ويقصد به ${meaning}. ومن أمثلته: ${v.example}`;
+        })
+        .join(" ");
+    const closing =
+      `وبربط هذه المفاهيم معًا، تتضح لدينا صورة كاملة عن ${lesson.title}، ` +
+      `تمهّد للانتقال إلى الشرح النظري والتطبيق العملي في باقي الدرس.`;
     slides.push({
       id: id(),
       type: "info",
-      title: "🎵 خليني أشرحلك",
-      subtitle: "بكلمات سهلة وبسيطة",
-      emoji: "🎵",
+      title: "📖 شرح الدرس",
+      subtitle: "اقرأ بتأنٍّ لفهم الفكرة العامة",
+      emoji: "📖",
       bgColor: "from-blue-500/10 to-blue-500/5",
       content: {
         kind: "info",
-        paragraphs: [
-          `موضوع اليوم: ${lesson.title} 🎈`,
-          lesson.description,
-          ...items.map((v) => `${v.emoji || "🌟"}  ${v.word}: ${v.meaning.split("—")[0].trim()}.`),
-          "بسيطة، صح؟ يلا نكمل معًا!",
-        ],
+        paragraphs: [intro, body, closing],
       },
     });
   }

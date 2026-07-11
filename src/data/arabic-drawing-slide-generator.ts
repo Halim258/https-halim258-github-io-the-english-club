@@ -54,24 +54,37 @@ export function generateArabicDrawingSlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 3) شرح بسيط بدل بطاقات الأدوات
+  // 3) شرح فني مترابط بدل بطاقات الأدوات
   if (lesson.vocabulary.length > 0) {
-    const items = lesson.vocabulary.slice(0, 6);
+    const items = lesson.vocabulary.slice(0, 5);
+    const intro = `درس اليوم عن «${lesson.title}». ${lesson.description}`;
+    const body =
+      "قبل أن نمسك القلم، من المهم أن نفهم الأدوات والمفاهيم التي سنستخدمها في الرسم. " +
+      items
+        .map((v, idx) => {
+          const meaning = v.meaning.split("—")[0].trim();
+          const connector =
+            idx === 0
+              ? "نبدأ بـ"
+              : idx === items.length - 1
+              ? "وأخيرًا نحتاج"
+              : ["ثم نستخدم", "ويأتي بعده", "ومن الأساسيات أيضًا"][idx % 3];
+          return `${connector} «${v.word}»، وهو ${meaning}. ويظهر دوره حين ${v.example}`;
+        })
+        .join(" ");
+    const closing =
+      `بفهم هذه الأدوات وطريقة استخدامها، نصبح جاهزين لتنفيذ خطوات رسم ${lesson.title} ` +
+      `بثقة وترتيب في باقي الدرس.`;
     slides.push({
       id: id(),
       type: "info",
-      title: "🖍️ خليني أشرحلك",
-      subtitle: "بكلمات سهلة وبسيطة",
-      emoji: "🖍️",
+      title: "📖 شرح الدرس",
+      subtitle: "افهم الأدوات قبل أن ترسم",
+      emoji: "📖",
       bgColor: "from-blue-500/10 to-blue-500/5",
       content: {
         kind: "info",
-        paragraphs: [
-          `النهاردة هنرسم: ${lesson.title} 🎨`,
-          lesson.description,
-          ...items.map((v) => `${v.emoji || "🌟"}  ${v.word}: ${v.meaning.split("—")[0].trim()}.`),
-          "جاهز؟ يلا نبدأ الرسم!",
-        ],
+        paragraphs: [intro, body, closing],
       },
     });
   }

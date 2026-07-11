@@ -56,24 +56,37 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 3) "شرح بسيط" — بدل الكلمات، شرح صغير مرح للطفل
+  // 3) شرح مترابط ومنطقي بدل بطاقات الكلمات
   if (lesson.vocabulary.length > 0) {
-    const items = lesson.vocabulary.slice(0, 6);
+    const items = lesson.vocabulary.slice(0, 5);
+    const intro = `درسنا اليوم اسمه «${lesson.title}». ${lesson.description}`;
+    const body =
+      "علشان نفهم الموضوع كويس، لازم نعرف الأول شوية أفكار أساسية بيبني عليها الدرس كله. " +
+      items
+        .map((v, idx) => {
+          const meaning = v.meaning.split("—")[0].trim();
+          const connector =
+            idx === 0
+              ? "أول فكرة هي"
+              : idx === items.length - 1
+              ? "وأخيرًا"
+              : ["كمان في", "وبعد كده", "وبرضه عندنا"][idx % 3];
+          return `${connector} «${v.word}»، ومعناها ببساطة إن ${meaning}. مثال قريب من الطفل: ${v.example}`;
+        })
+        .join(" ");
+    const closing =
+      `لما نجمع الأفكار دي مع بعض، بيبقى عندنا صورة كاملة عن ${lesson.title}، ` +
+      `ونقدر نتدرب عليها خطوة خطوة في باقي الدرس.`;
     slides.push({
       id: id(),
       type: "info",
-      title: "✨ خليني أشرحلك",
-      subtitle: "بكلمات سهلة وبسيطة 💛",
-      emoji: "🪄",
+      title: "📖 شرح الدرس",
+      subtitle: "اقرأ بهدوء وافهم الفكرة",
+      emoji: "📖",
       bgColor: "from-yellow-300/25 to-orange-300/20",
       content: {
         kind: "info",
-        paragraphs: [
-          `النهاردة موضوعنا: ${lesson.title} 🎈`,
-          `${lesson.description}`,
-          ...items.map((v) => `${v.emoji || "🌟"}  ${v.word}: ${v.meaning.split("—")[0].trim()}.`),
-          "سهلة أوي، صح؟ 😄 يلا نكمل!",
-        ],
+        paragraphs: [intro, body, closing],
       },
     });
   }
