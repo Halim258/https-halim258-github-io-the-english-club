@@ -15,6 +15,8 @@ import StudyStreakCalendar from "@/components/StudyStreakCalendar";
 import OnboardingWelcome from "@/components/OnboardingWelcome";
 import StudyGoals from "@/components/StudyGoals";
 import LibraryProgressCard from "@/components/LibraryProgressCard";
+import { lessons as allLessons } from "@/data/lessons";
+import { Progress } from "@/components/ui/progress";
 
 interface TestResult {
   id: string;
@@ -157,8 +159,18 @@ export default function StudentDashboard() {
   const levelProgress = ["reading", "a1", "a2", "b1", "b2", "c1", "c2"].map((lvl) => {
     const lvlProgress = progress.filter((p) => p.level_id === lvl);
     const completed = lvlProgress.filter((p) => p.completed).length;
-    return { level: lvl, completed, total: 15 };
+    const total = Object.keys(allLessons).filter((k) => k.startsWith(`${lvl}-`)).length || 20;
+    const completedSet = new Set(lvlProgress.filter((p) => p.completed).map((p) => p.lesson_number));
+    let nextLesson = 1;
+    while (completedSet.has(nextLesson) && nextLesson <= total) nextLesson++;
+    if (nextLesson > total) nextLesson = total;
+    const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+    return { level: lvl, completed, total, percent, nextLesson };
   });
+
+  const totalLessonsAll = levelProgress.reduce((s, lp) => s + lp.total, 0);
+  const totalCompletedAll = levelProgress.reduce((s, lp) => s + lp.completed, 0);
+  const overallPercent = totalLessonsAll > 0 ? Math.round((totalCompletedAll / totalLessonsAll) * 100) : 0;
 
   const greeting = new Date().getHours() < 12 ? "morning" : new Date().getHours() < 17 ? "afternoon" : "evening";
 
@@ -370,29 +382,67 @@ export default function StudentDashboard() {
           {/* Lesson Progress */}
           <FadeInUp delay={0.1}>
             <div className="rounded-2xl border bg-card p-6 shadow-soft">
-              <h2 className="text-base font-semibold font-display flex items-center gap-2 mb-4">
-                <BarChart3 className="h-4 w-4 text-primary" />
-                Lesson Progress
-              </h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-base font-semibold font-display flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4 text-primary" />
+                  Lesson Progress
+                </h2>
+                <span className="text-xs font-semibold text-primary">
+                  {totalCompletedAll}/{totalLessonsAll} · {overallPercent}%
+                </span>
+              </div>
+              <div className="mb-5 h-2 rounded-full bg-muted overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  animate={{ width: `${overallPercent}%` }}
+                  transition={{ duration: 0.9 }}
+                  className="h-full rounded-full bg-gradient-to-r from-primary via-primary to-accent"
+                />
+              </div>
               <div className="space-y-3">
-                {levelProgress.map((lp) => (
-                  <Link key={lp.level} to={`/courses/${lp.level}`} className="flex items-center gap-3 group">
-                    <span className="text-xs font-bold font-display w-16 shrink-0 uppercase group-hover:text-primary transition-colors">
-                      {lp.level}
-                    </span>
-                    <div className="flex-1 h-2.5 rounded-full bg-muted overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${(lp.completed / lp.total) * 100}%` }}
-                        transition={{ duration: 0.8 }}
-                        className="h-full rounded-full bg-primary"
-                      />
-                    </div>
-                    <span className="text-xs text-muted-foreground w-12 text-right shrink-0">
-                      {lp.completed}/{lp.total}
-                    </span>
-                  </Link>
-                ))}
+                {levelProgress.map((lp) => {
+                  const done = lp.completed === lp.total && lp.total > 0;
+                  const started = lp.completed > 0;
+                  return (
+                    <Link
+                      key={lp.level}
+                      to={done ? `/courses/${lp.level}` : `/courses/${lp.level}/${lp.nextLesson}/slides`}
+                      className="group block rounded-xl border border-transparent p-2 -m-2 hover:border-primary/20 hover:bg-muted/40 transition-colors"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="text-xs font-bold font-display w-14 shrink-0 uppercase group-hover:text-primary transition-colors">
+                          {lp.level}
+                        </span>
+                        <div className="flex-1 h-2.5 rounded-full bg-muted overflow-hidden">
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: `${lp.percent}%` }}
+                            transition={{ duration: 0.8 }}
+                            className={`h-full rounded-full ${done ? "bg-emerald-500" : "bg-gradient-to-r from-primary to-accent"}`}
+                          />
+                        </div>
+                        <span className="text-[11px] font-semibold w-16 text-right shrink-0 tabular-nums text-muted-foreground group-hover:text-foreground">
+                          {lp.completed}/{lp.total}
+                        </span>
+                      </div>
+                      <div className="mt-1 ml-[3.75rem] flex items-center gap-2 text-[10px]">
+                        {done ? (
+                          <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
+                            <CheckCircle2 className="h-3 w-3" /> Completed
+                          </span>
+                        ) : started ? (
+                          <span className="inline-flex items-center gap-1 text-primary font-semibold">
+                            <ArrowRight className="h-3 w-3" /> Resume Lesson {lp.nextLesson} · {lp.percent}%
+                          </span>
+                        ) : (
+                          <span className="inline-flex items-center gap-1 text-muted-foreground">
+                            Not started
+                          </span>
+                        )}
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </FadeInUp>
