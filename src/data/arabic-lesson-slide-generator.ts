@@ -54,38 +54,31 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
     content: { kind: "info", paragraphs: objectives },
   });
 
-  // 3) شرح مترابط ومنطقي بدل بطاقات المفردات
-  if (lesson.vocabulary.length > 0) {
-    const items = lesson.vocabulary.slice(0, 5);
-    const intro = `درس اليوم بعنوان «${lesson.title}». ${lesson.description}`;
-    const body =
-      "لكي نفهم الدرس فهمًا سليمًا، لا بد أن نتعرّف أولًا على المفاهيم الأساسية التي يقوم عليها. " +
-      items
-        .map((v, idx) => {
-          const meaning = v.meaning.split("—")[0].trim();
-          const connector =
-            idx === 0
-              ? "فأول مفهوم هو"
-              : idx === items.length - 1
-              ? "وأخيرًا"
-              : ["ثم يأتي", "ويرتبط به", "كذلك نجد"][idx % 3];
-          return `${connector} «${v.word}»، ويقصد به ${meaning}. ومن أمثلته: ${v.example}`;
-        })
-        .join(" ");
-    const closing =
-      `وبربط هذه المفاهيم معًا، تتضح لدينا صورة كاملة عن ${lesson.title}، ` +
-      `تمهّد للانتقال إلى الشرح النظري والتطبيق العملي في باقي الدرس.`;
+  // 3) شرح الدرس — مقدمة موجزة ومترابطة
+  {
+    const keyTerms = lesson.vocabulary.slice(0, 3).map((v) => v.word);
+    const explanationParas = lesson.grammar.explanation
+      .split(/\n\n+/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+    const paragraphs: string[] = [
+      `${lesson.description} يتناول درس اليوم «${lesson.title}» بأسلوب متدرّج، من الفكرة العامة إلى التطبيق العملي.`,
+    ];
+    if (explanationParas.length > 0) paragraphs.push(explanationParas[0]);
+    if (keyTerms.length > 0) {
+      paragraphs.push(
+        `وسنتوقف خلال الشرح عند مصطلحات محورية أبرزها: ${keyTerms.join("، ")}. ` +
+          `سنعرّف كلًّا منها بمثال واضح، ثم نوظّفها في التدريبات والاختبار.`,
+      );
+    }
     slides.push({
       id: id(),
       type: "info",
       title: "📖 شرح الدرس",
-      subtitle: "اقرأ بتأنٍّ لفهم الفكرة العامة",
+      subtitle: "قراءة موجزة قبل الدخول في التفاصيل",
       emoji: "📖",
       bgColor: "from-blue-500/10 to-blue-500/5",
-      content: {
-        kind: "info",
-        paragraphs: [intro, body, closing],
-      },
+      content: { kind: "info", paragraphs },
     });
   }
 
