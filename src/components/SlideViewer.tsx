@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import type { Slide, SlideContent } from "@/data/slide-types";
 import type { VocabWord, MCQItem } from "@/data/lessons";
 import { useTTS } from "@/hooks/useTTS";
-import { setSlideProgress } from "@/hooks/useSlideProgress";
+import { setSlideProgress, getSlideProgress, hydrateSlideProgressFromCloud } from "@/hooks/useSlideProgress";
 
 /* ═══════════ MAIN VIEWER ═══════════ */
 interface SlideViewerProps {
@@ -23,9 +23,33 @@ interface SlideViewerProps {
 }
 
 export default function SlideViewer({ slides, onBack, lessonKey }: SlideViewerProps) {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(() => {
+    if (!lessonKey || slides.length === 0) return 0;
+    const prior = getSlideProgress(lessonKey);
+    if (!prior) return 0;
+    return Math.min(prior.reached, slides.length - 1);
+  });
   const [direction, setDirection] = useState(0);
   const [showKbdHint, setShowKbdHint] = useState(false);
+  const [resumeHydrated, setResumeHydrated] = useState(false);
+
+  // Pull latest slide-progress from the cloud, then jump to the highest
+  // slide the student ever reached (across devices) — but only once per
+  // mount and only if it's ahead of where we are now.
+  useEffect(() => {
+    if (!lessonKey || slides.length === 0 || resumeHydrated) return;
+    let cancelled = false;
+    hydrateSlideProgressFromCloud().then(() => {
+      if (cancelled) return;
+      const prior = getSlideProgress(lessonKey);
+      if (prior && prior.reached > current) {
+        setCurrent(Math.min(prior.reached, slides.length - 1));
+      }
+      setResumeHydrated(true);
+    });
+    return () => { cancelled = true; };
+  }, [lessonKey, slides.length, resumeHydrated, current]);
+
   // Clamp current if slides array shrank (e.g. after a template change).
   useEffect(() => {
     if (current > slides.length - 1) setCurrent(Math.max(0, slides.length - 1));

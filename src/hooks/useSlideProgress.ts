@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 /**
  * Lightweight per-lesson slide (exercise) progress tracker.
@@ -15,6 +16,76 @@ export interface SlideProgress {
 }
 
 const PREFIX = "slide-progress:";
+
+// ── Cloud sync ──────────────────────────────────────────────────────────
+// Progress is written to localStorage instantly (offline-friendly) and
+// debounce-synced to the `lesson_slide_progress` table so students can
+// resume on any device. On first load we hydrate local cache from cloud.
+
+let cloudHydrated = false;
+const pendingWrites = new Map<string, { reached: number; total: number }>();
+let flushTimer: ReturnType<typeof setTimeout> | null = null;
+
+async function flushPending() {
+  flushTimer = null;
+  if (pendingWrites.size === 0) return;
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) { pendingWrites.clear(); return; }
+  const rows = Array.from(pendingWrites.entries()).map(([lesson_key, v]) => ({
+    user_id: user.id,
+    lesson_key,
+    reached: v.reached,
+    total: v.total,
+    updated_at: new Date().toISOString(),
+  }));
+  pendingWrites.clear();
+  await supabase
+    .from("lesson_slide_progress")
+    .upsert(rows, { onConflict: "user_id,lesson_key" });
+}
+
+function schedulePush(lessonKey: string, reached: number, total: number) {
+  pendingWrites.set(lessonKey, { reached, total });
+  if (flushTimer) clearTimeout(flushTimer);
+  flushTimer = setTimeout(() => { void flushPending(); }, 800);
+}
+
+export async function hydrateSlideProgressFromCloud() {
+  if (cloudHydrated || typeof window === "undefined") return;
+  cloudHydrated = true;
+  try {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) { cloudHydrated = false; return; }
+    const { data, error } = await supabase
+      .from("lesson_slide_progress")
+      .select("lesson_key, reached, total, updated_at")
+      .eq("user_id", user.id);
+    if (error || !data) return;
+    for (const row of data) {
+      const cloudUpdated = row.updated_at ? new Date(row.updated_at).getTime() : 0;
+      const local = getSlideProgress(row.lesson_key);
+      if (!local || cloudUpdated > (local.updatedAt ?? 0)) {
+        const payload: SlideProgress = {
+          reached: row.reached ?? 0,
+          total: row.total ?? 0,
+          updatedAt: cloudUpdated,
+        };
+        window.localStorage.setItem(PREFIX + row.lesson_key, JSON.stringify(payload));
+        window.dispatchEvent(new CustomEvent("slide-progress-updated", { detail: { lessonKey: row.lesson_key } }));
+      }
+    }
+  } catch {
+    cloudHydrated = false;
+  }
+}
+
+// Flush any pending writes when the tab is closed / hidden.
+if (typeof window !== "undefined") {
+  window.addEventListener("beforeunload", () => { void flushPending(); });
+  window.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") void flushPending();
+  });
+}
 
 export function getSlideProgress(lessonKey: string): SlideProgress | null {
   if (typeof window === "undefined") return null;
@@ -45,6 +116,7 @@ export function setSlideProgress(lessonKey: string, reached: number, total: numb
     };
     window.localStorage.setItem(PREFIX + lessonKey, JSON.stringify(payload));
     window.dispatchEvent(new CustomEvent("slide-progress-updated", { detail: { lessonKey } }));
+    schedulePush(lessonKey, payload.reached, payload.total);
   } catch {
     /* ignore quota / privacy-mode errors */
   }
