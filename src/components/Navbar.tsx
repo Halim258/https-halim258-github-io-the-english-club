@@ -21,6 +21,7 @@ const primaryLinks = [
   { to: "/ai-tutor", label: "AI Tutor" },
   { to: "/community", label: "Community" },
   { to: "/blog", label: "Blog" },
+  { to: "/contact", label: "Contact" },
 ];
 
 const moreLinks = [
