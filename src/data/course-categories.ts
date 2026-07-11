@@ -627,6 +627,49 @@ export const categories: Category[] = [
     ],
   },
   {
+    icon: Languages,
+    emoji: "🇮🇹",
+    title: "Italiano A1–C2 (CILS/CELI)",
+    slug: "italian",
+    color: "from-green-500/10 to-red-500/5",
+    iconBg: "bg-green-500/15",
+    image: coreEnglishImg,
+    description:
+      "Corso completo di italiano dall'A1 al C2 nello stile degli esami CILS e CELI — vocabolario, dialoghi, grammatica, esercizi e preparazione agli esami.",
+    courses: [
+      {
+        name: "Italiano A1 — CILS/CELI",
+        description: "Livello iniziale: saluti, famiglia, cibo, numeri, presente indicativo e articoli.",
+        topics: ["Saluti", "Essere/Avere", "Articoli", "Presente", "Numeri"],
+      },
+      {
+        name: "Italiano A2 — CILS/CELI",
+        description: "Passato prossimo, imperfetto, viaggi, lavoro, salute e vita quotidiana.",
+        topics: ["Passato prossimo", "Imperfetto", "Riflessivi", "Preposizioni", "Futuro"],
+      },
+      {
+        name: "Italiano B1 — CILS/CELI",
+        description: "Opinioni, condizionale, congiuntivo introduttivo, discorso indiretto e cultura italiana.",
+        topics: ["Condizionale", "Congiuntivo presente", "Pronomi combinati", "Gerundio", "Esame B1"],
+      },
+      {
+        name: "Italiano B2 — CILS/CELI",
+        description: "Argomentazione, congiuntivo imperfetto, periodo ipotetico, letteratura ed economia.",
+        topics: ["Congiuntivo imperfetto", "Periodo ipotetico", "Passato remoto", "Saggio breve", "Esame B2"],
+      },
+      {
+        name: "Italiano C1 — CILS/CELI",
+        description: "Scrittura accademica, retorica, linguaggi settoriali, analisi testuale e idiomi.",
+        topics: ["Scrittura accademica", "Idiomi", "Linguaggi specialistici", "Analisi testuale", "Esame C1"],
+      },
+      {
+        name: "Italiano C2 — CILS/CELI",
+        description: "Livello madrelingua: letteratura, traduzione, retorica, dialetti e sfumature linguistiche.",
+        topics: ["Letteratura", "Traduzione", "Retorica", "Dialetti", "Esame C2"],
+      },
+    ],
+  },
+  {
     icon: Baby,
     emoji: "🧒",
     title: "Kids Language Therapy",
