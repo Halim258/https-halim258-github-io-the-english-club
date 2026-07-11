@@ -1115,18 +1115,6 @@ export default function Courses() {
             </div>
           )}
 
-          {/* WhatsApp CTA */}
-          <FadeInUp delay={0.2}>
-            <div className="mt-12 text-center">
-              <p className="text-sm text-muted-foreground mb-4">Interested in any course? Contact us to get started!</p>
-              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}>
-                <Button className="rounded-full px-8 font-semibold font-display">
-                  <MessageCircle className="mr-2 h-4 w-4" />
-                  Inquire on WhatsApp
-                </Button>
-              </a>
-            </div>
-          </FadeInUp>
         </div>
       </section>
       )}
