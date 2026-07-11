@@ -129,7 +129,7 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
       slides.push({
         id: id(),
         type: "info",
-        title: "🧠 حيلة ذكية",
+        title: "تدريبات",
         subtitle: arr.length > 1 ? `حيلة ${i + 1} من ${arr.length}` : "سرّ النجاح!",
         emoji: "💡",
         bgColor: "from-lime-300/25 to-green-300/20",
