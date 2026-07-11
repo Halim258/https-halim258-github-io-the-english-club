@@ -892,7 +892,80 @@ export default function Courses() {
         </section>
       )}
 
+      {/* ═══ FOR BEGINNERS & KIDS ═══ */}
+      {(showReadingCourse || showKidsCourse) && (audience === "all" || audience === "beginners") && (
+        <section id="beginners" className="py-10 md:py-14 scroll-mt-32">
+          <div className="container mx-auto px-4">
+            <FadeInUp>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Sparkles className="h-4 w-4 text-primary" />
+                <p className="text-xs font-semibold uppercase tracking-widest text-primary">Start Here</p>
+              </div>
+              <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-3">
+                For Beginners & Kids
+              </h2>
+              <p className="text-center text-muted-foreground max-w-lg mx-auto mb-8">
+                Pick a foundation course if you're new to English or learning with a young child.
+              </p>
+            </FadeInUp>
+            <div className="grid gap-5 md:grid-cols-2">
+              {showReadingCourse && (
+                <Link
+                  to="/courses/reading"
+                  className="group block rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full"
+                >
+                  <div className="relative h-44 overflow-hidden">
+                    <img src={introductory.image} alt={introductory.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    <span className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-primary-foreground uppercase tracking-wider">
+                      Start Here
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold font-display text-lg group-hover:text-primary transition-colors">{introductory.label}</h3>
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{introductory.sublabel}</p>
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold text-primary">{introductory.lessons} lessons</span>
+                      <span className="text-xs font-semibold text-primary flex items-center gap-1">Begin <ArrowRight className="h-3 w-3" /></span>
+                    </div>
+                    {progress[introductory.id] && progress[introductory.id].total > 0 && (
+                      <CardProgress p={progress[introductory.id]} />
+                    )}
+                  </div>
+                </Link>
+              )}
+              {showKidsCourse && (
+                <Link
+                  to="/courses/kids"
+                  className="group block rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full"
+                >
+                  <div className="relative h-44 overflow-hidden">
+                    <img src={kidsLevel.image} alt={kidsLevel.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    <span className="absolute top-3 left-3 rounded-full bg-amber-500 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">
+                      For Kids
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold font-display text-lg group-hover:text-primary transition-colors">{kidsLevel.label}</h3>
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{kidsLevel.sublabel}</p>
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-amber-600">{kidsLevel.lessons} lessons</span>
+                      <span className="text-xs font-semibold text-primary flex items-center gap-1">Begin <ArrowRight className="h-3 w-3" /></span>
+                    </div>
+                    {progress[kidsLevel.id] && progress[kidsLevel.id].total > 0 && (
+                      <CardProgress p={progress[kidsLevel.id]} accent="amber" />
+                    )}
+                  </div>
+                </Link>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ═══ MAIN CEFR LEVELS ═══ */}
+      {filteredCefrLevels.length > 0 && (audience === "all" || audience === "cefr") && (
       <section id="levels" className="py-12 md:py-16 scroll-mt-32">
         <div className="container mx-auto px-4">
           <FadeInUp>
@@ -904,79 +977,9 @@ export default function Courses() {
               Choose Your Level
             </h2>
             <p className="text-center text-muted-foreground max-w-lg mx-auto mb-10">
-              Start from the Reading Course or pick your CEFR level. Each level has 15 interactive lessons.
+              A1 to C2 — each level has 20 interactive lessons aligned with CEFR standards.
             </p>
           </FadeInUp>
-
-          {/* Reading Course - Featured */}
-          {showReadingCourse && (
-            <FadeInUp delay={0.05}>
-              <Link
-                to="/courses/reading"
-                className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
-              >
-              <div className="flex flex-col sm:flex-row">
-                <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
-                  <img src={introductory.image} alt={introductory.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 sm:bg-gradient-to-l" />
-                  <span className="absolute top-3 left-3 rounded-full bg-primary px-3 py-1 text-[10px] font-bold text-primary-foreground uppercase tracking-wider">
-                    Start Here
-                  </span>
-                </div>
-                <div className="flex-1 p-5 sm:p-6 flex flex-col justify-center">
-                  <h3 className="font-bold font-display text-xl group-hover:text-primary transition-colors">
-                    {introductory.label}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">{introductory.sublabel}</p>
-                  <div className="mt-3 flex items-center gap-3">
-                    <span className="rounded-full bg-primary/10 px-2.5 py-0.5 text-[10px] font-semibold text-primary">{introductory.lessons} lessons</span>
-                    <span className="text-xs font-semibold text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Begin <ArrowRight className="h-3 w-3" />
-                    </span>
-                  </div>
-                  {progress[introductory.id] && progress[introductory.id].total > 0 && (
-                    <CardProgress p={progress[introductory.id]} />
-                  )}
-                </div>
-              </div>
-              </Link>
-            </FadeInUp>
-          )}
-
-          {/* Kids Course - Featured */}
-          {showKidsCourse && (
-            <FadeInUp delay={0.1}>
-              <Link
-                to="/courses/kids"
-                className="group block mb-8 rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 transition-all duration-300"
-              >
-              <div className="flex flex-col sm:flex-row">
-                <div className="relative h-44 sm:h-auto sm:w-72 shrink-0 overflow-hidden">
-                  <img src={kidsLevel.image} alt={kidsLevel.label} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/10 sm:bg-gradient-to-l" />
-                  <span className="absolute top-3 left-3 rounded-full bg-amber-500 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">
-                    🧒 For Kids
-                  </span>
-                </div>
-                <div className="flex-1 p-5 sm:p-6 flex flex-col justify-center">
-                  <h3 className="font-bold font-display text-xl group-hover:text-primary transition-colors">
-                    {kidsLevel.label}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mt-1">{kidsLevel.sublabel}</p>
-                  <div className="mt-3 flex items-center gap-3">
-                    <span className="rounded-full bg-amber-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-amber-600">{kidsLevel.lessons} lessons</span>
-                    <span className="text-xs font-semibold text-primary flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                      Begin <ArrowRight className="h-3 w-3" />
-                    </span>
-                  </div>
-                  {progress[kidsLevel.id] && progress[kidsLevel.id].total > 0 && (
-                    <CardProgress p={progress[kidsLevel.id]} accent="amber" />
-                  )}
-                </div>
-              </div>
-              </Link>
-            </FadeInUp>
-          )}
 
           {/* CEFR Level Cards */}
           <motion.div
@@ -1029,6 +1032,7 @@ export default function Courses() {
           </motion.div>
         </div>
       </section>
+      )}
 
       {/* ═══ LEARNING TOOLS ═══ */}
       <section id="tools" className="border-t py-10 md:py-14 scroll-mt-32">
