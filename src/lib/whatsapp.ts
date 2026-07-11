@@ -10,8 +10,13 @@ export function getWhatsAppUrl({
   message?: string;
 } = {}) {
   const cleanPhone = phone.replace(/[^0-9]/g, "");
-  const textPart = message ? `?text=${encodeURIComponent(message)}` : "";
-  return `https://wa.me/${cleanPhone}${textPart}`;
+  const params = new URLSearchParams({ phone: cleanPhone });
+
+  if (message) {
+    params.set("text", message);
+  }
+
+  return `https://web.whatsapp.com/send?${params.toString()}`;
 }
 
 export function openWhatsAppUrl(url: string, event?: MouseEvent<HTMLElement>) {
