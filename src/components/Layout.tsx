@@ -37,7 +37,6 @@ export default function Layout() {
           </PageTransition>
         </AnimatePresence>
       </main>
-      <BookTeacherFAB />
       <ScrollToTop />
       <Footer />
       <MobileBottomNav />
