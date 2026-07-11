@@ -140,7 +140,7 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
 
   // 7) لعبة سؤال وجواب — vocab exercises
   if (lesson.vocabExercises.length > 0) {
-    chunk(lesson.vocabExercises, 2).forEach((c, i, arr) => {
+    chunk(lesson.vocabExercises, 1).forEach((c, i, arr) => {
       slides.push({
         id: id(),
         type: "exercise",
@@ -155,7 +155,7 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
 
   // 8) لعبة موقف — conversation exercises
   if (lesson.conversationExercises.length > 0) {
-    chunk(lesson.conversationExercises, 2).forEach((c, i, arr) => {
+    chunk(lesson.conversationExercises, 1).forEach((c, i, arr) => {
       slides.push({
         id: id(),
         type: "exercise",
@@ -170,7 +170,7 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
 
   // 9) لعبة مهارة — grammar exercises
   if (lesson.grammarExercises.length > 0) {
-    chunk(lesson.grammarExercises, 2).forEach((c, i, arr) => {
+    chunk(lesson.grammarExercises, 1).forEach((c, i, arr) => {
       slides.push({
         id: id(),
         type: "exercise",
@@ -222,7 +222,7 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
 
   // 12) اختبار سريع (لعبة النهائي)
   if (lesson.examQuestions.length > 0) {
-    chunk(lesson.examQuestions, 2).forEach((c, i, arr) => {
+    chunk(lesson.examQuestions, 1).forEach((c, i, arr) => {
       slides.push({
         id: id(),
         type: "exercise",
@@ -237,7 +237,7 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
 
   // 13) واجب مرح
   if (lesson.homeworkQuestions.length > 0) {
-    chunk(lesson.homeworkQuestions, 2).forEach((c, i, arr) => {
+    chunk(lesson.homeworkQuestions, 1).forEach((c, i, arr) => {
       slides.push({
         id: id(),
         type: "exercise",
