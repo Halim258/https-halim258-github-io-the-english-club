@@ -10,24 +10,24 @@ export function getWhatsAppUrl({
   message?: string;
 } = {}) {
   const cleanPhone = phone.replace(/[^0-9]/g, "");
-  const params = new URLSearchParams({ phone: cleanPhone });
+  const params = new URLSearchParams();
 
   if (message) {
     params.set("text", message);
   }
 
-  return `https://web.whatsapp.com/send?${params.toString()}`;
+  const query = params.toString();
+  return `https://wa.me/${cleanPhone}${query ? `?${query}` : ""}`;
 }
 
 export function openWhatsAppUrl(url: string, event?: MouseEvent<HTMLElement>) {
   event?.preventDefault();
 
-  const openedWindow = window.open(url, "_blank", "noopener,noreferrer");
+  const openedWindow = window.open("about:blank", "_blank", "noopener,noreferrer");
 
   if (openedWindow) {
     openedWindow.opener = null;
+    openedWindow.location.href = url;
     return;
   }
-
-  window.location.assign(url);
 }
