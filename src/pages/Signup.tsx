@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { z } from "zod";
+import { GoogleSignInButton } from "@/components/GoogleSignInButton";
 
 type Role = "student" | "teacher";
 
@@ -213,6 +214,17 @@ export default function Signup() {
             <h1 className="text-2xl font-bold font-display">Join The English Club</h1>
             <p className="mt-1.5 text-sm text-muted-foreground">Start your English learning journey today</p>
           </div>
+
+          {role === "student" && (
+            <div className="mb-5">
+              <GoogleSignInButton label="Sign up with Google" />
+              <div className="my-5 flex items-center gap-3">
+                <span className="h-px flex-1 bg-border" />
+                <span className="text-[11px] uppercase tracking-wider text-muted-foreground">or use email</span>
+                <span className="h-px flex-1 bg-border" />
+              </div>
+            </div>
+          )}
 
           {/* Role selector */}
           <div className="flex gap-3 mb-6">
