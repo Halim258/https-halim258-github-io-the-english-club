@@ -502,13 +502,13 @@ function getLevelEmoji(level: string) {
 
 function TitleSlide({ content }: { content: { heading: string; description: string; level: string; lessonNumber: number } }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-10 md:py-16">
+    <div className="flex flex-col items-center justify-center text-center py-8 md:py-14">
       {/* Decorative emoji illustration */}
       <motion.div
         initial={{ scale: 0, rotate: -20 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ type: "spring", stiffness: 200, damping: 15 }}
-        className="relative mb-6"
+        className="relative mb-8"
       >
         <div className="h-24 w-24 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center shadow-lg">
           <span className="text-5xl">{getLevelEmoji(content.level)}</span>
@@ -517,17 +517,17 @@ function TitleSlide({ content }: { content: { heading: string; description: stri
           {content.lessonNumber}
         </div>
       </motion.div>
-      <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">
+      <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-6">
         <GraduationCap className="h-3.5 w-3.5" />
         {content.level} — Lesson {content.lessonNumber}
       </div>
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display">{content.heading}</h1>
-      <p className="mt-4 max-w-md text-muted-foreground">{content.description}</p>
-      <div className="mt-6 flex items-center gap-4 text-xs text-muted-foreground/60">
-        <span className="flex items-center gap-1">📚 Vocabulary</span>
-        <span className="flex items-center gap-1">💬 Conversation</span>
-        <span className="flex items-center gap-1">📐 Grammar</span>
-        <span className="flex items-center gap-1">✏️ Exercises</span>
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display leading-tight max-w-2xl">{content.heading}</h1>
+      <p className="mt-5 max-w-lg text-muted-foreground leading-relaxed">{content.description}</p>
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground/70">
+        <span className="flex items-center gap-1.5 rounded-full bg-muted/50 px-3 py-1.5">📚 Vocabulary</span>
+        <span className="flex items-center gap-1.5 rounded-full bg-muted/50 px-3 py-1.5">💬 Conversation</span>
+        <span className="flex items-center gap-1.5 rounded-full bg-muted/50 px-3 py-1.5">📐 Grammar</span>
+        <span className="flex items-center gap-1.5 rounded-full bg-muted/50 px-3 py-1.5">✏️ Exercises</span>
       </div>
     </div>
   );
