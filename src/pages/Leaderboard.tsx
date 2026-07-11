@@ -51,11 +51,7 @@ export default function Leaderboard() {
 
   useEffect(() => {
     async function load() {
-      const { data } = await supabase
-        .from("user_xp")
-        .select("user_id, total_xp, current_streak, longest_streak, last_activity_date")
-        .order("total_xp", { ascending: false })
-        .limit(100);
+      const { data } = await supabase.rpc("get_leaderboard_xp", { _limit: 100 });
 
       if (!data || data.length === 0) {
         setAllEntries([]);
