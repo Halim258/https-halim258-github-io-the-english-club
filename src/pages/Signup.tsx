@@ -3,13 +3,35 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, Loader2, BookOpen, Users, Sparkles, Eye, EyeOff, Check, X } from "lucide-react";
+import { GraduationCap, Loader2, BookOpen, Users, Sparkles, Eye, EyeOff, Check, X, Mail, Lock, User as UserIcon, AlertCircle, CheckCircle2 } from "lucide-react";
 import { notifyWelcome } from "@/lib/notifications";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+import { z } from "zod";
 
 type Role = "student" | "teacher";
+
+const signupBaseSchema = z.object({
+  name: z.string().trim().min(2, "Please enter your full name").max(80, "Name is too long"),
+  email: z.string().trim().email("Please enter a valid email address").max(255),
+  password: z
+    .string()
+    .min(6, "Password must be at least 6 characters")
+    .max(128, "Password is too long"),
+  youtubeUrl: z.string().trim().max(255).optional().or(z.literal("")),
+});
+
+const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/i;
+
+function mapSignupError(msg: string): string {
+  const m = msg.toLowerCase();
+  if (m.includes("already registered") || m.includes("already been registered") || m.includes("user already"))
+    return "An account with this email already exists. Try logging in instead.";
+  if (m.includes("password")) return "Password doesn't meet requirements. Try a stronger one.";
+  if (m.includes("rate") || m.includes("too many")) return "Too many attempts. Please wait a minute and try again.";
+  return msg;
+}
 
 function PasswordStrength({ password }: { password: string }) {
   const checks = [
@@ -53,34 +75,53 @@ export default function Signup() {
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string; youtubeUrl?: string; form?: string }>({});
   const navigate = useNavigate();
   const { toast } = useToast();
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
 
-    if (role === "teacher" && !youtubeUrl.trim()) {
-      toast({ title: "YouTube link required", description: "Please add a video introduction as a teacher.", variant: "destructive" });
+    const parsed = signupBaseSchema.safeParse({ name, email, password, youtubeUrl });
+    const fieldErrors: typeof errors = {};
+    if (!parsed.success) {
+      for (const issue of parsed.error.issues) {
+        const key = issue.path[0] as keyof typeof errors;
+        fieldErrors[key] = issue.message;
+      }
+    }
+    if (role === "teacher") {
+      if (!youtubeUrl.trim()) fieldErrors.youtubeUrl = "A YouTube intro is required for teachers.";
+      else if (!youtubeRegex.test(youtubeUrl.trim())) fieldErrors.youtubeUrl = "Please enter a valid YouTube URL.";
+    }
+    if (Object.keys(fieldErrors).length) {
+      setErrors(fieldErrors);
       return;
     }
 
     setLoading(true);
 
     const { data: signupData, error } = await supabase.auth.signUp({
-      email,
+      email: email.trim(),
       password,
-      options: { data: { full_name: name, role, youtube_intro_url: role === "teacher" ? youtubeUrl : undefined } },
+      options: {
+        emailRedirectTo: `${window.location.origin}/login`,
+        data: { full_name: name.trim(), role, youtube_intro_url: role === "teacher" ? youtubeUrl.trim() : undefined },
+      },
     });
     setLoading(false);
 
     if (error) {
-      toast({ title: "Sign up failed", description: error.message, variant: "destructive" });
+      const friendly = mapSignupError(error.message);
+      setErrors({ form: friendly });
+      toast({ title: "Sign up failed", description: friendly, variant: "destructive" });
       return;
     }
 
     if (signupData.user) {
       if (role === "teacher") {
-        await supabase.from("profiles").update({ youtube_intro_url: youtubeUrl }).eq("id", signupData.user.id);
+        await supabase.from("profiles").update({ youtube_intro_url: youtubeUrl.trim() }).eq("id", signupData.user.id);
         await supabase.from("user_roles").update({ role: "teacher" }).eq("user_id", signupData.user.id);
       }
       // Send welcome notification (fire-and-forget)
@@ -91,15 +132,68 @@ export default function Signup() {
     navigate("/login");
   };
 
+  const perks = [
+    "Free forever — start learning right away",
+    "Personalized level from A1 to C2",
+    "Earn XP, badges, and daily streaks",
+  ];
+
   return (
     <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center px-4 py-6 pb-24 md:pb-8 relative overflow-hidden">
       {/* Decorative background */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-10 -right-32 w-80 h-80 bg-primary/5 rounded-full blur-3xl" />
         <div className="absolute bottom-10 -left-32 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/[0.02] rounded-full blur-3xl" />
       </div>
 
-      <div className="w-full max-w-md">
+      <div className="w-full max-w-5xl grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        {/* Left side — perks */}
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="hidden lg:block"
+        >
+          <h2 className="text-3xl font-bold font-display leading-tight mb-4">
+            Start learning with<br />
+            <span className="text-primary">The English Club</span>
+          </h2>
+          <p className="text-muted-foreground mb-8">
+            Join a community of learners mastering English from A1 to C2.
+          </p>
+          <div className="space-y-4">
+            {perks.map((b, i) => (
+              <motion.div
+                key={b}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+                className="flex items-center gap-3"
+              >
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
+                  <CheckCircle2 className="h-4 w-4 text-primary" />
+                </div>
+                <span className="text-sm font-medium">{b}</span>
+              </motion.div>
+            ))}
+          </div>
+          <div className="mt-10 flex items-center gap-3 rounded-2xl border bg-muted/30 p-4">
+            <div className="flex -space-x-2">
+              {["from-rose-400 to-pink-500", "from-violet-400 to-purple-500", "from-sky-400 to-blue-500", "from-emerald-400 to-green-500"].map((c, i) => (
+                <div key={i} className={`h-8 w-8 rounded-full bg-gradient-to-br ${c} border-2 border-background flex items-center justify-center text-[10px] font-bold text-white`}>
+                  {["M", "N", "A", "S"][i]}
+                </div>
+              ))}
+            </div>
+            <div>
+              <p className="text-sm font-semibold">500+ students</p>
+              <p className="text-[11px] text-muted-foreground">joined this year</p>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Right side — form */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -130,6 +224,7 @@ export default function Signup() {
                 key={r.id}
                 type="button"
                 onClick={() => setRole(r.id)}
+                aria-pressed={role === r.id}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className={`flex-1 flex flex-col items-center gap-1.5 rounded-xl border-2 p-4 transition-all ${
@@ -147,36 +242,76 @@ export default function Signup() {
             ))}
           </div>
 
-          <form className="space-y-4" onSubmit={handleSignup}>
+          {errors.form && (
+            <div
+              role="alert"
+              className="mb-4 flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive"
+            >
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>{errors.form}</span>
+            </div>
+          )}
+
+          <form className="space-y-4" onSubmit={handleSignup} noValidate>
             <div className="space-y-1.5">
               <Label htmlFor="name" className="text-sm font-medium">Full Name</Label>
-              <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Your name" required className="h-12 rounded-xl text-base focus:ring-2 focus:ring-primary/20" />
+              <div className="relative">
+                <UserIcon className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="name"
+                  value={name}
+                  autoComplete="name"
+                  onChange={(e) => { setName(e.target.value); if (errors.name) setErrors((p) => ({ ...p, name: undefined })); }}
+                  placeholder="Your name"
+                  aria-invalid={!!errors.name}
+                  className={`h-12 rounded-xl pl-10 text-base focus:ring-2 focus:ring-primary/20 ${errors.name ? "border-destructive focus-visible:ring-destructive/30" : ""}`}
+                />
+              </div>
+              {errors.name && <p className="text-xs text-destructive">{errors.name}</p>}
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="email" className="text-sm font-medium">Email</Label>
-              <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" required className="h-12 rounded-xl text-base focus:ring-2 focus:ring-primary/20" />
+              <div className="relative">
+                <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="email"
+                  type="email"
+                  inputMode="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors((p) => ({ ...p, email: undefined })); }}
+                  placeholder="you@example.com"
+                  aria-invalid={!!errors.email}
+                  className={`h-12 rounded-xl pl-10 text-base focus:ring-2 focus:ring-primary/20 ${errors.email ? "border-destructive focus-visible:ring-destructive/30" : ""}`}
+                />
+              </div>
+              {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="password" className="text-sm font-medium">Password</Label>
               <div className="relative">
+                <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
+                  autoComplete="new-password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => { setPassword(e.target.value); if (errors.password) setErrors((p) => ({ ...p, password: undefined })); }}
                   placeholder="••••••••"
                   minLength={6}
-                  required
-                  className="h-12 rounded-xl pr-11 text-base focus:ring-2 focus:ring-primary/20"
+                  aria-invalid={!!errors.password}
+                  className={`h-12 rounded-xl pl-10 pr-11 text-base focus:ring-2 focus:ring-primary/20 ${errors.password ? "border-destructive focus-visible:ring-destructive/30" : ""}`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1 rounded-lg"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
+              {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
               <PasswordStrength password={password} />
             </div>
 
@@ -197,18 +332,25 @@ export default function Signup() {
                   id="youtube"
                   type="url"
                   value={youtubeUrl}
-                  onChange={(e) => setYoutubeUrl(e.target.value)}
+                  onChange={(e) => { setYoutubeUrl(e.target.value); if (errors.youtubeUrl) setErrors((p) => ({ ...p, youtubeUrl: undefined })); }}
                   placeholder="https://www.youtube.com/watch?v=..."
-                  required={role === "teacher"}
-                  className="h-12 rounded-xl text-base focus:ring-2 focus:ring-primary/20"
+                  aria-invalid={!!errors.youtubeUrl}
+                  className={`h-12 rounded-xl text-base focus:ring-2 focus:ring-primary/20 ${errors.youtubeUrl ? "border-destructive focus-visible:ring-destructive/30" : ""}`}
                 />
+                {errors.youtubeUrl && <p className="mt-1.5 text-xs text-destructive">{errors.youtubeUrl}</p>}
               </motion.div>
             )}
 
             <Button className="w-full h-12 rounded-xl text-sm font-semibold active:scale-[0.98] transition-transform" type="submit" disabled={loading}>
-              {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
-              Create {role === "teacher" ? "Teacher" : "Student"} Account
+              {loading ? (
+                <><Loader2 className="h-4 w-4 animate-spin mr-2" /> Creating your account…</>
+              ) : (
+                <><Sparkles className="h-4 w-4 mr-2" /> Create {role === "teacher" ? "Teacher" : "Student"} Account</>
+              )}
             </Button>
+            <p className="text-[11px] text-center text-muted-foreground">
+              By signing up, you agree to our terms and privacy policy.
+            </p>
           </form>
 
           <div className="mt-6 pt-6 border-t border-border/50 text-center">
