@@ -130,6 +130,11 @@ import { travelCompletion } from "./travel-completion";
 import { conversationExpansion } from "./conversation-expansion";
 import { esA1Lessons } from "./es-a1-lessons";
 import { esA1Lessons6to20 } from "./es-a1-lessons-6-20";
+import { esA2Lessons } from "./es-a2-lessons";
+import { esB1Lessons } from "./es-b1-lessons";
+import { esB2Lessons } from "./es-b2-lessons";
+import { esC1Lessons } from "./es-c1-lessons";
+import { esC2Lessons } from "./es-c2-lessons";
 import { arTherapyLessonsL1 } from "./ar-therapy-lessons-l1";
 import { arTherapyLessonsL2 } from "./ar-therapy-lessons-l2";
 import { arTherapyLessonsL3 } from "./ar-therapy-lessons-l3";
@@ -681,6 +686,11 @@ export const lessons: Record<string, LessonData> = {
   ...a1Lessons,
   ...esA1Lessons,
   ...esA1Lessons6to20,
+  ...esA2Lessons,
+  ...esB1Lessons,
+  ...esB2Lessons,
+  ...esC1Lessons,
+  ...esC2Lessons,
   ...arTherapyLessonsL1,
   ...arTherapyLessonsL2,
   ...arTherapyLessonsL3,
