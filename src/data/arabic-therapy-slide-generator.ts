@@ -56,18 +56,27 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 3) "كلمات سحرية" — vocab بأسلوب بطاقات مرحة
-  chunk(lesson.vocabulary, 3).forEach((c, i, arr) => {
+  // 3) "شرح بسيط" — بدل الكلمات، شرح صغير مرح للطفل
+  if (lesson.vocabulary.length > 0) {
+    const items = lesson.vocabulary.slice(0, 6);
     slides.push({
       id: id(),
-      type: "vocabulary",
-      title: "✨ كلمات سحرية",
-      subtitle: arr.length > 1 ? `صندوق ${i + 1} من ${arr.length} 🎁` : "افتح الصندوق! 🎁",
+      type: "info",
+      title: "✨ خليني أشرحلك",
+      subtitle: "بكلمات سهلة وبسيطة 💛",
       emoji: "🪄",
       bgColor: "from-yellow-300/25 to-orange-300/20",
-      content: { kind: "vocab", words: c },
+      content: {
+        kind: "info",
+        paragraphs: [
+          `النهاردة موضوعنا: ${lesson.title} 🎈`,
+          `${lesson.description}`,
+          ...items.map((v) => `${v.emoji || "🌟"}  ${v.word}: ${v.meaning.split("—")[0].trim()}.`),
+          "سهلة أوي، صح؟ 😄 يلا نكمل!",
+        ],
+      },
     });
-  });
+  }
 
   // 4) "قلّدني!" — تمارين نطق / تقليد
   if (lesson.vocabulary.length > 0) {
