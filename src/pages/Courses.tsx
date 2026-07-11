@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, MessageCircle, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, Phone, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -14,9 +14,6 @@ import { useCourseProgress } from "@/hooks/useCourseProgress";
 import ContinueLearning from "@/components/ContinueLearning";
 import { useSlideProgressMap } from "@/hooks/useSlideProgress";
 import CourseProgress from "@/components/CourseProgress";
-import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
-
-const WHATSAPP_URL = getWhatsAppUrl();
 
 function CardProgress({
   p,
@@ -1105,6 +1102,17 @@ export default function Courses() {
               </motion.div>
             ))}
           </motion.div>
+
+          {/* Phone CTA */}
+          <FadeInUp delay={0.2}>
+            <div className="mt-12 text-center">
+              <p className="text-sm text-muted-foreground mb-4">Interested in any course? Contact us to get started!</p>
+              <a href="tel:+201554901390" className="inline-flex items-center gap-2 rounded-full px-8 py-2.5 bg-foreground text-background font-semibold font-display hover:bg-foreground/90 transition-colors">
+                <Phone className="h-4 w-4" />
+                +20 155 490 1390
+              </a>
+            </div>
+          </FadeInUp>
 
           {courseSearch && resultCount === 0 && (
             <div className="mx-auto mt-8 max-w-md rounded-2xl border bg-card p-6 text-center shadow-soft">
