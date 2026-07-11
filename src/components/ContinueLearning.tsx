@@ -5,14 +5,28 @@ import { ArrowRight, BookOpen, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
+import { lessons as allLessons } from "@/data/lessons";
 
 export default function ContinueLearning() {
   const { user } = useAuth();
-  const [next, setNext] = useState<{ level_id: string; lesson_number: number; fresh: boolean } | null>(null);
+  const [next, setNext] = useState<{
+    level_id: string;
+    lesson_number: number;
+    fresh: boolean;
+    completed: number;
+    total: number;
+    title?: string;
+  } | null>(null);
+
+  const buildFor = (level_id: string, lesson_number: number, completed: number, fresh: boolean) => {
+    const total = Object.keys(allLessons).filter((k) => k.startsWith(`${level_id}-`)).length;
+    const key = `${level_id}-${lesson_number}`;
+    return { level_id, lesson_number, fresh, completed, total, title: (allLessons as any)[key]?.title };
+  };
 
   useEffect(() => {
     if (!user) {
-      setNext({ level_id: "a1", lesson_number: 1, fresh: true });
+      setNext(buildFor("a1", 1, 0, true));
       return;
     }
     supabase
@@ -22,22 +36,21 @@ export default function ContinueLearning() {
       .order("completed_at", { ascending: false, nullsFirst: false })
       .then(({ data }) => {
         if (!data || data.length === 0) {
-          setNext({ level_id: "a1", lesson_number: 1, fresh: true });
+          setNext(buildFor("a1", 1, 0, true));
           return;
         }
-        // Pick most recently touched level
         const level = data[0].level_id;
         const completedInLevel = new Set(
           data.filter((r) => r.level_id === level && r.completed).map((r) => r.lesson_number)
         );
-        // Find first gap starting at 1
         let n = 1;
         while (completedInLevel.has(n)) n++;
-        setNext({ level_id: level, lesson_number: n, fresh: false });
+        setNext(buildFor(level, n, completedInLevel.size, false));
       });
   }, [user]);
 
   if (!next) return null;
+  const percent = next.total > 0 ? Math.round((next.completed / next.total) * 100) : 0;
 
   return (
     <motion.section
@@ -46,23 +59,48 @@ export default function ContinueLearning() {
       transition={{ duration: 0.5, delay: 0.3 }}
       className="container mx-auto px-4 -mt-6 mb-8 relative z-20"
     >
-      <div className="rounded-2xl border bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 p-5 md:p-6 shadow-soft flex flex-col sm:flex-row items-center gap-4 justify-between">
-        <div className="flex items-center gap-4">
-          <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-            <Flame className="h-6 w-6 text-primary" />
+      <div className="rounded-2xl border bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 p-5 md:p-6 shadow-soft">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
+          <div className="flex items-center gap-4 min-w-0">
+            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+              <Flame className="h-6 w-6 text-primary" />
+            </div>
+            <div className="min-w-0">
+              <p className="text-sm font-semibold font-display">
+                {next.fresh ? "Start Learning" : "Continue Learning"}
+              </p>
+              <p className="text-xs text-muted-foreground mt-0.5 truncate">
+                <span className="font-bold text-foreground uppercase">{next.level_id}</span>
+                <span className="mx-1.5">·</span>
+                Lesson {next.lesson_number}
+                {next.title && <span className="text-muted-foreground/80"> — {next.title}</span>}
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="text-sm font-semibold font-display">Continue Learning</p>
-            <p className="text-xs text-muted-foreground mt-0.5">
-              {next.fresh ? "Start your journey" : "Pick up where you left off"} — <span className="font-medium text-foreground">{next.level_id.toUpperCase()}</span>, Lesson {next.lesson_number}
-            </p>
-          </div>
+          <Link to={`/courses/${next.level_id}/${next.lesson_number}/slides`} className="shrink-0">
+            <Button size="sm" className="rounded-full font-semibold gap-1.5 px-5">
+              <BookOpen className="h-3.5 w-3.5" /> {next.fresh ? "Start" : "Resume"} <ArrowRight className="h-3.5 w-3.5" />
+            </Button>
+          </Link>
         </div>
-        <Link to={`/courses/${next.level_id}/${next.lesson_number}/slides`}>
-          <Button size="sm" className="rounded-full font-semibold gap-1.5 px-5">
-            <BookOpen className="h-3.5 w-3.5" /> {next.fresh ? "Start" : "Resume"} <ArrowRight className="h-3.5 w-3.5" />
-          </Button>
-        </Link>
+        {next.total > 0 && !next.fresh && (
+          <div className="mt-4">
+            <div className="mb-1.5 flex items-center justify-between text-[11px]">
+              <span className="font-medium text-muted-foreground">Course progress</span>
+              <span className="font-bold text-primary tabular-nums">
+                {next.completed}/{next.total} · {percent}%
+              </span>
+            </div>
+            <div className="h-2 rounded-full bg-muted overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${percent}%` }}
+                transition={{ duration: 0.8 }}
+                className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </motion.section>
   );
