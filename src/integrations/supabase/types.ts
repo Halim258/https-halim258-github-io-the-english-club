@@ -451,6 +451,33 @@ export type Database = {
         }
         Relationships: []
       }
+      lesson_slide_progress: {
+        Row: {
+          id: string
+          lesson_key: string
+          reached: number
+          total: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          lesson_key: string
+          reached?: number
+          total?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          id?: string
+          lesson_key?: string
+          reached?: number
+          total?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       library_favorites: {
         Row: {
           created_at: string
