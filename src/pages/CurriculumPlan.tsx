@@ -503,7 +503,7 @@ export default function CurriculumPlan() {
                   <Download className="h-4 w-4 mr-1.5" /> Download worksheet
                 </Button>
                 <a
-                  href={`https://web.whatsapp.com/send?phone=201554901390&text=${encodeURIComponent(`Hi! I want to join the "${course.name}" (${cat.title}) — starting with ${currentModule.week}: ${currentModule.title}.`)}`}
+                  href={`https://api.whatsapp.com/send/?phone=201554901390&text=${encodeURIComponent(`Hi! I want to join the "${course.name}" (${cat.title}) — starting with ${currentModule.week}: ${currentModule.title}.`)}&type=phone_number&app_absent=0`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1"

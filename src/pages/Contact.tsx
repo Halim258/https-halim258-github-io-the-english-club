@@ -53,7 +53,7 @@ export default function Contact() {
                   +20 155 490 1390
                 </p>
                 <a
-                  href="https://web.whatsapp.com/send?phone=201554901390"
+                  href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
@@ -117,7 +117,7 @@ export default function Contact() {
                 </p>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a
-                    href="https://web.whatsapp.com/send?phone=201554901390"
+                    href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

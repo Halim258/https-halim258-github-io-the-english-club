@@ -334,7 +334,7 @@ function ExamPrepSkillView() {
                   Take Placement Test
                 </Button>
               </Link>
-              <a href="https://web.whatsapp.com/send?phone=201554901390" target="_blank" rel="noopener noreferrer">
+              <a href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
                 <Button className="rounded-full px-6 font-semibold font-display">
                   <MessageCircle className="mr-2 h-4 w-4" />
                   Ask Us on WhatsApp
@@ -518,7 +518,7 @@ export default function CategoryDetail() {
                     Take Placement Test
                   </Button>
                 </Link>
-                <a href="https://web.whatsapp.com/send?phone=201554901390" target="_blank" rel="noopener noreferrer">
+                <a href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
                   <Button className="rounded-full px-6 font-semibold font-display">
                     <MessageCircle className="mr-2 h-4 w-4" />
                     Ask Us on WhatsApp

@@ -38,7 +38,7 @@ export default function AdminUnpaidStudents({ students }: Props) {
     const msg = messageTemplate
       .replace("{name}", student.name)
       .replace("{amount}", (student.remaining_fees || 0).toLocaleString());
-    return `https://web.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`;
+    return `https://api.whatsapp.com/send/?phone=${phone}&text=${encodeURIComponent(msg)}&type=phone_number&app_absent=0`;
   };
 
   const hasPhone = (s: Student) => !!(s.whatsapp || s.phone_number);
