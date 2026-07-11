@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { getSlideProgress } from "@/hooks/useSlideProgress";
+import { useProgressEvents } from "@/lib/progress-events";
 
 interface CourseProgress {
   completed: number;
@@ -18,13 +19,11 @@ export function useCourseProgress(levelIds: string[], lessonCounts: Record<strin
   const [progress, setProgress] = useState<Record<string, CourseProgress>>({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchProgress = useCallback(async () => {
     if (!user || levelIds.length === 0) {
       setLoading(false);
       return;
     }
-
-    const fetchProgress = async () => {
       const { data, error } = await supabase
         .from("lesson_progress")
         .select("level_id, lesson_number, completed_at")
@@ -85,10 +84,16 @@ export function useCourseProgress(levelIds: string[], lessonCounts: Record<strin
 
       setProgress(result);
       setLoading(false);
-    };
+  }, [user, levelIds.join(","), JSON.stringify(lessonCounts)]);
 
+  useEffect(() => {
     fetchProgress();
-  }, [user, levelIds.join(",")]);
+  }, [fetchProgress]);
+
+  // Refresh instantly when a lesson is completed or a slide advances.
+  useProgressEvents(() => {
+    fetchProgress();
+  });
 
   return { progress, loading };
 }

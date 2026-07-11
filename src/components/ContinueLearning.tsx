@@ -7,6 +7,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { lessons as allLessons } from "@/data/lessons";
 import CourseProgress from "@/components/CourseProgress";
+import { useProgressEvents } from "@/lib/progress-events";
 
 export default function ContinueLearning() {
   const { user } = useAuth();
@@ -25,7 +26,7 @@ export default function ContinueLearning() {
     return { level_id, lesson_number, fresh, completed, total, title: (allLessons as any)[key]?.title };
   };
 
-  useEffect(() => {
+  const refresh = () => {
     if (!user) {
       setNext(buildFor("a1", 1, 0, true));
       return;
@@ -48,7 +49,14 @@ export default function ContinueLearning() {
         while (completedInLevel.has(n)) n++;
         setNext(buildFor(level, n, completedInLevel.size, false));
       });
+  };
+
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  useProgressEvents(() => refresh());
 
   if (!next) return null;
 
