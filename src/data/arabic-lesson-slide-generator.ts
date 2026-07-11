@@ -162,7 +162,7 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
       slides.push({
         id: id(),
         type: "info",
-        title: "✍️ أمثلة محلولة",
+        title: "تدريبات",
         subtitle: arr.length > 1 ? `الجزء ${i + 1} من ${arr.length}` : undefined,
         emoji: "✍️",
         bgColor: "from-amber-500/10 to-amber-500/5",
