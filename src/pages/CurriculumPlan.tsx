@@ -504,7 +504,7 @@ export default function CurriculumPlan() {
                 </Button>
                 <a
                   href={`https://api.whatsapp.com/send/?phone=201554901390&text=${encodeURIComponent(`Hi! I want to join the "${course.name}" (${cat.title}) — starting with ${currentModule.week}: ${currentModule.title}.`)}&type=phone_number&app_absent=0`}
-                  target="_blank"
+                  target="_top"
                   rel="noopener noreferrer"
                   className="flex-1"
                 >

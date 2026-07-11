@@ -61,7 +61,7 @@ export default function Footer() {
             <div className="mt-5 flex gap-2.5">
               <a
                 href="https://www.facebook.com/TheEnglishClubEG"
-                target="_blank"
+                target="_top"
                 rel="noopener noreferrer"
                 className="flex h-10 w-10 items-center justify-center rounded-xl bg-secondary-foreground/5 border border-secondary-foreground/10 transition-all hover:bg-primary hover:text-primary-foreground hover:border-primary hover:scale-105"
               >
@@ -150,7 +150,7 @@ export default function Footer() {
               <li>
                 <a
                   href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
-                  target="_blank"
+                  target="_top"
                   rel="noopener noreferrer"
                   className="flex items-start gap-2 text-sm text-secondary-foreground/60 transition-colors hover:text-primary"
                 >
