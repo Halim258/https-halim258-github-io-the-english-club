@@ -50,7 +50,7 @@ export const esA2Lessons: Record<string, LessonData> = {
     { speaker: 'Juan', text: 'Ah, entiendo. ¿Y tú qué has hecho?' },
     { speaker: 'Marta', text: 'He escrito varios correos electrónicos.' },
     { speaker: 'Juan', text: '¡Has estado muy ocupada!' },
-  ], { title: 'Pretérito Perfecto Compuesto', explanation: 'Se utiliza para hablar de acciones pasadas que tienen relación con el presente o han ocurrido en un tiempo no terminado (hoy, este mes). Se forma con el presente del verbo auxiliar 'haber' y el participio del verbo principal.', examples: [
+  ], { title: 'Pretérito Perfecto Compuesto', explanation: "Se utiliza para hablar de acciones pasadas que tienen relación con el presente o han ocurrido en un tiempo no terminado (hoy, este mes). Se forma con el presente del verbo auxiliar 'haber' y el participio del verbo principal.", examples: [
     { sentence: 'Hoy hemos trabajado mucho.', note: 'Haber (hemos) + participio (trabajado).' },
     { sentence: '¿Has estado en España?', note: 'Experiencia en un tiempo no definido.' },
     { sentence: 'No han llegado todavía.', note: 'Acción que se espera.' },
@@ -236,7 +236,7 @@ export const esA2Lessons: Record<string, LessonData> = {
     { speaker: 'A', text: 'Hablando sobre Contraste perfecto vs. indefinido - línea 8' },
     { speaker: 'A', text: 'Hablando sobre Contraste perfecto vs. indefinido - línea 9' },
     { speaker: 'A', text: 'Hablando sobre Contraste perfecto vs. indefinido - línea 10' },
-  ], { title: 'Contraste perfecto vs. indefinido', explanation: 'Cuándo usar 'he hablado' frente a 'hablé' en el contexto adecuado.', examples: [
+  ], { title: 'Contraste perfecto vs. indefinido', explanation: "Cuándo usar 'he hablado' frente a 'hablé' en el contexto adecuado.", examples: [
     { sentence: 'Ejemplo 1 de Contraste perfecto vs. indefinido.', note: 'Nota gramatical.' },
     { sentence: 'Ejemplo 2 de Contraste perfecto vs. indefinido.', note: 'Nota gramatical.' },
     { sentence: 'Ejemplo 3 de Contraste perfecto vs. indefinido.', note: 'Nota gramatical.' },
@@ -298,7 +298,7 @@ export const esA2Lessons: Record<string, LessonData> = {
     { speaker: 'Elena', text: '¿Por qué? ¿Es vago?' },
     { speaker: 'Laura', text: 'Un poco, y además es muy tímido.' },
     { speaker: 'Elena', text: 'Bueno, cada persona es diferente.' },
-  ], { title: 'Ser vs. Estar en Descripciones', explanation: 'Usamos el verbo 'ser' para cualidades permanentes o intrínsecas (carácter, altura). Usamos 'estar' para estados temporales o cambios recientes (cansancio, aspecto actual).', examples: [
+  ], { title: 'Ser vs. Estar en Descripciones', explanation: "Usamos el verbo 'ser' para cualidades permanentes o intrínsecas (carácter, altura). Usamos 'estar' para estados temporales o cambios recientes (cansancio, aspecto actual).", examples: [
     { sentence: 'Él es muy alto.', note: 'Cualidad permanente.' },
     { sentence: 'Ella está muy guapa hoy.', note: 'Estado temporal o aspecto específico hoy.' },
     { sentence: 'Soy una persona alegre.', note: 'Carácter habitual.' },
