@@ -17,6 +17,8 @@ import StudyGoals from "@/components/StudyGoals";
 import LibraryProgressCard from "@/components/LibraryProgressCard";
 import { lessons as allLessons } from "@/data/lessons";
 import { Progress } from "@/components/ui/progress";
+import { getSlideProgress } from "@/hooks/useSlideProgress";
+import { formatRelativeTime } from "@/lib/format-time";
 
 interface TestResult {
   id: string;
@@ -165,7 +167,29 @@ export default function StudentDashboard() {
     while (completedSet.has(nextLesson) && nextLesson <= total) nextLesson++;
     if (nextLesson > total) nextLesson = total;
     const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
-    return { level: lvl, completed, total, percent, nextLesson };
+
+    // Determine last studied lesson + timestamp for this level:
+    // combine completed_at from Supabase with local slide progress.
+    let lastLesson: number | undefined;
+    let lastAtMs = 0;
+    lvlProgress.forEach((p) => {
+      if (p.completed_at) {
+        const t = new Date(p.completed_at).getTime();
+        if (t > lastAtMs) {
+          lastAtMs = t;
+          lastLesson = p.lesson_number;
+        }
+      }
+    });
+    for (let n = 1; n <= total; n++) {
+      const sp = getSlideProgress(`${lvl}-${n}`);
+      if (sp && sp.updatedAt > lastAtMs) {
+        lastAtMs = sp.updatedAt;
+        lastLesson = n;
+      }
+    }
+    const lastAt = lastAtMs > 0 ? new Date(lastAtMs).toISOString() : undefined;
+    return { level: lvl, completed, total, percent, nextLesson, lastLesson, lastAt };
   });
 
   const totalLessonsAll = levelProgress.reduce((s, lp) => s + lp.total, 0);
@@ -437,6 +461,11 @@ export default function StudentDashboard() {
                         ) : (
                           <span className="inline-flex items-center gap-1 text-muted-foreground">
                             Not started
+                          </span>
+                        )}
+                        {lp.lastLesson && lp.lastAt && (
+                          <span className="inline-flex items-center gap-1 text-muted-foreground">
+                            <Clock className="h-3 w-3" /> Last: L{lp.lastLesson} · {formatRelativeTime(lp.lastAt)}
                           </span>
                         )}
                       </div>
