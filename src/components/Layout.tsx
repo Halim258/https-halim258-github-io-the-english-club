@@ -1,7 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Navbar from "./Navbar";
-import BookTeacherFAB from "./BookTeacherFAB";
 import Footer from "./Footer";
 import PageTransition from "./PageTransition";
 import ScrollToTop from "./ScrollToTop";
@@ -38,7 +37,6 @@ export default function Layout() {
           </PageTransition>
         </AnimatePresence>
       </main>
-      <BookTeacherFAB />
       <ScrollToTop />
       <Footer />
       <MobileBottomNav />
