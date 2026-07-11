@@ -13,8 +13,15 @@ import { Progress } from "@/components/ui/progress";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 import ContinueLearning from "@/components/ContinueLearning";
 import { useSlideProgressMap } from "@/hooks/useSlideProgress";
+import { formatRelativeTime } from "@/lib/format-time";
 
-function CardProgress({ p, accent = "primary" }: { p: { completed: number; total: number; percentage: number }; accent?: "primary" | "amber" }) {
+function CardProgress({
+  p,
+  accent = "primary",
+}: {
+  p: { completed: number; total: number; percentage: number; lastLesson?: number; lastAt?: string };
+  accent?: "primary" | "amber";
+}) {
   const done = p.percentage >= 100;
   const barColor = done
     ? "bg-emerald-500"
@@ -36,6 +43,12 @@ function CardProgress({ p, accent = "primary" }: { p: { completed: number; total
       <div className="h-1.5 rounded-full bg-muted overflow-hidden">
         <div className={`h-full rounded-full transition-all duration-500 ${barColor}`} style={{ width: `${p.percentage}%` }} />
       </div>
+      {p.lastLesson && p.lastAt && !done && (
+        <p className="text-[10px] text-muted-foreground flex items-center gap-1">
+          <Clock className="h-2.5 w-2.5" />
+          Last: Lesson {p.lastLesson} · {formatRelativeTime(p.lastAt)}
+        </p>
+      )}
     </div>
   );
 }

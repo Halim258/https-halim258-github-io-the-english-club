@@ -8,6 +8,7 @@ import { categories } from "@/data/course-categories";
 import { getCourseImage } from "@/data/course-images";
 import { lessons } from "@/data/lessons";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
+import { formatRelativeTime } from "@/lib/format-time";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -492,6 +493,11 @@ export default function CategoryDetail() {
                             </span>
                           </div>
                           <Progress value={progress[levelId].percentage} className="h-2" />
+                          {progress[levelId].lastLesson && progress[levelId].lastAt && (
+                            <p className="text-[10px] text-muted-foreground mt-1">
+                              Last: Lesson {progress[levelId].lastLesson} · {formatRelativeTime(progress[levelId].lastAt)}
+                            </p>
+                          )}
                         </div>
                       )}
                       <div className="mt-4">
