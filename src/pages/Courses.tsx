@@ -807,7 +807,7 @@ export default function Courses() {
       )}
 
       {/* ═══ EGYPTIAN SCHOOL ENGLISH ═══ */}
-      {filteredEgyptianSchoolTracks.length > 0 && (
+      {filteredEgyptianSchoolTracks.length > 0 && (audience === "all" || audience === "schools") && (
         <section id="schools" className="py-8 md:py-12 scroll-mt-32">
           <div className="container mx-auto px-4">
             <FadeInUp>
