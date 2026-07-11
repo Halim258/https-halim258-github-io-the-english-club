@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { GraduationCap, MessageCircle } from "lucide-react";
 
-const WHATSAPP_URL = "https://wa.me/201554901390";
+const WHATSAPP_URL = "https://web.whatsapp.com/send?phone=201554901390";
 
 export default function BookTeacherFAB() {
   return (
