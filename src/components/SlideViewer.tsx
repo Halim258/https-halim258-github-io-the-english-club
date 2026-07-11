@@ -73,25 +73,25 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] bg-background">
       {/* Top bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b bg-card/95 backdrop-blur-sm shrink-0">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between px-4 py-3 border-b bg-card/95 backdrop-blur-sm shrink-0 gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           {onBack && (
             <Button
               variant="outline"
               size="sm"
               onClick={onBack}
-              className="rounded-full text-xs gap-1.5 font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary/40"
+              className="rounded-full text-xs gap-1.5 font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary/40 shrink-0"
             >
               <ChevronLeft className="h-3.5 w-3.5" /> Back
             </Button>
           )}
-          <div className="flex items-center gap-1.5 rounded-full bg-muted/60 px-3 py-1">
+          <div className="flex items-center gap-1.5 rounded-full bg-muted/60 px-3 py-1 shrink-0">
             <span className="text-xs font-bold text-primary">{current + 1}</span>
             <span className="text-[10px] text-muted-foreground">/</span>
             <span className="text-xs text-muted-foreground">{slides.length}</span>
           </div>
         </div>
-        <div className="flex-1 mx-4 max-w-sm">
+        <div className="flex-1 mx-2 max-w-md min-w-0">
           <div className="h-1.5 rounded-full bg-muted overflow-hidden">
             <motion.div
               className="h-full rounded-full bg-gradient-to-r from-primary to-primary/80"
@@ -100,9 +100,9 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
             />
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          {slide.emoji && <span className="text-sm">{slide.emoji}</span>}
-          <span className="text-xs font-semibold text-foreground">{slide.title}</span>
+        <div className="flex items-center gap-2 min-w-0 justify-end">
+          {slide.emoji && <span className="text-lg shrink-0">{slide.emoji}</span>}
+          <span className="text-xs font-semibold text-foreground truncate max-w-[140px] sm:max-w-[200px]">{slide.title}</span>
         </div>
       </div>
 
