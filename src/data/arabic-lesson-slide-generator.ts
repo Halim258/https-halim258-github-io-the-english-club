@@ -183,7 +183,7 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
       content: {
         kind: "exercise",
         label: "نشاط",
-        questions: lesson.vocabExercises.slice(0, 3),
+        questions: lesson.vocabExercises.slice(0, 1),
       },
     });
   }
@@ -195,7 +195,7 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
     ...lesson.grammarExercises,
   ];
   if (drills.length > 0) {
-    chunk(drills, 2).forEach((c, i, arr) => {
+    chunk(drills, 1).forEach((c, i, arr) => {
       slides.push({
         id: id(),
         type: "exercise",
@@ -248,7 +248,7 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
 
   // 11) التقويم (الاختبار)
   if (lesson.examQuestions.length > 0) {
-    chunk(lesson.examQuestions, 2).forEach((c, i, arr) => {
+    chunk(lesson.examQuestions, 1).forEach((c, i, arr) => {
       slides.push({
         id: id(),
         type: "exercise",
@@ -263,7 +263,7 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
 
   // 12) الواجب المنزلي
   if (lesson.homeworkQuestions.length > 0) {
-    chunk(lesson.homeworkQuestions, 2).forEach((c, i, arr) => {
+    chunk(lesson.homeworkQuestions, 1).forEach((c, i, arr) => {
       slides.push({
         id: id(),
         type: "exercise",
