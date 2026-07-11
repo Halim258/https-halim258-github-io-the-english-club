@@ -3,6 +3,7 @@ import { AlertCircle, Search, Phone, ChevronLeft, ChevronRight, DollarSign, Mess
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import DetailSheet from "./DetailSheet";
+import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
 
 interface Student {
   id: string;
@@ -38,7 +39,7 @@ export default function AdminUnpaidStudents({ students }: Props) {
     const msg = messageTemplate
       .replace("{name}", student.name)
       .replace("{amount}", (student.remaining_fees || 0).toLocaleString());
-    return `https://api.whatsapp.com/send/?phone=${phone}&text=${encodeURIComponent(msg)}&type=phone_number&app_absent=0`;
+    return getWhatsAppUrl({ phone, message: msg });
   };
 
   const hasPhone = (s: Student) => !!(s.whatsapp || s.phone_number);
@@ -195,8 +196,9 @@ export default function AdminUnpaidStudents({ students }: Props) {
                     {hasPhone(s) ? (
                       <a
                         href={buildWhatsAppUrl(s)}
-                        target="_top"
+                        target="_blank"
                         rel="noopener noreferrer"
+                        onClick={(event) => openWhatsAppUrl(buildWhatsAppUrl(s), event)}
                         className="inline-flex items-center gap-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 text-xs font-medium transition-colors"
                       >
                         <Send className="h-3 w-3" /> WhatsApp

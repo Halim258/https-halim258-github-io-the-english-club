@@ -14,6 +14,9 @@ import { useCourseProgress } from "@/hooks/useCourseProgress";
 import ContinueLearning from "@/components/ContinueLearning";
 import { useSlideProgressMap } from "@/hooks/useSlideProgress";
 import CourseProgress from "@/components/CourseProgress";
+import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
+
+const WHATSAPP_URL = getWhatsAppUrl();
 
 function CardProgress({
   p,
@@ -1143,7 +1146,7 @@ export default function Courses() {
           <FadeInUp delay={0.2}>
             <div className="mt-12 text-center">
               <p className="text-sm text-muted-foreground mb-4">Interested in any course? Contact us to get started!</p>
-              <a href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0" target="_top" rel="noopener noreferrer">
+              <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" onClick={(event) => openWhatsAppUrl(WHATSAPP_URL, event)}>
                 <Button className="rounded-full px-8 font-semibold font-display">
                   <MessageCircle className="mr-2 h-4 w-4" />
                   Inquire on WhatsApp
