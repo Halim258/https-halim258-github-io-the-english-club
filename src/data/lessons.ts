@@ -135,6 +135,7 @@ import { esB1Lessons } from "./es-b1-lessons";
 import { esB2Lessons } from "./es-b2-lessons";
 import { esC1Lessons } from "./es-c1-lessons";
 import { esC2Lessons } from "./es-c2-lessons";
+import { deA1Lessons } from "./de-a1-lessons";
 import { deA2Lessons } from "./de-a2-lessons";
 import { deB1Lessons } from "./de-b1-lessons";
 import { deB2Lessons } from "./de-b2-lessons";
@@ -696,6 +697,7 @@ export const lessons: Record<string, LessonData> = {
   ...esB2Lessons,
   ...esC1Lessons,
   ...esC2Lessons,
+  ...deA1Lessons,
   ...deA2Lessons,
   ...deB1Lessons,
   ...deB2Lessons,
