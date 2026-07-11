@@ -34,7 +34,7 @@ export default function SlideLesson() {
 
   const isMusicCourse = typeof levelId === "string" && levelId.startsWith("ar-mus");
   const isDrawingCourse = typeof levelId === "string" && levelId.startsWith("ar-draw");
-  const isTherapyCourse = typeof levelId === "string" && levelId.startsWith("ar-th");
+  const isTherapyCourse = typeof levelId === "string" && (levelId.startsWith("ar-th") || levelId.startsWith("ar-sp"));
   const slides = isDrawingCourse
     ? generateArabicDrawingSlides(lesson)
     : isTherapyCourse
