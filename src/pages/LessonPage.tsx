@@ -548,7 +548,7 @@ export default function LessonPage() {
   useEffect(() => {
     if (
       typeof levelId === "string" &&
-      (levelId.startsWith("ar-mus") || levelId.startsWith("ar-draw") || levelId.startsWith("ar-th"))
+      (levelId.startsWith("ar-mus") || levelId.startsWith("ar-draw") || levelId.startsWith("ar-th") || levelId.startsWith("ar-sp"))
     ) {
       navigate(`/courses/${levelId}/${lessonId}/slides`, { replace: true });
     }
