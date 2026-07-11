@@ -99,6 +99,13 @@ const courseLevelMap: Record<string, string> = {
   "Deutsch B2 — Goethe-Zertifikat": "de-b2",
   "Deutsch C1 — Goethe-Zertifikat": "de-c1",
   "Deutsch C2 — Großes Deutsches Sprachdiplom": "de-c2",
+  // Italian A1–C2 (CILS/CELI)
+  "Italiano A1 — CILS/CELI": "it-a1",
+  "Italiano A2 — CILS/CELI": "it-a2",
+  "Italiano B1 — CILS/CELI": "it-b1",
+  "Italiano B2 — CILS/CELI": "it-b2",
+  "Italiano C1 — CILS/CELI": "it-c1",
+  "Italiano C2 — CILS/CELI": "it-c2",
   // Arabic Speech Therapy — التخاطب
   "المستوى الأول — الانتباه والتواصل": "ar-th-1",
   "المستوى الثاني — اللغة الاستقبالية": "ar-th-2",
