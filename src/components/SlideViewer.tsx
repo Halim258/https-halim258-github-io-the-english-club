@@ -216,24 +216,28 @@ function SlideRenderer({ slide }: { slide: Slide }) {
   }
 
   return (
-    <div dir={dir} className={`min-h-full bg-gradient-to-br ${slide.bgColor || ""} p-3 md:p-6`}>
+    <div dir={dir} className={`min-h-full bg-gradient-to-br ${slide.bgColor || ""} p-4 md:p-8`}>
       <div className="max-w-3xl mx-auto">
         {/* Slide header */}
-        <div className="flex items-center gap-3 mb-6">
-          {slide.emoji && <span className="text-3xl">{slide.emoji}</span>}
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold font-display">{slide.title}</h2>
-            {slide.subtitle && <p className="text-sm text-muted-foreground mt-0.5">{slide.subtitle}</p>}
+        <div className="flex items-start gap-4 mb-8">
+          {slide.emoji && (
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-card/80 border shadow-sm text-2xl">
+              {slide.emoji}
+            </div>
+          )}
+          <div className="min-w-0 flex-1 pt-0.5">
+            <h2 className="text-xl md:text-2xl font-bold font-display leading-tight">{slide.title}</h2>
+            {slide.subtitle && <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{slide.subtitle}</p>}
           </div>
         </div>
 
         {slide.image && (
-          <div className="mb-6 overflow-hidden rounded-2xl border shadow-sm">
+          <div className="mb-8 overflow-hidden rounded-2xl border shadow-sm">
             <img
               src={slide.image}
               alt={slide.title}
               loading="lazy"
-              className="w-full h-auto object-cover max-h-[360px]"
+              className="w-full h-auto object-cover max-h-[320px] md:max-h-[360px]"
             />
           </div>
         )}
