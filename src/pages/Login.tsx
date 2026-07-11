@@ -3,12 +3,27 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, Loader2, BookOpen, Sparkles, Eye, EyeOff, ArrowRight, CheckCircle2 } from "lucide-react";
+import { GraduationCap, Loader2, Sparkles, Eye, EyeOff, ArrowRight, CheckCircle2, AlertCircle, Mail, Lock } from "lucide-react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z.string().trim().email("Please enter a valid email address").max(255),
+  password: z.string().min(1, "Password is required").max(128),
+});
+
+function mapAuthError(msg: string): string {
+  const m = msg.toLowerCase();
+  if (m.includes("invalid login") || m.includes("invalid credentials")) return "Wrong email or password. Please try again.";
+  if (m.includes("email not confirmed")) return "Please confirm your email before logging in — check your inbox.";
+  if (m.includes("too many")) return "Too many attempts. Please wait a moment and try again.";
+  if (m.includes("network")) return "Network error. Check your connection and try again.";
+  return msg;
+}
 
 const benefits = [
   "200+ structured lessons from A1 to C2",
@@ -22,6 +37,8 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
+  const [capsLock, setCapsLock] = useState(false);
+  const [errors, setErrors] = useState<{ email?: string; password?: string; form?: string }>({});
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user, role, loading: authLoading } = useAuth();
@@ -48,15 +65,33 @@ export default function Login() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
+
+    const parsed = loginSchema.safeParse({ email, password });
+    if (!parsed.success) {
+      const fieldErrors: typeof errors = {};
+      for (const issue of parsed.error.issues) {
+        const key = issue.path[0] as "email" | "password";
+        fieldErrors[key] = issue.message;
+      }
+      setErrors(fieldErrors);
+      return;
+    }
+
     setLoading(true);
     if (rememberMe) localStorage.setItem("remembered_email", email);
     else localStorage.removeItem("remembered_email");
 
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email: parsed.data.email,
+      password: parsed.data.password,
+    });
 
     if (error) {
       setLoading(false);
-      toast({ title: "Login failed", description: error.message, variant: "destructive" });
+      const friendly = mapAuthError(error.message);
+      setErrors({ form: friendly });
+      toast({ title: "Login failed", description: friendly, variant: "destructive" });
       return;
     }
     // Navigation handled by the useEffect above once useAuth resolves the role.
@@ -138,18 +173,35 @@ export default function Login() {
             <p className="mt-1.5 text-sm text-muted-foreground">Log in to continue your learning journey</p>
           </div>
 
-          <form className="space-y-5" onSubmit={handleLogin}>
+          {errors.form && (
+            <div
+              role="alert"
+              className="mb-5 flex items-start gap-2 rounded-xl border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive"
+            >
+              <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+              <span>{errors.form}</span>
+            </div>
+          )}
+
+          <form className="space-y-5" onSubmit={handleLogin} noValidate>
             <div className="space-y-1.5">
               <Label htmlFor="email" className="text-sm font-medium">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                required
-                className="h-12 rounded-xl text-base focus:ring-2 focus:ring-primary/20 transition-shadow"
-              />
+              <div className="relative">
+                <Mail className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); if (errors.email) setErrors((p) => ({ ...p, email: undefined })); }}
+                  placeholder="you@example.com"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "email-error" : undefined}
+                  className={`h-12 rounded-xl pl-10 text-base focus:ring-2 focus:ring-primary/20 transition-shadow ${errors.email ? "border-destructive focus-visible:ring-destructive/30" : ""}`}
+                />
+              </div>
+              {errors.email && <p id="email-error" className="text-xs text-destructive">{errors.email}</p>}
             </div>
             <div className="space-y-1.5">
               <div className="flex items-center justify-between">
@@ -157,31 +209,46 @@ export default function Login() {
                 <Link to="/forgot-password" className="text-xs text-primary hover:underline">Forgot?</Link>
               </div>
               <div className="relative">
+                <Lock className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
+                  autoComplete="current-password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => { setPassword(e.target.value); if (errors.password) setErrors((p) => ({ ...p, password: undefined })); }}
+                  onKeyUp={(e) => setCapsLock(e.getModifierState && e.getModifierState("CapsLock"))}
+                  onKeyDown={(e) => setCapsLock(e.getModifierState && e.getModifierState("CapsLock"))}
                   placeholder="••••••••"
-                  required
-                  className="h-12 rounded-xl pr-11 text-base focus:ring-2 focus:ring-primary/20 transition-shadow"
+                  aria-invalid={!!errors.password}
+                  aria-describedby={errors.password ? "password-error" : undefined}
+                  className={`h-12 rounded-xl pl-10 pr-11 text-base focus:ring-2 focus:ring-primary/20 transition-shadow ${errors.password ? "border-destructive focus-visible:ring-destructive/30" : ""}`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1 rounded-lg"
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
               </div>
+              {errors.password && <p id="password-error" className="text-xs text-destructive">{errors.password}</p>}
+              {capsLock && !errors.password && (
+                <p className="flex items-center gap-1 text-xs text-amber-600 dark:text-amber-400">
+                  <AlertCircle className="h-3 w-3" /> Caps Lock is on
+                </p>
+              )}
             </div>
             <div className="flex items-center gap-2">
               <Checkbox id="remember" checked={rememberMe} onCheckedChange={(v) => setRememberMe(!!v)} />
               <Label htmlFor="remember" className="text-sm font-normal cursor-pointer text-muted-foreground">Remember me</Label>
             </div>
             <Button className="w-full h-12 rounded-xl text-sm font-semibold active:scale-[0.98] transition-transform" type="submit" disabled={loading}>
-              {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Sparkles className="h-4 w-4 mr-2" />}
-              Log In
+              {loading ? (
+                <><Loader2 className="h-4 w-4 animate-spin mr-2" /> Signing you in…</>
+              ) : (
+                <><Sparkles className="h-4 w-4 mr-2" /> Log In</>
+              )}
             </Button>
           </form>
 
