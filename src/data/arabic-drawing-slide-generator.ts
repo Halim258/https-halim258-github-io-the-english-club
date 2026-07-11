@@ -56,36 +56,29 @@ export function generateArabicDrawingSlides(lesson: LessonData): Slide[] {
 
   // 3) شرح فني مترابط بدل بطاقات الأدوات
   if (lesson.vocabulary.length > 0) {
-    const items = lesson.vocabulary.slice(0, 5);
-    const intro = `درس اليوم عن «${lesson.title}». ${lesson.description}`;
-    const body =
-      "قبل أن نمسك القلم، من المهم أن نفهم الأدوات والمفاهيم التي سنستخدمها في الرسم. " +
-      items
-        .map((v, idx) => {
-          const meaning = v.meaning.split("—")[0].trim();
-          const connector =
-            idx === 0
-              ? "نبدأ بـ"
-              : idx === items.length - 1
-              ? "وأخيرًا نحتاج"
-              : ["ثم نستخدم", "ويأتي بعده", "ومن الأساسيات أيضًا"][idx % 3];
-          return `${connector} «${v.word}»، وهو ${meaning}. ويظهر دوره حين ${v.example}`;
-        })
-        .join(" ");
-    const closing =
-      `بفهم هذه الأدوات وطريقة استخدامها، نصبح جاهزين لتنفيذ خطوات رسم ${lesson.title} ` +
-      `بثقة وترتيب في باقي الدرس.`;
+    const keyTerms = lesson.vocabulary.slice(0, 3).map((v) => v.word);
+    const explanationParas = lesson.grammar.explanation
+      .split(/\n\n+/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+    const paragraphs: string[] = [
+      `${lesson.description} في درس اليوم «${lesson.title}» سنتعرّف على الفكرة الفنية أولًا، ثم ننتقل إلى الأدوات وخطوات التنفيذ.`,
+    ];
+    if (explanationParas.length > 0) paragraphs.push(explanationParas[0]);
+    if (keyTerms.length > 0) {
+      paragraphs.push(
+        `ومن أهم المصطلحات التي ستتكرّر معنا: ${keyTerms.join("، ")}. ` +
+          `سنشرح كلًّا منها بمثال بصري، ثم نطبّقها مباشرة أثناء الرسم.`,
+      );
+    }
     slides.push({
       id: id(),
       type: "info",
       title: "📖 شرح الدرس",
-      subtitle: "افهم الأدوات قبل أن ترسم",
+      subtitle: "افهم الفكرة قبل أن ترسم",
       emoji: "📖",
       bgColor: "from-blue-500/10 to-blue-500/5",
-      content: {
-        kind: "info",
-        paragraphs: [intro, body, closing],
-      },
+      content: { kind: "info", paragraphs },
     });
   }
 
