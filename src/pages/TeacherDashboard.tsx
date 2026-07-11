@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { CalendarDays, Users, Clock, DollarSign, Settings, MessageCircle, UserPlus } from "lucide-react";
+import { CalendarDays, Users, Clock, DollarSign, Settings, MessageCircle, UserPlus, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import StudentAnswersReview from "@/components/teacher/StudentAnswersReview";
 import TeacherEnrollments from "@/components/teacher/TeacherEnrollments";
+import CohortAnalytics from "@/components/analytics/CohortAnalytics";
 
 const upcomingClasses = [
   { student: "John Doe", date: "Feb 19, 2026", time: "10:00 AM", duration: "50 min", level: "A1" },
@@ -14,6 +15,7 @@ const TABS = [
   { id: "overview", label: "Overview", icon: CalendarDays },
   { id: "enrollments", label: "Enrollments", icon: UserPlus },
   { id: "answers", label: "Student Answers", icon: MessageCircle },
+  { id: "analytics", label: "Cohort Analytics", icon: BarChart3 },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -100,6 +102,12 @@ export default function TeacherDashboard() {
       {activeTab === "answers" && (
         <div className="mt-6">
           <StudentAnswersReview />
+        </div>
+      )}
+
+      {activeTab === "analytics" && (
+        <div className="mt-6">
+          <CohortAnalytics />
         </div>
       )}
     </div>
