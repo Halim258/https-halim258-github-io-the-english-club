@@ -73,25 +73,25 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)] bg-background">
       {/* Top bar */}
-      <div className="flex items-center justify-between px-4 py-2.5 border-b bg-card/95 backdrop-blur-sm shrink-0">
-        <div className="flex items-center gap-3">
+      <div className="flex items-center justify-between px-4 py-3 border-b bg-card/95 backdrop-blur-sm shrink-0 gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           {onBack && (
             <Button
               variant="outline"
               size="sm"
               onClick={onBack}
-              className="rounded-full text-xs gap-1.5 font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary/40"
+              className="rounded-full text-xs gap-1.5 font-semibold hover:bg-primary/10 hover:text-primary hover:border-primary/40 shrink-0"
             >
               <ChevronLeft className="h-3.5 w-3.5" /> Back
             </Button>
           )}
-          <div className="flex items-center gap-1.5 rounded-full bg-muted/60 px-3 py-1">
+          <div className="flex items-center gap-1.5 rounded-full bg-muted/60 px-3 py-1 shrink-0">
             <span className="text-xs font-bold text-primary">{current + 1}</span>
             <span className="text-[10px] text-muted-foreground">/</span>
             <span className="text-xs text-muted-foreground">{slides.length}</span>
           </div>
         </div>
-        <div className="flex-1 mx-4 max-w-sm">
+        <div className="flex-1 mx-2 max-w-md min-w-0">
           <div className="h-1.5 rounded-full bg-muted overflow-hidden">
             <motion.div
               className="h-full rounded-full bg-gradient-to-r from-primary to-primary/80"
@@ -100,9 +100,9 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
             />
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          {slide.emoji && <span className="text-sm">{slide.emoji}</span>}
-          <span className="text-xs font-semibold text-foreground">{slide.title}</span>
+        <div className="flex items-center gap-2 min-w-0 justify-end">
+          {slide.emoji && <span className="text-lg shrink-0">{slide.emoji}</span>}
+          <span className="text-xs font-semibold text-foreground truncate max-w-[140px] sm:max-w-[200px]">{slide.title}</span>
         </div>
       </div>
 
@@ -115,16 +115,14 @@ export default function SlideViewer({ slides, onBack }: SlideViewerProps) {
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
-              className="hidden md:flex absolute top-3 left-1/2 -translate-x-1/2 z-20 items-center gap-2 rounded-full border bg-card/95 backdrop-blur px-3 py-1.5 shadow-md text-[11px] text-muted-foreground"
+              className="hidden md:flex absolute top-4 right-4 z-20 items-center gap-2 rounded-full border bg-card/95 backdrop-blur px-3 py-1.5 shadow-md text-[11px] text-muted-foreground"
             >
               <span>Use</span>
               <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">←</kbd>
               <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">→</kbd>
               <span>to navigate ·</span>
               <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">Esc</kbd>
-              <span>to exit ·</span>
-              <kbd className="rounded border bg-muted px-1.5 py-0.5 text-[10px] font-semibold text-foreground">?</kbd>
-              <span>help</span>
+              <span>exit</span>
             </motion.div>
           )}
         </AnimatePresence>
@@ -218,24 +216,28 @@ function SlideRenderer({ slide }: { slide: Slide }) {
   }
 
   return (
-    <div dir={dir} className={`min-h-full bg-gradient-to-br ${slide.bgColor || ""} p-3 md:p-6`}>
+    <div dir={dir} className={`min-h-full bg-gradient-to-br ${slide.bgColor || ""} p-4 md:p-8`}>
       <div className="max-w-3xl mx-auto">
         {/* Slide header */}
-        <div className="flex items-center gap-3 mb-6">
-          {slide.emoji && <span className="text-3xl">{slide.emoji}</span>}
-          <div>
-            <h2 className="text-xl md:text-2xl font-bold font-display">{slide.title}</h2>
-            {slide.subtitle && <p className="text-sm text-muted-foreground mt-0.5">{slide.subtitle}</p>}
+        <div className="flex items-start gap-4 mb-8">
+          {slide.emoji && (
+            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-card/80 border shadow-sm text-2xl">
+              {slide.emoji}
+            </div>
+          )}
+          <div className="min-w-0 flex-1 pt-0.5">
+            <h2 className="text-xl md:text-2xl font-bold font-display leading-tight">{slide.title}</h2>
+            {slide.subtitle && <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">{slide.subtitle}</p>}
           </div>
         </div>
 
         {slide.image && (
-          <div className="mb-6 overflow-hidden rounded-2xl border shadow-sm">
+          <div className="mb-8 overflow-hidden rounded-2xl border shadow-sm">
             <img
               src={slide.image}
               alt={slide.title}
               loading="lazy"
-              className="w-full h-auto object-cover max-h-[360px]"
+              className="w-full h-auto object-cover max-h-[320px] md:max-h-[360px]"
             />
           </div>
         )}
@@ -500,13 +502,13 @@ function getLevelEmoji(level: string) {
 
 function TitleSlide({ content }: { content: { heading: string; description: string; level: string; lessonNumber: number } }) {
   return (
-    <div className="flex flex-col items-center justify-center text-center py-10 md:py-16">
+    <div className="flex flex-col items-center justify-center text-center py-8 md:py-14">
       {/* Decorative emoji illustration */}
       <motion.div
         initial={{ scale: 0, rotate: -20 }}
         animate={{ scale: 1, rotate: 0 }}
         transition={{ type: "spring", stiffness: 200, damping: 15 }}
-        className="relative mb-6"
+        className="relative mb-8"
       >
         <div className="h-24 w-24 rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center shadow-lg">
           <span className="text-5xl">{getLevelEmoji(content.level)}</span>
@@ -515,17 +517,17 @@ function TitleSlide({ content }: { content: { heading: string; description: stri
           {content.lessonNumber}
         </div>
       </motion.div>
-      <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">
+      <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-6">
         <GraduationCap className="h-3.5 w-3.5" />
         {content.level} — Lesson {content.lessonNumber}
       </div>
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display">{content.heading}</h1>
-      <p className="mt-4 max-w-md text-muted-foreground">{content.description}</p>
-      <div className="mt-6 flex items-center gap-4 text-xs text-muted-foreground/60">
-        <span className="flex items-center gap-1">📚 Vocabulary</span>
-        <span className="flex items-center gap-1">💬 Conversation</span>
-        <span className="flex items-center gap-1">📐 Grammar</span>
-        <span className="flex items-center gap-1">✏️ Exercises</span>
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display leading-tight max-w-2xl">{content.heading}</h1>
+      <p className="mt-5 max-w-lg text-muted-foreground leading-relaxed">{content.description}</p>
+      <div className="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs text-muted-foreground/70">
+        <span className="flex items-center gap-1.5 rounded-full bg-muted/50 px-3 py-1.5">📚 Vocabulary</span>
+        <span className="flex items-center gap-1.5 rounded-full bg-muted/50 px-3 py-1.5">💬 Conversation</span>
+        <span className="flex items-center gap-1.5 rounded-full bg-muted/50 px-3 py-1.5">📐 Grammar</span>
+        <span className="flex items-center gap-1.5 rounded-full bg-muted/50 px-3 py-1.5">✏️ Exercises</span>
       </div>
     </div>
   );
