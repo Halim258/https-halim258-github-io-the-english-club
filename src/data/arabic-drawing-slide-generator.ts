@@ -54,18 +54,27 @@ export function generateArabicDrawingSlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 3) الأدوات والمصطلحات الفنية
-  chunk(lesson.vocabulary, 4).forEach((c, i, arr) => {
+  // 3) شرح بسيط بدل بطاقات الأدوات
+  if (lesson.vocabulary.length > 0) {
+    const items = lesson.vocabulary.slice(0, 6);
     slides.push({
       id: id(),
-      type: "vocabulary",
-      title: "🧰 الأدوات والمصطلحات الفنية",
-      subtitle: arr.length > 1 ? `الجزء ${i + 1} من ${arr.length}` : "ما تحتاجه لهذه الرسمة",
-      emoji: "🧰",
+      type: "info",
+      title: "🖍️ خليني أشرحلك",
+      subtitle: "بكلمات سهلة وبسيطة",
+      emoji: "🖍️",
       bgColor: "from-blue-500/10 to-blue-500/5",
-      content: { kind: "vocab", words: c },
+      content: {
+        kind: "info",
+        paragraphs: [
+          `النهاردة هنرسم: ${lesson.title} 🎨`,
+          lesson.description,
+          ...items.map((v) => `${v.emoji || "🌟"}  ${v.word}: ${v.meaning.split("—")[0].trim()}.`),
+          "جاهز؟ يلا نبدأ الرسم!",
+        ],
+      },
     });
-  });
+  }
 
   // 4) الشرح الفني (النظري)
   slides.push({

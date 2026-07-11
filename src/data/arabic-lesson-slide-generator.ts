@@ -54,18 +54,27 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
     content: { kind: "info", paragraphs: objectives },
   });
 
-  // 3) المفردات والمصطلحات
-  chunk(lesson.vocabulary, 4).forEach((c, i, arr) => {
+  // 3) شرح بسيط بدل بطاقات المفردات
+  if (lesson.vocabulary.length > 0) {
+    const items = lesson.vocabulary.slice(0, 6);
     slides.push({
       id: id(),
-      type: "vocabulary",
-      title: "📚 المفردات والمصطلحات",
-      subtitle: arr.length > 1 ? `الجزء ${i + 1} من ${arr.length}` : undefined,
-      emoji: "📚",
+      type: "info",
+      title: "🎵 خليني أشرحلك",
+      subtitle: "بكلمات سهلة وبسيطة",
+      emoji: "🎵",
       bgColor: "from-blue-500/10 to-blue-500/5",
-      content: { kind: "vocab", words: c },
+      content: {
+        kind: "info",
+        paragraphs: [
+          `موضوع اليوم: ${lesson.title} 🎈`,
+          lesson.description,
+          ...items.map((v) => `${v.emoji || "🌟"}  ${v.word}: ${v.meaning.split("—")[0].trim()}.`),
+          "بسيطة، صح؟ يلا نكمل معًا!",
+        ],
+      },
     });
-  });
+  }
 
   // 4) الشرح النظري
   slides.push({
