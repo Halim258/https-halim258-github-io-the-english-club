@@ -1271,6 +1271,16 @@ export type Database = {
           user_id: string
         }[]
       }
+      get_leaderboard_xp: {
+        Args: { _limit?: number }
+        Returns: {
+          current_streak: number
+          last_activity_date: string
+          longest_streak: number
+          total_xp: number
+          user_id: string
+        }[]
+      }
       get_public_profiles: {
         Args: { _user_ids: string[] }
         Returns: {
