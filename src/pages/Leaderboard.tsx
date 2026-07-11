@@ -64,10 +64,7 @@ export default function Leaderboard() {
       }
 
       const userIds = data.map((d) => d.user_id);
-      const { data: profiles } = await supabase
-        .from("profiles")
-        .select("id, full_name, avatar_url")
-        .in("id", userIds);
+      const { data: profiles } = await supabase.rpc("get_public_profiles", { _user_ids: userIds });
 
       const profileMap = new Map(profiles?.map((p) => [p.id, p]) || []);
 
