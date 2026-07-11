@@ -1000,7 +1000,7 @@ export default function Home() {
                   Sign Up Free <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
-              <a href="https://web.whatsapp.com/send?phone=201554901390" target="_blank" rel="noopener noreferrer">
+              <a href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" variant="outline" className="rounded-full px-8 font-semibold font-display h-13 text-base border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10 hover:scale-[1.03] transition-all">
                   <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp Us
                 </Button>
