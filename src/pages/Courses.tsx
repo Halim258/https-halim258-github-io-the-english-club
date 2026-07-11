@@ -718,33 +718,47 @@ export default function Courses() {
       {/* Continue where you left off */}
       {!normalizedSearch && <ContinueLearning />}
 
-      {/* Sticky section jump nav */}
+      {/* Sticky filter tabs — filter + scroll in one bar */}
       <div className="sticky top-14 md:top-16 z-30 border-y bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
         <div className="container mx-auto px-4">
           <div className="flex items-center gap-1.5 overflow-x-auto py-2.5 scrollbar-hide -mx-1 px-1">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pr-2 shrink-0 hidden sm:inline">Jump to</span>
-            {[
-              { id: "schools", label: "Egyptian Schools", show: filteredEgyptianSchoolTracks.length > 0 },
-              { id: "levels", label: "CEFR Levels", show: filteredCefrLevels.length > 0 || showReadingCourse || showKidsCourse },
-              { id: "tools", label: "Learning Tools", show: !normalizedSearch },
-              { id: "categories", label: "Specialized", show: filteredCategories.length > 0 },
-            ].filter((s) => s.show).map((s) => (
-              <a
-                key={s.id}
-                href={`#${s.id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const el = document.getElementById(s.id);
-                  if (el) {
-                    const y = el.getBoundingClientRect().top + window.scrollY - 120;
-                    window.scrollTo({ top: y, behavior: "smooth" });
-                  }
-                }}
-                className="shrink-0 rounded-full border bg-card px-3.5 py-1.5 text-xs font-semibold text-foreground/80 shadow-sm transition-all hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
-              >
-                {s.label}
-              </a>
-            ))}
+            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground pr-2 shrink-0 hidden sm:inline">Filter</span>
+            {([
+              { id: "all", label: "All Courses", anchor: null },
+              { id: "beginners", label: "For Beginners & Kids", anchor: "beginners" },
+              { id: "cefr", label: "CEFR Levels", anchor: "levels" },
+              { id: "schools", label: "Egyptian Schools", anchor: "schools" },
+              { id: "specialized", label: "Specialized", anchor: "categories" },
+            ] as const).map((s) => {
+              const active = audience === s.id;
+              return (
+                <button
+                  key={s.id}
+                  type="button"
+                  onClick={() => {
+                    setAudience(s.id);
+                    if (s.anchor) {
+                      requestAnimationFrame(() => {
+                        const el = document.getElementById(s.anchor!);
+                        if (el) {
+                          const y = el.getBoundingClientRect().top + window.scrollY - 120;
+                          window.scrollTo({ top: y, behavior: "smooth" });
+                        }
+                      });
+                    } else {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-sm transition-all ${
+                    active
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "bg-card text-foreground/80 hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                  }`}
+                >
+                  {s.label}
+                </button>
+              );
+            })}
             {courseSearch && (
               <button
                 type="button"
