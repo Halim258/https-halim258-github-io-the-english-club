@@ -99,34 +99,56 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 5) نشاط تطبيقي — بدل الحوار، نحوّل تعليمات المعلم إلى خطوات نشاط عملي
+  // 5) نشاط تطبيقي — بنية واضحة: الهدف، الخطوات، التقييم الذاتي، تحدٍّ إضافي
   if (lesson.dialogue.length > 0) {
     const teacherSteps = lesson.dialogue
       .filter((d) => d.speaker === "المعلم" || d.speaker.includes("teacher"))
       .map((d) => d.text.trim())
       .filter(Boolean);
-    const steps = (teacherSteps.length > 0 ? teacherSteps : lesson.dialogue.map((d) => d.text))
-      .slice(0, 8);
+    const rawSteps =
+      teacherSteps.length > 0 ? teacherSteps : lesson.dialogue.map((d) => d.text.trim()).filter(Boolean);
+    const steps = rawSteps.slice(0, 6);
+    const firstTip = lesson.grammar.examples[0]?.sentence;
+    const secondTip = lesson.grammar.examples[1]?.sentence;
+
     if (steps.length > 0) {
-      chunk(steps, 5).forEach((c, i, arr) => {
-        const paragraphs = [
-          i === 0
-            ? `طبّق ما تعلّمته الآن. اتبع الخطوات التالية بترتيبها، وخذ وقتك في كل خطوة قبل الانتقال إلى التي بعدها:`
-            : "تابع الخطوات المتبقّية:",
-          ...c.map((s, k) => `${i * 5 + k + 1}) ${s}`),
-          i === arr.length - 1
-            ? "بعد إنهاء الخطوات، أعد التجربة مرة ثانية لترسّخ المهارة."
-            : "",
-        ].filter(Boolean);
-        slides.push({
-          id: id(),
-          type: "info",
-          title: "🎯 نشاط تطبيقي",
-          subtitle: arr.length > 1 ? `الجزء ${i + 1} من ${arr.length}` : "خطوات عملية طبّقها الآن",
-          emoji: "🎯",
-          bgColor: "from-cyan-500/10 to-cyan-500/5",
-          content: { kind: "info", paragraphs },
-        });
+      // Slide 5a: تعليمات النشاط
+      slides.push({
+        id: id(),
+        type: "info",
+        title: "🎯 نشاط تطبيقي",
+        subtitle: `طبّق «${lesson.grammar.title}» عمليًا`,
+        emoji: "🎯",
+        bgColor: "from-cyan-500/10 to-cyan-500/5",
+        content: {
+          kind: "info",
+          paragraphs: [
+            `🎯 الهدف: أن تتقن ${lesson.grammar.title} من خلال تجربة عملية قصيرة.`,
+            `⏱️ المدة المقترحة: من 5 إلى 10 دقائق.\n📍 المكان: مكان هادئ يسمح بالتركيز.\n👤 التنفيذ: بمفردك، أو مع زميل يراقبك ويعطيك ملاحظة.`,
+            "🧭 خطوات التنفيذ (اتبعها بالترتيب، ولا تنتقل لخطوة قبل إتقان التي قبلها):",
+            ...steps.map((s, k) => `${k + 1}. ${s}`),
+          ],
+        },
+      });
+
+      // Slide 5b: التقييم الذاتي والتحدي
+      slides.push({
+        id: id(),
+        type: "info",
+        title: "✅ قيّم أداءك",
+        subtitle: "تحقّق من نفسك قبل الانتقال",
+        emoji: "✅",
+        bgColor: "from-cyan-500/10 to-teal-500/5",
+        content: {
+          kind: "info",
+          paragraphs: [
+            "راجع أداءك على هذه النقاط، وضع ✅ أمام ما أتقنته و🔁 أمام ما يحتاج تكرارًا:",
+            firstTip ? `• ${firstTip}` : "• نفّذت الخطوات بالترتيب دون تسرّع.",
+            secondTip ? `• ${secondTip}` : "• حافظت على تركيزي طوال النشاط.",
+            "• شعرت بتحسّن ملحوظ بين المحاولة الأولى والأخيرة.",
+            `🏆 تحدٍّ إضافي: أعِد النشاط مرة ثانية مع تسجيل صوتي أو مرئي، ثم قارن بين المحاولتين واكتب ملاحظة واحدة عن ما تحسّن.`,
+          ],
+        },
       });
     }
   }
