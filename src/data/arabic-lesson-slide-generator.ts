@@ -99,19 +99,36 @@ export function generateArabicLessonSlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 5) الشرح المصور (نستخدم الحوار كسيناريو توضيحي بصري بين المعلم والطالب)
+  // 5) نشاط تطبيقي — بدل الحوار، نحوّل تعليمات المعلم إلى خطوات نشاط عملي
   if (lesson.dialogue.length > 0) {
-    chunk(lesson.dialogue, 5).forEach((c, i, arr) => {
-      slides.push({
-        id: id(),
-        type: "dialogue",
-        title: "🖼️ الشرح المصور — حوار المعلم والطالب",
-        subtitle: arr.length > 1 ? `الجزء ${i + 1} من ${arr.length}` : undefined,
-        emoji: "🖼️",
-        bgColor: "from-cyan-500/10 to-cyan-500/5",
-        content: { kind: "dialogue", lines: c },
+    const teacherSteps = lesson.dialogue
+      .filter((d) => d.speaker === "المعلم" || d.speaker.includes("teacher"))
+      .map((d) => d.text.trim())
+      .filter(Boolean);
+    const steps = (teacherSteps.length > 0 ? teacherSteps : lesson.dialogue.map((d) => d.text))
+      .slice(0, 8);
+    if (steps.length > 0) {
+      chunk(steps, 5).forEach((c, i, arr) => {
+        const paragraphs = [
+          i === 0
+            ? `طبّق ما تعلّمته الآن. اتبع الخطوات التالية بترتيبها، وخذ وقتك في كل خطوة قبل الانتقال إلى التي بعدها:`
+            : "تابع الخطوات المتبقّية:",
+          ...c.map((s, k) => `${i * 5 + k + 1}) ${s}`),
+          i === arr.length - 1
+            ? "بعد إنهاء الخطوات، أعد التجربة مرة ثانية لترسّخ المهارة."
+            : "",
+        ].filter(Boolean);
+        slides.push({
+          id: id(),
+          type: "info",
+          title: "🎯 نشاط تطبيقي",
+          subtitle: arr.length > 1 ? `الجزء ${i + 1} من ${arr.length}` : "خطوات عملية طبّقها الآن",
+          emoji: "🎯",
+          bgColor: "from-cyan-500/10 to-cyan-500/5",
+          content: { kind: "info", paragraphs },
+        });
       });
-    });
+    }
   }
 
   // 6) أمثلة محلولة (من grammar examples)
