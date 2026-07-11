@@ -1226,6 +1226,24 @@ export type Database = {
           xp_earned: number
         }[]
       }
+      get_cohort_analytics: {
+        Args: never
+        Returns: {
+          cohort_month: string
+          completed_count: number
+          enrolled_at: string
+          enrollment_id: string
+          group_days: string
+          group_id: string
+          group_level: string
+          level_id: string
+          status: string
+          student_name: string
+          teacher_email: string
+          teacher_name: string
+          user_id: string
+        }[]
+      }
       get_public_profiles: {
         Args: { _user_ids: string[] }
         Returns: {
