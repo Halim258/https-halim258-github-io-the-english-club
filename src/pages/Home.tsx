@@ -24,7 +24,7 @@ import lessonSpeaking from "@/assets/lesson-speaking.png";
 import lessonExam from "@/assets/lesson-exam.png";
 import lessonHomework from "@/assets/lesson-homework.png";
 import heroBg from "@/assets/hero-bg.jpg";
-import studentsLearning from "@/assets/hero-students.jpg";
+import studentsLearning from "@/assets/hero-students-new.png";
 import pccPresentation from "@/assets/pcc-presentation.jpg";
 import pccAwards from "@/assets/pcc-awards.jpg";
 import teacher1 from "@/assets/teacher-1.jpg";
