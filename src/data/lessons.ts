@@ -138,6 +138,7 @@ import { arTherapyLessonsL5 } from "./ar-therapy-lessons-l5";
 import { arTherapyLessonsL6 } from "./ar-therapy-lessons-l6";
 import { arTherapyLessonsL7 } from "./ar-therapy-lessons-l7";
 import { arTherapyLessonsL8 } from "./ar-therapy-lessons-l8";
+import { arSpeechBooksLessons } from "./ar-speech-books";
 import { arDrawingLessonsP1 } from "./ar-drawing-lessons-p1";
 import { arDrawingLessonsP2 } from "./ar-drawing-lessons-p2";
 import { arDrawingLessonsP3 } from "./ar-drawing-lessons-p3";
@@ -688,6 +689,7 @@ export const lessons: Record<string, LessonData> = {
   ...arTherapyLessonsL6,
   ...arTherapyLessonsL7,
   ...arTherapyLessonsL8,
+  ...arSpeechBooksLessons,
   ...arDrawingLessonsP1,
   ...arDrawingLessonsP2,
   ...arDrawingLessonsP3,
