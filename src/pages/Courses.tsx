@@ -492,6 +492,7 @@ export default function Courses() {
   const { levelId } = useParams();
   const [courseSearch, setCourseSearch] = useState("");
   const [showEgyptianSchoolTracks, setShowEgyptianSchoolTracks] = useState(false);
+  const [audience, setAudience] = useState<"all" | "beginners" | "cefr" | "schools" | "specialized">("all");
 
   // Compute all level IDs and their lesson counts for progress tracking
   const allLevelIds = useMemo(() => {
