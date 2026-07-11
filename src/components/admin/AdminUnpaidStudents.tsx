@@ -195,7 +195,7 @@ export default function AdminUnpaidStudents({ students }: Props) {
                     {hasPhone(s) ? (
                       <a
                         href={buildWhatsAppUrl(s)}
-                        target="_blank"
+                        target="_top"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-1 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white px-2.5 py-1 text-xs font-medium transition-colors"
                       >

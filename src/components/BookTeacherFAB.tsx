@@ -8,7 +8,7 @@ export default function BookTeacherFAB() {
     <div className="fixed bottom-[5.5rem] md:bottom-6 right-3 md:right-6 z-40 flex flex-col gap-2 items-end">
       <a
         href={WHATSAPP_URL}
-        target="_blank"
+        target="_top"
         rel="noopener noreferrer"
         className="group flex items-center gap-2 h-11 md:h-10 px-3 md:px-4 border border-foreground/20 bg-background/95 backdrop-blur text-foreground shadow-md hover:border-foreground/50 hover:-translate-y-0.5 active:translate-y-0 transition-all text-[11px] font-editorial-mono uppercase tracking-widest font-semibold"
       >

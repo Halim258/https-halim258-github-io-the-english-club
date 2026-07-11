@@ -54,7 +54,7 @@ export default function Contact() {
                 </p>
                 <a
                   href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
-                  target="_blank"
+                  target="_top"
                   rel="noopener noreferrer"
                   className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
                 >
@@ -118,7 +118,7 @@ export default function Contact() {
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a
                     href="https://api.whatsapp.com/send/?phone=201554901390&text&type=phone_number&app_absent=0"
-                    target="_blank"
+                    target="_top"
                     rel="noopener noreferrer"
                   >
                     <Button className="rounded-full gap-2">
