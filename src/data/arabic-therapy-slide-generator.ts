@@ -56,27 +56,23 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
     },
   });
 
-  // 3) شرح مترابط ومنطقي بدل بطاقات الكلمات
-  if (lesson.vocabulary.length > 0) {
-    const items = lesson.vocabulary.slice(0, 5);
-    const intro = `درسنا اليوم اسمه «${lesson.title}». ${lesson.description}`;
-    const body =
-      "علشان نفهم الموضوع كويس، لازم نعرف الأول شوية أفكار أساسية بيبني عليها الدرس كله. " +
-      items
-        .map((v, idx) => {
-          const meaning = v.meaning.split("—")[0].trim();
-          const connector =
-            idx === 0
-              ? "أول فكرة هي"
-              : idx === items.length - 1
-              ? "وأخيرًا"
-              : ["كمان في", "وبعد كده", "وبرضه عندنا"][idx % 3];
-          return `${connector} «${v.word}»، ومعناها ببساطة إن ${meaning}. مثال قريب من الطفل: ${v.example}`;
-        })
-        .join(" ");
-    const closing =
-      `لما نجمع الأفكار دي مع بعض، بيبقى عندنا صورة كاملة عن ${lesson.title}، ` +
-      `ونقدر نتدرب عليها خطوة خطوة في باقي الدرس.`;
+  // 3) شرح الدرس — نص فصيح ومترابط
+  {
+    const keyTerms = lesson.vocabulary.slice(0, 3).map((v) => v.word);
+    const explanationParas = lesson.grammar.explanation
+      .split(/\n\n+/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+    const paragraphs: string[] = [
+      `${lesson.description} في هذا الدرس نتناول موضوع «${lesson.title}» بأسلوب مبسّط يناسب الطفل، خطوة بخطوة.`,
+    ];
+    if (explanationParas.length > 0) paragraphs.push(explanationParas[0]);
+    if (keyTerms.length > 0) {
+      paragraphs.push(
+        `وسنتعرّف خلال الدرس على مفاهيم مهمة مثل: ${keyTerms.join("، ")}. ` +
+          `سنشرحها بأمثلة قريبة من حياة الطفل، ثم نتدرّب عليها في الأنشطة التالية.`,
+      );
+    }
     slides.push({
       id: id(),
       type: "info",
@@ -84,10 +80,7 @@ export function generateArabicTherapySlides(lesson: LessonData): Slide[] {
       subtitle: "اقرأ بهدوء وافهم الفكرة",
       emoji: "📖",
       bgColor: "from-yellow-300/25 to-orange-300/20",
-      content: {
-        kind: "info",
-        paragraphs: [intro, body, closing],
-      },
+      content: { kind: "info", paragraphs },
     });
   }
 
