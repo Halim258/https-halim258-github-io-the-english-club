@@ -19,6 +19,7 @@ import { lessons as allLessons } from "@/data/lessons";
 import { Progress } from "@/components/ui/progress";
 import { getSlideProgress } from "@/hooks/useSlideProgress";
 import { formatRelativeTime } from "@/lib/format-time";
+import CourseProgress from "@/components/CourseProgress";
 
 interface TestResult {
   id: string;
@@ -433,42 +434,18 @@ export default function StudentDashboard() {
                       to={done ? `/courses/${lp.level}` : `/courses/${lp.level}/${lp.nextLesson}/slides`}
                       className="group block rounded-xl border border-transparent p-2 -m-2 hover:border-primary/20 hover:bg-muted/40 transition-colors"
                     >
-                      <div className="flex items-center gap-3">
-                        <span className="text-xs font-bold font-display w-14 shrink-0 uppercase group-hover:text-primary transition-colors">
-                          {lp.level}
-                        </span>
-                        <div className="flex-1 h-2.5 rounded-full bg-muted overflow-hidden">
-                          <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: `${lp.percent}%` }}
-                            transition={{ duration: 0.8 }}
-                            className={`h-full rounded-full ${done ? "bg-emerald-500" : "bg-gradient-to-r from-primary to-accent"}`}
-                          />
-                        </div>
-                        <span className="text-[11px] font-semibold w-16 text-right shrink-0 tabular-nums text-muted-foreground group-hover:text-foreground">
-                          {lp.completed}/{lp.total}
-                        </span>
-                      </div>
-                      <div className="mt-1 ml-[3.75rem] flex items-center gap-2 text-[10px]">
-                        {done ? (
-                          <span className="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
-                            <CheckCircle2 className="h-3 w-3" /> Completed
-                          </span>
-                        ) : started ? (
-                          <span className="inline-flex items-center gap-1 text-primary font-semibold">
-                            <ArrowRight className="h-3 w-3" /> Resume Lesson {lp.nextLesson} · {lp.percent}%
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 text-muted-foreground">
-                            Not started
-                          </span>
-                        )}
-                        {lp.lastLesson && lp.lastAt && (
-                          <span className="inline-flex items-center gap-1 text-muted-foreground">
-                            <Clock className="h-3 w-3" /> Last: L{lp.lastLesson} · {formatRelativeTime(lp.lastAt)}
-                          </span>
-                        )}
-                      </div>
+                      <CourseProgress
+                        variant="row"
+                        label={lp.level}
+                        showEmpty
+                        data={{
+                          completed: lp.completed,
+                          total: lp.total,
+                          nextLesson: lp.nextLesson,
+                          lastLesson: lp.lastLesson,
+                          lastAt: lp.lastAt,
+                        }}
+                      />
                     </Link>
                   );
                 })}

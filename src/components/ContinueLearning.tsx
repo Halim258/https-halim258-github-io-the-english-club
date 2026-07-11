@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { lessons as allLessons } from "@/data/lessons";
+import CourseProgress from "@/components/CourseProgress";
 
 export default function ContinueLearning() {
   const { user } = useAuth();
@@ -50,7 +51,6 @@ export default function ContinueLearning() {
   }, [user]);
 
   if (!next) return null;
-  const percent = next.total > 0 ? Math.round((next.completed / next.total) * 100) : 0;
 
   return (
     <motion.section
@@ -84,22 +84,15 @@ export default function ContinueLearning() {
           </Link>
         </div>
         {next.total > 0 && !next.fresh && (
-          <div className="mt-4">
-            <div className="mb-1.5 flex items-center justify-between text-[11px]">
-              <span className="font-medium text-muted-foreground">Course progress</span>
-              <span className="font-bold text-primary tabular-nums">
-                {next.completed}/{next.total} · {percent}%
-              </span>
-            </div>
-            <div className="h-2 rounded-full bg-muted overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${percent}%` }}
-                transition={{ duration: 0.8 }}
-                className="h-full rounded-full bg-gradient-to-r from-primary to-accent"
-              />
-            </div>
-          </div>
+          <CourseProgress
+            variant="banner"
+            className="mt-4"
+            data={{
+              completed: next.completed,
+              total: next.total,
+              nextLesson: next.lesson_number,
+            }}
+          />
         )}
       </div>
     </motion.section>

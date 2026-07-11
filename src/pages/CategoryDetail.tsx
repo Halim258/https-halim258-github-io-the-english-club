@@ -8,7 +8,7 @@ import { categories } from "@/data/course-categories";
 import { getCourseImage } from "@/data/course-images";
 import { lessons } from "@/data/lessons";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
-import { formatRelativeTime } from "@/lib/format-time";
+import CourseProgress from "@/components/CourseProgress";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -483,21 +483,16 @@ export default function CategoryDetail() {
                       )}
                       {/* Progress Bar */}
                       {hasLessons && levelId && progress[levelId] && progress[levelId].completed > 0 && (
-                        <div className="mt-3 space-y-1">
-                          <div className="flex items-center justify-between text-[11px]">
-                            <span className="text-muted-foreground font-medium">
-                              {progress[levelId].completed}/{progress[levelId].total} lessons
-                            </span>
-                            <span className="font-semibold text-primary">
-                              {progress[levelId].percentage}%
-                            </span>
-                          </div>
-                          <Progress value={progress[levelId].percentage} className="h-2" />
-                          {progress[levelId].lastLesson && progress[levelId].lastAt && (
-                            <p className="text-[10px] text-muted-foreground mt-1">
-                              Last: Lesson {progress[levelId].lastLesson} · {formatRelativeTime(progress[levelId].lastAt)}
-                            </p>
-                          )}
+                        <div className="mt-3">
+                          <CourseProgress
+                            variant="card"
+                            data={{
+                              completed: progress[levelId].completed,
+                              total: progress[levelId].total,
+                              lastLesson: progress[levelId].lastLesson,
+                              lastAt: progress[levelId].lastAt,
+                            }}
+                          />
                         </div>
                       )}
                       <div className="mt-4">
