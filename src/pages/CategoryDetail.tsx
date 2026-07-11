@@ -92,6 +92,13 @@ const courseLevelMap: Record<string, string> = {
   "Español B2 — Avanzado": "es-b2",
   "Español C1 — Dominio operativo": "es-c1",
   "Español C2 — Maestría": "es-c2",
+  // German A1–C2 (Goethe-Institut)
+  "Deutsch A1 — Goethe-Zertifikat": "de-a1",
+  "Deutsch A2 — Goethe-Zertifikat": "de-a2",
+  "Deutsch B1 — Goethe-Zertifikat": "de-b1",
+  "Deutsch B2 — Goethe-Zertifikat": "de-b2",
+  "Deutsch C1 — Goethe-Zertifikat": "de-c1",
+  "Deutsch C2 — Großes Deutsches Sprachdiplom": "de-c2",
   // Arabic Speech Therapy — التخاطب
   "المستوى الأول — الانتباه والتواصل": "ar-th-1",
   "المستوى الثاني — اللغة الاستقبالية": "ar-th-2",
