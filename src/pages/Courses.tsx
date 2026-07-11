@@ -13,6 +13,32 @@ import { Progress } from "@/components/ui/progress";
 import { useCourseProgress } from "@/hooks/useCourseProgress";
 import ContinueLearning from "@/components/ContinueLearning";
 
+function CardProgress({ p, accent = "primary" }: { p: { completed: number; total: number; percentage: number }; accent?: "primary" | "amber" }) {
+  const done = p.percentage >= 100;
+  const barColor = done
+    ? "bg-emerald-500"
+    : accent === "amber"
+    ? "bg-gradient-to-r from-amber-500 to-orange-500"
+    : "bg-gradient-to-r from-primary to-accent";
+  return (
+    <div className="mt-3 space-y-1.5">
+      <div className="flex justify-between items-center text-[10px] font-medium">
+        <span className="text-muted-foreground">{p.completed}/{p.total} lessons</span>
+        {done ? (
+          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/15 px-2 py-0.5 font-bold text-emerald-700 dark:text-emerald-400">
+            <CheckCircle2 className="h-2.5 w-2.5" /> Completed
+          </span>
+        ) : (
+          <span className="font-bold text-primary tabular-nums">{p.percentage}%</span>
+        )}
+      </div>
+      <div className="h-1.5 rounded-full bg-muted overflow-hidden">
+        <div className={`h-full rounded-full transition-all duration-500 ${barColor}`} style={{ width: `${p.percentage}%` }} />
+      </div>
+    </div>
+  );
+}
+
 import readingImg from "@/assets/levels/reading.jpg";
 import kidsImg from "@/assets/levels/kids.jpg";
 import a1Img from "@/assets/levels/a1.jpg";
