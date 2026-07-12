@@ -176,6 +176,41 @@ const publicStageCurriculum = {
   ],
 };
 
+// CEFR sub-level breakdown for Spanish courses (Cervantes-style)
+// Maps a level id to ordered sub-level bands (label, subtitle, first & last lesson numbers).
+const SUB_LEVEL_GROUPS: Record<string, { code: string; title: string; from: number; to: number }[]> = {
+  "es-a1": [
+    { code: "A1.1", title: "Getting Started", from: 1, to: 7 },
+    { code: "A1.2", title: "Everyday Life", from: 8, to: 14 },
+    { code: "A1.3", title: "Living and Traveling", from: 15, to: 20 },
+  ],
+  "es-a2": [
+    { code: "A2.1", title: "Personal Experiences", from: 1, to: 7 },
+    { code: "A2.2", title: "Society and Services", from: 8, to: 14 },
+    { code: "A2.3", title: "Life Events", from: 15, to: 20 },
+  ],
+  "es-b1": [
+    { code: "B1.1", title: "Communication", from: 1, to: 5 },
+    { code: "B1.2", title: "Lifestyle", from: 6, to: 10 },
+    { code: "B1.3", title: "Culture and Society", from: 11, to: 15 },
+    { code: "B1.4", title: "Opinions and Discussions", from: 16, to: 20 },
+  ],
+  "es-b2": [
+    { code: "B2.1", title: "Modern Society", from: 1, to: 5 },
+    { code: "B2.2", title: "Professional Spanish", from: 6, to: 10 },
+    { code: "B2.3", title: "Critical Thinking", from: 11, to: 15 },
+    { code: "B2.4", title: "Academic and Cultural Spanish", from: 16, to: 20 },
+  ],
+  "es-c1": [
+    { code: "C1.1", title: "Advanced Communication", from: 1, to: 4 },
+    { code: "C1.2", title: "Academic and Professional Language", from: 5, to: 7 },
+    { code: "C1.3", title: "Business and Leadership", from: 8, to: 11 },
+    { code: "C1.4", title: "Literature and Arts", from: 12, to: 14 },
+    { code: "C1.5", title: "Global Issues", from: 15, to: 17 },
+    { code: "C1.6", title: "DELE C1 Preparation", from: 18, to: 20 },
+  ],
+};
+
 function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: string }) {
   const lessonKeys = Object.keys(lessons).filter((k) => k.startsWith(`${levelId}-`)).sort((a, b) => {
     const aNum = parseInt(a.split("-").pop() || "0");
@@ -383,6 +418,9 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
       >
         {lessonKeys.map((key, index) => {
           const l = lessons[key];
+          const subGroups = SUB_LEVEL_GROUPS[levelId];
+          const subGroup = subGroups?.find((g) => l.lessonNumber >= g.from && l.lessonNumber <= g.to);
+          const isSubGroupStart = subGroup && l.lessonNumber === subGroup.from;
           const difficulty = l.lessonNumber <= 7 ? "Easy" : l.lessonNumber <= 14 ? "Medium" : "Hard";
           const estTime = l.lessonNumber <= 7 ? "15 min" : l.lessonNumber <= 14 ? "20 min" : "25 min";
           const diffColor = l.lessonNumber <= 7 
@@ -401,6 +439,20 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
 
           return (
             <motion.div key={key} variants={staggerItem}>
+              {isSubGroupStart && (
+                <div className="mt-6 mb-3 first:mt-0">
+                  <div className="flex items-center gap-3">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary/15 to-accent/10 px-3 py-1 text-xs font-bold text-primary shadow-sm">
+                      <span className="tabular-nums">{subGroup!.code}</span>
+                      <span className="text-foreground/80 font-semibold">— {subGroup!.title}</span>
+                    </div>
+                    <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
+                    <span className="text-[10px] font-medium text-muted-foreground tabular-nums">
+                      Lessons {subGroup!.from}–{subGroup!.to}
+                    </span>
+                  </div>
+                </div>
+              )}
               {isMilestone && (
                 <div className="flex items-center gap-2 mb-2 mt-4 px-1">
                   <div className="h-px flex-1 bg-primary/20" />
