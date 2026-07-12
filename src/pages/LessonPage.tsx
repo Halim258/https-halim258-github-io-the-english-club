@@ -714,6 +714,7 @@ const TABS = [
   { id: "reading", label: "Reading", icon: "📖" },
   { id: "conversation", label: "Conversation", altLabel: "Discussion", icon: "💬", altIcon: "🗣️" },
   { id: "grammar", label: "Grammar", icon: "📐" },
+  { id: "activity", label: "Activity", icon: "🎯" },
   { id: "speaking", label: "Speaking", icon: "🗣️" },
   { id: "exam", label: "Exam", icon: "📝" },
   { id: "homework", label: "Homework", icon: "📋" },
@@ -843,6 +844,12 @@ export default function LessonPage() {
             )
           );
         }
+        return cards;
+      }
+      case "activity": {
+        const cards: React.ReactNode[] = [
+          <SectionTitleCard key="a-title" title="Interactive Activities" icon="🎯" />,
+        ];
         if (lesson.pictureActivity) {
           cards.push(
             <PictureCard
@@ -1074,8 +1081,11 @@ export default function LessonPage() {
       <div className="flex gap-1 overflow-x-auto px-2 sm:px-3 py-2 bg-muted/50 border-b scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
         {TABS.filter((tab) => {
           if (tab.id === "reading") {
+            return Boolean(lesson.reading || lesson.heroImage);
+          }
+          if (tab.id === "activity") {
             return Boolean(
-              lesson.reading || lesson.pictureActivity || lesson.listening || lesson.writingPrompt
+              lesson.pictureActivity || lesson.listening || lesson.writingPrompt || lesson.speakingPrompt
             );
           }
           return true;
