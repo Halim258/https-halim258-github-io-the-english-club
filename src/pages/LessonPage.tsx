@@ -847,25 +847,9 @@ export default function LessonPage() {
         return cards;
       }
       case "activity": {
-        const topic = lesson.title;
-        const googleQuery = encodeURIComponent(`${topic} vocabulario español`);
-        const googleUrl = `https://www.google.com/search?q=${googleQuery}`;
-        const activityPrompt =
-`🔎 Investiga en Google: "${topic}"
-
-Abre este enlace y busca información sobre el tema:
-${googleUrl}
-
-📝 Instrucciones:
-1. Busca en Google el tema de esta lección: "${topic}".
-2. Lee 2 o 3 páginas o mira imágenes relacionadas.
-3. Escribe abajo TODAS las palabras nuevas en español que encuentres (nombres, verbos, adjetivos).
-4. Intenta escribir al menos 15 palabras. ¡Cuantas más, mejor!
-5. Al final, escribe 2 frases completas usando algunas de esas palabras.
-
-💡 Consejo: si no entiendes una palabra, escríbela igual y luego búscala en el diccionario.`;
+        const activityPrompt = `Busca "${lesson.title}" en Google y escribe todas las palabras nuevas que encuentres (mínimo 15). Luego escribe 2 frases completas.`;
         return [
-          <SectionTitleCard key="a-title" title="Actividad de investigación" icon="🎯" />,
+          <SectionTitleCard key="a-title" title="Actividad" icon="🎯" />,
           <PromptCard
             key="search-write"
             title="Busca y escribe"
