@@ -17,17 +17,17 @@ const Shell = ({ children }: { children: React.ReactNode }) => (
   </div>
 );
 
-/* ───── Progress bar ───── */
+/* ───── Progress bar — thin editorial hairline ───── */
 const ProgressBar = ({ current, total }: { current: number; total: number }) => (
-  <div className="h-1.5 w-full bg-muted">
+  <div className="h-1 w-full bg-primary/10">
     <div
-      className="h-full bg-primary transition-all duration-300 ease-out"
+      className="h-full bg-primary transition-all duration-500 ease-out"
       style={{ width: `${((current + 1) / total) * 100}%` }}
     />
   </div>
 );
 
-/* ───── Navigation footer ───── */
+/* ───── Navigation footer — editorial tactile controls ───── */
 const NavFooter = ({
   onPrev,
   onNext,
@@ -42,47 +42,50 @@ const NavFooter = ({
   canNext: boolean;
   current: number;
   total: number;
-}) => (
-  <div className="flex items-center justify-between border-t bg-card px-3 sm:px-4 py-2.5 sm:py-3 safe-area-bottom">
-    <Button
-      variant={canPrev ? "outline" : "ghost"}
-      size="sm"
-      onClick={onPrev}
-      disabled={!canPrev}
-      className="gap-1 transition-all duration-200 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 touch-manipulation"
-    >
-      <ChevronLeft className="h-4 w-4" /> <span className="hidden sm:inline">Back</span>
-    </Button>
-    <div className="flex flex-col items-center">
-      <span className="text-xs text-muted-foreground font-sans font-medium">
-        {current + 1} / {total}
-      </span>
-      {/* Mini dot progress */}
-      <div className="flex gap-0.5 mt-1">
-        {Array.from({ length: Math.min(total, 16) }, (_, i) => {
-          const dotIndex = total <= 16 ? i : Math.floor((i / 16) * total);
-          return (
-            <div
-              key={i}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                dotIndex <= current ? "bg-primary w-2" : "bg-muted w-1.5"
-              }`}
-            />
-          );
-        })}
+}) => {
+  const pct = ((current + 1) / total) * 100;
+  return (
+    <div className="flex items-center justify-between border-t border-border/60 bg-card px-4 sm:px-6 py-3 sm:py-4 safe-area-bottom">
+      <button
+        onClick={onPrev}
+        disabled={!canPrev}
+        className={`group flex items-center gap-2 border px-4 sm:px-6 py-2.5 sm:py-3 text-[11px] font-semibold uppercase tracking-[0.18em] font-sans transition-colors min-h-[44px] touch-manipulation ${
+          canPrev
+            ? "border-border text-foreground/70 hover:bg-muted hover:text-foreground"
+            : "border-border/40 text-muted-foreground/40 cursor-not-allowed"
+        }`}
+      >
+        <ChevronLeft className="h-4 w-4 transition-transform group-hover:-translate-x-0.5" />
+        <span className="hidden sm:inline">Back</span>
+      </button>
+
+      <div className="flex flex-col items-center gap-1.5 min-w-0">
+        <span className="text-[13px] font-bold text-foreground font-sans tabular-nums">
+          {current + 1} <span className="text-muted-foreground/60 font-normal mx-0.5">/</span> {total}
+        </span>
+        <div className="w-24 h-[3px] bg-primary/10 overflow-hidden">
+          <div
+            className="h-full bg-primary transition-all duration-500 ease-out"
+            style={{ width: `${pct}%` }}
+          />
+        </div>
       </div>
+
+      <button
+        onClick={onNext}
+        disabled={!canNext}
+        className={`group flex items-center gap-2 px-5 sm:px-8 py-2.5 sm:py-3 text-[11px] font-semibold uppercase tracking-[0.18em] font-sans transition-transform min-h-[44px] touch-manipulation ${
+          canNext
+            ? "bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90 active:scale-[0.97]"
+            : "bg-muted text-muted-foreground/50 cursor-not-allowed"
+        }`}
+      >
+        <span className="hidden sm:inline">Next</span>
+        <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+      </button>
     </div>
-    <Button
-      variant={canNext ? "default" : "ghost"}
-      size="sm"
-      onClick={onNext}
-      disabled={!canNext}
-      className="gap-1 transition-all duration-200 min-h-[44px] min-w-[44px] sm:min-h-0 sm:min-w-0 touch-manipulation"
-    >
-      <span className="hidden sm:inline">Next</span> <ChevronRight className="h-4 w-4" />
-    </Button>
-  </div>
-);
+  );
+};
 
 /* ───── Audio Button ───── */
 const AudioButton = forwardRef<HTMLButtonElement, { text: string; speak: (t: string) => void; speaking: boolean }>(function AudioButton({ text, speak, speaking }, ref) {
