@@ -249,17 +249,17 @@ export default function Home() {
                   <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-accent block mb-3">
                     Issue 01 — The Method
                   </span>
-                  <h2 className="font-display text-3xl md:text-5xl lg:text-6xl leading-[1.05] text-background">
+                  <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-[1.05] text-background">
                     Refining the Art of <em className="text-accent not-italic font-display italic">Language Acquisition.</em>
                   </h2>
-                  <div className="mt-6 flex flex-wrap gap-3">
+                  <div className="mt-4 md:mt-6 flex flex-wrap gap-3">
                     <Link to="/courses">
-                      <Button size="lg" className="rounded-none px-7 h-12 font-semibold text-sm uppercase tracking-widest bg-accent text-secondary hover:bg-accent/90 hover:-translate-y-0.5 transition-all">
+                      <Button size="lg" className="rounded-none px-5 md:px-7 h-11 md:h-12 font-semibold text-xs md:text-sm uppercase tracking-widest bg-accent text-secondary hover:bg-accent/90 hover:-translate-y-0.5 transition-all">
                         Start Learning
                       </Button>
                     </Link>
                     <Link to="/courses">
-                      <Button size="lg" variant="outline" className="rounded-none px-7 h-12 font-semibold text-sm uppercase tracking-widest border-background/70 text-background bg-transparent hover:bg-background hover:text-foreground">
+                      <Button size="lg" variant="outline" className="rounded-none px-5 md:px-7 h-11 md:h-12 font-semibold text-xs md:text-sm uppercase tracking-widest border-background/70 text-background bg-transparent hover:bg-background hover:text-foreground">
                         Our Curriculum
                       </Button>
                     </Link>
