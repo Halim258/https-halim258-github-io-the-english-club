@@ -820,6 +820,88 @@ export default function LessonPage() {
           <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} onRetry={handleRetry(vocabScore)} />,
         ];
       }
+      case "reading": {
+        const cards: React.ReactNode[] = [
+          <SectionTitleCard key="r-title" title="Reading & Practice" icon="📖" />,
+        ];
+        if (lesson.heroImage) {
+          cards.push(<HeroImageCard key="hero" src={lesson.heroImage} title={lesson.title} />);
+        }
+        if (lesson.reading) {
+          cards.push(
+            <ReadingPassageCard
+              key="reading"
+              title={lesson.reading.title}
+              text={lesson.reading.text}
+              speak={speak}
+              speaking={speaking}
+            />
+          );
+          lesson.reading.questions.forEach((q, i) =>
+            cards.push(
+              <MCQCard key={`rq-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
+            )
+          );
+        }
+        if (lesson.pictureActivity) {
+          cards.push(
+            <PictureCard
+              key="pic"
+              imageUrl={lesson.pictureActivity.imageUrl}
+              caption={lesson.pictureActivity.caption}
+              prompt={lesson.pictureActivity.prompt}
+            />
+          );
+          lesson.pictureActivity.questions.forEach((q, i) =>
+            cards.push(
+              <MCQCard key={`pq-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
+            )
+          );
+        }
+        if (lesson.listening) {
+          cards.push(
+            <ListeningCard
+              key="listen"
+              transcript={lesson.listening.transcript}
+              speak={speak}
+              speaking={speaking}
+            />
+          );
+          lesson.listening.questions.forEach((q, i) =>
+            cards.push(
+              <MCQCard key={`lq-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
+            )
+          );
+        }
+        if (lesson.writingPrompt) {
+          cards.push(
+            <PromptCard
+              key="write"
+              title="Escritura"
+              icon="✍️"
+              prompt={lesson.writingPrompt}
+              storageKey={`writing-${lesson.levelId}-${lesson.lessonNumber}`}
+              speak={speak}
+              speaking={speaking}
+            />
+          );
+        }
+        if (lesson.speakingPrompt) {
+          cards.push(
+            <PromptCard
+              key="speak"
+              title="Expresión oral"
+              icon="🎙️"
+              prompt={lesson.speakingPrompt}
+              storageKey={`speaking-${lesson.levelId}-${lesson.lessonNumber}`}
+              isSpeaking
+              speak={speak}
+              speaking={speaking}
+            />
+          );
+        }
+        return cards;
+      }
       case "conversation": {
         const lessonKey = `${lesson.levelId}-${lesson.lessonNumber}`;
         const prompts = getDiscussionPrompts(lessonKey);
