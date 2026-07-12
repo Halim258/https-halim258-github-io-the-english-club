@@ -184,6 +184,36 @@ const SUB_LEVEL_GROUPS: Record<string, { code: string; title: string; from: numb
     { code: "A1.2", title: "Everyday Life", from: 8, to: 14 },
     { code: "A1.3", title: "Living and Interacting", from: 15, to: 20 },
   ],
+  "it-a1": [
+    { code: "A1.1", title: "Primi Passi", from: 1, to: 7 },
+    { code: "A1.2", title: "Vita Quotidiana", from: 8, to: 14 },
+    { code: "A1.3", title: "Vivere e Viaggiare", from: 15, to: 20 },
+  ],
+  "it-a2": [
+    { code: "A2.1", title: "Esperienze Personali", from: 1, to: 7 },
+    { code: "A2.2", title: "Società e Servizi", from: 8, to: 14 },
+    { code: "A2.3", title: "Eventi della Vita", from: 15, to: 20 },
+  ],
+  "it-b1": [
+    { code: "B1.1", title: "Comunicazione", from: 1, to: 5 },
+    { code: "B1.2", title: "Stile di Vita", from: 6, to: 10 },
+    { code: "B1.3", title: "Cultura e Società", from: 11, to: 15 },
+    { code: "B1.4", title: "Opinioni e Discussioni", from: 16, to: 20 },
+  ],
+  "it-b2": [
+    { code: "B2.1", title: "Società Moderna", from: 1, to: 5 },
+    { code: "B2.2", title: "Italiano Professionale", from: 6, to: 10 },
+    { code: "B2.3", title: "Pensiero Critico", from: 11, to: 15 },
+    { code: "B2.4", title: "Italiano Accademico e Culturale", from: 16, to: 20 },
+  ],
+  "it-c1": [
+    { code: "C1.1", title: "Comunicazione Avanzata", from: 1, to: 4 },
+    { code: "C1.2", title: "Linguaggio Accademico", from: 5, to: 7 },
+    { code: "C1.3", title: "Business e Leadership", from: 8, to: 11 },
+    { code: "C1.4", title: "Letteratura e Arti", from: 12, to: 14 },
+    { code: "C1.5", title: "Questioni Globali", from: 15, to: 17 },
+    { code: "C1.6", title: "Preparazione CILS C1", from: 18, to: 20 },
+  ],
   "es-a1": [
     { code: "A1.1", title: "Getting Started", from: 1, to: 7 },
     { code: "A1.2", title: "Everyday Life", from: 8, to: 14 },
