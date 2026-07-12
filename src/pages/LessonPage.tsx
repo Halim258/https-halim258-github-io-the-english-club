@@ -1081,8 +1081,11 @@ export default function LessonPage() {
       <div className="flex gap-1 overflow-x-auto px-2 sm:px-3 py-2 bg-muted/50 border-b scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
         {TABS.filter((tab) => {
           if (tab.id === "reading") {
+            return Boolean(lesson.reading || lesson.heroImage);
+          }
+          if (tab.id === "activity") {
             return Boolean(
-              lesson.reading || lesson.pictureActivity || lesson.listening || lesson.writingPrompt
+              lesson.pictureActivity || lesson.listening || lesson.writingPrompt || lesson.speakingPrompt
             );
           }
           return true;
