@@ -1153,7 +1153,7 @@ export default function LessonPage() {
         onPrev={goPrev}
         onNext={goNext}
         canPrev={cardIndex > 0}
-        canNext={cardIndex < totalCards - 1}
+        canNext={true}
         current={cardIndex}
         total={totalCards}
       />
