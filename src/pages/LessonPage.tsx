@@ -1100,38 +1100,58 @@ export default function LessonPage() {
 
   return (
     <Shell>
-      {/* Header */}
-      <div className="flex items-center justify-between border-b bg-card px-3 sm:px-4 py-2">
-        <div className="flex items-center gap-1.5 sm:gap-2">
-          <Link to="/courses" className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground font-sans min-h-[44px] min-w-[44px] justify-center touch-manipulation">
-            <ChevronLeft className="h-4 w-4" /> <span className="hidden sm:inline">Exit</span>
+      {/* Global progress hairline — top edge */}
+      <ProgressBar current={cardIndex} total={totalCards} />
+
+      {/* Header — utility bar */}
+      <div className="flex items-center justify-between border-b border-border/60 bg-card px-3 sm:px-6 py-3">
+        {/* Left: combined Exit · Slides ink pill */}
+        <div className="flex items-center rounded-full bg-foreground text-background shadow-sm overflow-hidden">
+          <Link
+            to="/courses"
+            className="flex items-center gap-1 pl-3.5 pr-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] font-sans opacity-80 hover:opacity-100 transition-opacity min-h-[36px] touch-manipulation"
+          >
+            <ChevronLeft className="h-3 w-3" /> Exit
           </Link>
+          <span className="w-px h-3 bg-background/30" />
           <button
             onClick={() => navigate(`/courses/${levelId}/${lessonId}/slides`)}
-            className="flex items-center gap-1 rounded-full bg-primary/10 px-2 sm:px-2.5 py-1 text-[11px] font-semibold text-primary hover:bg-primary/20 transition-colors min-h-[36px] touch-manipulation"
+            className="flex items-center gap-1 pl-2 pr-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] font-sans opacity-80 hover:opacity-100 transition-opacity min-h-[36px] touch-manipulation"
           >
             <Presentation className="h-3 w-3" /> <span className="hidden sm:inline">Slides</span>
           </button>
         </div>
-        <div className="text-center flex items-center gap-1.5 sm:gap-2 min-w-0">
-          <div className="min-w-0">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-primary font-sans">{lesson.levelLabel}</p>
-            <p className="text-xs font-medium text-foreground font-sans truncate max-w-[120px] sm:max-w-none">{lesson.title}</p>
+
+        {/* Center: lesson meta */}
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <div className="min-w-0 text-center">
+            <p className="text-[9px] font-bold uppercase tracking-[0.24em] text-primary font-sans">{lesson.levelLabel}</p>
+            <p className="text-[13px] font-semibold text-foreground font-display leading-tight truncate max-w-[140px] sm:max-w-[280px]">
+              {lesson.title}
+            </p>
           </div>
           <DifficultyBadge lessonNumber={lesson.lessonNumber} />
         </div>
+
+        {/* Right: Arabic toggle */}
         <button
           onClick={() => setShowArabic(!showArabic)}
-          className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground font-sans min-h-[44px] min-w-[44px] justify-center touch-manipulation"
+          className={`flex items-center gap-1.5 rounded-full border px-2.5 sm:px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] font-sans transition-colors min-h-[36px] touch-manipulation ${
+            showArabic
+              ? "border-primary/40 bg-primary/10 text-primary"
+              : "border-border text-muted-foreground hover:text-foreground hover:border-border"
+          }`}
+          aria-label="Toggle Arabic translations"
         >
-          {showArabic ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
+          {showArabic ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
           <span className="hidden sm:inline">عربي</span>
         </button>
       </div>
 
-      {/* Tab pills — scrollable on mobile */}
-      <div className="flex gap-1 overflow-x-auto px-2 sm:px-3 py-2 bg-muted/50 border-b scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
-        {TABS.filter((tab) => {
+      {/* Section navigation — editorial underlined tabs with per-section dots */}
+      <div className="border-b border-border/60 bg-card px-3 sm:px-6 pt-2">
+        <nav className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
+          {TABS.filter((tab) => {
           if (tab.id === "reading") {
             return Boolean(lesson.reading || lesson.heroImage);
           }
@@ -1146,34 +1166,53 @@ export default function LessonPage() {
         }).map((tab) => {
           const isCommunication = isCommunicationCourse(lesson.levelId);
           const displayLabel = tab.id === "conversation" && isCommunication && "altLabel" in tab ? tab.altLabel : tab.label;
-          const displayIcon = tab.id === "conversation" && isCommunication && "altIcon" in tab ? tab.altIcon : tab.icon;
+          const isActive = activeTab === tab.id;
+          // Per-tab progress dots (3 pips): filled = current tab's progress ratio
+          const dotCount = 3;
+          const filledDots = isActive
+            ? Math.max(1, Math.min(dotCount, Math.ceil((cardIndex + 1) / totalCards * dotCount)))
+            : 0;
           return (
             <button
               key={tab.id}
               onClick={() => switchTab(tab.id)}
-              className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-xs font-medium transition-colors font-sans shrink-0 min-h-[40px] touch-manipulation ${
-                activeTab === tab.id
-                  ? "bg-primary text-primary-foreground"
-                  : "bg-card text-muted-foreground hover:text-foreground border"
+              className={`group flex flex-col items-center gap-1.5 shrink-0 whitespace-nowrap transition-opacity touch-manipulation ${
+                isActive ? "opacity-100" : "opacity-45 hover:opacity-80"
               }`}
             >
-              <span>{displayIcon}</span> {displayLabel}
+              <span
+                className={`pb-2 px-1 text-[11px] font-semibold uppercase tracking-[0.14em] font-sans border-b-2 transition-colors ${
+                  isActive
+                    ? "text-primary border-primary"
+                    : "text-foreground border-transparent group-hover:border-border"
+                }`}
+              >
+                {displayLabel}
+              </span>
+              <div className="flex gap-1 pb-1.5">
+                {Array.from({ length: dotCount }).map((_, i) => (
+                  <span
+                    key={i}
+                    className={`h-1 w-1 rounded-full transition-colors ${
+                      i < filledDots ? "bg-primary" : "bg-border"
+                    }`}
+                  />
+                ))}
+              </div>
             </button>
           );
         })}
+        </nav>
       </div>
-
-      {/* Progress */}
-      <ProgressBar current={cardIndex} total={totalCards} />
 
       {/* Jump to Exercises button — visible in vocab tab when viewing vocab cards */}
       {activeTab === "vocabulary" && cardIndex < exerciseStartIndex && (
-        <div className="flex justify-center py-1 bg-muted/30 border-b">
+        <div className="flex justify-center py-1.5 bg-muted/20 border-b border-border/40">
           <button
             onClick={() => setCardIndex(exerciseStartIndex)}
-            className="flex items-center gap-1.5 text-xs font-medium text-primary hover:text-primary/80 transition-colors font-sans"
+            className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-primary hover:text-primary/80 transition-colors font-sans"
           >
-            <ChevronRight className="h-3.5 w-3.5" /> Skip to Exercises ({lesson.vocabExercises.length})
+            Skip to Exercises ({lesson.vocabExercises.length}) <ChevronRight className="h-3 w-3" />
           </button>
         </div>
       )}
