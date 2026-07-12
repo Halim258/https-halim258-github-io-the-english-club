@@ -884,3 +884,9 @@ applyVideoPatches(lessons);
 // Generate comprehensive vocab exercises (4 types per word) for all lessons
 import { applyVocabExercises } from "./vocab-exercise-generator";
 applyVocabExercises(lessons);
+
+// Universal lesson enrichment — fills in hero image, reading passage,
+// listening exercise, and writing/speaking prompts for every lesson
+// that doesn't already have them. Runs last so hand-authored fields win.
+import { enrichAllLessons } from "./lesson-enrichments";
+enrichAllLessons(lessons);
