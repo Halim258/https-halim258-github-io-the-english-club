@@ -139,7 +139,7 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden items-center gap-0.5 lg:flex">
+        <div className="hidden items-center gap-0.5 xl:flex">
           {primaryLinks.map((l) => {
             const isActive = location.pathname === l.to;
             return (
@@ -217,7 +217,7 @@ export default function Navbar() {
         </div>
 
         {/* Desktop auth buttons */}
-        <div className="hidden items-center gap-1.5 lg:flex">
+        <div className="hidden items-center gap-1.5 xl:flex">
           <button
             onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
             className="flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
@@ -294,7 +294,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile hamburger */}
-        <div className="flex items-center gap-1.5 lg:hidden">
+        <div className="flex items-center gap-1.5 xl:hidden">
           <button
             onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
             className="flex h-10 w-10 items-center justify-center rounded-xl border bg-muted/50 text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
@@ -331,7 +331,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            className="overflow-hidden border-t bg-card/95 backdrop-blur-xl lg:hidden"
+            className="overflow-hidden border-t bg-card/95 backdrop-blur-xl xl:hidden"
           >
             <div className="p-4 flex flex-col gap-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
               <button
