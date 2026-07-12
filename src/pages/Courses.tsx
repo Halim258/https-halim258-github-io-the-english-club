@@ -189,6 +189,11 @@ const SUB_LEVEL_GROUPS: Record<string, { code: string; title: string; from: numb
     { code: "A1.2", title: "Vita Quotidiana", from: 8, to: 14 },
     { code: "A1.3", title: "Vivere e Viaggiare", from: 15, to: 20 },
   ],
+  "de-a1": [
+    { code: "A1.1", title: "Erste Schritte", from: 1, to: 7 },
+    { code: "A1.2", title: "Alltag", from: 8, to: 14 },
+    { code: "A1.3", title: "Leben und Reisen", from: 15, to: 20 },
+  ],
   "it-a2": [
     { code: "A2.1", title: "Esperienze Personali", from: 1, to: 7 },
     { code: "A2.2", title: "Società e Servizi", from: 8, to: 14 },
