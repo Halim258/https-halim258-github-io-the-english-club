@@ -194,6 +194,31 @@ const SUB_LEVEL_GROUPS: Record<string, { code: string; title: string; from: numb
     { code: "A1.2", title: "Alltag", from: 8, to: 14 },
     { code: "A1.3", title: "Leben und Reisen", from: 15, to: 20 },
   ],
+  "de-a2": [
+    { code: "A2.1", title: "Persönliche Erfahrungen", from: 1, to: 7 },
+    { code: "A2.2", title: "Gesellschaft und Dienstleistungen", from: 8, to: 14 },
+    { code: "A2.3", title: "Lebensereignisse", from: 15, to: 20 },
+  ],
+  "de-b1": [
+    { code: "B1.1", title: "Kommunikation", from: 1, to: 5 },
+    { code: "B1.2", title: "Lebensstil", from: 6, to: 10 },
+    { code: "B1.3", title: "Kultur und Gesellschaft", from: 11, to: 15 },
+    { code: "B1.4", title: "Meinungen und Diskussionen", from: 16, to: 20 },
+  ],
+  "de-b2": [
+    { code: "B2.1", title: "Moderne Gesellschaft", from: 1, to: 5 },
+    { code: "B2.2", title: "Berufliches Deutsch", from: 6, to: 10 },
+    { code: "B2.3", title: "Kritisches Denken", from: 11, to: 15 },
+    { code: "B2.4", title: "Akademisches und Kulturelles Deutsch", from: 16, to: 20 },
+  ],
+  "de-c1": [
+    { code: "C1.1", title: "Fortgeschrittene Kommunikation", from: 1, to: 4 },
+    { code: "C1.2", title: "Akademische Sprache", from: 5, to: 7 },
+    { code: "C1.3", title: "Business und Führung", from: 8, to: 11 },
+    { code: "C1.4", title: "Literatur und Kunst", from: 12, to: 14 },
+    { code: "C1.5", title: "Globale Themen", from: 15, to: 17 },
+    { code: "C1.6", title: "Goethe C1 Prüfungsvorbereitung", from: 18, to: 20 },
+  ],
   "it-a2": [
     { code: "A2.1", title: "Esperienze Personali", from: 1, to: 7 },
     { code: "A2.2", title: "Società e Servizi", from: 8, to: 14 },
