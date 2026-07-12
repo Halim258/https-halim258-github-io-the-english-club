@@ -418,6 +418,9 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
       >
         {lessonKeys.map((key, index) => {
           const l = lessons[key];
+          const subGroups = SUB_LEVEL_GROUPS[levelId];
+          const subGroup = subGroups?.find((g) => l.lessonNumber >= g.from && l.lessonNumber <= g.to);
+          const isSubGroupStart = subGroup && l.lessonNumber === subGroup.from;
           const difficulty = l.lessonNumber <= 7 ? "Easy" : l.lessonNumber <= 14 ? "Medium" : "Hard";
           const estTime = l.lessonNumber <= 7 ? "15 min" : l.lessonNumber <= 14 ? "20 min" : "25 min";
           const diffColor = l.lessonNumber <= 7 
@@ -436,6 +439,20 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
 
           return (
             <motion.div key={key} variants={staggerItem}>
+              {isSubGroupStart && (
+                <div className="mt-6 mb-3 first:mt-0">
+                  <div className="flex items-center gap-3">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-primary/15 to-accent/10 px-3 py-1 text-xs font-bold text-primary shadow-sm">
+                      <span className="tabular-nums">{subGroup!.code}</span>
+                      <span className="text-foreground/80 font-semibold">— {subGroup!.title}</span>
+                    </div>
+                    <div className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent" />
+                    <span className="text-[10px] font-medium text-muted-foreground tabular-nums">
+                      Lessons {subGroup!.from}–{subGroup!.to}
+                    </span>
+                  </div>
+                </div>
+              )}
               {isMilestone && (
                 <div className="flex items-center gap-2 mb-2 mt-4 px-1">
                   <div className="h-px flex-1 bg-primary/20" />
