@@ -903,12 +903,24 @@ export default function LessonPage() {
         return cards;
       }
       case "activity": {
-        const activityPrompt = `Busca "${lesson.title}" en Google y escribe todas las palabras nuevas que encuentres (mínimo 15). Luego escribe 2 frases completas.`;
+        const lid = lesson.levelId || "";
+        const isEs = lid.startsWith("es-");
+        const isDe = lid.startsWith("de-");
+        const isIt = lid.startsWith("it-");
+        const activityPrompt = isEs
+          ? `Busca "${lesson.title}" en Google y escribe todas las palabras nuevas que encuentres (mínimo 15). Luego escribe 2 frases completas.`
+          : isDe
+          ? `Suche "${lesson.title}" bei Google und schreibe alle neuen Wörter auf, die du findest (mindestens 15). Schreibe dann 2 vollständige Sätze.`
+          : isIt
+          ? `Cerca "${lesson.title}" su Google e scrivi tutte le parole nuove che trovi (minimo 15). Poi scrivi 2 frasi complete.`
+          : `Search "${lesson.title}" on Google and write down all the new words you find (at least 15). Then write 2 full sentences.`;
+        const sectionTitle = isEs ? "Actividad" : isDe ? "Aktivität" : isIt ? "Attività" : "Activity";
+        const cardTitle = isEs ? "Busca y escribe" : isDe ? "Suchen und schreiben" : isIt ? "Cerca e scrivi" : "Search & write";
         return [
-          <SectionTitleCard key="a-title" title="Actividad" icon="🎯" />,
+          <SectionTitleCard key="a-title" title={sectionTitle} icon="🎯" />,
           <PromptCard
             key="search-write"
-            title="Busca y escribe"
+            title={cardTitle}
             icon="🔎"
             prompt={activityPrompt}
             storageKey={`activity-${lesson.levelId}-${lesson.lessonNumber}`}
@@ -1100,8 +1112,11 @@ export default function LessonPage() {
             return Boolean(lesson.reading || lesson.heroImage);
           }
           if (tab.id === "activity") {
-            // Written research activity — available for all Spanish lessons.
-            return typeof lesson.levelId === "string" && lesson.levelId.startsWith("es-");
+            // Written research activity — available for Spanish, German, and English lessons.
+            const lid = typeof lesson.levelId === "string" ? lesson.levelId : "";
+            if (!lid) return false;
+            if (lid.startsWith("it-")) return false;
+            return true;
           }
           return true;
         }).map((tab) => {
