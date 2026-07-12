@@ -679,30 +679,86 @@ function PromptCard({
       /* ignore */
     }
   }, [storageKey, text]);
+
+  const wordCount = text.trim().split(/\s+/).filter(Boolean).length;
+  const goal = 15;
+  const progress = Math.min(wordCount / goal, 1);
+
   return (
-    <div className="flex flex-1 items-center justify-center px-4 py-3">
-      <div className="w-full max-w-md rounded-2xl border-2 border-accent/30 bg-card p-5 shadow-lg">
-        <div className="flex items-start justify-between gap-2 mb-3">
-          <h3 className="text-lg font-bold text-foreground">
-            {icon} {title}
-          </h3>
-          <AudioButton text={prompt} speak={speak} speaking={speaking} />
+    <div className="flex flex-1 items-center justify-center px-4 py-4">
+      <div className="w-full max-w-lg overflow-hidden rounded-3xl border border-border bg-card shadow-xl">
+        {/* Warm header */}
+        <div className="relative bg-gradient-to-br from-primary/90 to-primary/70 px-6 py-5">
+          <div className="absolute right-3 top-3 opacity-10">
+            <Sparkles className="h-16 w-16 text-primary-foreground" />
+          </div>
+          <div className="relative flex items-start justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-primary-foreground/20 text-2xl backdrop-blur-sm">
+                {icon}
+              </span>
+              <div>
+                <h3 className="text-lg font-bold text-primary-foreground font-sans">{title}</h3>
+                <p className="text-xs text-primary-foreground/80 font-sans">Actividad de investigación</p>
+              </div>
+            </div>
+            <AudioButton text={prompt} speak={speak} speaking={speaking} />
+          </div>
         </div>
-        <p className="text-sm text-foreground font-sans leading-relaxed">{prompt}</p>
-        {isSpeaking ? (
-          <p className="mt-3 text-xs text-muted-foreground font-sans">
-            🎙️ Grábate hablando 1 minuto. Después escríbelo abajo para recordarlo.
-          </p>
-        ) : null}
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Escribe tu respuesta aquí…"
-          className="mt-3 w-full min-h-[110px] rounded-lg border border-border bg-background p-3 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-primary/40"
-        />
-        <p className="mt-1 text-[10px] text-muted-foreground font-sans">
-          Se guarda automáticamente en este navegador.
-        </p>
+
+        {/* Body */}
+        <div className="px-6 py-5 space-y-4">
+          <div className="flex items-start gap-3 rounded-2xl bg-muted/50 p-4">
+            <Search className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+            <p className="text-sm leading-relaxed text-foreground font-sans">{prompt}</p>
+          </div>
+
+          {isSpeaking ? (
+            <div className="flex items-start gap-3 rounded-2xl bg-accent/10 p-4">
+              <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+              <p className="text-sm text-foreground font-sans">
+                Grábate hablando 1 minuto. Después escríbelo abajo para recordarlo.
+              </p>
+            </div>
+          ) : null}
+
+          {/* Textarea */}
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground font-sans">
+              <PencilLine className="h-3.5 w-3.5" />
+              <span>Tu respuesta</span>
+            </div>
+            <textarea
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              placeholder="Escribe aquí todo lo que encontraste…"
+              className="w-full min-h-[140px] rounded-xl border border-border bg-background p-4 text-sm leading-relaxed text-foreground font-sans placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary/30 transition-shadow resize-y"
+            />
+          </div>
+
+          {/* Footer: progress + save note */}
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-2.5">
+              <div className="relative h-2.5 w-24 overflow-hidden rounded-full bg-muted">
+                <div
+                  className="h-full rounded-full bg-primary transition-all duration-500 ease-out"
+                  style={{ width: `${progress * 100}%` }}
+                />
+              </div>
+              <span className="text-xs font-medium text-muted-foreground font-sans">
+                {wordCount} / {goal} palabras
+              </span>
+              {wordCount >= goal && (
+                <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 font-sans">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> ¡Meta lograda!
+                </span>
+              )}
+            </div>
+            <p className="flex items-center gap-1.5 text-[10px] text-muted-foreground font-sans">
+              <Save className="h-3 w-3" /> Se guarda automáticamente
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
