@@ -15,16 +15,14 @@ import logo from "@/assets/logo.jpg";
 const primaryLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
-  { to: "/groups", label: "Groups" },
   { to: "/dictionary", label: "Dictionary" },
   { to: "/flashcards", label: "Flashcards" },
   { to: "/ai-tutor", label: "AI Tutor" },
   { to: "/community", label: "Community" },
-  { to: "/blog", label: "Blog" },
-  { to: "/contact", label: "Contact" },
 ];
 
 const moreLinks = [
+  { to: "/groups", label: "👥 Groups" },
   { to: "/library", label: "📚 Library" },
   { to: "/idioms", label: "🗣️ Idioms & Phrasal Verbs" },
   { to: "/writing", label: "✍️ Writing" },
@@ -34,6 +32,8 @@ const moreLinks = [
   { to: "/pronunciation", label: "🎙️ Pronunciation" },
   { to: "/placement-test", label: "📝 Placement Test" },
   { to: "/fm", label: "📻 FM Radio" },
+  { to: "/blog", label: "📰 Blog" },
+  { to: "/contact", label: "✉️ Contact" },
 ];
 
 const allNavLinks = [...primaryLinks, ...moreLinks];
