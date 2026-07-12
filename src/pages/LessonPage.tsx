@@ -844,6 +844,12 @@ export default function LessonPage() {
             )
           );
         }
+        return cards;
+      }
+      case "activity": {
+        const cards: React.ReactNode[] = [
+          <SectionTitleCard key="a-title" title="Interactive Activities" icon="🎯" />,
+        ];
         if (lesson.pictureActivity) {
           cards.push(
             <PictureCard
