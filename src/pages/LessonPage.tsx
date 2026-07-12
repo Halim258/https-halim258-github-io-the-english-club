@@ -1052,9 +1052,8 @@ ${googleUrl}
             return Boolean(lesson.reading || lesson.heroImage);
           }
           if (tab.id === "activity") {
-            return Boolean(
-              lesson.pictureActivity || lesson.listening || lesson.writingPrompt || lesson.speakingPrompt
-            );
+            // Written research activity — available for all Spanish lessons.
+            return typeof lesson.levelId === "string" && lesson.levelId.startsWith("es-");
           }
           return true;
         }).map((tab) => {
