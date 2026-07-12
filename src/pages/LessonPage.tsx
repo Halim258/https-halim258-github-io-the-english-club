@@ -522,6 +522,192 @@ function SectionTitleCard({ title, icon }: { title: string; icon: string }) {
   );
 }
 
+/* ───── Hero image card ───── */
+function HeroImageCard({ src, title }: { src: string; title: string }) {
+  const [errored, setErrored] = useState(false);
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-md overflow-hidden rounded-2xl border-2 border-primary/20 bg-card shadow-lg">
+        {errored ? (
+          <div className="flex h-56 w-full items-center justify-center bg-muted text-6xl">📖</div>
+        ) : (
+          <img
+            src={src}
+            alt={title}
+            loading="lazy"
+            onError={() => setErrored(true)}
+            className="h-56 w-full object-cover"
+          />
+        )}
+        <div className="p-4 text-center">
+          <p className="text-[10px] font-bold uppercase tracking-wider text-primary font-sans">Lección</p>
+          <h3 className="mt-1 text-lg font-bold text-foreground">{title}</h3>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ───── Reading passage card ───── */
+function ReadingPassageCard({
+  title,
+  text,
+  speak,
+  speaking,
+}: {
+  title: string;
+  text: string;
+  speak: (t: string) => void;
+  speaking: boolean;
+}) {
+  return (
+    <div className="flex flex-1 items-center justify-center px-4 py-3">
+      <div className="w-full max-w-md rounded-2xl border-2 border-primary/20 bg-card p-5 shadow-lg overflow-y-auto max-h-full">
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h3 className="text-lg font-bold text-foreground">{title}</h3>
+          <AudioButton text={text} speak={speak} speaking={speaking} />
+        </div>
+        <p className="text-sm text-foreground leading-relaxed font-sans whitespace-pre-line">{text}</p>
+      </div>
+    </div>
+  );
+}
+
+/* ───── Picture-point card ───── */
+function PictureCard({
+  imageUrl,
+  caption,
+  prompt,
+}: {
+  imageUrl: string;
+  caption?: string;
+  prompt: string;
+}) {
+  const [errored, setErrored] = useState(false);
+  return (
+    <div className="flex flex-1 items-center justify-center px-4 py-3">
+      <div className="w-full max-w-md rounded-2xl border-2 border-accent/30 bg-card shadow-lg overflow-hidden">
+        {errored ? (
+          <div className="flex h-48 w-full items-center justify-center bg-muted text-6xl">🖼️</div>
+        ) : (
+          <img
+            src={imageUrl}
+            alt={caption ?? prompt}
+            loading="lazy"
+            onError={() => setErrored(true)}
+            className="h-48 w-full object-cover"
+          />
+        )}
+        <div className="p-4">
+          {caption && <p className="text-xs font-semibold text-primary font-sans">{caption}</p>}
+          <p className="mt-1 text-sm text-foreground font-sans">{prompt}</p>
+          <p className="mt-2 text-[11px] text-muted-foreground font-sans">
+            👉 Señala mentalmente cada elemento antes de responder las preguntas.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ───── Listening transcript card ───── */
+function ListeningCard({
+  transcript,
+  speak,
+  speaking,
+}: {
+  transcript: string;
+  speak: (t: string) => void;
+  speaking: boolean;
+}) {
+  const [showText, setShowText] = useState(false);
+  return (
+    <div className="flex flex-1 items-center justify-center px-4 py-3">
+      <div className="w-full max-w-md rounded-2xl border-2 border-primary/20 bg-card p-5 shadow-lg overflow-y-auto max-h-full">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-lg font-bold text-foreground">🎧 Escucha</h3>
+          <AudioButton text={transcript} speak={speak} speaking={speaking} />
+        </div>
+        <p className="text-xs text-muted-foreground font-sans mb-3">
+          Escucha el audio 2 veces. Después responde las preguntas.
+        </p>
+        <button
+          onClick={() => setShowText((v) => !v)}
+          className="text-xs font-semibold text-primary underline font-sans"
+        >
+          {showText ? "Ocultar transcripción" : "Ver transcripción"}
+        </button>
+        {showText && (
+          <p className="mt-3 text-sm text-foreground leading-relaxed font-sans whitespace-pre-line border-t pt-3">
+            {transcript}
+          </p>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ───── Free-response prompt card (writing / speaking) ───── */
+function PromptCard({
+  title,
+  icon,
+  prompt,
+  storageKey,
+  isSpeaking,
+  speak,
+  speaking,
+}: {
+  title: string;
+  icon: string;
+  prompt: string;
+  storageKey: string;
+  isSpeaking?: boolean;
+  speak: (t: string) => void;
+  speaking: boolean;
+}) {
+  const [text, setText] = useState<string>(() => {
+    try {
+      return localStorage.getItem(storageKey) ?? "";
+    } catch {
+      return "";
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem(storageKey, text);
+    } catch {
+      /* ignore */
+    }
+  }, [storageKey, text]);
+  return (
+    <div className="flex flex-1 items-center justify-center px-4 py-3">
+      <div className="w-full max-w-md rounded-2xl border-2 border-accent/30 bg-card p-5 shadow-lg">
+        <div className="flex items-start justify-between gap-2 mb-3">
+          <h3 className="text-lg font-bold text-foreground">
+            {icon} {title}
+          </h3>
+          <AudioButton text={prompt} speak={speak} speaking={speaking} />
+        </div>
+        <p className="text-sm text-foreground font-sans leading-relaxed">{prompt}</p>
+        {isSpeaking ? (
+          <p className="mt-3 text-xs text-muted-foreground font-sans">
+            🎙️ Grábate hablando 1 minuto. Después escríbelo abajo para recordarlo.
+          </p>
+        ) : null}
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Escribe tu respuesta aquí…"
+          className="mt-3 w-full min-h-[110px] rounded-lg border border-border bg-background p-3 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-primary/40"
+        />
+        <p className="mt-1 text-[10px] text-muted-foreground font-sans">
+          Se guarda automáticamente en este navegador.
+        </p>
+      </div>
+    </div>
+  );
+}
+
 /* ───── Tab selector ───── */
 const TABS = [
   { id: "vocabulary", label: "Vocabulary", icon: "📚" },
