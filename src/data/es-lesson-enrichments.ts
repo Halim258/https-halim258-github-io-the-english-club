@@ -30,37 +30,38 @@ type Topic =
   | "technology" | "media" | "politics" | "business" | "art" | "literature"
   | "environment" | "science" | "generic";
 
+// loremflickr accepts only a SINGLE tag reliably; multi-tag returns 500.
 const TOPIC_RULES: { topic: Topic; keys: string[]; imgKeywords: string; label: string }[] = [
-  { topic: "greetings",     keys: ["saludo", "despedida", "presentaci", "hola"], imgKeywords: "people,greeting,hello", label: "Saludos" },
-  { topic: "introductions", keys: ["personales", "alfabeto", "pronuncia"], imgKeywords: "conversation,spain,people", label: "Presentación" },
-  { topic: "countries",     keys: ["país", "pais", "nacionalidad", "idioma"], imgKeywords: "world,map,flags", label: "Países" },
-  { topic: "family",        keys: ["familia", "apariencia", "personalidad"], imgKeywords: "family,people,together", label: "Familia" },
-  { topic: "numbers",       keys: ["número", "numero", "cantidad", "hora"], imgKeywords: "numbers,market,fruits", label: "Números" },
-  { topic: "colors",        keys: ["color", "ropa"], imgKeywords: "clothes,colors,fashion", label: "Colores y ropa" },
-  { topic: "food",          keys: ["comida", "restaurant", "cocina", "bebida", "gastronom"], imgKeywords: "spanish,food,tapas", label: "Comida" },
-  { topic: "weather",       keys: ["tiempo", "clima", "estacion", "estación"], imgKeywords: "weather,sky,seasons", label: "El tiempo" },
-  { topic: "time",          keys: ["fecha", "día", "dia", "mes", "semana", "rutina"], imgKeywords: "clock,calendar,routine", label: "Tiempo y rutina" },
-  { topic: "house",         keys: ["casa", "hogar", "vivienda", "mueble", "habitación"], imgKeywords: "house,home,livingroom", label: "La casa" },
-  { topic: "city",          keys: ["ciudad", "barrio", "calle", "lugar"], imgKeywords: "spain,city,street", label: "La ciudad" },
-  { topic: "transport",     keys: ["transport", "coche", "tren", "avión", "avion"], imgKeywords: "transport,train,car", label: "Transporte" },
-  { topic: "travel",        keys: ["viaj", "turismo", "vacaciones", "aeropuerto"], imgKeywords: "travel,spain,tourism", label: "Viajes" },
-  { topic: "work",          keys: ["trabaj", "profesión", "profesion", "oficio", "empresa", "negocio"], imgKeywords: "office,work,business", label: "Trabajo" },
-  { topic: "school",        keys: ["escuela", "estudio", "universidad", "clase", "aula", "educación", "educacion"], imgKeywords: "school,students,classroom", label: "Escuela" },
-  { topic: "health",        keys: ["salud", "cuerpo", "médico", "medico", "hospital", "enfermedad"], imgKeywords: "doctor,hospital,health", label: "Salud" },
-  { topic: "shopping",      keys: ["compra", "tienda", "mercado", "supermercado"], imgKeywords: "market,shopping,store", label: "Compras" },
-  { topic: "hobbies",       keys: ["hobby", "hobbies", "pasatiempo", "ocio", "tiempo libre"], imgKeywords: "hobby,leisure,park", label: "Hobbies" },
-  { topic: "sports",        keys: ["deporte", "fútbol", "futbol"], imgKeywords: "sports,football,stadium", label: "Deportes" },
-  { topic: "music",         keys: ["música", "musica", "canción", "cancion"], imgKeywords: "music,concert,guitar", label: "Música" },
-  { topic: "nature",        keys: ["naturaleza", "paisaj", "montaña", "playa", "mar", "río", "rio"], imgKeywords: "spain,landscape,nature", label: "Naturaleza" },
-  { topic: "animals",       keys: ["animal", "mascota"], imgKeywords: "animals,pets,dog", label: "Animales" },
-  { topic: "technology",    keys: ["tecnolog", "digital", "internet", "redes", "informát", "informat"], imgKeywords: "technology,computer,laptop", label: "Tecnología" },
-  { topic: "media",         keys: ["medios", "prensa", "periódico", "periodico", "televisión", "television", "noticia"], imgKeywords: "newspaper,media,news", label: "Medios" },
-  { topic: "politics",      keys: ["polít", "polit", "gobierno", "sociedad", "derechos", "migración", "migracion"], imgKeywords: "government,parliament,people", label: "Sociedad" },
-  { topic: "business",      keys: ["econom", "finanz", "empresa", "banco", "dinero", "lideraz"], imgKeywords: "business,meeting,finance", label: "Negocios" },
-  { topic: "art",           keys: ["arte", "pintura", "museo", "cine"], imgKeywords: "art,museum,painting", label: "Arte" },
-  { topic: "literature",    keys: ["literatura", "libro", "novela", "poesía", "poesia"], imgKeywords: "books,library,reading", label: "Literatura" },
-  { topic: "environment",   keys: ["medio ambiente", "sostenib", "ecolog", "cambio climát"], imgKeywords: "environment,nature,earth", label: "Medio ambiente" },
-  { topic: "science",       keys: ["ciencia", "científ", "cientif", "investig"], imgKeywords: "science,lab,research", label: "Ciencia" },
+  { topic: "greetings",     keys: ["saludo", "despedida", "presentaci", "hola"], imgKeywords: "greeting", label: "Saludos" },
+  { topic: "introductions", keys: ["personales", "alfabeto", "pronuncia"], imgKeywords: "conversation", label: "Presentación" },
+  { topic: "countries",     keys: ["país", "pais", "nacionalidad", "idioma"], imgKeywords: "flags", label: "Países" },
+  { topic: "family",        keys: ["familia", "apariencia", "personalidad"], imgKeywords: "family", label: "Familia" },
+  { topic: "numbers",       keys: ["número", "numero", "cantidad", "hora"], imgKeywords: "numbers", label: "Números" },
+  { topic: "colors",        keys: ["color", "ropa"], imgKeywords: "clothes", label: "Colores y ropa" },
+  { topic: "food",          keys: ["comida", "restaurant", "cocina", "bebida", "gastronom"], imgKeywords: "tapas", label: "Comida" },
+  { topic: "weather",       keys: ["tiempo", "clima", "estacion", "estación"], imgKeywords: "weather", label: "El tiempo" },
+  { topic: "time",          keys: ["fecha", "día", "dia", "mes", "semana", "rutina"], imgKeywords: "calendar", label: "Tiempo y rutina" },
+  { topic: "house",         keys: ["casa", "hogar", "vivienda", "mueble", "habitación"], imgKeywords: "house", label: "La casa" },
+  { topic: "city",          keys: ["ciudad", "barrio", "calle", "lugar"], imgKeywords: "madrid", label: "La ciudad" },
+  { topic: "transport",     keys: ["transport", "coche", "tren", "avión", "avion"], imgKeywords: "train", label: "Transporte" },
+  { topic: "travel",        keys: ["viaj", "turismo", "vacaciones", "aeropuerto"], imgKeywords: "travel", label: "Viajes" },
+  { topic: "work",          keys: ["trabaj", "profesión", "profesion", "oficio", "empresa", "negocio"], imgKeywords: "office", label: "Trabajo" },
+  { topic: "school",        keys: ["escuela", "estudio", "universidad", "clase", "aula", "educación", "educacion"], imgKeywords: "classroom", label: "Escuela" },
+  { topic: "health",        keys: ["salud", "cuerpo", "médico", "medico", "hospital", "enfermedad"], imgKeywords: "hospital", label: "Salud" },
+  { topic: "shopping",      keys: ["compra", "tienda", "mercado", "supermercado"], imgKeywords: "market", label: "Compras" },
+  { topic: "hobbies",       keys: ["hobby", "hobbies", "pasatiempo", "ocio", "tiempo libre"], imgKeywords: "park", label: "Hobbies" },
+  { topic: "sports",        keys: ["deporte", "fútbol", "futbol"], imgKeywords: "football", label: "Deportes" },
+  { topic: "music",         keys: ["música", "musica", "canción", "cancion"], imgKeywords: "concert", label: "Música" },
+  { topic: "nature",        keys: ["naturaleza", "paisaj", "montaña", "playa", "mar", "río", "rio"], imgKeywords: "landscape", label: "Naturaleza" },
+  { topic: "animals",       keys: ["animal", "mascota"], imgKeywords: "animals", label: "Animales" },
+  { topic: "technology",    keys: ["tecnolog", "digital", "internet", "redes", "informát", "informat"], imgKeywords: "laptop", label: "Tecnología" },
+  { topic: "media",         keys: ["medios", "prensa", "periódico", "periodico", "televisión", "television", "noticia"], imgKeywords: "newspaper", label: "Medios" },
+  { topic: "politics",      keys: ["polít", "polit", "gobierno", "sociedad", "derechos", "migración", "migracion"], imgKeywords: "parliament", label: "Sociedad" },
+  { topic: "business",      keys: ["econom", "finanz", "empresa", "banco", "dinero", "lideraz"], imgKeywords: "business", label: "Negocios" },
+  { topic: "art",           keys: ["arte", "pintura", "museo", "cine"], imgKeywords: "museum", label: "Arte" },
+  { topic: "literature",    keys: ["literatura", "libro", "novela", "poesía", "poesia"], imgKeywords: "library", label: "Literatura" },
+  { topic: "environment",   keys: ["medio ambiente", "sostenib", "ecolog", "cambio climát"], imgKeywords: "nature", label: "Medio ambiente" },
+  { topic: "science",       keys: ["ciencia", "científ", "cientif", "investig"], imgKeywords: "laboratory", label: "Ciencia" },
 ];
 
 function detectTopic(title: string): { topic: Topic; imgKeywords: string; label: string } {
@@ -70,7 +71,7 @@ function detectTopic(title: string): { topic: Topic; imgKeywords: string; label:
       return { topic: rule.topic, imgKeywords: rule.imgKeywords, label: rule.label };
     }
   }
-  return { topic: "generic", imgKeywords: "spain,spanish,culture", label: "España" };
+  return { topic: "generic", imgKeywords: "spain", label: "España" };
 }
 
 /**
