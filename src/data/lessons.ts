@@ -4,6 +4,24 @@ export type GrammarRule = { title: string; explanation: string; examples: { sent
 export type MCQItem = { question: string; options: string[]; correct: number };
 export type DiscussionQuestion = { question: string; modelAnswer: string; emoji: string };
 
+export type ReadingSection = {
+  title: string;
+  text: string;
+  questions: MCQItem[];
+};
+
+export type PictureActivity = {
+  imageUrl: string;
+  caption?: string;
+  prompt: string;
+  questions: MCQItem[];
+};
+
+export type ListeningActivity = {
+  transcript: string;
+  questions: MCQItem[];
+};
+
 export interface LessonData {
   levelId: string;
   levelLabel: string;
@@ -22,6 +40,12 @@ export interface LessonData {
   videoTitle?: string;
   videoContext?: string;
   discussionQuestions?: DiscussionQuestion[];
+  heroImage?: string;
+  reading?: ReadingSection;
+  pictureActivity?: PictureActivity;
+  listening?: ListeningActivity;
+  writingPrompt?: string;
+  speakingPrompt?: string;
 }
 
 import { readingLessons } from "./reading-lessons";
