@@ -179,6 +179,11 @@ const publicStageCurriculum = {
 // CEFR sub-level breakdown for Spanish courses (Cervantes-style)
 // Maps a level id to ordered sub-level bands (label, subtitle, first & last lesson numbers).
 const SUB_LEVEL_GROUPS: Record<string, { code: string; title: string; from: number; to: number }[]> = {
+  "a1": [
+    { code: "A1.1", title: "Getting Started", from: 1, to: 7 },
+    { code: "A1.2", title: "Everyday Life", from: 8, to: 14 },
+    { code: "A1.3", title: "Living and Interacting", from: 15, to: 20 },
+  ],
   "es-a1": [
     { code: "A1.1", title: "Getting Started", from: 1, to: 7 },
     { code: "A1.2", title: "Everyday Life", from: 8, to: 14 },
