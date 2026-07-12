@@ -1035,19 +1035,54 @@ export default function LessonPage() {
   const cards = buildCards();
   const totalCards = cards.length;
 
+  // Determine which tabs are visible for this lesson, in order.
+  const visibleTabs = TABS.filter((tab) => {
+    if (tab.id === "reading") {
+      return Boolean(lesson.reading || lesson.heroImage);
+    }
+    if (tab.id === "activity") {
+      const lid = typeof lesson.levelId === "string" ? lesson.levelId : "";
+      if (!lid) return false;
+      if (lid.startsWith("it-")) return false;
+      return true;
+    }
+    return true;
+  }).map((tab) => tab.id);
+
   // Clamp cardIndex to valid range
   const safeIndex = Math.min(cardIndex, totalCards - 1);
   if (safeIndex !== cardIndex) setCardIndex(safeIndex);
 
   const goNext = () => {
     stop();
-    if (cardIndex >= totalCards - 1) {
-      handleCompleteLesson();
+    if (cardIndex < totalCards - 1) {
+      setCardIndex((i) => Math.min(i + 1, totalCards - 1));
       return;
     }
-    setCardIndex((i) => Math.min(i + 1, totalCards - 1));
+    // On last card of current tab: advance to the next visible tab if available.
+    const currentTabPos = visibleTabs.indexOf(activeTab);
+    const nextTab = visibleTabs[currentTabPos + 1];
+    if (nextTab) {
+      switchTab(nextTab);
+    } else {
+      handleCompleteLesson();
+    }
   };
-  const goPrev = () => { stop(); setCardIndex((i) => Math.max(i - 1, 0)); };
+  const goPrev = () => {
+    stop();
+    if (cardIndex > 0) {
+      setCardIndex((i) => Math.max(i - 1, 0));
+      return;
+    }
+    // On first card of current tab: go back to the previous visible tab's last card.
+    const currentTabPos = visibleTabs.indexOf(activeTab);
+    const prevTab = visibleTabs[currentTabPos - 1];
+    if (prevTab) {
+      switchTab(prevTab);
+      // Defer jumping to last card until cards are rebuilt for the new tab.
+      setTimeout(() => setCardIndex((i) => Math.max(i, totalCards - 1)), 0);
+    }
+  };
 
 
   // Swipe navigation
