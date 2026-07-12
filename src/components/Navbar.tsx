@@ -15,16 +15,14 @@ import logo from "@/assets/logo.jpg";
 const primaryLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
-  { to: "/groups", label: "Groups" },
   { to: "/dictionary", label: "Dictionary" },
   { to: "/flashcards", label: "Flashcards" },
   { to: "/ai-tutor", label: "AI Tutor" },
   { to: "/community", label: "Community" },
-  { to: "/blog", label: "Blog" },
-  { to: "/contact", label: "Contact" },
 ];
 
 const moreLinks = [
+  { to: "/groups", label: "👥 Groups" },
   { to: "/library", label: "📚 Library" },
   { to: "/idioms", label: "🗣️ Idioms & Phrasal Verbs" },
   { to: "/writing", label: "✍️ Writing" },
@@ -34,6 +32,8 @@ const moreLinks = [
   { to: "/pronunciation", label: "🎙️ Pronunciation" },
   { to: "/placement-test", label: "📝 Placement Test" },
   { to: "/fm", label: "📻 FM Radio" },
+  { to: "/blog", label: "📰 Blog" },
+  { to: "/contact", label: "✉️ Contact" },
 ];
 
 const allNavLinks = [...primaryLinks, ...moreLinks];
@@ -139,14 +139,14 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden items-center gap-0.5 xl:flex">
+        <div className="hidden items-center gap-0 xl:flex">
           {primaryLinks.map((l) => {
             const isActive = location.pathname === l.to;
             return (
               <Link
                 key={l.to}
                 to={l.to}
-                className="relative px-3 py-2 text-[11px] font-editorial-mono uppercase tracking-[0.18em] font-semibold transition-colors duration-200 group"
+                className="relative px-2 py-2 text-[11px] font-editorial-mono uppercase tracking-[0.15em] font-semibold transition-colors duration-200 group"
               >
                 <span className={isActive ? "text-primary" : "text-foreground/65 group-hover:text-foreground"}>
                   {l.label}
@@ -154,7 +154,7 @@ export default function Navbar() {
                 {isActive && (
                   <motion.div
                     layoutId="nav-indicator"
-                    className="absolute left-3 right-3 -bottom-0.5 h-[2px] bg-primary"
+                    className="absolute left-2 right-2 -bottom-0.5 h-[2px] bg-primary"
                     transition={{ type: "spring", stiffness: 350, damping: 30 }}
                   />
                 )}
@@ -166,7 +166,7 @@ export default function Navbar() {
           <div className="relative" ref={moreRef}>
             <button
               onClick={() => setMoreOpen(!moreOpen)}
-              className={`relative flex items-center gap-1 px-3 py-2 text-[11px] font-editorial-mono uppercase tracking-[0.18em] font-semibold transition-all duration-200 ${
+              className={`relative flex items-center gap-1 px-2 py-2 text-[11px] font-editorial-mono uppercase tracking-[0.15em] font-semibold transition-all duration-200 ${
                 moreLinks.some(l => location.pathname === l.to) ? "text-primary" : "text-foreground/65 hover:text-foreground"
               }`}
             >
@@ -174,7 +174,7 @@ export default function Navbar() {
               {moreLinks.some(l => location.pathname === l.to) && (
                 <motion.div
                   layoutId="nav-indicator"
-                  className="absolute left-3 right-3 -bottom-0.5 h-[2px] bg-primary"
+                  className="absolute left-2 right-2 -bottom-0.5 h-[2px] bg-primary"
                   transition={{ type: "spring", stiffness: 350, damping: 30 }}
                 />
               )}
@@ -217,14 +217,14 @@ export default function Navbar() {
         </div>
 
         {/* Desktop auth buttons */}
-        <div className="hidden items-center gap-1.5 xl:flex">
+        <div className="hidden items-center gap-1 xl:flex">
           <button
             onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
-            className="flex items-center gap-2 rounded-full border bg-muted/50 px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+            className="flex items-center gap-2 rounded-full border bg-muted/50 px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
           >
             <Search className="h-3.5 w-3.5" />
-            <span className="hidden xl:inline">Search</span>
-            <kbd className="hidden xl:inline-flex items-center rounded border bg-background px-1 py-0.5 text-[9px] font-medium">⌘K</kbd>
+            <span className="hidden 2xl:inline">Search</span>
+            <kbd className="hidden 2xl:inline-flex items-center rounded border bg-background px-1 py-0.5 text-[9px] font-medium">⌘K</kbd>
           </button>
           <StudyReminder />
           {user && <NotificationBell />}
