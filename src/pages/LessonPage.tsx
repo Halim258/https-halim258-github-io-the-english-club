@@ -1072,7 +1072,14 @@ export default function LessonPage() {
 
       {/* Tab pills — scrollable on mobile */}
       <div className="flex gap-1 overflow-x-auto px-2 sm:px-3 py-2 bg-muted/50 border-b scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
-        {TABS.map((tab) => {
+        {TABS.filter((tab) => {
+          if (tab.id === "reading") {
+            return Boolean(
+              lesson.reading || lesson.pictureActivity || lesson.listening || lesson.writingPrompt
+            );
+          }
+          return true;
+        }).map((tab) => {
           const isCommunication = isCommunicationCourse(lesson.levelId);
           const displayLabel = tab.id === "conversation" && isCommunication && "altLabel" in tab ? tab.altLabel : tab.label;
           const displayIcon = tab.id === "conversation" && isCommunication && "altIcon" in tab ? tab.altIcon : tab.icon;
