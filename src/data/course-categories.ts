@@ -551,36 +551,31 @@ export const categories: Category[] = [
     description:
       "Curso completo de español desde A1 hasta C2 con el mismo enfoque que el curso de inglés — vocabulario, diálogo, gramática, ejercicios y exámenes tipo DELE, siguiendo el estilo del Instituto Cervantes.",
     courses: [
-      {
-        name: "Español A1 — Acceso",
-        description: "Nivel inicial: saludos, presentaciones, familia, rutinas y necesidades básicas.",
-        topics: ["Saludos", "Ser / Tener", "Familia", "Números", "Presente"],
-      },
-      {
-        name: "Español A2 — Plataforma",
-        description: "Hablar del pasado, planes futuros con 'ir a', viajes, servicios y biografías.",
-        topics: ["Pretérito perfecto", "Pretérito indefinido", "Futuro próximo", "Viajes"],
-      },
-      {
-        name: "Español B1 — Umbral",
-        description: "Opiniones, hipótesis, subjuntivo introductorio, discurso indirecto y marcadores.",
-        topics: ["Imperfecto vs. indefinido", "Condicional", "Subjuntivo presente", "Estilo indirecto"],
-      },
-      {
-        name: "Español B2 — Avanzado",
-        description: "Argumentación, subjuntivo imperfecto, condicionales, léxico académico y cultura hispana.",
-        topics: ["Subjuntivo imperfecto", "Condicionales", "Voz pasiva", "Debate"],
-      },
-      {
-        name: "Español C1 — Dominio operativo",
-        description: "Matices, expresiones idiomáticas, registros, ensayo argumentativo, literatura y arte.",
-        topics: ["Pluscuamperfecto de subjuntivo", "Idioms", "Ensayo", "Registros"],
-      },
-      {
-        name: "Español C2 — Maestría",
-        description: "Registros especializados, variedades del español, pragmática y tareas integradas tipo DELE C2.",
-        topics: ["Registro jurídico", "Registro científico", "Variedades", "Oratoria"],
-      },
+      // A1 – Beginner
+      { name: "Español A1.1 — Getting Started", description: "Saludos, presentaciones, información personal, países, alfabeto, números 0–100 y lenguaje del aula.", topics: ["Greetings", "Ser", "Llamarse", "Articles", "Present Tense"] },
+      { name: "Español A1.2 — Everyday Life", description: "Familia, apariencia, personalidad, rutina diaria, fechas, aficiones y tiempo libre.", topics: ["Tener", "Possessives", "Reflexive Verbs", "Stem-changing", "Adverbs"] },
+      { name: "Español A1.3 — Living and Traveling", description: "Casa, comida, restaurantes, compras, ropa, tiempo, ciudad, transporte y direcciones.", topics: ["Estar", "Hay", "Gustar", "Demonstratives", "Ir + a + inf."] },
+      // A2 – Elementary
+      { name: "Español A2.1 — Personal Experiences", description: "Viajes, vacaciones, transportes, hoteles, salud, cuerpo y sentimientos.", topics: ["Pretérito Perfecto", "Object Pronouns", "Comparatives", "Superlatives"] },
+      { name: "Español A2.2 — Society and Services", description: "Trabajo, empleos, educación, compras, banca, servicios públicos y tecnología.", topics: ["Pretérito Indefinido", "Imperfect Intro", "Future", "Obligation"] },
+      { name: "Español A2.3 — Life Events", description: "Celebraciones, cultura, tradiciones, noticias, medio ambiente y comunicación.", topics: ["Imperfecto", "Past Contrast", "Relative Pronouns", "Basic Subjunctive"] },
+      // B1 – Intermediate
+      { name: "Español B1.1 — Communication", description: "Relaciones, educación, medios, tecnología y aprendizaje de idiomas.", topics: ["Past Tenses", "Future", "Conditional", "Reported Speech"] },
+      { name: "Español B1.2 — Lifestyle", description: "Vida sana, medio ambiente, deportes, equilibrio trabajo-vida y temas sociales.", topics: ["Present Subjunctive", "Commands", "Connectors", "Relative Clauses"] },
+      { name: "Español B1.3 — Culture and Society", description: "Historia, arte, cine, música, literatura y festivales del mundo hispano.", topics: ["Past Subjunctive", "Passive Voice", "Impersonal Expressions"] },
+      { name: "Español B1.4 — Opinions and Discussions", description: "Actualidad, tecnología, educación, viajes y desarrollo personal.", topics: ["Subjunctive vs Indicative", "Complex Sentences", "Advanced Connectors"] },
+      // B2 – Upper Intermediate
+      { name: "Español B2.1 — Modern Society", description: "Globalización, economía, consumismo, redes sociales y vida digital.", topics: ["Advanced Subjunctive", "Passive Structures", "Nominalization"] },
+      { name: "Español B2.2 — Professional Spanish", description: "Negocios, entrevistas, reuniones, negociación y comunicación formal.", topics: ["Formal Registers", "Indirect Speech", "Conditional Sentences"] },
+      { name: "Español B2.3 — Critical Thinking", description: "Política, derechos humanos, ciencia, medio ambiente y ética.", topics: ["Complex Relative Clauses", "Discourse Markers", "Verb Periphrases"] },
+      { name: "Español B2.4 — Academic and Cultural Spanish", description: "Ensayos, presentaciones, investigación, literatura y análisis fílmico.", topics: ["Style & Cohesion", "Text Organization", "Advanced Structures"] },
+      // C1 – Advanced
+      { name: "Español C1.1 — Advanced Communication", description: "Identidad, sociedad, diversidad cultural, medios y estrategias de comunicación.", topics: ["Advanced Verb Review", "Subjunctive Nuances", "Connectors"] },
+      { name: "Español C1.2 — Academic and Professional Language", description: "Educación, ciencia, investigación, innovación e inteligencia artificial.", topics: ["Academic Writing", "Nominalization", "Formal Syntax"] },
+      { name: "Español C1.3 — Business and Leadership", description: "Gestión, emprendimiento, liderazgo, marketing y economía.", topics: ["Persuasive Language", "Reported Speech", "Passive Structures"] },
+      { name: "Español C1.4 — Literature and Arts", description: "Literatura española y latinoamericana, poesía, cine y teatro.", topics: ["Stylistic Resources", "Literary Language", "Text Analysis"] },
+      { name: "Español C1.5 — Global Issues", description: "Política internacional, derechos humanos, migración, sostenibilidad y economía global.", topics: ["Argumentation", "Register Shifts", "Complex Discourse"] },
+      { name: "Español C1.6 — DELE C1 Preparation", description: "Comprensión lectora y auditiva, presentación oral, debate, ensayo, cartas formales y estrategias de examen.", topics: ["Grammar Review", "Vocab Expansion", "Idioms", "Error Correction"] },
     ],
   },
   {
