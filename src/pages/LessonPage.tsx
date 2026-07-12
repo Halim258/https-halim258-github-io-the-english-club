@@ -847,67 +847,35 @@ export default function LessonPage() {
         return cards;
       }
       case "activity": {
-        const cards: React.ReactNode[] = [
-          <SectionTitleCard key="a-title" title="Interactive Activities" icon="🎯" />,
+        const topic = lesson.title;
+        const googleQuery = encodeURIComponent(`${topic} vocabulario español`);
+        const googleUrl = `https://www.google.com/search?q=${googleQuery}`;
+        const activityPrompt =
+`🔎 Investiga en Google: "${topic}"
+
+Abre este enlace y busca información sobre el tema:
+${googleUrl}
+
+📝 Instrucciones:
+1. Busca en Google el tema de esta lección: "${topic}".
+2. Lee 2 o 3 páginas o mira imágenes relacionadas.
+3. Escribe abajo TODAS las palabras nuevas en español que encuentres (nombres, verbos, adjetivos).
+4. Intenta escribir al menos 15 palabras. ¡Cuantas más, mejor!
+5. Al final, escribe 2 frases completas usando algunas de esas palabras.
+
+💡 Consejo: si no entiendes una palabra, escríbela igual y luego búscala en el diccionario.`;
+        return [
+          <SectionTitleCard key="a-title" title="Actividad de investigación" icon="🎯" />,
+          <PromptCard
+            key="search-write"
+            title="Busca y escribe"
+            icon="🔎"
+            prompt={activityPrompt}
+            storageKey={`activity-${lesson.levelId}-${lesson.lessonNumber}`}
+            speak={speak}
+            speaking={speaking}
+          />,
         ];
-        if (lesson.pictureActivity) {
-          cards.push(
-            <PictureCard
-              key="pic"
-              imageUrl={lesson.pictureActivity.imageUrl}
-              caption={lesson.pictureActivity.caption}
-              prompt={lesson.pictureActivity.prompt}
-            />
-          );
-          lesson.pictureActivity.questions.forEach((q, i) =>
-            cards.push(
-              <MCQCard key={`pq-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
-            )
-          );
-        }
-        if (lesson.listening) {
-          cards.push(
-            <ListeningCard
-              key="listen"
-              transcript={lesson.listening.transcript}
-              speak={speak}
-              speaking={speaking}
-            />
-          );
-          lesson.listening.questions.forEach((q, i) =>
-            cards.push(
-              <MCQCard key={`lq-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
-            )
-          );
-        }
-        if (lesson.writingPrompt) {
-          cards.push(
-            <PromptCard
-              key="write"
-              title="Escritura"
-              icon="✍️"
-              prompt={lesson.writingPrompt}
-              storageKey={`writing-${lesson.levelId}-${lesson.lessonNumber}`}
-              speak={speak}
-              speaking={speaking}
-            />
-          );
-        }
-        if (lesson.speakingPrompt) {
-          cards.push(
-            <PromptCard
-              key="speak"
-              title="Expresión oral"
-              icon="🎙️"
-              prompt={lesson.speakingPrompt}
-              storageKey={`speaking-${lesson.levelId}-${lesson.lessonNumber}`}
-              isSpeaking
-              speak={speak}
-              speaking={speaking}
-            />
-          );
-        }
-        return cards;
       }
       case "conversation": {
         const lessonKey = `${lesson.levelId}-${lesson.lessonNumber}`;
