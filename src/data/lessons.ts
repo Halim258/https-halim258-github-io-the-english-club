@@ -159,6 +159,7 @@ import { esB1Lessons } from "./es-b1-lessons";
 import { esB2Lessons } from "./es-b2-lessons";
 import { esC1Lessons } from "./es-c1-lessons";
 import { esC2Lessons } from "./es-c2-lessons";
+import { enrichSpanishLessons } from "./es-lesson-enrichments";
 import { deA1Lessons } from "./de-a1-lessons";
 import { deA2Lessons } from "./de-a2-lessons";
 import { deB1Lessons } from "./de-b1-lessons";
@@ -720,13 +721,13 @@ export const lessons: Record<string, LessonData> = {
   ...baseLessons,
   ...readingLessons,
   ...a1Lessons,
-  ...esA1Lessons,
-  ...esA1Lessons6to20,
-  ...esA2Lessons,
-  ...esB1Lessons,
-  ...esB2Lessons,
-  ...esC1Lessons,
-  ...esC2Lessons,
+  ...enrichSpanishLessons(esA1Lessons),
+  ...enrichSpanishLessons(esA1Lessons6to20),
+  ...enrichSpanishLessons(esA2Lessons),
+  ...enrichSpanishLessons(esB1Lessons),
+  ...enrichSpanishLessons(esB2Lessons),
+  ...enrichSpanishLessons(esC1Lessons),
+  ...enrichSpanishLessons(esC2Lessons),
   ...deA1Lessons,
   ...deA2Lessons,
   ...deB1Lessons,
