@@ -4,6 +4,24 @@ export type GrammarRule = { title: string; explanation: string; examples: { sent
 export type MCQItem = { question: string; options: string[]; correct: number };
 export type DiscussionQuestion = { question: string; modelAnswer: string; emoji: string };
 
+export type ReadingSection = {
+  title: string;
+  text: string;
+  questions: MCQItem[];
+};
+
+export type PictureActivity = {
+  imageUrl: string;
+  caption?: string;
+  prompt: string;
+  questions: MCQItem[];
+};
+
+export type ListeningActivity = {
+  transcript: string;
+  questions: MCQItem[];
+};
+
 export interface LessonData {
   levelId: string;
   levelLabel: string;
@@ -22,6 +40,12 @@ export interface LessonData {
   videoTitle?: string;
   videoContext?: string;
   discussionQuestions?: DiscussionQuestion[];
+  heroImage?: string;
+  reading?: ReadingSection;
+  pictureActivity?: PictureActivity;
+  listening?: ListeningActivity;
+  writingPrompt?: string;
+  speakingPrompt?: string;
 }
 
 import { readingLessons } from "./reading-lessons";
@@ -135,6 +159,7 @@ import { esB1Lessons } from "./es-b1-lessons";
 import { esB2Lessons } from "./es-b2-lessons";
 import { esC1Lessons } from "./es-c1-lessons";
 import { esC2Lessons } from "./es-c2-lessons";
+import { enrichSpanishLessons } from "./es-lesson-enrichments";
 import { deA1Lessons } from "./de-a1-lessons";
 import { deA2Lessons } from "./de-a2-lessons";
 import { deB1Lessons } from "./de-b1-lessons";
@@ -696,13 +721,13 @@ export const lessons: Record<string, LessonData> = {
   ...baseLessons,
   ...readingLessons,
   ...a1Lessons,
-  ...esA1Lessons,
-  ...esA1Lessons6to20,
-  ...esA2Lessons,
-  ...esB1Lessons,
-  ...esB2Lessons,
-  ...esC1Lessons,
-  ...esC2Lessons,
+  ...enrichSpanishLessons(esA1Lessons),
+  ...enrichSpanishLessons(esA1Lessons6to20),
+  ...enrichSpanishLessons(esA2Lessons),
+  ...enrichSpanishLessons(esB1Lessons),
+  ...enrichSpanishLessons(esB2Lessons),
+  ...enrichSpanishLessons(esC1Lessons),
+  ...enrichSpanishLessons(esC2Lessons),
   ...deA1Lessons,
   ...deA2Lessons,
   ...deB1Lessons,
