@@ -1055,7 +1055,6 @@ export default function LessonPage() {
 
   const goNext = () => {
     stop();
-    console.log("goNext", { cardIndex, totalCards, activeTab, visibleTabs });
     if (cardIndex < totalCards - 1) {
       setCardIndex((i) => Math.min(i + 1, totalCards - 1));
       return;
@@ -1063,7 +1062,6 @@ export default function LessonPage() {
     // On last card of current tab: advance to the next visible tab if available.
     const currentTabPos = visibleTabs.indexOf(activeTab);
     const nextTab = visibleTabs[currentTabPos + 1];
-    console.log("goNext end of tab", { currentTabPos, nextTab });
     if (nextTab) {
       switchTab(nextTab);
     } else {
