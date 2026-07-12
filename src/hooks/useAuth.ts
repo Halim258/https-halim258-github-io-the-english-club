@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import type { User } from "@supabase/supabase-js";
+import { notifyAdmins } from "@/lib/notifications";
 
 interface AuthState {
   user: User | null;
@@ -61,6 +62,20 @@ export function useAuth(): AuthState {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (_event, session) => {
         handleSession(session?.user ?? null);
+        if (_event === "SIGNED_IN" && session?.user) {
+          const u = session.user;
+          const key = `admin_notified_signin_${u.id}`;
+          if (!sessionStorage.getItem(key)) {
+            sessionStorage.setItem(key, "1");
+            const name = (u.user_metadata?.full_name as string) || u.email || "A user";
+            notifyAdmins({
+              title: "User signed in 👤",
+              message: `${name} just signed in to the platform.`,
+              type: "info",
+              link: "/admin",
+            });
+          }
+        }
       }
     );
 

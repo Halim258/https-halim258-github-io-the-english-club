@@ -1327,6 +1327,15 @@ export type Database = {
         Returns: boolean
       }
       is_group_teacher: { Args: { _group_id: string }; Returns: boolean }
+      notify_admins: {
+        Args: {
+          _link?: string
+          _message: string
+          _title: string
+          _type?: string
+        }
+        Returns: number
+      }
       submit_daily_challenge: {
         Args: { _answer: string; _challenge_id: string }
         Returns: {

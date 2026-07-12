@@ -60,3 +60,25 @@ export async function notifyWelcome(userId: string) {
     link: "/placement-test",
   });
 }
+
+/**
+ * Sends an alert to every admin/secretary user via the notify_admins RPC.
+ * Safe to call from the client — the RPC skips the acting user and validates input.
+ */
+export async function notifyAdmins(params: {
+  title: string;
+  message: string;
+  type?: NotificationType;
+  link?: string;
+}) {
+  try {
+    await supabase.rpc("notify_admins", {
+      _title: params.title,
+      _message: params.message,
+      _type: params.type ?? "info",
+      _link: params.link ?? null,
+    });
+  } catch (err) {
+    console.warn("notifyAdmins failed", err);
+  }
+}
