@@ -14,6 +14,7 @@ import { useCourseProgress } from "@/hooks/useCourseProgress";
 import ContinueLearning from "@/components/ContinueLearning";
 import { useSlideProgressMap } from "@/hooks/useSlideProgress";
 import CourseProgress from "@/components/CourseProgress";
+import { notifyAdmins } from "@/lib/notifications";
 
 function CardProgress({
   p,
@@ -310,6 +311,21 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
   useEffect(() => {
     setSelectedMinistryStage(schoolTrack?.ministryBooks[0]?.stage ?? "");
   }, [schoolTrack?.levelId]);
+
+  // Notify admins the first time a signed-in student opens a course this session
+  useEffect(() => {
+    if (!user || !levelId) return;
+    const key = `admin_notified_course_${user.id}_${levelId}`;
+    if (sessionStorage.getItem(key)) return;
+    sessionStorage.setItem(key, "1");
+    const name = (user.user_metadata?.full_name as string) || user.email || "A student";
+    notifyAdmins({
+      title: "Course started 📚",
+      message: `${name} started the ${levelLabel} course.`,
+      type: "lesson",
+      link: `/courses/${levelId}`,
+    });
+  }, [user, levelId, levelLabel]);
 
   const allCompleted = lessonKeys.length > 0 && completedLessons.size >= lessonKeys.length;
 
