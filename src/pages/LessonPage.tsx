@@ -1027,8 +1027,16 @@ export default function LessonPage() {
   const safeIndex = Math.min(cardIndex, totalCards - 1);
   if (safeIndex !== cardIndex) setCardIndex(safeIndex);
 
-  const goNext = () => { stop(); setCardIndex((i) => Math.min(i + 1, totalCards - 1)); };
+  const goNext = () => {
+    stop();
+    if (cardIndex >= totalCards - 1) {
+      handleCompleteLesson();
+      return;
+    }
+    setCardIndex((i) => Math.min(i + 1, totalCards - 1));
+  };
   const goPrev = () => { stop(); setCardIndex((i) => Math.max(i - 1, 0)); };
+
 
   // Swipe navigation
   const onTouchStart = (e: React.TouchEvent) => { touchStart.current = e.touches[0].clientX; };
@@ -1145,7 +1153,7 @@ export default function LessonPage() {
         onPrev={goPrev}
         onNext={goNext}
         canPrev={cardIndex > 0}
-        canNext={cardIndex < totalCards - 1}
+        canNext={true}
         current={cardIndex}
         total={totalCards}
       />
