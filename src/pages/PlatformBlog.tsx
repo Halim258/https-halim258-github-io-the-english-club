@@ -823,7 +823,7 @@ export default function PlatformBlog() {
       </section>
 
       <section className="container mx-auto grid gap-6 px-4 py-8 lg:grid-cols-[280px_1fr]">
-        <aside className="lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto -mx-4 px-4 lg:mx-0 lg:px-0">
+        <aside className="lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto -mx-4 px-4 lg:mx-0 lg:px-0 min-w-0 overflow-x-hidden lg:overflow-x-visible">
           <div className="flex gap-2 overflow-x-auto scrollbar-none pb-2 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0">
             {dailyPosts.map((item, index) => {
               const Icon = item.icon;
