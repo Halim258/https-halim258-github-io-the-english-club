@@ -525,6 +525,7 @@ function SectionTitleCard({ title, icon }: { title: string; icon: string }) {
 /* ───── Tab selector ───── */
 const TABS = [
   { id: "vocabulary", label: "Vocabulary", icon: "📚" },
+  { id: "reading", label: "Reading", icon: "📖" },
   { id: "conversation", label: "Conversation", altLabel: "Discussion", icon: "💬", altIcon: "🗣️" },
   { id: "grammar", label: "Grammar", icon: "📐" },
   { id: "speaking", label: "Speaking", icon: "🗣️" },
