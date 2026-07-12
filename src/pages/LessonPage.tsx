@@ -1068,21 +1068,7 @@ export default function LessonPage() {
       handleCompleteLesson();
     }
   };
-  const goPrev = () => {
-    stop();
-    if (cardIndex > 0) {
-      setCardIndex((i) => Math.max(i - 1, 0));
-      return;
-    }
-    // On first card of current tab: go back to the previous visible tab's last card.
-    const currentTabPos = visibleTabs.indexOf(activeTab);
-    const prevTab = visibleTabs[currentTabPos - 1];
-    if (prevTab) {
-      switchTab(prevTab);
-      // Defer jumping to last card until cards are rebuilt for the new tab.
-      setTimeout(() => setCardIndex((i) => Math.max(i, totalCards - 1)), 0);
-    }
-  };
+  const goPrev = () => { stop(); setCardIndex((i) => Math.max(i - 1, 0)); };
 
 
   // Swipe navigation
