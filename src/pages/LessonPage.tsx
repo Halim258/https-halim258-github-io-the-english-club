@@ -714,6 +714,7 @@ const TABS = [
   { id: "reading", label: "Reading", icon: "📖" },
   { id: "conversation", label: "Conversation", altLabel: "Discussion", icon: "💬", altIcon: "🗣️" },
   { id: "grammar", label: "Grammar", icon: "📐" },
+  { id: "activity", label: "Activity", icon: "🎯" },
   { id: "speaking", label: "Speaking", icon: "🗣️" },
   { id: "exam", label: "Exam", icon: "📝" },
   { id: "homework", label: "Homework", icon: "📋" },
