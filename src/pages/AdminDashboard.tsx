@@ -32,8 +32,9 @@ import AdminRevenueCharts from "@/components/admin/AdminRevenueCharts";
 import AdminBulkNotifications from "@/components/admin/AdminBulkNotifications";
 import AdminAnalytics from "@/components/admin/AdminAnalytics";
 import CohortAnalytics from "@/components/analytics/CohortAnalytics";
+import AdminNewSignups from "@/components/admin/AdminNewSignups";
 
-type Tab = "overview" | "school-students" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics" | "cohorts";
+type Tab = "overview" | "school-students" | "new-signups" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics" | "cohorts";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -122,7 +123,7 @@ export default function AdminDashboard() {
 
   // Tabs secretaries are allowed to see
   const secretaryTabs: Tab[] = [
-    "overview", "school-students", "receipts", "attendance",
+    "overview", "school-students", "new-signups", "receipts", "attendance",
     "newcomers", "products", "unpaid", "groups", "sessions",
   ];
 
@@ -131,6 +132,7 @@ export default function AdminDashboard() {
   const allTabs: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: "overview", label: "Overview", icon: BarChart3 },
     { id: "school-students", label: "Students", icon: Users },
+    { id: "new-signups", label: "New Sign-ups", icon: UserPlus },
     { id: "employees", label: "Employees", icon: UserCheck },
     { id: "groups", label: "Groups", icon: Users2 },
     { id: "sessions", label: "Sessions", icon: Calendar },
