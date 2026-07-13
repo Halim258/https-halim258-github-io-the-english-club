@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Menu, X, Moon, Sun, User, LogOut, ChevronDown, Search } from "lucide-react";
+import { Menu, X, Moon, Sun, User, LogOut, ChevronDown, Search, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -227,6 +227,16 @@ export default function Navbar() {
             <kbd className="hidden 2xl:inline-flex items-center rounded border bg-background px-1 py-0.5 text-[9px] font-medium">⌘K</kbd>
           </button>
           <StudyReminder />
+          {user && (
+            <Link
+              to="/messages"
+              className="relative flex h-9 w-9 items-center justify-center rounded-full border bg-muted/50 text-foreground hover:border-primary/30 hover:text-primary transition-colors"
+              aria-label="Messages"
+              title="Messages"
+            >
+              <MessageCircle className="h-4 w-4" />
+            </Link>
+          )}
           {user && <NotificationBell />}
           <button
             onClick={() => {

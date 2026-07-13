@@ -54,6 +54,7 @@ const IdiomsPhrasalVerbs = lazy(() => import("./pages/IdiomsPhrasalVerbs"));
 const PlatformBlog = lazy(() => import("./pages/PlatformBlog"));
 const Contact = lazy(() => import("./pages/Contact"));
 const CurriculumPlan = lazy(() => import("./pages/CurriculumPlan"));
+const Messages = lazy(() => import("./pages/Messages"));
 const queryClient = new QueryClient();
 
 function PageLoader() {
@@ -113,6 +114,8 @@ const App = () => (
               <Route path="/writing" element={<ProtectedRoute><WritingPractice /></ProtectedRoute>} />
               <Route path="/progress" element={<ProtectedRoute><CourseProgress /></ProtectedRoute>} />
               <Route path="/notifications" element={<ProtectedRoute><NotificationCenter /></ProtectedRoute>} />
+              <Route path="/messages" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
+              <Route path="/messages/:conversationId" element={<ProtectedRoute><Messages /></ProtectedRoute>} />
               <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
               <Route path="/bookmarks" element={<ProtectedRoute><BookmarksPage /></ProtectedRoute>} />
               <Route path="/grammar" element={<ProtectedRoute><GrammarReference /></ProtectedRoute>} />
