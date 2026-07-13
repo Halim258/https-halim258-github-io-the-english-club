@@ -1399,6 +1399,18 @@ export type Database = {
           teacher_name: string
         }[]
       }
+      get_recent_signups: {
+        Args: { _limit?: number }
+        Returns: {
+          avatar_url: string
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          is_student: boolean
+          role: Database["public"]["Enums"]["app_role"]
+        }[]
+      }
       get_school_group_teacher_email: {
         Args: { _group_id: string }
         Returns: string
