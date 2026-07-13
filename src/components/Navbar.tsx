@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { Menu, X, Moon, Sun, User, LogOut, ChevronDown, Search } from "lucide-react";
+import { Menu, X, Moon, Sun, User, LogOut, ChevronDown, Search, MessageCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
