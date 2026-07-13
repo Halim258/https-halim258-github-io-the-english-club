@@ -63,25 +63,52 @@ export default function DrawingSubmissionPanel({ levelId, lessonNumber, lessonTi
 
   const handleUpload = async () => {
     if (!user || !file) return;
+    const started = performance.now();
+    const context = {
+      userId: user.id,
+      levelId,
+      lessonNumber,
+      fileName: file.name,
+      sizeKB: Math.round(file.size / 1024),
+      contentType: file.type,
+    };
+    console.groupCollapsed(`[upload] start ${file.name} (${context.sizeKB} KB)`);
+    console.log("context", context);
     if (!file.type.startsWith("image/")) {
+      console.warn("[upload] rejected: not an image", context);
+      console.groupEnd();
       toast({ title: "Invalid file", description: "Please choose an image.", variant: "destructive" });
       return;
     }
     if (file.size > 10 * 1024 * 1024) {
+      console.warn("[upload] rejected: file exceeds 10MB", context);
+      console.groupEnd();
       toast({ title: "File too large", description: "Max size is 10MB.", variant: "destructive" });
       return;
     }
     setUploading(true);
     const ext = file.name.split(".").pop()?.toLowerCase() || "png";
     const path = `${user.id}/${levelId}/${lessonNumber}/${Date.now()}.${ext}`;
+    console.log("[upload] storage path", path);
     const { error: upErr } = await supabase.storage
       .from("drawing-submissions")
       .upload(path, file, { upsert: false, contentType: file.type });
     if (upErr) {
+      console.error("[upload] STORAGE FAILED", {
+        ...context,
+        path,
+        bucket: "drawing-submissions",
+        error: upErr.message,
+        name: (upErr as { name?: string }).name,
+        statusCode: (upErr as { statusCode?: string }).statusCode,
+        durationMs: Math.round(performance.now() - started),
+      });
+      console.groupEnd();
       toast({ title: "Upload failed", description: upErr.message, variant: "destructive" });
       setUploading(false);
       return;
     }
+    console.log("[upload] storage OK", { path, durationMs: Math.round(performance.now() - started) });
     const { error: insErr } = await supabase.from("drawing_submissions").insert({
       user_id: user.id,
       level_id: levelId,
@@ -90,10 +117,21 @@ export default function DrawingSubmissionPanel({ levelId, lessonNumber, lessonTi
       note: note.trim() || null,
     });
     if (insErr) {
+      console.error("[upload] DB INSERT FAILED — orphaned storage object", {
+        ...context,
+        path,
+        error: insErr.message,
+        code: (insErr as { code?: string }).code,
+        details: (insErr as { details?: string }).details,
+        hint: (insErr as { hint?: string }).hint,
+      });
+      console.groupEnd();
       toast({ title: "Save failed", description: insErr.message, variant: "destructive" });
       setUploading(false);
       return;
     }
+    console.log(`[upload] SUCCESS in ${Math.round(performance.now() - started)}ms`, { path });
+    console.groupEnd();
     toast({ title: "Drawing uploaded 🎨", description: "Great work!" });
     setFile(null);
     setNote("");
