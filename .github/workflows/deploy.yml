@@ -33,15 +33,62 @@ jobs:
         run: bun install
 
       - name: Build
-        run: bun run build
+        run: bun run build 2>&1 | tee build.log
+
+      - name: Summarize build output
+        if: always()
+        run: |
+          echo "## 🏗️ Build Summary" >> $GITHUB_STEP_SUMMARY
+          if [ -d dist ]; then
+            TOTAL_FILES=$(find dist -type f | wc -l)
+            TOTAL_SIZE=$(du -sh dist | cut -f1)
+            echo "- **Total files:** $TOTAL_FILES" >> $GITHUB_STEP_SUMMARY
+            echo "- **Total size:** $TOTAL_SIZE" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### 📦 Largest assets" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            find dist -type f -exec du -h {} + | sort -rh | head -20 >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "❌ **dist/ folder not created — build failed.**" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "### Last 50 lines of build log" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+            tail -50 build.log >> $GITHUB_STEP_SUMMARY || echo "(no build log)" >> $GITHUB_STEP_SUMMARY
+            echo '```' >> $GITHUB_STEP_SUMMARY
+          fi
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
+        id: upload
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./dist
+
+      - name: Upload failure diagnostics
+        if: failure()
+        run: |
+          echo "## ❌ Asset upload failed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Run:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+          echo "**Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### dist/ contents at time of failure" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          if [ -d dist ]; then
+            ls -lahR dist | head -100 >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Files > 100MB (Pages artifact hard limit is ~10GB, per-file 100MB):" >> $GITHUB_STEP_SUMMARY
+            find dist -type f -size +100M -exec ls -lah {} + >> $GITHUB_STEP_SUMMARY || echo "(none)" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Symlinks (not supported by upload-pages-artifact):" >> $GITHUB_STEP_SUMMARY
+            find dist -type l -exec ls -lah {} + >> $GITHUB_STEP_SUMMARY || echo "(none)" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "dist/ does not exist" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo '```' >> $GITHUB_STEP_SUMMARY
 
   deploy:
     environment:
@@ -53,3 +100,17 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+      - name: Deploy summary
+        if: always()
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            echo "## ✅ Deploy succeeded" >> $GITHUB_STEP_SUMMARY
+            echo "**Live URL:** ${{ steps.deployment.outputs.page_url }}" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "## ❌ Deploy failed" >> $GITHUB_STEP_SUMMARY
+            echo "**Run:** [${{ github.run_id }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> $GITHUB_STEP_SUMMARY
+            echo "**Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Check the 'Deploy to GitHub Pages' step logs above for the exact asset(s) that failed to publish." >> $GITHUB_STEP_SUMMARY
+          fi
