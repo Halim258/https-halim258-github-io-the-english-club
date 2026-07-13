@@ -1,0 +1,1 @@
+CREATE POLICY "Students can view their own school record" ON public.school_students FOR SELECT TO authenticated USING (email IS NOT NULL AND lower(email) = lower(coalesce(auth.jwt() ->> 'email','')) AND coalesce((auth.jwt() ->> 'email_verified')::boolean, false) = true);
