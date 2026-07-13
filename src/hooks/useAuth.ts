@@ -69,8 +69,8 @@ export function useAuth(): AuthState {
             sessionStorage.setItem(key, "1");
             const name = (u.user_metadata?.full_name as string) || u.email || "A user";
             notifyAdmins({
-              title: "User signed in 👤",
-              message: `${name} just signed in to the platform.`,
+              title: `${name} signed in 👤`,
+              message: `${name} (${u.email ?? "no email"}) just signed in to the platform.`,
               type: "info",
               link: "/admin",
             });
