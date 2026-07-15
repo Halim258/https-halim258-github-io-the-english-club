@@ -54,6 +54,7 @@ export default function AdminNewSignups({ onRefresh }: Props) {
 
   const openAdd = (s: Signup) => {
     setTarget(s);
+    setPaymentConfirmed(false);
     setForm({
       name: s.full_name || s.email?.split("@")[0] || "",
       email: s.email || "",
@@ -70,9 +71,19 @@ export default function AdminNewSignups({ onRefresh }: Props) {
       toast({ title: "Name is required", variant: "destructive" });
       return;
     }
+    if (!paymentConfirmed) {
+      toast({ title: "Payment required", description: "Confirm the student has paid before enrolling.", variant: "destructive" });
+      return;
+    }
+    const feesNum = form.fees ? Number(form.fees) : 0;
+    const paidNum = form.paid_fees ? Number(form.paid_fees) : 0;
+    if (paidNum <= 0) {
+      toast({ title: "Enter paid amount", description: "The paid amount must be greater than 0.", variant: "destructive" });
+      return;
+    }
     setSaving(true);
-    const fees = form.fees ? Number(form.fees) : 0;
-    const paid = form.paid_fees ? Number(form.paid_fees) : 0;
+    const fees = feesNum;
+    const paid = paidNum;
     const { error } = await supabase.from("school_students").insert({
       name: form.name.trim(),
       email: form.email.trim() || null,
