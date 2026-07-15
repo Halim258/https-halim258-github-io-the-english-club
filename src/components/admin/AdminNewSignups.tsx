@@ -198,6 +198,13 @@ export default function AdminNewSignups({ onRefresh }: Props) {
                       <p className="text-sm font-medium truncate">{s.full_name || "Unnamed"}</p>
                       <p className="text-xs text-muted-foreground truncate">{s.email}</p>
                     </div>
+                    <Link
+                      to="/admin?tab=reports"
+                      className="text-xs text-primary hover:underline flex items-center gap-1 shrink-0"
+                      title="View progress in Reports tab"
+                    >
+                      <BarChart3 className="h-3.5 w-3.5" /> Progress
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -236,16 +243,27 @@ export default function AdminNewSignups({ onRefresh }: Props) {
                 <Input id="ns-fees" type="number" value={form.fees} onChange={e => setForm({ ...form, fees: e.target.value })} />
               </div>
               <div>
-                <Label htmlFor="ns-paid">Paid</Label>
+                <Label htmlFor="ns-paid">Paid *</Label>
                 <Input id="ns-paid" type="number" value={form.paid_fees} onChange={e => setForm({ ...form, paid_fees: e.target.value })} />
               </div>
             </div>
+            <label className="flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/5 p-3 cursor-pointer">
+              <Checkbox
+                checked={paymentConfirmed}
+                onCheckedChange={(v) => setPaymentConfirmed(!!v)}
+                className="mt-0.5"
+              />
+              <span className="text-xs leading-relaxed">
+                <span className="font-semibold">I confirm the student has paid.</span>{" "}
+                <span className="text-muted-foreground">Only enroll users after receiving payment. This is required.</span>
+              </span>
+            </label>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setTarget(null)} disabled={saving}>Cancel</Button>
-            <Button onClick={submit} disabled={saving}>
+            <Button onClick={submit} disabled={saving || !paymentConfirmed}>
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <UserPlus className="h-4 w-4 mr-1" />}
-              Add Student
+              Enroll Student
             </Button>
           </DialogFooter>
         </DialogContent>
