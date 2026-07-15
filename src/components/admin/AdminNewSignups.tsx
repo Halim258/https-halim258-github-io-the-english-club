@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { UserPlus, Loader2, CheckCircle2, RefreshCw, Search, Mail, Calendar, BarChart3 } from "lucide-react";
+import { UserPlus, Loader2, CheckCircle2, RefreshCw, Search, Mail, Calendar, BarChart3, CircleDollarSign, CircleAlert, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -36,6 +36,20 @@ export default function AdminNewSignups({ onRefresh }: Props) {
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 
+  // Per-signup payment status ("unconfirmed" | "confirmed"), persisted locally.
+  const PAY_KEY = "admin.newSignups.paymentStatus.v1";
+  const [payStatus, setPayStatus] = useState<Record<string, "confirmed" | "unconfirmed">>(() => {
+    try { return JSON.parse(localStorage.getItem(PAY_KEY) || "{}"); } catch { return {}; }
+  });
+  const setPay = (id: string, status: "confirmed" | "unconfirmed") => {
+    setPayStatus(prev => {
+      const next = { ...prev, [id]: status };
+      try { localStorage.setItem(PAY_KEY, JSON.stringify(next)); } catch {}
+      return next;
+    });
+  };
+  const isConfirmed = (id: string) => payStatus[id] === "confirmed";
+
   const load = async () => {
     setLoading(true);
     const { data, error } = await supabase.rpc("get_recent_signups", { _limit: 200 });
@@ -60,17 +74,21 @@ export default function AdminNewSignups({ onRefresh }: Props) {
     const enrollId = searchParams.get("enroll");
     if (!enrollId || loading || target) return;
     const match = signups.find(s => s.id === enrollId);
-    if (match && !match.is_student) {
+    if (match && !match.is_student && isConfirmed(match.id)) {
       openAdd(match);
       // clear param so refreshing does not reopen it forever
       searchParams.delete("enroll");
       setSearchParams(searchParams, { replace: true });
     }
-  }, [signups, loading, searchParams, target]);
+  }, [signups, loading, searchParams, target, payStatus]);
 
   const openAdd = (s: Signup) => {
+    if (!isConfirmed(s.id)) {
+      toast({ title: "Payment not confirmed", description: "Mark payment as Confirmed before enrolling this user.", variant: "destructive" });
+      return;
+    }
     setTarget(s);
-    setPaymentConfirmed(false);
+    setPaymentConfirmed(true);
     setForm({
       name: s.full_name || s.email?.split("@")[0] || "",
       email: s.email || "",
@@ -212,8 +230,39 @@ export default function AdminNewSignups({ onRefresh }: Props) {
                         </p>
                       </div>
                     </div>
-                    <Button size="sm" onClick={() => openAdd(s)} className="w-full">
-                      <UserPlus className="h-3.5 w-3.5 mr-1" /> Add as Student
+                    <div className="flex items-center justify-between gap-2">
+                      {isConfirmed(s.id) ? (
+                        <button
+                          type="button"
+                          onClick={() => setPay(s.id, "unconfirmed")}
+                          className="inline-flex items-center gap-1 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 px-2 py-0.5 text-[11px] font-medium hover:bg-emerald-500/20 transition"
+                          title="Click to mark as Unconfirmed"
+                        >
+                          <CircleDollarSign className="h-3 w-3" /> Payment: Confirmed
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={() => setPay(s.id, "confirmed")}
+                          className="inline-flex items-center gap-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 px-2 py-0.5 text-[11px] font-medium hover:bg-amber-500/20 transition"
+                          title="Click to mark payment as Confirmed"
+                        >
+                          <CircleAlert className="h-3 w-3" /> Payment: Unconfirmed
+                        </button>
+                      )}
+                    </div>
+                    <Button
+                      size="sm"
+                      onClick={() => openAdd(s)}
+                      disabled={!isConfirmed(s.id)}
+                      className="w-full"
+                      title={!isConfirmed(s.id) ? "Confirm payment first to enroll" : undefined}
+                    >
+                      {isConfirmed(s.id) ? (
+                        <><UserPlus className="h-3.5 w-3.5 mr-1" /> Add as Student</>
+                      ) : (
+                        <><Lock className="h-3.5 w-3.5 mr-1" /> Enrollment locked</>
+                      )}
                     </Button>
                   </div>
                 ))}
