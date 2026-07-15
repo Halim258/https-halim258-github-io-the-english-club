@@ -99,6 +99,28 @@ export default function AdminNewSignups({ onRefresh }: Props) {
       toast({ title: "Could not add student", description: error.message, variant: "destructive" });
       return;
     }
+    // Write to admin audit log (best-effort; do not block success)
+    const { data: auth } = await supabase.auth.getUser();
+    const actor = auth?.user;
+    if (actor) {
+      await supabase.from("admin_audit_log").insert({
+        actor_id: actor.id,
+        actor_email: actor.email ?? null,
+        action: "enroll_student",
+        target_user_id: target.id,
+        target_email: form.email.trim() || target.email || null,
+        target_name: form.name.trim(),
+        details: {
+          payment_confirmed: true,
+          fees,
+          paid_fees: paid,
+          remaining_fees: Math.max(fees - paid, 0),
+          phone_number: form.phone_number.trim() || null,
+          whatsapp: form.whatsapp.trim() || null,
+          signup_created_at: target.created_at,
+        },
+      });
+    }
     toast({ title: "Added as student ✅", description: `${form.name} is now in your student list.` });
     setTarget(null);
     onRefresh?.();
