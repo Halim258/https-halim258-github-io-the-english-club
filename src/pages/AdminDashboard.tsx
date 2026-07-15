@@ -5,7 +5,7 @@ import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
-  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp
+  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp, ScrollText
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import CommandPalette from "@/components/admin/CommandPalette";
@@ -33,8 +33,9 @@ import AdminBulkNotifications from "@/components/admin/AdminBulkNotifications";
 import AdminAnalytics from "@/components/admin/AdminAnalytics";
 import CohortAnalytics from "@/components/analytics/CohortAnalytics";
 import AdminNewSignups from "@/components/admin/AdminNewSignups";
+import AdminAuditLog from "@/components/admin/AdminAuditLog";
 
-type Tab = "overview" | "school-students" | "new-signups" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics" | "cohorts";
+type Tab = "overview" | "school-students" | "new-signups" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics" | "cohorts" | "audit-log";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -153,6 +154,7 @@ export default function AdminDashboard() {
     { id: "revenue-charts", label: "Revenue", icon: TrendingUp },
     { id: "analytics", label: "Analytics", icon: BarChart3 },
     { id: "cohorts", label: "Cohort Analytics", icon: TrendingUp },
+    { id: "audit-log", label: "Audit Log", icon: ScrollText },
   ];
 
   const tabs = isSecretary
