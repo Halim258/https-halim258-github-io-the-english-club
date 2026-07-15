@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { UserPlus, Loader2, CheckCircle2, RefreshCw, Search, Mail, Calendar } from "lucide-react";
+import { UserPlus, Loader2, CheckCircle2, RefreshCw, Search, Mail, Calendar, BarChart3 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 
 interface Signup {
@@ -27,6 +29,7 @@ export default function AdminNewSignups({ onRefresh }: Props) {
   const [search, setSearch] = useState("");
   const [target, setTarget] = useState<Signup | null>(null);
   const [form, setForm] = useState({ name: "", email: "", phone_number: "", whatsapp: "", fees: "", paid_fees: "" });
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 
@@ -51,6 +54,7 @@ export default function AdminNewSignups({ onRefresh }: Props) {
 
   const openAdd = (s: Signup) => {
     setTarget(s);
+    setPaymentConfirmed(false);
     setForm({
       name: s.full_name || s.email?.split("@")[0] || "",
       email: s.email || "",
@@ -67,9 +71,19 @@ export default function AdminNewSignups({ onRefresh }: Props) {
       toast({ title: "Name is required", variant: "destructive" });
       return;
     }
+    if (!paymentConfirmed) {
+      toast({ title: "Payment required", description: "Confirm the student has paid before enrolling.", variant: "destructive" });
+      return;
+    }
+    const feesNum = form.fees ? Number(form.fees) : 0;
+    const paidNum = form.paid_fees ? Number(form.paid_fees) : 0;
+    if (paidNum <= 0) {
+      toast({ title: "Enter paid amount", description: "The paid amount must be greater than 0.", variant: "destructive" });
+      return;
+    }
     setSaving(true);
-    const fees = form.fees ? Number(form.fees) : 0;
-    const paid = form.paid_fees ? Number(form.paid_fees) : 0;
+    const fees = feesNum;
+    const paid = paidNum;
     const { error } = await supabase.from("school_students").insert({
       name: form.name.trim(),
       email: form.email.trim() || null,
@@ -184,6 +198,13 @@ export default function AdminNewSignups({ onRefresh }: Props) {
                       <p className="text-sm font-medium truncate">{s.full_name || "Unnamed"}</p>
                       <p className="text-xs text-muted-foreground truncate">{s.email}</p>
                     </div>
+                    <Link
+                      to="/admin?tab=reports"
+                      className="text-xs text-primary hover:underline flex items-center gap-1 shrink-0"
+                      title="View progress in Reports tab"
+                    >
+                      <BarChart3 className="h-3.5 w-3.5" /> Progress
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -222,16 +243,27 @@ export default function AdminNewSignups({ onRefresh }: Props) {
                 <Input id="ns-fees" type="number" value={form.fees} onChange={e => setForm({ ...form, fees: e.target.value })} />
               </div>
               <div>
-                <Label htmlFor="ns-paid">Paid</Label>
+                <Label htmlFor="ns-paid">Paid *</Label>
                 <Input id="ns-paid" type="number" value={form.paid_fees} onChange={e => setForm({ ...form, paid_fees: e.target.value })} />
               </div>
             </div>
+            <label className="flex items-start gap-2 rounded-lg border border-primary/30 bg-primary/5 p-3 cursor-pointer">
+              <Checkbox
+                checked={paymentConfirmed}
+                onCheckedChange={(v) => setPaymentConfirmed(!!v)}
+                className="mt-0.5"
+              />
+              <span className="text-xs leading-relaxed">
+                <span className="font-semibold">I confirm the student has paid.</span>{" "}
+                <span className="text-muted-foreground">Only enroll users after receiving payment. This is required.</span>
+              </span>
+            </label>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setTarget(null)} disabled={saving}>Cancel</Button>
-            <Button onClick={submit} disabled={saving}>
+            <Button onClick={submit} disabled={saving || !paymentConfirmed}>
               {saving ? <Loader2 className="h-4 w-4 animate-spin mr-1" /> : <UserPlus className="h-4 w-4 mr-1" />}
-              Add Student
+              Enroll Student
             </Button>
           </DialogFooter>
         </DialogContent>
