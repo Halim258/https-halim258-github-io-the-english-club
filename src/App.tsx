@@ -134,6 +134,11 @@ const App = () => (
                   <AdminDashboard />
                 </ProtectedRoute>
               } />
+              <Route path="/admin/students/:userId/progress" element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminStudentProgress />
+                </ProtectedRoute>
+              } />
               <Route path="/teacher-dashboard" element={
                 <ProtectedRoute requiredRole="teacher">
                   <TeacherDashboard />
