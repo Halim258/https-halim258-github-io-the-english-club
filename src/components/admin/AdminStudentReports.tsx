@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Download, ChevronLeft, Search, BarChart3, BookOpen, Trophy, Calendar } from "lucide-react";
+import { Download, ChevronLeft, Search, BarChart3, BookOpen, Trophy, Calendar, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -109,14 +109,22 @@ export default function AdminStudentReports() {
               transition={{ delay: i * 0.02 }}
               className="rounded-xl border bg-card p-4 shadow-soft"
             >
-              <div className="flex items-center justify-between mb-2">
-                <div>
-                  <p className="font-semibold text-sm">{r.name}</p>
+              <div className="flex items-center justify-between mb-2 gap-2">
+                <div className="min-w-0">
+                  <p className="font-semibold text-sm truncate">{r.name}</p>
                   <p className="text-[10px] text-muted-foreground">
                     Last active: {r.lastActive || "Never"}
                   </p>
                 </div>
-                <span className="text-sm font-bold text-primary">{r.totalXp.toLocaleString()} XP</span>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="text-sm font-bold text-primary">{r.totalXp.toLocaleString()} XP</span>
+                  <Link
+                    to={`/admin/students/${r.userId}/progress`}
+                    className="text-xs text-primary hover:underline flex items-center gap-1 rounded-full border border-primary/30 px-2 py-1"
+                  >
+                    Details <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
               </div>
               <div className="grid grid-cols-4 gap-2 text-center text-[10px]">
                 <div className="rounded-lg bg-muted/30 p-2">
