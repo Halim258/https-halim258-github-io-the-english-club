@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { UserPlus, Loader2, CheckCircle2, RefreshCw, Search, Mail, Calendar, BarChart3 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
@@ -25,6 +26,7 @@ interface Props {
 
 export default function AdminNewSignups({ onRefresh }: Props) {
   const [signups, setSignups] = useState<Signup[]>([]);
+  const [searchParams, setSearchParams] = useSearchParams();
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [target, setTarget] = useState<Signup | null>(null);
@@ -51,6 +53,19 @@ export default function AdminNewSignups({ onRefresh }: Props) {
       .subscribe();
     return () => { supabase.removeChannel(ch); };
   }, []);
+
+  // Deep-link: /admin?tab=new-signups&enroll=<user_id> auto-opens the enroll dialog
+  useEffect(() => {
+    const enrollId = searchParams.get("enroll");
+    if (!enrollId || loading || target) return;
+    const match = signups.find(s => s.id === enrollId);
+    if (match && !match.is_student) {
+      openAdd(match);
+      // clear param so refreshing does not reopen it forever
+      searchParams.delete("enroll");
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [signups, loading, searchParams, target]);
 
   const openAdd = (s: Signup) => {
     setTarget(s);
