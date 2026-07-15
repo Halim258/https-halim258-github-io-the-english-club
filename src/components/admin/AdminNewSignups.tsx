@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import BulkEnrollDialog from "./BulkEnrollDialog";
 
 interface Signup {
   id: string;
@@ -170,6 +171,7 @@ export default function AdminNewSignups({ onRefresh }: Props) {
           <Button variant="outline" size="sm" onClick={load} disabled={loading}>
             <RefreshCw className={`h-3.5 w-3.5 mr-1 ${loading ? "animate-spin" : ""}`} /> Refresh
           </Button>
+          <BulkEnrollDialog signups={signups} onComplete={() => { onRefresh?.(); load(); }} />
         </div>
       </div>
 
