@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { UserPlus, Loader2, CheckCircle2, RefreshCw, Search, Mail, Calendar } from "lucide-react";
+import { UserPlus, Loader2, CheckCircle2, RefreshCw, Search, Mail, Calendar, BarChart3 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 
 interface Signup {
@@ -27,6 +29,7 @@ export default function AdminNewSignups({ onRefresh }: Props) {
   const [search, setSearch] = useState("");
   const [target, setTarget] = useState<Signup | null>(null);
   const [form, setForm] = useState({ name: "", email: "", phone_number: "", whatsapp: "", fees: "", paid_fees: "" });
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
   const [saving, setSaving] = useState(false);
   const { toast } = useToast();
 
