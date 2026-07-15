@@ -1200,6 +1200,7 @@ export type Database = {
           status: string | null
           student_id_legacy: number | null
           student_number: number | null
+          user_id: string | null
           whatsapp: string | null
           whatsapp_subscription: boolean | null
         }
@@ -1228,6 +1229,7 @@ export type Database = {
           status?: string | null
           student_id_legacy?: number | null
           student_number?: number | null
+          user_id?: string | null
           whatsapp?: string | null
           whatsapp_subscription?: boolean | null
         }
@@ -1256,6 +1258,7 @@ export type Database = {
           status?: string | null
           student_id_legacy?: number | null
           student_number?: number | null
+          user_id?: string | null
           whatsapp?: string | null
           whatsapp_subscription?: boolean | null
         }
