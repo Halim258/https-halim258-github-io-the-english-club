@@ -262,7 +262,7 @@ export default function Home() {
                     </Link>
                     <Link to="/courses">
                       <Button size="lg" variant="outline" className="rounded-none px-5 md:px-7 h-11 md:h-12 font-semibold text-xs md:text-sm uppercase tracking-widest border-background/70 text-background bg-transparent hover:bg-background hover:text-foreground">
-                        Our Curriculum
+                        Our Courses
                       </Button>
                     </Link>
                   </div>
