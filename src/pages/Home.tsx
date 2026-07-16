@@ -245,6 +245,8 @@ export default function Home() {
                   loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/60 to-transparent" />
+                {/* editorial inset frame */}
+                <div className="pointer-events-none absolute inset-3 md:inset-5 border border-background/25" />
                 <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 max-w-xl">
                   <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-accent block mb-3">
                     Issue 01 — The Method
@@ -273,24 +275,27 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="border-y border-foreground/15 py-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
+                className="bg-primary text-primary-foreground p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-5 shadow-soft"
               >
-                <div>
-                  <span className="block text-[10px] uppercase tracking-[0.25em] font-bold text-primary mb-1">
-                    Assessment
+                <div className="space-y-1">
+                  <span className="block text-[10px] uppercase tracking-[0.28em] font-bold text-primary-foreground/70">
+                    Complimentary Assessment
                   </span>
-                  <p className="font-display text-xl md:text-2xl leading-snug">
-                    Where do you stand? Take our Cambridge placement test.
+                  <p className="font-display text-2xl md:text-3xl leading-snug italic">
+                    Where do you stand?
                   </p>
-                  <p dir="rtl" className="text-sm text-muted-foreground mt-1 font-serif">
+                  <p className="text-sm text-primary-foreground/80 font-serif">
+                    Take our 5-minute Cambridge diagnostic.
+                  </p>
+                  <p dir="rtl" className="text-xs text-primary-foreground/70 mt-1 font-serif">
                     اعمل اختبار تحديد المستوى المجاني واعرف هتبدأ منين.
                   </p>
                 </div>
                 <Link
                   to="/placement-test"
-                  className="shrink-0 inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest underline underline-offset-[6px] decoration-accent decoration-2 hover:text-accent transition-colors"
+                  className="shrink-0 inline-flex items-center gap-2 px-7 py-3.5 bg-background text-primary text-xs font-bold uppercase tracking-[0.2em] hover:bg-background/90 hover:-translate-y-0.5 transition-all"
                 >
-                  Begin Assessment <ArrowRight className="h-4 w-4" />
+                  Check My Level <ArrowRight className="h-4 w-4" />
                 </Link>
               </motion.div>
 
@@ -308,13 +313,13 @@ export default function Home() {
                     to={a.to}
                     className="group bg-background hover:bg-card transition-colors p-6 flex flex-col gap-2"
                   >
-                    <span className="text-[10px] uppercase tracking-[0.25em] font-bold text-accent">
+                    <span className="inline-block self-start text-[10px] uppercase tracking-[0.25em] font-bold text-primary border-b border-primary pb-1">
                       0{i + 1} / {a.subtitle}
                     </span>
-                    <h3 dir="rtl" className="font-display text-2xl leading-tight">{a.title}</h3>
+                    <h3 dir="rtl" className="font-display text-2xl leading-tight mt-2 group-hover:italic group-hover:text-primary transition-all">{a.title}</h3>
                     <p dir="rtl" className="text-sm text-muted-foreground font-serif">{a.desc}</p>
                     <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-foreground/70 group-hover:text-primary transition-colors">
-                      Enter <ArrowRight className="h-3.5 w-3.5" />
+                      Enter <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </Link>
                 ))}
