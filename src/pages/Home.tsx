@@ -252,7 +252,7 @@ export default function Home() {
                     Issue 01 — The Method
                   </span>
                   <h2 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-[1.05] text-background">
-                    Refining the Art of
+                    Refining the Art of this
                   </h2>
                   <div className="mt-4 md:mt-6 flex flex-wrap gap-3">
                     <Link to="/courses">
