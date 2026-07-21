@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, Inbox } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
+import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, Inbox, Settings, Filter } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import NotificationPreferences from "@/components/NotificationPreferences";
+import { loadPrefs, playNotifSound, groupByRecency, NOTIF_CATEGORIES, type NotifCategory } from "@/lib/notification-prefs";
 
 interface Notification {
   id: string;
@@ -49,6 +52,8 @@ export default function NotificationCenter() {
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<"all" | "unread">("all");
+  const [categoryFilter, setCategoryFilter] = useState<NotifCategory | "all">("all");
+  const [showPrefs, setShowPrefs] = useState(false);
 
   useEffect(() => {
     if (!user) return;
@@ -63,6 +68,24 @@ export default function NotificationCenter() {
       setLoading(false);
     }
     load();
+
+    const channel = supabase
+      .channel("notif-center")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
+        (payload) => {
+          const n = payload.new as Notification;
+          setNotifications(prev => [n, ...prev]);
+          const prefs = loadPrefs();
+          if (!prefs.muted.includes(n.type as NotifCategory)) {
+            if (prefs.sound) playNotifSound();
+            if (prefs.toast) toast(n.title, { description: n.message });
+          }
+        }
+      )
+      .subscribe();
+    return () => { supabase.removeChannel(channel); };
   }, [user]);
 
   const markAsRead = async (id: string) => {
@@ -83,8 +106,20 @@ export default function NotificationCenter() {
     setNotifications((prev) => prev.filter((n) => n.id !== id));
   };
 
-  const filtered = filter === "unread" ? notifications.filter((n) => !n.read) : notifications;
   const unreadCount = notifications.filter((n) => !n.read).length;
+  const filtered = useMemo(() => {
+    let list = filter === "unread" ? notifications.filter((n) => !n.read) : notifications;
+    if (categoryFilter !== "all") list = list.filter(n => n.type === categoryFilter);
+    return list;
+  }, [notifications, filter, categoryFilter]);
+  const grouped = useMemo(() => groupByRecency(filtered), [filtered]);
+
+  const clearAll = async () => {
+    if (!user || notifications.length === 0) return;
+    if (!confirm("Delete all notifications? This cannot be undone.")) return;
+    await supabase.from("notifications").delete().eq("user_id", user.id);
+    setNotifications([]);
+  };
 
   if (loading) {
     return (
@@ -109,16 +144,39 @@ export default function NotificationCenter() {
               </p>
             </div>
           </div>
-          {unreadCount > 0 && (
-            <Button variant="outline" size="sm" className="rounded-full gap-1.5" onClick={markAllRead}>
-              <CheckCheck className="h-3.5 w-3.5" /> Mark all read
+          <div className="flex items-center gap-1.5">
+            {unreadCount > 0 && (
+              <Button variant="outline" size="sm" className="rounded-full gap-1.5" onClick={markAllRead}>
+                <CheckCheck className="h-3.5 w-3.5" /> Mark all read
+              </Button>
+            )}
+            <Button
+              variant={showPrefs ? "default" : "outline"}
+              size="sm"
+              className="rounded-full gap-1.5"
+              onClick={() => setShowPrefs(v => !v)}
+            >
+              <Settings className="h-3.5 w-3.5" /> Settings
             </Button>
-          )}
+          </div>
         </div>
       </motion.div>
 
+      <AnimatePresence>
+        {showPrefs && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="mb-4 overflow-hidden rounded-2xl border bg-card"
+          >
+            <NotificationPreferences onClose={() => setShowPrefs(false)} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Filters */}
-      <div className="flex gap-2 mb-4">
+      <div className="flex gap-2 mb-3 flex-wrap">
         {(["all", "unread"] as const).map((f) => (
           <button
             key={f}
@@ -128,6 +186,37 @@ export default function NotificationCenter() {
             }`}
           >
             {f === "all" ? "All" : `Unread (${unreadCount})`}
+          </button>
+        ))}
+        {notifications.length > 0 && (
+          <button
+            onClick={clearAll}
+            className="ml-auto rounded-full px-4 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/10 transition-colors"
+          >
+            Clear all
+          </button>
+        )}
+      </div>
+
+      {/* Category filter chips */}
+      <div className="flex gap-1.5 mb-4 overflow-x-auto pb-1">
+        <button
+          onClick={() => setCategoryFilter("all")}
+          className={`shrink-0 flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-semibold border transition-colors ${
+            categoryFilter === "all" ? "bg-foreground text-background border-foreground" : "border-border bg-card text-muted-foreground hover:bg-muted"
+          }`}
+        >
+          <Filter className="h-3 w-3" /> All types
+        </button>
+        {NOTIF_CATEGORIES.map(c => (
+          <button
+            key={c.key}
+            onClick={() => setCategoryFilter(c.key)}
+            className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold border transition-colors ${
+              categoryFilter === c.key ? "bg-foreground text-background border-foreground" : "border-border bg-card text-muted-foreground hover:bg-muted"
+            }`}
+          >
+            {c.label}
           </button>
         ))}
       </div>
@@ -142,8 +231,12 @@ export default function NotificationCenter() {
           <p className="text-xs text-muted-foreground/60 mt-1">Complete lessons to earn achievements!</p>
         </motion.div>
       ) : (
-        <div className="space-y-2">
-          {filtered.map((n, i) => {
+        <div className="space-y-6">
+          {grouped.map((group) => (
+            <div key={group.label}>
+              <div className="mb-2 px-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground">{group.label}</div>
+              <div className="space-y-2">
+                {group.items.map((n, i) => {
             const Icon = typeIcons[n.type] || Info;
             const color = typeColors[n.type] || "text-muted-foreground";
             const inner = (
@@ -194,7 +287,10 @@ export default function NotificationCenter() {
                 {inner}
               </div>
             );
-          })}
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       )}
     </div>

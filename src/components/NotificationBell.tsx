@@ -1,9 +1,12 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, MoreHorizontal, Settings } from "lucide-react";
+import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, MoreHorizontal, Settings, Filter } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { loadPrefs, playNotifSound, groupByRecency, NOTIF_CATEGORIES, type NotifCategory } from "@/lib/notification-prefs";
+import NotificationPreferences from "./NotificationPreferences";
 
 interface Notification {
   id: string;
@@ -51,10 +54,17 @@ export default function NotificationBell() {
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState<"all" | "unread">("all");
   const [menuFor, setMenuFor] = useState<string | null>(null);
+  const [showPrefs, setShowPrefs] = useState(false);
+  const [categoryFilter, setCategoryFilter] = useState<NotifCategory | "all">("all");
   const ref = useRef<HTMLDivElement>(null);
 
   const unreadCount = notifications.filter(n => !n.read).length;
-  const visible = tab === "unread" ? notifications.filter(n => !n.read) : notifications;
+  const visible = useMemo(() => {
+    let list = tab === "unread" ? notifications.filter(n => !n.read) : notifications;
+    if (categoryFilter !== "all") list = list.filter(n => n.type === categoryFilter);
+    return list;
+  }, [notifications, tab, categoryFilter]);
+  const grouped = useMemo(() => groupByRecency(visible), [visible]);
 
   useEffect(() => {
     if (!user) return;
@@ -78,7 +88,19 @@ export default function NotificationBell() {
         "postgres_changes",
         { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
         (payload) => {
-          setNotifications(prev => [payload.new as Notification, ...prev]);
+          const n = payload.new as Notification;
+          setNotifications(prev => [n, ...prev]);
+          const prefs = loadPrefs();
+          const muted = prefs.muted.includes(n.type as NotifCategory);
+          if (!muted) {
+            if (prefs.sound) playNotifSound();
+            if (prefs.toast) {
+              toast(n.title, {
+                description: n.message,
+                action: n.link ? { label: "Open", onClick: () => { window.location.href = n.link!; } } : undefined,
+              });
+            }
+          }
         }
       )
       .subscribe();
@@ -118,7 +140,7 @@ export default function NotificationBell() {
   return (
     <div className="relative" ref={ref}>
       <button
-        onClick={() => setOpen(!open)}
+        onClick={() => { setOpen(!open); setShowPrefs(false); }}
         className="relative rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
         aria-label="Notifications"
       >
@@ -147,16 +169,27 @@ export default function NotificationBell() {
             <div className="px-4 pt-3 pb-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-extrabold tracking-tight font-display">Notifications</h3>
-                {unreadCount > 0 && (
+                <div className="flex items-center gap-0.5">
+                  {unreadCount > 0 && (
+                    <button
+                      onClick={markAllRead}
+                      className="rounded-full p-1.5 text-muted-foreground hover:bg-muted transition-colors"
+                      title="Mark all as read"
+                    >
+                      <CheckCheck className="h-4 w-4" />
+                    </button>
+                  )}
                   <button
-                    onClick={markAllRead}
-                    className="rounded-full p-1.5 text-muted-foreground hover:bg-muted transition-colors"
-                    title="Mark all as read"
+                    onClick={() => setShowPrefs(v => !v)}
+                    className={`rounded-full p-1.5 transition-colors ${showPrefs ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-muted"}`}
+                    title="Notification settings"
                   >
-                    <CheckCheck className="h-4 w-4" />
+                    <Settings className="h-4 w-4" />
                   </button>
-                )}
+                </div>
               </div>
+              {!showPrefs && (
+              <>
               {/* Tabs */}
               <div className="mt-2 flex items-center gap-1.5">
                 {(["all", "unread"] as const).map((t) => (
@@ -173,9 +206,35 @@ export default function NotificationBell() {
                   </button>
                 ))}
               </div>
+              {/* Category filter chips */}
+              <div className="mt-2 -mx-1 flex items-center gap-1 overflow-x-auto pb-1 scrollbar-none">
+                <button
+                  onClick={() => setCategoryFilter("all")}
+                  className={`shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-colors ${
+                    categoryFilter === "all" ? "bg-foreground text-background border-foreground" : "border-transparent bg-muted text-muted-foreground hover:bg-muted/70"
+                  }`}
+                >
+                  <Filter className="h-3 w-3" /> All types
+                </button>
+                {NOTIF_CATEGORIES.map(c => (
+                  <button
+                    key={c.key}
+                    onClick={() => setCategoryFilter(c.key)}
+                    className={`shrink-0 px-2.5 py-1 rounded-full text-[11px] font-semibold border transition-colors ${
+                      categoryFilter === c.key ? "bg-foreground text-background border-foreground" : "border-transparent bg-muted text-muted-foreground hover:bg-muted/70"
+                    }`}
+                  >
+                    {c.label}
+                  </button>
+                ))}
+              </div>
+              </>
+              )}
             </div>
 
-            {/* List */}
+            {showPrefs ? (
+              <NotificationPreferences onClose={() => setShowPrefs(false)} />
+            ) : (
             <div className="overflow-y-auto max-h-[70vh] sm:max-h-[460px] px-1.5 pb-2">
               {visible.length === 0 ? (
                 <div className="py-14 text-center">
@@ -190,7 +249,12 @@ export default function NotificationBell() {
                   </p>
                 </div>
               ) : (
-                visible.map((n) => {
+                grouped.map(group => (
+                  <div key={group.label}>
+                    <div className="px-3 pt-2 pb-1 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                      {group.label}
+                    </div>
+                    {group.items.map((n) => {
                   const Icon = typeIcons[n.type] || Info;
                   const avatar = typeAvatar[n.type] || typeAvatar.info;
                   const row = (
@@ -276,9 +340,12 @@ export default function NotificationBell() {
                       {row}
                     </div>
                   );
-                })
+                    })}
+                  </div>
+                ))
               )}
             </div>
+            )}
 
             {/* Footer */}
             <div className="border-t px-2 py-1.5 bg-muted/20">
