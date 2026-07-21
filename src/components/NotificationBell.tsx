@@ -235,7 +235,6 @@ export default function NotificationBell() {
             {showPrefs ? (
               <NotificationPreferences onClose={() => setShowPrefs(false)} />
             ) : (
-            {/* List */}
             <div className="overflow-y-auto max-h-[70vh] sm:max-h-[460px] px-1.5 pb-2">
               {visible.length === 0 ? (
                 <div className="py-14 text-center">
