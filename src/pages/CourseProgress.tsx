@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BarChart3, BookOpen, CheckCircle2, ArrowRight, Trophy, Flame } from "lucide-react";
+import { BarChart3, BookOpen, CheckCircle2, ArrowRight, Trophy, Flame, Target, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import { getLevelMinutes, getTotalMinutes, formatDuration, useStudyTimeVersion } from "@/lib/study-time";
 
 interface LevelProgress {
   level: string;
@@ -14,6 +15,8 @@ interface LevelProgress {
   total: number;
   color: string;
   emoji: string;
+  avgAccuracy?: number;
+  minutes?: number;
 }
 
 const LEVELS: Omit<LevelProgress, "completed">[] = [
@@ -31,37 +34,49 @@ const LEVELS: Omit<LevelProgress, "completed">[] = [
 
 export default function CourseProgress() {
   const { user } = useAuth();
-  const [progressData, setProgressData] = useState<LevelProgress[]>([]);
+  const [rows, setRows] = useState<Array<{ level_id: string; lesson_number: number; score: number | null }>>([]);
   const [loading, setLoading] = useState(true);
+  const timeVersion = useStudyTimeVersion();
 
   useEffect(() => {
     if (!user) return;
     async function load() {
       const { data } = await supabase
         .from("lesson_progress")
-        .select("level_id, lesson_number, completed")
+        .select("level_id, lesson_number, completed, score")
         .eq("user_id", user!.id)
         .eq("completed", true);
-
-      const completedMap: Record<string, number> = {};
-      (data || []).forEach((d) => {
-        completedMap[d.level_id] = (completedMap[d.level_id] || 0) + 1;
-      });
-
-      setProgressData(
-        LEVELS.map((l) => ({
-          ...l,
-          completed: Math.min(completedMap[l.level] || 0, l.total),
-        }))
-      );
+      setRows((data as any) || []);
       setLoading(false);
     }
     load();
   }, [user]);
 
+  const progressData: LevelProgress[] = useMemo(() => {
+    void timeVersion;
+    return LEVELS.map((l) => {
+      const forLevel = rows.filter((r) => r.level_id === l.level);
+      const scored = forLevel.filter((r) => typeof r.score === "number");
+      const avgAccuracy = scored.length
+        ? Math.round(scored.reduce((s, r) => s + (r.score || 0), 0) / scored.length)
+        : 0;
+      return {
+        ...l,
+        completed: Math.min(forLevel.length, l.total),
+        avgAccuracy,
+        minutes: getLevelMinutes(user?.id, l.level),
+      };
+    });
+  }, [rows, timeVersion, user?.id]);
+
   const totalCompleted = progressData.reduce((s, p) => s + p.completed, 0);
   const totalLessons = progressData.reduce((s, p) => s + p.total, 0);
   const overallPercent = totalLessons > 0 ? Math.round((totalCompleted / totalLessons) * 100) : 0;
+  const scoredAll = rows.filter((r) => typeof r.score === "number");
+  const overallAccuracy = scoredAll.length
+    ? Math.round(scoredAll.reduce((s, r) => s + (r.score || 0), 0) / scoredAll.length)
+    : 0;
+  const totalMinutes = getTotalMinutes(user?.id);
 
   if (loading) {
     return (
@@ -99,6 +114,18 @@ export default function CourseProgress() {
           <span className="text-2xl font-bold font-display text-primary">{overallPercent}%</span>
         </div>
         <Progress value={overallPercent} className="h-3 rounded-full" />
+        <div className="mt-3 flex items-center gap-4 text-[11px]">
+          {scoredAll.length > 0 && (
+            <span className="inline-flex items-center gap-1 font-semibold text-emerald-700 dark:text-emerald-400">
+              <Target className="h-3 w-3" /> {overallAccuracy}% avg accuracy
+            </span>
+          )}
+          {totalMinutes > 0 && (
+            <span className="inline-flex items-center gap-1 text-muted-foreground">
+              <Clock className="h-3 w-3" /> {formatDuration(totalMinutes)} studied
+            </span>
+          )}
+        </div>
       </motion.div>
 
       {/* Per-level progress */}
@@ -134,6 +161,24 @@ export default function CourseProgress() {
                       className={`h-full rounded-full bg-gradient-to-r ${p.color}`}
                     />
                   </div>
+                  {(p.avgAccuracy || p.minutes) ? (
+                    <div className="mt-1.5 flex items-center gap-3 text-[10px]">
+                      {p.avgAccuracy ? (
+                        <span className={`inline-flex items-center gap-1 font-semibold tabular-nums ${
+                          p.avgAccuracy >= 80 ? "text-emerald-600 dark:text-emerald-400"
+                            : p.avgAccuracy >= 50 ? "text-amber-600 dark:text-amber-400"
+                              : "text-rose-600 dark:text-rose-400"
+                        }`}>
+                          <Target className="h-2.5 w-2.5" /> {p.avgAccuracy}% acc
+                        </span>
+                      ) : null}
+                      {p.minutes ? (
+                        <span className="inline-flex items-center gap-1 text-muted-foreground tabular-nums">
+                          <Clock className="h-2.5 w-2.5" /> {formatDuration(p.minutes)}
+                        </span>
+                      ) : null}
+                    </div>
+                  ) : null}
                 </div>
                 <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-primary transition-colors shrink-0" />
               </Link>
