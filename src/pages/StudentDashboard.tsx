@@ -21,6 +21,7 @@ import { getSlideProgress } from "@/hooks/useSlideProgress";
 import { formatRelativeTime } from "@/lib/format-time";
 import CourseProgress from "@/components/CourseProgress";
 import { useProgressEvents } from "@/lib/progress-events";
+import { getLevelMinutes, getTotalMinutes, getWeeklyMinutes, formatDuration, useStudyTimeVersion } from "@/lib/study-time";
 
 interface TestResult {
   id: string;
@@ -113,6 +114,7 @@ export default function StudentDashboard() {
   const [loading, setLoading] = useState(true);
 
   const todayTip = dailyTips[new Date().getDay() % dailyTips.length];
+  const timeVersion = useStudyTimeVersion();
 
   const loadDashboard = async () => {
     if (!user) return;
@@ -195,12 +197,26 @@ export default function StudentDashboard() {
       }
     }
     const lastAt = lastAtMs > 0 ? new Date(lastAtMs).toISOString() : undefined;
-    return { level: lvl, completed, total, percent, nextLesson, lastLesson, lastAt };
+    const scored = lvlProgress.filter((p) => p.completed && typeof p.score === "number");
+    const avgAccuracy = scored.length
+      ? Math.round(scored.reduce((s, p) => s + (p.score || 0), 0) / scored.length)
+      : 0;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const _tv = timeVersion; // bind reactivity
+    const minutes = getLevelMinutes(user?.id, lvl);
+    return { level: lvl, completed, total, percent, nextLesson, lastLesson, lastAt, avgAccuracy, minutes };
   });
 
   const totalLessonsAll = levelProgress.reduce((s, lp) => s + lp.total, 0);
   const totalCompletedAll = levelProgress.reduce((s, lp) => s + lp.completed, 0);
   const overallPercent = totalLessonsAll > 0 ? Math.round((totalCompletedAll / totalLessonsAll) * 100) : 0;
+  const scoredAll = progress.filter((p) => p.completed && typeof p.score === "number");
+  const overallAccuracy = scoredAll.length
+    ? Math.round(scoredAll.reduce((s, p) => s + (p.score || 0), 0) / scoredAll.length)
+    : 0;
+  const totalMinutes = getTotalMinutes(user?.id);
+  const weeklyMinutes = getWeeklyMinutes(user?.id);
+  void timeVersion;
 
   const greeting = new Date().getHours() < 12 ? "morning" : new Date().getHours() < 17 ? "afternoon" : "evening";
 
@@ -236,10 +252,11 @@ export default function StudentDashboard() {
       </motion.div>
 
       {/* Quick Stats with XP & Streak */}
-      <div className="grid gap-3 grid-cols-2 lg:grid-cols-5 mb-6">
+      <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-6 mb-6">
         {[
           { icon: BookOpen, label: "Lessons Done", value: completedLessons.toString(), accent: "from-primary/15 to-primary/5", iconColor: "text-primary" },
-          { icon: GraduationCap, label: "Tests Taken", value: testResults.length.toString(), accent: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
+          { icon: Target, label: "Avg Accuracy", value: scoredAll.length ? `${overallAccuracy}%` : "—", accent: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
+          { icon: Clock, label: "Time Studied", value: formatDuration(totalMinutes), accent: "from-sky-500/15 to-sky-500/5", iconColor: "text-sky-600 dark:text-sky-400" },
           { icon: Flame, label: "Streak", value: xp ? `${xp.current_streak}d` : "0d", accent: "from-orange-500/15 to-orange-500/5", iconColor: "text-orange-600 dark:text-orange-400" },
           { icon: Zap, label: "Total XP", value: xp ? xp.total_xp.toLocaleString() : "0", accent: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
           { icon: Award, label: "Badges", value: achievements.length.toString(), accent: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
@@ -263,6 +280,23 @@ export default function StudentDashboard() {
           </motion.div>
         ))}
       </div>
+
+      {weeklyMinutes > 0 && (
+        <div className="mb-6 rounded-2xl border bg-card p-4 shadow-soft flex items-center justify-between gap-4 flex-wrap">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10">
+              <Clock className="h-4 w-4 text-sky-600 dark:text-sky-400" />
+            </div>
+            <div>
+              <p className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold">This week</p>
+              <p className="text-lg font-bold font-display">{formatDuration(weeklyMinutes)} of focused study</p>
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground max-w-xs">
+            Active minutes only — the tracker pauses when your tab is idle or hidden.
+          </p>
+        </div>
+      )}
 
       {/* Quick Actions */}
       <FadeInUp delay={0.05}>
@@ -449,6 +483,8 @@ export default function StudentDashboard() {
                           nextLesson: lp.nextLesson,
                           lastLesson: lp.lastLesson,
                           lastAt: lp.lastAt,
+                          avgAccuracy: lp.avgAccuracy,
+                          minutes: lp.minutes,
                         }}
                       />
                     </Link>
