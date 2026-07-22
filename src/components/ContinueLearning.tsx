@@ -8,9 +8,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { lessons as allLessons } from "@/data/lessons";
 import CourseProgress from "@/components/CourseProgress";
 import { useProgressEvents } from "@/lib/progress-events";
+import { getLevelMinutes, useStudyTimeVersion } from "@/lib/study-time";
 
 export default function ContinueLearning() {
   const { user } = useAuth();
+  const timeVersion = useStudyTimeVersion();
   const [next, setNext] = useState<{
     level_id: string;
     lesson_number: number;
@@ -18,12 +20,13 @@ export default function ContinueLearning() {
     completed: number;
     total: number;
     title?: string;
+    avgAccuracy?: number;
   } | null>(null);
 
-  const buildFor = (level_id: string, lesson_number: number, completed: number, fresh: boolean) => {
+  const buildFor = (level_id: string, lesson_number: number, completed: number, fresh: boolean, avgAccuracy?: number) => {
     const total = Object.keys(allLessons).filter((k) => k.startsWith(`${level_id}-`)).length;
     const key = `${level_id}-${lesson_number}`;
-    return { level_id, lesson_number, fresh, completed, total, title: (allLessons as any)[key]?.title };
+    return { level_id, lesson_number, fresh, completed, total, title: (allLessons as any)[key]?.title, avgAccuracy };
   };
 
   const refresh = () => {
@@ -33,7 +36,7 @@ export default function ContinueLearning() {
     }
     supabase
       .from("lesson_progress")
-      .select("level_id, lesson_number, completed, completed_at")
+      .select("level_id, lesson_number, completed, completed_at, score")
       .eq("user_id", user.id)
       .order("completed_at", { ascending: false, nullsFirst: false })
       .then(({ data }) => {
@@ -47,7 +50,11 @@ export default function ContinueLearning() {
         );
         let n = 1;
         while (completedInLevel.has(n)) n++;
-        setNext(buildFor(level, n, completedInLevel.size, false));
+        const scored = data.filter((r) => r.level_id === level && r.completed && typeof r.score === "number");
+        const avgAccuracy = scored.length
+          ? Math.round(scored.reduce((s, r: any) => s + (r.score || 0), 0) / scored.length)
+          : undefined;
+        setNext(buildFor(level, n, completedInLevel.size, false, avgAccuracy));
       });
   };
 
@@ -99,6 +106,8 @@ export default function ContinueLearning() {
               completed: next.completed,
               total: next.total,
               nextLesson: next.lesson_number,
+              avgAccuracy: next.avgAccuracy,
+              minutes: getLevelMinutes(user?.id, next.level_id) || undefined,
             }}
           />
         )}
