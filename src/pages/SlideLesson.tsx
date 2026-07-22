@@ -6,10 +6,14 @@ import { generateArabicDrawingSlides } from "@/data/arabic-drawing-slide-generat
 import { generateArabicTherapySlides } from "@/data/arabic-therapy-slide-generator";
 import SlideViewer from "@/components/SlideViewer";
 import DrawingSubmissionPanel from "@/components/DrawingSubmissionPanel";
+import { useAuth } from "@/hooks/useAuth";
+import { useStudyTimer } from "@/lib/study-time";
 
 export default function SlideLesson() {
   const { levelId, lessonId } = useParams();
   const navigate = useNavigate();
+  const { user } = useAuth();
+  useStudyTimer(user?.id, levelId);
 
   const key = `${levelId}-${lessonId}`;
   const lesson = lessons[key];
