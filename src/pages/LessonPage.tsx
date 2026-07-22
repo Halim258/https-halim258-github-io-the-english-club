@@ -8,6 +8,7 @@ import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { getDiscussionPrompts, isCommunicationCourse, DiscussionPrompt } from "@/data/discussion-prompts";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useStudyTimer } from "@/lib/study-time";
 import { toast } from "@/hooks/use-toast";
 
 /* ───── Fullscreen no-scroll shell ───── */
@@ -790,6 +791,7 @@ export default function LessonPage() {
   const { speak, stop, speaking } = useTTS();
   const { markComplete } = useLessonProgress();
   const { user } = useAuth();
+  useStudyTimer(user?.id, levelId);
 
   // Music, drawing, and speech therapy courses use the slide-based template.
   useEffect(() => {
