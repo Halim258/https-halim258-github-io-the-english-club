@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { CheckCircle2, ArrowRight, Clock } from "lucide-react";
+import { CheckCircle2, ArrowRight, Clock, Target, Timer } from "lucide-react";
 import { formatRelativeTime } from "@/lib/format-time";
+import { formatDuration } from "@/lib/study-time";
 
 /**
  * Unified course progress component. Single source of truth for
@@ -21,6 +22,10 @@ export type CourseProgressData = {
   lastAt?: string;
   /** Optional next lesson to resume (falls back to lastLesson). */
   nextLesson?: number;
+  /** Optional: average exercise accuracy across scored lessons (0–100). */
+  avgAccuracy?: number;
+  /** Optional: total minutes the student has spent inside this course. */
+  minutes?: number;
 };
 
 export type CourseProgressVariant = "card" | "row" | "banner";
@@ -72,6 +77,33 @@ function LastMeta({ d }: { d: CourseProgressData }) {
   );
 }
 
+function accuracyTone(v: number) {
+  if (v >= 80) return "text-emerald-600 dark:text-emerald-400";
+  if (v >= 50) return "text-amber-600 dark:text-amber-400";
+  return "text-rose-600 dark:text-rose-400";
+}
+
+function MetricPills({ d, compact = false }: { d: CourseProgressData; compact?: boolean }) {
+  const hasAcc = typeof d.avgAccuracy === "number" && d.avgAccuracy > 0;
+  const hasTime = typeof d.minutes === "number" && d.minutes > 0;
+  if (!hasAcc && !hasTime) return null;
+  const cls = compact ? "text-[10px]" : "text-[11px]";
+  return (
+    <>
+      {hasAcc && (
+        <span className={`inline-flex items-center gap-1 font-semibold tabular-nums ${accuracyTone(d.avgAccuracy!)} ${cls}`}>
+          <Target className="h-2.5 w-2.5" /> {d.avgAccuracy}% acc
+        </span>
+      )}
+      {hasTime && (
+        <span className={`inline-flex items-center gap-1 text-muted-foreground tabular-nums ${cls}`}>
+          <Timer className="h-2.5 w-2.5" /> {formatDuration(d.minutes!)}
+        </span>
+      )}
+    </>
+  );
+}
+
 export default function CourseProgress({
   data,
   variant = "card",
@@ -111,6 +143,11 @@ export default function CourseProgress({
             className={`h-full rounded-full ${barColor}`}
           />
         </div>
+        {(data.avgAccuracy || data.minutes) && (
+          <div className="mt-1.5 flex items-center gap-3">
+            <MetricPills d={data} compact />
+          </div>
+        )}
       </div>
     );
   }
@@ -146,6 +183,7 @@ export default function CourseProgress({
             <span className="inline-flex items-center gap-1 text-muted-foreground">Not started</span>
           )}
           <LastMeta d={data} />
+          <MetricPills d={data} compact />
         </div>
       </div>
     );
@@ -186,6 +224,11 @@ export default function CourseProgress({
             </>
           )}
         </p>
+      )}
+      {(data.avgAccuracy || data.minutes) && (
+        <div className="flex items-center gap-3 pt-0.5">
+          <MetricPills d={data} compact />
+        </div>
       )}
     </div>
   );

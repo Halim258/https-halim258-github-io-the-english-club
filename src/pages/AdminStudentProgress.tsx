@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   ArrowLeft, Download, FileText, Loader2, BookOpen, Trophy, Flame,
-  Target, Calendar, CheckCircle2, XCircle, Award
+  Target, Calendar, CheckCircle2, XCircle, Award, TrendingUp
 } from "lucide-react";
 import jsPDF from "jspdf";
 import { supabase } from "@/integrations/supabase/client";
@@ -107,6 +107,29 @@ export default function AdminStudentProgress() {
         };
       })
       .sort((a, b) => a.level.localeCompare(b.level));
+  }, [lessons]);
+
+  // 12-week completion cadence — one bar per ISO week, most recent on the right.
+  const weeklyCadence = useMemo(() => {
+    const WEEKS = 12;
+    const buckets = Array.from({ length: WEEKS }, () => 0);
+    const now = new Date();
+    const startOfWeek = (d: Date) => {
+      const x = new Date(d);
+      const day = (x.getDay() + 6) % 7; // Monday = 0
+      x.setDate(x.getDate() - day);
+      x.setHours(0, 0, 0, 0);
+      return x;
+    };
+    const thisWeekStart = startOfWeek(now).getTime();
+    lessons.forEach((l) => {
+      if (!l.completed || !l.completed_at) return;
+      const t = new Date(l.completed_at).getTime();
+      const weeksAgo = Math.floor((thisWeekStart - startOfWeek(new Date(t)).getTime()) / (7 * 86400000));
+      if (weeksAgo >= 0 && weeksAgo < WEEKS) buckets[WEEKS - 1 - weeksAgo] += 1;
+    });
+    const max = Math.max(1, ...buckets);
+    return { buckets, max };
   }, [lessons]);
 
   const displayName = profile?.full_name || email || "Student";
@@ -251,6 +274,30 @@ export default function AdminStudentProgress() {
             <p className="text-[11px] text-muted-foreground font-medium">{k.label}</p>
           </div>
         ))}
+      </div>
+
+      <div className="rounded-2xl border bg-card p-5 shadow-soft">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-sm font-semibold flex items-center gap-2">
+            <TrendingUp className="h-4 w-4 text-primary" /> Weekly cadence
+          </h2>
+          <span className="text-[11px] text-muted-foreground">Lessons completed · last 12 weeks</span>
+        </div>
+        <div className="flex items-end gap-1.5 h-24">
+          {weeklyCadence.buckets.map((v, i) => {
+            const h = Math.max(2, Math.round((v / weeklyCadence.max) * 100));
+            const isCurrent = i === weeklyCadence.buckets.length - 1;
+            return (
+              <div key={i} className="flex-1 flex flex-col items-center justify-end gap-1" title={`${v} lesson${v === 1 ? "" : "s"}`}>
+                <span className={`text-[9px] tabular-nums ${v > 0 ? "text-foreground" : "text-muted-foreground/40"}`}>{v || ""}</span>
+                <div
+                  className={`w-full rounded-t ${isCurrent ? "bg-primary" : v > 0 ? "bg-primary/50" : "bg-muted"}`}
+                  style={{ height: `${h}%` }}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {badges.length > 0 && (
