@@ -5,7 +5,7 @@ import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
-  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp, ScrollText
+  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp, ScrollText, KeyRound
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import CommandPalette from "@/components/admin/CommandPalette";
@@ -132,7 +132,7 @@ export default function AdminDashboard() {
   const isSecretary = role === "secretary";
 
   const allTabs: { id: Tab; label: string; icon: React.ElementType }[] = [
-    { id: "grant-access", label: "Grant Access", icon: KeyIcon },
+    { id: "grant-access", label: "Grant Access", icon: KeyRound },
     { id: "overview", label: "Overview", icon: BarChart3 },
     { id: "school-students", label: "Students", icon: Users },
     { id: "new-signups", label: "New Sign-ups", icon: UserPlus },
