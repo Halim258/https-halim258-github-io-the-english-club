@@ -25,6 +25,7 @@ const StudentDashboard = lazy(() => import("./pages/StudentDashboard"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AdminStudentProgress = lazy(() => import("./pages/AdminStudentProgress"));
 const AdminStudentActivity = lazy(() => import("./pages/AdminStudentActivity"));
+const AdminPendingApprovals = lazy(() => import("./pages/AdminPendingApprovals"));
 const TeacherDashboard = lazy(() => import("./pages/TeacherDashboard"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
@@ -145,6 +146,11 @@ const App = () => (
               <Route path="/admin/student-activity" element={
                 <ProtectedRoute requiredRole="admin">
                   <AdminStudentActivity />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/pending-approvals" element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminPendingApprovals />
                 </ProtectedRoute>
               } />
               <Route path="/teacher-dashboard" element={
