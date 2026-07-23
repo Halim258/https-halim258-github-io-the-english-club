@@ -277,7 +277,7 @@ export default function Navbar() {
             </div>
           ) : user ? (
             <>
-              <Link to="/dashboard">
+              <Link to="/profile">
                 <Button variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
                   <User className="h-4 w-4" />
                   <span className="max-w-[80px] truncate">{user.email?.split("@")[0]}</span>
