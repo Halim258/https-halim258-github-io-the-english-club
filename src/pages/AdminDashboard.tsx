@@ -34,8 +34,9 @@ import AdminAnalytics from "@/components/admin/AdminAnalytics";
 import CohortAnalytics from "@/components/analytics/CohortAnalytics";
 import AdminNewSignups from "@/components/admin/AdminNewSignups";
 import AdminAuditLog from "@/components/admin/AdminAuditLog";
+import AdminGrantAccess from "@/pages/AdminGrantAccess";
 
-type Tab = "overview" | "school-students" | "new-signups" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics" | "cohorts" | "audit-log";
+type Tab = "grant-access" | "overview" | "school-students" | "new-signups" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics" | "cohorts" | "audit-log";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -44,7 +45,7 @@ const LEVEL_COLORS: Record<string, string> = {
 
 export default function AdminDashboard() {
   const { user, role } = useAuth();
-  const [tab, setTab] = useState<Tab>("overview");
+  const [tab, setTab] = useState<Tab>("grant-access");
   const [loading, setLoading] = useState(true);
   const [selectedProfile, setSelectedProfile] = useState<any | null>(null);
   const [selectedTest, setSelectedTest] = useState<any | null>(null);
@@ -124,13 +125,14 @@ export default function AdminDashboard() {
 
   // Tabs secretaries are allowed to see
   const secretaryTabs: Tab[] = [
-    "overview", "school-students", "new-signups", "receipts", "attendance",
+    "grant-access", "overview", "school-students", "new-signups", "receipts", "attendance",
     "newcomers", "products", "unpaid", "groups", "sessions",
   ];
 
   const isSecretary = role === "secretary";
 
   const allTabs: { id: Tab; label: string; icon: React.ElementType }[] = [
+    { id: "grant-access", label: "Grant Access", icon: KeyIcon },
     { id: "overview", label: "Overview", icon: BarChart3 },
     { id: "school-students", label: "Students", icon: Users },
     { id: "new-signups", label: "New Sign-ups", icon: UserPlus },
