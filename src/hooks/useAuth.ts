@@ -72,7 +72,7 @@ export function useAuth(): AuthState {
               title: `${name} signed in 👤`,
               message: `${name} (${u.email ?? "no email"}) just signed in to the platform.`,
               type: "info",
-              link: "/admin",
+              link: `/admin/students/${u.id}/progress`,
             });
           }
         }

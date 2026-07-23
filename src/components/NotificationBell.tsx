@@ -328,7 +328,7 @@ export default function NotificationBell() {
                     return (
                       <Link
                         key={n.id}
-                        to={isAdmin ? "/admin/student-activity" : n.link}
+                        to={n.link}
                         onClick={() => { markAsRead(n.id); setOpen(false); }}
                         className="block"
                       >
@@ -342,9 +342,9 @@ export default function NotificationBell() {
                         {row}
                       </Link>
                     ) : (
-                      <div key={n.id} onClick={() => markAsRead(n.id)}>
+                      <Link key={n.id} to="/dashboard" onClick={() => { markAsRead(n.id); setOpen(false); }} className="block">
                         {row}
-                      </div>
+                      </Link>
                     )
                   );
                     })}
