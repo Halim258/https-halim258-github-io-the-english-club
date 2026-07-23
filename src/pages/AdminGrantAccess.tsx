@@ -160,6 +160,7 @@ export default function AdminGrantAccess() {
       toast({ title: "Access granted ✅", description: `${r.identifier} can now access the platform.` });
       setName("");
       setEmail("");
+      loadMembers();
     } else if (r.status === "already") {
       toast({ title: "Already a member", description: r.identifier });
     } else {
@@ -200,6 +201,7 @@ export default function AdminGrantAccess() {
     const ok = collected.filter((r) => r.status === "granted").length;
     toast({ title: `Granted access to ${ok}/${collected.length}` });
     setBulk("");
+    if (ok > 0) loadMembers();
   };
 
   return (
