@@ -49,7 +49,8 @@ function timeAgo(date: string) {
 }
 
 export default function NotificationBell() {
-  const { user } = useAuth();
+  const { user, role } = useAuth();
+  const isAdmin = role === "admin" || role === "secretary";
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState<"all" | "unread">("all");
@@ -327,7 +328,7 @@ export default function NotificationBell() {
                     return (
                       <Link
                         key={n.id}
-                        to={n.link}
+                        to={isAdmin ? "/admin/student-activity" : n.link}
                         onClick={() => { markAsRead(n.id); setOpen(false); }}
                         className="block"
                       >
@@ -336,9 +337,15 @@ export default function NotificationBell() {
                     );
                   }
                   return (
-                    <div key={n.id} onClick={() => markAsRead(n.id)}>
-                      {row}
-                    </div>
+                    isAdmin ? (
+                      <Link key={n.id} to="/admin/student-activity" onClick={() => { markAsRead(n.id); setOpen(false); }} className="block">
+                        {row}
+                      </Link>
+                    ) : (
+                      <div key={n.id} onClick={() => markAsRead(n.id)}>
+                        {row}
+                      </div>
+                    )
                   );
                     })}
                   </div>

@@ -24,6 +24,7 @@ const PlacementTest = lazy(() => import("./pages/PlacementTest"));
 const StudentDashboard = lazy(() => import("./pages/StudentDashboard"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AdminStudentProgress = lazy(() => import("./pages/AdminStudentProgress"));
+const AdminStudentActivity = lazy(() => import("./pages/AdminStudentActivity"));
 const TeacherDashboard = lazy(() => import("./pages/TeacherDashboard"));
 const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
@@ -137,6 +138,11 @@ const App = () => (
               <Route path="/admin/students/:userId/progress" element={
                 <ProtectedRoute requiredRole="admin">
                   <AdminStudentProgress />
+                </ProtectedRoute>
+              } />
+              <Route path="/admin/student-activity" element={
+                <ProtectedRoute requiredRole="admin">
+                  <AdminStudentActivity />
                 </ProtectedRoute>
               } />
               <Route path="/teacher-dashboard" element={

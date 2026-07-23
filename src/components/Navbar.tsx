@@ -305,6 +305,7 @@ export default function Navbar() {
 
         {/* Mobile hamburger */}
         <div className="flex items-center gap-1.5 xl:hidden">
+          {user && <NotificationBell />}
           <button
             onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
             className="flex h-10 w-10 items-center justify-center rounded-xl border bg-muted/50 text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
