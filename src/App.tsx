@@ -57,6 +57,7 @@ const PlatformBlog = lazy(() => import("./pages/PlatformBlog"));
 const Contact = lazy(() => import("./pages/Contact"));
 const CurriculumPlan = lazy(() => import("./pages/CurriculumPlan"));
 const Messages = lazy(() => import("./pages/Messages"));
+const PendingApproval = lazy(() => import("./pages/PendingApproval"));
 const queryClient = new QueryClient();
 
 function PageLoader() {
@@ -86,20 +87,21 @@ const App = () => (
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
-              <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
-              <Route path="/courses/category/:categorySlug" element={<ProtectedRoute><CategoryDetail /></ProtectedRoute>} />
-              <Route path="/curriculum/:categorySlug/:courseIndex" element={<ProtectedRoute><CurriculumPlan /></ProtectedRoute>} />
-              <Route path="/courses/:levelId/:lessonId/slides" element={<ProtectedRoute><SlideLesson /></ProtectedRoute>} />
-              <Route path="/courses/:levelId/:lessonId" element={<ProtectedRoute><LessonPage /></ProtectedRoute>} />
-              <Route path="/courses/kids" element={<ProtectedRoute><KidsCourse /></ProtectedRoute>} />
-              <Route path="/courses/stories" element={<ProtectedRoute><StoriesCourse /></ProtectedRoute>} />
-              <Route path="/courses/stories/:lessonId/slides" element={<ProtectedRoute><StorySlideLesson /></ProtectedRoute>} />
-              <Route path="/courses/movies" element={<ProtectedRoute><MoviesCourse /></ProtectedRoute>} />
-              <Route path="/courses/movies/:lessonId/slides" element={<ProtectedRoute><MovieSlideLesson /></ProtectedRoute>} />
-              <Route path="/courses/documentary" element={<ProtectedRoute><DocumentaryCourse /></ProtectedRoute>} />
-              <Route path="/courses/documentary/:lessonId/slides" element={<ProtectedRoute><DocumentarySlideLesson /></ProtectedRoute>} />
-              <Route path="/kids/games" element={<ProtectedRoute><KidsGameCenter /></ProtectedRoute>} />
-              <Route path="/courses/:levelId" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
+              <Route path="/courses" element={<ProtectedRoute requireMember><Courses /></ProtectedRoute>} />
+              <Route path="/courses/category/:categorySlug" element={<ProtectedRoute requireMember><CategoryDetail /></ProtectedRoute>} />
+              <Route path="/curriculum/:categorySlug/:courseIndex" element={<ProtectedRoute requireMember><CurriculumPlan /></ProtectedRoute>} />
+              <Route path="/courses/:levelId/:lessonId/slides" element={<ProtectedRoute requireMember><SlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/:levelId/:lessonId" element={<ProtectedRoute requireMember><LessonPage /></ProtectedRoute>} />
+              <Route path="/courses/kids" element={<ProtectedRoute requireMember><KidsCourse /></ProtectedRoute>} />
+              <Route path="/courses/stories" element={<ProtectedRoute requireMember><StoriesCourse /></ProtectedRoute>} />
+              <Route path="/courses/stories/:lessonId/slides" element={<ProtectedRoute requireMember><StorySlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/movies" element={<ProtectedRoute requireMember><MoviesCourse /></ProtectedRoute>} />
+              <Route path="/courses/movies/:lessonId/slides" element={<ProtectedRoute requireMember><MovieSlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/documentary" element={<ProtectedRoute requireMember><DocumentaryCourse /></ProtectedRoute>} />
+              <Route path="/courses/documentary/:lessonId/slides" element={<ProtectedRoute requireMember><DocumentarySlideLesson /></ProtectedRoute>} />
+              <Route path="/kids/games" element={<ProtectedRoute requireMember><KidsGameCenter /></ProtectedRoute>} />
+              <Route path="/courses/:levelId" element={<ProtectedRoute requireMember><Courses /></ProtectedRoute>} />
+              <Route path="/pending-approval" element={<ProtectedRoute><PendingApproval /></ProtectedRoute>} />
               <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />
               <Route path="/practice" element={<ProtectedRoute><PracticeSpeaking /></ProtectedRoute>} />
               <Route path="/teachers" element={<Teachers />} />
