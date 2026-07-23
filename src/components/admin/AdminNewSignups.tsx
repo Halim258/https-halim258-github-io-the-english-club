@@ -289,6 +289,7 @@ export default function AdminNewSignups({ onRefresh }: Props) {
                         </button>
                       )}
                     </div>
+                    <div className="flex items-center gap-2">
                     <Button
                       size="sm"
                       onClick={() => openAdd(s)}
@@ -311,6 +312,7 @@ export default function AdminNewSignups({ onRefresh }: Props) {
                     >
                       <XCircle className="h-3.5 w-3.5 mr-1" /> Reject
                     </Button>
+                    </div>
                   </div>
                 ))}
               </div>
