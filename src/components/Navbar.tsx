@@ -277,17 +277,15 @@ export default function Navbar() {
             </div>
           ) : user ? (
             <>
-              <Link to="/profile">
-                <Button variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
+              <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
+                <Link to="/profile">
                   <User className="h-4 w-4" />
                   <span className="max-w-[80px] truncate">{user.email?.split("@")[0]}</span>
-                </Button>
-              </Link>
-              <Link to="/dashboard">
-                <Button variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
-                  Dashboard
-                </Button>
-              </Link>
+                </Link>
+              </Button>
+              <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
+                <Link to="/dashboard">Dashboard</Link>
+              </Button>
               <Button variant="outline" size="sm" className="rounded-full gap-1 hover:border-destructive/30 hover:text-destructive hover:bg-destructive/5 transition-colors" onClick={handleLogout}>
                 <LogOut className="h-3.5 w-3.5" /> Logout
               </Button>
@@ -418,11 +416,11 @@ export default function Navbar() {
                 </div>
               ) : user ? (
                 <div className="mt-2 space-y-2">
-                  <Link to="/dashboard" onClick={() => setOpen(false)}>
-                    <Button size="sm" className="w-full rounded-xl font-semibold gap-1.5 h-11">
+                  <Button asChild size="sm" className="w-full rounded-xl font-semibold gap-1.5 h-11">
+                    <Link to="/dashboard" onClick={() => setOpen(false)}>
                       <User className="h-4 w-4" /> Dashboard
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                   <Button variant="outline" size="sm" className="w-full rounded-xl font-semibold gap-1 h-11 hover:border-destructive/30 hover:text-destructive" onClick={() => { setOpen(false); handleLogout(); }}>
                     <LogOut className="h-3.5 w-3.5" /> Logout
                   </Button>
