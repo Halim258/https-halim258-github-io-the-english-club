@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { UserPlus, Loader2, CheckCircle2, RefreshCw, Search, Mail, Calendar, BarChart3, CircleDollarSign, CircleAlert, Lock } from "lucide-react";
+import { UserPlus, Loader2, CheckCircle2, RefreshCw, Search, Mail, Calendar, BarChart3, CircleDollarSign, CircleAlert, Lock, XCircle, RotateCcw } from "lucide-react";
 import { Link } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -49,6 +49,43 @@ export default function AdminNewSignups({ onRefresh }: Props) {
     });
   };
   const isConfirmed = (id: string) => payStatus[id] === "confirmed";
+
+  // Per-signup rejection flag, persisted locally.
+  const REJ_KEY = "admin.newSignups.rejected.v1";
+  const [rejected, setRejected] = useState<Record<string, { at: string }>>(() => {
+    try { return JSON.parse(localStorage.getItem(REJ_KEY) || "{}"); } catch { return {}; }
+  });
+  const persistRejected = (next: Record<string, { at: string }>) => {
+    setRejected(next);
+    try { localStorage.setItem(REJ_KEY, JSON.stringify(next)); } catch {}
+  };
+  const isRejected = (id: string) => !!rejected[id];
+
+  const rejectSignup = async (s: Signup) => {
+    const next = { ...rejected, [s.id]: { at: new Date().toISOString() } };
+    persistRejected(next);
+    toast({ title: "Membership rejected", description: `${s.full_name || s.email || "User"} was marked as rejected.` });
+    const { data: auth } = await supabase.auth.getUser();
+    const actor = auth?.user;
+    if (actor) {
+      await supabase.from("admin_audit_log").insert({
+        actor_id: actor.id,
+        actor_email: actor.email ?? null,
+        action: "reject_membership",
+        target_user_id: s.id,
+        target_email: s.email,
+        target_name: s.full_name,
+        details: { rejected_at: next[s.id].at },
+      });
+    }
+  };
+
+  const undoReject = (s: Signup) => {
+    const next = { ...rejected };
+    delete next[s.id];
+    persistRejected(next);
+    toast({ title: "Rejection cleared", description: `${s.full_name || s.email || "User"} moved back to pending.` });
+  };
 
   const load = async () => {
     setLoading(true);
@@ -167,8 +204,9 @@ export default function AdminNewSignups({ onRefresh }: Props) {
     return (s.full_name || "").toLowerCase().includes(q) || (s.email || "").toLowerCase().includes(q);
   });
 
-  const newest = filtered.filter(s => !s.is_student);
+  const newest = filtered.filter(s => !s.is_student && !isRejected(s.id));
   const already = filtered.filter(s => s.is_student);
+  const rejectedList = filtered.filter(s => !s.is_student && isRejected(s.id));
 
   return (
     <div className="space-y-6">
@@ -251,24 +289,60 @@ export default function AdminNewSignups({ onRefresh }: Props) {
                         </button>
                       )}
                     </div>
+                    <div className="flex items-center gap-2">
                     <Button
                       size="sm"
                       onClick={() => openAdd(s)}
                       disabled={!isConfirmed(s.id)}
-                      className="w-full"
+                      className="flex-1"
                       title={!isConfirmed(s.id) ? "Confirm payment first to enroll" : undefined}
                     >
                       {isConfirmed(s.id) ? (
-                        <><UserPlus className="h-3.5 w-3.5 mr-1" /> Add as Student</>
+                        <><CheckCircle2 className="h-3.5 w-3.5 mr-1" /> Approve</>
                       ) : (
                         <><Lock className="h-3.5 w-3.5 mr-1" /> Enrollment locked</>
                       )}
                     </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => rejectSignup(s)}
+                      className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                      title="Reject membership request"
+                    >
+                      <XCircle className="h-3.5 w-3.5 mr-1" /> Reject
+                    </Button>
+                    </div>
                   </div>
                 ))}
               </div>
             )}
           </section>
+
+          {rejectedList.length > 0 && (
+            <section>
+              <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                Rejected
+                <span className="text-xs bg-destructive/10 text-destructive rounded-full px-2 py-0.5">{rejectedList.length}</span>
+              </h3>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {rejectedList.map(s => (
+                  <div key={s.id} className="rounded-lg border bg-card/50 p-3 flex items-center gap-3">
+                    <div className="h-8 w-8 rounded-full bg-destructive/10 text-destructive flex items-center justify-center">
+                      <XCircle className="h-4 w-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium truncate">{s.full_name || "Unnamed"}</p>
+                      <p className="text-xs text-muted-foreground truncate">{s.email}</p>
+                    </div>
+                    <Button size="sm" variant="ghost" onClick={() => undoReject(s)} title="Move back to pending">
+                      <RotateCcw className="h-3.5 w-3.5 mr-1" /> Undo
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            </section>
+          )}
 
           {already.length > 0 && (
             <section>
