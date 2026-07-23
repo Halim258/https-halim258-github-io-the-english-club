@@ -221,6 +221,9 @@ export default function AdminDashboard() {
       </div>
 
       {/* Tab Content */}
+      {tab === "grant-access" && (
+        <AdminGrantAccess />
+      )}
       {tab === "overview" && (
         <AdminOverview
           profiles={profiles} testResults={testResults} progressData={progressData}
