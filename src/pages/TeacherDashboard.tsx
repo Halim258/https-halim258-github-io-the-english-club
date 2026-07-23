@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { CalendarDays, Users, Clock, DollarSign, Settings, MessageCircle, UserPlus, BarChart3 } from "lucide-react";
+import { CalendarDays, Users, Clock, DollarSign, Settings, MessageCircle, UserPlus, BarChart3, UserCog } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import StudentAnswersReview from "@/components/teacher/StudentAnswersReview";
 import TeacherEnrollments from "@/components/teacher/TeacherEnrollments";
@@ -25,8 +26,17 @@ export default function TeacherDashboard() {
 
   return (
     <div className="container mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold">Teacher Dashboard</h1>
-      <p className="mt-1 text-muted-foreground">Manage your schedule, students, and earnings.</p>
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div>
+          <h1 className="text-3xl font-bold">Teacher Dashboard</h1>
+          <p className="mt-1 text-muted-foreground">Manage your schedule, students, and earnings.</p>
+        </div>
+        <Link to="/profile">
+          <Button variant="outline" size="sm" className="rounded-full gap-1.5">
+            <UserCog className="h-3.5 w-3.5" /> Edit profile
+          </Button>
+        </Link>
+      </div>
 
       {/* Tab pills */}
       <div className="flex gap-2 mt-6 overflow-x-auto">
