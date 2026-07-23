@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, UserPlus, Loader2, KeyRound, CheckCircle2, XCircle, Trash2, Search, RefreshCw, ShieldOff } from "lucide-react";
+import { ArrowLeft, UserPlus, Loader2, KeyRound, CheckCircle2, XCircle, Trash2, Search, RefreshCw, ShieldOff, Sparkles, Clock } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +27,16 @@ interface Member {
   status: string | null;
 }
 
+interface Signup {
+  id: string;
+  full_name: string | null;
+  email: string | null;
+  avatar_url: string | null;
+  created_at: string;
+  is_student: boolean;
+  role: string | null;
+}
+
 export default function AdminGrantAccess() {
   const { toast } = useToast();
   const [name, setName] = useState("");
@@ -43,6 +53,18 @@ export default function AdminGrantAccess() {
   const [revokeTarget, setRevokeTarget] = useState<Member | null>(null);
   const [revoking, setRevoking] = useState(false);
 
+  const [signups, setSignups] = useState<Signup[]>([]);
+  const [loadingSignups, setLoadingSignups] = useState(true);
+  const [signupSearch, setSignupSearch] = useState("");
+  const [grantingId, setGrantingId] = useState<string | null>(null);
+
+  const loadSignups = async () => {
+    setLoadingSignups(true);
+    const { data, error } = await supabase.rpc("get_recent_signups", { _limit: 200 });
+    if (!error) setSignups((data as Signup[]) || []);
+    setLoadingSignups(false);
+  };
+
   const loadMembers = async () => {
     setLoadingMembers(true);
     const { data, error } = await supabase
@@ -58,7 +80,63 @@ export default function AdminGrantAccess() {
     setLoadingMembers(false);
   };
 
-  useEffect(() => { loadMembers(); }, []);
+  useEffect(() => { loadMembers(); loadSignups(); }, []);
+
+  const pendingSignups = useMemo(() => {
+    const list = signups.filter((s) => !s.is_student);
+    if (!signupSearch.trim()) return list;
+    const q = signupSearch.toLowerCase();
+    return list.filter(
+      (s) =>
+        (s.full_name || "").toLowerCase().includes(q) ||
+        (s.email || "").toLowerCase().includes(q)
+    );
+  }, [signups, signupSearch]);
+
+  const timeAgo = (iso: string) => {
+    const diff = Date.now() - new Date(iso).getTime();
+    const m = Math.floor(diff / 60000);
+    if (m < 60) return `${Math.max(1, m)}m ago`;
+    const h = Math.floor(m / 60);
+    if (h < 24) return `${h}h ago`;
+    const d = Math.floor(h / 24);
+    return `${d}d ago`;
+  };
+
+  const grantSignup = async (s: Signup) => {
+    setGrantingId(s.id);
+    const cleanName = s.full_name || (s.email ? s.email.split("@")[0] : "New member");
+    const { error } = await supabase.from("school_students").insert({
+      name: cleanName,
+      email: s.email,
+      user_id: s.id,
+      status: "active",
+      fees: 0,
+      paid_fees: 0,
+      remaining_fees: 0,
+    });
+    if (error) {
+      toast({ title: "Could not grant access", description: error.message, variant: "destructive" });
+      setGrantingId(null);
+      return;
+    }
+    const { data: auth } = await supabase.auth.getUser();
+    if (auth?.user) {
+      await supabase.from("admin_audit_log").insert({
+        actor_id: auth.user.id,
+        actor_email: auth.user.email ?? null,
+        action: "grant_access",
+        target_user_id: s.id,
+        target_email: s.email,
+        target_name: cleanName,
+        details: { source: "grant_access_page:signup_suggestion" },
+      });
+    }
+    toast({ title: "Access granted ✅", description: `${cleanName} can now access the platform.` });
+    setSignups((prev) => prev.map((x) => (x.id === s.id ? { ...x, is_student: true } : x)));
+    setGrantingId(null);
+    loadMembers();
+  };
 
   const filteredMembers = useMemo(() => {
     if (!memberSearch.trim()) return members;
@@ -215,6 +293,75 @@ export default function AdminGrantAccess() {
       <p className="text-sm text-muted-foreground mt-1 mb-8">
         Add people to the English Club by name or email. Once added, they can sign up (or sign in) and get full access — no waiting for approval.
       </p>
+
+      <section className="mb-8 rounded-xl border bg-gradient-to-br from-primary/5 via-card to-card p-5 shadow-soft">
+        <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
+          <h2 className="font-semibold flex items-center gap-2">
+            <Sparkles className="h-4 w-4 text-primary" />
+            Recent sign-ups waiting for access
+            <span className="text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">{pendingSignups.length}</span>
+          </h2>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search sign-ups…"
+                value={signupSearch}
+                onChange={(e) => setSignupSearch(e.target.value)}
+                className="pl-9 w-56"
+              />
+            </div>
+            <Button variant="outline" size="sm" onClick={loadSignups} disabled={loadingSignups}>
+              <RefreshCw className={`h-3.5 w-3.5 mr-1 ${loadingSignups ? "animate-spin" : ""}`} /> Refresh
+            </Button>
+          </div>
+        </div>
+        <p className="text-xs text-muted-foreground mb-3">
+          People who signed up but don't have access yet. Click <span className="font-medium text-foreground">Grant</span> to let them in instantly — or use the forms below for people who haven't signed up.
+        </p>
+
+        {loadingSignups ? (
+          <div className="flex justify-center py-8"><Loader2 className="h-5 w-5 animate-spin text-primary" /></div>
+        ) : pendingSignups.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-6 text-center">
+            🎉 Everyone who signed up has access. New sign-ups will appear here.
+          </p>
+        ) : (
+          <ul className="divide-y max-h-96 overflow-y-auto">
+            {pendingSignups.map((s) => (
+              <li key={s.id} className="py-3 flex items-center gap-3">
+                {s.avatar_url ? (
+                  <img src={s.avatar_url} alt="" className="h-9 w-9 rounded-full object-cover shrink-0" />
+                ) : (
+                  <div className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs shrink-0">
+                    {(s.full_name || s.email || "?").slice(0, 2).toUpperCase()}
+                  </div>
+                )}
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium truncate">{s.full_name || "Unnamed"}</p>
+                  <p className="text-xs text-muted-foreground truncate">{s.email || "no email"}</p>
+                </div>
+                <span className="text-[10px] text-muted-foreground hidden sm:flex items-center gap-1 shrink-0">
+                  <Clock className="h-3 w-3" /> {timeAgo(s.created_at)}
+                </span>
+                <Button
+                  size="sm"
+                  onClick={() => grantSignup(s)}
+                  disabled={grantingId === s.id}
+                  className="shrink-0"
+                >
+                  {grantingId === s.id ? (
+                    <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" />
+                  ) : (
+                    <CheckCircle2 className="h-3.5 w-3.5 mr-1" />
+                  )}
+                  Grant
+                </Button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
 
       <div className="grid gap-6 md:grid-cols-2">
         <section className="rounded-xl border bg-card p-5 shadow-soft">
