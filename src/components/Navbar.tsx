@@ -284,7 +284,7 @@ export default function Navbar() {
                 </Link>
               </Button>
               <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to={role === "admin" || role === "secretary" ? "/admin" : role === "teacher" ? "/teacher-dashboard" : "/dashboard"}>Dashboard</Link>
               </Button>
               <Button variant="outline" size="sm" className="rounded-full gap-1 hover:border-destructive/30 hover:text-destructive hover:bg-destructive/5 transition-colors" onClick={handleLogout}>
                 <LogOut className="h-3.5 w-3.5" /> Logout
