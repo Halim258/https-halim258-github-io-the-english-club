@@ -417,7 +417,7 @@ export default function Navbar() {
               ) : user ? (
                 <div className="mt-2 space-y-2">
                   <Button asChild size="sm" className="w-full rounded-xl font-semibold gap-1.5 h-11">
-                    <Link to="/dashboard" onClick={() => setOpen(false)}>
+                    <Link to={role === "admin" || role === "secretary" ? "/admin" : role === "teacher" ? "/teacher-dashboard" : "/dashboard"} onClick={() => setOpen(false)}>
                       <User className="h-4 w-4" /> Dashboard
                     </Link>
                   </Button>
