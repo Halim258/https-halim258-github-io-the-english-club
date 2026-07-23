@@ -61,7 +61,7 @@ export default function Navbar() {
   const location = useLocation();
   const navigate = useNavigate();
   const isHome = location.pathname === "/";
-  const { user, loading: authLoading } = useAuth();
+  const { user, role, loading: authLoading } = useAuth();
   const { accent, setAccent, speak } = useTTS();
 
   const handleLogout = async () => {
