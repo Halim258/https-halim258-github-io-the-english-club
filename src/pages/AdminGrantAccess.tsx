@@ -1,17 +1,30 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, UserPlus, Loader2, KeyRound, CheckCircle2, XCircle } from "lucide-react";
+import { ArrowLeft, UserPlus, Loader2, KeyRound, CheckCircle2, XCircle, Trash2, Search, RefreshCw, ShieldOff } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
 
 interface ResultRow {
   identifier: string;
   status: "granted" | "already" | "error";
   message?: string;
+}
+
+interface Member {
+  id: string;
+  name: string | null;
+  email: string | null;
+  user_id: string | null;
+  created_at: string;
+  status: string | null;
 }
 
 export default function AdminGrantAccess() {
@@ -23,6 +36,68 @@ export default function AdminGrantAccess() {
   const [bulk, setBulk] = useState("");
   const [bulkSaving, setBulkSaving] = useState(false);
   const [results, setResults] = useState<ResultRow[]>([]);
+
+  const [members, setMembers] = useState<Member[]>([]);
+  const [loadingMembers, setLoadingMembers] = useState(true);
+  const [memberSearch, setMemberSearch] = useState("");
+  const [revokeTarget, setRevokeTarget] = useState<Member | null>(null);
+  const [revoking, setRevoking] = useState(false);
+
+  const loadMembers = async () => {
+    setLoadingMembers(true);
+    const { data, error } = await supabase
+      .from("school_students")
+      .select("id, name, email, user_id, created_at, status")
+      .order("created_at", { ascending: false })
+      .limit(500);
+    if (error) {
+      toast({ title: "Failed to load members", description: error.message, variant: "destructive" });
+    } else {
+      setMembers((data as Member[]) || []);
+    }
+    setLoadingMembers(false);
+  };
+
+  useEffect(() => { loadMembers(); }, []);
+
+  const filteredMembers = useMemo(() => {
+    if (!memberSearch.trim()) return members;
+    const q = memberSearch.toLowerCase();
+    return members.filter((m) =>
+      (m.name || "").toLowerCase().includes(q) ||
+      (m.email || "").toLowerCase().includes(q)
+    );
+  }, [members, memberSearch]);
+
+  const revoke = async () => {
+    if (!revokeTarget) return;
+    setRevoking(true);
+    const { error } = await supabase.from("school_students").delete().eq("id", revokeTarget.id);
+    if (error) {
+      setRevoking(false);
+      toast({ title: "Could not revoke access", description: error.message, variant: "destructive" });
+      return;
+    }
+    const { data: auth } = await supabase.auth.getUser();
+    if (auth?.user) {
+      await supabase.from("admin_audit_log").insert({
+        actor_id: auth.user.id,
+        actor_email: auth.user.email ?? null,
+        action: "revoke_access",
+        target_user_id: revokeTarget.user_id,
+        target_email: revokeTarget.email,
+        target_name: revokeTarget.name,
+        details: { source: "grant_access_page", school_student_id: revokeTarget.id },
+      });
+    }
+    toast({
+      title: "Access revoked",
+      description: `${revokeTarget.name || revokeTarget.email || "Member"} can no longer access the platform.`,
+    });
+    setMembers((prev) => prev.filter((m) => m.id !== revokeTarget.id));
+    setRevokeTarget(null);
+    setRevoking(false);
+  };
 
   const grantOne = async (rawName: string, rawEmail: string): Promise<ResultRow> => {
     const cleanEmail = rawEmail.trim().toLowerCase();
@@ -85,6 +160,7 @@ export default function AdminGrantAccess() {
       toast({ title: "Access granted ✅", description: `${r.identifier} can now access the platform.` });
       setName("");
       setEmail("");
+      loadMembers();
     } else if (r.status === "already") {
       toast({ title: "Already a member", description: r.identifier });
     } else {
@@ -125,6 +201,7 @@ export default function AdminGrantAccess() {
     const ok = collected.filter((r) => r.status === "granted").length;
     toast({ title: `Granted access to ${ok}/${collected.length}` });
     setBulk("");
+    if (ok > 0) loadMembers();
   };
 
   return (
@@ -207,6 +284,84 @@ export default function AdminGrantAccess() {
           </ul>
         </section>
       )}
+
+      <section className="mt-8 rounded-xl border bg-card p-5 shadow-soft">
+        <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
+          <h2 className="font-semibold flex items-center gap-2">
+            <ShieldOff className="h-4 w-4 text-primary" /> People with access
+            <span className="text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">{members.length}</span>
+          </h2>
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <Search className="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Search name or email…"
+                value={memberSearch}
+                onChange={(e) => setMemberSearch(e.target.value)}
+                className="pl-9 w-56"
+              />
+            </div>
+            <Button variant="outline" size="sm" onClick={loadMembers} disabled={loadingMembers}>
+              <RefreshCw className={`h-3.5 w-3.5 mr-1 ${loadingMembers ? "animate-spin" : ""}`} /> Refresh
+            </Button>
+          </div>
+        </div>
+
+        {loadingMembers ? (
+          <div className="flex justify-center py-10"><Loader2 className="h-5 w-5 animate-spin text-primary" /></div>
+        ) : filteredMembers.length === 0 ? (
+          <p className="text-sm text-muted-foreground py-6 text-center">
+            {memberSearch ? "No members match your search." : "No members yet."}
+          </p>
+        ) : (
+          <ul className="divide-y">
+            {filteredMembers.map((m) => (
+              <li key={m.id} className="py-3 flex items-center gap-3">
+                <div className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs shrink-0">
+                  {(m.name || m.email || "?").slice(0, 2).toUpperCase()}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-sm font-medium truncate">{m.name || "Unnamed"}</p>
+                  <p className="text-xs text-muted-foreground truncate">{m.email || "no email"}</p>
+                </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => setRevokeTarget(m)}
+                  className="text-destructive hover:bg-destructive/10 hover:text-destructive"
+                >
+                  <Trash2 className="h-3.5 w-3.5 mr-1" /> Revoke
+                </Button>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <AlertDialog open={!!revokeTarget} onOpenChange={(o) => !o && !revoking && setRevokeTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Revoke access?</AlertDialogTitle>
+            <AlertDialogDescription>
+              <span className="font-medium text-foreground">
+                {revokeTarget?.name || revokeTarget?.email || "This member"}
+              </span>{" "}
+              will immediately lose access to courses and be redirected to the pending-approval screen next time they open the platform. Their account and progress are kept — you can grant access again anytime.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={revoking}>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={(e) => { e.preventDefault(); revoke(); }}
+              disabled={revoking}
+              className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+            >
+              {revoking ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Trash2 className="h-4 w-4 mr-2" />}
+              Revoke access
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
