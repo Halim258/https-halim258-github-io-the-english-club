@@ -63,6 +63,7 @@ export default function Navbar() {
   const isHome = location.pathname === "/";
   const { user, role, loading: authLoading } = useAuth();
   const { accent, setAccent, speak } = useTTS();
+  const dashboardPath = role === "admin" || role === "secretary" ? "/admin" : role === "teacher" ? "/teacher-dashboard" : "/dashboard";
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
@@ -278,13 +279,13 @@ export default function Navbar() {
           ) : user ? (
             <>
               <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
-                <Link to="/profile">
+                <Link to={dashboardPath} aria-label="Open dashboard">
                   <User className="h-4 w-4" />
                   <span className="max-w-[80px] truncate">{user.email?.split("@")[0]}</span>
                 </Link>
               </Button>
               <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
-                <Link to={role === "admin" || role === "secretary" ? "/admin" : role === "teacher" ? "/teacher-dashboard" : "/dashboard"}>Dashboard</Link>
+                <Link to={dashboardPath}>Dashboard</Link>
               </Button>
               <Button variant="outline" size="sm" className="rounded-full gap-1 hover:border-destructive/30 hover:text-destructive hover:bg-destructive/5 transition-colors" onClick={handleLogout}>
                 <LogOut className="h-3.5 w-3.5" /> Logout
@@ -417,7 +418,7 @@ export default function Navbar() {
               ) : user ? (
                 <div className="mt-2 space-y-2">
                   <Button asChild size="sm" className="w-full rounded-xl font-semibold gap-1.5 h-11">
-                    <Link to={role === "admin" || role === "secretary" ? "/admin" : role === "teacher" ? "/teacher-dashboard" : "/dashboard"} onClick={() => setOpen(false)}>
+                    <Link to={dashboardPath} onClick={() => setOpen(false)}>
                       <User className="h-4 w-4" /> Dashboard
                     </Link>
                   </Button>
