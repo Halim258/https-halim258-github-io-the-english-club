@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, UserPlus, Loader2, KeyRound, CheckCircle2, XCircle, Trash2, Search, RefreshCw, ShieldOff, Sparkles, Clock, Users, UserCheck, UserX, Zap } from "lucide-react";
+import { ArrowLeft, UserPlus, Loader2, KeyRound, CheckCircle2, XCircle, Trash2, Search, RefreshCw, ShieldOff, Sparkles, Clock, UserCheck, UserX, Zap, CalendarClock, Infinity as InfinityIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,9 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
+import {
+  Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter,
+} from "@/components/ui/dialog";
 
 interface ResultRow {
   identifier: string;
@@ -25,6 +28,7 @@ interface Member {
   user_id: string | null;
   created_at: string;
   status: string | null;
+  access_expires_at: string | null;
 }
 
 interface Signup {
@@ -53,6 +57,10 @@ export default function AdminGrantAccess() {
   const [revokeTarget, setRevokeTarget] = useState<Member | null>(null);
   const [revoking, setRevoking] = useState(false);
 
+  const [expiryTarget, setExpiryTarget] = useState<Member | null>(null);
+  const [expiryDate, setExpiryDate] = useState<string>("");
+  const [savingExpiry, setSavingExpiry] = useState(false);
+
   const [signups, setSignups] = useState<Signup[]>([]);
   const [loadingSignups, setLoadingSignups] = useState(true);
   const [signupSearch, setSignupSearch] = useState("");
@@ -71,7 +79,7 @@ export default function AdminGrantAccess() {
     setLoadingMembers(true);
     const { data, error } = await supabase
       .from("school_students")
-      .select("id, name, email, user_id, created_at, status")
+      .select("id, name, email, user_id, created_at, status, access_expires_at")
       .order("created_at", { ascending: false })
       .limit(500);
     if (error) {
@@ -227,6 +235,70 @@ export default function AdminGrantAccess() {
     setMembers((prev) => prev.filter((m) => m.id !== revokeTarget.id));
     setRevokeTarget(null);
     setRevoking(false);
+  };
+
+  const openExpiry = (m: Member) => {
+    setExpiryTarget(m);
+    if (m.access_expires_at) {
+      // to yyyy-MM-ddTHH:mm local
+      const d = new Date(m.access_expires_at);
+      const pad = (n: number) => String(n).padStart(2, "0");
+      setExpiryDate(`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`);
+    } else {
+      setExpiryDate("");
+    }
+  };
+
+  const applyExpiryPreset = (days: number | null) => {
+    if (days === null) { setExpiryDate(""); return; }
+    const d = new Date(Date.now() + days * 86400000);
+    const pad = (n: number) => String(n).padStart(2, "0");
+    setExpiryDate(`${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`);
+  };
+
+  const saveExpiry = async () => {
+    if (!expiryTarget) return;
+    setSavingExpiry(true);
+    const iso = expiryDate ? new Date(expiryDate).toISOString() : null;
+    const { error } = await supabase
+      .from("school_students")
+      .update({ access_expires_at: iso })
+      .eq("id", expiryTarget.id);
+    if (error) {
+      setSavingExpiry(false);
+      toast({ title: "Could not update expiry", description: error.message, variant: "destructive" });
+      return;
+    }
+    const { data: auth } = await supabase.auth.getUser();
+    if (auth?.user) {
+      await supabase.from("admin_audit_log").insert({
+        actor_id: auth.user.id,
+        actor_email: auth.user.email ?? null,
+        action: iso ? "set_access_expiry" : "clear_access_expiry",
+        target_user_id: expiryTarget.user_id,
+        target_email: expiryTarget.email,
+        target_name: expiryTarget.name,
+        details: { source: "grant_access_page", expires_at: iso },
+      });
+    }
+    setMembers((prev) => prev.map((m) => m.id === expiryTarget.id ? { ...m, access_expires_at: iso } : m));
+    toast({ title: iso ? "Access window set" : "Made access permanent" });
+    setExpiryTarget(null);
+    setSavingExpiry(false);
+  };
+
+  const expiryLabel = (iso: string | null) => {
+    if (!iso) return null;
+    const t = new Date(iso).getTime();
+    const diff = t - Date.now();
+    if (diff <= 0) return { text: "Expired", tone: "text-destructive" };
+    const days = Math.round(diff / 86400000);
+    if (days === 0) {
+      const h = Math.max(1, Math.round(diff / 3600000));
+      return { text: `Expires in ${h}h`, tone: "text-amber-600 dark:text-amber-400" };
+    }
+    if (days <= 7) return { text: `Expires in ${days}d`, tone: "text-amber-600 dark:text-amber-400" };
+    return { text: `Until ${new Date(iso).toLocaleDateString()}`, tone: "text-muted-foreground" };
   };
 
   const grantOne = async (rawName: string, rawEmail: string): Promise<ResultRow> => {
@@ -551,7 +623,7 @@ export default function AdminGrantAccess() {
         ) : (
           <ul className="divide-y">
             {filteredMembers.map((m) => (
-              <li key={m.id} className="py-3 flex items-center gap-3">
+              <li key={m.id} className="py-3 flex items-center gap-3 flex-wrap sm:flex-nowrap">
                 <div className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs shrink-0">
                   {(m.name || m.email || "?").slice(0, 2).toUpperCase()}
                 </div>
@@ -559,6 +631,23 @@ export default function AdminGrantAccess() {
                   <p className="text-sm font-medium truncate">{m.name || "Unnamed"}</p>
                   <p className="text-xs text-muted-foreground truncate">{m.email || "no email"}</p>
                 </div>
+                {(() => {
+                  const label = expiryLabel(m.access_expires_at);
+                  return label ? (
+                    <span className={`text-[11px] hidden md:inline-flex items-center gap-1 ${label.tone}`}>
+                      <CalendarClock className="h-3 w-3" /> {label.text}
+                    </span>
+                  ) : null;
+                })()}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => openExpiry(m)}
+                  title="Set access expiration"
+                >
+                  <CalendarClock className="h-3.5 w-3.5 mr-1" />
+                  {m.access_expires_at ? "Edit expiry" : "Set expiry"}
+                </Button>
                 <Button
                   size="sm"
                   variant="outline"
@@ -597,6 +686,55 @@ export default function AdminGrantAccess() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Dialog open={!!expiryTarget} onOpenChange={(o) => !o && !savingExpiry && setExpiryTarget(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <CalendarClock className="h-5 w-5 text-primary" /> Access expiration
+            </DialogTitle>
+            <DialogDescription>
+              Set a date and time when <span className="font-medium text-foreground">{expiryTarget?.name || expiryTarget?.email}</span> will lose access automatically. Leave empty for permanent access.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-2">
+            <div className="flex flex-wrap gap-2">
+              <Button type="button" size="sm" variant="secondary" onClick={() => applyExpiryPreset(7)}>+7 days</Button>
+              <Button type="button" size="sm" variant="secondary" onClick={() => applyExpiryPreset(30)}>+30 days</Button>
+              <Button type="button" size="sm" variant="secondary" onClick={() => applyExpiryPreset(90)}>+90 days</Button>
+              <Button type="button" size="sm" variant="secondary" onClick={() => applyExpiryPreset(365)}>+1 year</Button>
+              <Button type="button" size="sm" variant="outline" onClick={() => applyExpiryPreset(null)}>
+                <InfinityIcon className="h-3.5 w-3.5 mr-1" /> Permanent
+              </Button>
+            </div>
+
+            <div>
+              <Label htmlFor="expiry-datetime">Expires at</Label>
+              <Input
+                id="expiry-datetime"
+                type="datetime-local"
+                value={expiryDate}
+                onChange={(e) => setExpiryDate(e.target.value)}
+                className="mt-1"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                {expiryDate
+                  ? `Access ends ${new Date(expiryDate).toLocaleString()}`
+                  : "No expiration — access is permanent."}
+              </p>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setExpiryTarget(null)} disabled={savingExpiry}>Cancel</Button>
+            <Button onClick={saveExpiry} disabled={savingExpiry}>
+              {savingExpiry ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <CheckCircle2 className="h-4 w-4 mr-2" />}
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
