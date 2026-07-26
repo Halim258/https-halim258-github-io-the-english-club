@@ -97,9 +97,16 @@ export default function StudentDashboard() {
   const { user, role } = useAuth();
   const navigate = useNavigate();
 
-  // Admins, secretaries, and teachers can still view the student dashboard
-  // (useful for previewing what students see). They reach their own dashboards
-  // via the navbar links.
+  // Auto-redirect admins/secretaries/teachers to their own dashboard so that
+  // when the navbar Dashboard link resolves before the user role has loaded
+  // (defaulting to `/dashboard`), non-students still end up in the right place.
+  useEffect(() => {
+    if (role === "admin" || role === "secretary") {
+      navigate("/admin", { replace: true });
+    } else if (role === "teacher") {
+      navigate("/teacher-dashboard", { replace: true });
+    }
+  }, [role, navigate]);
 
   const [testResults, setTestResults] = useState<TestResult[]>([]);
   const [progress, setProgress] = useState<LessonProgress[]>([]);
