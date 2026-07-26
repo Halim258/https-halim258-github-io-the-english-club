@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, MoreHorizontal, Settings, Filter } from "lucide-react";
+import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, MoreHorizontal, Settings, Filter, Search, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { loadPrefs, playNotifSound, groupByRecency, NOTIF_CATEGORIES, type NotifCategory } from "@/lib/notification-prefs";
+import { showRichNotifToast } from "@/lib/notification-toast";
 import NotificationPreferences from "./NotificationPreferences";
 
 interface Notification {
@@ -57,14 +57,18 @@ export default function NotificationBell() {
   const [menuFor, setMenuFor] = useState<string | null>(null);
   const [showPrefs, setShowPrefs] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState<NotifCategory | "all">("all");
+  const [query, setQuery] = useState("");
   const ref = useRef<HTMLDivElement>(null);
 
   const unreadCount = notifications.filter(n => !n.read).length;
+  const readCount = notifications.length - unreadCount;
   const visible = useMemo(() => {
     let list = tab === "unread" ? notifications.filter(n => !n.read) : notifications;
     if (categoryFilter !== "all") list = list.filter(n => n.type === categoryFilter);
+    const q = query.trim().toLowerCase();
+    if (q) list = list.filter(n => (n.title + " " + n.message).toLowerCase().includes(q));
     return list;
-  }, [notifications, tab, categoryFilter]);
+  }, [notifications, tab, categoryFilter, query]);
   const grouped = useMemo(() => groupByRecency(visible), [visible]);
 
   useEffect(() => {
@@ -96,10 +100,7 @@ export default function NotificationBell() {
           if (!muted) {
             if (prefs.sound) playNotifSound();
             if (prefs.toast) {
-              toast(n.title, {
-                description: n.message,
-                action: n.link ? { label: "Open", onClick: () => { window.location.href = n.link!; } } : undefined,
-              });
+              showRichNotifToast({ title: n.title, message: n.message, type: n.type, link: n.link });
             }
           }
         }
@@ -109,13 +110,18 @@ export default function NotificationBell() {
     return () => { supabase.removeChannel(channel); };
   }, [user]);
 
-  // Close on outside click
+  // Close on outside click or ESC
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     };
+    const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener("keydown", esc);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("keydown", esc);
+    };
   }, []);
 
   const markAsRead = async (id: string) => {
@@ -136,6 +142,14 @@ export default function NotificationBell() {
     setNotifications(prev => prev.filter(n => n.id !== id));
   };
 
+  const deleteAllRead = async () => {
+    if (!user) return;
+    const readIds = notifications.filter(n => n.read).map(n => n.id);
+    if (readIds.length === 0) return;
+    await supabase.from("notifications").delete().in("id", readIds);
+    setNotifications(prev => prev.filter(n => !n.read));
+  };
+
   if (!user) return null;
 
   return (
@@ -145,15 +159,18 @@ export default function NotificationBell() {
         className="relative rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
         aria-label="Notifications"
       >
-        <Bell className="h-[18px] w-[18px]" />
+        <Bell className={`h-[18px] w-[18px] ${unreadCount > 0 ? "text-foreground" : ""}`} />
         {unreadCount > 0 && (
-          <motion.span
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            className="absolute -top-0.5 -right-0.5 flex h-[18px] min-w-[18px] px-1 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-background"
-          >
-            {unreadCount > 99 ? "99+" : unreadCount}
-          </motion.span>
+          <>
+            <span className="pointer-events-none absolute -top-0.5 -right-0.5 h-[18px] min-w-[18px] rounded-full bg-red-500/60 animate-ping" />
+            <motion.span
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              className="absolute -top-0.5 -right-0.5 flex h-[18px] min-w-[18px] px-1 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-background"
+            >
+              {unreadCount > 99 ? "99+" : unreadCount}
+            </motion.span>
+          </>
         )}
       </button>
 
@@ -180,6 +197,15 @@ export default function NotificationBell() {
                       <CheckCheck className="h-4 w-4" />
                     </button>
                   )}
+                  {readCount > 0 && (
+                    <button
+                      onClick={deleteAllRead}
+                      className="rounded-full p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
+                      title="Delete all read"
+                    >
+                      <Trash2 className="h-4 w-4" />
+                    </button>
+                  )}
                   <button
                     onClick={() => setShowPrefs(v => !v)}
                     className={`rounded-full p-1.5 transition-colors ${showPrefs ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-muted"}`}
@@ -191,6 +217,26 @@ export default function NotificationBell() {
               </div>
               {!showPrefs && (
               <>
+              {/* Search */}
+              <div className="mt-2 relative">
+                <Search className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
+                <input
+                  type="text"
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Search notifications"
+                  className="w-full rounded-full bg-muted/60 pl-8 pr-8 py-1.5 text-[12px] outline-none focus:bg-muted transition-colors placeholder:text-muted-foreground/70"
+                />
+                {query && (
+                  <button
+                    onClick={() => setQuery("")}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-0.5 text-muted-foreground hover:bg-muted"
+                    aria-label="Clear search"
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                )}
+              </div>
               {/* Tabs */}
               <div className="mt-2 flex items-center gap-1.5">
                 {(["all", "unread"] as const).map((t) => (
