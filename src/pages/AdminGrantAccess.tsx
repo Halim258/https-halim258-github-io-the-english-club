@@ -686,6 +686,55 @@ export default function AdminGrantAccess() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Dialog open={!!expiryTarget} onOpenChange={(o) => !o && !savingExpiry && setExpiryTarget(null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <CalendarClock className="h-5 w-5 text-primary" /> Access expiration
+            </DialogTitle>
+            <DialogDescription>
+              Set a date and time when <span className="font-medium text-foreground">{expiryTarget?.name || expiryTarget?.email}</span> will lose access automatically. Leave empty for permanent access.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 py-2">
+            <div className="flex flex-wrap gap-2">
+              <Button type="button" size="sm" variant="secondary" onClick={() => applyExpiryPreset(7)}>+7 days</Button>
+              <Button type="button" size="sm" variant="secondary" onClick={() => applyExpiryPreset(30)}>+30 days</Button>
+              <Button type="button" size="sm" variant="secondary" onClick={() => applyExpiryPreset(90)}>+90 days</Button>
+              <Button type="button" size="sm" variant="secondary" onClick={() => applyExpiryPreset(365)}>+1 year</Button>
+              <Button type="button" size="sm" variant="outline" onClick={() => applyExpiryPreset(null)}>
+                <InfinityIcon className="h-3.5 w-3.5 mr-1" /> Permanent
+              </Button>
+            </div>
+
+            <div>
+              <Label htmlFor="expiry-datetime">Expires at</Label>
+              <Input
+                id="expiry-datetime"
+                type="datetime-local"
+                value={expiryDate}
+                onChange={(e) => setExpiryDate(e.target.value)}
+                className="mt-1"
+              />
+              <p className="text-xs text-muted-foreground mt-1">
+                {expiryDate
+                  ? `Access ends ${new Date(expiryDate).toLocaleString()}`
+                  : "No expiration — access is permanent."}
+              </p>
+            </div>
+          </div>
+
+          <DialogFooter className="gap-2 sm:gap-0">
+            <Button variant="outline" onClick={() => setExpiryTarget(null)} disabled={savingExpiry}>Cancel</Button>
+            <Button onClick={saveExpiry} disabled={savingExpiry}>
+              {savingExpiry ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <CheckCircle2 className="h-4 w-4 mr-2" />}
+              Save
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
