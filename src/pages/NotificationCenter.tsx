@@ -2,12 +2,13 @@ import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, Inbox, Settings, Filter } from "lucide-react";
+import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, Inbox, Settings, Filter, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import NotificationPreferences from "@/components/NotificationPreferences";
 import { loadPrefs, playNotifSound, groupByRecency, NOTIF_CATEGORIES, type NotifCategory } from "@/lib/notification-prefs";
+import { showRichNotifToast } from "@/lib/notification-toast";
 
 interface Notification {
   id: string;
@@ -54,6 +55,7 @@ export default function NotificationCenter() {
   const [filter, setFilter] = useState<"all" | "unread">("all");
   const [categoryFilter, setCategoryFilter] = useState<NotifCategory | "all">("all");
   const [showPrefs, setShowPrefs] = useState(false);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     if (!user) return;
@@ -80,7 +82,7 @@ export default function NotificationCenter() {
           const prefs = loadPrefs();
           if (!prefs.muted.includes(n.type as NotifCategory)) {
             if (prefs.sound) playNotifSound();
-            if (prefs.toast) toast(n.title, { description: n.message });
+            if (prefs.toast) showRichNotifToast({ title: n.title, message: n.message, type: n.type, link: n.link });
           }
         }
       )
@@ -102,16 +104,39 @@ export default function NotificationCenter() {
   };
 
   const deleteNotification = async (id: string) => {
-    await supabase.from("notifications").delete().eq("id", id);
+    const removed = notifications.find(n => n.id === id);
     setNotifications((prev) => prev.filter((n) => n.id !== id));
+    await supabase.from("notifications").delete().eq("id", id);
+    if (removed) {
+      toast("Notification removed", {
+        action: {
+          label: "Undo",
+          onClick: async () => {
+            const { error } = await supabase.from("notifications").insert({
+              id: removed.id,
+              user_id: user!.id,
+              title: removed.title,
+              message: removed.message,
+              type: removed.type,
+              read: removed.read,
+              link: removed.link,
+              created_at: removed.created_at,
+            });
+            if (!error) setNotifications((prev) => [removed, ...prev.filter(n => n.id !== removed.id)]);
+          },
+        },
+      });
+    }
   };
 
   const unreadCount = notifications.filter((n) => !n.read).length;
   const filtered = useMemo(() => {
     let list = filter === "unread" ? notifications.filter((n) => !n.read) : notifications;
     if (categoryFilter !== "all") list = list.filter(n => n.type === categoryFilter);
+    const q = query.trim().toLowerCase();
+    if (q) list = list.filter(n => (n.title + " " + n.message).toLowerCase().includes(q));
     return list;
-  }, [notifications, filter, categoryFilter]);
+  }, [notifications, filter, categoryFilter, query]);
   const grouped = useMemo(() => groupByRecency(filtered), [filtered]);
 
   const clearAll = async () => {
@@ -123,8 +148,26 @@ export default function NotificationCenter() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+      <div className="container mx-auto px-4 py-6 md:py-10 max-w-2xl">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="h-12 w-12 rounded-2xl bg-muted animate-pulse" />
+          <div className="space-y-2">
+            <div className="h-6 w-40 rounded-md bg-muted animate-pulse" />
+            <div className="h-3 w-24 rounded-md bg-muted animate-pulse" />
+          </div>
+        </div>
+        <div className="space-y-2">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="flex gap-3 rounded-2xl border p-4">
+              <div className="h-10 w-10 rounded-xl bg-muted animate-pulse" />
+              <div className="flex-1 space-y-2">
+                <div className="h-3.5 w-2/3 rounded bg-muted animate-pulse" />
+                <div className="h-3 w-full rounded bg-muted animate-pulse" />
+                <div className="h-2.5 w-16 rounded bg-muted animate-pulse" />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
@@ -174,6 +217,27 @@ export default function NotificationCenter() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Search */}
+      <div className="relative mb-3">
+        <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search notifications"
+          className="w-full rounded-full border bg-card pl-9 pr-9 py-2 text-sm outline-none focus:ring-2 focus:ring-primary/20 transition-shadow"
+        />
+        {query && (
+          <button
+            onClick={() => setQuery("")}
+            className="absolute right-2.5 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground hover:bg-muted"
+            aria-label="Clear search"
+          >
+            <X className="h-3.5 w-3.5" />
+          </button>
+        )}
+      </div>
 
       {/* Filters */}
       <div className="flex gap-2 mb-3 flex-wrap">
