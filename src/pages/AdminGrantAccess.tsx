@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, UserPlus, Loader2, KeyRound, CheckCircle2, XCircle, Trash2, Search, RefreshCw, ShieldOff, Sparkles, Clock } from "lucide-react";
+import { ArrowLeft, UserPlus, Loader2, KeyRound, CheckCircle2, XCircle, Trash2, Search, RefreshCw, ShieldOff, Sparkles, Clock, Users, UserCheck, UserX, Zap } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -57,6 +57,8 @@ export default function AdminGrantAccess() {
   const [loadingSignups, setLoadingSignups] = useState(true);
   const [signupSearch, setSignupSearch] = useState("");
   const [grantingId, setGrantingId] = useState<string | null>(null);
+  const [grantingAll, setGrantingAll] = useState(false);
+  const [signupFilter, setSignupFilter] = useState<"all" | "today" | "week">("all");
 
   const loadSignups = async () => {
     setLoadingSignups(true);
@@ -83,7 +85,11 @@ export default function AdminGrantAccess() {
   useEffect(() => { loadMembers(); loadSignups(); }, []);
 
   const pendingSignups = useMemo(() => {
-    const list = signups.filter((s) => !s.is_student);
+    let list = signups.filter((s) => !s.is_student);
+    if (signupFilter !== "all") {
+      const cutoff = Date.now() - (signupFilter === "today" ? 86400000 : 7 * 86400000);
+      list = list.filter((s) => new Date(s.created_at).getTime() >= cutoff);
+    }
     if (!signupSearch.trim()) return list;
     const q = signupSearch.toLowerCase();
     return list.filter(
@@ -91,7 +97,16 @@ export default function AdminGrantAccess() {
         (s.full_name || "").toLowerCase().includes(q) ||
         (s.email || "").toLowerCase().includes(q)
     );
-  }, [signups, signupSearch]);
+  }, [signups, signupSearch, signupFilter]);
+
+  const stats = useMemo(() => {
+    const dayAgo = Date.now() - 86400000;
+    const weekAgo = Date.now() - 7 * 86400000;
+    const pending = signups.filter((s) => !s.is_student).length;
+    const newToday = signups.filter((s) => new Date(s.created_at).getTime() >= dayAgo).length;
+    const newWeek = signups.filter((s) => new Date(s.created_at).getTime() >= weekAgo).length;
+    return { pending, newToday, newWeek, total: members.length };
+  }, [signups, members]);
 
   const timeAgo = (iso: string) => {
     const diff = Date.now() - new Date(iso).getTime();
@@ -135,6 +150,43 @@ export default function AdminGrantAccess() {
     toast({ title: "Access granted ✅", description: `${cleanName} can now access the platform.` });
     setSignups((prev) => prev.map((x) => (x.id === s.id ? { ...x, is_student: true } : x)));
     setGrantingId(null);
+    loadMembers();
+  };
+
+  const grantAllPending = async () => {
+    if (pendingSignups.length === 0) return;
+    setGrantingAll(true);
+    let ok = 0;
+    for (const s of pendingSignups) {
+      const cleanName = s.full_name || (s.email ? s.email.split("@")[0] : "New member");
+      const { error } = await supabase.from("school_students").insert({
+        name: cleanName,
+        email: s.email,
+        user_id: s.id,
+        status: "active",
+        fees: 0,
+        paid_fees: 0,
+        remaining_fees: 0,
+      });
+      if (!error) {
+        ok++;
+        const { data: auth } = await supabase.auth.getUser();
+        if (auth?.user) {
+          await supabase.from("admin_audit_log").insert({
+            actor_id: auth.user.id,
+            actor_email: auth.user.email ?? null,
+            action: "grant_access",
+            target_user_id: s.id,
+            target_email: s.email,
+            target_name: cleanName,
+            details: { source: "grant_access_page:bulk_grant_all" },
+          });
+        }
+      }
+    }
+    setGrantingAll(false);
+    toast({ title: `Granted access to ${ok}/${pendingSignups.length}` });
+    loadSignups();
     loadMembers();
   };
 
@@ -294,6 +346,25 @@ export default function AdminGrantAccess() {
         Add people to the English Club by name or email. Once added, they can sign up (or sign in) and get full access — no waiting for approval.
       </p>
 
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+        <div className="rounded-xl border bg-card p-4 shadow-soft">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1"><UserX className="h-3.5 w-3.5" /> Waiting</div>
+          <div className="text-2xl font-bold text-amber-600 dark:text-amber-400">{stats.pending}</div>
+        </div>
+        <div className="rounded-xl border bg-card p-4 shadow-soft">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1"><Sparkles className="h-3.5 w-3.5" /> New today</div>
+          <div className="text-2xl font-bold">{stats.newToday}</div>
+        </div>
+        <div className="rounded-xl border bg-card p-4 shadow-soft">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1"><Clock className="h-3.5 w-3.5" /> This week</div>
+          <div className="text-2xl font-bold">{stats.newWeek}</div>
+        </div>
+        <div className="rounded-xl border bg-card p-4 shadow-soft">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-1"><UserCheck className="h-3.5 w-3.5" /> With access</div>
+          <div className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">{stats.total}</div>
+        </div>
+      </div>
+
       <section className="mb-8 rounded-xl border bg-gradient-to-br from-primary/5 via-card to-card p-5 shadow-soft">
         <div className="flex items-center justify-between gap-3 flex-wrap mb-4">
           <h2 className="font-semibold flex items-center gap-2">
@@ -308,7 +379,7 @@ export default function AdminGrantAccess() {
                 placeholder="Search sign-ups…"
                 value={signupSearch}
                 onChange={(e) => setSignupSearch(e.target.value)}
-                className="pl-9 w-56"
+                className="pl-9 w-44 sm:w-56"
               />
             </div>
             <Button variant="outline" size="sm" onClick={loadSignups} disabled={loadingSignups}>
@@ -316,9 +387,26 @@ export default function AdminGrantAccess() {
             </Button>
           </div>
         </div>
-        <p className="text-xs text-muted-foreground mb-3">
-          People who signed up but don't have access yet. Click <span className="font-medium text-foreground">Grant</span> to let them in instantly — or use the forms below for people who haven't signed up.
-        </p>
+
+        <div className="flex items-center justify-between gap-2 flex-wrap mb-3">
+          <div className="flex items-center gap-1 rounded-lg border bg-background p-0.5">
+            {(["all", "today", "week"] as const).map((f) => (
+              <button
+                key={f}
+                onClick={() => setSignupFilter(f)}
+                className={`text-xs px-3 py-1 rounded-md transition-colors ${signupFilter === f ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"}`}
+              >
+                {f === "all" ? "All" : f === "today" ? "Today" : "This week"}
+              </button>
+            ))}
+          </div>
+          {pendingSignups.length > 0 && (
+            <Button size="sm" variant="secondary" onClick={grantAllPending} disabled={grantingAll}>
+              {grantingAll ? <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" /> : <Zap className="h-3.5 w-3.5 mr-1" />}
+              Grant all ({pendingSignups.length})
+            </Button>
+          )}
+        </div>
 
         {loadingSignups ? (
           <div className="flex justify-center py-8"><Loader2 className="h-5 w-5 animate-spin text-primary" /></div>
