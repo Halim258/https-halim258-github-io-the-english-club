@@ -623,7 +623,7 @@ export default function AdminGrantAccess() {
         ) : (
           <ul className="divide-y">
             {filteredMembers.map((m) => (
-              <li key={m.id} className="py-3 flex items-center gap-3">
+              <li key={m.id} className="py-3 flex items-center gap-3 flex-wrap sm:flex-nowrap">
                 <div className="h-9 w-9 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-xs shrink-0">
                   {(m.name || m.email || "?").slice(0, 2).toUpperCase()}
                 </div>
@@ -631,6 +631,23 @@ export default function AdminGrantAccess() {
                   <p className="text-sm font-medium truncate">{m.name || "Unnamed"}</p>
                   <p className="text-xs text-muted-foreground truncate">{m.email || "no email"}</p>
                 </div>
+                {(() => {
+                  const label = expiryLabel(m.access_expires_at);
+                  return label ? (
+                    <span className={`text-[11px] hidden md:inline-flex items-center gap-1 ${label.tone}`}>
+                      <CalendarClock className="h-3 w-3" /> {label.text}
+                    </span>
+                  ) : null;
+                })()}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => openExpiry(m)}
+                  title="Set access expiration"
+                >
+                  <CalendarClock className="h-3.5 w-3.5 mr-1" />
+                  {m.access_expires_at ? "Edit expiry" : "Set expiry"}
+                </Button>
                 <Button
                   size="sm"
                   variant="outline"
