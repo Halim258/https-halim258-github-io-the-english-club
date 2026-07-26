@@ -1176,6 +1176,7 @@ export type Database = {
       }
       school_students: {
         Row: {
+          access_expires_at: string | null
           access_method: string | null
           address: string | null
           birth_date: string | null
@@ -1205,6 +1206,7 @@ export type Database = {
           whatsapp_subscription: boolean | null
         }
         Insert: {
+          access_expires_at?: string | null
           access_method?: string | null
           address?: string | null
           birth_date?: string | null
@@ -1234,6 +1236,7 @@ export type Database = {
           whatsapp_subscription?: boolean | null
         }
         Update: {
+          access_expires_at?: string | null
           access_method?: string | null
           address?: string | null
           birth_date?: string | null
