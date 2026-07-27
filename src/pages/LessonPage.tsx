@@ -1061,6 +1061,12 @@ export default function LessonPage() {
   const cards = buildCards();
   const totalCards = cards.length;
 
+  // Persist current slide position as the student navigates.
+  useEffect(() => {
+    if (!slideKey || totalCards <= 0) return;
+    setSlideProgress(slideKey, cardIndex, totalCards);
+  }, [slideKey, cardIndex, totalCards, activeTab]);
+
   // Determine which tabs are visible for this lesson, in order.
   const visibleTabs = TABS.filter((tab) => {
     if (tab.id === "reading") {
