@@ -10,6 +10,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
 import { toast } from "@/hooks/use-toast";
+import {
+  setSlideProgress,
+  getSlideProgress,
+  hydrateSlideProgressFromCloud,
+} from "@/hooks/useSlideProgress";
 
 /* ───── Fullscreen no-scroll shell ───── */
 const Shell = ({ children }: { children: React.ReactNode }) => (
@@ -809,6 +814,22 @@ export default function LessonPage() {
   const [lessonDone, setLessonDone] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
 
+  // Auto-save + resume slide position for this lesson.
+  const slideKey = lesson ? `${lesson.levelId}-${lesson.lessonNumber}` : null;
+  const resumedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!slideKey || resumedRef.current === slideKey) return;
+    resumedRef.current = slideKey;
+    const prior = getSlideProgress(slideKey);
+    if (prior && prior.reached > 0) setCardIndex(prior.reached);
+    void hydrateSlideProgressFromCloud().then(() => {
+      const fresh = getSlideProgress(slideKey);
+      if (fresh && fresh.reached > 0) {
+        setCardIndex((cur) => (cur === 0 ? fresh.reached : cur));
+      }
+    });
+  }, [slideKey]);
+
   // Score tracking refs (one per section)
   const vocabScore = useRef({ correct: 0, answered: 0 });
   const convScore = useRef({ correct: 0, answered: 0 });
@@ -1039,6 +1060,12 @@ export default function LessonPage() {
 
   const cards = buildCards();
   const totalCards = cards.length;
+
+  // Persist current slide position as the student navigates.
+  useEffect(() => {
+    if (!slideKey || totalCards <= 0) return;
+    setSlideProgress(slideKey, cardIndex, totalCards);
+  }, [slideKey, cardIndex, totalCards, activeTab]);
 
   // Determine which tabs are visible for this lesson, in order.
   const visibleTabs = TABS.filter((tab) => {
