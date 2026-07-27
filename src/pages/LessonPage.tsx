@@ -814,6 +814,22 @@ export default function LessonPage() {
   const [lessonDone, setLessonDone] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
 
+  // Auto-save + resume slide position for this lesson.
+  const slideKey = lesson ? `${lesson.levelId}-${lesson.lessonNumber}` : null;
+  const resumedRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!slideKey || resumedRef.current === slideKey) return;
+    resumedRef.current = slideKey;
+    const prior = getSlideProgress(slideKey);
+    if (prior && prior.reached > 0) setCardIndex(prior.reached);
+    void hydrateSlideProgressFromCloud().then(() => {
+      const fresh = getSlideProgress(slideKey);
+      if (fresh && fresh.reached > 0) {
+        setCardIndex((cur) => (cur === 0 ? fresh.reached : cur));
+      }
+    });
+  }, [slideKey]);
+
   // Score tracking refs (one per section)
   const vocabScore = useRef({ correct: 0, answered: 0 });
   const convScore = useRef({ correct: 0, answered: 0 });
