@@ -10,6 +10,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
 import { toast } from "@/hooks/use-toast";
+import {
+  setSlideProgress,
+  getSlideProgress,
+  hydrateSlideProgressFromCloud,
+} from "@/hooks/useSlideProgress";
 
 /* ───── Fullscreen no-scroll shell ───── */
 const Shell = ({ children }: { children: React.ReactNode }) => (
