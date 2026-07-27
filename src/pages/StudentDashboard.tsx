@@ -58,6 +58,13 @@ interface XpRow {
   last_activity_date: string | null;
 }
 
+interface InProgressRow {
+  lesson_key: string;
+  reached: number;
+  total: number;
+  updated_at: string;
+}
+
 const LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
 const LEVEL_COLORS: Record<string, string> = {
   A1: "from-emerald-400 to-emerald-600", A2: "from-teal-400 to-teal-600",
@@ -114,6 +121,7 @@ export default function StudentDashboard() {
   const [achievements, setAchievements] = useState<AchievementRow[]>([]);
   const [xp, setXp] = useState<XpRow | null>(null);
   const [profile, setProfile] = useState<{ full_name: string | null }>({ full_name: null });
+  const [inProgress, setInProgress] = useState<InProgressRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   const todayTip = dailyTips[new Date().getDay() % dailyTips.length];
@@ -121,7 +129,7 @@ export default function StudentDashboard() {
 
   const loadDashboard = async () => {
     if (!user) return;
-      const [testsRes, progressRes, bookmarksRes, achievementsRes, profileRes, xpRes] = await Promise.all([
+      const [testsRes, progressRes, bookmarksRes, achievementsRes, profileRes, xpRes, slideRes] = await Promise.all([
         supabase.from("placement_test_results").select("id, score, total_questions, cefr_level, time_taken_seconds, created_at")
           .eq("user_id", user!.id).order("created_at", { ascending: true }),
         supabase.from("lesson_progress").select("level_id, lesson_number, completed, score, completed_at")
@@ -133,6 +141,8 @@ export default function StudentDashboard() {
         supabase.from("profiles").select("full_name").eq("id", user!.id).single(),
         supabase.from("user_xp").select("total_xp, current_streak, longest_streak, last_activity_date")
           .eq("user_id", user!.id).maybeSingle(),
+        supabase.from("lesson_slide_progress").select("lesson_key, reached, total, updated_at")
+          .eq("user_id", user!.id).order("updated_at", { ascending: false }),
       ]);
       setTestResults(testsRes.data || []);
       setProgress(progressRes.data || []);
@@ -140,6 +150,7 @@ export default function StudentDashboard() {
       setAchievements(achievementsRes.data || []);
       if (profileRes.data) setProfile(profileRes.data);
       setXp(xpRes.data || null);
+      setInProgress((slideRes.data as InProgressRow[]) || []);
       setLoading(false);
   };
 
@@ -383,6 +394,60 @@ export default function StudentDashboard() {
           </div>
         </FadeInUp>
       )}
+
+      {/* In Progress — every lesson the student has started */}
+      {(() => {
+        const completedKeys = new Set(
+          progress.filter(p => p.completed).map(p => `${p.level_id}-${p.lesson_number}`)
+        );
+        const started = inProgress
+          .filter(r => r.total > 0 && (r.reached + 1) < r.total && !completedKeys.has(r.lesson_key))
+          .slice(0, 12);
+        if (started.length === 0) return null;
+        return (
+          <FadeInUp delay={0.06}>
+            <div className="rounded-2xl border bg-card p-5 shadow-soft mb-6">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-sm font-semibold font-display flex items-center gap-2">
+                  <BookOpen className="h-4 w-4 text-primary" />
+                  Pick Up Where You Left Off
+                </h2>
+                <span className="text-[10px] text-muted-foreground">{started.length} in progress</span>
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {started.map((r) => {
+                  const dash = r.lesson_key.lastIndexOf("-");
+                  const levelId = r.lesson_key.slice(0, dash);
+                  const lessonNum = r.lesson_key.slice(dash + 1);
+                  const pct = Math.min(100, Math.round(((r.reached + 1) / Math.max(1, r.total)) * 100));
+                  return (
+                    <Link
+                      key={r.lesson_key}
+                      to={`/courses/${levelId}/${lessonNum}/slides`}
+                      className="rounded-xl border bg-muted/20 p-3 hover:bg-primary/5 hover:border-primary/20 transition-all group"
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-[10px] font-bold uppercase text-primary shrink-0">{levelId}</span>
+                          <span className="text-xs font-semibold truncate">Lesson {lessonNum}</span>
+                        </div>
+                        <span className="text-[10px] font-semibold text-primary shrink-0">{pct}%</span>
+                      </div>
+                      <div className="h-1.5 rounded-full bg-muted overflow-hidden mb-1.5">
+                        <div className="h-full rounded-full bg-gradient-to-r from-primary to-accent" style={{ width: `${pct}%` }} />
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+                        <span>Slide {r.reached + 1} of {r.total}</span>
+                        <span className="opacity-70">{formatRelativeTime(r.updated_at)}</span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </FadeInUp>
+        );
+      })()}
 
       <div className="grid gap-4 lg:gap-6 lg:grid-cols-3">
         {/* Left Column */}
