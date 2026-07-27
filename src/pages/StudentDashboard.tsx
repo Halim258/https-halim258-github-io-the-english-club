@@ -58,6 +58,13 @@ interface XpRow {
   last_activity_date: string | null;
 }
 
+interface InProgressRow {
+  lesson_key: string;
+  reached: number;
+  total: number;
+  updated_at: string;
+}
+
 const LEVEL_ORDER = ["A1", "A2", "B1", "B2", "C1", "C2"];
 const LEVEL_COLORS: Record<string, string> = {
   A1: "from-emerald-400 to-emerald-600", A2: "from-teal-400 to-teal-600",
@@ -114,6 +121,7 @@ export default function StudentDashboard() {
   const [achievements, setAchievements] = useState<AchievementRow[]>([]);
   const [xp, setXp] = useState<XpRow | null>(null);
   const [profile, setProfile] = useState<{ full_name: string | null }>({ full_name: null });
+  const [inProgress, setInProgress] = useState<InProgressRow[]>([]);
   const [loading, setLoading] = useState(true);
 
   const todayTip = dailyTips[new Date().getDay() % dailyTips.length];
@@ -121,7 +129,7 @@ export default function StudentDashboard() {
 
   const loadDashboard = async () => {
     if (!user) return;
-      const [testsRes, progressRes, bookmarksRes, achievementsRes, profileRes, xpRes] = await Promise.all([
+      const [testsRes, progressRes, bookmarksRes, achievementsRes, profileRes, xpRes, slideRes] = await Promise.all([
         supabase.from("placement_test_results").select("id, score, total_questions, cefr_level, time_taken_seconds, created_at")
           .eq("user_id", user!.id).order("created_at", { ascending: true }),
         supabase.from("lesson_progress").select("level_id, lesson_number, completed, score, completed_at")
@@ -133,6 +141,8 @@ export default function StudentDashboard() {
         supabase.from("profiles").select("full_name").eq("id", user!.id).single(),
         supabase.from("user_xp").select("total_xp, current_streak, longest_streak, last_activity_date")
           .eq("user_id", user!.id).maybeSingle(),
+        supabase.from("lesson_slide_progress").select("lesson_key, reached, total, updated_at")
+          .eq("user_id", user!.id).order("updated_at", { ascending: false }),
       ]);
       setTestResults(testsRes.data || []);
       setProgress(progressRes.data || []);
@@ -140,6 +150,7 @@ export default function StudentDashboard() {
       setAchievements(achievementsRes.data || []);
       if (profileRes.data) setProfile(profileRes.data);
       setXp(xpRes.data || null);
+      setInProgress((slideRes.data as InProgressRow[]) || []);
       setLoading(false);
   };
 
