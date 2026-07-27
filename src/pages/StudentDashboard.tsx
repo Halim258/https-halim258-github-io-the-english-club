@@ -395,6 +395,60 @@ export default function StudentDashboard() {
         </FadeInUp>
       )}
 
+      {/* In Progress — every lesson the student has started */}
+      {(() => {
+        const completedKeys = new Set(
+          progress.filter(p => p.completed).map(p => `${p.level_id}-${p.lesson_number}`)
+        );
+        const started = inProgress
+          .filter(r => r.total > 0 && (r.reached + 1) < r.total && !completedKeys.has(r.lesson_key))
+          .slice(0, 12);
+        if (started.length === 0) return null;
+        return (
+          <FadeInUp delay={0.06}>
+            <div className="rounded-2xl border bg-card p-5 shadow-soft mb-6">
+              <div className="flex items-center justify-between mb-3">
+                <h2 className="text-sm font-semibold font-display flex items-center gap-2">
+                  <BookOpen className="h-4 w-4 text-primary" />
+                  Pick Up Where You Left Off
+                </h2>
+                <span className="text-[10px] text-muted-foreground">{started.length} in progress</span>
+              </div>
+              <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                {started.map((r) => {
+                  const dash = r.lesson_key.lastIndexOf("-");
+                  const levelId = r.lesson_key.slice(0, dash);
+                  const lessonNum = r.lesson_key.slice(dash + 1);
+                  const pct = Math.min(100, Math.round(((r.reached + 1) / Math.max(1, r.total)) * 100));
+                  return (
+                    <Link
+                      key={r.lesson_key}
+                      to={`/courses/${levelId}/${lessonNum}/slides`}
+                      className="rounded-xl border bg-muted/20 p-3 hover:bg-primary/5 hover:border-primary/20 transition-all group"
+                    >
+                      <div className="flex items-center justify-between mb-1.5">
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className="text-[10px] font-bold uppercase text-primary shrink-0">{levelId}</span>
+                          <span className="text-xs font-semibold truncate">Lesson {lessonNum}</span>
+                        </div>
+                        <span className="text-[10px] font-semibold text-primary shrink-0">{pct}%</span>
+                      </div>
+                      <div className="h-1.5 rounded-full bg-muted overflow-hidden mb-1.5">
+                        <div className="h-full rounded-full bg-gradient-to-r from-primary to-accent" style={{ width: `${pct}%` }} />
+                      </div>
+                      <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+                        <span>Slide {r.reached + 1} of {r.total}</span>
+                        <span className="opacity-70">{formatRelativeTime(r.updated_at)}</span>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          </FadeInUp>
+        );
+      })()}
+
       <div className="grid gap-4 lg:gap-6 lg:grid-cols-3">
         {/* Left Column */}
         <div className="lg:col-span-2 space-y-6">
