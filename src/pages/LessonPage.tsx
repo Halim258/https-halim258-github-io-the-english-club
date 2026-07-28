@@ -233,18 +233,23 @@ function GrammarExampleCard({ example, speak, speaking }: { example: { sentence:
 }
 
 /* ───── MCQ Card ───── */
-function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boolean) => void }) {
+function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boolean) => { xp: number; combo: number } | void }) {
   const [selected, setSelected] = useState<number | null>(null);
+  const [reward, setReward] = useState<{ correct: boolean; xp: number; combo: number } | null>(null);
   const answered = selected !== null;
 
   const handleSelect = (i: number) => {
     if (answered) return;
+    const isCorrect = i === item.correct;
     setSelected(i);
-    onAnswer?.(i === item.correct);
+    const res = onAnswer?.(isCorrect);
+    playRewardSound(isCorrect);
+    setReward({ correct: isCorrect, xp: res?.xp ?? XP_PER_CORRECT, combo: res?.combo ?? 0 });
   };
 
   return (
-    <div className="flex flex-1 items-center justify-center px-4">
+    <div className="relative flex flex-1 items-center justify-center px-4">
+      {reward && <AnswerReward correct={reward.correct} combo={reward.combo} xp={reward.xp} />}
       <div className="w-full max-w-sm">
         <p className="mb-5 text-lg font-semibold text-foreground text-center font-sans leading-relaxed">{item.question}</p>
         <div className="grid gap-2.5">
