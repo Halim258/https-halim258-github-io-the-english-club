@@ -838,6 +838,9 @@ export default function LessonPage() {
 
   // Score tracking refs (one per section)
   const vocabScore = useRef({ correct: 0, answered: 0 });
+  const comboRef = useRef(0);
+  const [combo, setCombo] = useState(0);
+  const [lessonXp, setLessonXp] = useState(0);
   const convScore = useRef({ correct: 0, answered: 0 });
   const grammarScore = useRef({ correct: 0, answered: 0 });
   const examScore = useRef({ correct: 0, answered: 0 });
