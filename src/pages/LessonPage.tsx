@@ -9,6 +9,7 @@ import { getDiscussionPrompts, isCommunicationCourse, DiscussionPrompt } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
+import { AnswerReward, XPBadge, playRewardSound, XP_PER_CORRECT } from "@/components/lesson/AnswerReward";
 import { toast } from "@/hooks/use-toast";
 import {
   setSlideProgress,
@@ -233,18 +234,23 @@ function GrammarExampleCard({ example, speak, speaking }: { example: { sentence:
 }
 
 /* ───── MCQ Card ───── */
-function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boolean) => void }) {
+function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boolean) => { xp: number; combo: number } | void }) {
   const [selected, setSelected] = useState<number | null>(null);
+  const [reward, setReward] = useState<{ correct: boolean; xp: number; combo: number } | null>(null);
   const answered = selected !== null;
 
   const handleSelect = (i: number) => {
     if (answered) return;
+    const isCorrect = i === item.correct;
     setSelected(i);
-    onAnswer?.(i === item.correct);
+    const res = onAnswer?.(isCorrect) || undefined;
+    playRewardSound(isCorrect);
+    setReward({ correct: isCorrect, xp: res?.xp ?? XP_PER_CORRECT, combo: res?.combo ?? 0 });
   };
 
   return (
-    <div className="flex flex-1 items-center justify-center px-4">
+    <div className="relative flex flex-1 items-center justify-center px-4">
+      {reward && <AnswerReward correct={reward.correct} combo={reward.combo} xp={reward.xp} />}
       <div className="w-full max-w-sm">
         <p className="mb-5 text-lg font-semibold text-foreground text-center font-sans leading-relaxed">{item.question}</p>
         <div className="grid gap-2.5">
@@ -832,6 +838,9 @@ export default function LessonPage() {
 
   // Score tracking refs (one per section)
   const vocabScore = useRef({ correct: 0, answered: 0 });
+  const comboRef = useRef(0);
+  const [combo, setCombo] = useState(0);
+  const [lessonXp, setLessonXp] = useState(0);
   const convScore = useRef({ correct: 0, answered: 0 });
   const grammarScore = useRef({ correct: 0, answered: 0 });
   const examScore = useRef({ correct: 0, answered: 0 });
@@ -877,6 +886,13 @@ export default function LessonPage() {
   const makeOnAnswer = (ref: React.MutableRefObject<{ correct: number; answered: number }>) => (correct: boolean) => {
     ref.current.answered++;
     if (correct) ref.current.correct++;
+    const nextCombo = correct ? comboRef.current + 1 : 0;
+    comboRef.current = nextCombo;
+    const bonus = correct && nextCombo >= 3 ? 5 : 0;
+    const gained = correct ? XP_PER_CORRECT + bonus : 0;
+    setCombo(nextCombo);
+    if (gained) setLessonXp((x) => x + gained);
+    return { xp: gained, combo: nextCombo };
   };
 
   const handleRetry = (ref: React.MutableRefObject<{ correct: number; answered: number }>) => () => {
@@ -1118,6 +1134,8 @@ export default function LessonPage() {
     setCardIndex(0);
     // Reset score refs
     vocabScore.current = { correct: 0, answered: 0 };
+    comboRef.current = 0;
+    setCombo(0);
     convScore.current = { correct: 0, answered: 0 };
     grammarScore.current = { correct: 0, answered: 0 };
     examScore.current = { correct: 0, answered: 0 };
@@ -1163,6 +1181,8 @@ export default function LessonPage() {
         </div>
 
         {/* Right: Arabic toggle */}
+        <div className="flex items-center gap-2">
+        <XPBadge xp={lessonXp} combo={combo} />
         <button
           onClick={() => setShowArabic(!showArabic)}
           className={`flex items-center gap-1.5 rounded-full border px-2.5 sm:px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] font-sans transition-colors min-h-[36px] touch-manipulation ${
@@ -1175,6 +1195,7 @@ export default function LessonPage() {
           {showArabic ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
           <span className="hidden sm:inline">عربي</span>
         </button>
+        </div>
       </div>
 
       {/* Section navigation — editorial underlined tabs with per-section dots */}
