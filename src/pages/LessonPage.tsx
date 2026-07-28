@@ -9,6 +9,7 @@ import { getDiscussionPrompts, isCommunicationCourse, DiscussionPrompt } from "@
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
+import { AnswerReward, XPBadge, playRewardSound, XP_PER_CORRECT } from "@/components/lesson/AnswerReward";
 import { toast } from "@/hooks/use-toast";
 import {
   setSlideProgress,
@@ -242,7 +243,7 @@ function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boole
     if (answered) return;
     const isCorrect = i === item.correct;
     setSelected(i);
-    const res = onAnswer?.(isCorrect);
+    const res = onAnswer?.(isCorrect) || undefined;
     playRewardSound(isCorrect);
     setReward({ correct: isCorrect, xp: res?.xp ?? XP_PER_CORRECT, combo: res?.combo ?? 0 });
   };
@@ -882,6 +883,13 @@ export default function LessonPage() {
   const makeOnAnswer = (ref: React.MutableRefObject<{ correct: number; answered: number }>) => (correct: boolean) => {
     ref.current.answered++;
     if (correct) ref.current.correct++;
+    const nextCombo = correct ? comboRef.current + 1 : 0;
+    comboRef.current = nextCombo;
+    const bonus = correct && nextCombo >= 3 ? 5 : 0;
+    const gained = correct ? XP_PER_CORRECT + bonus : 0;
+    setCombo(nextCombo);
+    if (gained) setLessonXp((x) => x + gained);
+    return { xp: gained, combo: nextCombo };
   };
 
   const handleRetry = (ref: React.MutableRefObject<{ correct: number; answered: number }>) => () => {
