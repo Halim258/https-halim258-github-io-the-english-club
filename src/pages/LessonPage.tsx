@@ -1134,6 +1134,8 @@ export default function LessonPage() {
     setCardIndex(0);
     // Reset score refs
     vocabScore.current = { correct: 0, answered: 0 };
+    comboRef.current = 0;
+    setCombo(0);
     convScore.current = { correct: 0, answered: 0 };
     grammarScore.current = { correct: 0, answered: 0 };
     examScore.current = { correct: 0, answered: 0 };
