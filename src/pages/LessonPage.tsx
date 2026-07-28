@@ -1179,6 +1179,8 @@ export default function LessonPage() {
         </div>
 
         {/* Right: Arabic toggle */}
+        <div className="flex items-center gap-2">
+        <XPBadge xp={lessonXp} combo={combo} />
         <button
           onClick={() => setShowArabic(!showArabic)}
           className={`flex items-center gap-1.5 rounded-full border px-2.5 sm:px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] font-sans transition-colors min-h-[36px] touch-manipulation ${
@@ -1191,6 +1193,7 @@ export default function LessonPage() {
           {showArabic ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
           <span className="hidden sm:inline">عربي</span>
         </button>
+        </div>
       </div>
 
       {/* Section navigation — editorial underlined tabs with per-section dots */}
