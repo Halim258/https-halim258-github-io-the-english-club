@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Navigate } from "react-router-dom";
 import { lessons } from "@/data/lessons";
 import { generateSlides } from "@/data/slide-types";
 import { generateArabicLessonSlides } from "@/data/arabic-lesson-slide-generator";
@@ -9,6 +9,16 @@ import DrawingSubmissionPanel from "@/components/DrawingSubmissionPanel";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
 
+/**
+ * Levels that intentionally use the slide-deck player.
+ * Everything else (standard CEFR language courses) uses the tabbed LessonPage,
+ * so the same lesson never renders in two different layouts.
+ */
+function usesSlidePlayer(levelId?: string) {
+  if (typeof levelId !== "string") return false;
+  return levelId.startsWith("ar-") || levelId === "kids";
+}
+
 export default function SlideLesson() {
   const { levelId, lessonId } = useParams();
   const navigate = useNavigate();
@@ -17,6 +27,10 @@ export default function SlideLesson() {
 
   const key = `${levelId}-${lessonId}`;
   const lesson = lessons[key];
+
+  if (!usesSlidePlayer(levelId)) {
+    return <Navigate to={`/courses/${levelId}/${lessonId}`} replace />;
+  }
 
   if (!lesson) {
     return (
