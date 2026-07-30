@@ -65,8 +65,9 @@ export function useAuth(): AuthState {
         if (_event === "SIGNED_IN" && session?.user) {
           const u = session.user;
           const key = `admin_notified_signin_${u.id}`;
-          if (!sessionStorage.getItem(key)) {
-            sessionStorage.setItem(key, "1");
+          const last = Number(localStorage.getItem(key) || 0);
+          if (Date.now() - last >= 12 * 60 * 60 * 1000) {
+            localStorage.setItem(key, String(Date.now()));
             const name = (u.user_metadata?.full_name as string) || u.email || "A user";
             notifyAdmins({
               title: `${name} signed in 👤`,

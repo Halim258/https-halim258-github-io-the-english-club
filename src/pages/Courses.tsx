@@ -316,8 +316,9 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
   useEffect(() => {
     if (!user || !levelId) return;
     const key = `admin_notified_course_${user.id}_${levelId}`;
-    if (sessionStorage.getItem(key)) return;
-    sessionStorage.setItem(key, "1");
+    const last = Number(localStorage.getItem(key) || 0);
+    if (Date.now() - last < 12 * 60 * 60 * 1000) return;
+    localStorage.setItem(key, String(Date.now()));
     const name = (user.user_metadata?.full_name as string) || user.email || "A student";
     notifyAdmins({
       title: "Course started 📚",
