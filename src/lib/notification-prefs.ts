@@ -14,10 +14,56 @@ export interface NotifPrefs {
   sound: boolean;
   toast: boolean;
   muted: NotifCategory[];
+  desktop: boolean;
+  quietHours: boolean;
+  quietFrom: number; // hour 0-23
+  quietTo: number;   // hour 0-23
+  titleBadge: boolean;
 }
 
 const KEY = "notif_prefs_v1";
-const DEFAULTS: NotifPrefs = { sound: true, toast: true, muted: [] };
+const DEFAULTS: NotifPrefs = {
+  sound: true,
+  toast: true,
+  muted: [],
+  desktop: false,
+  quietHours: false,
+  quietFrom: 22,
+  quietTo: 7,
+  titleBadge: true,
+};
+
+/** True when the current time falls inside the user's quiet-hours window. */
+export function isQuietNow(prefs: NotifPrefs, now = new Date()): boolean {
+  if (!prefs.quietHours) return false;
+  const h = now.getHours();
+  const { quietFrom: from, quietTo: to } = prefs;
+  if (from === to) return false;
+  return from < to ? h >= from && h < to : h >= from || h < to;
+}
+
+export async function requestDesktopPermission(): Promise<boolean> {
+  if (typeof Notification === "undefined") return false;
+  if (Notification.permission === "granted") return true;
+  if (Notification.permission === "denied") return false;
+  try { return (await Notification.requestPermission()) === "granted"; } catch { return false; }
+}
+
+export function showDesktopNotification(title: string, body: string) {
+  try {
+    if (typeof Notification === "undefined" || Notification.permission !== "granted") return;
+    if (typeof document !== "undefined" && document.visibilityState === "visible") return;
+    new Notification(title, { body, icon: "/placeholder.svg", tag: `${title}|${body}` });
+  } catch { /* ignore */ }
+}
+
+let baseTitle: string | null = null;
+/** Prefixes the tab title with the unread count, e.g. "(3) The English Club". */
+export function setTitleBadge(count: number) {
+  if (typeof document === "undefined") return;
+  if (baseTitle === null) baseTitle = document.title.replace(/^\(\d+\+?\)\s*/, "");
+  document.title = count > 0 ? `(${count > 99 ? "99+" : count}) ${baseTitle}` : baseTitle;
+}
 
 export function loadPrefs(): NotifPrefs {
   try {

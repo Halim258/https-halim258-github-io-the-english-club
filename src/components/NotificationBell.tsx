@@ -4,7 +4,7 @@ import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Inf
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { loadPrefs, playNotifSound, groupByRecency, stackDuplicates, NOTIF_CATEGORIES, type NotifCategory } from "@/lib/notification-prefs";
+import { loadPrefs, playNotifSound, groupByRecency, stackDuplicates, NOTIF_CATEGORIES, isQuietNow, showDesktopNotification, setTitleBadge, type NotifCategory } from "@/lib/notification-prefs";
 import { showRichNotifToast } from "@/lib/notification-toast";
 import NotificationPreferences from "./NotificationPreferences";
 
@@ -103,11 +103,13 @@ export default function NotificationBell() {
           setNotifications(prev => [n, ...prev]);
           const prefs = loadPrefs();
           const muted = prefs.muted.includes(n.type as NotifCategory);
-          if (!muted) {
+          const quiet = isQuietNow(prefs);
+          if (!muted && !quiet) {
             if (prefs.sound) playNotifSound();
             if (prefs.toast) {
               showRichNotifToast({ title: n.title, message: n.message, type: n.type, link: n.link });
             }
+            if (prefs.desktop) showDesktopNotification(n.title, n.message);
           }
         }
       )
@@ -115,6 +117,13 @@ export default function NotificationBell() {
 
     return () => { supabase.removeChannel(channel); };
   }, [user, limit]);
+
+  // Live unread count in the browser tab title
+  useEffect(() => {
+    if (!loadPrefs().titleBadge) { setTitleBadge(0); return; }
+    setTitleBadge(unreadCount);
+    return () => setTitleBadge(0);
+  }, [unreadCount]);
 
   const loadMore = () => {
     setLoadingMore(true);
