@@ -4,7 +4,7 @@ import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Inf
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
-import { loadPrefs, playNotifSound, groupByRecency, NOTIF_CATEGORIES, type NotifCategory } from "@/lib/notification-prefs";
+import { loadPrefs, playNotifSound, groupByRecency, stackDuplicates, NOTIF_CATEGORIES, type NotifCategory } from "@/lib/notification-prefs";
 import { showRichNotifToast } from "@/lib/notification-toast";
 import NotificationPreferences from "./NotificationPreferences";
 
@@ -58,6 +58,9 @@ export default function NotificationBell() {
   const [showPrefs, setShowPrefs] = useState(false);
   const [categoryFilter, setCategoryFilter] = useState<NotifCategory | "all">("all");
   const [query, setQuery] = useState("");
+  const [limit, setLimit] = useState(20);
+  const [hasMore, setHasMore] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   const unreadCount = notifications.filter(n => !n.read).length;
@@ -67,7 +70,7 @@ export default function NotificationBell() {
     if (categoryFilter !== "all") list = list.filter(n => n.type === categoryFilter);
     const q = query.trim().toLowerCase();
     if (q) list = list.filter(n => (n.title + " " + n.message).toLowerCase().includes(q));
-    return list;
+    return stackDuplicates(list);
   }, [notifications, tab, categoryFilter, query]);
   const grouped = useMemo(() => groupByRecency(visible), [visible]);
 
@@ -80,8 +83,11 @@ export default function NotificationBell() {
         .select("*")
         .eq("user_id", user.id)
         .order("created_at", { ascending: false })
-        .limit(20);
-      if (data) setNotifications(data as Notification[]);
+        .limit(limit);
+      if (data) {
+        setNotifications(data as Notification[]);
+        setHasMore(data.length === limit);
+      }
     };
 
     load();
@@ -108,7 +114,13 @@ export default function NotificationBell() {
       .subscribe();
 
     return () => { supabase.removeChannel(channel); };
-  }, [user]);
+  }, [user, limit]);
+
+  const loadMore = () => {
+    setLoadingMore(true);
+    setLimit(l => l + 20);
+    setTimeout(() => setLoadingMore(false), 400);
+  };
 
   // Close on outside click or ESC
   useEffect(() => {
@@ -124,9 +136,11 @@ export default function NotificationBell() {
     };
   }, []);
 
-  const markAsRead = async (id: string) => {
-    await supabase.from("notifications").update({ read: true }).eq("id", id);
-    setNotifications(prev => prev.map(n => n.id === id ? { ...n, read: true } : n));
+  const markAsRead = async (ids: string | string[]) => {
+    const list = Array.isArray(ids) ? ids : [ids];
+    if (list.length === 0) return;
+    await supabase.from("notifications").update({ read: true }).in("id", list);
+    setNotifications(prev => prev.map(n => list.includes(n.id) ? { ...n, read: true } : n));
   };
 
   const markAllRead = async () => {
@@ -137,9 +151,11 @@ export default function NotificationBell() {
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
   };
 
-  const deleteNotification = async (id: string) => {
-    await supabase.from("notifications").delete().eq("id", id);
-    setNotifications(prev => prev.filter(n => n.id !== id));
+  const deleteNotification = async (ids: string | string[]) => {
+    const list = Array.isArray(ids) ? ids : [ids];
+    if (list.length === 0) return;
+    await supabase.from("notifications").delete().in("id", list);
+    setNotifications(prev => prev.filter(n => !list.includes(n.id)));
   };
 
   const deleteAllRead = async () => {
