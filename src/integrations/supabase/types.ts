@@ -1482,6 +1482,7 @@ export type Database = {
       }
       is_current_user_member: { Args: never; Returns: boolean }
       is_group_teacher: { Args: { _group_id: string }; Returns: boolean }
+      is_public_group: { Args: { _group_id: string }; Returns: boolean }
       notify_admins: {
         Args: {
           _link?: string
