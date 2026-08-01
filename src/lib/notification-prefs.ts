@@ -64,6 +64,32 @@ export function playNotifSound() {
 }
 
 export interface Groupable { created_at: string }
+
+/**
+ * Collapses consecutive-in-list duplicates (same title + message + type) into a
+ * single entry carrying a `stackCount`, so repeated alerts don't flood the list.
+ */
+export function stackDuplicates<T extends { id: string; title: string; message: string; type: string; read: boolean }>(
+  items: T[]
+): (T & { stackCount: number; stackedIds: string[] })[] {
+  const map = new Map<string, T & { stackCount: number; stackedIds: string[] }>();
+  const out: (T & { stackCount: number; stackedIds: string[] })[] = [];
+  for (const it of items) {
+    const key = `${it.type}|${it.title}|${it.message}`;
+    const existing = map.get(key);
+    if (existing) {
+      existing.stackCount += 1;
+      existing.stackedIds.push(it.id);
+      if (!it.read) existing.read = false;
+      continue;
+    }
+    const entry = { ...it, stackCount: 1, stackedIds: [it.id] };
+    map.set(key, entry);
+    out.push(entry);
+  }
+  return out;
+}
+
 export function groupByRecency<T extends Groupable>(items: T[]): { label: string; items: T[] }[] {
   const now = Date.now();
   const dayMs = 86400000;
