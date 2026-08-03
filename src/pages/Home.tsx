@@ -535,6 +535,60 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ═══════════════ PLACEMENT TEST PROMO ═══════════════ */}
+      <section dir="ltr" className="py-14 md:py-20 lg:py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.6 }}
+            className="relative overflow-hidden rounded-3xl border bg-card p-8 md:p-12 lg:p-16 shadow-card"
+          >
+            <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-accent/10 rounded-full translate-y-1/3 -translate-x-1/4 blur-3xl" />
+            <div className="relative z-10 grid gap-8 lg:grid-cols-2 items-center">
+              <div className="space-y-4">
+                <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-primary">
+                  <Target className="h-3.5 w-3.5" />
+                  Step 1 — Know Your Level
+                </div>
+                <h2 className="font-display text-2xl md:text-3xl lg:text-4xl leading-tight">
+                  Not sure where to begin? <span className="italic text-primary">Start here.</span>
+                </h2>
+                <p className="text-muted-foreground text-sm md:text-base leading-relaxed max-w-md">
+                  Our adaptive placement test evaluates your grammar, vocabulary, and reading skills, then recommends the perfect starting level.
+                </p>
+                <ul className="space-y-2.5">
+                  {[
+                    "25 smart, adaptive questions",
+                    "Instant CEFR level result (A1–C2)",
+                    "Personalized course recommendation",
+                  ].map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-sm text-foreground/80">
+                      <CheckCircle2 className="h-4 w-4 text-accent shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="flex flex-col sm:flex-row lg:flex-col xl:flex-row items-center justify-center gap-4">
+                <Link to="/placement-test" className="w-full sm:w-auto">
+                  <Button size="lg" className="w-full rounded-full px-8 py-6 text-sm font-semibold shadow-lg hover:shadow-elevated hover:scale-[1.02] transition-all">
+                    Take the Free Test <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+                <Link to="/courses" className="w-full sm:w-auto">
+                  <Button size="lg" variant="outline" className="w-full rounded-full px-8 py-6 text-sm font-semibold hover:scale-[1.02] transition-all">
+                    Browse Courses
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══════════════ FEATURES ═══════════════ */}
       <section dir="ltr" className="relative py-14 md:py-20 lg:py-28 overflow-hidden border-y bg-muted/20">
         <PetalTopRight className="opacity-50" />
