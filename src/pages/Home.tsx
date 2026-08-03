@@ -266,33 +266,41 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              {/* Placement test rule-line banner */}
+              {/* Placement test — prominent hero banner */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
-                className="bg-primary text-primary-foreground p-6 md:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-5 shadow-soft"
+                className="relative overflow-hidden bg-gradient-to-br from-primary to-primary/90 text-primary-foreground p-6 md:p-8 lg:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 shadow-elevated"
               >
-                <div className="space-y-1">
-                  <span className="block text-[10px] uppercase tracking-[0.28em] font-bold text-primary-foreground/70">
-                    Complimentary Assessment
-                  </span>
-                  <p className="font-display text-2xl md:text-3xl leading-snug italic">
-                    Where do you stand?
-                  </p>
-                  <p className="text-sm text-primary-foreground/80 font-serif">
-                    Take our 5-minute Cambridge diagnostic.
-                  </p>
-                  <p dir="rtl" className="text-xs text-primary-foreground/70 mt-1 font-serif">
-                    اعمل اختبار تحديد المستوى المجاني واعرف هتبدأ منين.
-                  </p>
+                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl" />
+                <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/20 rounded-full translate-y-1/3 -translate-x-1/4 blur-2xl" />
+                <div className="relative z-10 flex items-start gap-4 md:gap-5">
+                  <div className="hidden sm:flex h-14 w-14 md:h-16 md:w-16 shrink-0 items-center justify-center rounded-2xl bg-primary-foreground/15 backdrop-blur-sm">
+                    <Target className="h-7 w-7 md:h-8 md:w-8 text-primary-foreground" />
+                  </div>
+                  <div className="space-y-2">
+                    <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.28em] font-bold text-primary-foreground/80">
+                      <Sparkles className="h-3 w-3" />
+                      Free Placement Test
+                    </span>
+                    <p className="font-display text-2xl md:text-3xl lg:text-4xl leading-tight italic">
+                      Discover your level in 5 minutes.
+                    </p>
+                    <p className="text-sm md:text-base text-primary-foreground/90 font-serif max-w-lg">
+                      Take our quick Cambridge-aligned diagnostic and get a personalized course recommendation.
+                    </p>
+                    <p dir="rtl" className="text-xs md:text-sm text-primary-foreground/80 font-serif">
+                      اعمل اختبار تحديد المستوى المجاني واعرف هتبدأ منين بالظبط.
+                    </p>
+                  </div>
                 </div>
                 <Link
                   to="/placement-test"
-                  className="shrink-0 inline-flex items-center gap-2 px-7 py-3.5 bg-background text-primary text-xs font-bold uppercase tracking-[0.2em] hover:bg-background/90 hover:-translate-y-0.5 transition-all"
+                  className="relative z-10 shrink-0 inline-flex items-center gap-2 px-7 py-3.5 md:px-8 md:py-4 bg-primary-foreground text-primary text-xs md:text-sm font-bold uppercase tracking-[0.15em] hover:bg-primary-foreground/90 hover:-translate-y-0.5 transition-all shadow-lg"
                 >
-                  Check My Level <ArrowRight className="h-4 w-4" />
+                  Start the Test <ArrowRight className="h-4 w-4" />
                 </Link>
               </motion.div>
 
