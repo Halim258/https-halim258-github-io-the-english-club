@@ -349,20 +349,20 @@ export default function PlacementTest() {
                 transition={{ duration: 0.25 }}
                 className="max-w-3xl mx-auto"
               >
-                <div className="rounded-2xl border bg-card p-6 md:p-8 shadow-soft">
+                <div className="rounded-2xl border bg-card p-5 md:p-8 shadow-soft">
                   {/* Reading passage */}
                   {currentQuestion.passage && (
-                    <div className="mb-6 p-4 rounded-xl bg-muted/50 border text-sm text-muted-foreground leading-relaxed italic">
+                    <div className="mb-5 md:mb-6 p-4 rounded-xl bg-muted/50 border text-sm text-muted-foreground leading-relaxed italic">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-2 not-italic">Read the passage:</p>
                       {currentQuestion.passage}
                     </div>
                   )}
 
-                  <h2 className="text-lg md:text-xl font-semibold font-display mb-6">
+                  <h2 className="text-base md:text-xl font-semibold font-display mb-5 md:mb-6 leading-snug">
                     {currentQuestion.question}
                   </h2>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2.5 md:space-y-3">
                     {currentQuestion.options.map((opt, i) => {
                       const isSelected = selectedOption === i;
                       const isCorrect = confirmed && i === currentQuestion.correctIndex;
@@ -373,7 +373,7 @@ export default function PlacementTest() {
                           key={i}
                           onClick={() => { if (!confirmed) setSelectedOption(i); }}
                           disabled={confirmed}
-                          className={`w-full text-left rounded-xl border p-4 transition-all duration-200 flex items-center gap-3 group ${
+                          className={`w-full text-left rounded-xl border p-3.5 md:p-4 transition-all duration-200 flex items-center gap-3 group ${
                             isCorrect
                               ? "border-emerald-500 bg-emerald-500/10"
                               : isWrong
@@ -394,15 +394,45 @@ export default function PlacementTest() {
                           }`}>
                             {String.fromCharCode(65 + i)}
                           </span>
-                          <span className="text-sm font-medium">{opt}</span>
-                          {isCorrect && <CheckCircle2 className="h-5 w-5 text-emerald-500 ml-auto" />}
-                          {isWrong && <XCircle className="h-5 w-5 text-destructive ml-auto" />}
+                          <span className="flex-1 text-sm md:text-base font-medium leading-snug">{opt}</span>
+                          <span className="hidden sm:inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded bg-muted text-[10px] font-bold text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                            {String.fromCharCode(65 + i)}
+                          </span>
+                          {isCorrect && <CheckCircle2 className="h-5 w-5 text-emerald-500 ml-auto shrink-0" />}
+                          {isWrong && <XCircle className="h-5 w-5 text-destructive ml-auto shrink-0" />}
                         </button>
                       );
                     })}
                   </div>
 
-                  {/* Adaptive feedback after confirm */}
+                  {/* Explanation panel */}
+                  {confirmed && currentQuestion.explanation && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="mt-5 overflow-hidden"
+                    >
+                      <div className={`rounded-xl border p-4 flex items-start gap-3 ${
+                        selectedOption === currentQuestion.correctIndex
+                          ? "bg-emerald-500/5 border-emerald-500/20"
+                          : "bg-amber-500/5 border-amber-500/20"
+                      }`}>
+                        <Lightbulb className={`h-4 w-4 mt-0.5 shrink-0 ${
+                          selectedOption === currentQuestion.correctIndex ? "text-emerald-500" : "text-amber-500"
+                        }`} />
+                        <div>
+                          <p className="text-xs font-semibold mb-1">
+                            {selectedOption === currentQuestion.correctIndex ? "Why this is correct" : "Explanation"}
+                          </p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {currentQuestion.explanation}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Adaptive feedback */}
                   {confirmed && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
@@ -412,31 +442,39 @@ export default function PlacementTest() {
                       {selectedOption === currentQuestion.correctIndex ? (
                         <>
                           <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                          <span>Correct! {consecutiveCorrect + 1 >= ADAPTIVE_CONFIG.correctToLevelUp && currentLevelIndex < LEVELS.length - 1 ? "⬆️ Difficulty increasing..." : ""}</span>
+                          <span>Correct! {consecutiveCorrect + 1 >= ADAPTIVE_CONFIG.correctToLevelUp && currentLevelIndex < LEVELS.length - 1 ? "Difficulty increasing..." : ""}</span>
                         </>
                       ) : (
                         <>
                           <XCircle className="h-3.5 w-3.5 text-destructive" />
-                          <span>Incorrect. {consecutiveWrong + 1 >= ADAPTIVE_CONFIG.wrongToLevelDown && currentLevelIndex > 0 ? "⬇️ Adjusting difficulty..." : ""}</span>
+                          <span>Incorrect. {consecutiveWrong + 1 >= ADAPTIVE_CONFIG.wrongToLevelDown && currentLevelIndex > 0 ? "Adjusting difficulty..." : ""}</span>
                         </>
                       )}
                     </motion.div>
                   )}
 
                   {/* Actions */}
-                  <div className="mt-6 flex items-center justify-end">
+                  <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => { setState("intro"); setElapsed(0); clearInterval(timerRef.current); }}
+                      className="rounded-full text-muted-foreground hover:text-destructive order-2 sm:order-1"
+                    >
+                      <LogOut className="mr-1.5 h-4 w-4" /> Quit Test
+                    </Button>
                     {!confirmed ? (
                       <Button
                         onClick={confirmAnswer}
                         disabled={selectedOption === null}
-                        className="rounded-full px-6 font-semibold"
+                        className="rounded-full px-6 font-semibold order-1 sm:order-2"
                       >
                         Confirm Answer
                       </Button>
                     ) : (
                       <Button
                         onClick={nextQuestion}
-                        className="rounded-full px-6 font-semibold"
+                        className="rounded-full px-6 font-semibold order-1 sm:order-2"
                       >
                         {answered.length + 1 >= ADAPTIVE_CONFIG.totalQuestions ? (
                           <>See Results <Trophy className="ml-1 h-4 w-4" /></>
