@@ -232,11 +232,12 @@ export default function PlacementTest() {
               </FadeInUp>
 
               <FadeInUp delay={0.15}>
-                <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto">
+                <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 max-w-2xl mx-auto">
                   {[
                     { icon: Brain, label: "Adaptive AI", sub: "Adjusts to your level" },
                     { icon: Clock, label: "~10 Minutes", sub: "25 smart questions" },
                     { icon: BarChart3, label: "CEFR Level", sub: "A1 to C2 result" },
+                    { icon: Keyboard, label: "Keyboard Friendly", sub: "A-D to answer" },
                   ].map((item) => (
                     <div key={item.label} className="rounded-xl border bg-card p-4 shadow-soft text-center">
                       <item.icon className="h-5 w-5 text-primary mx-auto mb-2" />
