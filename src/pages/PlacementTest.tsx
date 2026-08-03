@@ -488,24 +488,43 @@ export default function PlacementTest() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Question dots */}
-            <div className="max-w-3xl mx-auto mt-6 flex flex-wrap gap-1.5 justify-center">
-              {answered.map((a, i) => (
-                <div
-                  key={i}
-                  className={`h-2.5 w-2.5 rounded-full ${
-                    a.selectedIndex === a.question.correctIndex
-                      ? "bg-emerald-500"
-                      : "bg-destructive"
-                  }`}
-                  title={`Q${i + 1}: ${a.question.level} — ${a.selectedIndex === a.question.correctIndex ? "✓" : "✗"}`}
-                />
-              ))}
-              {/* Current + remaining */}
-              <div className="h-2.5 w-2.5 rounded-full bg-primary scale-125" />
-              {Array.from({ length: Math.max(0, ADAPTIVE_CONFIG.totalQuestions - answered.length - 1) }).map((_, i) => (
-                <div key={`rem-${i}`} className="h-2.5 w-2.5 rounded-full bg-muted-foreground/15" />
-              ))}
+            {/* Question dots + keyboard hint */}
+            <div className="max-w-3xl mx-auto mt-6 space-y-4">
+              <div className="flex flex-wrap gap-1.5 justify-center">
+                {answered.map((a, i) => (
+                  <div
+                    key={i}
+                    className={`h-2.5 w-2.5 rounded-full ${
+                      a.selectedIndex === a.question.correctIndex
+                        ? "bg-emerald-500"
+                        : "bg-destructive"
+                    }`}
+                    title={`Q${i + 1}: ${a.question.level} — ${a.selectedIndex === a.question.correctIndex ? "✓" : "✗"}`}
+                  />
+                ))}
+                {/* Current + remaining */}
+                <div className="h-2.5 w-2.5 rounded-full bg-primary scale-125" />
+                {Array.from({ length: Math.max(0, ADAPTIVE_CONFIG.totalQuestions - answered.length - 1) }).map((_, i) => (
+                  <div key={`rem-${i}`} className="h-2.5 w-2.5 rounded-full bg-muted-foreground/15" />
+                ))}
+              </div>
+
+              {showKeyboardHint && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center justify-center gap-2 text-[11px] text-muted-foreground"
+                >
+                  <Keyboard className="h-3.5 w-3.5" />
+                  <span>Tip: Press <kbd className="px-1.5 py-0.5 rounded bg-muted text-foreground font-sans text-[10px]">A</kbd>-<kbd className="px-1.5 py-0.5 rounded bg-muted text-foreground font-sans text-[10px]">D</kbd> to choose, <kbd className="px-1.5 py-0.5 rounded bg-muted text-foreground font-sans text-[10px]">Enter</kbd> to confirm</span>
+                  <button
+                    onClick={() => setShowKeyboardHint(false)}
+                    className="ml-1 text-[10px] underline hover:text-foreground"
+                  >
+                    Hide
+                  </button>
+                </motion.div>
+              )}
             </div>
           </motion.div>
         )}
