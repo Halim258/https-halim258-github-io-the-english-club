@@ -42,6 +42,9 @@ export default function PlacementTest() {
   const [consecutiveWrong, setConsecutiveWrong] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [elapsed, setElapsed] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
+  const [showKeyboardHint, setShowKeyboardHint] = useState(true);
   const timerRef = useRef<ReturnType<typeof setInterval>>();
 
   // Timer
