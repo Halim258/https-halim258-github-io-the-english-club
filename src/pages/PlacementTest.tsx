@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, Clock, CheckCircle2, XCircle,
   GraduationCap, BookOpen, BarChart3, Trophy,
-  AlertCircle, Sparkles, TrendingUp, Zap, Brain, Download
+  AlertCircle, Sparkles, TrendingUp, Zap, Brain, Download,
+  Keyboard, Flame, RotateCcw, LogOut, Lightbulb, ChevronRight
 } from "lucide-react";
 import { generateCertificate } from "@/lib/generate-certificate";
 import { Button } from "@/components/ui/button";
@@ -41,6 +42,9 @@ export default function PlacementTest() {
   const [consecutiveWrong, setConsecutiveWrong] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [elapsed, setElapsed] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
+  const [showKeyboardHint, setShowKeyboardHint] = useState(true);
   const timerRef = useRef<ReturnType<typeof setInterval>>();
 
   // Timer
@@ -71,6 +75,9 @@ export default function PlacementTest() {
     setConsecutiveWrong(0);
     setSelectedOption(null);
     setConfirmed(false);
+    setStreak(0);
+    setBestStreak(0);
+    setShowKeyboardHint(true);
     pickQuestion(ADAPTIVE_CONFIG.startLevelIndex, used);
   };
 
@@ -89,6 +96,11 @@ export default function PlacementTest() {
 
     setAnswered(newAnswered);
     setUsedIds(newUsed);
+
+    // Streak tracking
+    const newStreak = isCorrect ? streak + 1 : 0;
+    setStreak(newStreak);
+    if (newStreak > bestStreak) setBestStreak(newStreak);
 
     // Check if test is done
     if (newAnswered.length >= ADAPTIVE_CONFIG.totalQuestions) {
@@ -115,7 +127,7 @@ export default function PlacementTest() {
     setSelectedOption(null);
     setConfirmed(false);
     pickQuestion(newLevelIdx, newUsed);
-  }, [selectedOption, currentQuestion, answered, usedIds, currentLevelIndex, consecutiveCorrect, consecutiveWrong, pickQuestion]);
+  }, [selectedOption, currentQuestion, answered, usedIds, currentLevelIndex, consecutiveCorrect, consecutiveWrong, streak, bestStreak, pickQuestion]);
 
   const finishTest = useCallback(async (finalAnswered: AnsweredQuestion[]) => {
     clearInterval(timerRef.current);
@@ -145,6 +157,34 @@ export default function PlacementTest() {
 
     setState("results");
   }, [startTime]);
+
+  // Keyboard shortcuts: A-D / 1-4 to select, Enter/Space to confirm/next
+  useEffect(() => {
+    if (state !== "testing" || !currentQuestion) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        if (!confirmed && selectedOption !== null) {
+          confirmAnswer();
+        } else if (confirmed) {
+          nextQuestion();
+        }
+        return;
+      }
+      if (confirmed) return;
+      const key = e.key.toLowerCase();
+      const optionCount = currentQuestion.options.length;
+      if (key >= "a" && key <= "d") {
+        const idx = key.charCodeAt(0) - 97;
+        if (idx < optionCount) setSelectedOption(idx);
+      } else if (key >= "1" && key <= "4") {
+        const idx = parseInt(key, 10) - 1;
+        if (idx < optionCount) setSelectedOption(idx);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [state, currentQuestion, confirmed, selectedOption, nextQuestion]);
 
   // Computed results
   const score = answered.filter((a) => a.selectedIndex === a.question.correctIndex).length;
@@ -192,11 +232,12 @@ export default function PlacementTest() {
               </FadeInUp>
 
               <FadeInUp delay={0.15}>
-                <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto">
+                <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 max-w-2xl mx-auto">
                   {[
                     { icon: Brain, label: "Adaptive AI", sub: "Adjusts to your level" },
                     { icon: Clock, label: "~10 Minutes", sub: "25 smart questions" },
                     { icon: BarChart3, label: "CEFR Level", sub: "A1 to C2 result" },
+                    { icon: Keyboard, label: "Keyboard Friendly", sub: "A-D to answer" },
                   ].map((item) => (
                     <div key={item.label} className="rounded-xl border bg-card p-4 shadow-soft text-center">
                       <item.icon className="h-5 w-5 text-primary mx-auto mb-2" />
@@ -215,6 +256,8 @@ export default function PlacementTest() {
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2"><TrendingUp className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Questions adapt — correct answers → harder questions</li>
                     <li className="flex items-start gap-2"><Zap className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Only 25 questions instead of 50 — faster & more accurate</li>
+                    <li className="flex items-start gap-2"><Lightbulb className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Learn from every answer with instant explanations</li>
+                    <li className="flex items-start gap-2"><Keyboard className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Use A-D or 1-4 keys, Enter to confirm</li>
                     <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Don't use a dictionary or translator</li>
                     <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Your result saves automatically if logged in</li>
                   </ul>
@@ -244,9 +287,9 @@ export default function PlacementTest() {
             className="container mx-auto px-4 py-8 md:py-12"
           >
             {/* Top bar */}
-            <div className="max-w-3xl mx-auto mb-8">
+            <div className="max-w-3xl mx-auto mb-6 md:mb-8">
               <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3">
                   <span className="text-sm font-semibold font-display">
                     Question {answered.length + 1}
                     <span className="text-muted-foreground font-normal"> / {ADAPTIVE_CONFIG.totalQuestions}</span>
@@ -259,13 +302,20 @@ export default function PlacementTest() {
                     {currentQuestion.type}
                   </span>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 md:gap-4">
+                  {/* Streak */}
+                  <div className={`flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full border ${
+                    streak >= 3 ? "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400" : "border-transparent bg-muted text-muted-foreground"
+                  }`}>
+                    <Flame className={`h-3.5 w-3.5 ${streak >= 3 ? "fill-current" : ""}`} />
+                    {streak}
+                  </div>
                   {/* Adaptive level indicator */}
                   <div className="hidden sm:flex items-center gap-1.5">
                     {LEVELS.map((lvl, i) => (
                       <div
                         key={lvl}
-                        className={`h-1.5 w-6 rounded-full transition-all duration-300 ${
+                        className={`h-1.5 w-4 md:w-6 rounded-full transition-all duration-300 ${
                           i === currentLevelIndex
                             ? "bg-primary scale-y-150"
                             : i < currentLevelIndex
@@ -276,14 +326,14 @@ export default function PlacementTest() {
                       />
                     ))}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                     <Clock className="h-3.5 w-3.5" />
                     {formatTime(elapsed)}
                   </div>
                 </div>
               </div>
               <Progress value={progress} className="h-2" />
-              <div className="flex justify-between mt-1">
+              <div className="flex justify-between mt-1.5">
                 <span className="text-[10px] text-muted-foreground flex items-center gap-1">
                   <TrendingUp className="h-3 w-3" />
                   Testing at: <strong className="text-foreground">{LEVELS[currentLevelIndex]}</strong>
@@ -302,20 +352,20 @@ export default function PlacementTest() {
                 transition={{ duration: 0.25 }}
                 className="max-w-3xl mx-auto"
               >
-                <div className="rounded-2xl border bg-card p-6 md:p-8 shadow-soft">
+                <div className="rounded-2xl border bg-card p-5 md:p-8 shadow-soft">
                   {/* Reading passage */}
                   {currentQuestion.passage && (
-                    <div className="mb-6 p-4 rounded-xl bg-muted/50 border text-sm text-muted-foreground leading-relaxed italic">
+                    <div className="mb-5 md:mb-6 p-4 rounded-xl bg-muted/50 border text-sm text-muted-foreground leading-relaxed italic">
                       <p className="text-[10px] font-bold uppercase tracking-widest text-primary mb-2 not-italic">Read the passage:</p>
                       {currentQuestion.passage}
                     </div>
                   )}
 
-                  <h2 className="text-lg md:text-xl font-semibold font-display mb-6">
+                  <h2 className="text-base md:text-xl font-semibold font-display mb-5 md:mb-6 leading-snug">
                     {currentQuestion.question}
                   </h2>
 
-                  <div className="space-y-3">
+                  <div className="space-y-2.5 md:space-y-3">
                     {currentQuestion.options.map((opt, i) => {
                       const isSelected = selectedOption === i;
                       const isCorrect = confirmed && i === currentQuestion.correctIndex;
@@ -326,7 +376,7 @@ export default function PlacementTest() {
                           key={i}
                           onClick={() => { if (!confirmed) setSelectedOption(i); }}
                           disabled={confirmed}
-                          className={`w-full text-left rounded-xl border p-4 transition-all duration-200 flex items-center gap-3 group ${
+                          className={`w-full text-left rounded-xl border p-3.5 md:p-4 transition-all duration-200 flex items-center gap-3 group ${
                             isCorrect
                               ? "border-emerald-500 bg-emerald-500/10"
                               : isWrong
@@ -347,15 +397,45 @@ export default function PlacementTest() {
                           }`}>
                             {String.fromCharCode(65 + i)}
                           </span>
-                          <span className="text-sm font-medium">{opt}</span>
-                          {isCorrect && <CheckCircle2 className="h-5 w-5 text-emerald-500 ml-auto" />}
-                          {isWrong && <XCircle className="h-5 w-5 text-destructive ml-auto" />}
+                          <span className="flex-1 text-sm md:text-base font-medium leading-snug">{opt}</span>
+                          <span className="hidden sm:inline-flex h-6 min-w-[1.5rem] items-center justify-center rounded bg-muted text-[10px] font-bold text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                            {String.fromCharCode(65 + i)}
+                          </span>
+                          {isCorrect && <CheckCircle2 className="h-5 w-5 text-emerald-500 ml-auto shrink-0" />}
+                          {isWrong && <XCircle className="h-5 w-5 text-destructive ml-auto shrink-0" />}
                         </button>
                       );
                     })}
                   </div>
 
-                  {/* Adaptive feedback after confirm */}
+                  {/* Explanation panel */}
+                  {confirmed && currentQuestion.explanation && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      className="mt-5 overflow-hidden"
+                    >
+                      <div className={`rounded-xl border p-4 flex items-start gap-3 ${
+                        selectedOption === currentQuestion.correctIndex
+                          ? "bg-emerald-500/5 border-emerald-500/20"
+                          : "bg-amber-500/5 border-amber-500/20"
+                      }`}>
+                        <Lightbulb className={`h-4 w-4 mt-0.5 shrink-0 ${
+                          selectedOption === currentQuestion.correctIndex ? "text-emerald-500" : "text-amber-500"
+                        }`} />
+                        <div>
+                          <p className="text-xs font-semibold mb-1">
+                            {selectedOption === currentQuestion.correctIndex ? "Why this is correct" : "Explanation"}
+                          </p>
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {currentQuestion.explanation}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {/* Adaptive feedback */}
                   {confirmed && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
@@ -365,31 +445,39 @@ export default function PlacementTest() {
                       {selectedOption === currentQuestion.correctIndex ? (
                         <>
                           <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500" />
-                          <span>Correct! {consecutiveCorrect + 1 >= ADAPTIVE_CONFIG.correctToLevelUp && currentLevelIndex < LEVELS.length - 1 ? "⬆️ Difficulty increasing..." : ""}</span>
+                          <span>Correct! {consecutiveCorrect + 1 >= ADAPTIVE_CONFIG.correctToLevelUp && currentLevelIndex < LEVELS.length - 1 ? "Difficulty increasing..." : ""}</span>
                         </>
                       ) : (
                         <>
                           <XCircle className="h-3.5 w-3.5 text-destructive" />
-                          <span>Incorrect. {consecutiveWrong + 1 >= ADAPTIVE_CONFIG.wrongToLevelDown && currentLevelIndex > 0 ? "⬇️ Adjusting difficulty..." : ""}</span>
+                          <span>Incorrect. {consecutiveWrong + 1 >= ADAPTIVE_CONFIG.wrongToLevelDown && currentLevelIndex > 0 ? "Adjusting difficulty..." : ""}</span>
                         </>
                       )}
                     </motion.div>
                   )}
 
                   {/* Actions */}
-                  <div className="mt-6 flex items-center justify-end">
+                  <div className="mt-6 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => { setState("intro"); setElapsed(0); clearInterval(timerRef.current); }}
+                      className="rounded-full text-muted-foreground hover:text-destructive order-2 sm:order-1"
+                    >
+                      <LogOut className="mr-1.5 h-4 w-4" /> Quit Test
+                    </Button>
                     {!confirmed ? (
                       <Button
                         onClick={confirmAnswer}
                         disabled={selectedOption === null}
-                        className="rounded-full px-6 font-semibold"
+                        className="rounded-full px-6 font-semibold order-1 sm:order-2"
                       >
                         Confirm Answer
                       </Button>
                     ) : (
                       <Button
                         onClick={nextQuestion}
-                        className="rounded-full px-6 font-semibold"
+                        className="rounded-full px-6 font-semibold order-1 sm:order-2"
                       >
                         {answered.length + 1 >= ADAPTIVE_CONFIG.totalQuestions ? (
                           <>See Results <Trophy className="ml-1 h-4 w-4" /></>
@@ -403,24 +491,43 @@ export default function PlacementTest() {
               </motion.div>
             </AnimatePresence>
 
-            {/* Question dots */}
-            <div className="max-w-3xl mx-auto mt-6 flex flex-wrap gap-1.5 justify-center">
-              {answered.map((a, i) => (
-                <div
-                  key={i}
-                  className={`h-2.5 w-2.5 rounded-full ${
-                    a.selectedIndex === a.question.correctIndex
-                      ? "bg-emerald-500"
-                      : "bg-destructive"
-                  }`}
-                  title={`Q${i + 1}: ${a.question.level} — ${a.selectedIndex === a.question.correctIndex ? "✓" : "✗"}`}
-                />
-              ))}
-              {/* Current + remaining */}
-              <div className="h-2.5 w-2.5 rounded-full bg-primary scale-125" />
-              {Array.from({ length: Math.max(0, ADAPTIVE_CONFIG.totalQuestions - answered.length - 1) }).map((_, i) => (
-                <div key={`rem-${i}`} className="h-2.5 w-2.5 rounded-full bg-muted-foreground/15" />
-              ))}
+            {/* Question dots + keyboard hint */}
+            <div className="max-w-3xl mx-auto mt-6 space-y-4">
+              <div className="flex flex-wrap gap-1.5 justify-center">
+                {answered.map((a, i) => (
+                  <div
+                    key={i}
+                    className={`h-2.5 w-2.5 rounded-full ${
+                      a.selectedIndex === a.question.correctIndex
+                        ? "bg-emerald-500"
+                        : "bg-destructive"
+                    }`}
+                    title={`Q${i + 1}: ${a.question.level} — ${a.selectedIndex === a.question.correctIndex ? "✓" : "✗"}`}
+                  />
+                ))}
+                {/* Current + remaining */}
+                <div className="h-2.5 w-2.5 rounded-full bg-primary scale-125" />
+                {Array.from({ length: Math.max(0, ADAPTIVE_CONFIG.totalQuestions - answered.length - 1) }).map((_, i) => (
+                  <div key={`rem-${i}`} className="h-2.5 w-2.5 rounded-full bg-muted-foreground/15" />
+                ))}
+              </div>
+
+              {showKeyboardHint && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-center justify-center gap-2 text-[11px] text-muted-foreground"
+                >
+                  <Keyboard className="h-3.5 w-3.5" />
+                  <span>Tip: Press <kbd className="px-1.5 py-0.5 rounded bg-muted text-foreground font-sans text-[10px]">A</kbd>-<kbd className="px-1.5 py-0.5 rounded bg-muted text-foreground font-sans text-[10px]">D</kbd> to choose, <kbd className="px-1.5 py-0.5 rounded bg-muted text-foreground font-sans text-[10px]">Enter</kbd> to confirm</span>
+                  <button
+                    onClick={() => setShowKeyboardHint(false)}
+                    className="ml-1 text-[10px] underline hover:text-foreground"
+                  >
+                    Hide
+                  </button>
+                </motion.div>
+              )}
             </div>
           </motion.div>
         )}
@@ -452,7 +559,7 @@ export default function PlacementTest() {
 
               {/* Score summary */}
               <FadeInUp delay={0.1}>
-                <div className="mt-10 grid grid-cols-3 gap-4">
+                <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div className="rounded-xl border bg-card p-5 shadow-soft">
                     <p className="text-3xl font-bold text-primary font-display">{score}/{answered.length}</p>
                     <p className="text-xs text-muted-foreground mt-1">Correct Answers</p>
@@ -460,6 +567,10 @@ export default function PlacementTest() {
                   <div className="rounded-xl border bg-card p-5 shadow-soft">
                     <p className="text-3xl font-bold text-primary font-display">{answered.length > 0 ? Math.round((score / answered.length) * 100) : 0}%</p>
                     <p className="text-xs text-muted-foreground mt-1">Score</p>
+                  </div>
+                  <div className="rounded-xl border bg-card p-5 shadow-soft">
+                    <p className="text-3xl font-bold text-amber-500 font-display">{bestStreak}</p>
+                    <p className="text-xs text-muted-foreground mt-1">Best Streak</p>
                   </div>
                   <div className="rounded-xl border bg-card p-5 shadow-soft">
                     <p className="text-3xl font-bold text-primary font-display">{formatTime(elapsed)}</p>
