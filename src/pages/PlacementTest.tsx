@@ -284,9 +284,9 @@ export default function PlacementTest() {
             className="container mx-auto px-4 py-8 md:py-12"
           >
             {/* Top bar */}
-            <div className="max-w-3xl mx-auto mb-8">
+            <div className="max-w-3xl mx-auto mb-6 md:mb-8">
               <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3">
                   <span className="text-sm font-semibold font-display">
                     Question {answered.length + 1}
                     <span className="text-muted-foreground font-normal"> / {ADAPTIVE_CONFIG.totalQuestions}</span>
@@ -299,13 +299,20 @@ export default function PlacementTest() {
                     {currentQuestion.type}
                   </span>
                 </div>
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 md:gap-4">
+                  {/* Streak */}
+                  <div className={`flex items-center gap-1 text-xs font-bold px-2 py-1 rounded-full border ${
+                    streak >= 3 ? "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400" : "border-transparent bg-muted text-muted-foreground"
+                  }`}>
+                    <Flame className={`h-3.5 w-3.5 ${streak >= 3 ? "fill-current" : ""}`} />
+                    {streak}
+                  </div>
                   {/* Adaptive level indicator */}
                   <div className="hidden sm:flex items-center gap-1.5">
                     {LEVELS.map((lvl, i) => (
                       <div
                         key={lvl}
-                        className={`h-1.5 w-6 rounded-full transition-all duration-300 ${
+                        className={`h-1.5 w-4 md:w-6 rounded-full transition-all duration-300 ${
                           i === currentLevelIndex
                             ? "bg-primary scale-y-150"
                             : i < currentLevelIndex
@@ -316,14 +323,14 @@ export default function PlacementTest() {
                       />
                     ))}
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                     <Clock className="h-3.5 w-3.5" />
                     {formatTime(elapsed)}
                   </div>
                 </div>
               </div>
               <Progress value={progress} className="h-2" />
-              <div className="flex justify-between mt-1">
+              <div className="flex justify-between mt-1.5">
                 <span className="text-[10px] text-muted-foreground flex items-center gap-1">
                   <TrendingUp className="h-3 w-3" />
                   Testing at: <strong className="text-foreground">{LEVELS[currentLevelIndex]}</strong>
