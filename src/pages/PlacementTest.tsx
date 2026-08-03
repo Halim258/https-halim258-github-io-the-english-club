@@ -97,6 +97,11 @@ export default function PlacementTest() {
     setAnswered(newAnswered);
     setUsedIds(newUsed);
 
+    // Streak tracking
+    const newStreak = isCorrect ? streak + 1 : 0;
+    setStreak(newStreak);
+    if (newStreak > bestStreak) setBestStreak(newStreak);
+
     // Check if test is done
     if (newAnswered.length >= ADAPTIVE_CONFIG.totalQuestions) {
       finishTest(newAnswered);
@@ -122,7 +127,7 @@ export default function PlacementTest() {
     setSelectedOption(null);
     setConfirmed(false);
     pickQuestion(newLevelIdx, newUsed);
-  }, [selectedOption, currentQuestion, answered, usedIds, currentLevelIndex, consecutiveCorrect, consecutiveWrong, pickQuestion]);
+  }, [selectedOption, currentQuestion, answered, usedIds, currentLevelIndex, consecutiveCorrect, consecutiveWrong, streak, bestStreak, pickQuestion]);
 
   const finishTest = useCallback(async (finalAnswered: AnsweredQuestion[]) => {
     clearInterval(timerRef.current);
