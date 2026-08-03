@@ -559,7 +559,7 @@ export default function PlacementTest() {
 
               {/* Score summary */}
               <FadeInUp delay={0.1}>
-                <div className="mt-10 grid grid-cols-3 gap-4">
+                <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-4">
                   <div className="rounded-xl border bg-card p-5 shadow-soft">
                     <p className="text-3xl font-bold text-primary font-display">{score}/{answered.length}</p>
                     <p className="text-xs text-muted-foreground mt-1">Correct Answers</p>
@@ -567,6 +567,10 @@ export default function PlacementTest() {
                   <div className="rounded-xl border bg-card p-5 shadow-soft">
                     <p className="text-3xl font-bold text-primary font-display">{answered.length > 0 ? Math.round((score / answered.length) * 100) : 0}%</p>
                     <p className="text-xs text-muted-foreground mt-1">Score</p>
+                  </div>
+                  <div className="rounded-xl border bg-card p-5 shadow-soft">
+                    <p className="text-3xl font-bold text-amber-500 font-display">{bestStreak}</p>
+                    <p className="text-xs text-muted-foreground mt-1">Best Streak</p>
                   </div>
                   <div className="rounded-xl border bg-card p-5 shadow-soft">
                     <p className="text-3xl font-bold text-primary font-display">{formatTime(elapsed)}</p>
