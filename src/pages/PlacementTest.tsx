@@ -256,6 +256,8 @@ export default function PlacementTest() {
                   <ul className="space-y-2 text-sm text-muted-foreground">
                     <li className="flex items-start gap-2"><TrendingUp className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Questions adapt — correct answers → harder questions</li>
                     <li className="flex items-start gap-2"><Zap className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Only 25 questions instead of 50 — faster & more accurate</li>
+                    <li className="flex items-start gap-2"><Lightbulb className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Learn from every answer with instant explanations</li>
+                    <li className="flex items-start gap-2"><Keyboard className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Use A-D or 1-4 keys, Enter to confirm</li>
                     <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Don't use a dictionary or translator</li>
                     <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Your result saves automatically if logged in</li>
                   </ul>
