@@ -75,6 +75,9 @@ export default function PlacementTest() {
     setConsecutiveWrong(0);
     setSelectedOption(null);
     setConfirmed(false);
+    setStreak(0);
+    setBestStreak(0);
+    setShowKeyboardHint(true);
     pickQuestion(ADAPTIVE_CONFIG.startLevelIndex, used);
   };
 
