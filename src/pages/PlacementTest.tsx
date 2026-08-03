@@ -158,6 +158,34 @@ export default function PlacementTest() {
     setState("results");
   }, [startTime]);
 
+  // Keyboard shortcuts: A-D / 1-4 to select, Enter/Space to confirm/next
+  useEffect(() => {
+    if (state !== "testing" || !currentQuestion) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        if (!confirmed && selectedOption !== null) {
+          confirmAnswer();
+        } else if (confirmed) {
+          nextQuestion();
+        }
+        return;
+      }
+      if (confirmed) return;
+      const key = e.key.toLowerCase();
+      const optionCount = currentQuestion.options.length;
+      if (key >= "a" && key <= "d") {
+        const idx = key.charCodeAt(0) - 97;
+        if (idx < optionCount) setSelectedOption(idx);
+      } else if (key >= "1" && key <= "4") {
+        const idx = parseInt(key, 10) - 1;
+        if (idx < optionCount) setSelectedOption(idx);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [state, currentQuestion, confirmed, selectedOption, nextQuestion]);
+
   // Computed results
   const score = answered.filter((a) => a.selectedIndex === a.question.correctIndex).length;
   const cefrLevel = adaptiveScoreToCEFR(answered);
