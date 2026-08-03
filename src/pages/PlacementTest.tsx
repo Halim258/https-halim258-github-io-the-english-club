@@ -4,7 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight, Clock, CheckCircle2, XCircle,
   GraduationCap, BookOpen, BarChart3, Trophy,
-  AlertCircle, Sparkles, TrendingUp, Zap, Brain, Download
+  AlertCircle, Sparkles, TrendingUp, Zap, Brain, Download,
+  Keyboard, Flame, RotateCcw, LogOut, Lightbulb, ChevronRight
 } from "lucide-react";
 import { generateCertificate } from "@/lib/generate-certificate";
 import { Button } from "@/components/ui/button";
