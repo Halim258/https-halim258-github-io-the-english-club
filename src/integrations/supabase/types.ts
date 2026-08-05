@@ -1492,6 +1492,15 @@ export type Database = {
         }
         Returns: number
       }
+      notify_students: {
+        Args: {
+          _link?: string
+          _message: string
+          _title: string
+          _type?: string
+        }
+        Returns: number
+      }
       submit_daily_challenge: {
         Args: { _answer: string; _challenge_id: string }
         Returns: {
