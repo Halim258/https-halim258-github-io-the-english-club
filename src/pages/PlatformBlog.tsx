@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import DailyAdviceSection from "@/components/blog/DailyAdvice";
 
 type PreviewKind =
   | "courses" | "dashboard" | "groups" | "teacher" | "ai-tutor" | "dictionary"
@@ -821,6 +822,8 @@ export default function PlatformBlog() {
           <FeatureScreenshot post={post} />
         </div>
       </section>
+
+      <DailyAdviceSection />
 
       <section className="container mx-auto grid gap-6 px-4 py-8 lg:grid-cols-[280px_1fr]">
         <aside className="lg:sticky lg:top-20 lg:self-start lg:max-h-[calc(100vh-6rem)] lg:overflow-y-auto -mx-4 px-4 lg:mx-0 lg:px-0 min-w-0 overflow-x-hidden lg:overflow-x-visible">
