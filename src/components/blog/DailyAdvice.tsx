@@ -1,7 +1,9 @@
 import { useMemo, useState } from "react";
-import { Clipboard, Facebook, Lightbulb, Sparkles, Target } from "lucide-react";
+import { Bell, Clipboard, Facebook, Lightbulb, Loader2, Sparkles, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/hooks/useAuth";
 import { dailyAdvices, getDailyAdviceIndex, type DailyAdvice as Advice } from "@/data/daily-advices";
 
 function buildPost(advice: Advice) {
@@ -24,6 +26,9 @@ function buildPost(advice: Advice) {
 }
 
 export default function DailyAdviceSection() {
+  const { role } = useAuth();
+  const isStaff = role === "admin" || role === "secretary" || role === "teacher";
+  const [sending, setSending] = useState(false);
   const todayIndex = useMemo(() => getDailyAdviceIndex(), []);
   const [activeIndex, setActiveIndex] = useState(todayIndex);
   const advice = dailyAdvices[activeIndex];
@@ -37,6 +42,29 @@ export default function DailyAdviceSection() {
   const copyAdvice = async () => {
     await navigator.clipboard.writeText(copy);
     toast({ title: "Advice post copied", description: "Paste it on the school's Facebook page." });
+  };
+
+  const sendToStudents = async () => {
+    setSending(true);
+    const { data, error } = await supabase.rpc("notify_students", {
+      _title: `💡 Advice of the day — ${advice.title}`,
+      _message: `${advice.english}\n\n${advice.arabic}\n\n🎯 ${advice.action}`,
+      _type: "tip",
+      _link: "/blog",
+    });
+    setSending(false);
+    if (error) {
+      toast({ title: "Could not send", description: error.message, variant: "destructive" });
+      return;
+    }
+    const count = typeof data === "number" ? data : 0;
+    toast({
+      title: count > 0 ? `Sent to ${count} student${count === 1 ? "" : "s"}` : "Already sent today",
+      description:
+        count > 0
+          ? "Students will see today's advice in their notifications."
+          : "Students already received this advice in the last 20 hours.",
+    });
   };
 
   return (
@@ -54,9 +82,17 @@ export default function DailyAdviceSection() {
               One short, practical piece of advice every day, with a clear action you can finish in minutes.
             </p>
           </div>
-          <Button onClick={copyAdvice} className="gap-2">
-            <Facebook className="h-4 w-4" /> Copy Advice Post
-          </Button>
+          <div className="flex flex-wrap gap-2">
+            {isStaff && (
+              <Button onClick={sendToStudents} disabled={sending} variant="secondary" className="gap-2">
+                {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Bell className="h-4 w-4" />}
+                Send to students
+              </Button>
+            )}
+            <Button onClick={copyAdvice} className="gap-2">
+              <Facebook className="h-4 w-4" /> Copy Advice Post
+            </Button>
+          </div>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
