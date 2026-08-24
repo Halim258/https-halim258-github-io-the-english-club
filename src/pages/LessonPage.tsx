@@ -782,8 +782,10 @@ function MatchCard({ items }: { items: VocabWord[] }) {
       setMatched((m) => [...m, selectedWord]);
       setSelectedWord(null);
       setWrong(null);
+      playRewardSound(true);
     } else {
       setWrong(meaning);
+      playRewardSound(false);
       setTimeout(() => setWrong(null), 700);
     }
   };
