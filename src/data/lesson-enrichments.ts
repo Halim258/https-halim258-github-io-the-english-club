@@ -314,14 +314,105 @@ function topUpExercises(lesson: LessonData) {
     .filter((q): q is MCQItem => Boolean(q))
     .slice(0, 5);
 
+  // Vocabulary: true / false meaning checks (half of them wrong on purpose).
+  const tfPool = vocab.filter((v) => v.meaning && v.meaning.trim());
+  const vocabTrueFalse: MCQItem[] = tfPool.slice(0, 6).map((v, idx) => {
+    const isTrue = (seed + idx) % 2 === 0 || tfPool.length < 2;
+    const other = tfPool[(idx + 1 + (seed % 3)) % tfPool.length];
+    const shown = isTrue || other.word === v.word ? v.meaning : other.meaning;
+    const correctlyTrue = shown === v.meaning;
+    return {
+      question: `True or false? "${v.word}" means "${shown}".`,
+      options: ["True", "False"],
+      correct: correctlyTrue ? 0 : 1,
+    };
+  });
+
+  // Conversation: who said it + complete the line.
+  const dialogue = lesson.dialogue ?? [];
+  const speakers = Array.from(new Set(dialogue.map((l) => l.speaker)));
+  const conversationExtra: MCQItem[] = [];
+  if (speakers.length >= 2) {
+    dialogue.slice(0, 4).forEach((line, idx) => {
+      const decoys = ["Anna", "Marco", "Sara", "Tom", "Alex"].filter((d) => !speakers.includes(d));
+      const options = shuffleDeterministic(
+        [line.speaker, ...speakers.filter((s2) => s2 !== line.speaker).slice(0, 2), ...decoys].slice(0, 4),
+        seed + idx + 31,
+      );
+      conversationExtra.push({
+        question: `Who says: "${line.text}"?`,
+        options,
+        correct: options.indexOf(line.speaker),
+      });
+    });
+  }
+  dialogue.slice(0, 3).forEach((line, idx) => {
+    const target = longestWord(line.text);
+    if (!target) return;
+    const pool = Array.from(new Set(words.filter((w) => w.toLowerCase() !== target.toLowerCase())));
+    if (pool.length < 3) return;
+    const distractors = shuffleDeterministic(pool, seed + idx + 37).slice(0, 3);
+    const options = shuffleDeterministic([target, ...distractors], seed + idx + 41);
+    conversationExtra.push({
+      question: `Complete the line — ${line.speaker}: ${line.text.replace(new RegExp(target, "i"), "______")}`,
+      options,
+      correct: options.indexOf(target),
+    });
+  });
+
   const dedupe = (base: MCQItem[] = [], extra: MCQItem[]) => {
     const seen = new Set(base.map((q) => q.question.trim().toLowerCase()));
     return [...base, ...extra.filter((q) => !seen.has(q.question.trim().toLowerCase()))];
   };
 
   return {
-    vocabExercises: dedupe(lesson.vocabExercises, vocabExtra),
+    vocabExercises: dedupe(lesson.vocabExercises, [...vocabExtra, ...vocabTrueFalse]),
     grammarExercises: dedupe(lesson.grammarExercises, grammarExtra),
+    conversationExercises: dedupe(lesson.conversationExercises, conversationExtra.slice(0, 6)),
+  };
+}
+
+/** Reading gets extra comprehension + true/false questions. */
+function augmentReading(lesson: LessonData, reading?: LessonData["reading"]) {
+  if (!reading) return reading;
+  const seed = seedFor(lesson);
+  const sentences = reading.text
+    .split(/(?<=[.!?])\s+/)
+    .map((s2) => s2.trim())
+    .filter((s2) => s2.split(/\s+/).length >= 4)
+    .slice(0, 6);
+  const vocab = lesson.vocabulary ?? [];
+
+  const extra: MCQItem[] = [];
+  sentences.slice(0, 3).forEach((sentence, idx) => {
+    const isTrue = (seed + idx) % 2 === 0;
+    const swap = vocab[(idx + 1) % Math.max(vocab.length, 1)]?.word;
+    const target = longestWord(sentence);
+    const shown = isTrue || !swap || !target ? sentence : sentence.replace(new RegExp(target, "i"), swap);
+    extra.push({
+      question: `According to the text — true or false? "${shown}"`,
+      options: ["True", "False"],
+      correct: shown === sentence ? 0 : 1,
+    });
+  });
+  sentences.slice(3, 5).forEach((sentence, idx) => {
+    const target = longestWord(sentence);
+    if (!target) return;
+    const pool = Array.from(new Set(vocab.map((v) => v.word).filter((w) => w.toLowerCase() !== target.toLowerCase())));
+    if (pool.length < 3) return;
+    const distractors = shuffleDeterministic(pool, seed + idx + 47).slice(0, 3);
+    const options = shuffleDeterministic([target, ...distractors], seed + idx + 53);
+    extra.push({
+      question: `Choose the correct word: ${sentence.replace(new RegExp(target, "i"), "______")}`,
+      options,
+      correct: options.indexOf(target),
+    });
+  });
+
+  const seen = new Set((reading.questions ?? []).map((q) => q.question.trim().toLowerCase()));
+  return {
+    ...reading,
+    questions: [...(reading.questions ?? []), ...extra.filter((q) => !seen.has(q.question.trim().toLowerCase()))],
   };
 }
 
@@ -329,14 +420,16 @@ export function enrichLesson(lesson: LessonData): LessonData {
   const lang = detectLang(lesson.levelId);
   const s = L[lang];
   const level = cefrOf(lesson.levelId);
-  const reading = lesson.reading ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
+  const baseReading = lesson.reading ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
+  const reading = augmentReading(lesson, baseReading);
   const grammar = ensureGrammarExamples(lesson) ?? lesson.grammar;
-  const { vocabExercises, grammarExercises } = topUpExercises({ ...lesson, grammar });
+  const { vocabExercises, grammarExercises, conversationExercises } = topUpExercises({ ...lesson, grammar });
   return {
     ...lesson,
     grammar,
     vocabExercises,
     grammarExercises,
+    conversationExercises,
     heroImage: lesson.heroImage ?? heroImageFor(lesson),
     reading,
     listening: lesson.listening ?? buildListening(lesson, lang),
