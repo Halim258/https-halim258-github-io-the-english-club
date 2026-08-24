@@ -420,14 +420,16 @@ export function enrichLesson(lesson: LessonData): LessonData {
   const lang = detectLang(lesson.levelId);
   const s = L[lang];
   const level = cefrOf(lesson.levelId);
-  const reading = lesson.reading ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
+  const baseReading = lesson.reading ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
+  const reading = augmentReading(lesson, baseReading);
   const grammar = ensureGrammarExamples(lesson) ?? lesson.grammar;
-  const { vocabExercises, grammarExercises } = topUpExercises({ ...lesson, grammar });
+  const { vocabExercises, grammarExercises, conversationExercises } = topUpExercises({ ...lesson, grammar });
   return {
     ...lesson,
     grammar,
     vocabExercises,
     grammarExercises,
+    conversationExercises,
     heroImage: lesson.heroImage ?? heroImageFor(lesson),
     reading,
     listening: lesson.listening ?? buildListening(lesson, lang),
