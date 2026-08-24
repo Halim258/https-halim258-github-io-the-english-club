@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import ActivityFeed, { useActivityFeed } from "@/components/progress/ActivityFeed";
 
 interface LessonRow {
   id: string;
@@ -49,17 +50,20 @@ export default function AdminStudentProgress() {
   const [xp, setXp] = useState<XPRow | null>(null);
   const [lessons, setLessons] = useState<LessonRow[]>([]);
   const [badges, setBadges] = useState<{ badge_key: string; earned_at: string }[]>([]);
+  const [slides, setSlides] = useState<{ lesson_key: string; reached: number; total: number; updated_at: string }[]>([]);
+  const { items: activity, loading: activityLoading } = useActivityFeed(userId, 100);
 
   useEffect(() => {
     if (!userId) return;
     (async () => {
       setLoading(true);
-      const [{ data: p }, { data: sign }, { data: x }, { data: lp }, { data: ach }] = await Promise.all([
+      const [{ data: p }, { data: sign }, { data: x }, { data: lp }, { data: ach }, { data: sp }] = await Promise.all([
         supabase.from("profiles").select("id, full_name, avatar_url").eq("id", userId).maybeSingle(),
         supabase.rpc("get_recent_signups", { _limit: 500 }),
         supabase.from("user_xp").select("total_xp, current_streak, longest_streak, last_activity_date").eq("user_id", userId).maybeSingle(),
         supabase.from("lesson_progress").select("*").eq("user_id", userId).order("completed_at", { ascending: false }),
         supabase.from("achievements").select("badge_key, earned_at").eq("user_id", userId).order("earned_at", { ascending: false }),
+        supabase.rpc("get_student_slide_progress", { _user_id: userId }),
       ]);
       setProfile(p as Profile | null);
       const match = (sign as any[] | null)?.find(s => s.id === userId);
@@ -67,6 +71,7 @@ export default function AdminStudentProgress() {
       setXp((x as XPRow | null) ?? { total_xp: 0, current_streak: 0, longest_streak: 0, last_activity_date: null });
       setLessons((lp as LessonRow[]) || []);
       setBadges((ach as any[]) || []);
+      setSlides((sp as any[]) || []);
       setLoading(false);
     })();
   }, [userId]);
@@ -314,6 +319,52 @@ export default function AdminStudentProgress() {
           </div>
         </div>
       )}
+
+      {/* Lessons started but not finished — from slide-level auto-save */}
+      {(() => {
+        const completedKeys = new Set(
+          lessons.filter(l => l.completed).map(l => `${l.level_id}-${l.lesson_number}`)
+        );
+        const started = slides.filter(
+          r => r.total > 0 && r.reached + 1 < r.total && !completedKeys.has(r.lesson_key)
+        );
+        if (started.length === 0) return null;
+        return (
+          <div className="rounded-2xl border bg-card p-5 shadow-soft">
+            <div className="flex items-center justify-between mb-3 gap-3 flex-wrap">
+              <h2 className="text-sm font-semibold flex items-center gap-2">
+                <BookOpen className="h-4 w-4 text-primary" /> Currently in progress
+              </h2>
+              <span className="text-[11px] text-muted-foreground">{started.length} lesson(s) started, not finished</span>
+            </div>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {started.map(r => {
+                const dash = r.lesson_key.lastIndexOf("-");
+                const level = r.lesson_key.slice(0, dash);
+                const num = r.lesson_key.slice(dash + 1);
+                const pct = Math.min(100, Math.round(((r.reached + 1) / Math.max(1, r.total)) * 100));
+                return (
+                  <div key={r.lesson_key} className="rounded-xl border bg-muted/20 p-3">
+                    <div className="flex items-center justify-between mb-1.5 gap-2">
+                      <span className="text-xs font-semibold truncate">
+                        {levelLabel(level)} · Lesson {num}
+                      </span>
+                      <span className="text-[11px] font-semibold text-primary">{pct}%</span>
+                    </div>
+                    <Progress value={pct} className="h-1.5" />
+                    <div className="mt-1.5 flex items-center justify-between text-[10px] text-muted-foreground">
+                      <span>Slide {r.reached + 1} of {r.total}</span>
+                      <span>{new Date(r.updated_at).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })()}
+
+      <ActivityFeed items={activity} loading={activityLoading} title="What this student has done so far" />
 
       <div className="space-y-4">
         <h2 className="text-lg font-semibold flex items-center gap-2">
