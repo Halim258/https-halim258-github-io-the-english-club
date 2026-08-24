@@ -637,14 +637,21 @@ function SoundIntroCard({
           This lesson's sound
         </p>
 
-        <div className="mt-4 mx-auto flex h-28 w-28 items-center justify-center rounded-2xl bg-primary/15 border-2 border-primary/30">
-          <span className="text-6xl font-bold text-primary lowercase leading-none">{sound.grapheme}</span>
+        <div className="mt-4 mx-auto flex min-h-28 w-full max-w-[15rem] items-center justify-center rounded-2xl bg-primary/15 border-2 border-primary/30 px-4 py-3">
+          <span
+            className={`font-bold text-primary lowercase leading-tight text-center break-words ${
+              sound.grapheme.length > 6 ? "text-3xl" : sound.grapheme.length > 3 ? "text-4xl" : "text-6xl"
+            }`}
+          >
+            {sound.grapheme}
+          </span>
         </div>
 
-        <p className="mt-4 text-2xl font-bold text-foreground">
+        <p className="mt-4 text-xl md:text-2xl font-bold text-foreground break-words">
           The letter{sound.grapheme.length > 1 ? "s" : ""} “{sound.grapheme}” say{" "}
           <span className="text-primary">{sound.ipa}</span>
         </p>
+
         <p className="mt-2 text-sm text-muted-foreground font-sans leading-relaxed">{sound.hint}</p>
 
         <Button
