@@ -21,6 +21,7 @@ interface Post {
   comments_count: number;
   created_at: string;
   author_name: string;
+  author_avatar: string | null;
   liked_by_me: boolean;
 }
 
@@ -30,6 +31,26 @@ interface Comment {
   content: string;
   created_at: string;
   author_name: string;
+  author_avatar: string | null;
+}
+
+/** Small round author avatar — profile picture when set, otherwise initials. */
+function AuthorAvatar({ name, avatar, size = "md" }: { name: string; avatar: string | null; size?: "md" | "sm" }) {
+  const dim = size === "md" ? "h-9 w-9 text-xs" : "h-6 w-6 text-[9px]";
+  const initials = name
+    .split(/\s+/)
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((w) => w[0]?.toUpperCase())
+    .join("") || "S";
+  if (avatar) {
+    return <img src={avatar} alt={name} loading="lazy" className={`${dim} shrink-0 rounded-full object-cover`} />;
+  }
+  return (
+    <div className={`${dim} shrink-0 rounded-full bg-gradient-to-br from-primary/25 to-accent/25 flex items-center justify-center font-bold text-primary`}>
+      {initials}
+    </div>
+  );
 }
 
 function timeAgo(date: string) {
@@ -62,7 +83,9 @@ export default function Community() {
 
     const userIds = [...new Set(postsData.map((p) => p.user_id))];
     const { data: profiles } = await supabase.rpc("get_public_profiles", { _user_ids: userIds });
-    const profileMap = new Map(profiles?.map((p) => [p.id, p.full_name || "Student"]) || []);
+    const profileMap = new Map(
+      profiles?.map((p) => [p.id, { name: p.full_name || "Student", avatar: p.avatar_url ?? null }]) || []
+    );
 
     let likedPostIds = new Set<string>();
     if (user) {
@@ -76,7 +99,8 @@ export default function Community() {
     setPosts(
       postsData.map((p) => ({
         ...p,
-        author_name: profileMap.get(p.user_id) || "Student",
+        author_name: profileMap.get(p.user_id)?.name || "Student",
+        author_avatar: profileMap.get(p.user_id)?.avatar ?? null,
         liked_by_me: likedPostIds.has(p.id),
       }))
     );
@@ -128,10 +152,16 @@ export default function Community() {
     if (!data) return;
     const userIds = [...new Set(data.map((c) => c.user_id))];
     const { data: profiles } = await supabase.rpc("get_public_profiles", { _user_ids: userIds });
-    const profileMap = new Map(profiles?.map((p) => [p.id, p.full_name || "Student"]) || []);
+    const profileMap = new Map(
+      profiles?.map((p) => [p.id, { name: p.full_name || "Student", avatar: p.avatar_url ?? null }]) || []
+    );
     setComments((prev) => ({
       ...prev,
-      [postId]: data.map((c) => ({ ...c, author_name: profileMap.get(c.user_id) || "Student" })),
+      [postId]: data.map((c) => ({
+        ...c,
+        author_name: profileMap.get(c.user_id)?.name || "Student",
+        author_avatar: profileMap.get(c.user_id)?.avatar ?? null,
+      })),
     }));
   };
 
@@ -233,9 +263,7 @@ export default function Community() {
                       <CardContent className="p-4">
                         {/* Author */}
                         <div className="flex items-center gap-3 mb-3">
-                          <div className="h-9 w-9 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                            <User className="h-4 w-4 text-primary" />
-                          </div>
+                          <AuthorAvatar name={post.author_name} avatar={post.author_avatar} />
                           <div className="flex-1">
                             <p className="font-bold text-sm">{post.author_name}</p>
                             <p className="text-[10px] text-muted-foreground">{timeAgo(post.created_at)}</p>
@@ -285,8 +313,8 @@ export default function Community() {
                               <div className="mt-3 border-t pt-3 space-y-2">
                                 {(comments[post.id] || []).map((c) => (
                                   <div key={c.id} className="flex items-start gap-2">
-                                    <div className="h-6 w-6 rounded-full bg-muted flex items-center justify-center shrink-0 mt-0.5">
-                                      <User className="h-3 w-3 text-muted-foreground" />
+                                    <div className="mt-0.5">
+                                      <AuthorAvatar name={c.author_name} avatar={c.author_avatar} size="sm" />
                                     </div>
                                     <div className="bg-muted/50 rounded-xl px-3 py-1.5 flex-1">
                                       <p className="text-xs font-bold">{c.author_name}</p>
