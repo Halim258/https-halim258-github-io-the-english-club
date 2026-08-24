@@ -1102,6 +1102,39 @@ const TABS = [
 
 type TabId = (typeof TABS)[number]["id"];
 
+/* Phonics is an early-reader course: fewer sections, playful labels, bigger type. */
+const PHONICS_TABS: Partial<Record<TabId, { label: string; icon: string; color: string }>> = {
+  vocabulary: { label: "Sounds", icon: "🔤", color: "bg-sky-500" },
+  reading: { label: "Read", icon: "📖", color: "bg-emerald-500" },
+  conversation: { label: "Talk", icon: "💬", color: "bg-amber-500" },
+  activity: { label: "Play", icon: "🎲", color: "bg-fuchsia-500" },
+  exam: { label: "Quiz", icon: "⭐", color: "bg-violet-500" },
+};
+
+function isPhonicsCourse(levelId: unknown) {
+  return typeof levelId === "string" && levelId.startsWith("phonics");
+}
+
+function tabIsVisible(tab: (typeof TABS)[number], lesson: { reading?: unknown; heroImage?: unknown; levelId?: unknown }) {
+  if (isPhonicsCourse(lesson.levelId)) {
+    if (!PHONICS_TABS[tab.id]) return false;
+    if (tab.id === "reading") return Boolean(lesson.reading || lesson.heroImage);
+    return true;
+  }
+  if (tab.id === "reading") {
+    return Boolean(lesson.reading || lesson.heroImage);
+  }
+  if (tab.id === "activity") {
+    // Written research activity — available for Spanish, German, and English lessons.
+    const lid = typeof lesson.levelId === "string" ? lesson.levelId : "";
+    if (!lid) return false;
+    if (lid.startsWith("it-")) return false;
+    return true;
+  }
+  return true;
+}
+
+
 /* ───── Main Lesson Page ───── */
 export default function LessonPage() {
   const { levelId, lessonId } = useParams();
