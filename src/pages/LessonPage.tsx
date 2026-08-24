@@ -657,6 +657,7 @@ function ScrambleCard({ item, onAnswer }: { item: VocabWord; onAnswer?: (correct
     if (next.length !== letters.length) return;
     const ok = next.map((i) => letters[i]).join("").toLowerCase() === target.toLowerCase();
     setStatus(ok ? "correct" : "wrong");
+    playRewardSound(ok);
     onAnswer?.(ok);
   };
 
@@ -738,6 +739,7 @@ function SentenceScrambleCard({ sentence, hint }: { sentence: string; hint?: str
                 if (next.length === shuffled.length) {
                   const ok = next.map((k) => shuffled[k]).join(" ").toLowerCase() === target.toLowerCase();
                   setStatus(ok ? "correct" : "wrong");
+                  playRewardSound(ok);
                 } else setStatus("idle");
               }}
               className="rounded-lg border bg-background px-3 py-2 text-sm font-medium text-foreground transition active:scale-95 disabled:opacity-25"
@@ -780,8 +782,10 @@ function MatchCard({ items }: { items: VocabWord[] }) {
       setMatched((m) => [...m, selectedWord]);
       setSelectedWord(null);
       setWrong(null);
+      playRewardSound(true);
     } else {
       setWrong(meaning);
+      playRewardSound(false);
       setTimeout(() => setWrong(null), 700);
     }
   };

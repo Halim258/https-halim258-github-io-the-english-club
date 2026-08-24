@@ -1,32 +1,40 @@
 import { useEffect, useState } from "react";
 import { Star, Flame, Trophy, XCircle, Sparkles } from "lucide-react";
+import { isSoundEnabled, getSoundVolume } from "@/lib/ui-sounds";
 
-/* Small synth feedback sound — no assets needed */
+/* Small synth feedback sound — no assets needed.
+   Correct = rising major arpeggio, wrong = short descending buzz. */
 export function playRewardSound(correct: boolean) {
   try {
+    if (!isSoundEnabled()) return;
+    const level = (getSoundVolume() / 100) * (correct ? 0.14 : 0.11);
+    if (level <= 0) return;
     const Ctx = window.AudioContext || (window as any).webkitAudioContext;
     if (!Ctx) return;
     const ctx = new Ctx();
-    const notes = correct ? [523.25, 659.25, 783.99] : [311.13, 233.08];
+    if (ctx.state === "suspended") void ctx.resume();
+    const notes = correct ? [523.25, 659.25, 783.99, 1046.5] : [349.23, 261.63, 196.0];
     notes.forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
-      osc.type = correct ? "triangle" : "sine";
+      osc.type = correct ? "triangle" : "sawtooth";
       osc.frequency.value = freq;
-      const start = ctx.currentTime + i * 0.09;
+      const start = ctx.currentTime + i * (correct ? 0.085 : 0.11);
+      const dur = correct ? 0.24 : 0.2;
       gain.gain.setValueAtTime(0.0001, start);
-      gain.gain.exponentialRampToValueAtTime(0.12, start + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.22);
+      gain.gain.exponentialRampToValueAtTime(level, start + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, start + dur);
       osc.connect(gain);
       gain.connect(ctx.destination);
       osc.start(start);
-      osc.stop(start + 0.24);
+      osc.stop(start + dur + 0.02);
     });
-    setTimeout(() => ctx.close(), 900);
+    setTimeout(() => ctx.close(), 1200);
   } catch {
     /* audio not available — silent */
   }
 }
+
 
 export const XP_PER_CORRECT = 10;
 
