@@ -7,6 +7,7 @@ import { useTTS } from "@/hooks/useTTS";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { getDiscussionPrompts, isCommunicationCourse, DiscussionPrompt } from "@/data/discussion-prompts";
 import { getSpeakingQuestions, type SpeakingQuestion } from "@/data/speaking-questions";
+import { getGrammarPoints, getGrammarTrueFalse, type GrammarPoint } from "@/data/grammar-points";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
@@ -249,6 +250,43 @@ function GrammarExampleCard({ example, speak, speaking }: { example: { sentence:
     </div>
   );
 }
+
+/* ───── One of five related grammar points ───── */
+function GrammarPointCard({
+  point,
+  index,
+  total,
+  speak,
+  speaking,
+}: {
+  point: GrammarPoint;
+  index: number;
+  total: number;
+  speak: (t: string) => void;
+  speaking: boolean;
+}) {
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl border-2 border-primary/20 bg-card p-6 shadow-lg">
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground font-sans">
+          Grammar point {index + 1} of {total}
+        </p>
+        <h3 className="mt-2 text-xl font-bold text-foreground">{point.title.replace(/^\d+\.\s*/, "")}</h3>
+        <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-sans">{point.explanation}</p>
+        {point.example && (
+          <div className="mt-4 rounded-xl border border-accent/30 bg-primary/5 p-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary font-sans mb-1.5">Example</p>
+            <div className="flex items-start justify-between gap-3">
+              <p className="text-base font-semibold text-foreground font-sans leading-relaxed">{point.example}</p>
+              <AudioButton text={point.example} speak={speak} speaking={speaking} />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 
 /* ───── MCQ Card ───── */
 function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boolean) => { xp: number; combo: number } | void }) {
@@ -1366,19 +1404,31 @@ export default function LessonPage() {
         ];
       }
       case "grammar": {
-        const exampleCards = lesson.grammar.examples.map((ex, i) => (
-          <GrammarExampleCard key={`ge-${i}`} example={ex} speak={speak} speaking={speaking} />
-        ));
-        const total = lesson.grammarExercises.length;
-        const exerciseCards = lesson.grammarExercises.map((q, i) => (
-          <MCQCard key={`gex-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
-        ));
+        const points = getGrammarPoints(lesson);
+        const trueFalse = getGrammarTrueFalse(lesson);
+        const questions = [...trueFalse, ...lesson.grammarExercises];
+        const total = questions.length;
+        const rearrangeSentences = points
+          .map((p) => p.example)
+          .filter((s) => s && s.trim().split(/\s+/).length >= 3 && s.trim().split(/\s+/).length <= 10)
+          .slice(0, 3);
         return [
-          <GrammarCard key="grammar" lesson={lesson} speak={speak} speaking={speaking} />,
-          ...exampleCards,
-          <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
-          ...exerciseCards,
+          ...points.map((p, i) => (
+            <GrammarPointCard key={`gp-${i}`} point={p} index={i} total={points.length} speak={speak} speaking={speaking} />
+          )),
+          <SectionTitleCard key="ex-title" title="Grammar Questions" icon="✏️" note="Decide if each sentence is correct or wrong, then choose the correct word." />,
+          ...questions.map((q, i) => (
+            <MCQCard key={`gex-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
+          )),
           <ScoreSummaryCard key="score" scoreRef={grammarScore} total={total} onRetry={handleRetry(grammarScore)} />,
+          ...(rearrangeSentences.length > 0
+            ? [
+                <SectionTitleCard key="gs-title" title="Rearrange to Make a Sentence" icon="🧩" note="Tap the words in the correct order." />,
+                ...rearrangeSentences.map((s, i) => (
+                  <SentenceScrambleCard key={`gs-${i}-${retryCount}`} sentence={s} />
+                )),
+              ]
+            : []),
         ];
       }
       case "speaking": {
