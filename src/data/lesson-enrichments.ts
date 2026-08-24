@@ -245,6 +245,19 @@ function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildR
   };
 }
 
+/** Grammar must always show at least one example sentence. */
+function ensureGrammarExamples(lesson: LessonData) {
+  const g = lesson.grammar;
+  if (!g) return g;
+  if (g.examples && g.examples.length > 0) return g;
+  const fallback = (lesson.vocabulary ?? [])
+    .filter((v) => v.example && v.example.trim())
+    .slice(0, 3)
+    .map((v) => ({ sentence: v.example as string, note: `Uses "${v.word}"` }));
+  if (fallback.length === 0) return g;
+  return { ...g, examples: fallback };
+}
+
 export function enrichLesson(lesson: LessonData): LessonData {
   const lang = detectLang(lesson.levelId);
   const s = L[lang];
@@ -252,6 +265,7 @@ export function enrichLesson(lesson: LessonData): LessonData {
   const reading = lesson.reading ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
   return {
     ...lesson,
+    grammar: ensureGrammarExamples(lesson) ?? lesson.grammar,
     heroImage: lesson.heroImage ?? heroImageFor(lesson),
     reading,
     listening: lesson.listening ?? buildListening(lesson, lang),
