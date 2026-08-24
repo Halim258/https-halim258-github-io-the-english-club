@@ -377,10 +377,15 @@ function augmentReading(lesson: LessonData, reading?: LessonData["reading"]) {
   if (!reading) return reading;
   const seed = seedFor(lesson);
   const sentences = reading.text
-    .split(/(?<=[.!?])\s+/)
+    .split(/(?<=[.!?])\s+|\n+/)
     .map((s2) => s2.trim())
-    .filter((s2) => s2.split(/\s+/).length >= 4)
+    .filter((s2) => {
+      const words = s2.split(/\s+/).length;
+      // Skip run-on / instruction-style blocks: questions must stay short and readable.
+      return words >= 4 && words <= 14 && s2.length <= 110 && !s2.includes("→") && !s2.includes("/");
+    })
     .slice(0, 6);
+
   const vocab = lesson.vocabulary ?? [];
 
   const extra: MCQItem[] = [];
