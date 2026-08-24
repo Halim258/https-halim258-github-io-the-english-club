@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import StudyReminder from "@/components/StudyReminder";
 import NotificationBell from "@/components/NotificationBell";
+import SoundToggle from "@/components/SoundToggle";
+
 import { useAuth } from "@/hooks/useAuth";
 import { useTTS } from "@/hooks/useTTS";
 import { useUnfinishedAudiobook } from "@/hooks/useUnfinishedAudiobook";
