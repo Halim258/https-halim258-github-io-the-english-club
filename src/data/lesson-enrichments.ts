@@ -245,17 +245,84 @@ function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildR
   };
 }
 
-/** Grammar must always show at least one example sentence. */
+/** Grammar must always show example sentences — top up to at least 4. */
+const MIN_GRAMMAR_EXAMPLES = 4;
+
 function ensureGrammarExamples(lesson: LessonData) {
   const g = lesson.grammar;
   if (!g) return g;
-  if (g.examples && g.examples.length > 0) return g;
-  const fallback = (lesson.vocabulary ?? [])
-    .filter((v) => v.example && v.example.trim())
-    .slice(0, 3)
-    .map((v) => ({ sentence: v.example as string, note: `Uses "${v.word}"` }));
-  if (fallback.length === 0) return g;
-  return { ...g, examples: fallback };
+  const existing = g.examples ?? [];
+  if (existing.length >= MIN_GRAMMAR_EXAMPLES) return g;
+  const used = new Set(existing.map((e) => e.sentence.trim().toLowerCase()));
+  const extra = (lesson.vocabulary ?? [])
+    .filter((v) => v.example && v.example.trim() && !used.has(v.example.trim().toLowerCase()))
+    .map((v) => ({ sentence: v.example as string, note: `Uses "${v.word}"` }))
+    .slice(0, MIN_GRAMMAR_EXAMPLES - existing.length);
+  if (extra.length === 0) return g;
+  return { ...g, examples: [...existing, ...extra] };
+}
+
+const longestWord = (sentence: string) =>
+  sentence
+    .split(/\s+/)
+    .map((w) => w.replace(/[.,!?¿¡;:"'()]/g, ""))
+    .filter((w) => w.length > 3)
+    .sort((a, b) => b.length - a.length)[0];
+
+/** Generate extra MCQs so every section has more practice. */
+function topUpExercises(lesson: LessonData) {
+  const seed = seedFor(lesson);
+  const vocab = lesson.vocabulary ?? [];
+  const words = vocab.map((v) => v.word);
+
+  // Vocabulary: fill-in-the-blank from each word's own example sentence.
+  const vocabExtra: MCQItem[] = vocab
+    .filter((v) => v.example && v.example.toLowerCase().includes(v.word.toLowerCase()))
+    .map((v, idx) => {
+      const blanked = v.example.replace(new RegExp(v.word, "i"), "______");
+      const distractors = shuffleDeterministic(
+        words.filter((w) => w.toLowerCase() !== v.word.toLowerCase()),
+        seed + idx + 11,
+      ).slice(0, 3);
+      const options = shuffleDeterministic([v.word, ...distractors], seed + idx + 17);
+      return {
+        question: `Complete with "${v.word}"? — ${blanked}`,
+        options,
+        correct: options.indexOf(v.word),
+      };
+    })
+    .slice(0, 6);
+
+  // Grammar: blank a key word inside each grammar example sentence.
+  const grammarExtra: MCQItem[] = (lesson.grammar?.examples ?? [])
+    .map((ex, idx) => {
+      const target = longestWord(ex.sentence);
+      if (!target) return undefined;
+      const pool = [
+        ...words,
+        ...(lesson.grammar?.examples ?? []).map((e) => longestWord(e.sentence)).filter(Boolean),
+      ].filter((w): w is string => Boolean(w) && w.toLowerCase() !== target.toLowerCase());
+      const distractors = shuffleDeterministic(Array.from(new Set(pool)), seed + idx + 23).slice(0, 3);
+      if (distractors.length < 2) return undefined;
+      const options = shuffleDeterministic([target, ...distractors], seed + idx + 29);
+      return {
+        question: `Complete the sentence: ${ex.sentence.replace(new RegExp(target, "i"), "______")}`,
+        options,
+        correct: options.indexOf(target),
+      };
+    })
+    .filter((q): q is MCQItem => Boolean(q))
+    .slice(0, 5);
+
+  const dedupe = (base: MCQItem[] = [], extra: MCQItem[]) => {
+    const seen = new Set(base.map((q) => q.question.trim().toLowerCase()));
+    return [...base, ...extra.filter((q) => !seen.has(q.question.trim().toLowerCase()))];
+  };
+
+  return {
+    vocabExercises: dedupe(lesson.vocabExercises, vocabExtra),
+    grammarExercises: dedupe(lesson.grammarExercises, grammarExtra),
+  };
 }
 
 export function enrichLesson(lesson: LessonData): LessonData {
@@ -263,9 +330,13 @@ export function enrichLesson(lesson: LessonData): LessonData {
   const s = L[lang];
   const level = cefrOf(lesson.levelId);
   const reading = lesson.reading ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
+  const grammar = ensureGrammarExamples(lesson) ?? lesson.grammar;
+  const { vocabExercises, grammarExercises } = topUpExercises({ ...lesson, grammar });
   return {
     ...lesson,
-    grammar: ensureGrammarExamples(lesson) ?? lesson.grammar,
+    grammar,
+    vocabExercises,
+    grammarExercises,
     heroImage: lesson.heroImage ?? heroImageFor(lesson),
     reading,
     listening: lesson.listening ?? buildListening(lesson, lang),
