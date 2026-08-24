@@ -22,6 +22,8 @@ const PracticeSpeaking = lazy(() => import("./pages/PracticeSpeaking"));
 const Teachers = lazy(() => import("./pages/Teachers"));
 const Groups = lazy(() => import("./pages/Groups"));
 const PlacementTest = lazy(() => import("./pages/PlacementTest"));
+const PhonicsDiagnostic = lazy(() => import("./pages/PhonicsDiagnostic"));
+
 const StudentDashboard = lazy(() => import("./pages/StudentDashboard"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AdminStudentProgress = lazy(() => import("./pages/AdminStudentProgress"));
