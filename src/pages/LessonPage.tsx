@@ -131,7 +131,7 @@ function DifficultyBadge({ lessonNumber }: { lessonNumber: number }) {
 }
 
 /* ───── Flip Card for Vocabulary ───── */
-function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; showArabic: boolean; speak: (t: string) => void; speaking: boolean }) {
+function VocabCard({ item, showArabic, speak, speaking, onFlip }: { item: VocabWord; showArabic: boolean; speak: (t: string) => void; speaking: boolean; onFlip?: (word: string) => void }) {
   const [flipped, setFlipped] = useState(false);
 
   return (
@@ -139,7 +139,10 @@ function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; sho
       <div
         className="relative w-full max-w-xs aspect-[4/5] max-h-[min(70vh,420px)] cursor-pointer group"
         style={{ perspective: "800px" }}
-        onClick={() => setFlipped(!flipped)}
+        onClick={() => {
+          setFlipped(!flipped);
+          if (!flipped) onFlip?.(item.word);
+        }}
       >
         <div
           className="absolute inset-0 transition-transform duration-600 ease-out"
@@ -860,6 +863,10 @@ export default function LessonPage() {
   const [showArabic, setShowArabic] = useState(false);
   const [lessonDone, setLessonDone] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
+  const [flippedWords, setFlippedWords] = useState<string[]>([]);
+  const markFlipped = useCallback((word: string) => {
+    setFlippedWords((prev) => (prev.includes(word) ? prev : [...prev, word]));
+  }, []);
 
   // Auto-save + resume slide position for this lesson.
   const slideKey = lesson ? `${lesson.levelId}-${lesson.lessonNumber}` : null;
@@ -946,19 +953,27 @@ export default function LessonPage() {
     switch (activeTab) {
       case "vocabulary": {
         const vocabCards = lesson.vocabulary.map((w, i) => (
-          <VocabCard key={`v-${i}`} item={w} showArabic={showArabic} speak={speak} speaking={speaking} />
+          <VocabCard key={`v-${i}`} item={w} showArabic={showArabic} speak={speak} speaking={speaking} onFlip={markFlipped} />
         ));
-        const total = lesson.vocabExercises.length;
-        const exerciseCards = lesson.vocabExercises.map((q, i) => (
-          <MCQCard key={`ve-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
-        ));
-        return [
+        // Only show exercises for the words the student actually flipped.
+        const unlocked = lesson.vocabExercises.filter((q) =>
+          flippedWords.some((w) => q.question.toLowerCase().includes(w.toLowerCase()))
+        );
+        const total = unlocked.length;
+        const cards: React.ReactNode[] = [
           <SectionTitleCard key="title" title="Vocabulary" icon="📚" />,
           ...vocabCards,
-          <SectionTitleCard key="ex-title" title={`Exercises (${total})`} icon="✏️" />,
-          ...exerciseCards,
-          <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} onRetry={handleRetry(vocabScore)} />,
         ];
+        if (total > 0) {
+          cards.push(
+            <SectionTitleCard key="ex-title" title={`Exercises (${total})`} icon="✏️" />,
+            ...unlocked.map((q, i) => (
+              <MCQCard key={`ve-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
+            )),
+            <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} onRetry={handleRetry(vocabScore)} />
+          );
+        }
+        return cards;
       }
       case "reading": {
         const cards: React.ReactNode[] = [
