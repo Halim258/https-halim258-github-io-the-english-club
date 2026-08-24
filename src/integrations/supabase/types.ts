@@ -991,6 +991,7 @@ export type Database = {
       school_newcomers: {
         Row: {
           access_method: string | null
+          client_email: string | null
           client_name: string
           client_number: string | null
           created_at: string | null
@@ -1001,6 +1002,7 @@ export type Database = {
         }
         Insert: {
           access_method?: string | null
+          client_email?: string | null
           client_name: string
           client_number?: string | null
           created_at?: string | null
@@ -1011,6 +1013,7 @@ export type Database = {
         }
         Update: {
           access_method?: string | null
+          client_email?: string | null
           client_name?: string
           client_number?: string | null
           created_at?: string | null

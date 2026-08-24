@@ -14,6 +14,7 @@ interface Newcomer {
   id: string;
   client_name: string;
   client_number: string | null;
+  client_email: string | null;
   access_method: string | null;
   the_date: string | null;
   reserved: boolean | null;
@@ -24,7 +25,7 @@ interface Props {
   onRefresh: () => void;
 }
 
-const emptyForm = { client_name: "", client_number: "", access_method: "", reserved: false };
+const emptyForm = { client_name: "", client_number: "", client_email: "", access_method: "", reserved: false };
 
 export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
   const [search, setSearch] = useState("");
@@ -44,7 +45,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
     if (filter === "pending") list = list.filter(n => !n.reserved);
     if (search) {
       const q = search.toLowerCase();
-      list = list.filter(n => n.client_name.toLowerCase().includes(q) || (n.client_number || "").includes(q));
+      list = list.filter(n => n.client_name.toLowerCase().includes(q) || (n.client_number || "").includes(q) || (n.client_email || "").toLowerCase().includes(q));
     }
     return list;
   }, [newcomers, search, filter]);
@@ -58,6 +59,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
     if (!form.client_name) { toast({ title: "Name is required", variant: "destructive" }); return; }
     const { error } = await supabase.from("school_newcomers").insert({
       client_name: form.client_name, client_number: form.client_number || null,
+      client_email: form.client_email || null,
       access_method: form.access_method || null, reserved: form.reserved, the_date: new Date().toISOString(),
     });
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -66,7 +68,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
 
   const openEdit = (n: Newcomer) => {
     setEditId(n.id);
-    setForm({ client_name: n.client_name, client_number: n.client_number || "", access_method: n.access_method || "", reserved: n.reserved || false });
+    setForm({ client_name: n.client_name, client_number: n.client_number || "", client_email: n.client_email || "", access_method: n.access_method || "", reserved: n.reserved || false });
     setEditOpen(true);
   };
 
@@ -74,6 +76,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
     if (!editId) return;
     const { error } = await supabase.from("school_newcomers").update({
       client_name: form.client_name, client_number: form.client_number || null,
+      client_email: form.client_email || null,
       access_method: form.access_method || null, reserved: form.reserved,
     }).eq("id", editId);
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
@@ -93,6 +96,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
         <p className="text-xs font-bold uppercase tracking-wider text-primary flex items-center gap-1">👤 Lead Info</p>
         <div><Label>Full Name *</Label><Input value={form.client_name} onChange={e => setForm({...form, client_name: e.target.value})} placeholder="Client full name" autoFocus /></div>
         <div><Label>Phone Number</Label><Input value={form.client_number} onChange={e => setForm({...form, client_number: e.target.value})} placeholder="01xxxxxxxxx" /></div>
+        <div><Label>Email <span className="text-muted-foreground font-normal">(optional)</span></Label><Input type="email" value={form.client_email} onChange={e => setForm({...form, client_email: e.target.value})} placeholder="name@example.com" /></div>
       </div>
 
       {/* Source & Status */}
@@ -159,12 +163,14 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
             mappings={[
               { csvHeader: "client_name", dbField: "client_name", required: true },
               { csvHeader: "client_number", dbField: "client_number" },
+              { csvHeader: "client_email", dbField: "client_email" },
               { csvHeader: "access_method", dbField: "access_method" },
               { csvHeader: "reserved", dbField: "reserved" },
             ]}
             transformRow={(row) => ({
               client_name: row.client_name,
               client_number: row.client_number || null,
+              client_email: row.client_email || null,
               access_method: row.access_method || null,
               reserved: row.reserved?.toLowerCase() === "true" || row.reserved === "1",
               the_date: new Date().toISOString(),
@@ -194,7 +200,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b bg-muted/50 text-xs font-semibold text-muted-foreground uppercase">
-              <th className="p-3">Name</th><th className="p-3">Phone</th><th className="p-3">Source</th><th className="p-3">Date</th><th className="p-3">Status</th><th className="p-3 text-center">Actions</th>
+              <th className="p-3">Name</th><th className="p-3">Phone</th><th className="p-3">Email</th><th className="p-3">Source</th><th className="p-3">Date</th><th className="p-3">Status</th><th className="p-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -202,6 +208,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
               <tr key={n.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedNewcomer(n)}>
                 <td className="p-3 font-medium text-primary hover:underline">{n.client_name}</td>
                 <td className="p-3 font-mono text-xs">{n.client_number || "—"}</td>
+                <td className="p-3 text-xs">{n.client_email || "—"}</td>
                 <td className="p-3 text-xs">{n.access_method || "—"}</td>
                 <td className="p-3 text-xs">{n.the_date ? new Date(n.the_date).toLocaleDateString("en-GB") : "—"}</td>
                 <td className="p-3">
@@ -245,6 +252,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
         fields={selectedNewcomer ? [
           { label: "Name", value: selectedNewcomer.client_name },
           { label: "Phone", value: selectedNewcomer.client_number, type: "phone" as const },
+          { label: "Email", value: selectedNewcomer.client_email, type: "email" as const },
           { label: "Source", value: selectedNewcomer.access_method },
           { label: "Date", value: selectedNewcomer.the_date, type: "date" as const },
           { label: "Status", value: selectedNewcomer.reserved ? "Enrolled" : "Pending", type: "badge" as const, badgeColor: selectedNewcomer.reserved ? "bg-emerald-500/10 text-emerald-700" : "bg-amber-500/10 text-amber-700" },

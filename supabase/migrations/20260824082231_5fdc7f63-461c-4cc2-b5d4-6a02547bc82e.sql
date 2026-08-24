@@ -1,0 +1,1 @@
+ALTER TABLE public.school_newcomers ADD COLUMN IF NOT EXISTS client_email text;
