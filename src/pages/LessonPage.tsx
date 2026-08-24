@@ -161,7 +161,7 @@ function VocabCard({ item, showArabic, speak, speaking, onFlip }: { item: VocabW
             <div className="mt-3">
               <AudioButton text={item.word} speak={speak} speaking={speaking} />
             </div>
-            <p className="mt-2 text-xs text-muted-foreground font-sans">Tap to flip</p>
+            <p className="mt-2 text-xs text-muted-foreground font-sans">Tap to flip — flipping unlocks its exercise</p>
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
               <div className={`h-1.5 w-6 rounded-full transition-colors ${!flipped ? "bg-primary" : "bg-muted"}`} />
               <div className={`h-1.5 w-6 rounded-full transition-colors ${flipped ? "bg-primary" : "bg-muted"}`} />
