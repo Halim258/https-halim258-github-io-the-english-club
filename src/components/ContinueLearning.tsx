@@ -9,6 +9,8 @@ import { lessons as allLessons } from "@/data/lessons";
 import CourseProgress from "@/components/CourseProgress";
 import { useProgressEvents } from "@/lib/progress-events";
 import { getLevelMinutes, useStudyTimeVersion } from "@/lib/study-time";
+import { getLessonPosition, getLastLessonKey } from "@/lib/lesson-position";
+import { hydrateSlideProgressFromCloud, getSlideProgress } from "@/hooks/useSlideProgress";
 
 export default function ContinueLearning() {
   const { user } = useAuth();
