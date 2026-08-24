@@ -1403,19 +1403,31 @@ export default function LessonPage() {
         ];
       }
       case "grammar": {
-        const exampleCards = lesson.grammar.examples.map((ex, i) => (
-          <GrammarExampleCard key={`ge-${i}`} example={ex} speak={speak} speaking={speaking} />
-        ));
-        const total = lesson.grammarExercises.length;
-        const exerciseCards = lesson.grammarExercises.map((q, i) => (
-          <MCQCard key={`gex-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
-        ));
+        const points = getGrammarPoints(lesson);
+        const trueFalse = getGrammarTrueFalse(lesson);
+        const questions = [...trueFalse, ...lesson.grammarExercises];
+        const total = questions.length;
+        const rearrangeSentences = points
+          .map((p) => p.example)
+          .filter((s) => s && s.trim().split(/\s+/).length >= 3 && s.trim().split(/\s+/).length <= 10)
+          .slice(0, 3);
         return [
-          <GrammarCard key="grammar" lesson={lesson} speak={speak} speaking={speaking} />,
-          ...exampleCards,
-          <SectionTitleCard key="ex-title" title="Exercises" icon="✏️" />,
-          ...exerciseCards,
+          ...points.map((p, i) => (
+            <GrammarPointCard key={`gp-${i}`} point={p} index={i} total={points.length} speak={speak} speaking={speaking} />
+          )),
+          <SectionTitleCard key="ex-title" title="Grammar Questions" icon="✏️" note="Decide if each sentence is correct or wrong, then choose the correct word." />,
+          ...questions.map((q, i) => (
+            <MCQCard key={`gex-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
+          )),
           <ScoreSummaryCard key="score" scoreRef={grammarScore} total={total} onRetry={handleRetry(grammarScore)} />,
+          ...(rearrangeSentences.length > 0
+            ? [
+                <SectionTitleCard key="gs-title" title="Rearrange to Make a Sentence" icon="🧩" note="Tap the words in the correct order." />,
+                ...rearrangeSentences.map((s, i) => (
+                  <SentenceScrambleCard key={`gs-${i}-${retryCount}`} sentence={s} />
+                )),
+              ]
+            : []),
         ];
       }
       case "speaking": {
