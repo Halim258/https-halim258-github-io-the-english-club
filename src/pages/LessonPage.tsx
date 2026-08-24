@@ -1091,6 +1091,7 @@ const TABS = [
   { id: "speaking", label: "Speaking", icon: "🗣️" },
   { id: "exam", label: "Exam", icon: "📝" },
   { id: "homework", label: "Homework", icon: "📋" },
+  { id: "reflect", label: "What I Learned", icon: "✍️" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
