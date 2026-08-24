@@ -863,6 +863,10 @@ export default function LessonPage() {
   const [showArabic, setShowArabic] = useState(false);
   const [lessonDone, setLessonDone] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
+  const [flippedWords, setFlippedWords] = useState<string[]>([]);
+  const markFlipped = useCallback((word: string) => {
+    setFlippedWords((prev) => (prev.includes(word) ? prev : [...prev, word]));
+  }, []);
 
   // Auto-save + resume slide position for this lesson.
   const slideKey = lesson ? `${lesson.levelId}-${lesson.lessonNumber}` : null;
