@@ -1483,6 +1483,25 @@ export type Database = {
         Args: { _group_id: string }
         Returns: string
       }
+      get_student_activity_feed: {
+        Args: { _limit?: number; _user_id: string }
+        Returns: {
+          amount: number
+          detail: string
+          happened_at: string
+          kind: string
+          title: string
+        }[]
+      }
+      get_student_slide_progress: {
+        Args: { _user_id: string }
+        Returns: {
+          lesson_key: string
+          reached: number
+          total: number
+          updated_at: string
+        }[]
+      }
       get_teacher_group_enrollments: {
         Args: never
         Returns: {
