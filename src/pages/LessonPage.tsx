@@ -131,7 +131,7 @@ function DifficultyBadge({ lessonNumber }: { lessonNumber: number }) {
 }
 
 /* ───── Flip Card for Vocabulary ───── */
-function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; showArabic: boolean; speak: (t: string) => void; speaking: boolean }) {
+function VocabCard({ item, showArabic, speak, speaking, onFlip }: { item: VocabWord; showArabic: boolean; speak: (t: string) => void; speaking: boolean; onFlip?: (word: string) => void }) {
   const [flipped, setFlipped] = useState(false);
 
   return (
@@ -139,7 +139,10 @@ function VocabCard({ item, showArabic, speak, speaking }: { item: VocabWord; sho
       <div
         className="relative w-full max-w-xs aspect-[4/5] max-h-[min(70vh,420px)] cursor-pointer group"
         style={{ perspective: "800px" }}
-        onClick={() => setFlipped(!flipped)}
+        onClick={() => {
+          setFlipped(!flipped);
+          if (!flipped) onFlip?.(item.word);
+        }}
       >
         <div
           className="absolute inset-0 transition-transform duration-600 ease-out"
