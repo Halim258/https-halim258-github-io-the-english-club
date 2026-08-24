@@ -442,3 +442,17 @@
     display: none;
   }
 }
+/* Early-reader (phonics) type scale — larger, friendlier text inside lesson cards */
+@layer utilities {
+  .kid-type {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+  .kid-type .text-xs { font-size: 0.875rem; }
+  .kid-type .text-sm { font-size: 1rem; }
+  .kid-type .text-base { font-size: 1.125rem; }
+  .kid-type .text-lg { font-size: 1.375rem; }
+  .kid-type .text-xl { font-size: 1.625rem; }
+  .kid-type .text-2xl { font-size: 2rem; }
+  .kid-type button { letter-spacing: 0.01em; }
+}
