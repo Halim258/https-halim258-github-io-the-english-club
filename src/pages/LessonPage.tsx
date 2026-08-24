@@ -1272,10 +1272,15 @@ export default function LessonPage() {
         const cards: React.ReactNode[] = [
           <SectionTitleCard
             key="title"
-            title="Vocabulary"
-            icon="📚"
-            note="Note: exercises only appear for the cards you flip. If you flip none, there are no questions."
+            title={isPhonicsCourse(lesson.levelId) ? "Sounds & Words" : "Vocabulary"}
+            icon={isPhonicsCourse(lesson.levelId) ? "🔤" : "📚"}
+            note={
+              isPhonicsCourse(lesson.levelId)
+                ? "Tap each card to hear the sound. Flip a card to unlock its practice question."
+                : "Note: exercises only appear for the cards you flip. If you flip none, there are no questions."
+            }
           />,
+
           ...vocabCards,
         ];
         if (total > 0) {
