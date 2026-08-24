@@ -208,11 +208,24 @@ function DialogueCard({ line, index, speak, speaking }: { line: DialogueLine; in
 
 /* ───── Grammar Card ───── */
 function GrammarCard({ lesson, speak, speaking }: { lesson: typeof lessons[string]; speak: (t: string) => void; speaking: boolean }) {
+  const example =
+    lesson.grammar.examples?.[0]?.sentence ||
+    lesson.vocabulary?.find((v) => v.example)?.example ||
+    "";
   return (
     <div className="flex flex-1 items-center justify-center px-4">
       <div className="w-full max-w-md rounded-2xl border-2 border-primary/20 bg-card p-6 shadow-lg">
         <h3 className="text-xl font-bold text-foreground mb-3">{lesson.grammar.title}</h3>
         <p className="text-sm text-muted-foreground leading-relaxed font-sans">{lesson.grammar.explanation}</p>
+        {example && (
+          <div className="mt-4 rounded-xl border border-accent/30 bg-primary/5 p-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary font-sans mb-1.5">Example</p>
+            <div className="flex items-start justify-between gap-3">
+              <p className="text-base font-semibold text-foreground font-sans leading-relaxed">{example}</p>
+              <AudioButton text={example} speak={speak} speaking={speaking} />
+            </div>
+          </div>
+        )}
         <div className="mt-4 flex justify-center">
           <AudioButton text={lesson.grammar.explanation} speak={speak} speaking={speaking} />
         </div>
