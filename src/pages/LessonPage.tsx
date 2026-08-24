@@ -663,6 +663,143 @@ function ScrambleCard({ item, onAnswer }: { item: VocabWord; onAnswer?: (correct
   );
 }
 
+/* ───── Sentence rearrange card ───── */
+function SentenceScrambleCard({ sentence, hint }: { sentence: string; hint?: string }) {
+  const target = sentence.trim().replace(/\s+/g, " ");
+  const tokens = useMemo(() => target.split(" "), [target]);
+  const shuffled = useMemo(() => {
+    const arr = [...tokens];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = (i * 7 + 3) % (i + 1);
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr.join(" ") === target ? [...arr].reverse() : arr;
+  }, [tokens, target]);
+
+  const [picked, setPicked] = useState<number[]>([]);
+  const [status, setStatus] = useState<"idle" | "correct" | "wrong">("idle");
+  const guess = picked.map((i) => shuffled[i]).join(" ");
+
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl border bg-card p-5 shadow-sm">
+        <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-sans">Rearrange to make a sentence</p>
+        {hint && <p className="mt-2 text-xs text-muted-foreground font-sans">Hint: {hint}</p>}
+        <div className="mt-4 min-h-[56px] rounded-xl border-2 border-dashed border-primary/30 bg-muted/40 p-3 text-center text-base font-medium text-foreground">
+          {guess || "…"}
+        </div>
+        <div className="mt-4 flex flex-wrap justify-center gap-2">
+          {shuffled.map((t, i) => (
+            <button
+              key={`${t}-${i}`}
+              disabled={picked.includes(i) || status === "correct"}
+              onClick={() => {
+                const next = [...picked, i];
+                setPicked(next);
+                if (next.length === shuffled.length) {
+                  const ok = next.map((k) => shuffled[k]).join(" ").toLowerCase() === target.toLowerCase();
+                  setStatus(ok ? "correct" : "wrong");
+                } else setStatus("idle");
+              }}
+              className="rounded-lg border bg-background px-3 py-2 text-sm font-medium text-foreground transition active:scale-95 disabled:opacity-25"
+            >
+              {t}
+            </button>
+          ))}
+        </div>
+        <div className="mt-4 flex items-center justify-between gap-3">
+          <button onClick={() => { setPicked([]); setStatus("idle"); }} className="text-xs font-sans text-muted-foreground underline">
+            Reset
+          </button>
+          {status === "correct" && <span className="text-sm font-semibold text-green-600">✅ Correct!</span>}
+          {status === "wrong" && <span className="text-sm font-semibold text-destructive">Not yet — try again</span>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ───── Match word ↔ meaning card ───── */
+function MatchCard({ items }: { items: VocabWord[] }) {
+  const meanings = useMemo(() => {
+    const arr = items.map((v) => v.meaning);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = (i * 5 + 2) % (i + 1);
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, [items]);
+
+  const [selectedWord, setSelectedWord] = useState<string | null>(null);
+  const [matched, setMatched] = useState<string[]>([]);
+  const [wrong, setWrong] = useState<string | null>(null);
+
+  const pick = (meaning: string) => {
+    if (!selectedWord) return;
+    const item = items.find((v) => v.word === selectedWord);
+    if (item && item.meaning === meaning) {
+      setMatched((m) => [...m, selectedWord]);
+      setSelectedWord(null);
+      setWrong(null);
+    } else {
+      setWrong(meaning);
+      setTimeout(() => setWrong(null), 700);
+    }
+  };
+
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl border bg-card p-5 shadow-sm">
+        <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-sans">Match the pairs</p>
+        <div className="mt-4 grid grid-cols-2 gap-3">
+          <div className="space-y-2">
+            {items.map((v) => (
+              <button
+                key={v.word}
+                disabled={matched.includes(v.word)}
+                onClick={() => setSelectedWord(v.word)}
+                className={`w-full rounded-lg border px-2 py-2 text-sm font-semibold transition ${
+                  matched.includes(v.word)
+                    ? "border-green-500/50 bg-green-500/10 text-green-600"
+                    : selectedWord === v.word
+                      ? "border-primary bg-primary/10 text-foreground"
+                      : "bg-background text-foreground"
+                }`}
+              >
+                {v.word}
+              </button>
+            ))}
+          </div>
+          <div className="space-y-2">
+            {meanings.map((m) => {
+              const done = items.some((v) => v.meaning === m && matched.includes(v.word));
+              return (
+                <button
+                  key={m}
+                  disabled={done}
+                  onClick={() => pick(m)}
+                  className={`w-full rounded-lg border px-2 py-2 text-xs font-sans transition ${
+                    done
+                      ? "border-green-500/50 bg-green-500/10 text-green-600"
+                      : wrong === m
+                        ? "border-destructive bg-destructive/10 text-destructive"
+                        : "bg-background text-foreground"
+                  }`}
+                >
+                  {m}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+        <p className="mt-4 text-center text-xs text-muted-foreground font-sans">
+          {matched.length === items.length ? "✅ All matched!" : "Tap a word, then tap its meaning."}
+        </p>
+      </div>
+    </div>
+  );
+}
+
 
 /* ───── Hero image card ───── */
 function HeroImageCard({ src, title }: { src: string; title: string }) {
