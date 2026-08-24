@@ -995,9 +995,13 @@ export type Database = {
           client_name: string
           client_number: string | null
           created_at: string | null
+          follow_up_at: string | null
           id: string
+          interest: string | null
           legacy_id: number | null
+          notes: string | null
           reserved: boolean | null
+          status: string
           the_date: string | null
         }
         Insert: {
@@ -1006,9 +1010,13 @@ export type Database = {
           client_name: string
           client_number?: string | null
           created_at?: string | null
+          follow_up_at?: string | null
           id?: string
+          interest?: string | null
           legacy_id?: number | null
+          notes?: string | null
           reserved?: boolean | null
+          status?: string
           the_date?: string | null
         }
         Update: {
@@ -1017,9 +1025,13 @@ export type Database = {
           client_name?: string
           client_number?: string | null
           created_at?: string | null
+          follow_up_at?: string | null
           id?: string
+          interest?: string | null
           legacy_id?: number | null
+          notes?: string | null
           reserved?: boolean | null
+          status?: string
           the_date?: string | null
         }
         Relationships: []
