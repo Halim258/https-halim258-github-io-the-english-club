@@ -1733,10 +1733,11 @@ export default function LessonPage() {
 
       {/* Card area — swipe enabled */}
       <div
-        className="flex flex-1 flex-col min-h-0"
+        className={`flex flex-1 flex-col min-h-0 ${isPhonics ? "kid-type" : ""}`}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
+
         {cards[cardIndex]}
       </div>
 
