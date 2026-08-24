@@ -1114,13 +1114,13 @@ export default function Courses() {
           <FadeInUp>
             <div className="flex items-center justify-center gap-2 mb-2">
               <BookOpen className="h-4 w-4 text-primary" />
-              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Cambridge-Aligned Curriculum</p>
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">English Course · Cambridge-Aligned Curriculum</p>
             </div>
             <h2 className="text-center text-2xl md:text-3xl font-bold font-display mb-3">
-              Choose Your Level
+              English Course — Choose Your Level
             </h2>
             <p className="text-center text-muted-foreground max-w-lg mx-auto mb-10">
-              A1 to C2 — each level has 20 interactive lessons aligned with CEFR standards.
+              English A1 to C2 — each level has 20 interactive lessons aligned with CEFR standards.
             </p>
           </FadeInUp>
 
