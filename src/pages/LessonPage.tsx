@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
 import { AnswerReward, XPBadge, playRewardSound, XP_PER_CORRECT } from "@/components/lesson/AnswerReward";
+import ReflectionCard from "@/components/lesson/ReflectionCard";
 import { toast } from "@/hooks/use-toast";
 import {
   setSlideProgress,
