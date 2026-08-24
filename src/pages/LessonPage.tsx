@@ -380,47 +380,87 @@ function ScoreSummaryCard({ scoreRef, total, onRetry }: { scoreRef: React.Mutabl
   );
 }
 
-/* ───── Speaking Card with TTS ───── */
-function SpeakingCard({ lesson, speak, speaking }: { lesson: typeof lessons[string]; speak: (t: string) => void; speaking: boolean }) {
-  const practiceTexts = lesson.dialogue.map(l => l.text);
-  const [currentIdx, setCurrentIdx] = useState(0);
+/* ───── Speaking question card (topic-related questions only) ───── */
+function SpeakingQuestionCard({
+  item,
+  index,
+  total,
+  storageKey,
+  speak,
+  speaking,
+}: {
+  item: SpeakingQuestion;
+  index: number;
+  total: number;
+  storageKey: string;
+  speak: (t: string) => void;
+  speaking: boolean;
+}) {
+  const [note, setNote] = useState<string>(() => {
+    try {
+      return localStorage.getItem(storageKey) ?? "";
+    } catch {
+      return "";
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem(storageKey, note);
+    } catch {
+      /* ignore */
+    }
+  }, [storageKey, note]);
 
   return (
-    <div className="flex flex-1 items-center justify-center px-4">
-      <div className="w-full max-w-sm rounded-2xl border-2 border-primary/20 bg-card p-8 shadow-lg text-center">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 mx-auto mb-4">
-          <Volume2 className="h-7 w-7 text-primary" />
+    <div className="flex flex-1 items-center justify-center px-4 py-4">
+      <div className="w-full max-w-lg overflow-hidden rounded-3xl border border-border bg-card shadow-xl">
+        <div className="flex items-center justify-between gap-3 bg-gradient-to-br from-primary/90 to-primary/70 px-6 py-4">
+          <div className="flex items-center gap-3">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-primary-foreground/20 text-xl">
+              🗣️
+            </span>
+            <div>
+              <h3 className="text-base font-bold text-primary-foreground font-sans">Speaking Practice</h3>
+              <p className="text-xs text-primary-foreground/80 font-sans">
+                Question {index + 1} of {total}
+              </p>
+            </div>
+          </div>
+          <AudioButton text={item.question} speak={speak} speaking={speaking} />
         </div>
-        <h3 className="text-xl font-bold">Speaking Practice</h3>
-        <p className="mt-2 text-sm text-muted-foreground font-sans mb-4">
-          Listen and repeat after the audio.
-        </p>
-        <div className="rounded-xl bg-muted/50 p-4 mb-4">
-          <p className="text-base font-medium font-sans">{practiceTexts[currentIdx]}</p>
-        </div>
-        <div className="flex items-center justify-center gap-3">
-          <Button 
-            size="sm" 
-            onClick={() => speak(practiceTexts[currentIdx])}
-            className="gap-2"
-          >
-            <Play className="h-4 w-4" /> Listen
+
+        <div className="space-y-4 px-6 py-5">
+          <p className="text-lg font-medium leading-relaxed text-foreground font-sans">{item.question}</p>
+
+          {item.hint ? (
+            <div className="flex items-start gap-3 rounded-2xl bg-muted/50 p-4">
+              <Lightbulb className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+              <p className="text-sm text-muted-foreground font-sans">{item.hint}</p>
+            </div>
+          ) : null}
+
+          <Button size="sm" onClick={() => speak(item.question)} className="gap-2">
+            <Play className="h-4 w-4" /> Listen to the question
           </Button>
-          <Button 
-            size="sm" 
-            variant="outline"
-            onClick={() => setCurrentIdx((i) => (i + 1) % practiceTexts.length)}
-          >
-            Next Phrase
-          </Button>
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground font-sans">
+              <PencilLine className="h-3.5 w-3.5" />
+              <span>Notes for your answer (optional)</span>
+            </div>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Key words you want to use…"
+              className="w-full min-h-[90px] resize-y rounded-xl border border-border bg-background p-3 text-sm leading-relaxed text-foreground font-sans placeholder:text-muted-foreground/60 focus:border-primary/30 focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
         </div>
-        <p className="mt-3 text-[11px] text-muted-foreground">
-          {currentIdx + 1} / {practiceTexts.length} phrases
-        </p>
       </div>
     </div>
   );
 }
+
 
 /* ───── Discussion Prompt Card ───── */
 function DiscussionPromptCard({ prompt, index, levelId, lessonNumber, userId, speak, speaking }: { 
