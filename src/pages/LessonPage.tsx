@@ -1123,8 +1123,18 @@ export default function LessonPage() {
     }
   }, [levelId, lessonId, navigate]);
 
-  const [activeTab, setActiveTab] = useState<TabId>("vocabulary");
-  const [cardIndex, setCardIndex] = useState(0);
+  const [searchParams] = useSearchParams();
+  const slideKey = lesson ? `${lesson.levelId}-${lesson.lessonNumber}` : null;
+  const savedPos = slideKey ? getLessonPosition(slideKey) : null;
+  const tabParam = searchParams.get("tab");
+  const cardParam = Number(searchParams.get("card"));
+
+  const [activeTab, setActiveTab] = useState<TabId>(
+    (tabParam || savedPos?.tab || "vocabulary") as TabId
+  );
+  const [cardIndex, setCardIndex] = useState(
+    Number.isFinite(cardParam) && cardParam > 0 ? cardParam : savedPos?.card ?? 0
+  );
   const [showArabic, setShowArabic] = useState(false);
   const [lessonDone, setLessonDone] = useState(false);
   const [retryCount, setRetryCount] = useState(0);
@@ -1133,12 +1143,12 @@ export default function LessonPage() {
     setFlippedWords((prev) => (prev.includes(word) ? prev : [...prev, word]));
   }, []);
 
-  // Auto-save + resume slide position for this lesson.
-  const slideKey = lesson ? `${lesson.levelId}-${lesson.lessonNumber}` : null;
+  // Auto-save + resume slide position for this lesson (cloud fallback).
   const resumedRef = useRef<string | null>(null);
   useEffect(() => {
     if (!slideKey || resumedRef.current === slideKey) return;
     resumedRef.current = slideKey;
+    if (savedPos || tabParam) return; // local/explicit position wins
     const prior = getSlideProgress(slideKey);
     if (prior && prior.reached > 0) setCardIndex(prior.reached);
     void hydrateSlideProgressFromCloud().then(() => {
@@ -1147,6 +1157,7 @@ export default function LessonPage() {
         setCardIndex((cur) => (cur === 0 ? fresh.reached : cur));
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slideKey]);
 
   // Score tracking refs (one per section)
