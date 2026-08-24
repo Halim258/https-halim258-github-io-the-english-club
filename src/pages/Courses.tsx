@@ -1113,10 +1113,12 @@ export default function Courses() {
                 </Link>
               )}
               {showPhonicsCourse && (
+                <div className="flex h-full flex-col gap-2">
                 <Link
                   to="/courses/phonics"
-                  className="group block rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full"
+                  className="group block rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 flex-1"
                 >
+
                   <div className="relative h-44 overflow-hidden">
                     <img src={phonicsLevel.image} alt={phonicsLevel.label} loading="lazy" width={1024} height={640} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
