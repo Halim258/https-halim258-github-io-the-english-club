@@ -657,6 +657,7 @@ function ScrambleCard({ item, onAnswer }: { item: VocabWord; onAnswer?: (correct
     if (next.length !== letters.length) return;
     const ok = next.map((i) => letters[i]).join("").toLowerCase() === target.toLowerCase();
     setStatus(ok ? "correct" : "wrong");
+    playRewardSound(ok);
     onAnswer?.(ok);
   };
 
