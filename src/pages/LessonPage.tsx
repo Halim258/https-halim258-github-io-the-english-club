@@ -1,4 +1,4 @@
-import { forwardRef, useState, useEffect, useCallback, useRef } from "react";
+import { forwardRef, useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy, MessageCircle, Save, Loader2, Sparkles, Lightbulb, PencilLine, Search } from "lucide-react";
@@ -597,6 +597,73 @@ function SectionTitleCard({ title, icon, note }: { title: string; icon: string; 
   );
 }
 
+/* ───── Word scramble card (end of vocabulary) ───── */
+function ScrambleCard({ item, onAnswer }: { item: VocabWord; onAnswer?: (correct: boolean) => void }) {
+  const target = item.word.replace(/\s+/g, " ").trim();
+  const letters = useMemo(() => {
+    const chars = target.split("");
+    const shuffled = [...chars];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(((i * 9301 + 49297) % 233280) / 233280 * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.join("") === chars.join("") ? chars.reverse() : shuffled;
+  }, [target]);
+
+  const [picked, setPicked] = useState<number[]>([]);
+  const [status, setStatus] = useState<"idle" | "correct" | "wrong">("idle");
+  const guess = picked.map((i) => letters[i]).join("");
+
+  const check = (next: number[]) => {
+    if (next.length !== letters.length) return;
+    const ok = next.map((i) => letters[i]).join("").toLowerCase() === target.toLowerCase();
+    setStatus(ok ? "correct" : "wrong");
+    onAnswer?.(ok);
+  };
+
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl border bg-card p-5 shadow-sm">
+        <p className="text-[11px] uppercase tracking-widest text-muted-foreground font-sans">Rearrange the letters</p>
+        <p className="mt-2 text-sm text-foreground font-sans">
+          Meaning: <span className="font-semibold">{item.meaning}</span> {item.emoji}
+        </p>
+        <div className="mt-4 min-h-[48px] rounded-xl border-2 border-dashed border-primary/30 bg-muted/40 p-3 text-center text-xl font-bold tracking-[0.3em] text-foreground">
+          {guess || "…"}
+        </div>
+        <div className="mt-4 flex flex-wrap justify-center gap-2">
+          {letters.map((ch, i) => (
+            <button
+              key={`${ch}-${i}`}
+              disabled={picked.includes(i) || status === "correct"}
+              onClick={() => {
+                const next = [...picked, i];
+                setPicked(next);
+                setStatus("idle");
+                check(next);
+              }}
+              className="h-10 min-w-10 rounded-lg border bg-background px-3 text-lg font-bold text-foreground transition active:scale-90 disabled:opacity-25"
+            >
+              {ch}
+            </button>
+          ))}
+        </div>
+        <div className="mt-4 flex items-center justify-between gap-3">
+          <button
+            onClick={() => { setPicked([]); setStatus("idle"); }}
+            className="text-xs font-sans text-muted-foreground underline"
+          >
+            Reset
+          </button>
+          {status === "correct" && <span className="text-sm font-semibold text-green-600">✅ {target}</span>}
+          {status === "wrong" && <span className="text-sm font-semibold text-destructive">Try again</span>}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
 /* ───── Hero image card ───── */
 function HeroImageCard({ src, title }: { src: string; title: string }) {
   const [errored, setErrored] = useState(false);
@@ -997,6 +1064,24 @@ export default function LessonPage() {
               <MCQCard key={`ve-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
             )),
             <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} onRetry={handleRetry(vocabScore)} />
+          );
+        }
+        // Word-building game at the very end of the vocabulary section.
+        const scrambleWords = (flippedWords.length > 0
+          ? lesson.vocabulary.filter((v) => flippedWords.some((w) => w.toLowerCase() === v.word.toLowerCase()))
+          : lesson.vocabulary
+        )
+          .filter((v) => v.word.replace(/\s/g, "").length >= 3 && v.word.length <= 12)
+          .slice(0, 4);
+        if (scrambleWords.length > 0) {
+          cards.push(
+            <SectionTitleCard
+              key="sc-title"
+              title="Build the Word"
+              icon="🔤"
+              note="Tap the letters in the right order to spell each word."
+            />,
+            ...scrambleWords.map((v, i) => <ScrambleCard key={`sc-${i}-${retryCount}`} item={v} />)
           );
         }
         return cards;
