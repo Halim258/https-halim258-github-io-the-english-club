@@ -239,6 +239,8 @@ export default function Navbar() {
             </Link>
           )}
           {user && <NotificationBell />}
+          <SoundToggle />
+
           <button
             onClick={() => {
               const next = accent === "us" ? "uk" : "us";
