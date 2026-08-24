@@ -15,7 +15,7 @@ const PREFIX_MAP: ReadonlyArray<[string, LanguageBucket]> = [
   ["international", "Egyptian"],
 ];
 
-const ENGLISH_RE = /^(a1|a2|b1|b2|c1|c2|conversation|business|kids|healthcare|reading)/;
+const ENGLISH_RE = /^(phonics|a1|a2|b1|b2|c1|c2|conversation|business|kids|healthcare|reading)/;
 
 export function bucketFor(levelId: string | null | undefined): LanguageBucket {
   if (!levelId) return "Other";
