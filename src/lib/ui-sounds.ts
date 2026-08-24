@@ -74,14 +74,20 @@ const SOUNDS: Record<string, Tone[]> = {
 
 export type SoundName = keyof typeof SOUNDS;
 
-export function playSound(name: SoundName | string) {
-  if (!isSoundEnabled()) return;
+export function playSound(
+  name: SoundName | string,
+  opts: { force?: boolean; volume?: number } = {}
+) {
+  if (!isSoundEnabled() && !opts.force) return;
   const tones = SOUNDS[name];
   if (!tones) return;
 
+  const level = (opts.volume ?? getSoundVolume()) / 100;
+  if (level <= 0) return;
+
   // Throttle so rapid interactions don't stack into noise.
   const now = Date.now();
-  if (now - lastPlay < 45) return;
+  if (!opts.force && now - lastPlay < 45) return;
   lastPlay = now;
 
   const audio = getCtx();
@@ -93,10 +99,11 @@ export function playSound(name: SoundName | string) {
     osc.type = t.type || "triangle";
     osc.frequency.value = t.freq;
     const startAt = audio.currentTime + t.start;
-    const peak = t.gain ?? 0.04;
+    const peak = Math.max(0.0002, (t.gain ?? 0.04) * level);
     gain.gain.setValueAtTime(0.0001, startAt);
     gain.gain.exponentialRampToValueAtTime(peak, startAt + 0.012);
     gain.gain.exponentialRampToValueAtTime(0.0001, startAt + t.dur);
+
     osc.connect(gain);
     gain.connect(audio.destination);
     osc.start(startAt);
