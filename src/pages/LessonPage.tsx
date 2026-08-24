@@ -739,6 +739,7 @@ function SentenceScrambleCard({ sentence, hint }: { sentence: string; hint?: str
                 if (next.length === shuffled.length) {
                   const ok = next.map((k) => shuffled[k]).join(" ").toLowerCase() === target.toLowerCase();
                   setStatus(ok ? "correct" : "wrong");
+                  playRewardSound(ok);
                 } else setStatus("idle");
               }}
               className="rounded-lg border bg-background px-3 py-2 text-sm font-medium text-foreground transition active:scale-95 disabled:opacity-25"
