@@ -4,6 +4,7 @@
  */
 
 const STORAGE_KEY = "ui-sound-enabled";
+const VOLUME_KEY = "ui-sound-volume";
 
 let ctx: AudioContext | null = null;
 let lastPlay = 0;
@@ -27,6 +28,21 @@ export function setSoundEnabled(enabled: boolean) {
   window.dispatchEvent(new CustomEvent("ui-sound-change", { detail: enabled }));
   if (enabled) playSound("toggle");
 }
+
+/** Volume as a 0–100 integer. */
+export function getSoundVolume(): number {
+  if (typeof window === "undefined") return 70;
+  const raw = Number(localStorage.getItem(VOLUME_KEY));
+  if (!Number.isFinite(raw) || raw < 0 || raw > 100) return 70;
+  return Math.round(raw);
+}
+
+export function setSoundVolume(volume: number) {
+  const clamped = Math.max(0, Math.min(100, Math.round(volume)));
+  localStorage.setItem(VOLUME_KEY, String(clamped));
+  window.dispatchEvent(new CustomEvent("ui-volume-change", { detail: clamped }));
+}
+
 
 type Tone = { freq: number; start: number; dur: number; gain?: number; type?: OscillatorType };
 
@@ -58,14 +74,20 @@ const SOUNDS: Record<string, Tone[]> = {
 
 export type SoundName = keyof typeof SOUNDS;
 
-export function playSound(name: SoundName | string) {
-  if (!isSoundEnabled()) return;
+export function playSound(
+  name: SoundName | string,
+  opts: { force?: boolean; volume?: number } = {}
+) {
+  if (!isSoundEnabled() && !opts.force) return;
   const tones = SOUNDS[name];
   if (!tones) return;
 
+  const level = (opts.volume ?? getSoundVolume()) / 100;
+  if (level <= 0) return;
+
   // Throttle so rapid interactions don't stack into noise.
   const now = Date.now();
-  if (now - lastPlay < 45) return;
+  if (!opts.force && now - lastPlay < 45) return;
   lastPlay = now;
 
   const audio = getCtx();
@@ -77,10 +99,11 @@ export function playSound(name: SoundName | string) {
     osc.type = t.type || "triangle";
     osc.frequency.value = t.freq;
     const startAt = audio.currentTime + t.start;
-    const peak = t.gain ?? 0.04;
+    const peak = Math.max(0.0002, (t.gain ?? 0.04) * level);
     gain.gain.setValueAtTime(0.0001, startAt);
     gain.gain.exponentialRampToValueAtTime(peak, startAt + 0.012);
     gain.gain.exponentialRampToValueAtTime(0.0001, startAt + t.dur);
+
     osc.connect(gain);
     gain.connect(audio.destination);
     osc.start(startAt);
