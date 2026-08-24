@@ -1465,6 +1465,22 @@ export default function LessonPage() {
           <ScoreSummaryCard key="score" scoreRef={homeworkScore} total={total} onRetry={handleRetry(homeworkScore)} />,
         ];
       }
+      case "reflect": {
+        return [
+          <SectionTitleCard
+            key="r-title"
+            title="What I Learned"
+            icon="✍️"
+            note="Write 5 sentences about this lesson — they will be posted to the community feed."
+          />,
+          <ReflectionCard
+            key="reflect"
+            lessonTitle={lesson.title}
+            levelLabel={String(lesson.levelId || "").toUpperCase()}
+            storageKey={`reflect-${lesson.levelId}-${lesson.lessonNumber}`}
+          />,
+        ];
+      }
     }
   };
 
