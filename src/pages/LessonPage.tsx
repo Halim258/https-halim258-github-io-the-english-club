@@ -1203,13 +1203,37 @@ export default function LessonPage() {
             <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} onRetry={handleRetry(vocabScore)} />
           );
         }
-        // Word-building game at the very end of the vocabulary section.
-        const scrambleWords = (flippedWords.length > 0
+        // Games at the very end of the vocabulary section.
+        const gameWords = (flippedWords.length > 0
           ? lesson.vocabulary.filter((v) => flippedWords.some((w) => w.toLowerCase() === v.word.toLowerCase()))
           : lesson.vocabulary
-        )
-          .filter((v) => v.word.replace(/\s/g, "").length >= 3 && v.word.length <= 12)
-          .slice(0, 4);
+        ).slice(0, 4);
+        const matchWords = gameWords.filter((v) => v.meaning && v.meaning.trim());
+        if (matchWords.length >= 3) {
+          cards.push(
+            <SectionTitleCard key="mt-title" title="Match the Pairs" icon="🔗" note="Match each word with its meaning." />,
+            <MatchCard key={`mt-${retryCount}`} items={matchWords} />
+          );
+        }
+        const sentenceItems = gameWords.filter(
+          (v) => v.example && v.example.trim().split(/\s+/).length >= 3 && v.example.trim().split(/\s+/).length <= 10
+        );
+        if (sentenceItems.length > 0) {
+          cards.push(
+            <SectionTitleCard
+              key="ss-title"
+              title="Build the Sentence"
+              icon="🧩"
+              note="Tap the words in the correct order."
+            />,
+            ...sentenceItems.slice(0, 3).map((v, i) => (
+              <SentenceScrambleCard key={`ss-${i}-${retryCount}`} sentence={v.example} hint={`Uses "${v.word}"`} />
+            ))
+          );
+        }
+        const scrambleWords = gameWords.filter(
+          (v) => v.word.replace(/\s/g, "").length >= 3 && v.word.length <= 12
+        );
         if (scrambleWords.length > 0) {
           cards.push(
             <SectionTitleCard
