@@ -867,13 +867,14 @@ function MatchCard({ items }: { items: VocabWord[] }) {
           </div>
           <div className="space-y-2">
             {meanings.map((m) => {
-              const done = items.some((v) => v.meaning === m && matched.includes(v.word));
+              const owner = items.find((v) => v.meaning === m);
+              const done = owner ? matched.includes(owner.word) : false;
               return (
                 <button
                   key={m}
                   disabled={done}
                   onClick={() => pick(m)}
-                  className={`w-full rounded-lg border px-2 py-2 text-xs font-sans transition ${
+                  className={`flex w-full flex-col items-center gap-1 rounded-xl border px-2 py-2 transition active:scale-95 ${
                     done
                       ? "border-green-500/50 bg-green-500/10 text-green-600"
                       : wrong === m
@@ -881,15 +882,17 @@ function MatchCard({ items }: { items: VocabWord[] }) {
                         : "bg-background text-foreground"
                   }`}
                 >
-                  {m}
+                  <span className="text-3xl leading-none">{owner?.emoji ?? "❓"}</span>
+                  <span className="text-[11px] font-sans leading-tight text-center">{m}</span>
                 </button>
               );
             })}
           </div>
         </div>
         <p className="mt-4 text-center text-xs text-muted-foreground font-sans">
-          {matched.length === items.length ? "✅ All matched!" : "Tap a word, then tap its meaning."}
+          {matched.length === items.length ? "✅ All matched!" : "Tap a word, then tap its picture."}
         </p>
+
       </div>
     </div>
   );
