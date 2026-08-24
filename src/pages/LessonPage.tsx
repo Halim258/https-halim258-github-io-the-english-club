@@ -622,7 +622,58 @@ function DiscussionPromptCard({ prompt, index, levelId, lessonNumber, userId, sp
   );
 }
 
+/* ───── Sound intro card (phonics) — "this is the sound you are learning" ───── */
+function SoundIntroCard({
+  sound,
+  speak,
+}: {
+  sound: { grapheme: string; ipa: string; hint: string; words: string[] };
+  speak: (text: string) => void;
+}) {
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-sm rounded-3xl border-2 border-primary/20 bg-gradient-to-b from-primary/10 to-background p-6 text-center shadow-sm">
+        <p className="text-xs font-sans font-semibold uppercase tracking-widest text-primary">
+          This lesson's sound
+        </p>
+
+        <div className="mt-4 mx-auto flex h-28 w-28 items-center justify-center rounded-2xl bg-primary/15 border-2 border-primary/30">
+          <span className="text-6xl font-bold text-primary lowercase leading-none">{sound.grapheme}</span>
+        </div>
+
+        <p className="mt-4 text-2xl font-bold text-foreground">
+          The letter{sound.grapheme.length > 1 ? "s" : ""} “{sound.grapheme}” say{" "}
+          <span className="text-primary">{sound.ipa}</span>
+        </p>
+        <p className="mt-2 text-sm text-muted-foreground font-sans leading-relaxed">{sound.hint}</p>
+
+        <Button
+          size="sm"
+          onClick={() => speak(`${sound.grapheme}. ${sound.words.slice(0, 3).join(", ")}`)}
+          className="mt-4 gap-2 rounded-full"
+        >
+          <Volume2 className="h-4 w-4" />
+          Hear the sound
+        </Button>
+
+        <div className="mt-5 flex flex-wrap justify-center gap-2">
+          {sound.words.map((w) => (
+            <button
+              key={w}
+              onClick={() => speak(w)}
+              className="rounded-full border border-primary/25 bg-background px-3 py-1.5 text-sm font-sans font-semibold text-foreground transition-colors hover:bg-primary/10 active:scale-95"
+            >
+              {w}
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ───── Section title card ───── */
+
 function SectionTitleCard({ title, icon, note }: { title: string; icon: string; note?: string }) {
   return (
     <div className="flex flex-1 items-center justify-center px-4">
@@ -1280,7 +1331,9 @@ export default function LessonPage() {
                 : "Note: exercises only appear for the cards you flip. If you flip none, there are no questions."
             }
           />,
-
+          ...(lesson.soundIntro ?? []).map((s, i) => (
+            <SoundIntroCard key={`si-${i}`} sound={s} speak={speak} />
+          )),
           ...vocabCards,
         ];
         if (total > 0) {
