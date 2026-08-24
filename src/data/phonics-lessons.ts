@@ -949,7 +949,16 @@ function decoyWords(exclude: string[], seed: number, count = 3): string[] {
 }
 
 function mcq(question: string, answer: string, distractors: string[], seed: number): MCQItem {
-  const options = shuffle([answer, ...distractors], seed);
+  const unique = Array.from(new Set(distractors.filter((d) => d && d !== answer)));
+  const filled = [...unique];
+  let i = 0;
+  while (filled.length < 3) {
+    const filler = allWords[(seed + i * 7) % allWords.length];
+    if (filler !== answer && !filled.includes(filler)) filled.push(filler);
+    i++;
+    if (i > allWords.length) break;
+  }
+  const options = shuffle([answer, ...filled.slice(0, 3)], seed);
   return { question, options, correct: options.indexOf(answer) };
 }
 
