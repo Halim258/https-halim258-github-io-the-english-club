@@ -235,7 +235,6 @@ function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildR
     ...base,
     title: `Reading (${level.toUpperCase()}): ${lesson.title}`,
     text: [
-      cfg.frame(lesson.title),
       base.text.split("\n\n").slice(1).join("\n\n") || base.text,
       grammarNote,
       examples ? `Examples in context:\n${examples}` : "",
