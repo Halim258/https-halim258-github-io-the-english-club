@@ -1138,7 +1138,15 @@ export default function Courses() {
                     )}
                   </div>
                 </Link>
+                <Link
+                  to="/phonics-test"
+                  className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-primary/30 bg-primary/5 px-3 py-2 text-xs font-semibold text-primary transition-colors hover:bg-primary/10"
+                >
+                  <Target className="h-3.5 w-3.5" /> Take the placement quiz
+                </Link>
+                </div>
               )}
+
               {showKidsCourse && (
                 <Link
                   to="/courses/kids"
