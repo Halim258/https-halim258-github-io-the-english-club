@@ -6,6 +6,7 @@ import { lessons, MCQItem, VocabWord, DialogueLine } from "@/data/lessons";
 import { useTTS } from "@/hooks/useTTS";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { getDiscussionPrompts, isCommunicationCourse, DiscussionPrompt } from "@/data/discussion-prompts";
+import { getSpeakingQuestions, type SpeakingQuestion } from "@/data/speaking-questions";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
