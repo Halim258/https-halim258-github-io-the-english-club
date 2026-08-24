@@ -1066,6 +1066,24 @@ export default function LessonPage() {
             <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} onRetry={handleRetry(vocabScore)} />
           );
         }
+        // Word-building game at the very end of the vocabulary section.
+        const scrambleWords = (flippedWords.length > 0
+          ? lesson.vocabulary.filter((v) => flippedWords.some((w) => w.toLowerCase() === v.word.toLowerCase()))
+          : lesson.vocabulary
+        )
+          .filter((v) => v.word.replace(/\s/g, "").length >= 3 && v.word.length <= 12)
+          .slice(0, 4);
+        if (scrambleWords.length > 0) {
+          cards.push(
+            <SectionTitleCard
+              key="sc-title"
+              title="Build the Word"
+              icon="🔤"
+              note="Tap the letters in the right order to spell each word."
+            />,
+            ...scrambleWords.map((v, i) => <ScrambleCard key={`sc-${i}-${retryCount}`} item={v} />)
+          );
+        }
         return cards;
       }
       case "reading": {
