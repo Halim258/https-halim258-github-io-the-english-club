@@ -1102,6 +1102,39 @@ const TABS = [
 
 type TabId = (typeof TABS)[number]["id"];
 
+/* Phonics is an early-reader course: fewer sections, playful labels, bigger type. */
+const PHONICS_TABS: Partial<Record<TabId, { label: string; icon: string; color: string }>> = {
+  vocabulary: { label: "Sounds", icon: "🔤", color: "bg-sky-500" },
+  reading: { label: "Read", icon: "📖", color: "bg-emerald-500" },
+  conversation: { label: "Talk", icon: "💬", color: "bg-amber-500" },
+  activity: { label: "Play", icon: "🎲", color: "bg-fuchsia-500" },
+  exam: { label: "Quiz", icon: "⭐", color: "bg-violet-500" },
+};
+
+function isPhonicsCourse(levelId: unknown) {
+  return typeof levelId === "string" && levelId.startsWith("phonics");
+}
+
+function tabIsVisible(tab: (typeof TABS)[number], lesson: { reading?: unknown; heroImage?: unknown; levelId?: unknown }) {
+  if (isPhonicsCourse(lesson.levelId)) {
+    if (!PHONICS_TABS[tab.id]) return false;
+    if (tab.id === "reading") return Boolean(lesson.reading || lesson.heroImage);
+    return true;
+  }
+  if (tab.id === "reading") {
+    return Boolean(lesson.reading || lesson.heroImage);
+  }
+  if (tab.id === "activity") {
+    // Written research activity — available for Spanish, German, and English lessons.
+    const lid = typeof lesson.levelId === "string" ? lesson.levelId : "";
+    if (!lid) return false;
+    if (lid.startsWith("it-")) return false;
+    return true;
+  }
+  return true;
+}
+
+
 /* ───── Main Lesson Page ───── */
 export default function LessonPage() {
   const { levelId, lessonId } = useParams();
@@ -1239,10 +1272,15 @@ export default function LessonPage() {
         const cards: React.ReactNode[] = [
           <SectionTitleCard
             key="title"
-            title="Vocabulary"
-            icon="📚"
-            note="Note: exercises only appear for the cards you flip. If you flip none, there are no questions."
+            title={isPhonicsCourse(lesson.levelId) ? "Sounds & Words" : "Vocabulary"}
+            icon={isPhonicsCourse(lesson.levelId) ? "🔤" : "📚"}
+            note={
+              isPhonicsCourse(lesson.levelId)
+                ? "Tap each card to hear the sound. Flip a card to unlock its practice question."
+                : "Note: exercises only appear for the cards you flip. If you flip none, there are no questions."
+            }
           />,
+
           ...vocabCards,
         ];
         if (total > 0) {
@@ -1512,18 +1550,9 @@ export default function LessonPage() {
   }, [slideKey, cardIndex, totalCards, activeTab]);
 
   // Determine which tabs are visible for this lesson, in order.
-  const visibleTabs = TABS.filter((tab) => {
-    if (tab.id === "reading") {
-      return Boolean(lesson.reading || lesson.heroImage);
-    }
-    if (tab.id === "activity") {
-      const lid = typeof lesson.levelId === "string" ? lesson.levelId : "";
-      if (!lid) return false;
-      if (lid.startsWith("it-")) return false;
-      return true;
-    }
-    return true;
-  }).map((tab) => tab.id);
+  const isPhonics = isPhonicsCourse(lesson.levelId);
+  const visibleTabs = TABS.filter((tab) => tabIsVisible(tab, lesson)).map((tab) => tab.id);
+
 
   // Clamp cardIndex to valid range
   const safeIndex = Math.min(cardIndex, totalCards - 1);
@@ -1626,30 +1655,41 @@ export default function LessonPage() {
         </div>
       </div>
 
-      {/* Section navigation — editorial underlined tabs with per-section dots */}
-      <div className="border-b border-border/60 bg-card px-3 sm:px-6 pt-2">
-        <nav className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
-          {TABS.filter((tab) => {
-          if (tab.id === "reading") {
-            return Boolean(lesson.reading || lesson.heroImage);
-          }
-          if (tab.id === "activity") {
-            // Written research activity — available for Spanish, German, and English lessons.
-            const lid = typeof lesson.levelId === "string" ? lesson.levelId : "";
-            if (!lid) return false;
-            if (lid.startsWith("it-")) return false;
-            return true;
-          }
-          return true;
-        }).map((tab) => {
+      {/* Section navigation — playful chunky pills for phonics, editorial tabs elsewhere */}
+      <div className={`border-b border-border/60 px-3 sm:px-6 ${isPhonics ? "bg-gradient-to-r from-sky-500/10 via-fuchsia-500/10 to-amber-500/10 py-3" : "bg-card pt-2"}`}>
+        <nav className={`flex overflow-x-auto scrollbar-none ${isPhonics ? "gap-2 sm:gap-3" : "gap-4 sm:gap-6"}`} style={{ WebkitOverflowScrolling: 'touch' }}>
+          {TABS.filter((tab) => tabIsVisible(tab, lesson)).map((tab) => {
           const isCommunication = isCommunicationCourse(lesson.levelId);
-          const displayLabel = tab.id === "conversation" && isCommunication && "altLabel" in tab ? tab.altLabel : tab.label;
+          const kid = isPhonics ? PHONICS_TABS[tab.id] : undefined;
+          const displayLabel = kid
+            ? kid.label
+            : tab.id === "conversation" && isCommunication && "altLabel" in tab
+            ? tab.altLabel
+            : tab.label;
           const isActive = activeTab === tab.id;
           // Per-tab progress dots (3 pips): filled = current tab's progress ratio
           const dotCount = 3;
           const filledDots = isActive
             ? Math.max(1, Math.min(dotCount, Math.ceil((cardIndex + 1) / totalCards * dotCount)))
             : 0;
+
+          if (kid) {
+            return (
+              <button
+                key={tab.id}
+                onClick={() => switchTab(tab.id)}
+                className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-2.5 font-display text-base sm:text-lg font-bold transition-all duration-200 touch-manipulation active:scale-95 ${
+                  isActive
+                    ? `${kid.color} text-white shadow-lg scale-[1.03]`
+                    : "bg-card text-foreground/70 border shadow-sm hover:text-foreground hover:-translate-y-0.5"
+                }`}
+              >
+                <span className="text-xl leading-none">{kid.icon}</span>
+                {displayLabel}
+              </button>
+            );
+          }
+
           return (
             <button
               key={tab.id}
@@ -1683,6 +1723,7 @@ export default function LessonPage() {
         </nav>
       </div>
 
+
       {/* Jump to Exercises button — visible in vocab tab when viewing vocab cards */}
       {activeTab === "vocabulary" && cardIndex < exerciseStartIndex && (
         <div className="flex justify-center py-1.5 bg-muted/20 border-b border-border/40">
@@ -1697,10 +1738,11 @@ export default function LessonPage() {
 
       {/* Card area — swipe enabled */}
       <div
-        className="flex flex-1 flex-col min-h-0"
+        className={`flex flex-1 flex-col min-h-0 ${isPhonics ? "kid-type" : ""}`}
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
+
         {cards[cardIndex]}
       </div>
 
