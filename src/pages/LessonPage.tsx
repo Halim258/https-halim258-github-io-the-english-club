@@ -1508,6 +1508,7 @@ export default function LessonPage() {
   useEffect(() => {
     if (!slideKey || totalCards <= 0) return;
     setSlideProgress(slideKey, cardIndex, totalCards);
+    setLessonPosition(slideKey, activeTab, cardIndex);
   }, [slideKey, cardIndex, totalCards, activeTab]);
 
   // Determine which tabs are visible for this lesson, in order.
