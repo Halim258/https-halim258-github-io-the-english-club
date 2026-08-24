@@ -22,6 +22,8 @@ const PracticeSpeaking = lazy(() => import("./pages/PracticeSpeaking"));
 const Teachers = lazy(() => import("./pages/Teachers"));
 const Groups = lazy(() => import("./pages/Groups"));
 const PlacementTest = lazy(() => import("./pages/PlacementTest"));
+const PhonicsDiagnostic = lazy(() => import("./pages/PhonicsDiagnostic"));
+
 const StudentDashboard = lazy(() => import("./pages/StudentDashboard"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const AdminStudentProgress = lazy(() => import("./pages/AdminStudentProgress"));
@@ -112,6 +114,8 @@ const App = () => (
               <Route path="/teachers" element={<Teachers />} />
               <Route path="/groups" element={<Groups />} />
               <Route path="/placement-test" element={<PlacementTest />} />
+              <Route path="/phonics-test" element={<ProtectedRoute requireMember><PhonicsDiagnostic /></ProtectedRoute>} />
+
               <Route path="/dictionary" element={<ProtectedRoute><Dictionary /></ProtectedRoute>} />
               <Route path="/flashcards" element={<ProtectedRoute><Flashcards /></ProtectedRoute>} />
               <Route path="/ai-tutor" element={<ProtectedRoute><AIChatTutor /></ProtectedRoute>} />
