@@ -1331,7 +1331,9 @@ export default function LessonPage() {
                 : "Note: exercises only appear for the cards you flip. If you flip none, there are no questions."
             }
           />,
-
+          ...(lesson.soundIntro ?? []).map((s, i) => (
+            <SoundIntroCard key={`si-${i}`} sound={s} speak={speak} />
+          )),
           ...vocabCards,
         ];
         if (total > 0) {
