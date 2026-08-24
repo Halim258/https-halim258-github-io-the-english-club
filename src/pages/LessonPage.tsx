@@ -161,7 +161,7 @@ function VocabCard({ item, showArabic, speak, speaking, onFlip }: { item: VocabW
             <div className="mt-3">
               <AudioButton text={item.word} speak={speak} speaking={speaking} />
             </div>
-            <p className="mt-2 text-xs text-muted-foreground font-sans">Tap to flip</p>
+            <p className="mt-2 text-xs text-muted-foreground font-sans">Tap to flip — flipping unlocks its exercise</p>
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
               <div className={`h-1.5 w-6 rounded-full transition-colors ${!flipped ? "bg-primary" : "bg-muted"}`} />
               <div className={`h-1.5 w-6 rounded-full transition-colors ${flipped ? "bg-primary" : "bg-muted"}`} />
@@ -583,12 +583,15 @@ function DiscussionPromptCard({ prompt, index, levelId, lessonNumber, userId, sp
 }
 
 /* ───── Section title card ───── */
-function SectionTitleCard({ title, icon }: { title: string; icon: string }) {
+function SectionTitleCard({ title, icon, note }: { title: string; icon: string; note?: string }) {
   return (
     <div className="flex flex-1 items-center justify-center px-4">
-      <div className="text-center">
+      <div className="text-center max-w-xs">
         <span className="text-5xl mb-4 block">{icon}</span>
         <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+        {note && (
+          <p className="mt-3 text-xs text-muted-foreground font-sans leading-relaxed">{note}</p>
+        )}
       </div>
     </div>
   );
@@ -974,12 +977,22 @@ export default function LessonPage() {
         );
         const total = unlocked.length;
         const cards: React.ReactNode[] = [
-          <SectionTitleCard key="title" title="Vocabulary" icon="📚" />,
+          <SectionTitleCard
+            key="title"
+            title="Vocabulary"
+            icon="📚"
+            note="Note: exercises only appear for the cards you flip. If you flip none, there are no questions."
+          />,
           ...vocabCards,
         ];
         if (total > 0) {
           cards.push(
-            <SectionTitleCard key="ex-title" title={`Exercises (${total})`} icon="✏️" />,
+            <SectionTitleCard
+              key="ex-title"
+              title={`Exercises (${total})`}
+              icon="✏️"
+              note="These questions come from the cards you flipped."
+            />,
             ...unlocked.map((q, i) => (
               <MCQCard key={`ve-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
             )),
