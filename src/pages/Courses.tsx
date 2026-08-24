@@ -180,6 +180,13 @@ const publicStageCurriculum = {
 // CEFR sub-level breakdown for Spanish courses (Cervantes-style)
 // Maps a level id to ordered sub-level bands (label, subtitle, first & last lesson numbers).
 const SUB_LEVEL_GROUPS: Record<string, { code: string; title: string; from: number; to: number }[]> = {
+  "phonics": [
+    { code: "Stage 1", title: "Letter Sounds & Blending", from: 1, to: 5 },
+    { code: "Stage 2", title: "Blends & Digraphs", from: 6, to: 9 },
+    { code: "Stage 3", title: "Long Vowels & Vowel Teams", from: 10, to: 13 },
+    { code: "Stage 4", title: "r-Controlled & Diphthongs", from: 14, to: 17 },
+    { code: "Stage 5", title: "Advanced Code & Fluency", from: 18, to: 20 },
+  ],
   "a1": [
     { code: "A1.1", title: "Getting Started", from: 1, to: 7 },
     { code: "A1.2", title: "Everyday Life", from: 8, to: 14 },
@@ -719,6 +726,7 @@ export default function Courses() {
       safety: "Safety English — Minimum B1",
       "it-english": "IT English",
       "web-development": "Web Development English — Minimum B1",
+      phonics: "English Phonics Course",
       "egyptian-public": "Egyptian Public School English",
       "egyptian-national": "Egyptian National School English",
       "egyptian-international": "Egyptian International School English",
