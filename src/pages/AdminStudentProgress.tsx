@@ -9,6 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
+import ActivityFeed, { useActivityFeed } from "@/components/progress/ActivityFeed";
 
 interface LessonRow {
   id: string;
@@ -49,17 +50,20 @@ export default function AdminStudentProgress() {
   const [xp, setXp] = useState<XPRow | null>(null);
   const [lessons, setLessons] = useState<LessonRow[]>([]);
   const [badges, setBadges] = useState<{ badge_key: string; earned_at: string }[]>([]);
+  const [slides, setSlides] = useState<{ lesson_key: string; reached: number; total: number; updated_at: string }[]>([]);
+  const { items: activity, loading: activityLoading } = useActivityFeed(userId, 100);
 
   useEffect(() => {
     if (!userId) return;
     (async () => {
       setLoading(true);
-      const [{ data: p }, { data: sign }, { data: x }, { data: lp }, { data: ach }] = await Promise.all([
+      const [{ data: p }, { data: sign }, { data: x }, { data: lp }, { data: ach }, { data: sp }] = await Promise.all([
         supabase.from("profiles").select("id, full_name, avatar_url").eq("id", userId).maybeSingle(),
         supabase.rpc("get_recent_signups", { _limit: 500 }),
         supabase.from("user_xp").select("total_xp, current_streak, longest_streak, last_activity_date").eq("user_id", userId).maybeSingle(),
         supabase.from("lesson_progress").select("*").eq("user_id", userId).order("completed_at", { ascending: false }),
         supabase.from("achievements").select("badge_key, earned_at").eq("user_id", userId).order("earned_at", { ascending: false }),
+        supabase.rpc("get_student_slide_progress", { _user_id: userId }),
       ]);
       setProfile(p as Profile | null);
       const match = (sign as any[] | null)?.find(s => s.id === userId);
@@ -67,6 +71,7 @@ export default function AdminStudentProgress() {
       setXp((x as XPRow | null) ?? { total_xp: 0, current_streak: 0, longest_streak: 0, last_activity_date: null });
       setLessons((lp as LessonRow[]) || []);
       setBadges((ach as any[]) || []);
+      setSlides((sp as any[]) || []);
       setLoading(false);
     })();
   }, [userId]);
