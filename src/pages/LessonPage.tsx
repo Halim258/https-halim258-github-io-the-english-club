@@ -1093,8 +1093,23 @@ export default function LessonPage() {
           <ScoreSummaryCard key="score" scoreRef={grammarScore} total={total} onRetry={handleRetry(grammarScore)} />,
         ];
       }
-      case "speaking":
-        return [<SpeakingCard key="speaking" lesson={lesson} speak={speak} speaking={speaking} />];
+      case "speaking": {
+        const questions = getSpeakingQuestions(lesson);
+        return [
+          <SectionTitleCard key="sp-title" title="Speaking Practice" icon="🗣️" />,
+          ...questions.map((q, i) => (
+            <SpeakingQuestionCard
+              key={`sp-${i}`}
+              item={q}
+              index={i}
+              total={questions.length}
+              storageKey={`speaking-${lesson.levelId}-${lesson.lessonNumber}-${i}`}
+              speak={speak}
+              speaking={speaking}
+            />
+          )),
+        ];
+      }
       case "exam": {
         const total = lesson.examQuestions.length;
         return [
