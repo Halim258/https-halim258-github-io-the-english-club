@@ -37,6 +37,7 @@ function CardProgress({
 
 import readingImg from "@/assets/levels/reading.jpg";
 import kidsImg from "@/assets/levels/kids.jpg";
+import phonicsImg from "@/assets/levels/phonics.jpg";
 import a1Img from "@/assets/levels/a1.jpg";
 import a2Img from "@/assets/levels/a2.jpg";
 import b1Img from "@/assets/levels/b1.jpg";
@@ -59,6 +60,13 @@ const kidsLevel: Level = {
   sublabel: "Colors → Animals → Family → Food → Numbers → Nature → Dreams",
   lessons: 20, description: "Fun, interactive lessons designed for young learners aged 5-10",
   color: "from-amber-400 to-pink-500", image: kidsImg,
+};
+
+const phonicsLevel: Level = {
+  id: "phonics", label: "English Phonics Course",
+  sublabel: "Letter Sounds → Blends → Digraphs → Magic e → Vowel Teams → Silent Letters",
+  lessons: 20, description: "The complete English phonics code, taught step by step until every sound is mastered",
+  color: "from-sky-500 to-indigo-500", image: phonicsImg,
 };
 
 const cefrLevels: Level[] = [
@@ -180,6 +188,13 @@ const publicStageCurriculum = {
 // CEFR sub-level breakdown for Spanish courses (Cervantes-style)
 // Maps a level id to ordered sub-level bands (label, subtitle, first & last lesson numbers).
 const SUB_LEVEL_GROUPS: Record<string, { code: string; title: string; from: number; to: number }[]> = {
+  "phonics": [
+    { code: "Stage 1", title: "Letter Sounds & Blending", from: 1, to: 5 },
+    { code: "Stage 2", title: "Blends & Digraphs", from: 6, to: 9 },
+    { code: "Stage 3", title: "Long Vowels & Vowel Teams", from: 10, to: 13 },
+    { code: "Stage 4", title: "r-Controlled & Diphthongs", from: 14, to: 17 },
+    { code: "Stage 5", title: "Advanced Code & Fluency", from: 18, to: 20 },
+  ],
   "a1": [
     { code: "A1.1", title: "Getting Started", from: 1, to: 7 },
     { code: "A1.2", title: "Everyday Life", from: 8, to: 14 },
@@ -627,7 +642,7 @@ export default function Courses() {
 
   // Compute all level IDs and their lesson counts for progress tracking
   const allLevelIds = useMemo(() => {
-    const ids = [introductory.id, kidsLevel.id, ...cefrLevels.map(l => l.id), ...egyptianSchoolTracks.map((track) => track.levelId)];
+    const ids = [introductory.id, phonicsLevel.id, kidsLevel.id, ...cefrLevels.map(l => l.id), ...egyptianSchoolTracks.map((track) => track.levelId)];
     return ids;
   }, []);
 
@@ -680,12 +695,13 @@ export default function Courses() {
   );
 
   const showReadingCourse = matchesSearch([introductory.label, introductory.sublabel, introductory.description, "alphabet phonics reading beginner"]);
+  const showPhonicsCourse = matchesSearch([phonicsLevel.label, phonicsLevel.sublabel, phonicsLevel.description, "phonics sounds decoding blending digraphs vowel teams pronunciation"]);
   const showKidsCourse = matchesSearch([kidsLevel.label, kidsLevel.sublabel, kidsLevel.description, "children games young learners"]);
-  const resultCount = (showReadingCourse ? 1 : 0) + (showKidsCourse ? 1 : 0) + filteredEgyptianSchoolTracks.length + filteredCefrLevels.length + filteredCategories.reduce((total, cat) => total + cat.courses.length, 0);
+  const resultCount = (showReadingCourse ? 1 : 0) + (showPhonicsCourse ? 1 : 0) + (showKidsCourse ? 1 : 0) + filteredEgyptianSchoolTracks.length + filteredCefrLevels.length + filteredCategories.reduce((total, cat) => total + cat.courses.length, 0);
 
   // If a level is selected, show its lessons
   if (levelId && !window.location.pathname.match(/\/courses\/[^/]+\/\d+/)) {
-    const allLevels = [introductory, kidsLevel, ...cefrLevels];
+    const allLevels = [introductory, phonicsLevel, kidsLevel, ...cefrLevels];
     const level = allLevels.find((l) => l.id === levelId);
     if (level) return <LevelLessons levelId={level.id} levelLabel={`${level.label} — ${level.sublabel || ""}`} />;
     const specializedLevelLabels: Record<string, string> = {
@@ -719,6 +735,7 @@ export default function Courses() {
       safety: "Safety English — Minimum B1",
       "it-english": "IT English",
       "web-development": "Web Development English — Minimum B1",
+      phonics: "English Phonics Course",
       "egyptian-public": "Egyptian Public School English",
       "egyptian-national": "Egyptian National School English",
       "egyptian-international": "Egyptian International School English",
@@ -1036,7 +1053,7 @@ export default function Courses() {
       )}
 
       {/* ═══ FOR BEGINNERS & KIDS ═══ */}
-      {(showReadingCourse || showKidsCourse) && (audience === "all" || audience === "beginners") && (
+      {(showReadingCourse || showPhonicsCourse || showKidsCourse) && (audience === "all" || audience === "beginners") && (
         <section id="beginners" className="py-10 md:py-14 scroll-mt-32">
           <div className="container mx-auto px-4">
             <FadeInUp>
@@ -1051,7 +1068,7 @@ export default function Courses() {
                 Pick a foundation course if you're new to English or learning with a young child.
               </p>
             </FadeInUp>
-            <div className="grid gap-5 md:grid-cols-2">
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {showReadingCourse && (
                 <Link
                   to="/courses/reading"
@@ -1073,6 +1090,31 @@ export default function Courses() {
                     </div>
                     {progress[introductory.id] && progress[introductory.id].total > 0 && (
                       <CardProgress p={progress[introductory.id]} />
+                    )}
+                  </div>
+                </Link>
+              )}
+              {showPhonicsCourse && (
+                <Link
+                  to="/courses/phonics"
+                  className="group block rounded-2xl border overflow-hidden bg-card shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full"
+                >
+                  <div className="relative h-44 overflow-hidden">
+                    <img src={phonicsLevel.image} alt={phonicsLevel.label} loading="lazy" width={1024} height={640} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                    <span className="absolute top-3 left-3 rounded-full bg-sky-600 px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">
+                      Sound by Sound
+                    </span>
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-bold font-display text-lg group-hover:text-primary transition-colors">{phonicsLevel.label}</h3>
+                    <p className="text-sm text-muted-foreground mt-1 line-clamp-2">{phonicsLevel.sublabel}</p>
+                    <div className="mt-3 flex items-center gap-3">
+                      <span className="rounded-full bg-sky-500/10 px-2.5 py-0.5 text-[10px] font-semibold text-sky-700 dark:text-sky-400">{phonicsLevel.lessons} lessons</span>
+                      <span className="text-xs font-semibold text-primary flex items-center gap-1">Begin <ArrowRight className="h-3 w-3" /></span>
+                    </div>
+                    {progress[phonicsLevel.id] && progress[phonicsLevel.id].total > 0 && (
+                      <CardProgress p={progress[phonicsLevel.id]} />
                     )}
                   </div>
                 </Link>
