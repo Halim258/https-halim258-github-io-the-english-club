@@ -4,6 +4,7 @@
  */
 
 const STORAGE_KEY = "ui-sound-enabled";
+const VOLUME_KEY = "ui-sound-volume";
 
 let ctx: AudioContext | null = null;
 let lastPlay = 0;
@@ -27,6 +28,21 @@ export function setSoundEnabled(enabled: boolean) {
   window.dispatchEvent(new CustomEvent("ui-sound-change", { detail: enabled }));
   if (enabled) playSound("toggle");
 }
+
+/** Volume as a 0–100 integer. */
+export function getSoundVolume(): number {
+  if (typeof window === "undefined") return 70;
+  const raw = Number(localStorage.getItem(VOLUME_KEY));
+  if (!Number.isFinite(raw) || raw < 0 || raw > 100) return 70;
+  return Math.round(raw);
+}
+
+export function setSoundVolume(volume: number) {
+  const clamped = Math.max(0, Math.min(100, Math.round(volume)));
+  localStorage.setItem(VOLUME_KEY, String(clamped));
+  window.dispatchEvent(new CustomEvent("ui-volume-change", { detail: clamped }));
+}
+
 
 type Tone = { freq: number; start: number; dur: number; gain?: number; type?: OscillatorType };
 
