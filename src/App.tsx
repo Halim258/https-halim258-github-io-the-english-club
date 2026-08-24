@@ -112,6 +112,8 @@ const App = () => (
               <Route path="/teachers" element={<Teachers />} />
               <Route path="/groups" element={<Groups />} />
               <Route path="/placement-test" element={<PlacementTest />} />
+              <Route path="/phonics-test" element={<ProtectedRoute requireMember><PhonicsDiagnostic /></ProtectedRoute>} />
+
               <Route path="/dictionary" element={<ProtectedRoute><Dictionary /></ProtectedRoute>} />
               <Route path="/flashcards" element={<ProtectedRoute><Flashcards /></ProtectedRoute>} />
               <Route path="/ai-tutor" element={<ProtectedRoute><AIChatTutor /></ProtectedRoute>} />
