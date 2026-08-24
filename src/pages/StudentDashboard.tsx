@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import ActivityFeed, { useActivityFeed } from "@/components/progress/ActivityFeed";
 import { FadeInUp, ScaleIn } from "@/components/AnimatedSection";
 import { useAuth } from "@/hooks/useAuth";
 import DailyChallenge from "@/components/DailyChallenge";
@@ -99,6 +100,22 @@ const dailyTips = [
   "Watch a short video in English without subtitles.",
   "Talk to the AI Tutor about a topic you enjoy!",
 ];
+
+function StudentActivitySection({ userId }: { userId: string | undefined }) {
+  const { items, loading } = useActivityFeed(userId, 100);
+  return (
+    <FadeInUp delay={0.08}>
+      <div className="mb-6">
+        <ActivityFeed
+          items={items}
+          loading={loading}
+          title="What You've Done So Far"
+          emptyText="Start a lesson and your learning history will appear here."
+        />
+      </div>
+    </FadeInUp>
+  );
+}
 
 export default function StudentDashboard() {
   const { user, role } = useAuth();
@@ -448,6 +465,8 @@ export default function StudentDashboard() {
           </FadeInUp>
         );
       })()}
+
+      <StudentActivitySection userId={user?.id} />
 
       <div className="grid gap-4 lg:gap-6 lg:grid-cols-3">
         {/* Left Column */}
