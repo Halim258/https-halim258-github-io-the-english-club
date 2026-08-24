@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
 import { AnswerReward, XPBadge, playRewardSound, XP_PER_CORRECT } from "@/components/lesson/AnswerReward";
+import ReflectionCard from "@/components/lesson/ReflectionCard";
 import { toast } from "@/hooks/use-toast";
 import {
   setSlideProgress,
@@ -1091,6 +1092,7 @@ const TABS = [
   { id: "speaking", label: "Speaking", icon: "🗣️" },
   { id: "exam", label: "Exam", icon: "📝" },
   { id: "homework", label: "Homework", icon: "📋" },
+  { id: "reflect", label: "What I Learned", icon: "✍️" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -1462,6 +1464,22 @@ export default function LessonPage() {
           <SectionTitleCard key="title" title="Homework" icon="📋" />,
           ...lesson.homeworkQuestions.map((q, i) => <MCQCard key={`hq-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(homeworkScore)} />),
           <ScoreSummaryCard key="score" scoreRef={homeworkScore} total={total} onRetry={handleRetry(homeworkScore)} />,
+        ];
+      }
+      case "reflect": {
+        return [
+          <SectionTitleCard
+            key="r-title"
+            title="What I Learned"
+            icon="✍️"
+            note="Write 5 sentences about this lesson — they will be posted to the community feed."
+          />,
+          <ReflectionCard
+            key="reflect"
+            lessonTitle={lesson.title}
+            levelLabel={String(lesson.levelId || "").toUpperCase()}
+            storageKey={`reflect-${lesson.levelId}-${lesson.lessonNumber}`}
+          />,
         ];
       }
     }
