@@ -162,7 +162,17 @@ export default function ContinueLearning() {
               </p>
             </div>
           </div>
-          <Link to={`/courses/${next.level_id}/${next.lesson_number}/slides`} className="shrink-0">
+          <Link
+            to={`/courses/${next.level_id}/${next.lesson_number}${
+              next.tab || next.card
+                ? `?${new URLSearchParams({
+                    ...(next.tab ? { tab: next.tab } : {}),
+                    ...(next.card ? { card: String(next.card) } : {}),
+                  }).toString()}`
+                : ""
+            }`}
+            className="shrink-0"
+          >
             <Button size="sm" className="rounded-full font-semibold gap-1.5 px-5">
               <BookOpen className="h-3.5 w-3.5" /> {next.fresh ? "Start" : "Resume"} <ArrowRight className="h-3.5 w-3.5" />
             </Button>
