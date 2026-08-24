@@ -23,12 +23,42 @@ export default function ContinueLearning() {
     total: number;
     title?: string;
     avgAccuracy?: number;
+    tab?: string;
+    card?: number;
   } | null>(null);
 
-  const buildFor = (level_id: string, lesson_number: number, completed: number, fresh: boolean, avgAccuracy?: number) => {
+  const buildFor = (
+    rawLevelId: string,
+    lesson_number: number,
+    completed: number,
+    fresh: boolean,
+    avgAccuracy?: number
+  ) => {
+    const level_id = (rawLevelId || "").toLowerCase();
     const total = Object.keys(allLessons).filter((k) => k.startsWith(`${level_id}-`)).length;
     const key = `${level_id}-${lesson_number}`;
-    return { level_id, lesson_number, fresh, completed, total, title: (allLessons as any)[key]?.title, avgAccuracy };
+    const pos = getLessonPosition(key);
+    return {
+      level_id,
+      lesson_number,
+      fresh,
+      completed,
+      total,
+      title: (allLessons as any)[key]?.title,
+      avgAccuracy,
+      tab: pos?.tab,
+      card: pos?.card,
+    };
+  };
+
+  /** Split a lesson key like "a1-3" or "ar-draw-4-2" into level + lesson number. */
+  const splitKey = (lessonKey: string) => {
+    const idx = lessonKey.lastIndexOf("-");
+    if (idx <= 0) return null;
+    const level = lessonKey.slice(0, idx);
+    const num = Number(lessonKey.slice(idx + 1));
+    if (!Number.isFinite(num) || num <= 0) return null;
+    return { level, num };
   };
 
   const refresh = () => {
@@ -36,28 +66,66 @@ export default function ContinueLearning() {
       setNext(buildFor("a1", 1, 0, true));
       return;
     }
-    supabase
-      .from("lesson_progress")
-      .select("level_id, lesson_number, completed, completed_at, score")
-      .eq("user_id", user.id)
-      .order("completed_at", { ascending: false, nullsFirst: false })
-      .then(({ data }) => {
-        if (!data || data.length === 0) {
-          setNext(buildFor("a1", 1, 0, true));
+
+    const applyFromCompletions = async () => {
+      const { data } = await supabase
+        .from("lesson_progress")
+        .select("level_id, lesson_number, completed, completed_at, score")
+        .eq("user_id", user.id)
+        .order("completed_at", { ascending: false, nullsFirst: false });
+      if (!data || data.length === 0) {
+        setNext(buildFor("a1", 1, 0, true));
+        return;
+      }
+      const level = data[0].level_id;
+      const completedInLevel = new Set(
+        data.filter((r) => r.level_id === level && r.completed).map((r) => r.lesson_number)
+      );
+      let n = 1;
+      while (completedInLevel.has(n)) n++;
+      const scored = data.filter((r) => r.level_id === level && r.completed && typeof r.score === "number");
+      const avgAccuracy = scored.length
+        ? Math.round(scored.reduce((s, r: any) => s + (r.score || 0), 0) / scored.length)
+        : undefined;
+      setNext(buildFor(level, n, completedInLevel.size, false, avgAccuracy));
+    };
+
+    void (async () => {
+      // 1) Most recent in-progress lesson (exact card the student left off on).
+      await hydrateSlideProgressFromCloud();
+      const { data: inProgress } = await supabase
+        .from("lesson_slide_progress")
+        .select("lesson_key, reached, updated_at")
+        .eq("user_id", user.id)
+        .order("updated_at", { ascending: false })
+        .limit(1);
+
+      const localKey = getLastLessonKey();
+      const candidateKey = inProgress?.[0]?.lesson_key || localKey;
+      const parsed = candidateKey ? splitKey(candidateKey) : null;
+
+      if (parsed && (allLessons as any)[`${parsed.level.toLowerCase()}-${parsed.num}`]) {
+        const { data: done } = await supabase
+          .from("lesson_progress")
+          .select("lesson_number, completed")
+          .eq("user_id", user.id)
+          .eq("level_id", parsed.level.toUpperCase());
+        const completedCount = (done || []).filter((r) => r.completed).length;
+        const isDone = (done || []).some((r) => r.completed && r.lesson_number === parsed.num);
+        if (!isDone) {
+          const built = buildFor(parsed.level, parsed.num, completedCount, false);
+          const cloud = getSlideProgress(`${parsed.level.toLowerCase()}-${parsed.num}`);
+          setNext({
+            ...built,
+            card: built.card ?? (cloud?.reached || 0),
+          });
           return;
         }
-        const level = data[0].level_id;
-        const completedInLevel = new Set(
-          data.filter((r) => r.level_id === level && r.completed).map((r) => r.lesson_number)
-        );
-        let n = 1;
-        while (completedInLevel.has(n)) n++;
-        const scored = data.filter((r) => r.level_id === level && r.completed && typeof r.score === "number");
-        const avgAccuracy = scored.length
-          ? Math.round(scored.reduce((s, r: any) => s + (r.score || 0), 0) / scored.length)
-          : undefined;
-        setNext(buildFor(level, n, completedInLevel.size, false, avgAccuracy));
-      });
+      }
+
+      // 2) Otherwise: next uncompleted lesson in the most recent level.
+      await applyFromCompletions();
+    })();
   };
 
   useEffect(() => {
