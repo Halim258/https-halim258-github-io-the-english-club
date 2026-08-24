@@ -120,7 +120,7 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
   const convRate = newcomers.length > 0 ? Math.round((enrolled / newcomers.length) * 100) : 0;
 
   const payload = () => ({
-    client_name: form.client_name.trim(),
+    client_name: form.client_name.trim() || "Unnamed lead",
     client_number: form.client_number.trim() || null,
     client_email: form.client_email.trim() || null,
     access_method: form.access_method || null,
@@ -132,11 +132,11 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
   });
 
   const handleAdd = async () => {
-    if (!form.client_name.trim()) { toast({ title: "Name is required", variant: "destructive" }); return; }
     const { error } = await supabase.from("school_newcomers").insert({ ...payload(), the_date: new Date().toISOString() });
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else { toast({ title: "Lead added" }); setForm(emptyForm); setAddOpen(false); onRefresh(); }
   };
+
 
   const openEdit = (n: Newcomer) => {
     setEditId(n.id);
