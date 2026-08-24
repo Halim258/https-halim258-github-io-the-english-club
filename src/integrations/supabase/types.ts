@@ -1442,6 +1442,17 @@ export type Database = {
           id: string
         }[]
       }
+      get_public_reviews: {
+        Args: { _limit?: number }
+        Returns: {
+          created_at: string
+          display_name: string
+          id: string
+          is_mine: boolean
+          rating: number
+          text: string
+        }[]
+      }
       get_public_school_groups: {
         Args: never
         Returns: {

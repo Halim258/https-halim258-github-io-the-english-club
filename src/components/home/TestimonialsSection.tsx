@@ -14,7 +14,7 @@ const defaultTestimonials = [
     display_name: "Sarah M.",
     text: "The AI tutor helped me practice conversations anytime. My speaking improved dramatically in just 3 months!",
     rating: 5,
-    user_id: "",
+    is_mine: false,
     created_at: "",
   },
   {
@@ -22,7 +22,7 @@ const defaultTestimonials = [
     display_name: "Ahmed K.",
     text: "The slide-based lessons are incredible. Each lesson feels like a mini-class with vocabulary, grammar, and practice all in one.",
     rating: 5,
-    user_id: "",
+    is_mine: false,
     created_at: "",
   },
   {
@@ -30,7 +30,7 @@ const defaultTestimonials = [
     display_name: "Fatima H.",
     text: "Writing practice with AI feedback is a game-changer. I get instant corrections and tips that actually help me improve.",
     rating: 5,
-    user_id: "",
+    is_mine: false,
     created_at: "",
   },
   {
@@ -38,7 +38,7 @@ const defaultTestimonials = [
     display_name: "Omar R.",
     text: "My kids love the game center! They learn English while having fun. The daily challenges keep them motivated every day.",
     rating: 5,
-    user_id: "",
+    is_mine: false,
     created_at: "",
   },
 ];
@@ -56,7 +56,7 @@ interface Review {
   display_name: string;
   text: string;
   rating: number;
-  user_id: string;
+  is_mine: boolean;
   created_at: string;
 }
 
@@ -74,12 +74,8 @@ export default function TestimonialsSection() {
   }, []);
 
   const fetchReviews = async () => {
-    const { data } = await supabase
-      .from("reviews")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .limit(20);
-    if (data) setReviews(data);
+    const { data } = await supabase.rpc("get_public_reviews", { _limit: 20 });
+    if (data) setReviews(data as Review[]);
   };
 
   const handleSubmit = async () => {
@@ -248,7 +244,7 @@ export default function TestimonialsSection() {
                     </p>
                   )}
                 </div>
-                {user && t.user_id === user.id && (
+                {user && t.is_mine && (
                   <button
                     onClick={() => handleDelete(t.id)}
                     className="opacity-0 group-hover:opacity-100 text-foreground/40 hover:text-primary transition-all"
