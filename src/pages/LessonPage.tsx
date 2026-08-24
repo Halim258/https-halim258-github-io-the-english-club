@@ -19,6 +19,7 @@ import {
   getSlideProgress,
   hydrateSlideProgressFromCloud,
 } from "@/hooks/useSlideProgress";
+import { getLessonPosition, setLessonPosition } from "@/lib/lesson-position";
 
 /* ───── Fullscreen no-scroll shell ───── */
 const Shell = ({ children }: { children: React.ReactNode }) => (
