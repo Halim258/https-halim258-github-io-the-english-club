@@ -583,12 +583,15 @@ function DiscussionPromptCard({ prompt, index, levelId, lessonNumber, userId, sp
 }
 
 /* ───── Section title card ───── */
-function SectionTitleCard({ title, icon }: { title: string; icon: string }) {
+function SectionTitleCard({ title, icon, note }: { title: string; icon: string; note?: string }) {
   return (
     <div className="flex flex-1 items-center justify-center px-4">
-      <div className="text-center">
+      <div className="text-center max-w-xs">
         <span className="text-5xl mb-4 block">{icon}</span>
         <h2 className="text-2xl font-bold text-foreground">{title}</h2>
+        {note && (
+          <p className="mt-3 text-xs text-muted-foreground font-sans leading-relaxed">{note}</p>
+        )}
       </div>
     </div>
   );
