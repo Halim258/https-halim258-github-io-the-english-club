@@ -250,6 +250,43 @@ function GrammarExampleCard({ example, speak, speaking }: { example: { sentence:
   );
 }
 
+/* ───── One of five related grammar points ───── */
+function GrammarPointCard({
+  point,
+  index,
+  total,
+  speak,
+  speaking,
+}: {
+  point: GrammarPoint;
+  index: number;
+  total: number;
+  speak: (t: string) => void;
+  speaking: boolean;
+}) {
+  return (
+    <div className="flex flex-1 items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl border-2 border-primary/20 bg-card p-6 shadow-lg">
+        <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground font-sans">
+          Grammar point {index + 1} of {total}
+        </p>
+        <h3 className="mt-2 text-xl font-bold text-foreground">{point.title.replace(/^\d+\.\s*/, "")}</h3>
+        <p className="mt-3 text-sm text-muted-foreground leading-relaxed font-sans">{point.explanation}</p>
+        {point.example && (
+          <div className="mt-4 rounded-xl border border-accent/30 bg-primary/5 p-4">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary font-sans mb-1.5">Example</p>
+            <div className="flex items-start justify-between gap-3">
+              <p className="text-base font-semibold text-foreground font-sans leading-relaxed">{point.example}</p>
+              <AudioButton text={point.example} speak={speak} speaking={speaking} />
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
 /* ───── MCQ Card ───── */
 function MCQCard({ item, onAnswer }: { item: MCQItem; onAnswer?: (correct: boolean) => { xp: number; combo: number } | void }) {
   const [selected, setSelected] = useState<number | null>(null);
