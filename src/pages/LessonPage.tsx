@@ -977,12 +977,22 @@ export default function LessonPage() {
         );
         const total = unlocked.length;
         const cards: React.ReactNode[] = [
-          <SectionTitleCard key="title" title="Vocabulary" icon="📚" />,
+          <SectionTitleCard
+            key="title"
+            title="Vocabulary"
+            icon="📚"
+            note="Note: exercises only appear for the cards you flip. If you flip none, there are no questions."
+          />,
           ...vocabCards,
         ];
         if (total > 0) {
           cards.push(
-            <SectionTitleCard key="ex-title" title={`Exercises (${total})`} icon="✏️" />,
+            <SectionTitleCard
+              key="ex-title"
+              title={`Exercises (${total})`}
+              icon="✏️"
+              note="These questions come from the cards you flipped."
+            />,
             ...unlocked.map((q, i) => (
               <MCQCard key={`ve-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
             )),
