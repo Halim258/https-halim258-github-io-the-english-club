@@ -44,7 +44,15 @@ export interface LessonData {
   reading?: ReadingSection;
   pictureActivity?: PictureActivity;
   listening?: ListeningActivity;
+  /* Phonics: the sound(s) this lesson teaches, shown as intro cards. */
+  soundIntro?: {
+    grapheme: string;
+    ipa: string;
+    hint: string;
+    words: string[];
+  }[];
   writingPrompt?: string;
+
   speakingPrompt?: string;
 }
 
