@@ -199,48 +199,25 @@ export default function AdminNewcomers({ newcomers, onRefresh }: Props) {
     <div className="space-y-4 max-h-[65vh] overflow-y-auto pr-1">
       <div className="space-y-3">
         <p className="text-xs font-bold uppercase tracking-wider text-primary">Lead info</p>
-        <div><Label>Full name *</Label><Input value={form.client_name} onChange={e => setForm({ ...form, client_name: e.target.value })} placeholder="Client full name" autoFocus /></div>
+        <p className="text-xs text-muted-foreground">All fields are optional — fill in whatever you have.</p>
+        <div><Label>Full name <span className="text-muted-foreground font-normal">(optional)</span></Label><Input value={form.client_name} onChange={e => setForm({ ...form, client_name: e.target.value })} placeholder="Client full name" autoFocus /></div>
         <div className="grid gap-3 sm:grid-cols-2">
-          <div><Label>Phone number</Label><Input value={form.client_number} onChange={e => setForm({ ...form, client_number: e.target.value })} placeholder="01xxxxxxxxx" /></div>
+          <div><Label>Phone number <span className="text-muted-foreground font-normal">(optional)</span></Label><Input value={form.client_number} onChange={e => setForm({ ...form, client_number: e.target.value })} placeholder="01xxxxxxxxx" /></div>
           <div><Label>Email <span className="text-muted-foreground font-normal">(optional)</span></Label><Input type="email" value={form.client_email} onChange={e => setForm({ ...form, client_email: e.target.value })} placeholder="name@example.com" /></div>
         </div>
         <div><Label>Asked about <span className="text-muted-foreground font-normal">(optional)</span></Label><Input value={form.interest} onChange={e => setForm({ ...form, interest: e.target.value })} placeholder="e.g. A2 evening group, IELTS, kids course" /></div>
-      </div>
-
-      <div className="space-y-3">
-        <p className="text-xs font-bold uppercase tracking-wider text-primary">Pipeline</p>
-        <div className="grid gap-3 sm:grid-cols-2">
-          <div>
-            <Label>Status</Label>
-            <select value={form.status} onChange={e => setForm({ ...form, status: e.target.value as Status })} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
-              {STATUSES.map(s => <option key={s.id} value={s.id}>{s.label}</option>)}
-            </select>
-          </div>
-          <div>
-            <Label>Follow-up reminder</Label>
-            <Input type="datetime-local" value={form.follow_up_at} onChange={e => setForm({ ...form, follow_up_at: e.target.value })} />
-          </div>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {[1, 3, 7, 14].map(d => (
-            <Button key={d} type="button" variant="outline" size="sm" onClick={() => {
-              const dt = new Date(); dt.setDate(dt.getDate() + d);
-              setForm({ ...form, follow_up_at: toLocalInput(dt.toISOString()) });
-            }}>+{d}d</Button>
-          ))}
-          {form.follow_up_at && <Button type="button" variant="ghost" size="sm" onClick={() => setForm({ ...form, follow_up_at: "" })}>Clear</Button>}
-        </div>
         <div>
-          <Label>How did they find us?</Label>
+          <Label>How did they find us? <span className="text-muted-foreground font-normal">(optional)</span></Label>
           <select value={form.access_method} onChange={e => setForm({ ...form, access_method: e.target.value })} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
             <option value="">— Select source —</option>
             {["Facebook", "Instagram", "WhatsApp", "Walk-in", "Referral", "Google", "Flyer", "Other"].map(s => <option key={s} value={s}>{s}</option>)}
           </select>
         </div>
-        <div><Label>Notes</Label><Textarea rows={3} value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} placeholder="What did they ask about? Preferred time, budget, next step..." /></div>
+        <div><Label>Notes <span className="text-muted-foreground font-normal">(optional)</span></Label><Textarea rows={3} value={form.notes} onChange={e => setForm({ ...form, notes: e.target.value })} placeholder="What did they ask about? Preferred time, budget, next step..." /></div>
       </div>
     </div>
   );
+
 
   return (
     <div>
