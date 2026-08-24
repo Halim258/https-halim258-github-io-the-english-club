@@ -1650,30 +1650,41 @@ export default function LessonPage() {
         </div>
       </div>
 
-      {/* Section navigation — editorial underlined tabs with per-section dots */}
-      <div className="border-b border-border/60 bg-card px-3 sm:px-6 pt-2">
-        <nav className="flex gap-4 sm:gap-6 overflow-x-auto scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
-          {TABS.filter((tab) => {
-          if (tab.id === "reading") {
-            return Boolean(lesson.reading || lesson.heroImage);
-          }
-          if (tab.id === "activity") {
-            // Written research activity — available for Spanish, German, and English lessons.
-            const lid = typeof lesson.levelId === "string" ? lesson.levelId : "";
-            if (!lid) return false;
-            if (lid.startsWith("it-")) return false;
-            return true;
-          }
-          return true;
-        }).map((tab) => {
+      {/* Section navigation — playful chunky pills for phonics, editorial tabs elsewhere */}
+      <div className={`border-b border-border/60 px-3 sm:px-6 ${isPhonics ? "bg-gradient-to-r from-sky-500/10 via-fuchsia-500/10 to-amber-500/10 py-3" : "bg-card pt-2"}`}>
+        <nav className={`flex overflow-x-auto scrollbar-none ${isPhonics ? "gap-2 sm:gap-3" : "gap-4 sm:gap-6"}`} style={{ WebkitOverflowScrolling: 'touch' }}>
+          {TABS.filter((tab) => tabIsVisible(tab, lesson)).map((tab) => {
           const isCommunication = isCommunicationCourse(lesson.levelId);
-          const displayLabel = tab.id === "conversation" && isCommunication && "altLabel" in tab ? tab.altLabel : tab.label;
+          const kid = isPhonics ? PHONICS_TABS[tab.id] : undefined;
+          const displayLabel = kid
+            ? kid.label
+            : tab.id === "conversation" && isCommunication && "altLabel" in tab
+            ? tab.altLabel
+            : tab.label;
           const isActive = activeTab === tab.id;
           // Per-tab progress dots (3 pips): filled = current tab's progress ratio
           const dotCount = 3;
           const filledDots = isActive
             ? Math.max(1, Math.min(dotCount, Math.ceil((cardIndex + 1) / totalCards * dotCount)))
             : 0;
+
+          if (kid) {
+            return (
+              <button
+                key={tab.id}
+                onClick={() => switchTab(tab.id)}
+                className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-2.5 font-display text-base sm:text-lg font-bold transition-all duration-200 touch-manipulation active:scale-95 ${
+                  isActive
+                    ? `${kid.color} text-white shadow-lg scale-[1.03]`
+                    : "bg-card text-foreground/70 border shadow-sm hover:text-foreground hover:-translate-y-0.5"
+                }`}
+              >
+                <span className="text-xl leading-none">{kid.icon}</span>
+                {displayLabel}
+              </button>
+            );
+          }
+
           return (
             <button
               key={tab.id}
@@ -1706,6 +1717,7 @@ export default function LessonPage() {
         })}
         </nav>
       </div>
+
 
       {/* Jump to Exercises button — visible in vocab tab when viewing vocab cards */}
       {activeTab === "vocabulary" && cardIndex < exerciseStartIndex && (
