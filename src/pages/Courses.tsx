@@ -507,6 +507,24 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
           )}
         </div>
       </FadeInUp>
+      {levelId === "phonics" && (
+        <FadeInUp>
+          <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/10 to-accent/5 p-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-primary">Not sure where to start?</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Take the 15-question phonics diagnostic and we'll place you in the right stage.
+              </p>
+            </div>
+            <Button asChild className="shrink-0 rounded-full font-semibold">
+              <Link to="/phonics-test">
+                Take the diagnostic quiz <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </FadeInUp>
+      )}
+
       <motion.div
         variants={staggerContainer}
         initial="hidden"
