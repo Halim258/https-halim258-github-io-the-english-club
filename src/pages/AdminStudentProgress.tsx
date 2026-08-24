@@ -320,6 +320,52 @@ export default function AdminStudentProgress() {
         </div>
       )}
 
+      {/* Lessons started but not finished — from slide-level auto-save */}
+      {(() => {
+        const completedKeys = new Set(
+          lessons.filter(l => l.completed).map(l => `${l.level_id}-${l.lesson_number}`)
+        );
+        const started = slides.filter(
+          r => r.total > 0 && r.reached + 1 < r.total && !completedKeys.has(r.lesson_key)
+        );
+        if (started.length === 0) return null;
+        return (
+          <div className="rounded-2xl border bg-card p-5 shadow-soft">
+            <div className="flex items-center justify-between mb-3 gap-3 flex-wrap">
+              <h2 className="text-sm font-semibold flex items-center gap-2">
+                <BookOpen className="h-4 w-4 text-primary" /> Currently in progress
+              </h2>
+              <span className="text-[11px] text-muted-foreground">{started.length} lesson(s) started, not finished</span>
+            </div>
+            <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+              {started.map(r => {
+                const dash = r.lesson_key.lastIndexOf("-");
+                const level = r.lesson_key.slice(0, dash);
+                const num = r.lesson_key.slice(dash + 1);
+                const pct = Math.min(100, Math.round(((r.reached + 1) / Math.max(1, r.total)) * 100));
+                return (
+                  <div key={r.lesson_key} className="rounded-xl border bg-muted/20 p-3">
+                    <div className="flex items-center justify-between mb-1.5 gap-2">
+                      <span className="text-xs font-semibold truncate">
+                        {levelLabel(level)} · Lesson {num}
+                      </span>
+                      <span className="text-[11px] font-semibold text-primary">{pct}%</span>
+                    </div>
+                    <Progress value={pct} className="h-1.5" />
+                    <div className="mt-1.5 flex items-center justify-between text-[10px] text-muted-foreground">
+                      <span>Slide {r.reached + 1} of {r.total}</span>
+                      <span>{new Date(r.updated_at).toLocaleDateString()}</span>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+      })()}
+
+      <ActivityFeed items={activity} loading={activityLoading} title="What this student has done so far" />
+
       <div className="space-y-4">
         <h2 className="text-lg font-semibold flex items-center gap-2">
           <BookOpen className="h-5 w-5 text-primary" /> Lesson-by-lesson progress
