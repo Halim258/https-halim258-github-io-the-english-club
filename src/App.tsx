@@ -85,7 +85,9 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <SoundProvider />
         <Suspense fallback={<PageLoader />}>
+
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
