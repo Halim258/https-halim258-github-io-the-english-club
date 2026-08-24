@@ -178,18 +178,90 @@ function buildListening(lesson: LessonData, lang: Lang) {
   return { transcript, questions };
 }
 
+/* ── CEFR-aware English enrichment (A1 → C2) ───────────────────────── */
+
+type Cefr = "a1" | "a2" | "b1" | "b2" | "c1" | "c2";
+
+function cefrOf(levelId: string): Cefr | undefined {
+  const m = levelId.toLowerCase().match(/^(a1|a2|b1|b2|c1|c2)\b/);
+  return (m?.[1] as Cefr) ?? undefined;
+}
+
+const EN_LEVEL: Record<Cefr, { frame: (t: string) => string; task: string; writing: (t: string) => string }> = {
+  a1: {
+    frame: (t) => `This lesson is about ${t}. Read the short sentences slowly. Say each one out loud, then cover the page and try to remember three words.`,
+    task: "Read again and underline every new word. Copy the three sentences you like most.",
+    writing: (t) => `Write 5 simple sentences about "${t}". Use "I", "my" and at least four new words from this lesson.`,
+  },
+  a2: {
+    frame: (t) => `In this lesson we look at ${t} in everyday situations. Read the passage twice: first for the general idea, then for the details.`,
+    task: "Find two sentences you could really use this week and change them so they are true for you.",
+    writing: (t) => `Write a short paragraph (60–80 words) about "${t}". Give one example from your own life and use four words from this lesson.`,
+  },
+  b1: {
+    frame: (t) => `${t} is the focus of this lesson. As you read, notice how the language changes when the speaker is polite, informal, or giving an opinion.`,
+    task: "Summarise the passage in two sentences without looking at it, then check what you missed.",
+    writing: (t) => `Write 100–120 words about "${t}". Include one experience, one opinion and one reason. Use the grammar point of this lesson at least twice.`,
+  },
+  b2: {
+    frame: (t) => `This lesson develops ${t} at a more natural speed. Pay attention to collocations and to the phrases that connect ideas.`,
+    task: "Mark every linking word in the passage and explain what each one signals (contrast, cause, result).",
+    writing: (t) => `Write 150–180 words about "${t}". Present two sides of the issue and finish with your own position, using linking phrases.`,
+  },
+  c1: {
+    frame: (t) => `Here ${t} is treated as an idea to analyse, not only vocabulary to learn. Read critically: what does the writer assume, and what is left unsaid?`,
+    task: "Rewrite two sentences from the passage in a more formal register, then in a more informal one.",
+    writing: (t) => `Write 200–250 words on "${t}". Build a clear argument with a thesis, two supported points and a counter-argument you answer.`,
+  },
+  c2: {
+    frame: (t) => `At this level ${t} is a starting point for nuance: register, implication and tone matter as much as accuracy.`,
+    task: "Identify the writer's stance and rewrite one paragraph so the stance becomes the opposite, keeping the same style.",
+    writing: (t) => `Write 250–300 words on "${t}" in an academic register. Use nominalisation, hedging and precise vocabulary; avoid repeating the lesson's phrasing.`,
+  },
+};
+
+function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildReading>) {
+  const level = cefrOf(lesson.levelId);
+  if (!level || !base) return base;
+  const cfg = EN_LEVEL[level];
+  const grammarNote = lesson.grammar?.title
+    ? `\n\nLanguage focus: ${lesson.grammar.title}. ${lesson.grammar.explanation ?? ""}`.trim()
+    : "";
+  const examples = (lesson.grammar?.examples ?? [])
+    .slice(0, 3)
+    .map((e) => `• ${e.sentence}${e.note ? ` — ${e.note}` : ""}`)
+    .join("\n");
+  return {
+    ...base,
+    title: `Reading (${level.toUpperCase()}): ${lesson.title}`,
+    text: [
+      cfg.frame(lesson.title),
+      base.text.split("\n\n").slice(1).join("\n\n") || base.text,
+      grammarNote,
+      examples ? `Examples in context:\n${examples}` : "",
+      `Task: ${cfg.task}`,
+    ]
+      .filter(Boolean)
+      .join("\n\n"),
+  };
+}
+
 export function enrichLesson(lesson: LessonData): LessonData {
   const lang = detectLang(lesson.levelId);
   const s = L[lang];
+  const level = cefrOf(lesson.levelId);
+  const reading = lesson.reading ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
   return {
     ...lesson,
     heroImage: lesson.heroImage ?? heroImageFor(lesson),
-    reading: lesson.reading ?? buildReading(lesson, lang),
+    reading,
     listening: lesson.listening ?? buildListening(lesson, lang),
-    writingPrompt: lesson.writingPrompt ?? s.writing(lesson.title),
+    writingPrompt:
+      lesson.writingPrompt ?? (level && lang === "en" ? EN_LEVEL[level].writing(lesson.title) : s.writing(lesson.title)),
     speakingPrompt: lesson.speakingPrompt ?? s.speaking(lesson.title),
   };
 }
+
 
 export function enrichAllLessons(map: Record<string, LessonData>): void {
   for (const key of Object.keys(map)) {
