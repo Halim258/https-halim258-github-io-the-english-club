@@ -1105,6 +1105,12 @@ function buildLesson(spec: PhonicsSpec): LessonData {
     grammarExercises,
     examQuestions,
     homeworkQuestions,
+    soundIntro: spec.groups.map((g) => ({
+      grapheme: g.grapheme,
+      ipa: g.ipa,
+      hint: g.hint,
+      words: g.words.map((w) => w.w),
+    })),
     speakingPrompt: `Read every word in this lesson out loud, sound by sound, then blend it. Record yourself saying: ${lessonWordList
       .slice(0, 6)
       .join(", ")}. Listen back and check each sound is clear.`,
