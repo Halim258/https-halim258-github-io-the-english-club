@@ -321,8 +321,9 @@ function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildR
   const level = cefrOf(lesson.levelId);
   if (!level || !base) return base;
   const cfg = EN_LEVEL[level];
+  const passage = base.text.split("\n\n").slice(1).join("\n\n") || base.text;
   const grammarNote = lesson.grammar?.title
-    ? `\n\nLanguage focus: ${lesson.grammar.title}. ${lesson.grammar.explanation ?? ""}`.trim()
+    ? `LANGUAGE FOCUS — ${lesson.grammar.title}\n${lesson.grammar.explanation ?? ""}`.trim()
     : "";
   const examples = (lesson.grammar?.examples ?? [])
     .slice(0, 3)
@@ -332,14 +333,16 @@ function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildR
     ...base,
     title: `Reading (${level.toUpperCase()}): ${lesson.title}`,
     text: [
-      base.text.split("\n\n").slice(1).join("\n\n") || base.text,
+      cfg.frame(lesson.title),
+      `PASSAGE\n${passage}`,
       grammarNote,
-      examples ? `Examples in context:\n${examples}` : "",
-      `Task: ${cfg.task}`,
+      examples ? `EXAMPLES IN CONTEXT\n${examples}` : "",
+      `YOUR TASK\n${cfg.task}`,
     ]
       .filter(Boolean)
       .join("\n\n"),
   };
+
 }
 
 /** Grammar must always show example sentences — top up to at least 4. */
