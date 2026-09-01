@@ -114,28 +114,125 @@ const L = {
   },
 } as const;
 
+const CONNECTORS = {
+  en: ["First,", "Then,", "Also,", "After that,", "Later,", "Finally,"],
+  it: ["Prima,", "Poi,", "Inoltre,", "Dopo,", "Più tardi,", "Alla fine,"],
+  de: ["Zuerst,", "Dann,", "Außerdem,", "Danach,", "Später,", "Zum Schluss,"],
+} as const;
+
+const READING_Q = {
+  en: {
+    topicQ: "What is the passage mainly about?",
+    mentionedQ: (w: string) => `True or false? The passage talks about "${w}".`,
+    notMentionedQ: (w: string) => `True or false? The passage talks about "${w}".`,
+    trueFalse: ["True", "False"],
+    gapQ: (s: string) => `Complete the sentence from the passage: ${s}`,
+    closing: (t: string) => `That is how we talk about ${t} in real life.`,
+  },
+  it: {
+    topicQ: "Di cosa parla principalmente il testo?",
+    mentionedQ: (w: string) => `Vero o falso? Il testo parla di "${w}".`,
+    notMentionedQ: (w: string) => `Vero o falso? Il testo parla di "${w}".`,
+    trueFalse: ["Vero", "Falso"],
+    gapQ: (s: string) => `Completa la frase del testo: ${s}`,
+    closing: (t: string) => `Così si parla di ${t} nella vita reale.`,
+  },
+  de: {
+    topicQ: "Worum geht es im Text hauptsächlich?",
+    mentionedQ: (w: string) => `Richtig oder falsch? Der Text spricht über "${w}".`,
+    notMentionedQ: (w: string) => `Richtig oder falsch? Der Text spricht über "${w}".`,
+    trueFalse: ["Richtig", "Falsch"],
+    gapQ: (s: string) => `Ergänze den Satz aus dem Text: ${s}`,
+    closing: (t: string) => `So spricht man im Alltag über ${t}.`,
+  },
+} as const;
+
+const OFF_TOPIC_WORDS = ["submarine", "helicopter", "volcano", "trombone", "penguin", "telescope"];
+
+/** Build a passage that reads like a real short text, plus questions about it. */
 function buildReading(lesson: LessonData, lang: Lang) {
   const s = L[lang];
+  const q = READING_Q[lang];
   const examples = (lesson.vocabulary ?? [])
     .map((v) => v.example)
     .filter((e): e is string => Boolean(e && e.trim()))
+    .map((e) => e.trim())
     .slice(0, 6);
   if (examples.length < 3) return undefined;
 
   const pool = lesson.vocabulary.slice(0, Math.min(8, lesson.vocabulary.length));
   if (pool.length < 4) return undefined;
 
-  const text = `${s.intro(lesson.title)}\n\n${examples.join(" ")}`;
-  const questions: MCQItem[] = pool.slice(0, 4).map((v, idx) => {
-    const distractors = shuffleDeterministic(
-      pool.filter((x) => x.word !== v.word).map((x) => x.meaning),
-      seedFor(lesson) + idx + 7,
+  // Link the example sentences into one flowing paragraph.
+  const connectors = CONNECTORS[lang];
+  const body = examples
+    .map((sentence, idx) => {
+      const clean = sentence.replace(/\s+/g, " ");
+      if (idx === 0) return clean;
+      const c = connectors[Math.min(idx - 1, connectors.length - 1)];
+      const lowered = clean.charAt(0).toLowerCase() + clean.slice(1);
+      return `${c} ${lowered}`;
+    })
+    .join(" ");
+
+  const text = `${s.intro(lesson.title)}\n\n${body} ${q.closing(lesson.title.toLowerCase())}`;
+
+  const questions: MCQItem[] = [];
+
+  // 1) Main idea — the lesson topic against unrelated topics.
+  const topicDecoys = shuffleDeterministic(
+    ["Sports and hobbies", "Computers and coding", "Money and banking", "Animals in the zoo"].filter(
+      (d) => !stripDiacritics(d).toLowerCase().includes(stripDiacritics(lesson.title).toLowerCase()),
+    ),
+    seedFor(lesson) + 41,
+  ).slice(0, 3);
+  const topicOptions = shuffleDeterministic([lesson.title, ...topicDecoys], seedFor(lesson) + 43);
+  questions.push({ question: q.topicQ, options: topicOptions, correct: topicOptions.indexOf(lesson.title) });
+
+  // 2) Gap-fill taken straight from a sentence in the passage.
+  const gapSource = pool.find((v) => v.example && v.example.toLowerCase().includes(v.word.toLowerCase()));
+  if (gapSource?.example) {
+    const blanked = gapSource.example.replace(new RegExp(gapSource.word, "i"), "______");
+    const gapDecoys = shuffleDeterministic(
+      pool.filter((x) => x.word.toLowerCase() !== gapSource.word.toLowerCase()).map((x) => x.word),
+      seedFor(lesson) + 47,
     ).slice(0, 3);
-    const options = shuffleDeterministic([v.meaning, ...distractors], seedFor(lesson) + idx + 3);
-    return { question: s.meaningQ(v.word), options, correct: options.indexOf(v.meaning) };
+    const options = shuffleDeterministic([gapSource.word, ...gapDecoys], seedFor(lesson) + 53);
+    questions.push({
+      question: q.gapQ(blanked),
+      options,
+      correct: options.indexOf(gapSource.word),
+    });
+  }
+
+  // 3) Detail check: a word that IS in the passage.
+  const inText = pool.find((v) => body.toLowerCase().includes(v.word.toLowerCase()));
+  if (inText) {
+    questions.push({ question: q.mentionedQ(inText.word), options: [...q.trueFalse], correct: 0 });
+  }
+
+  // 4) Detail check: a word that is NOT in the passage.
+  const outWord = OFF_TOPIC_WORDS.find((w) => !body.toLowerCase().includes(w));
+  if (outWord) {
+    questions.push({ question: q.notMentionedQ(outWord), options: [...q.trueFalse], correct: 1 });
+  }
+
+  // 5) One meaning question to close.
+  const meaningWord = pool[seedFor(lesson) % pool.length];
+  const meaningDecoys = shuffleDeterministic(
+    pool.filter((x) => x.word !== meaningWord.word).map((x) => x.meaning),
+    seedFor(lesson) + 7,
+  ).slice(0, 3);
+  const meaningOptions = shuffleDeterministic([meaningWord.meaning, ...meaningDecoys], seedFor(lesson) + 3);
+  questions.push({
+    question: s.meaningQ(meaningWord.word),
+    options: meaningOptions,
+    correct: meaningOptions.indexOf(meaningWord.meaning),
   });
+
   return { title: s.readingTitle(lesson.title), text, questions };
 }
+
 
 function buildListening(lesson: LessonData, lang: Lang) {
   const s = L[lang];
@@ -224,8 +321,9 @@ function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildR
   const level = cefrOf(lesson.levelId);
   if (!level || !base) return base;
   const cfg = EN_LEVEL[level];
+  const passage = base.text.split("\n\n").slice(1).join("\n\n") || base.text;
   const grammarNote = lesson.grammar?.title
-    ? `\n\nLanguage focus: ${lesson.grammar.title}. ${lesson.grammar.explanation ?? ""}`.trim()
+    ? `LANGUAGE FOCUS — ${lesson.grammar.title}\n${lesson.grammar.explanation ?? ""}`.trim()
     : "";
   const examples = (lesson.grammar?.examples ?? [])
     .slice(0, 3)
@@ -235,14 +333,16 @@ function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildR
     ...base,
     title: `Reading (${level.toUpperCase()}): ${lesson.title}`,
     text: [
-      base.text.split("\n\n").slice(1).join("\n\n") || base.text,
+      cfg.frame(lesson.title),
+      `PASSAGE\n${passage}`,
       grammarNote,
-      examples ? `Examples in context:\n${examples}` : "",
-      `Task: ${cfg.task}`,
+      examples ? `EXAMPLES IN CONTEXT\n${examples}` : "",
+      `YOUR TASK\n${cfg.task}`,
     ]
       .filter(Boolean)
       .join("\n\n"),
   };
+
 }
 
 /** Grammar must always show example sentences — top up to at least 4. */
