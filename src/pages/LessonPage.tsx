@@ -1325,10 +1325,8 @@ export default function LessonPage() {
         const vocabCards = lesson.vocabulary.map((w, i) => (
           <VocabCard key={`v-${i}`} item={w} showArabic={showArabic} speak={speak} speaking={speaking} onFlip={markFlipped} />
         ));
-        // Only show exercises for the words the student actually flipped.
-        const unlocked = lesson.vocabExercises.filter((q) =>
-          flippedWords.some((w) => q.question.toLowerCase().includes(w.toLowerCase()))
-        );
+        // Show all vocabulary exercises for this lesson.
+        const unlocked = lesson.vocabExercises;
         const total = unlocked.length;
         const cards: React.ReactNode[] = [
           <SectionTitleCard
@@ -1337,8 +1335,8 @@ export default function LessonPage() {
             icon={isPhonicsCourse(lesson.levelId) ? "🔤" : "📚"}
             note={
               isPhonicsCourse(lesson.levelId)
-                ? "Tap each card to hear the sound. Flip a card to unlock its practice question."
-                : "Note: exercises only appear for the cards you flip. If you flip none, there are no questions."
+                ? "Tap each card to hear the sound, then practise with the questions below."
+                : "Flip each card to study, then answer the practice questions at the end."
             }
           />,
           ...(lesson.soundIntro ?? []).map((s, i) => (
@@ -1352,8 +1350,9 @@ export default function LessonPage() {
               key="ex-title"
               title={`Exercises (${total})`}
               icon="✏️"
-              note="These questions come from the cards you flipped."
+              note="Practise the words from this lesson."
             />,
+
             ...unlocked.map((q, i) => (
               <MCQCard key={`ve-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(vocabScore)} />
             )),
