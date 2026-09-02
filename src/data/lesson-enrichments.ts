@@ -455,25 +455,25 @@ const STORY_DAYS = ["Monday", "Tuesday", "Wednesday", "Saturday", "Sunday"];
 type StoryScenario = { place: string; action: string; object: string; result: string };
 
 const STORY_SCENARIOS: { keys: string[]; scenario: StoryScenario }[] = [
-  { keys: ["greeting", "hello", "introduc"], scenario: { place: "a new English class", action: "introduce herself to two classmates", object: "a name card on the teacher's desk", result: "the classmates welcome her" } },
+  { keys: ["greeting", "hello", "introduc"], scenario: { place: "a new English class", action: "introduce myself to two classmates", object: "a name card on the teacher's desk", result: "the classmates welcome her" } },
   { keys: ["number", "count", "age", "quantity"], scenario: { place: "a busy market", action: "help count the fruit", object: "a basket with ten apples", result: "the seller gives her the right change" } },
   { keys: ["family", "relative", "parent"], scenario: { place: "the family home", action: "help prepare a family meal", object: "an old family photograph", result: "everyone sits together and shares stories" } },
   { keys: ["color", "clothes", "fashion", "wear"], scenario: { place: "a small clothes shop", action: "choose an outfit for a school event", object: "a blue shirt and comfortable shoes", result: "the shop assistant finds the right size" } },
   { keys: ["food", "drink", "restaurant", "meal", "cook"], scenario: { place: "a quiet café", action: "order breakfast for the first time", object: "a sandwich and a glass of juice", result: "the waiter smiles and brings the food" } },
-  { keys: ["weather", "season", "climate"], scenario: { place: "the park near her home", action: "plan an afternoon outside", object: "a small umbrella in her bag", result: "the rain stops and she enjoys a short walk" } },
-  { keys: ["time", "routine", "daily", "calendar", "schedule"], scenario: { place: "her morning kitchen", action: "check the clock before leaving", object: "a timetable beside the door", result: "the learner arrives at class on time" } },
-  { keys: ["home", "house", "room", "furniture"], scenario: { place: "her new apartment", action: "put things in the correct rooms", object: "a lamp beside the sofa", result: "the living room feels warm and tidy" } },
+  { keys: ["weather", "season", "climate"], scenario: { place: "the park near home", action: "plan an afternoon outside", object: "a small umbrella in her bag", result: "the rain stops and she enjoys a short walk" } },
+  { keys: ["time", "routine", "daily", "calendar", "schedule"], scenario: { place: "the family kitchen", action: "check the clock before leaving", object: "a timetable beside the door", result: "the learner arrives at class on time" } },
+  { keys: ["home", "house", "room", "furniture"], scenario: { place: "a newly rented apartment", action: "put things in the correct rooms", object: "a lamp beside the sofa", result: "the living room feels warm and tidy" } },
   { keys: ["school", "class", "student", "lesson"], scenario: { place: "the English Club classroom", action: "prepare a short class presentation", object: "three new words on the board", result: "the teacher congratulates her" } },
   { keys: ["health", "body", "doctor", "medical"], scenario: { place: "the local clinic", action: "describe a small problem to the doctor", object: "a glass of water and a health card", result: "the doctor gives helpful advice" } },
   { keys: ["animal", "pet", "dog", "cat"], scenario: { place: "the animal centre", action: "look after a friendly rescue dog", object: "a blue bowl and a red ball", result: "the dog feels safe and starts to play" } },
   { keys: ["hobby", "free time", "leisure"], scenario: { place: "the community centre", action: "join a new afternoon club", object: "a camera and a notebook", result: "the learner makes a new friend" } },
   { keys: ["sport", "football", "exercise"], scenario: { place: "the school sports field", action: "practise with her team", object: "a ball near the goal", result: "the team scores its first point" } },
-  { keys: ["travel", "trip", "holiday", "airport"], scenario: { place: "the train station", action: "check her ticket before a trip", object: "a small suitcase and a map", result: "the learner finds the right platform" } },
+  { keys: ["travel", "trip", "holiday", "airport"], scenario: { place: "the train station", action: "check the ticket before a trip", object: "a small suitcase and a map", result: "the learner finds the right platform" } },
   { keys: ["transport", "bus", "train", "direction"], scenario: { place: "the city bus stop", action: "ask for directions", object: "a bus going to the city centre", result: "the driver shows her where to get off" } },
-  { keys: ["work", "job", "office", "career", "business"], scenario: { place: "her first day at an office", action: "meet a new colleague", object: "a notebook with her work tasks", result: "the learner understands what to do next" } },
-  { keys: ["technology", "gadget", "computer", "internet"], scenario: { place: "the library computer room", action: "learn to use a new website", object: "a laptop and a useful password", result: "the learner completes her online task" } },
+  { keys: ["work", "job", "office", "career", "business"], scenario: { place: "a new office on the first working day", action: "meet a new colleague", object: "a notebook with the day's work tasks", result: "the learner understands what to do next" } },
+  { keys: ["technology", "gadget", "computer", "internet"], scenario: { place: "the library computer room", action: "learn to use a new website", object: "a laptop and a useful password", result: "the learner completes the online task" } },
   { keys: ["celebration", "festival", "party"], scenario: { place: "a neighbour's celebration", action: "help decorate the room", object: "bright cards and a birthday cake", result: "the guests sing together" } },
-  { keys: ["environment", "nature", "recycle"], scenario: { place: "the beach near her city", action: "collect plastic with a volunteer group", object: "a large bag and a pair of gloves", result: "the beach looks cleaner" } },
+  { keys: ["environment", "nature", "recycle"], scenario: { place: "the city beach", action: "collect plastic with a volunteer group", object: "a large bag and a pair of gloves", result: "the beach looks cleaner" } },
   { keys: ["past", "yesterday", "irregular", "regular", "verb"], scenario: { place: "the old town museum", action: "describe what she did yesterday", object: "a photo from her weekend walk", result: "her friend understands the story" } },
   { keys: ["plan", "arrangement", "future", "appointment"], scenario: { place: "the library café", action: "make plans for the weekend", object: "a calendar and two cinema tickets", result: "the friends agree on a time" } },
   { keys: ["compar", "superlative", "adjective"], scenario: { place: "a city park", action: "compare three trees for a drawing", object: "the tallest tree beside a bench", result: "the learner chooses the best view" } },
@@ -485,7 +485,7 @@ function storyScenario(title: string): StoryScenario {
   return STORY_SCENARIOS.find(({ keys }) => keys.some((key) => normalized.includes(stripDiacritics(key))))?.scenario ?? {
     place: "a new place in her city",
     action: "uses English to solve a small problem",
-    object: "her lesson notebook",
+    object: "a lesson notebook",
     result: "the learner feels more confident",
   };
 }
