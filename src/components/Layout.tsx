@@ -18,7 +18,8 @@ const lessonRoutePatterns = [
 
 export default function Layout() {
   const { pathname } = useLocation();
-  const isInLesson = lessonRoutePatterns.some((p) => p.test(pathname));
+  const isCertificate = /^\/courses\/[^/]+\/certificate$/.test(pathname);
+  const isInLesson = !isCertificate && lessonRoutePatterns.some((p) => p.test(pathname));
 
   if (isInLesson) {
     return (
