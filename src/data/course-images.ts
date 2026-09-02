@@ -8,6 +8,7 @@ import speakingConversation from "@/assets/courses/speaking-conversation.jpg";
 import listeningSkills from "@/assets/courses/listening-skills.jpg";
 import pronunciation from "@/assets/courses/pronunciation.jpg";
 import fluency from "@/assets/courses/fluency.jpg";
+import recorder from "@/assets/courses/recorder.jpg";
 
 // Category images used as fallbacks
 import coreEnglishImg from "@/assets/courses/core-english.jpg";
@@ -21,6 +22,8 @@ import interactiveImg from "@/assets/courses/interactive.jpg";
 import grammarImg from "@/assets/courses/grammar.jpg";
 
 export const courseImages: Record<string, string> = {
+  // Music
+  "The Perfect Recorder Method": recorder,
   // Core English
   "General English (A1–C2)": generalEnglish,
   "Intensive English Course": intensiveEnglish,

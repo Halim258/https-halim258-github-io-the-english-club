@@ -131,6 +131,7 @@ import { expansion20Batch1 } from "./expansion-20-batch-1";
 import { expansion20Batch2 } from "./expansion-20-batch-2";
 import { expansion20Batch3 } from "./expansion-20-batch-3";
 import { musicLessons } from "./music-lessons";
+import { recorderLessons } from "./recorder-lessons";
 import { newsLessons } from "./news-lessons";
 import { legalLessons } from "./legal-lessons";
 import { hospitalityLessons } from "./hospitality-lessons";
@@ -845,6 +846,7 @@ export const lessons: Record<string, LessonData> = {
   ...expansion20Batch2,
   ...expansion20Batch3,
   ...musicLessons,
+  ...recorderLessons,
   ...newsLessons,
   ...legalLessons,
   ...hospitalityLessons,
