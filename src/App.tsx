@@ -24,6 +24,7 @@ const Groups = lazy(() => import("./pages/Groups"));
 const PlacementTest = lazy(() => import("./pages/PlacementTest"));
 const PhonicsDiagnostic = lazy(() => import("./pages/PhonicsDiagnostic"));
 const LevelAssessment = lazy(() => import("./pages/LevelAssessment"));
+const LevelAssessment = lazy(() => import("./pages/LevelAssessment"));
 
 const StudentDashboard = lazy(() => import("./pages/StudentDashboard"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
@@ -117,6 +118,7 @@ const App = () => (
               <Route path="/courses/it-english/:lessonId/slides" element={<ProtectedRoute requireMember minimumLevel="b1"><SlideLesson /></ProtectedRoute>} />
               <Route path="/courses/it-english/:lessonId" element={<ProtectedRoute requireMember minimumLevel="b1"><LessonPage /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId/slides" element={<ProtectedRoute requireMember><SlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/:levelId/test" element={<ProtectedRoute requireMember><LevelAssessment /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId" element={<ProtectedRoute requireMember><LessonPage /></ProtectedRoute>} />
               <Route path="/courses/kids" element={<ProtectedRoute requireMember><KidsCourse /></ProtectedRoute>} />
               <Route path="/courses/stories" element={<ProtectedRoute requireMember><StoriesCourse /></ProtectedRoute>} />

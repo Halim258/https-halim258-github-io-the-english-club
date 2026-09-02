@@ -16,6 +16,7 @@ import { useSlideProgressMap } from "@/hooks/useSlideProgress";
 import CourseProgress from "@/components/CourseProgress";
 import { notifyAdmins } from "@/lib/notifications";
 import { customerServiceModules } from "@/data/customer-service-workplace";
+import { getLevelAssessment } from "@/data/level-assessments";
 
 function CardProgress({
   p,
@@ -701,9 +702,28 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
             </motion.div>
           );
         })}
-      </motion.div>
-    </div>
-  );
+        </motion.div>
+        {allCompleted && getLevelAssessment(levelId) && (
+          <div className="mt-6 rounded-2xl border border-primary/20 bg-primary/5 p-4 sm:p-5">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex items-start gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <GraduationCap className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-wider text-primary">Next step</p>
+                  <h2 className="mt-1 text-base font-bold">Take your {levelId.toUpperCase()} level test</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">Check your progress, then finish the level with your teacher.</p>
+                </div>
+              </div>
+              <Button asChild className="shrink-0 gap-2 rounded-full">
+                <Link to={`/courses/${levelId}/test`}>Start level test <ArrowRight className="h-4 w-4" /></Link>
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
 }
 
 export default function Courses() {
