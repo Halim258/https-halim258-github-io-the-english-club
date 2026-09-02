@@ -1,4 +1,7 @@
 import type { LessonData, MCQItem } from "./lessons";
+import { lessonPhotoUrl } from "./lesson-image-library";
+
+
 
 /**
  * Universal lesson enrichment. Fills optional fields where missing:
@@ -79,7 +82,7 @@ function topicKeyword(title: string): string {
 }
 
 const heroImageFor = (lesson: LessonData): string =>
-  `https://loremflickr.com/1200/500/${encodeURIComponent(topicKeyword(lesson.title))}?lock=${seedFor(lesson)}`;
+  lessonPhotoUrl(topicKeyword(lesson.title), seedFor(lesson), 1200, 500);
 
 const L = {
   en: {
@@ -449,10 +452,48 @@ const STORY_PEOPLE = [
 const STORY_TIMES = ["five o'clock", "six o'clock", "seven o'clock", "four o'clock"];
 const STORY_DAYS = ["Monday", "Tuesday", "Wednesday", "Saturday", "Sunday"];
 
+type StoryScenario = { place: string; action: string; object: string; result: string };
+
+const STORY_SCENARIOS: { keys: string[]; scenario: StoryScenario }[] = [
+  { keys: ["greeting", "hello", "introduc"], scenario: { place: "a new English class", action: "introduce herself to two classmates", object: "a name card on the teacher's desk", result: "the classmates welcome her" } },
+  { keys: ["number", "count", "age", "quantity"], scenario: { place: "a busy market", action: "help count the fruit", object: "a basket with ten apples", result: "the seller gives her the right change" } },
+  { keys: ["family", "relative", "parent"], scenario: { place: "the family home", action: "help prepare a family meal", object: "an old family photograph", result: "everyone sits together and shares stories" } },
+  { keys: ["color", "clothes", "fashion", "wear"], scenario: { place: "a small clothes shop", action: "choose an outfit for a school event", object: "a blue shirt and comfortable shoes", result: "the shop assistant finds the right size" } },
+  { keys: ["food", "drink", "restaurant", "meal", "cook"], scenario: { place: "a quiet café", action: "order breakfast for the first time", object: "a sandwich and a glass of juice", result: "the waiter smiles and brings the food" } },
+  { keys: ["weather", "season", "climate"], scenario: { place: "the park near her home", action: "plan an afternoon outside", object: "a small umbrella in her bag", result: "the rain stops and she enjoys a short walk" } },
+  { keys: ["time", "routine", "daily", "calendar", "schedule"], scenario: { place: "her morning kitchen", action: "check the clock before leaving", object: "a timetable beside the door", result: "she arrives at class on time" } },
+  { keys: ["home", "house", "room", "furniture"], scenario: { place: "her new apartment", action: "put things in the correct rooms", object: "a lamp beside the sofa", result: "the living room feels warm and tidy" } },
+  { keys: ["school", "class", "student", "lesson"], scenario: { place: "the English Club classroom", action: "prepare a short class presentation", object: "three new words on the board", result: "the teacher congratulates her" } },
+  { keys: ["health", "body", "doctor", "medical"], scenario: { place: "the local clinic", action: "describe a small problem to the doctor", object: "a glass of water and a health card", result: "the doctor gives helpful advice" } },
+  { keys: ["animal", "pet", "dog", "cat"], scenario: { place: "the animal centre", action: "look after a friendly rescue dog", object: "a blue bowl and a red ball", result: "the dog feels safe and starts to play" } },
+  { keys: ["hobby", "free time", "leisure"], scenario: { place: "the community centre", action: "join a new afternoon club", object: "a camera and a notebook", result: "she makes a new friend" } },
+  { keys: ["sport", "football", "exercise"], scenario: { place: "the school sports field", action: "practise with her team", object: "a ball near the goal", result: "the team scores its first point" } },
+  { keys: ["travel", "trip", "holiday", "airport"], scenario: { place: "the train station", action: "check her ticket before a trip", object: "a small suitcase and a map", result: "she finds the right platform" } },
+  { keys: ["transport", "bus", "train", "direction"], scenario: { place: "the city bus stop", action: "ask for directions", object: "a bus going to the city centre", result: "the driver shows her where to get off" } },
+  { keys: ["work", "job", "office", "career", "business"], scenario: { place: "her first day at an office", action: "meet a new colleague", object: "a notebook with her work tasks", result: "she understands what to do next" } },
+  { keys: ["technology", "gadget", "computer", "internet"], scenario: { place: "the library computer room", action: "learn to use a new website", object: "a laptop and a useful password", result: "she completes her online task" } },
+  { keys: ["celebration", "festival", "party"], scenario: { place: "a neighbour's celebration", action: "help decorate the room", object: "bright cards and a birthday cake", result: "the guests sing together" } },
+  { keys: ["environment", "nature", "recycle"], scenario: { place: "the beach near her city", action: "collect plastic with a volunteer group", object: "a large bag and a pair of gloves", result: "the beach looks cleaner" } },
+  { keys: ["past", "yesterday", "irregular", "regular", "verb"], scenario: { place: "the old town museum", action: "describe what she did yesterday", object: "a photo from her weekend walk", result: "her friend understands the story" } },
+  { keys: ["plan", "arrangement", "future", "appointment"], scenario: { place: "the library café", action: "make plans for the weekend", object: "a calendar and two cinema tickets", result: "the friends agree on a time" } },
+  { keys: ["compar", "superlative", "adjective"], scenario: { place: "a city park", action: "compare three trees for a drawing", object: "the tallest tree beside a bench", result: "she chooses the best view" } },
+  { keys: ["experience", "present perfect", "ever", "already", "yet"], scenario: { place: "a travel club meeting", action: "share a memorable experience", object: "a postcard from a different city", result: "the group asks her more questions" } },
+];
+
+function storyScenario(title: string): StoryScenario {
+  const normalized = stripDiacritics(title).toLowerCase();
+  return STORY_SCENARIOS.find(({ keys }) => keys.some((key) => normalized.includes(stripDiacritics(key))))?.scenario ?? {
+    place: "a new place in her city",
+    action: "uses English to solve a small problem",
+    object: "her lesson notebook",
+    result: "she feels more confident",
+  };
+}
+
 /**
- * A1/A2 readings must be a real passage (a small story with a person, a place,
- * a time and a small event) — not a list of vocabulary sentences. All facts are
- * generated here, so the comprehension questions have verifiable answers.
+ * A1/A2 readings are short, topic-specific stories. The scenario is selected
+ * from the lesson title, while the learner's own vocabulary is woven into it,
+ * so "At School", "Numbers", and "My Family" never receive the same passage.
  */
 function buildStoryReading(lesson: LessonData, level: Cefr) {
   const vocab = lesson.vocabulary ?? [];
@@ -462,96 +503,53 @@ function buildStoryReading(lesson: LessonData, level: Cefr) {
   const time = STORY_TIMES[seed % STORY_TIMES.length];
   const day = STORY_DAYS[seed % STORY_DAYS.length];
   const topic = lesson.title.toLowerCase();
+  const scenario = storyScenario(lesson.title);
   const words = vocab.slice(0, level === "a1" ? 3 : 5).map((v) => v.word);
   const wordList = words.join(", ");
-  const examples = vocab
-    .map((v) => v.example?.trim())
-    .filter((e): e is string => Boolean(e))
-    .slice(0, level === "a1" ? 3 : 4);
+  const examples = vocab.map((v) => v.example?.trim()).filter((e): e is string => Boolean(e)).slice(0, 2);
 
   const a1 = [
-    `${person.name}'s Lesson: ${lesson.title}`,
+    `${person.name}'s ${lesson.title} Story`, "",
+    `My name is ${person.name}. I am ${person.age} years old and I live in ${person.city}. On ${day}, I go to ${scenario.place}.`,
     "",
-    `My name is ${person.name}. I am ${person.age} years old. I live in ${person.city}. I am a student at The English Club. I study English every ${day}.`,
+    `Today I ${scenario.action}. I see ${scenario.object}. My lesson words are ${wordList}. I say each word slowly and write them in my notebook.`,
     "",
-    `Today my lesson is about ${topic}. It is my favourite lesson. I have ${words.length} new words: ${wordList}. I say the words out loud. My teacher helps me.`,
+    `${examples[0] ?? `My teacher helps me talk about ${topic}.`} ${scenario.result.charAt(0).toUpperCase()}${scenario.result.slice(1)}.`,
     "",
-    examples.join(" "),
-    "",
-    `At ${time} I go home. I write the new words in my small notebook. Then I read them again before bed. Now I can talk about ${topic} in English. I am happy.`,
+    `At ${time}, I go home. I tell my family about my day. I am happy because I can talk about ${topic} in English.`,
   ];
 
   const a2 = [
-    `${person.name}'s Week: ${lesson.title}`,
+    `${person.name}'s Real-Life Practice: ${lesson.title}`, "",
+    `${person.name} lives in ${person.city} and studies English at The English Club. Last ${day}, she went to ${scenario.place} to practise ${topic} in a real situation.`,
     "",
-    `${person.name} is ${person.age} years old and lives in ${person.city}. She goes to The English Club every ${day}, because she wants to speak English at work. Last week her class studied ${topic}.`,
+    `At first, she was not sure what to do. Then she ${scenario.action}. She noticed ${scenario.object}, and used the key words ${wordList} to explain what she needed.`,
     "",
-    `At first it was difficult. The teacher gave the class ${words.length} key words: ${wordList}. ${person.name} wrote each word in her notebook with an example sentence. ${examples.join(" ")}`,
+    `${examples[0] ?? "The teacher's advice helped her speak clearly."} ${scenario.result.charAt(0).toUpperCase()}${scenario.result.slice(1)}. After that, she wrote down what happened so she could remember the useful language.`,
     "",
-    `After the lesson, at ${time}, she practised with her friend for twenty minutes. They asked each other questions and corrected the small mistakes. ${person.name} says that speaking about ${topic} is much easier now, and next week she wants to try a longer conversation.`,
+    `At ${time}, ${person.name} reviewed the lesson with a friend. The experience showed her that ${topic} is easier when she connects new words to everyday life.`,
   ];
 
-  const text = (level === "a1" ? a1 : a2).filter((l) => l !== undefined).join("\n");
-
+  const text = (level === "a1" ? a1 : a2).join("\n");
   const opts = (correct: string, decoys: string[]) => {
     const options = shuffleDeterministic([correct, ...decoys], seed + 71);
     return { options, correct: options.indexOf(correct) };
   };
-
   const questions: MCQItem[] = [];
-  const nameQ = opts(
-    person.name,
-    STORY_PEOPLE.filter((p) => p.name !== person.name)
-      .slice(0, 3)
-      .map((p) => p.name),
-  );
-  questions.push({ question: "What is the name of the student in the passage?", ...nameQ });
-
-  const cityQ = opts(
-    person.city,
-    ["Cairo", "Aswan", "Luxor", "Tanta", "Alexandria"].filter((c) => c !== person.city).slice(0, 3),
-  );
-  questions.push({ question: `Where does ${person.name} live?`, ...cityQ });
-
-  const ageQ = opts(String(person.age), [String(person.age + 2), String(person.age - 3), String(person.age + 5)]);
-  questions.push({ question: `How old is ${person.name}?`, ...ageQ });
-
-  const dayQ = opts(day, STORY_DAYS.filter((d) => d !== day).slice(0, 3));
-  questions.push({ question: "When does she study English?", ...dayQ });
-
-  const timeQ = opts(time, STORY_TIMES.filter((t) => t !== time).slice(0, 3));
-  questions.push({
-    question: level === "a1" ? "What time does she go home?" : "What time did she practise with her friend?",
-    ...timeQ,
-  });
-
-  const countQ = opts(String(words.length), ["1", "2", "6", "8"].filter((n) => n !== String(words.length)).slice(0, 3));
-  questions.push({ question: "How many new words does the lesson have?", ...countQ });
-
-  const topicQ = opts(lesson.title, ["Sports and hobbies", "Money and banking", "Animals in the zoo"]);
-  questions.push({ question: "What is the passage mainly about?", ...topicQ });
-
-  questions.push({
-    question: `True or false? ${person.name} writes the new words in a notebook.`,
-    options: ["True", "False"],
-    correct: 0,
-  });
-  questions.push({
-    question: `True or false? ${person.name} says English is impossible and she stops studying.`,
-    options: ["True", "False"],
-    correct: 1,
-  });
+  questions.push({ question: "What is the name of the student in the passage?", ...opts(person.name, STORY_PEOPLE.filter((p) => p.name !== person.name).slice(0, 3).map((p) => p.name)) });
+  questions.push({ question: `Where does ${person.name} live?`, ...opts(person.city, ["Cairo", "Aswan", "Luxor", "Tanta", "Alexandria"].filter((c) => c !== person.city).slice(0, 3)) });
+  questions.push({ question: `Where does ${person.name} go on ${day}?`, ...opts(scenario.place, ["the cinema", "the library", "the airport"].filter((p) => p !== scenario.place)) });
+  questions.push({ question: `What does ${person.name} see there?`, ...opts(scenario.object, ["a red bicycle", "a big window", "an old book"]) });
+  questions.push({ question: "When does the student study English?", ...opts(day, STORY_DAYS.filter((d) => d !== day).slice(0, 3)) });
+  questions.push({ question: level === "a1" ? "What time does the student go home?" : "What time does the student review the lesson?", ...opts(time, STORY_TIMES.filter((t) => t !== time).slice(0, 3)) });
+  questions.push({ question: "What is the passage mainly about?", ...opts(lesson.title, ["Sports and hobbies", "Money and banking", "Animals in the zoo"]) });
+  questions.push({ question: `True or false? ${person.name} writes the new words in a notebook.`, options: ["True", "False"], correct: 0 });
+  questions.push({ question: `True or false? ${person.name} gives up and stops studying English.`, options: ["True", "False"], correct: 1 });
 
   const meaningWord = vocab[seed % vocab.length];
   if (meaningWord?.meaning) {
-    const decoys = shuffleDeterministic(
-      vocab.filter((v) => v.word !== meaningWord.word && v.meaning).map((v) => v.meaning),
-      seed + 83,
-    ).slice(0, 3);
-    if (decoys.length >= 2) {
-      const m = opts(meaningWord.meaning, decoys);
-      questions.push({ question: `In the passage, what does "${meaningWord.word}" mean?`, ...m });
-    }
+    const decoys = shuffleDeterministic(vocab.filter((v) => v.word !== meaningWord.word && v.meaning).map((v) => v.meaning), seed + 83).slice(0, 3);
+    if (decoys.length >= 2) questions.push({ question: `In the passage, what does "${meaningWord.word}" mean?`, ...opts(meaningWord.meaning, decoys) });
   }
 
   return {
