@@ -149,15 +149,110 @@ const READING_Q = {
 
 const OFF_TOPIC_WORDS = ["submarine", "helicopter", "volcano", "trombone", "penguin", "telescope"];
 
+/* ── Level tuning: how much and how hard each CEFR band gets ───────── */
+
+type Cefr = "a1" | "a2" | "b1" | "b2" | "c1" | "c2";
+
+type LevelTuning = {
+  /** how many example sentences go into the reading passage */
+  passageSentences: number;
+  /** longest sentence (in words) we are willing to turn into an exercise */
+  maxSentenceWords: number;
+  maxVocabExercises: number;
+  maxGrammarExercises: number;
+  maxConversationExercises: number;
+  maxReadingExtras: number;
+  /** true/false meaning checks are confusing for absolute beginners */
+  useTrueFalse: boolean;
+  speaking: (t: string) => string;
+};
+
+const TUNING: Record<Cefr, LevelTuning> = {
+  a1: {
+    passageSentences: 3,
+    maxSentenceWords: 9,
+    maxVocabExercises: 5,
+    maxGrammarExercises: 3,
+    maxConversationExercises: 3,
+    maxReadingExtras: 2,
+    useTrueFalse: false,
+    speaking: (t) =>
+      `Talk about "${t}" for about 30 seconds. Say 4 short sentences with "I am…", "I have…" or "I like…" and use three new words.`,
+  },
+  a2: {
+    passageSentences: 4,
+    maxSentenceWords: 12,
+    maxVocabExercises: 6,
+    maxGrammarExercises: 4,
+    maxConversationExercises: 4,
+    maxReadingExtras: 3,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Speak for one minute about "${t}". Describe a normal day or a real situation, and give one reason with "because".`,
+  },
+  b1: {
+    passageSentences: 5,
+    maxSentenceWords: 16,
+    maxVocabExercises: 8,
+    maxGrammarExercises: 5,
+    maxConversationExercises: 5,
+    maxReadingExtras: 4,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Speak for 1–2 minutes about "${t}". Tell a short story from your experience, then give your opinion and one reason.`,
+  },
+  b2: {
+    passageSentences: 6,
+    maxSentenceWords: 20,
+    maxVocabExercises: 9,
+    maxGrammarExercises: 6,
+    maxConversationExercises: 6,
+    maxReadingExtras: 5,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Speak for two minutes about "${t}". Compare two points of view, use linking phrases (however, whereas, as a result) and finish with your position.`,
+  },
+  c1: {
+    passageSentences: 6,
+    maxSentenceWords: 24,
+    maxVocabExercises: 10,
+    maxGrammarExercises: 6,
+    maxConversationExercises: 6,
+    maxReadingExtras: 6,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Give a 2–3 minute mini-talk on "${t}": state a clear thesis, support it with two examples, acknowledge a counter-argument, then conclude.`,
+  },
+  c2: {
+    passageSentences: 6,
+    maxSentenceWords: 28,
+    maxVocabExercises: 10,
+    maxGrammarExercises: 6,
+    maxConversationExercises: 6,
+    maxReadingExtras: 6,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Speak for three minutes on "${t}" as if in a seminar. Control register and tone, hedge your claims precisely, and handle one likely objection.`,
+  },
+};
+
+function cefrOf(levelId: string): Cefr | undefined {
+  const m = levelId.toLowerCase().match(/^(a1|a2|b1|b2|c1|c2)\b/);
+  return (m?.[1] as Cefr) ?? undefined;
+}
+
+const tuningFor = (lesson: LessonData): LevelTuning => TUNING[cefrOf(lesson.levelId) ?? "a2"];
+
 /** Build a passage that reads like a real short text, plus questions about it. */
 function buildReading(lesson: LessonData, lang: Lang) {
   const s = L[lang];
   const q = READING_Q[lang];
+  const tuning = tuningFor(lesson);
   const examples = (lesson.vocabulary ?? [])
     .map((v) => v.example)
     .filter((e): e is string => Boolean(e && e.trim()))
     .map((e) => e.trim())
-    .slice(0, 6);
+    .slice(0, tuning.passageSentences);
   if (examples.length < 3) return undefined;
 
   const pool = lesson.vocabulary.slice(0, Math.min(8, lesson.vocabulary.length));
@@ -277,12 +372,7 @@ function buildListening(lesson: LessonData, lang: Lang) {
 
 /* ── CEFR-aware English enrichment (A1 → C2) ───────────────────────── */
 
-type Cefr = "a1" | "a2" | "b1" | "b2" | "c1" | "c2";
 
-function cefrOf(levelId: string): Cefr | undefined {
-  const m = levelId.toLowerCase().match(/^(a1|a2|b1|b2|c1|c2)\b/);
-  return (m?.[1] as Cefr) ?? undefined;
-}
 
 const EN_LEVEL: Record<Cefr, { frame: (t: string) => string; task: string; writing: (t: string) => string }> = {
   a1: {
@@ -369,15 +459,19 @@ const longestWord = (sentence: string) =>
     .filter((w) => w.length > 3)
     .sort((a, b) => b.length - a.length)[0];
 
-/** Generate extra MCQs so every section has more practice. */
+const wordCount = (s: string) => s.trim().split(/\s+/).length;
+
+/** Generate extra MCQs so every section has more practice, sized to the level. */
 function topUpExercises(lesson: LessonData) {
   const seed = seedFor(lesson);
+  const tuning = tuningFor(lesson);
   const vocab = lesson.vocabulary ?? [];
   const words = vocab.map((v) => v.word);
+  const levelOk = (s?: string) => Boolean(s) && wordCount(s as string) <= tuning.maxSentenceWords;
 
   // Vocabulary: fill-in-the-blank from each word's own example sentence.
   const vocabExtra: MCQItem[] = vocab
-    .filter((v) => v.example && v.example.toLowerCase().includes(v.word.toLowerCase()))
+    .filter((v) => v.example && v.example.toLowerCase().includes(v.word.toLowerCase()) && levelOk(v.example))
     .map((v, idx) => {
       const blanked = v.example.replace(new RegExp(v.word, "i"), "______");
       const distractors = shuffleDeterministic(
@@ -391,10 +485,11 @@ function topUpExercises(lesson: LessonData) {
         correct: options.indexOf(v.word),
       };
     })
-    .slice(0, 6);
+    .slice(0, tuning.maxVocabExercises);
 
   // Grammar: blank a key word inside each grammar example sentence.
   const grammarExtra: MCQItem[] = (lesson.grammar?.examples ?? [])
+    .filter((ex) => levelOk(ex.sentence))
     .map((ex, idx) => {
       const target = longestWord(ex.sentence);
       if (!target) return undefined;
@@ -412,21 +507,31 @@ function topUpExercises(lesson: LessonData) {
       };
     })
     .filter((q): q is MCQItem => Boolean(q))
-    .slice(0, 5);
+    .slice(0, tuning.maxGrammarExercises);
 
-  // Vocabulary: true / false meaning checks (half of them wrong on purpose).
+  // Vocabulary: meaning checks. Beginners get a clear 4-option choice instead
+  // of true/false statements that can teach the wrong pairing.
   const tfPool = vocab.filter((v) => v.meaning && v.meaning.trim());
-  const vocabTrueFalse: MCQItem[] = tfPool.slice(0, 6).map((v, idx) => {
-    const isTrue = (seed + idx) % 2 === 0 || tfPool.length < 2;
-    const other = tfPool[(idx + 1 + (seed % 3)) % tfPool.length];
-    const shown = isTrue || other.word === v.word ? v.meaning : other.meaning;
-    const correctlyTrue = shown === v.meaning;
-    return {
-      question: `True or false? "${v.word}" means "${shown}".`,
-      options: ["True", "False"],
-      correct: correctlyTrue ? 0 : 1,
-    };
-  });
+  const vocabMeaning: MCQItem[] = !tuning.useTrueFalse
+    ? tfPool.slice(0, 4).map((v, idx) => {
+        const decoys = shuffleDeterministic(
+          tfPool.filter((x) => x.word !== v.word).map((x) => x.meaning),
+          seed + idx + 61,
+        ).slice(0, 3);
+        const options = shuffleDeterministic([v.meaning, ...decoys], seed + idx + 67);
+        return { question: `What does "${v.word}" mean?`, options, correct: options.indexOf(v.meaning) };
+      })
+    : tfPool.slice(0, 6).map((v, idx) => {
+        const isTrue = (seed + idx) % 2 === 0 || tfPool.length < 2;
+        const other = tfPool[(idx + 1 + (seed % 3)) % tfPool.length];
+        const shown = isTrue || other.word === v.word ? v.meaning : other.meaning;
+        const correctlyTrue = shown === v.meaning;
+        return {
+          question: `True or false? "${v.word}" means "${shown}".`,
+          options: ["True", "False"],
+          correct: correctlyTrue ? 0 : 1,
+        };
+      });
 
   // Conversation: who said it + complete the line.
   const dialogue = lesson.dialogue ?? [];
@@ -446,7 +551,7 @@ function topUpExercises(lesson: LessonData) {
       });
     });
   }
-  dialogue.slice(0, 3).forEach((line, idx) => {
+  dialogue.filter((line) => levelOk(line.text)).slice(0, 3).forEach((line, idx) => {
     const target = longestWord(line.text);
     if (!target) return;
     const pool = Array.from(new Set(words.filter((w) => w.toLowerCase() !== target.toLowerCase())));
@@ -466,9 +571,12 @@ function topUpExercises(lesson: LessonData) {
   };
 
   return {
-    vocabExercises: dedupe(lesson.vocabExercises, [...vocabExtra, ...vocabTrueFalse]),
+    vocabExercises: dedupe(lesson.vocabExercises, [...vocabExtra, ...vocabMeaning]),
     grammarExercises: dedupe(lesson.grammarExercises, grammarExtra),
-    conversationExercises: dedupe(lesson.conversationExercises, conversationExtra.slice(0, 6)),
+    conversationExercises: dedupe(
+      lesson.conversationExercises,
+      conversationExtra.slice(0, tuning.maxConversationExercises),
+    ),
   };
 }
 
@@ -476,13 +584,20 @@ function topUpExercises(lesson: LessonData) {
 function augmentReading(lesson: LessonData, reading?: LessonData["reading"]) {
   if (!reading) return reading;
   const seed = seedFor(lesson);
+  const tuning = tuningFor(lesson);
   const sentences = reading.text
     .split(/(?<=[.!?])\s+|\n+/)
     .map((s2) => s2.trim())
     .filter((s2) => {
       const words = s2.split(/\s+/).length;
       // Skip run-on / instruction-style blocks: questions must stay short and readable.
-      return words >= 4 && words <= 14 && s2.length <= 110 && !s2.includes("→") && !s2.includes("/");
+      return (
+        words >= 4 &&
+        words <= Math.min(tuning.maxSentenceWords, 14) &&
+        s2.length <= 110 &&
+        !s2.includes("→") &&
+        !s2.includes("/")
+      );
     })
     .slice(0, 6);
 
@@ -517,7 +632,10 @@ function augmentReading(lesson: LessonData, reading?: LessonData["reading"]) {
   const seen = new Set((reading.questions ?? []).map((q) => q.question.trim().toLowerCase()));
   return {
     ...reading,
-    questions: [...(reading.questions ?? []), ...extra.filter((q) => !seen.has(q.question.trim().toLowerCase()))],
+    questions: [
+      ...(reading.questions ?? []),
+      ...extra.filter((q) => !seen.has(q.question.trim().toLowerCase())).slice(0, tuning.maxReadingExtras),
+    ],
   };
 }
 
@@ -540,7 +658,9 @@ export function enrichLesson(lesson: LessonData): LessonData {
     listening: lesson.listening ?? buildListening(lesson, lang),
     writingPrompt:
       lesson.writingPrompt ?? (level && lang === "en" ? EN_LEVEL[level].writing(lesson.title) : s.writing(lesson.title)),
-    speakingPrompt: lesson.speakingPrompt ?? s.speaking(lesson.title),
+    speakingPrompt:
+      lesson.speakingPrompt ??
+      (level && lang === "en" ? TUNING[level].speaking(lesson.title) : s.speaking(lesson.title)),
   };
 }
 
