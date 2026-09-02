@@ -118,8 +118,7 @@ const App = () => (
               <Route path="/courses/it-english/:lessonId/slides" element={<ProtectedRoute requireMember minimumLevel="b1"><SlideLesson /></ProtectedRoute>} />
               <Route path="/courses/it-english/:lessonId" element={<ProtectedRoute requireMember minimumLevel="b1"><LessonPage /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId/slides" element={<ProtectedRoute requireMember><SlideLesson /></ProtectedRoute>} />
-              <Route path="/courses/:levelId/certificate" element={<ProtectedRoute requireMember><CapstoneCertificate /></ProtectedRoute>} />
-              <Route path="/courses/:levelId/slides" element={<ProtectedRoute requireMember><SlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/:levelId/test" element={<ProtectedRoute requireMember><LevelAssessment /></ProtectedRoute>} />
               <Route path="/courses/:levelId/certificate" element={<ProtectedRoute requireMember><CapstoneCertificate /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId" element={<ProtectedRoute requireMember><LessonPage /></ProtectedRoute>} />
               <Route path="/courses/kids" element={<ProtectedRoute requireMember><KidsCourse /></ProtectedRoute>} />

@@ -370,6 +370,7 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
   }, [user, levelId, levelLabel]);
 
   const allCompleted = lessonKeys.length > 0 && completedLessons.size >= lessonKeys.length;
+  const isIndustryCourse = ["customer-service", "hospitality", "healthcare", "it-english"].includes(levelId);
 
   const handleDownloadCertificate = async () => {
     const { generateCourseCertificate } = await import("@/lib/generate-course-certificate");
@@ -415,10 +416,17 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
               <BookOpen className="h-3.5 w-3.5" />
               {lessonKeys.length} Lessons
             </div>
-            {allCompleted && (
+            {allCompleted && !isIndustryCourse && (
               <Button size="sm" variant="outline" onClick={handleDownloadCertificate} className="rounded-full gap-1.5 text-xs h-7 hover:bg-emerald-50 hover:border-emerald-300 hover:text-emerald-700 dark:hover:bg-emerald-950/20 dark:hover:border-emerald-700">
                 <Download className="h-3 w-3" /> Download Certificate
               </Button>
+            )}
+            {isIndustryCourse && (
+              <Link to={`/courses/${levelId}/certificate`}>
+                <Button size="sm" variant={allCompleted ? "default" : "outline"} className="rounded-full gap-1.5 text-xs h-7">
+                  <Award className="h-3 w-3" /> {allCompleted ? "Open Certificate" : "Capstone Certificate"}
+                </Button>
+              </Link>
             )}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold font-display">{levelLabel}</h1>
