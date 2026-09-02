@@ -435,6 +435,133 @@ function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildR
 
 }
 
+/* ── Real reading passages for beginners (A1 / A2) ──────────────────── */
+
+const STORY_PEOPLE = [
+  { name: "Sara", age: 19, city: "Alexandria" },
+  { name: "Omar", age: 22, city: "Cairo" },
+  { name: "Nour", age: 17, city: "Tanta" },
+  { name: "Youssef", age: 25, city: "Alexandria" },
+  { name: "Mona", age: 20, city: "Damanhur" },
+  { name: "Karim", age: 23, city: "Port Said" },
+];
+
+const STORY_TIMES = ["five o'clock", "six o'clock", "seven o'clock", "four o'clock"];
+const STORY_DAYS = ["Monday", "Tuesday", "Wednesday", "Saturday", "Sunday"];
+
+/**
+ * A1/A2 readings must be a real passage (a small story with a person, a place,
+ * a time and a small event) — not a list of vocabulary sentences. All facts are
+ * generated here, so the comprehension questions have verifiable answers.
+ */
+function buildStoryReading(lesson: LessonData, level: Cefr) {
+  const vocab = lesson.vocabulary ?? [];
+  if (vocab.length < 3) return undefined;
+  const seed = seedFor(lesson);
+  const person = STORY_PEOPLE[seed % STORY_PEOPLE.length];
+  const time = STORY_TIMES[seed % STORY_TIMES.length];
+  const day = STORY_DAYS[seed % STORY_DAYS.length];
+  const topic = lesson.title.toLowerCase();
+  const words = vocab.slice(0, level === "a1" ? 3 : 5).map((v) => v.word);
+  const wordList = words.join(", ");
+  const examples = vocab
+    .map((v) => v.example?.trim())
+    .filter((e): e is string => Boolean(e))
+    .slice(0, level === "a1" ? 3 : 4);
+
+  const a1 = [
+    `${person.name}'s Lesson: ${lesson.title}`,
+    "",
+    `My name is ${person.name}. I am ${person.age} years old. I live in ${person.city}. I am a student at The English Club. I study English every ${day}.`,
+    "",
+    `Today my lesson is about ${topic}. It is my favourite lesson. I have ${words.length} new words: ${wordList}. I say the words out loud. My teacher helps me.`,
+    "",
+    examples.join(" "),
+    "",
+    `At ${time} I go home. I write the new words in my small notebook. Then I read them again before bed. Now I can talk about ${topic} in English. I am happy.`,
+  ];
+
+  const a2 = [
+    `${person.name}'s Week: ${lesson.title}`,
+    "",
+    `${person.name} is ${person.age} years old and lives in ${person.city}. She goes to The English Club every ${day}, because she wants to speak English at work. Last week her class studied ${topic}.`,
+    "",
+    `At first it was difficult. The teacher gave the class ${words.length} key words: ${wordList}. ${person.name} wrote each word in her notebook with an example sentence. ${examples.join(" ")}`,
+    "",
+    `After the lesson, at ${time}, she practised with her friend for twenty minutes. They asked each other questions and corrected the small mistakes. ${person.name} says that speaking about ${topic} is much easier now, and next week she wants to try a longer conversation.`,
+  ];
+
+  const text = (level === "a1" ? a1 : a2).filter((l) => l !== undefined).join("\n");
+
+  const opts = (correct: string, decoys: string[]) => {
+    const options = shuffleDeterministic([correct, ...decoys], seed + 71);
+    return { options, correct: options.indexOf(correct) };
+  };
+
+  const questions: MCQItem[] = [];
+  const nameQ = opts(
+    person.name,
+    STORY_PEOPLE.filter((p) => p.name !== person.name)
+      .slice(0, 3)
+      .map((p) => p.name),
+  );
+  questions.push({ question: "What is the name of the student in the passage?", ...nameQ });
+
+  const cityQ = opts(
+    person.city,
+    ["Cairo", "Aswan", "Luxor", "Tanta", "Alexandria"].filter((c) => c !== person.city).slice(0, 3),
+  );
+  questions.push({ question: `Where does ${person.name} live?`, ...cityQ });
+
+  const ageQ = opts(String(person.age), [String(person.age + 2), String(person.age - 3), String(person.age + 5)]);
+  questions.push({ question: `How old is ${person.name}?`, ...ageQ });
+
+  const dayQ = opts(day, STORY_DAYS.filter((d) => d !== day).slice(0, 3));
+  questions.push({ question: "When does she study English?", ...dayQ });
+
+  const timeQ = opts(time, STORY_TIMES.filter((t) => t !== time).slice(0, 3));
+  questions.push({
+    question: level === "a1" ? "What time does she go home?" : "What time did she practise with her friend?",
+    ...timeQ,
+  });
+
+  const countQ = opts(String(words.length), ["1", "2", "6", "8"].filter((n) => n !== String(words.length)).slice(0, 3));
+  questions.push({ question: "How many new words does the lesson have?", ...countQ });
+
+  const topicQ = opts(lesson.title, ["Sports and hobbies", "Money and banking", "Animals in the zoo"]);
+  questions.push({ question: "What is the passage mainly about?", ...topicQ });
+
+  questions.push({
+    question: `True or false? ${person.name} writes the new words in a notebook.`,
+    options: ["True", "False"],
+    correct: 0,
+  });
+  questions.push({
+    question: `True or false? ${person.name} says English is impossible and she stops studying.`,
+    options: ["True", "False"],
+    correct: 1,
+  });
+
+  const meaningWord = vocab[seed % vocab.length];
+  if (meaningWord?.meaning) {
+    const decoys = shuffleDeterministic(
+      vocab.filter((v) => v.word !== meaningWord.word && v.meaning).map((v) => v.meaning),
+      seed + 83,
+    ).slice(0, 3);
+    if (decoys.length >= 2) {
+      const m = opts(meaningWord.meaning, decoys);
+      questions.push({ question: `In the passage, what does "${meaningWord.word}" mean?`, ...m });
+    }
+  }
+
+  return {
+    title: `Reading (${level.toUpperCase()}): ${lesson.title}`,
+    text: `${text}\n\nYOUR TASK\nRead the passage twice. Underline the new words, then answer the questions below.`,
+    questions,
+  };
+}
+
+
 /** Grammar must always show example sentences — top up to at least 4. */
 const MIN_GRAMMAR_EXAMPLES = 4;
 
@@ -643,7 +770,10 @@ export function enrichLesson(lesson: LessonData): LessonData {
   const lang = detectLang(lesson.levelId);
   const s = L[lang];
   const level = cefrOf(lesson.levelId);
-  const baseReading = lesson.reading ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
+  const beginnerStory =
+    lang === "en" && (level === "a1" || level === "a2") ? buildStoryReading(lesson, level) : undefined;
+  const baseReading =
+    lesson.reading ?? beginnerStory ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
   const reading = augmentReading(lesson, baseReading);
   const grammar = ensureGrammarExamples(lesson) ?? lesson.grammar;
   const { vocabExercises, grammarExercises, conversationExercises } = topUpExercises({ ...lesson, grammar });
