@@ -77,6 +77,7 @@ const courseLevelMap: Record<string, string> = {
   "English through News": "news",
   "Legal English": "legal",
   "Hospitality English": "hospitality",
+  "Customer Service English": "customer-service",
   "Conversation Practice": "conversation",
   "English for Social Media": "social-media",
   "English for Healthcare": "healthcare",
