@@ -67,20 +67,30 @@ const queryClient = new QueryClient();
 
 function PageLoader() {
   return (
-    <div className="flex min-h-[60vh] items-center justify-center">
-      <div className="flex flex-col items-center gap-4">
-        <div className="relative">
-          <div className="h-10 w-10 animate-spin rounded-full border-[3px] border-muted border-t-primary" />
-          <div className="absolute inset-0 h-10 w-10 animate-ping rounded-full border border-primary/20" />
-        </div>
-        <div className="space-y-1 text-center">
-          <p className="text-sm text-foreground font-semibold">Loading</p>
-          <p className="text-xs text-muted-foreground animate-pulse">Preparing your content...</p>
-        </div>
+    <div
+      className="container mx-auto px-4 py-10"
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <span className="sr-only">Loading page…</span>
+      <div className="h-3 w-24 shimmer rounded-full" />
+      <div className="mt-4 h-8 w-2/3 max-w-md shimmer rounded-md" />
+      <div className="mt-3 h-4 w-full max-w-xl shimmer rounded-md" />
+      <div className="mt-2 h-4 w-4/5 max-w-lg shimmer rounded-md" />
+      <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="rounded-xl border border-border p-4">
+            <div className="h-28 w-full shimmer rounded-lg" />
+            <div className="mt-3 h-4 w-3/4 shimmer rounded" />
+            <div className="mt-2 h-3 w-1/2 shimmer rounded" />
+          </div>
+        ))}
       </div>
     </div>
   );
 }
+
 
 const App = () => (
   <QueryClientProvider client={queryClient}>

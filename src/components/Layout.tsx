@@ -4,6 +4,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import PageTransition from "./PageTransition";
 import ScrollToTop from "./ScrollToTop";
+import ScrollToTopOnNavigate from "./ScrollToTopOnNavigate";
 import Breadcrumbs from "./Breadcrumbs";
 import GlobalSearch from "./GlobalSearch";
 import MobileBottomNav from "./MobileBottomNav";
@@ -20,17 +21,26 @@ export default function Layout() {
   const isInLesson = lessonRoutePatterns.some((p) => p.test(pathname));
 
   if (isInLesson) {
-    return <Outlet />;
+    return (
+      <>
+        <ScrollToTopOnNavigate />
+        <Outlet />
+      </>
+    );
   }
 
   const showBreadcrumbs = pathname !== "/" && pathname !== "/login" && pathname !== "/signup";
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="flex min-h-dvh flex-col">
+      <ScrollToTopOnNavigate />
+      <a href="#main-content" className="skip-link">
+        Skip to main content
+      </a>
       <Navbar />
       <GlobalSearch />
       {showBreadcrumbs && <Breadcrumbs />}
-      <main className="flex-1 pb-mobile-nav md:pb-0">
+      <main id="main-content" className="flex-1 pb-mobile-nav md:pb-0">
         <AnimatePresence mode="wait" initial={false}>
           <PageTransition key={pathname}>
             <Outlet />
@@ -43,3 +53,4 @@ export default function Layout() {
     </div>
   );
 }
+
