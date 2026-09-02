@@ -1278,10 +1278,17 @@ function tabIsVisible(tab: (typeof TABS)[number], lesson: { reading?: unknown; h
 
 /* ───── Main Lesson Page ───── */
 export default function LessonPage() {
-  const { levelId, lessonId } = useParams();
+  const params = useParams();
+  const location = useLocation();
+  const { lessonId } = params;
+  // Some courses (customer-service, hospitality, healthcare, it-english) use
+  // literal route paths, so :levelId is undefined — derive it from the URL.
+  const pathLevel = location.pathname.split("/")[2];
+  const levelId = params.levelId ?? pathLevel;
   const navigate = useNavigate();
   const key = `${levelId}-${lessonId}`;
   const lesson = lessons[key];
+
   const { speak, stop, speaking } = useTTS();
   const { markComplete } = useLessonProgress();
   const { user } = useAuth();
