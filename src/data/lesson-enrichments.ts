@@ -658,7 +658,9 @@ export function enrichLesson(lesson: LessonData): LessonData {
     listening: lesson.listening ?? buildListening(lesson, lang),
     writingPrompt:
       lesson.writingPrompt ?? (level && lang === "en" ? EN_LEVEL[level].writing(lesson.title) : s.writing(lesson.title)),
-    speakingPrompt: lesson.speakingPrompt ?? s.speaking(lesson.title),
+    speakingPrompt:
+      lesson.speakingPrompt ??
+      (level && lang === "en" ? TUNING[level].speaking(lesson.title) : s.speaking(lesson.title)),
   };
 }
 
