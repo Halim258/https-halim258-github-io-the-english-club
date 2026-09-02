@@ -1283,8 +1283,7 @@ export default function LessonPage() {
   const params = useParams();
   const location = useLocation();
   const { lessonId } = params;
-  // Some courses (customer-service, hospitality, healthcare, it-english) use
-  // literal route paths, so :levelId is undefined — derive it from the URL.
+  // Some courses use literal route paths, so :levelId is undefined — derive it from the URL.
   const pathLevel = location.pathname.split("/")[2];
   const levelId = params.levelId ?? pathLevel;
   const navigate = useNavigate();
