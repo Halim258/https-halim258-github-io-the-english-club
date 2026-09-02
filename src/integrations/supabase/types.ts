@@ -1514,6 +1514,35 @@ export type Database = {
           student_name: string
         }[]
       }
+      get_teacher_student_lessons: {
+        Args: { _user_id: string }
+        Returns: {
+          completed: boolean
+          completed_at: string
+          created_at: string
+          lesson_number: number
+          level_id: string
+          score: number
+        }[]
+      }
+      get_teacher_students_progress: {
+        Args: never
+        Returns: {
+          avg_accuracy: number
+          current_streak: number
+          enrolled_at: string
+          group_days: string
+          group_id: string
+          group_level: string
+          in_progress_count: number
+          last_activity_date: string
+          lessons_completed: number
+          status: string
+          student_name: string
+          total_xp: number
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
