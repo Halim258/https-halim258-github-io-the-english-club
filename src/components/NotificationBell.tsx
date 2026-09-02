@@ -89,6 +89,7 @@ export default function NotificationBell() {
         setNotifications(data as Notification[]);
         setHasMore(data.length === limit);
       }
+      setLoading(false);
     };
 
     load();
