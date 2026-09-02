@@ -359,7 +359,19 @@ export default function NotificationBell() {
               <NotificationPreferences onClose={() => setShowPrefs(false)} />
             ) : (
             <div className="overflow-y-auto max-h-[70vh] sm:max-h-[460px] px-1.5 pb-2">
-              {visible.length === 0 ? (
+              {loading ? (
+                <div className="space-y-1 py-1">
+                  {[0, 1, 2, 3].map(i => (
+                    <div key={i} className="flex gap-3 px-2.5 py-2.5">
+                      <div className="h-12 w-12 shrink-0 rounded-full bg-muted animate-pulse" />
+                      <div className="flex-1 space-y-2 py-1">
+                        <div className="h-3 w-3/4 rounded bg-muted animate-pulse" />
+                        <div className="h-2.5 w-1/3 rounded bg-muted animate-pulse" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : visible.length === 0 ? (
                 <div className="py-14 text-center">
                   <div className="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-full bg-muted">
                     <Bell className="h-6 w-6 text-muted-foreground/60" />
