@@ -24,16 +24,17 @@ function MinimumLevelNotice({ requiredLevel }: { requiredLevel: string }) {
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">Entry requirement</p>
       <h1 className="mb-3 font-display text-2xl font-semibold">{requiredLevel.toUpperCase()} English level is required</h1>
       <p className="mb-6 max-w-md text-sm leading-relaxed text-muted-foreground">
-        Complete the placement test first. Your result will show whether this customer service course is the right starting point for you.
+        Your latest placement result is below {requiredLevel.toUpperCase()}. Retake the placement test to unlock this course, or start with a lower level first.
       </p>
       <Button asChild size="lg" className="rounded-full">
         <Link to="/placement-test">
-          Take the placement test <ArrowRight className="ml-2 h-4 w-4" />
+          Retake the placement test <ArrowRight className="ml-2 h-4 w-4" />
         </Link>
       </Button>
     </div>
   );
 }
+
 
 export default function ProtectedRoute({ children, requiredRole, requireMember, minimumLevel }: Props) {
   const { user, role, loading } = useAuth();
