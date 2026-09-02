@@ -190,7 +190,7 @@ export default function CourseProgress() {
               </Button>
               {openLevel === p.level && <div className="border-t bg-muted/20 p-3"><div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
                 {lessonRows.map((lesson) => (
-                  <Link key={lesson.key} to={`/lesson/${p.level}/${lesson.lessonNumber}`} className="flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 py-2 text-xs transition-colors hover:border-primary/50 hover:bg-primary/5">
+                  <Link key={lesson.key} to={`/courses/${p.level}/${lesson.lessonNumber}`} className="flex min-h-11 items-center gap-2 rounded-xl border bg-background px-3 py-2 text-xs transition-colors hover:border-primary/50 hover:bg-primary/5">
                     {lesson.state === "done" ? <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-500" /> : lesson.state === "in-progress" ? <PlayCircle className="h-4 w-4 shrink-0 text-primary" /> : <CircleDashed className="h-4 w-4 shrink-0 text-muted-foreground" />}
                     <span className="min-w-0 truncate">Lesson {lesson.lessonNumber}</span>
                   </Link>
