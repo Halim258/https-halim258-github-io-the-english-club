@@ -1518,24 +1518,29 @@ export default function LessonPage() {
       }
       case "activity": {
         const lid = lesson.levelId || "";
+        const isCustomerService = lid === "customer-service";
         const isEs = lid.startsWith("es-");
         const isDe = lid.startsWith("de-");
         const isIt = lid.startsWith("it-");
-        const activityPrompt = isEs
+        const activityPrompt = isCustomerService
+          ? `Write a professional response to this ${lesson.title.toLowerCase()} situation. Use at least 5 phrases from the workplace toolkit, include the next action and give the customer a clear time.`
+          : isEs
           ? `Busca "${lesson.title}" en Google y escribe todas las palabras nuevas que encuentres (mínimo 15). Luego escribe 2 frases completas.`
           : isDe
           ? `Suche "${lesson.title}" bei Google und schreibe alle neuen Wörter auf, die du findest (mindestens 15). Schreibe dann 2 vollständige Sätze.`
           : isIt
           ? `Cerca "${lesson.title}" su Google e scrivi tutte le parole nuove che trovi (minimo 15). Poi scrivi 2 frasi complete.`
           : `Search "${lesson.title}" on Google and write down all the new words you find (at least 15). Then write 2 full sentences.`;
-        const sectionTitle = isEs ? "Actividad" : isDe ? "Aktivität" : isIt ? "Attività" : "Activity";
-        const cardTitle = isEs ? "Busca y escribe" : isDe ? "Suchen und schreiben" : isIt ? "Cerca e scrivi" : "Search & write";
+        const sectionTitle = isCustomerService ? "Workplace Practice" : isEs ? "Actividad" : isDe ? "Aktivität" : isIt ? "Attività" : "Activity";
+        const cardTitle = isCustomerService ? "Write the customer response" : isEs ? "Busca y escribe" : isDe ? "Suchen und schreiben" : isIt ? "Cerca e scrivi" : "Search & write";
+        const toolkit = isCustomerService ? getCustomerServiceToolkit(lesson.lessonNumber) : null;
         return [
-          <SectionTitleCard key="a-title" title={sectionTitle} icon="🎯" />,
+          <SectionTitleCard key="a-title" title={sectionTitle} icon={isCustomerService ? "💼" : "🎯"} note={isCustomerService ? "Build a response you could use in a real customer interaction." : undefined} />,
+          ...(toolkit ? [<WorkplaceToolkitCard key="toolkit" lessonNumber={lesson.lessonNumber} toolkit={toolkit} />] : []),
           <PromptCard
             key="search-write"
             title={cardTitle}
-            icon="🔎"
+            icon={isCustomerService ? "✍️" : "🔎"}
             prompt={activityPrompt}
             storageKey={`activity-${lesson.levelId}-${lesson.lessonNumber}`}
             speak={speak}
