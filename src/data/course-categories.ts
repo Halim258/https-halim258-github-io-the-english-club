@@ -11,6 +11,7 @@ import specializedImg from "@/assets/courses/specialized.jpg";
 import interactiveImg from "@/assets/courses/interactive.jpg";
 import grammarImg from "@/assets/courses/grammar.jpg";
 import musicImg from "@/assets/courses/music.jpg";
+import recorderImg from "@/assets/courses/recorder.jpg";
 import newsImg from "@/assets/courses/news.jpg";
 import legalImg from "@/assets/courses/legal.jpg";
 import hospitalityImg from "@/assets/courses/hospitality.jpg";
