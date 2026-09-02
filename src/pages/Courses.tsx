@@ -422,11 +422,11 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
               </Button>
             )}
             {isIndustryCourse && (
-              <Link to={`/courses/${levelId}/certificate`}>
-                <Button size="sm" variant={allCompleted ? "default" : "outline"} className="rounded-full gap-1.5 text-xs h-7">
+              <Button asChild size="sm" variant={allCompleted ? "default" : "outline"} className="rounded-full gap-1.5 text-xs h-7">
+                <Link to={`/courses/${levelId}/certificate`}>
                   <Award className="h-3 w-3" /> {allCompleted ? "Open Certificate" : "Capstone Certificate"}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             )}
           </div>
           <h1 className="text-2xl md:text-3xl font-bold font-display">{levelLabel}</h1>
