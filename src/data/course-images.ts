@@ -64,6 +64,8 @@ export const courseImages: Record<string, string> = {
   "Engineering English": specializedImg,
   "IT English": specializedImg,
   "Web Development English": specializedImg,
+  "Hospitality English": specializedImg,
+  "English for Healthcare": specializedImg,
   // Interactive
   "English through Movies & Series": interactiveImg,
   "English through Stories": readingImg,

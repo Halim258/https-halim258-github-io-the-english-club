@@ -109,6 +109,12 @@ const App = () => (
               <Route path="/curriculum/:categorySlug/:courseIndex" element={<ProtectedRoute requireMember><CurriculumPlan /></ProtectedRoute>} />
               <Route path="/courses/customer-service/:lessonId/slides" element={<ProtectedRoute requireMember minimumLevel="a2"><SlideLesson /></ProtectedRoute>} />
               <Route path="/courses/customer-service/:lessonId" element={<ProtectedRoute requireMember minimumLevel="a2"><LessonPage /></ProtectedRoute>} />
+              <Route path="/courses/hospitality/:lessonId/slides" element={<ProtectedRoute requireMember minimumLevel="a2"><SlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/hospitality/:lessonId" element={<ProtectedRoute requireMember minimumLevel="a2"><LessonPage /></ProtectedRoute>} />
+              <Route path="/courses/healthcare/:lessonId/slides" element={<ProtectedRoute requireMember minimumLevel="b1"><SlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/healthcare/:lessonId" element={<ProtectedRoute requireMember minimumLevel="b1"><LessonPage /></ProtectedRoute>} />
+              <Route path="/courses/it-english/:lessonId/slides" element={<ProtectedRoute requireMember minimumLevel="b1"><SlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/it-english/:lessonId" element={<ProtectedRoute requireMember minimumLevel="b1"><LessonPage /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId/slides" element={<ProtectedRoute requireMember><SlideLesson /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId" element={<ProtectedRoute requireMember><LessonPage /></ProtectedRoute>} />
               <Route path="/courses/kids" element={<ProtectedRoute requireMember><KidsCourse /></ProtectedRoute>} />
@@ -120,6 +126,9 @@ const App = () => (
               <Route path="/courses/documentary/:lessonId/slides" element={<ProtectedRoute requireMember><DocumentarySlideLesson /></ProtectedRoute>} />
               <Route path="/kids/games" element={<ProtectedRoute requireMember><KidsGameCenter /></ProtectedRoute>} />
               <Route path="/courses/customer-service" element={<ProtectedRoute requireMember minimumLevel="a2"><Courses /></ProtectedRoute>} />
+              <Route path="/courses/hospitality" element={<ProtectedRoute requireMember minimumLevel="a2"><Courses /></ProtectedRoute>} />
+              <Route path="/courses/healthcare" element={<ProtectedRoute requireMember minimumLevel="b1"><Courses /></ProtectedRoute>} />
+              <Route path="/courses/it-english" element={<ProtectedRoute requireMember minimumLevel="b1"><Courses /></ProtectedRoute>} />
               <Route path="/courses/:levelId" element={<ProtectedRoute requireMember><Courses /></ProtectedRoute>} />
               <Route path="/pending-approval" element={<ProtectedRoute><PendingApproval /></ProtectedRoute>} />
               <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />

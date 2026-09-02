@@ -20,6 +20,7 @@ import {
   hydrateSlideProgressFromCloud,
 } from "@/hooks/useSlideProgress";
 import { getLessonPosition, setLessonPosition } from "@/lib/lesson-position";
+import type { RolePlayScenario } from "@/data/industry-course-builder";
 
 /* ───── Fullscreen no-scroll shell ───── */
 const Shell = ({ children }: { children: React.ReactNode }) => (
@@ -673,6 +674,85 @@ function SoundIntroCard({
               {w}
             </button>
           ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ───── Structured workplace role-play card ───── */
+function RolePlayCard({ scenario, index, total, speak, speaking }: { scenario: RolePlayScenario; index: number; total: number; speak: (text: string) => void; speaking: boolean }) {
+  const [showModel, setShowModel] = useState(false);
+
+  return (
+    <div className="flex flex-1 items-center justify-center px-4 py-4">
+      <div className="w-full max-w-2xl overflow-hidden rounded-3xl border border-border bg-card shadow-xl">
+        <div className="border-b border-border bg-primary/10 px-5 py-5 sm:px-7">
+          <div className="flex items-start justify-between gap-4">
+            <div className="min-w-0">
+              <div className="mb-2 flex flex-wrap items-center gap-2 text-[10px] font-bold uppercase tracking-[0.16em] text-primary">
+                <span>Role-play</span>
+                <span className="text-muted-foreground">{index + 1} / {total}</span>
+              </div>
+              <h3 className="text-xl font-bold leading-tight text-foreground font-display">{scenario.title}</h3>
+            </div>
+            <AudioButton text={`${scenario.title}. ${scenario.situation}`} speak={speak} speaking={speaking} />
+          </div>
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{scenario.situation}</p>
+        </div>
+
+        <div className="space-y-5 px-5 py-5 sm:px-7">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl bg-muted/50 p-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Your roles</p>
+              <p className="mt-2 text-sm font-semibold text-foreground">{scenario.roles.join(" · ")}</p>
+            </div>
+            <div className="rounded-2xl bg-muted/50 p-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.14em] text-muted-foreground">Your goal</p>
+              <p className="mt-2 text-sm leading-relaxed text-foreground">{scenario.goal}</p>
+            </div>
+          </div>
+
+          <div>
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.14em] text-foreground">Do this</p>
+            <ol className="grid gap-2 sm:grid-cols-3">
+              {scenario.steps.map((step, stepIndex) => (
+                <li key={step} className="flex gap-2 rounded-xl border border-border px-3 py-3 text-sm leading-relaxed text-muted-foreground">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/15 text-xs font-bold text-primary">{stepIndex + 1}</span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          <div>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.14em] text-foreground">Useful phrases</p>
+            <div className="flex flex-wrap gap-2">
+              {scenario.usefulPhrases.map((phrase) => (
+                <button key={phrase} type="button" onClick={() => speak(phrase)} className="rounded-full border border-primary/20 bg-primary/5 px-3 py-2 text-left text-xs font-medium text-primary transition-colors hover:bg-primary/10">
+                  {phrase}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {scenario.model && (
+            <div className="border-t border-border pt-4">
+              <Button variant="outline" size="sm" onClick={() => setShowModel((value) => !value)} className="gap-2">
+                <MessageCircle className="h-4 w-4" /> {showModel ? "Hide model dialogue" : "Read model dialogue"}
+              </Button>
+              {showModel && (
+                <div className="mt-3 space-y-2 rounded-2xl bg-muted/40 p-4">
+                  {scenario.model.map((line, lineIndex) => (
+                    <button key={`${line.speaker}-${lineIndex}`} type="button" onClick={() => speak(line.text)} className="flex w-full items-start gap-3 rounded-xl p-2 text-left transition-colors hover:bg-background">
+                      <span className="w-24 shrink-0 text-xs font-bold text-primary">{line.speaker}</span>
+                      <span className="text-sm leading-relaxed text-foreground">{line.text}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -1550,7 +1630,16 @@ export default function LessonPage() {
         ];
       }
       case "speaking": {
+        const rolePlays = lesson.rolePlay ?? [];
         const questions = getSpeakingQuestions(lesson);
+        if (rolePlays.length > 0) {
+          return [
+            <SectionTitleCard key="rp-title" title="Workplace Role-play" icon="🗣️" note="Take both roles, then repeat the scene in your own words." />,
+            ...rolePlays.map((item, i) => (
+              <RolePlayCard key={`rp-${lesson.levelId}-${lesson.lessonNumber}-${i}`} scenario={item} index={i} total={rolePlays.length} speak={speak} speaking={speaking} />
+            )),
+          ];
+        }
         return [
           <SectionTitleCard key="sp-title" title="Speaking Practice" icon="🗣️" />,
           ...questions.map((q, i) => (
