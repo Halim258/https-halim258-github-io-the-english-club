@@ -1,12 +1,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { BarChart3, BookOpen, CheckCircle2, ArrowRight, Trophy, Flame, Target, Clock } from "lucide-react";
+import { BarChart3, BookOpen, CheckCircle2, ArrowRight, Trophy, Flame, Target, Clock, ChevronDown, CircleDashed, PlayCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { getLevelMinutes, getTotalMinutes, formatDuration, useStudyTimeVersion } from "@/lib/study-time";
+
 
 interface LevelProgress {
   level: string;
