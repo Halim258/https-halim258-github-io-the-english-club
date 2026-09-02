@@ -52,6 +52,7 @@ export default function NotificationBell() {
   const { user, role } = useAuth();
   const isAdmin = role === "admin" || role === "secretary";
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState<"all" | "unread">("all");
   const [menuFor, setMenuFor] = useState<string | null>(null);
