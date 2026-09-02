@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { loadPrefs, playNotifSound, groupByRecency, stackDuplicates, NOTIF_CATEGORIES, isQuietNow, showDesktopNotification, setTitleBadge, type NotifCategory } from "@/lib/notification-prefs";
 import { showRichNotifToast } from "@/lib/notification-toast";
+import { toast } from "sonner";
 import NotificationPreferences from "./NotificationPreferences";
 
 interface Notification {
