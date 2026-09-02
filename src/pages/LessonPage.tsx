@@ -7,7 +7,8 @@ import { useTTS } from "@/hooks/useTTS";
 import { useLessonProgress } from "@/hooks/useLessonProgress";
 import { getDiscussionPrompts, isCommunicationCourse, DiscussionPrompt } from "@/data/discussion-prompts";
 import { getSpeakingQuestions, type SpeakingQuestion } from "@/data/speaking-questions";
-import { getGrammarPoints, getGrammarTrueFalse, type GrammarPoint } from "@/data/grammar-points";
+import { getGrammarPoints, type GrammarPoint } from "@/data/grammar-points";
+import { buildMCQSet, buildMatchSets, buildSentenceScrambleSet, buildTrueFalseSet, buildWordScrambleSet } from "@/data/exercise-quotas";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { useStudyTimer } from "@/lib/study-time";
@@ -1413,8 +1414,8 @@ export default function LessonPage() {
         const vocabCards = lesson.vocabulary.map((w, i) => (
           <VocabCard key={`v-${i}`} item={w} showArabic={showArabic} speak={speak} speaking={speaking} onFlip={markFlipped} />
         ));
-        // Show all vocabulary exercises for this lesson.
-        const unlocked = lesson.vocabExercises;
+        // Fixed quota: 10 multiple-choice questions per lesson.
+        const unlocked = buildMCQSet(lesson.vocabExercises, lesson.examQuestions, lesson.homeworkQuestions);
         const total = unlocked.length;
         const cards: React.ReactNode[] = [
           <SectionTitleCard
@@ -1436,7 +1437,7 @@ export default function LessonPage() {
           cards.push(
             <SectionTitleCard
               key="ex-title"
-              title={`Exercises (${total})`}
+              title={`Choose the Correct Answer (${total})`}
               icon="✏️"
               note="Practise the words from this lesson."
             />,
@@ -1447,42 +1448,36 @@ export default function LessonPage() {
             <ScoreSummaryCard key="score" scoreRef={vocabScore} total={total} onRetry={handleRetry(vocabScore)} />
           );
         }
-        // Games at the very end of the vocabulary section.
-        const gameWords = (flippedWords.length > 0
-          ? lesson.vocabulary.filter((v) => flippedWords.some((w) => w.toLowerCase() === v.word.toLowerCase()))
-          : lesson.vocabulary
-        ).slice(0, 4);
-        const matchWords = gameWords.filter((v) => v.meaning && v.meaning.trim());
-        if (matchWords.length >= 3) {
+        // Games at the very end of the vocabulary section: 3 match sets, 10 sentences, 10 words.
+        const matchSets = buildMatchSets(lesson.vocabulary);
+        if (matchSets.length > 0) {
           cards.push(
-            <SectionTitleCard key="mt-title" title="Match the Pairs" icon="🔗" note="Match each word with its meaning." />,
-            <MatchCard key={`mt-${retryCount}`} items={matchWords} />
+            <SectionTitleCard key="mt-title" title={`Match the Pairs (${matchSets.length} sets)`} icon="🔗" note="Match each word with its meaning." />,
+            ...matchSets.map((items, i) => (
+              <MatchCard key={`mt-${i}-${retryCount}`} items={items} />
+            ))
           );
         }
-        const sentenceItems = gameWords.filter(
-          (v) => v.example && v.example.trim().split(/\s+/).length >= 3 && v.example.trim().split(/\s+/).length <= 10
-        );
+        const sentenceItems = buildSentenceScrambleSet(lesson);
         if (sentenceItems.length > 0) {
           cards.push(
             <SectionTitleCard
               key="ss-title"
-              title="Build the Sentence"
+              title={`Rearrange to Make a Sentence (${sentenceItems.length})`}
               icon="🧩"
               note="Tap the words in the correct order."
             />,
-            ...sentenceItems.slice(0, 3).map((v, i) => (
-              <SentenceScrambleCard key={`ss-${i}-${retryCount}`} sentence={v.example} hint={`Uses "${v.word}"`} />
+            ...sentenceItems.map((s, i) => (
+              <SentenceScrambleCard key={`ss-${i}-${retryCount}`} sentence={s.sentence} hint={s.hint} />
             ))
           );
         }
-        const scrambleWords = gameWords.filter(
-          (v) => v.word.replace(/\s/g, "").length >= 3 && v.word.length <= 12
-        );
+        const scrambleWords = buildWordScrambleSet(lesson.vocabulary);
         if (scrambleWords.length > 0) {
           cards.push(
             <SectionTitleCard
               key="sc-title"
-              title="Build the Word"
+              title={`Rearrange to Make a Word (${scrambleWords.length})`}
               icon="🔤"
               note="Tap the letters in the right order to spell each word."
             />,
@@ -1491,6 +1486,7 @@ export default function LessonPage() {
         }
         return cards;
       }
+
       case "reading": {
         const cards: React.ReactNode[] = [
           <SectionTitleCard key="r-title" title="Reading & Practice" icon="📖" />,
@@ -1620,30 +1616,26 @@ export default function LessonPage() {
       }
       case "grammar": {
         const points = getGrammarPoints(lesson);
-        const trueFalse = getGrammarTrueFalse(lesson);
-        const questions = [...trueFalse, ...lesson.grammarExercises];
-        const total = questions.length;
-        const rearrangeSentences = points
-          .map((p) => p.example)
-          .filter((s) => s && s.trim().split(/\s+/).length >= 3 && s.trim().split(/\s+/).length <= 10)
-          .slice(0, 3);
+        const trueFalse = buildTrueFalseSet(lesson);
+        const questions = buildMCQSet(lesson.grammarExercises);
+        const sentenceItems = buildSentenceScrambleSet(lesson);
         return [
           ...points.map((p, i) => (
             <GrammarPointCard key={`gp-${i}`} point={p} index={i} total={points.length} speak={speak} speaking={speaking} />
           )),
-          <SectionTitleCard key="ex-title" title="Grammar Questions" icon="✏️" note="Decide if each sentence is correct or wrong, then choose the correct word." />,
+          <SectionTitleCard key="tf-title" title={`Correct or Wrong? (${trueFalse.length})`} icon="✓" note="Read each sentence and choose Correct or Wrong." />,
+          ...trueFalse.map((q, i) => (
+            <MCQCard key={`tf-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
+          )),
+          <SectionTitleCard key="ex-title" title={`Choose the Correct Answer (${questions.length})`} icon="✏️" note="Choose the best answer for each grammar question." />,
           ...questions.map((q, i) => (
             <MCQCard key={`gex-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
           )),
-          <ScoreSummaryCard key="score" scoreRef={grammarScore} total={total} onRetry={handleRetry(grammarScore)} />,
-          ...(rearrangeSentences.length > 0
-            ? [
-                <SectionTitleCard key="gs-title" title="Rearrange to Make a Sentence" icon="🧩" note="Tap the words in the correct order." />,
-                ...rearrangeSentences.map((s, i) => (
-                  <SentenceScrambleCard key={`gs-${i}-${retryCount}`} sentence={s} />
-                )),
-              ]
-            : []),
+          <ScoreSummaryCard key="score" scoreRef={grammarScore} total={trueFalse.length + questions.length} onRetry={handleRetry(grammarScore)} />,
+          <SectionTitleCard key="gs-title" title={`Rearrange to Make a Sentence (${sentenceItems.length})`} icon="🧩" note="Tap the words in the correct order." />,
+          ...sentenceItems.map((s, i) => (
+            <SentenceScrambleCard key={`gs-${i}-${retryCount}`} sentence={s.sentence} hint={s.hint} />
+          )),
         ];
       }
       case "speaking": {
