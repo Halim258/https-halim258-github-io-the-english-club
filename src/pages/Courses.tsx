@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, Phone, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, Phone, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School, BriefcaseBusiness } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
