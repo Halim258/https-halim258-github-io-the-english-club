@@ -846,6 +846,7 @@ export const lessons: Record<string, LessonData> = {
   ...expansion20Batch2,
   ...expansion20Batch3,
   ...musicLessons,
+  ...recorderLessons,
   ...newsLessons,
   ...legalLessons,
   ...hospitalityLessons,
