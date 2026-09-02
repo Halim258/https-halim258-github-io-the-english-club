@@ -459,15 +459,19 @@ const longestWord = (sentence: string) =>
     .filter((w) => w.length > 3)
     .sort((a, b) => b.length - a.length)[0];
 
-/** Generate extra MCQs so every section has more practice. */
+const wordCount = (s: string) => s.trim().split(/\s+/).length;
+
+/** Generate extra MCQs so every section has more practice, sized to the level. */
 function topUpExercises(lesson: LessonData) {
   const seed = seedFor(lesson);
+  const tuning = tuningFor(lesson);
   const vocab = lesson.vocabulary ?? [];
   const words = vocab.map((v) => v.word);
+  const levelOk = (s?: string) => Boolean(s) && wordCount(s as string) <= tuning.maxSentenceWords;
 
   // Vocabulary: fill-in-the-blank from each word's own example sentence.
   const vocabExtra: MCQItem[] = vocab
-    .filter((v) => v.example && v.example.toLowerCase().includes(v.word.toLowerCase()))
+    .filter((v) => v.example && v.example.toLowerCase().includes(v.word.toLowerCase()) && levelOk(v.example))
     .map((v, idx) => {
       const blanked = v.example.replace(new RegExp(v.word, "i"), "______");
       const distractors = shuffleDeterministic(
