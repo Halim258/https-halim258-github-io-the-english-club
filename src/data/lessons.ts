@@ -133,6 +133,7 @@ import { musicLessons } from "./music-lessons";
 import { newsLessons } from "./news-lessons";
 import { legalLessons } from "./legal-lessons";
 import { hospitalityLessons } from "./hospitality-lessons";
+import { customerServiceLessons } from "./customer-service-lessons";
 import { conversationPracticeLessons } from "./conversation-practice-lessons";
 import { socialMediaLessons } from "./social-media-lessons";
 import { healthcareLessons } from "./healthcare-lessons";
@@ -846,6 +847,7 @@ export const lessons: Record<string, LessonData> = {
   ...newsLessons,
   ...legalLessons,
   ...hospitalityLessons,
+  ...customerServiceLessons,
   ...conversationPracticeLessons,
   ...socialMediaLessons,
   ...healthcareLessons,
