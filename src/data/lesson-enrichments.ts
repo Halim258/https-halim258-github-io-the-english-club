@@ -770,7 +770,10 @@ export function enrichLesson(lesson: LessonData): LessonData {
   const lang = detectLang(lesson.levelId);
   const s = L[lang];
   const level = cefrOf(lesson.levelId);
-  const baseReading = lesson.reading ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
+  const beginnerStory =
+    lang === "en" && (level === "a1" || level === "a2") ? buildStoryReading(lesson, level) : undefined;
+  const baseReading =
+    lesson.reading ?? beginnerStory ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
   const reading = augmentReading(lesson, baseReading);
   const grammar = ensureGrammarExamples(lesson) ?? lesson.grammar;
   const { vocabExercises, grammarExercises, conversationExercises } = topUpExercises({ ...lesson, grammar });
