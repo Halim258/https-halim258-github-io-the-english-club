@@ -65,7 +65,7 @@ export default function SlideLesson() {
     <>
       <SlideViewer
         slides={slides}
-        onBack={() => navigate(`/courses/${levelId}`)}
+        onBack={() => navigate(-1)}
         lessonKey={key}
       />
       {isDrawingCourse && (

@@ -1306,6 +1306,25 @@ export default function LessonPage() {
     }
   }, [levelId, lessonId, navigate]);
 
+  /**
+   * Exit returns the student to the exact lesson list they came from
+   * (including its scroll position). Falls back to the course list when the
+   * lesson was opened directly from a link, refresh, or a new tab.
+   */
+  const exitLesson = useCallback(() => {
+    const fromState = (location.state as { from?: string } | null)?.from;
+    if (fromState) {
+      navigate(fromState);
+      return;
+    }
+    const historyIdx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+    if (historyIdx > 0) {
+      navigate(-1);
+      return;
+    }
+    navigate("/courses");
+  }, [location.state, navigate]);
+
   const [searchParams] = useSearchParams();
   const slideKey = lesson ? `${lesson.levelId}-${lesson.lessonNumber}` : null;
   const savedPos = slideKey ? getLessonPosition(slideKey) : null;
@@ -1771,12 +1790,14 @@ export default function LessonPage() {
       <div className="flex items-center justify-between border-b border-border/60 bg-card px-3 sm:px-6 py-3">
         {/* Left: combined Exit · Slides ink pill */}
         <div className="flex items-center rounded-full bg-foreground text-background shadow-sm overflow-hidden">
-          <Link
-            to="/courses"
-            className="flex items-center gap-1 pl-3.5 pr-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] font-sans opacity-80 hover:opacity-100 transition-opacity min-h-[36px] touch-manipulation"
+          <Button
+            type="button"
+            variant="ghost"
+            onClick={exitLesson}
+            className="h-auto min-h-[36px] gap-1 rounded-none bg-transparent pl-3.5 pr-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-background opacity-80 hover:bg-transparent hover:text-background hover:opacity-100 font-sans touch-manipulation"
           >
             <ChevronLeft className="h-3 w-3" /> Exit
-          </Link>
+          </Button>
           <span className="w-px h-3 bg-background/30" />
           <button
             onClick={() => navigate(`/courses/${levelId}/${lessonId}/slides`)}
