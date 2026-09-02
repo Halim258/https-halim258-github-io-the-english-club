@@ -372,12 +372,7 @@ function buildListening(lesson: LessonData, lang: Lang) {
 
 /* ── CEFR-aware English enrichment (A1 → C2) ───────────────────────── */
 
-type Cefr = "a1" | "a2" | "b1" | "b2" | "c1" | "c2";
 
-function cefrOf(levelId: string): Cefr | undefined {
-  const m = levelId.toLowerCase().match(/^(a1|a2|b1|b2|c1|c2)\b/);
-  return (m?.[1] as Cefr) ?? undefined;
-}
 
 const EN_LEVEL: Record<Cefr, { frame: (t: string) => string; task: string; writing: (t: string) => string }> = {
   a1: {
