@@ -434,12 +434,19 @@ export default function NotificationBell() {
                           className="absolute right-1.5 top-9 z-10 w-44 rounded-xl border bg-popover shadow-xl overflow-hidden"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          {!n.read && (
+                          {!n.read ? (
                             <button
                               onClick={(e) => { e.preventDefault(); markAsRead(n.stackedIds); setMenuFor(null); }}
                               className="flex w-full items-center gap-2 px-3 py-2 text-xs hover:bg-muted"
                             >
                               <Check className="h-3.5 w-3.5" /> Mark as read
+                            </button>
+                          ) : (
+                            <button
+                              onClick={(e) => { e.preventDefault(); markAsUnread(n.stackedIds); setMenuFor(null); }}
+                              className="flex w-full items-center gap-2 px-3 py-2 text-xs hover:bg-muted"
+                            >
+                              <Bell className="h-3.5 w-3.5" /> Mark as unread
                             </button>
                           )}
                           <button
