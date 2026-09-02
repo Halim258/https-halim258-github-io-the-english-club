@@ -63,6 +63,7 @@ const PlatformBlog = lazy(() => import("./pages/PlatformBlog"));
 const Contact = lazy(() => import("./pages/Contact"));
 const CurriculumPlan = lazy(() => import("./pages/CurriculumPlan"));
 const Messages = lazy(() => import("./pages/Messages"));
+const CapstoneCertificate = lazy(() => import("./pages/CapstoneCertificate"));
 const PendingApproval = lazy(() => import("./pages/PendingApproval"));
 const queryClient = new QueryClient();
 
@@ -118,7 +119,8 @@ const App = () => (
               <Route path="/courses/it-english/:lessonId" element={<ProtectedRoute requireMember minimumLevel="b1"><LessonPage /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId/slides" element={<ProtectedRoute requireMember><SlideLesson /></ProtectedRoute>} />
               <Route path="/courses/:levelId/certificate" element={<ProtectedRoute requireMember><CapstoneCertificate /></ProtectedRoute>} />
-              <Route path="/courses/:levelId/test" element={<ProtectedRoute requireMember><LevelAssessment /></ProtectedRoute>} />
+              <Route path="/courses/:levelId/slides" element={<ProtectedRoute requireMember><SlideLesson /></ProtectedRoute>} />
+              <Route path="/courses/:levelId/certificate" element={<ProtectedRoute requireMember><CapstoneCertificate /></ProtectedRoute>} />
               <Route path="/courses/:levelId/:lessonId" element={<ProtectedRoute requireMember><LessonPage /></ProtectedRoute>} />
               <Route path="/courses/kids" element={<ProtectedRoute requireMember><KidsCourse /></ProtectedRoute>} />
               <Route path="/courses/stories" element={<ProtectedRoute requireMember><StoriesCourse /></ProtectedRoute>} />
