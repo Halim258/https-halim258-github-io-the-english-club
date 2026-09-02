@@ -1306,6 +1306,25 @@ export default function LessonPage() {
     }
   }, [levelId, lessonId, navigate]);
 
+  /**
+   * Exit returns the student to the exact lesson list they came from
+   * (including its scroll position). Falls back to the course list when the
+   * lesson was opened directly from a link, refresh, or a new tab.
+   */
+  const exitLesson = useCallback(() => {
+    const fromState = (location.state as { from?: string } | null)?.from;
+    if (fromState) {
+      navigate(fromState);
+      return;
+    }
+    const historyIdx = (window.history.state as { idx?: number } | null)?.idx ?? 0;
+    if (historyIdx > 0) {
+      navigate(-1);
+      return;
+    }
+    navigate("/courses");
+  }, [location.state, navigate]);
+
   const [searchParams] = useSearchParams();
   const slideKey = lesson ? `${lesson.levelId}-${lesson.lessonNumber}` : null;
   const savedPos = slideKey ? getLessonPosition(slideKey) : null;
