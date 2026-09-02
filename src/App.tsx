@@ -126,6 +126,9 @@ const App = () => (
               <Route path="/courses/documentary/:lessonId/slides" element={<ProtectedRoute requireMember><DocumentarySlideLesson /></ProtectedRoute>} />
               <Route path="/kids/games" element={<ProtectedRoute requireMember><KidsGameCenter /></ProtectedRoute>} />
               <Route path="/courses/customer-service" element={<ProtectedRoute requireMember minimumLevel="a2"><Courses /></ProtectedRoute>} />
+              <Route path="/courses/hospitality" element={<ProtectedRoute requireMember minimumLevel="a2"><Courses /></ProtectedRoute>} />
+              <Route path="/courses/healthcare" element={<ProtectedRoute requireMember minimumLevel="b1"><Courses /></ProtectedRoute>} />
+              <Route path="/courses/it-english" element={<ProtectedRoute requireMember minimumLevel="b1"><Courses /></ProtectedRoute>} />
               <Route path="/courses/:levelId" element={<ProtectedRoute requireMember><Courses /></ProtectedRoute>} />
               <Route path="/pending-approval" element={<ProtectedRoute><PendingApproval /></ProtectedRoute>} />
               <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />
