@@ -632,7 +632,10 @@ function augmentReading(lesson: LessonData, reading?: LessonData["reading"]) {
   const seen = new Set((reading.questions ?? []).map((q) => q.question.trim().toLowerCase()));
   return {
     ...reading,
-    questions: [...(reading.questions ?? []), ...extra.filter((q) => !seen.has(q.question.trim().toLowerCase()))],
+    questions: [
+      ...(reading.questions ?? []),
+      ...extra.filter((q) => !seen.has(q.question.trim().toLowerCase())).slice(0, tuning.maxReadingExtras),
+    ],
   };
 }
 
