@@ -23,7 +23,7 @@ import grammarImg from "@/assets/courses/grammar.jpg";
 
 export const courseImages: Record<string, string> = {
   // Music
-  "The School Recorder — Book 1": recorder,
+  "The Perfect Recorder Method": recorder,
   // Core English
   "General English (A1–C2)": generalEnglish,
   "Intensive English Course": intensiveEnglish,

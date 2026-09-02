@@ -2,7 +2,7 @@ import type { LessonData, MCQItem, VocabWord } from "./lessons";
 import recorderImage from "@/assets/courses/recorder.jpg";
 
 const LEVEL_ID = "recorder";
-const LEVEL_LABEL = "The School Recorder — Book 1";
+const LEVEL_LABEL = "The Perfect Recorder Method";
 const IMAGE = recorderImage;
 
 type RecorderLesson = {
