@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { CalendarDays, Users, Clock, DollarSign, Settings, MessageCircle, UserPlus, BarChart3, UserCog } from "lucide-react";
+import { CalendarDays, Users, Clock, DollarSign, Settings, MessageCircle, UserPlus, BarChart3, UserCog, Activity } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import StudentAnswersReview from "@/components/teacher/StudentAnswersReview";
 import TeacherEnrollments from "@/components/teacher/TeacherEnrollments";
 import CohortAnalytics from "@/components/analytics/CohortAnalytics";
+import TeacherStudentProgress from "@/components/teacher/TeacherStudentProgress";
 
 const upcomingClasses = [
   { student: "John Doe", date: "Feb 19, 2026", time: "10:00 AM", duration: "50 min", level: "A1" },
@@ -14,6 +15,7 @@ const upcomingClasses = [
 
 const TABS = [
   { id: "overview", label: "Overview", icon: CalendarDays },
+  { id: "progress", label: "Student Progress", icon: Activity },
   { id: "enrollments", label: "Enrollments", icon: UserPlus },
   { id: "answers", label: "Student Answers", icon: MessageCircle },
   { id: "analytics", label: "Cohort Analytics", icon: BarChart3 },
@@ -101,6 +103,12 @@ export default function TeacherDashboard() {
             ))}
           </div>
         </>
+      )}
+
+      {activeTab === "progress" && (
+        <div className="mt-6">
+          <TeacherStudentProgress />
+        </div>
       )}
 
       {activeTab === "enrollments" && (

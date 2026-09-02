@@ -23,6 +23,7 @@ const Teachers = lazy(() => import("./pages/Teachers"));
 const Groups = lazy(() => import("./pages/Groups"));
 const PlacementTest = lazy(() => import("./pages/PlacementTest"));
 const PhonicsDiagnostic = lazy(() => import("./pages/PhonicsDiagnostic"));
+const LevelAssessment = lazy(() => import("./pages/LevelAssessment"));
 
 const StudentDashboard = lazy(() => import("./pages/StudentDashboard"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
