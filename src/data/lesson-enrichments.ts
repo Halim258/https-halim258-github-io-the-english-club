@@ -149,15 +149,110 @@ const READING_Q = {
 
 const OFF_TOPIC_WORDS = ["submarine", "helicopter", "volcano", "trombone", "penguin", "telescope"];
 
+/* ── Level tuning: how much and how hard each CEFR band gets ───────── */
+
+type Cefr = "a1" | "a2" | "b1" | "b2" | "c1" | "c2";
+
+type LevelTuning = {
+  /** how many example sentences go into the reading passage */
+  passageSentences: number;
+  /** longest sentence (in words) we are willing to turn into an exercise */
+  maxSentenceWords: number;
+  maxVocabExercises: number;
+  maxGrammarExercises: number;
+  maxConversationExercises: number;
+  maxReadingExtras: number;
+  /** true/false meaning checks are confusing for absolute beginners */
+  useTrueFalse: boolean;
+  speaking: (t: string) => string;
+};
+
+const TUNING: Record<Cefr, LevelTuning> = {
+  a1: {
+    passageSentences: 3,
+    maxSentenceWords: 9,
+    maxVocabExercises: 5,
+    maxGrammarExercises: 3,
+    maxConversationExercises: 3,
+    maxReadingExtras: 2,
+    useTrueFalse: false,
+    speaking: (t) =>
+      `Talk about "${t}" for about 30 seconds. Say 4 short sentences with "I am…", "I have…" or "I like…" and use three new words.`,
+  },
+  a2: {
+    passageSentences: 4,
+    maxSentenceWords: 12,
+    maxVocabExercises: 6,
+    maxGrammarExercises: 4,
+    maxConversationExercises: 4,
+    maxReadingExtras: 3,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Speak for one minute about "${t}". Describe a normal day or a real situation, and give one reason with "because".`,
+  },
+  b1: {
+    passageSentences: 5,
+    maxSentenceWords: 16,
+    maxVocabExercises: 8,
+    maxGrammarExercises: 5,
+    maxConversationExercises: 5,
+    maxReadingExtras: 4,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Speak for 1–2 minutes about "${t}". Tell a short story from your experience, then give your opinion and one reason.`,
+  },
+  b2: {
+    passageSentences: 6,
+    maxSentenceWords: 20,
+    maxVocabExercises: 9,
+    maxGrammarExercises: 6,
+    maxConversationExercises: 6,
+    maxReadingExtras: 5,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Speak for two minutes about "${t}". Compare two points of view, use linking phrases (however, whereas, as a result) and finish with your position.`,
+  },
+  c1: {
+    passageSentences: 6,
+    maxSentenceWords: 24,
+    maxVocabExercises: 10,
+    maxGrammarExercises: 6,
+    maxConversationExercises: 6,
+    maxReadingExtras: 6,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Give a 2–3 minute mini-talk on "${t}": state a clear thesis, support it with two examples, acknowledge a counter-argument, then conclude.`,
+  },
+  c2: {
+    passageSentences: 6,
+    maxSentenceWords: 28,
+    maxVocabExercises: 10,
+    maxGrammarExercises: 6,
+    maxConversationExercises: 6,
+    maxReadingExtras: 6,
+    useTrueFalse: true,
+    speaking: (t) =>
+      `Speak for three minutes on "${t}" as if in a seminar. Control register and tone, hedge your claims precisely, and handle one likely objection.`,
+  },
+};
+
+function cefrOf(levelId: string): Cefr | undefined {
+  const m = levelId.toLowerCase().match(/^(a1|a2|b1|b2|c1|c2)\b/);
+  return (m?.[1] as Cefr) ?? undefined;
+}
+
+const tuningFor = (lesson: LessonData): LevelTuning => TUNING[cefrOf(lesson.levelId) ?? "a2"];
+
 /** Build a passage that reads like a real short text, plus questions about it. */
 function buildReading(lesson: LessonData, lang: Lang) {
   const s = L[lang];
   const q = READING_Q[lang];
+  const tuning = tuningFor(lesson);
   const examples = (lesson.vocabulary ?? [])
     .map((v) => v.example)
     .filter((e): e is string => Boolean(e && e.trim()))
     .map((e) => e.trim())
-    .slice(0, 6);
+    .slice(0, tuning.passageSentences);
   if (examples.length < 3) return undefined;
 
   const pool = lesson.vocabulary.slice(0, Math.min(8, lesson.vocabulary.length));
