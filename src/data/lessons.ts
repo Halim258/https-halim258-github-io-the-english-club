@@ -44,6 +44,7 @@ export interface LessonData {
   reading?: ReadingSection;
   pictureActivity?: PictureActivity;
   listening?: ListeningActivity;
+  rolePlay?: import("./industry-course-builder").RolePlayScenario[];
   /* Phonics: the sound(s) this lesson teaches, shown as intro cards. */
   soundIntro?: {
     grapheme: string;
@@ -888,6 +889,10 @@ export const lessons: Record<string, LessonData> = {
   ...egyptianSchoolLessons,
   ...phonicsLessons,
 };
+
+// Add structured workplace role-plays to every industry lesson.
+import { applyIndustryRolePlays } from "./industry-roleplays";
+applyIndustryRolePlays(lessons);
 
 // Apply YouTube video patches to music, legal, and hospitality courses
 import { applyVideoPatches } from "./course-videos-patch";
