@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, Phone, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School } from "lucide-react";
+import { ChevronRight, ChevronLeft, BookOpen, ArrowRight, GraduationCap, Phone, CheckCircle2, Sparkles, Lock, Clock, Award, Download, Brain, Mic2, Target, BookMarked, PenLine, Search, X, School, BriefcaseBusiness } from "lucide-react";
 import { motion } from "framer-motion";
 import { useMemo, useState, useEffect } from "react";
 import { useAuth } from "@/hooks/useAuth";
@@ -15,6 +15,7 @@ import ContinueLearning from "@/components/ContinueLearning";
 import { useSlideProgressMap } from "@/hooks/useSlideProgress";
 import CourseProgress from "@/components/CourseProgress";
 import { notifyAdmins } from "@/lib/notifications";
+import { customerServiceModules } from "@/data/customer-service-workplace";
 
 function CardProgress({
   p,
@@ -455,6 +456,35 @@ function LevelLessons({ levelId, levelLabel }: { levelId: string; levelLabel: st
               </div>
             );
           })()}
+          {levelId === "customer-service" && (
+            <div className="mt-5 rounded-2xl border border-primary/20 bg-primary/5 p-4 sm:p-5">
+              <div className="flex items-start gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <BriefcaseBusiness className="h-5 w-5" />
+                </div>
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-primary">A practical path to work</p>
+                  <h2 className="mt-1 text-base font-bold text-foreground">Study, practise, then use it at work</h2>
+                  <p className="mt-1 max-w-2xl text-sm leading-relaxed text-muted-foreground">Every lesson combines customer-service English, a realistic role-play and a written workplace task. Finish all 27 lessons to unlock your course certificate.</p>
+                </div>
+              </div>
+              <div className="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-5">
+                {customerServiceModules.map((module) => {
+                  const moduleDone = Array.from({ length: module.to - module.from + 1 }, (_, index) => module.from + index).filter((number) => completedLessons.has(number)).length;
+                  return (
+                    <div key={module.code} className="rounded-xl border border-border/70 bg-card p-3">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-primary">{module.code}</span>
+                        <span className="text-[10px] tabular-nums text-muted-foreground">{moduleDone}/{module.to - module.from + 1}</span>
+                      </div>
+                      <p className="mt-1 text-xs font-semibold text-foreground">{module.title}</p>
+                      <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground">{module.outcome}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
           {schoolTrack && selectedMinistryBook && (
             <div className="mt-5 rounded-2xl border bg-card p-4 shadow-soft">
               <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
