@@ -1514,6 +1514,10 @@ export default function LessonPage() {
             )
           );
         }
+        if (lesson.levelId === "customer-service") {
+          const toolkit = getCustomerServiceToolkit(lesson.lessonNumber);
+          if (toolkit) cards.push(<WorkplaceToolkitCard key="toolkit" lessonNumber={lesson.lessonNumber} toolkit={toolkit} />);
+        }
         return cards;
       }
       case "activity": {
