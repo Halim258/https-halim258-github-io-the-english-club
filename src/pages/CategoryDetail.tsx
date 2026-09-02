@@ -74,6 +74,7 @@ const courseLevelMap: Record<string, string> = {
   "ESP (Specific Purposes)": "professional",
   // New courses
   "English through Music": "music",
+  "The School Recorder — Book 1": "recorder",
   "English through News": "news",
   "Legal English": "legal",
   "Hospitality English": "hospitality",
