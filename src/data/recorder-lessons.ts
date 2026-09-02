@@ -1,8 +1,9 @@
 import type { LessonData, MCQItem, VocabWord } from "./lessons";
+import recorderImage from "@/assets/courses/recorder.jpg";
 
 const LEVEL_ID = "recorder";
 const LEVEL_LABEL = "The School Recorder — Book 1";
-const IMAGE = "/src/assets/courses/recorder.jpg";
+const IMAGE = recorderImage;
 
 type RecorderLesson = {
   title: string;
