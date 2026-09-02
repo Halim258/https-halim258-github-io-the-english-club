@@ -551,7 +551,7 @@ function topUpExercises(lesson: LessonData) {
       });
     });
   }
-  dialogue.slice(0, 3).forEach((line, idx) => {
+  dialogue.filter((line) => levelOk(line.text)).slice(0, 3).forEach((line, idx) => {
     const target = longestWord(line.text);
     if (!target) return;
     const pool = Array.from(new Set(words.filter((w) => w.toLowerCase() !== target.toLowerCase())));
@@ -571,9 +571,12 @@ function topUpExercises(lesson: LessonData) {
   };
 
   return {
-    vocabExercises: dedupe(lesson.vocabExercises, [...vocabExtra, ...vocabTrueFalse]),
+    vocabExercises: dedupe(lesson.vocabExercises, [...vocabExtra, ...vocabMeaning]),
     grammarExercises: dedupe(lesson.grammarExercises, grammarExtra),
-    conversationExercises: dedupe(lesson.conversationExercises, conversationExtra.slice(0, 6)),
+    conversationExercises: dedupe(
+      lesson.conversationExercises,
+      conversationExtra.slice(0, tuning.maxConversationExercises),
+    ),
   };
 }
 
