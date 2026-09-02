@@ -3,3 +3,6 @@
 - [x] Add real role-play scenarios and model dialogues to Customer Service lessons and render them in the lesson player
 - [x] Verify course routes, catalog labels, and build output
 - [x] Promote Customer Service English to its own visible catalog category
+- [ ] Add teacher dashboard view of each assigned student's course progress
+- [ ] Add level-appropriate tests at the end of each level
+- [ ] Add a teacher completion step after each level test

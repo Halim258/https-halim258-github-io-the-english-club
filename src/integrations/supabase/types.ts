@@ -570,6 +570,51 @@ export type Database = {
         }
         Relationships: []
       }
+      level_assessment_results: {
+        Row: {
+          answers: Json
+          completed_at: string
+          id: string
+          level_id: string
+          passed: boolean
+          score: number
+          teacher_id: string | null
+          teacher_note: string | null
+          teacher_reviewed: boolean
+          total_questions: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          answers?: Json
+          completed_at?: string
+          id?: string
+          level_id: string
+          passed?: boolean
+          score: number
+          teacher_id?: string | null
+          teacher_note?: string | null
+          teacher_reviewed?: boolean
+          total_questions: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          completed_at?: string
+          id?: string
+          level_id?: string
+          passed?: boolean
+          score?: number
+          teacher_id?: string | null
+          teacher_note?: string | null
+          teacher_reviewed?: boolean
+          total_questions?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       library_favorites: {
         Row: {
           created_at: string
@@ -1398,6 +1443,10 @@ export type Database = {
           xp_earned: number
         }[]
       }
+      complete_teacher_level_review: {
+        Args: { _note?: string; _result_id: string }
+        Returns: boolean
+      }
       create_group_conversation: {
         Args: { _member_ids: string[]; _title: string }
         Returns: string
@@ -1514,6 +1563,50 @@ export type Database = {
           student_name: string
         }[]
       }
+      get_teacher_level_assessments: {
+        Args: never
+        Returns: {
+          completed_at: string
+          id: string
+          level_id: string
+          passed: boolean
+          score: number
+          student_name: string
+          teacher_note: string
+          teacher_reviewed: boolean
+          total_questions: number
+          user_id: string
+        }[]
+      }
+      get_teacher_student_lessons: {
+        Args: { _user_id: string }
+        Returns: {
+          completed: boolean
+          completed_at: string
+          created_at: string
+          lesson_number: number
+          level_id: string
+          score: number
+        }[]
+      }
+      get_teacher_students_progress: {
+        Args: never
+        Returns: {
+          avg_accuracy: number
+          current_streak: number
+          enrolled_at: string
+          group_days: string
+          group_id: string
+          group_level: string
+          in_progress_count: number
+          last_activity_date: string
+          lessons_completed: number
+          status: string
+          student_name: string
+          total_xp: number
+          user_id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -1553,6 +1646,15 @@ export type Database = {
           is_correct: boolean
           xp_earned: number
         }[]
+      }
+      submit_level_assessment: {
+        Args: {
+          _answers: Json
+          _level_id: string
+          _score: number
+          _total_questions: number
+        }
+        Returns: string
       }
       sync_my_achievements: { Args: never; Returns: undefined }
       sync_user_achievements: { Args: { _user_id: string }; Returns: undefined }
