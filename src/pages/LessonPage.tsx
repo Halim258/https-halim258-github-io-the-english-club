@@ -1616,30 +1616,26 @@ export default function LessonPage() {
       }
       case "grammar": {
         const points = getGrammarPoints(lesson);
-        const trueFalse = getGrammarTrueFalse(lesson);
-        const questions = [...trueFalse, ...lesson.grammarExercises];
-        const total = questions.length;
-        const rearrangeSentences = points
-          .map((p) => p.example)
-          .filter((s) => s && s.trim().split(/\s+/).length >= 3 && s.trim().split(/\s+/).length <= 10)
-          .slice(0, 3);
+        const trueFalse = buildTrueFalseSet(lesson);
+        const questions = buildMCQSet(lesson.grammarExercises);
+        const sentenceItems = buildSentenceScrambleSet(lesson);
         return [
           ...points.map((p, i) => (
             <GrammarPointCard key={`gp-${i}`} point={p} index={i} total={points.length} speak={speak} speaking={speaking} />
           )),
-          <SectionTitleCard key="ex-title" title="Grammar Questions" icon="✏️" note="Decide if each sentence is correct or wrong, then choose the correct word." />,
+          <SectionTitleCard key="tf-title" title={`Correct or Wrong? (${trueFalse.length})`} icon="✓" note="Read each sentence and choose Correct or Wrong." />,
+          ...trueFalse.map((q, i) => (
+            <MCQCard key={`tf-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
+          )),
+          <SectionTitleCard key="ex-title" title={`Choose the Correct Answer (${questions.length})`} icon="✏️" note="Choose the best answer for each grammar question." />,
           ...questions.map((q, i) => (
             <MCQCard key={`gex-${i}-${retryCount}`} item={q} onAnswer={makeOnAnswer(grammarScore)} />
           )),
-          <ScoreSummaryCard key="score" scoreRef={grammarScore} total={total} onRetry={handleRetry(grammarScore)} />,
-          ...(rearrangeSentences.length > 0
-            ? [
-                <SectionTitleCard key="gs-title" title="Rearrange to Make a Sentence" icon="🧩" note="Tap the words in the correct order." />,
-                ...rearrangeSentences.map((s, i) => (
-                  <SentenceScrambleCard key={`gs-${i}-${retryCount}`} sentence={s} />
-                )),
-              ]
-            : []),
+          <ScoreSummaryCard key="score" scoreRef={grammarScore} total={trueFalse.length + questions.length} onRetry={handleRetry(grammarScore)} />,
+          <SectionTitleCard key="gs-title" title={`Rearrange to Make a Sentence (${sentenceItems.length})`} icon="🧩" note="Tap the words in the correct order." />,
+          ...sentenceItems.map((s, i) => (
+            <SentenceScrambleCard key={`gs-${i}-${retryCount}`} sentence={s.sentence} hint={s.hint} />
+          )),
         ];
       }
       case "speaking": {
