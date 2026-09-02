@@ -195,6 +195,12 @@ const SUB_LEVEL_GROUPS: Record<string, { code: string; title: string; from: numb
     { code: "Stage 4", title: "r-Controlled & Diphthongs", from: 14, to: 17 },
     { code: "Stage 5", title: "Advanced Code & Fluency", from: 18, to: 20 },
   ],
+  "customer-service": [
+    { code: "Module 1", title: "Customer Care Foundations", from: 1, to: 5 },
+    { code: "Module 2", title: "Communication Channels & Solutions", from: 6, to: 10 },
+    { code: "Module 3", title: "Operations, Quality & Inclusion", from: 11, to: 15 },
+    { code: "Module 4", title: "Professional Growth & Capstone", from: 16, to: 20 },
+  ],
   "a1": [
     { code: "A1.1", title: "Getting Started", from: 1, to: 7 },
     { code: "A1.2", title: "Everyday Life", from: 8, to: 14 },
@@ -735,6 +741,7 @@ export default function Courses() {
       news: "English through News",
       legal: "Legal English",
       hospitality: "Hospitality English",
+      "customer-service": "Customer Service English — Minimum A2",
       conversation: "Conversation Practice",
       "social-media": "English for Social Media",
       healthcare: "English for Healthcare",

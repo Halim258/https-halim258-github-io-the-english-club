@@ -60,6 +60,7 @@ export const courseImages: Record<string, string> = {
   "English for Teenagers": communicationImg,
   "ESP (Specific Purposes)": specializedImg,
   "Medical English": specializedImg,
+  "Customer Service English": professionalImg,
   "Engineering English": specializedImg,
   "IT English": specializedImg,
   "Web Development English": specializedImg,
