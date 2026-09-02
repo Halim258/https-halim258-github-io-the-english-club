@@ -441,12 +441,12 @@ function enrichEnglishReading(lesson: LessonData, base: ReturnType<typeof buildR
 /* ── Real reading passages for beginners (A1 / A2) ──────────────────── */
 
 const STORY_PEOPLE = [
-  { name: "Sara", age: 19, city: "Alexandria" },
-  { name: "Omar", age: 22, city: "Cairo" },
-  { name: "Nour", age: 17, city: "Tanta" },
-  { name: "Youssef", age: 25, city: "Alexandria" },
-  { name: "Mona", age: 20, city: "Damanhur" },
-  { name: "Karim", age: 23, city: "Port Said" },
+  { name: "Sara", age: 19, city: "Alexandria", she: "she", her: "her" },
+  { name: "Omar", age: 22, city: "Cairo", she: "he", her: "his" },
+  { name: "Nour", age: 17, city: "Tanta", she: "she", her: "her" },
+  { name: "Youssef", age: 25, city: "Alexandria", she: "he", her: "his" },
+  { name: "Mona", age: 20, city: "Damanhur", she: "she", her: "her" },
+  { name: "Karim", age: 23, city: "Port Said", she: "he", her: "his" },
 ];
 
 const STORY_TIMES = ["five o'clock", "six o'clock", "seven o'clock", "four o'clock"];
@@ -461,22 +461,22 @@ const STORY_SCENARIOS: { keys: string[]; scenario: StoryScenario }[] = [
   { keys: ["color", "clothes", "fashion", "wear"], scenario: { place: "a small clothes shop", action: "choose an outfit for a school event", object: "a blue shirt and comfortable shoes", result: "the shop assistant finds the right size" } },
   { keys: ["food", "drink", "restaurant", "meal", "cook"], scenario: { place: "a quiet café", action: "order breakfast for the first time", object: "a sandwich and a glass of juice", result: "the waiter smiles and brings the food" } },
   { keys: ["weather", "season", "climate"], scenario: { place: "the park near her home", action: "plan an afternoon outside", object: "a small umbrella in her bag", result: "the rain stops and she enjoys a short walk" } },
-  { keys: ["time", "routine", "daily", "calendar", "schedule"], scenario: { place: "her morning kitchen", action: "check the clock before leaving", object: "a timetable beside the door", result: "she arrives at class on time" } },
+  { keys: ["time", "routine", "daily", "calendar", "schedule"], scenario: { place: "her morning kitchen", action: "check the clock before leaving", object: "a timetable beside the door", result: "the learner arrives at class on time" } },
   { keys: ["home", "house", "room", "furniture"], scenario: { place: "her new apartment", action: "put things in the correct rooms", object: "a lamp beside the sofa", result: "the living room feels warm and tidy" } },
   { keys: ["school", "class", "student", "lesson"], scenario: { place: "the English Club classroom", action: "prepare a short class presentation", object: "three new words on the board", result: "the teacher congratulates her" } },
   { keys: ["health", "body", "doctor", "medical"], scenario: { place: "the local clinic", action: "describe a small problem to the doctor", object: "a glass of water and a health card", result: "the doctor gives helpful advice" } },
   { keys: ["animal", "pet", "dog", "cat"], scenario: { place: "the animal centre", action: "look after a friendly rescue dog", object: "a blue bowl and a red ball", result: "the dog feels safe and starts to play" } },
-  { keys: ["hobby", "free time", "leisure"], scenario: { place: "the community centre", action: "join a new afternoon club", object: "a camera and a notebook", result: "she makes a new friend" } },
+  { keys: ["hobby", "free time", "leisure"], scenario: { place: "the community centre", action: "join a new afternoon club", object: "a camera and a notebook", result: "the learner makes a new friend" } },
   { keys: ["sport", "football", "exercise"], scenario: { place: "the school sports field", action: "practise with her team", object: "a ball near the goal", result: "the team scores its first point" } },
-  { keys: ["travel", "trip", "holiday", "airport"], scenario: { place: "the train station", action: "check her ticket before a trip", object: "a small suitcase and a map", result: "she finds the right platform" } },
+  { keys: ["travel", "trip", "holiday", "airport"], scenario: { place: "the train station", action: "check her ticket before a trip", object: "a small suitcase and a map", result: "the learner finds the right platform" } },
   { keys: ["transport", "bus", "train", "direction"], scenario: { place: "the city bus stop", action: "ask for directions", object: "a bus going to the city centre", result: "the driver shows her where to get off" } },
-  { keys: ["work", "job", "office", "career", "business"], scenario: { place: "her first day at an office", action: "meet a new colleague", object: "a notebook with her work tasks", result: "she understands what to do next" } },
-  { keys: ["technology", "gadget", "computer", "internet"], scenario: { place: "the library computer room", action: "learn to use a new website", object: "a laptop and a useful password", result: "she completes her online task" } },
+  { keys: ["work", "job", "office", "career", "business"], scenario: { place: "her first day at an office", action: "meet a new colleague", object: "a notebook with her work tasks", result: "the learner understands what to do next" } },
+  { keys: ["technology", "gadget", "computer", "internet"], scenario: { place: "the library computer room", action: "learn to use a new website", object: "a laptop and a useful password", result: "the learner completes her online task" } },
   { keys: ["celebration", "festival", "party"], scenario: { place: "a neighbour's celebration", action: "help decorate the room", object: "bright cards and a birthday cake", result: "the guests sing together" } },
   { keys: ["environment", "nature", "recycle"], scenario: { place: "the beach near her city", action: "collect plastic with a volunteer group", object: "a large bag and a pair of gloves", result: "the beach looks cleaner" } },
   { keys: ["past", "yesterday", "irregular", "regular", "verb"], scenario: { place: "the old town museum", action: "describe what she did yesterday", object: "a photo from her weekend walk", result: "her friend understands the story" } },
   { keys: ["plan", "arrangement", "future", "appointment"], scenario: { place: "the library café", action: "make plans for the weekend", object: "a calendar and two cinema tickets", result: "the friends agree on a time" } },
-  { keys: ["compar", "superlative", "adjective"], scenario: { place: "a city park", action: "compare three trees for a drawing", object: "the tallest tree beside a bench", result: "she chooses the best view" } },
+  { keys: ["compar", "superlative", "adjective"], scenario: { place: "a city park", action: "compare three trees for a drawing", object: "the tallest tree beside a bench", result: "the learner chooses the best view" } },
   { keys: ["experience", "present perfect", "ever", "already", "yet"], scenario: { place: "a travel club meeting", action: "share a memorable experience", object: "a postcard from a different city", result: "the group asks her more questions" } },
 ];
 
@@ -486,7 +486,7 @@ function storyScenario(title: string): StoryScenario {
     place: "a new place in her city",
     action: "uses English to solve a small problem",
     object: "her lesson notebook",
-    result: "she feels more confident",
+    result: "the learner feels more confident",
   };
 }
 
@@ -521,13 +521,13 @@ function buildStoryReading(lesson: LessonData, level: Cefr) {
 
   const a2 = [
     `${person.name}'s Real-Life Practice: ${lesson.title}`, "",
-    `${person.name} lives in ${person.city} and studies English at The English Club. Last ${day}, she went to ${scenario.place} to practise ${topic} in a real situation.`,
+    `${person.name} lives in ${person.city} and studies English at The English Club. Last ${day}, ${person.she} went to ${scenario.place} to practise ${topic} in a real situation.`,
     "",
-    `At first, she was not sure what to do. Then she ${scenario.action}. She noticed ${scenario.object}, and used the key words ${wordList} to explain what she needed.`,
+    `At first, ${person.she} was not sure what to do. Then ${person.she} decided to ${scenario.action}. ${person.she === "she" ? "She" : "He"} noticed ${scenario.object}, and used the key words ${wordList} to explain what ${person.she} needed.`,
     "",
-    `${examples[0] ?? "The teacher's advice helped her speak clearly."} ${scenario.result.charAt(0).toUpperCase()}${scenario.result.slice(1)}. After that, she wrote down what happened so she could remember the useful language.`,
+    `${examples[0] ?? `The teacher's advice helped ${person.her} speak clearly.`} ${scenario.result.charAt(0).toUpperCase()}${scenario.result.slice(1)}. After that, ${person.she} wrote down what happened, so ${person.she} could remember the useful language.`,
     "",
-    `At ${time}, ${person.name} reviewed the lesson with a friend. The experience showed her that ${topic} is easier when she connects new words to everyday life.`,
+    `At ${time}, ${person.name} reviewed the lesson with a friend. The experience showed ${person.her === "her" ? "her" : "him"} that ${topic} is easier when ${person.she} connects new words to everyday life.`,
   ];
 
   const text = (level === "a1" ? a1 : a2).join("\n");
