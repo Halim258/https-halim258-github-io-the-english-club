@@ -584,13 +584,20 @@ function topUpExercises(lesson: LessonData) {
 function augmentReading(lesson: LessonData, reading?: LessonData["reading"]) {
   if (!reading) return reading;
   const seed = seedFor(lesson);
+  const tuning = tuningFor(lesson);
   const sentences = reading.text
     .split(/(?<=[.!?])\s+|\n+/)
     .map((s2) => s2.trim())
     .filter((s2) => {
       const words = s2.split(/\s+/).length;
       // Skip run-on / instruction-style blocks: questions must stay short and readable.
-      return words >= 4 && words <= 14 && s2.length <= 110 && !s2.includes("→") && !s2.includes("/");
+      return (
+        words >= 4 &&
+        words <= Math.min(tuning.maxSentenceWords, 14) &&
+        s2.length <= 110 &&
+        !s2.includes("→") &&
+        !s2.includes("/")
+      );
     })
     .slice(0, 6);
 
