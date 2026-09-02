@@ -60,8 +60,10 @@ export default function ProtectedRoute({ children, requiredRole, requireMember, 
         const resultLevel = data?.cefr_level?.toLowerCase();
         const requiredIndex = LEVEL_ORDER.indexOf(minimumLevel);
         const resultIndex = resultLevel ? LEVEL_ORDER.indexOf(resultLevel) : -1;
-        setLevelAllowed(resultIndex >= requiredIndex);
+        // No placement result yet → don't block; students can start and test later.
+        setLevelAllowed(resultIndex === -1 ? true : resultIndex >= requiredIndex);
       });
+
 
     return () => { cancelled = true; };
   }, [minimumLevel, user, role]);
