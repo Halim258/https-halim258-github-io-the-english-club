@@ -15,6 +15,7 @@ import ContinueLearning from "@/components/ContinueLearning";
 import { useSlideProgressMap } from "@/hooks/useSlideProgress";
 import CourseProgress from "@/components/CourseProgress";
 import { notifyAdmins } from "@/lib/notifications";
+import { customerServiceModules } from "@/data/customer-service-workplace";
 
 function CardProgress({
   p,
