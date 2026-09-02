@@ -485,10 +485,11 @@ function topUpExercises(lesson: LessonData) {
         correct: options.indexOf(v.word),
       };
     })
-    .slice(0, 6);
+    .slice(0, tuning.maxVocabExercises);
 
   // Grammar: blank a key word inside each grammar example sentence.
   const grammarExtra: MCQItem[] = (lesson.grammar?.examples ?? [])
+    .filter((ex) => levelOk(ex.sentence))
     .map((ex, idx) => {
       const target = longestWord(ex.sentence);
       if (!target) return undefined;
@@ -506,11 +507,21 @@ function topUpExercises(lesson: LessonData) {
       };
     })
     .filter((q): q is MCQItem => Boolean(q))
-    .slice(0, 5);
+    .slice(0, tuning.maxGrammarExercises);
 
-  // Vocabulary: true / false meaning checks (half of them wrong on purpose).
+  // Vocabulary: meaning checks. Beginners get a clear 4-option choice instead
+  // of true/false statements that can teach the wrong pairing.
   const tfPool = vocab.filter((v) => v.meaning && v.meaning.trim());
-  const vocabTrueFalse: MCQItem[] = tfPool.slice(0, 6).map((v, idx) => {
+  const vocabMeaning: MCQItem[] = !tuning.useTrueFalse
+    ? tfPool.slice(0, 4).map((v, idx) => {
+        const decoys = shuffleDeterministic(
+          tfPool.filter((x) => x.word !== v.word).map((x) => x.meaning),
+          seed + idx + 61,
+        ).slice(0, 3);
+        const options = shuffleDeterministic([v.meaning, ...decoys], seed + idx + 67);
+        return { question: `What does "${v.word}" mean?`, options, correct: options.indexOf(v.meaning) };
+      })
+    : tfPool.slice(0, 6).map((v, idx) => {
     const isTrue = (seed + idx) % 2 === 0 || tfPool.length < 2;
     const other = tfPool[(idx + 1 + (seed % 3)) % tfPool.length];
     const shown = isTrue || other.word === v.word ? v.meaning : other.meaning;
