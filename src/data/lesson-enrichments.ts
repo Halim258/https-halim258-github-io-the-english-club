@@ -896,8 +896,12 @@ export function enrichLesson(lesson: LessonData): LessonData {
   const level = cefrOf(lesson.levelId);
   const beginnerStory =
     lang === "en" && (level === "a1" || level === "a2") ? buildStoryReading(lesson, level) : undefined;
+  const advancedArticle =
+    lang === "en" && (level === "b1" || level === "b2" || level === "c1" || level === "c2")
+      ? buildAdvancedReading(lesson, level)
+      : undefined;
   const baseReading =
-    lesson.reading ?? beginnerStory ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
+    lesson.reading ?? beginnerStory ?? advancedArticle ?? enrichEnglishReading(lesson, buildReading(lesson, lang));
   const reading = augmentReading(lesson, baseReading);
   const grammar = ensureGrammarExamples(lesson) ?? lesson.grammar;
   const { vocabExercises, grammarExercises, conversationExercises } = topUpExercises({ ...lesson, grammar });
