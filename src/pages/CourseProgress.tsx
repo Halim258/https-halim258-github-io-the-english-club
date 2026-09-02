@@ -33,25 +33,55 @@ const LEVELS: Omit<LevelProgress, "completed">[] = [
   { level: "kids", label: "Kids English", total: 20, color: "from-pink-400 to-pink-600", emoji: "🧒" },
 ];
 
+type LessonState = "done" | "in-progress" | "not-started";
+type Filter = "all" | "done" | "in-progress" | "not-started";
+
+const FILTERS: { key: Filter; label: string }[] = [
+  { key: "all", label: "All lessons" },
+  { key: "done", label: "Done" },
+  { key: "in-progress", label: "In progress" },
+  { key: "not-started", label: "Not started" },
+];
+
 export default function CourseProgress() {
   const { user } = useAuth();
   const [rows, setRows] = useState<Array<{ level_id: string; lesson_number: number; score: number | null }>>([]);
+  const [slides, setSlides] = useState<Array<{ lesson_key: string; reached: number; total: number; updated_at: string }>>([]);
   const [loading, setLoading] = useState(true);
+  const [filter, setFilter] = useState<Filter>("all");
+  const [openLevel, setOpenLevel] = useState<string | null>(null);
   const timeVersion = useStudyTimeVersion();
 
   useEffect(() => {
     if (!user) return;
     async function load() {
-      const { data } = await supabase
-        .from("lesson_progress")
-        .select("level_id, lesson_number, completed, score")
-        .eq("user_id", user!.id)
-        .eq("completed", true);
-      setRows((data as any) || []);
+      const [progressRes, slidesRes] = await Promise.all([
+        supabase
+          .from("lesson_progress")
+          .select("level_id, lesson_number, completed, score")
+          .eq("user_id", user!.id)
+          .eq("completed", true),
+        supabase
+          .from("lesson_slide_progress")
+          .select("lesson_key, reached, total, updated_at")
+          .eq("user_id", user!.id),
+      ]);
+      setRows((progressRes.data as any) || []);
+      setSlides((slidesRes.data as any) || []);
       setLoading(false);
     }
     load();
   }, [user]);
+
+  /** lesson state lookup: `${level}-${n}` → done / in-progress / not-started */
+  const stateFor = useMemo(() => {
+    const done = new Set(rows.map((r) => `${r.level_id}-${r.lesson_number}`));
+    const started = new Set(
+      slides.filter((s) => (s.total ?? 0) > 0 && !done.has(s.lesson_key)).map((s) => s.lesson_key)
+    );
+    return (key: string): LessonState =>
+      done.has(key) ? "done" : started.has(key) ? "in-progress" : "not-started";
+  }, [rows, slides]);
 
   const progressData: LevelProgress[] = useMemo(() => {
     void timeVersion;
@@ -78,6 +108,16 @@ export default function CourseProgress() {
     ? Math.round(scoredAll.reduce((s, r) => s + (r.score || 0), 0) / scoredAll.length)
     : 0;
   const totalMinutes = getTotalMinutes(user?.id);
+
+  const startedCount = useMemo(() => {
+    let n = 0;
+    LEVELS.forEach((l) => {
+      for (let i = 1; i <= l.total; i++) if (stateFor(`${l.level}-${i}`) === "in-progress") n++;
+    });
+    return n;
+  }, [stateFor]);
+  const notStartedCount = Math.max(0, totalLessons - totalCompleted - startedCount);
+
 
   if (loading) {
     return (
