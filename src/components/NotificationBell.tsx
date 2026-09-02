@@ -6,6 +6,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { loadPrefs, playNotifSound, groupByRecency, stackDuplicates, NOTIF_CATEGORIES, isQuietNow, showDesktopNotification, setTitleBadge, type NotifCategory } from "@/lib/notification-prefs";
 import { showRichNotifToast } from "@/lib/notification-toast";
+import { toast } from "sonner";
 import NotificationPreferences from "./NotificationPreferences";
 
 interface Notification {
@@ -52,6 +53,7 @@ export default function NotificationBell() {
   const { user, role } = useAuth();
   const isAdmin = role === "admin" || role === "secretary";
   const [notifications, setNotifications] = useState<Notification[]>([]);
+  const [loading, setLoading] = useState(true);
   const [open, setOpen] = useState(false);
   const [tab, setTab] = useState<"all" | "unread">("all");
   const [menuFor, setMenuFor] = useState<string | null>(null);
@@ -88,6 +90,7 @@ export default function NotificationBell() {
         setNotifications(data as Notification[]);
         setHasMore(data.length === limit);
       }
+      setLoading(false);
     };
 
     load();
@@ -131,48 +134,96 @@ export default function NotificationBell() {
     setTimeout(() => setLoadingMore(false), 400);
   };
 
-  // Close on outside click or ESC
+  // Close on outside click / ESC, and toggle with the "n" shortcut
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
     };
-    const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setOpen(false); };
+    const keys = (e: KeyboardEvent) => {
+      if (e.key === "Escape") { setOpen(false); return; }
+      const el = e.target as HTMLElement | null;
+      const typing = !!el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.isContentEditable);
+      if (!typing && !e.metaKey && !e.ctrlKey && !e.altKey && e.key.toLowerCase() === "n") {
+        e.preventDefault();
+        setOpen(v => !v);
+        setShowPrefs(false);
+      }
+    };
     document.addEventListener("mousedown", handler);
-    document.addEventListener("keydown", esc);
+    document.addEventListener("keydown", keys);
     return () => {
       document.removeEventListener("mousedown", handler);
-      document.removeEventListener("keydown", esc);
+      document.removeEventListener("keydown", keys);
     };
   }, []);
 
   const markAsRead = async (ids: string | string[]) => {
     const list = Array.isArray(ids) ? ids : [ids];
     if (list.length === 0) return;
-    await supabase.from("notifications").update({ read: true }).in("id", list);
     setNotifications(prev => prev.map(n => list.includes(n.id) ? { ...n, read: true } : n));
+    const { error } = await supabase.from("notifications").update({ read: true }).in("id", list);
+    if (error) toast.error("Couldn't update that notification");
+  };
+
+  const markAsUnread = async (ids: string | string[]) => {
+    const list = Array.isArray(ids) ? ids : [ids];
+    if (list.length === 0) return;
+    setNotifications(prev => prev.map(n => list.includes(n.id) ? { ...n, read: false } : n));
+    const { error } = await supabase.from("notifications").update({ read: false }).in("id", list);
+    if (error) toast.error("Couldn't update that notification");
   };
 
   const markAllRead = async () => {
     if (!user) return;
     const unreadIds = notifications.filter(n => !n.read).map(n => n.id);
     if (unreadIds.length === 0) return;
-    await supabase.from("notifications").update({ read: true }).in("id", unreadIds);
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
+    const { error } = await supabase.from("notifications").update({ read: true }).in("id", unreadIds);
+    if (error) toast.error("Couldn't mark all as read");
+    else toast.success(`${unreadIds.length} notification${unreadIds.length > 1 ? "s" : ""} marked as read`);
+  };
+
+  const restore = async (rows: Notification[]) => {
+    if (!user || rows.length === 0) return;
+    setNotifications(prev => [...rows, ...prev].sort(
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    ));
+    const { error } = await supabase
+      .from("notifications")
+      .insert(rows.map(r => ({ ...r, user_id: user.id })));
+    if (error) toast.error("Couldn't restore notifications");
   };
 
   const deleteNotification = async (ids: string | string[]) => {
     const list = Array.isArray(ids) ? ids : [ids];
     if (list.length === 0) return;
-    await supabase.from("notifications").delete().in("id", list);
+    const removed = notifications.filter(n => list.includes(n.id));
     setNotifications(prev => prev.filter(n => !list.includes(n.id)));
+    const { error } = await supabase.from("notifications").delete().in("id", list);
+    if (error) {
+      setNotifications(prev => [...removed, ...prev]);
+      toast.error("Couldn't remove that notification");
+      return;
+    }
+    toast(`${removed.length > 1 ? `${removed.length} notifications` : "Notification"} removed`, {
+      action: { label: "Undo", onClick: () => restore(removed) },
+    });
   };
 
   const deleteAllRead = async () => {
     if (!user) return;
-    const readIds = notifications.filter(n => n.read).map(n => n.id);
-    if (readIds.length === 0) return;
-    await supabase.from("notifications").delete().in("id", readIds);
+    const removed = notifications.filter(n => n.read);
+    if (removed.length === 0) return;
     setNotifications(prev => prev.filter(n => !n.read));
+    const { error } = await supabase.from("notifications").delete().in("id", removed.map(n => n.id));
+    if (error) {
+      setNotifications(prev => [...removed, ...prev]);
+      toast.error("Couldn't clear read notifications");
+      return;
+    }
+    toast(`Cleared ${removed.length} read notification${removed.length > 1 ? "s" : ""}`, {
+      action: { label: "Undo", onClick: () => restore(removed) },
+    });
   };
 
   if (!user) return null;
