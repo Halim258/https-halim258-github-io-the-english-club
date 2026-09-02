@@ -1,5 +1,5 @@
 import { forwardRef, useState, useEffect, useCallback, useRef, useMemo } from "react";
-import { useParams, Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useParams, Link, useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Volume2, VolumeX, Eye, EyeOff, ChevronLeft, ChevronRight, CheckCircle2, XCircle, RotateCcw, Presentation, Play, Trophy, MessageCircle, Save, Loader2, Sparkles, Lightbulb, PencilLine, Search } from "lucide-react";
 import { lessons, MCQItem, VocabWord, DialogueLine } from "@/data/lessons";
@@ -1278,10 +1278,17 @@ function tabIsVisible(tab: (typeof TABS)[number], lesson: { reading?: unknown; h
 
 /* ───── Main Lesson Page ───── */
 export default function LessonPage() {
-  const { levelId, lessonId } = useParams();
+  const params = useParams();
+  const location = useLocation();
+  const { lessonId } = params;
+  // Some courses (customer-service, hospitality, healthcare, it-english) use
+  // literal route paths, so :levelId is undefined — derive it from the URL.
+  const pathLevel = location.pathname.split("/")[2];
+  const levelId = params.levelId ?? pathLevel;
   const navigate = useNavigate();
   const key = `${levelId}-${lessonId}`;
   const lesson = lessons[key];
+
   const { speak, stop, speaking } = useTTS();
   const { markComplete } = useLessonProgress();
   const { user } = useAuth();
