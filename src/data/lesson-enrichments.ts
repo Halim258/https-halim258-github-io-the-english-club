@@ -559,6 +559,132 @@ function buildStoryReading(lesson: LessonData, level: Cefr) {
   };
 }
 
+/* ── Real article-style passages for B1 / B2 / C1 / C2 ──────────────── */
+
+const ARTICLE_CITIES = ["Alexandria", "Cairo", "Manchester", "Toronto", "Lisbon", "Nairobi"];
+const ARTICLE_EXPERTS = [
+  { name: "Dr Hana Fahmy", role: "a language researcher" },
+  { name: "Professor Adel Rashad", role: "a lecturer in applied linguistics" },
+  { name: "Dr Laura Weiss", role: "an education consultant" },
+  { name: "Mr Tarek Aziz", role: "a workplace trainer" },
+  { name: "Dr Noha Selim", role: "a social researcher" },
+];
+const ARTICLE_STATS = ["38%", "52%", "61%", "74%", "83%"];
+const ARTICLE_YEARS = ["2019", "2021", "2022", "2024"];
+
+const ARTICLE_REGISTER: Record<"b1" | "b2" | "c1" | "c2", { kind: string; task: string; closing: (t: string) => string }> = {
+  b1: {
+    kind: "a magazine article",
+    task: "Read the article twice. Write the main idea of each paragraph in one short sentence, then answer the questions.",
+    closing: (t) => `For most learners, the lesson is simple: ${t} improves fastest when it is practised in real situations, not only studied on paper.`,
+  },
+  b2: {
+    kind: "a feature article",
+    task: "Identify the writer's main claim and the evidence used to support it. Mark every linking phrase and say what it signals.",
+    closing: (t) => `The debate around ${t} is therefore less about ability than about opportunity: people improve when the situation demands it and when mistakes cost them nothing.`,
+  },
+  c1: {
+    kind: "an opinion essay",
+    task: "Summarise the writer's argument in 40 words, then rewrite the final paragraph so that it takes the opposite position.",
+    closing: (t) => `Seen this way, ${t} is not a neutral skill but a form of access: it decides who is heard in a meeting, a clinic, or a classroom, and who is quietly overlooked.`,
+  },
+  c2: {
+    kind: "an analytical commentary",
+    task: "Identify the writer's stance and the hedging devices that soften it. Then rewrite one paragraph in a markedly more informal register without losing the argument.",
+    closing: (t) => `What the evidence on ${t} ultimately exposes is a mismatch between how institutions measure competence and how competence is actually produced — incrementally, socially, and under pressure.`,
+  },
+};
+
+/**
+ * B1–C2 readings are genuine multi-paragraph texts on the lesson's own topic:
+ * a situation, data, an expert voice and a conclusion. Every comprehension
+ * question can be answered from the passage itself.
+ */
+function buildAdvancedReading(lesson: LessonData, level: "b1" | "b2" | "c1" | "c2") {
+  const vocab = lesson.vocabulary ?? [];
+  const seed = seedFor(lesson);
+  const scenario = storyScenario(lesson.title);
+  const cfg = ARTICLE_REGISTER[level];
+  const city = ARTICLE_CITIES[seed % ARTICLE_CITIES.length];
+  const expert = ARTICLE_EXPERTS[seed % ARTICLE_EXPERTS.length];
+  const stat = ARTICLE_STATS[seed % ARTICLE_STATS.length];
+  const year = ARTICLE_YEARS[seed % ARTICLE_YEARS.length];
+  const topic = lesson.title.toLowerCase();
+  const words = vocab.slice(0, level === "b1" ? 4 : 6).map((v) => v.word);
+  const wordList = words.join(", ");
+  const quoted = vocab.map((v) => v.example?.trim()).filter((e): e is string => Boolean(e))[0];
+
+  const paragraphs =
+    level === "b1"
+      ? [
+          `WHY ${lesson.title.toUpperCase()} MATTERS`,
+          "",
+          `Every week, hundreds of people arrive at ${scenario.place} in ${city} and discover that they need English for something ordinary. Some come to ${scenario.action}; others simply want to understand what is written on ${scenario.object}. Whatever the reason, ${topic} stops being a school subject and becomes a practical tool.`,
+          "",
+          `A study published in ${year} found that ${stat} of adult learners in ${city} use English at least once a day outside the classroom. The same study reported that learners who practise in real situations remember new words far longer than learners who only complete written exercises. Words such as ${wordList} are a clear example: they are easy to recognise on a page, but harder to produce under pressure.`,
+          "",
+          `${expert.name}, ${expert.role}, explains the difference. "Learners do not fail because they lack vocabulary," ${expert.name.split(" ").pop()} says. "They hesitate because they have never used the words when something real depended on them."${quoted ? ` A sentence as simple as "${quoted}" can be enough to start the conversation.` : ""} In most cases, ${scenario.result}.`,
+          "",
+          cfg.closing(topic),
+        ]
+      : [
+          `${lesson.title.toUpperCase()}: ${level === "b2" ? "A CLOSER LOOK" : level === "c1" ? "AN ARGUMENT" : "A CRITICAL READING"}`,
+          "",
+          `The conventional account of ${topic} treats it as a set of items to be memorised and later retrieved. Observation at ${scenario.place} in ${city} suggests something less tidy. People who go there to ${scenario.action} rarely produce complete, well-formed language; they improvise, borrow phrases, point at ${scenario.object}, and repair their own sentences halfway through. The result is imperfect but effective.`,
+          "",
+          `Figures from ${year} support this reading. Of the adults surveyed in ${city}, ${stat} reported that their most useful English had been learned outside formal instruction, in precisely such unplanned exchanges. Vocabulary of the kind covered here — ${wordList} — appears in their accounts not as isolated words but as fragments of remembered situations, which is arguably why it survives.`,
+          "",
+          `${expert.name}, ${expert.role}, is careful not to overstate the case. "Exposure alone explains very little," ${expert.name.split(" ").pop()} argues. "What matters is whether the speaker is held responsible for being understood." That condition, rather than any particular method, appears to separate learners who stall from those who progress.${quoted ? ` The point is visible even in a sentence as unremarkable as "${quoted}".` : ""}`,
+          "",
+          `There is a counter-argument, and it deserves a hearing: unstructured practice can leave errors in place, and confidence is not the same as accuracy. Yet in the situations described above, ${scenario.result}, and the errors that remained did not prevent it.`,
+          "",
+          cfg.closing(topic),
+        ];
+
+  const text = paragraphs.join("\n");
+  const opts = (correct: string, decoys: string[]) => {
+    const options = shuffleDeterministic([correct, ...decoys], seed + 97);
+    return { options, correct: options.indexOf(correct) };
+  };
+
+  const questions: MCQItem[] = [
+    { question: `According to the passage, what percentage of adults in ${city} is reported in the study?`, ...opts(stat, ARTICLE_STATS.filter((s) => s !== stat).slice(0, 3)) },
+    { question: "In which year was the study published?", ...opts(year, ARTICLE_YEARS.filter((y) => y !== year).slice(0, 3)) },
+    { question: "Which city does the passage refer to?", ...opts(city, ARTICLE_CITIES.filter((c) => c !== city).slice(0, 3)) },
+    { question: "Who is quoted in the passage?", ...opts(expert.name, ARTICLE_EXPERTS.filter((e) => e.name !== expert.name).slice(0, 3).map((e) => e.name)) },
+    { question: `What is ${expert.name}'s profession?`, ...opts(expert.role, ["a hospital manager", "a travel journalist", "a software engineer"]) },
+    { question: "Where do the situations in the passage take place?", ...opts(scenario.place, ["a football stadium", "an airport lounge", "a television studio"]) },
+    { question: "What is the writer's main point?", ...opts(`Real situations make ${topic} stick`, ["Grammar rules should be memorised first", "Only young learners can improve", "Written exams are the best measure of skill"]) },
+    { question: `True or false? The passage claims that learners mainly fail because they know too few words.`, options: ["True", "False"], correct: 1 },
+    { question: "True or false? The writer accepts that unstructured practice has a disadvantage.", options: ["True", "False"], correct: level === "b1" ? 1 : 0 },
+  ];
+
+  if (level !== "b1") {
+    questions.push({
+      question: "Which best describes the writer's tone?",
+      ...opts("Measured and analytical", ["Angry and dismissive", "Playful and informal", "Neutral and purely factual"]),
+    });
+  }
+
+  const meaningWord = vocab[seed % Math.max(vocab.length, 1)];
+  if (meaningWord?.meaning) {
+    const decoys = shuffleDeterministic(vocab.filter((v) => v.word !== meaningWord.word && v.meaning).map((v) => v.meaning), seed + 101).slice(0, 3);
+    if (decoys.length >= 2) {
+      questions.push({ question: `In this context, what does "${meaningWord.word}" mean?`, ...opts(meaningWord.meaning, decoys) });
+    }
+  }
+
+  const grammarNote = lesson.grammar?.title
+    ? `LANGUAGE FOCUS — ${lesson.grammar.title}\n${lesson.grammar.explanation ?? ""}`.trim()
+    : "";
+
+  return {
+    title: `Reading (${level.toUpperCase()}): ${lesson.title}`,
+    text: [`This is ${cfg.kind} about ${topic}.`, text, grammarNote, `YOUR TASK\n${cfg.task}`].filter(Boolean).join("\n\n"),
+    questions,
+  };
+}
+
 
 /** Grammar must always show example sentences — top up to at least 4. */
 const MIN_GRAMMAR_EXAMPLES = 4;
