@@ -212,6 +212,7 @@ export const categories: Category[] = [
     description: "Learn English vocabulary, pronunciation, and grammar through songs, lyrics, and musical culture.",
     courses: [
       { name: "English through Music", description: "Learn English through song lyrics, music genres, and musical culture.", topics: ["Lyrics", "Pronunciation", "Genres", "Culture"] },
+      { name: "The School Recorder — Book 1", description: "A complete beginner recorder pathway: setup, posture, rhythm, fingering, rounds, and a first recital.", topics: ["20 Lessons", "B–D' Notes", "Rhythm", "Performance"] },
     ],
   },
   {
