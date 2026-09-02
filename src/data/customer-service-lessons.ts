@@ -881,7 +881,7 @@ const buildLesson = (spec: CustomerServiceSpec, lessonNumber: number): LessonDat
     writingPrompt: spec.task,
     reading: {
       title: `${spec.title}: A workplace example`,
-      text: `${spec.dialogue.map((line) => `${line.speaker}: ${line.text}`).join(" ")} In this situation, the service professional focuses on ${spec.focus}. The best next step is to communicate clearly, protect the customer’s trust, and record the action taken.",
+      text: `${spec.dialogue.map((line) => `${line.speaker}: ${line.text}`).join(" ")} In this situation, the service professional focuses on ${spec.focus}. The best next step is to communicate clearly, protect the customer’s trust, and record the action taken.`,
       questions: [
         mcq("What is the workplace situation mainly about?", spec.focus, otherWords.slice(0, 3), lessonNumber * 59),
         mcq("What should the service professional do?", "Communicate clearly and take a helpful next step.", [
