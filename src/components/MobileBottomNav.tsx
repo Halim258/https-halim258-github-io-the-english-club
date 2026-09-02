@@ -22,6 +22,7 @@ export default function MobileBottomNav() {
 
   return (
     <nav
+      aria-label="Primary"
       className="fixed bottom-0 left-0 right-0 z-50 border-t border-foreground/15 bg-background/95 backdrop-blur-xl md:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
@@ -32,7 +33,8 @@ export default function MobileBottomNav() {
             <Link
               key={item.to}
               to={item.to}
-              className={`relative flex flex-col items-center gap-1 px-3 pt-2.5 pb-2 min-w-[56px] min-h-[52px] justify-center touch-manipulation active:opacity-70 transition-colors ${
+              aria-current={isActive ? "page" : undefined}
+              className={`relative flex flex-col items-center gap-1 px-3 pt-2.5 pb-2 min-w-11 min-h-11 justify-center touch-manipulation active:scale-95 transition-all rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                 isActive ? "text-primary" : "text-foreground/60"
               }`}
             >
@@ -42,6 +44,7 @@ export default function MobileBottomNav() {
               >
                 {item.label}
               </span>
+
               {isActive && (
                 <motion.div
                   layoutId="mobile-nav-indicator"
