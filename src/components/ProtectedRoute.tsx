@@ -22,7 +22,7 @@ function MinimumLevelNotice({ requiredLevel }: { requiredLevel: string }) {
         <GraduationCap className="h-8 w-8 text-primary" />
       </div>
       <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">Entry requirement</p>
-      <h1 className="mb-3 font-display text-2xl font-semibold">A {requiredLevel.slice(1)} English level is required</h1>
+      <h1 className="mb-3 font-display text-2xl font-semibold">{requiredLevel.toUpperCase()} English level is required</h1>
       <p className="mb-6 max-w-md text-sm leading-relaxed text-muted-foreground">
         Complete the placement test first. Your result will show whether this customer service course is the right starting point for you.
       </p>
@@ -65,7 +65,7 @@ export default function ProtectedRoute({ children, requiredRole, requireMember, 
     return () => { cancelled = true; };
   }, [minimumLevel, user, role]);
 
-  if (loading || (requireMember && memberLoading) || (minimumLevel && levelAllowed === null)) {
+  if (loading || (requireMember && memberLoading) || (minimumLevel && user && levelAllowed === null)) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
