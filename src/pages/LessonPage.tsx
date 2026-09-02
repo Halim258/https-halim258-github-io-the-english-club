@@ -21,6 +21,8 @@ import {
 } from "@/hooks/useSlideProgress";
 import { getLessonPosition, setLessonPosition } from "@/lib/lesson-position";
 import type { RolePlayScenario } from "@/data/industry-course-builder";
+import { getCustomerServiceToolkit } from "@/data/customer-service-workplace";
+import WorkplaceToolkitCard from "@/components/lesson/WorkplaceToolkitCard";
 
 /* ───── Fullscreen no-scroll shell ───── */
 const Shell = ({ children }: { children: React.ReactNode }) => (
