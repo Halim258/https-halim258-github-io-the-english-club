@@ -522,16 +522,16 @@ function topUpExercises(lesson: LessonData) {
         return { question: `What does "${v.word}" mean?`, options, correct: options.indexOf(v.meaning) };
       })
     : tfPool.slice(0, 6).map((v, idx) => {
-    const isTrue = (seed + idx) % 2 === 0 || tfPool.length < 2;
-    const other = tfPool[(idx + 1 + (seed % 3)) % tfPool.length];
-    const shown = isTrue || other.word === v.word ? v.meaning : other.meaning;
-    const correctlyTrue = shown === v.meaning;
-    return {
-      question: `True or false? "${v.word}" means "${shown}".`,
-      options: ["True", "False"],
-      correct: correctlyTrue ? 0 : 1,
-    };
-  });
+        const isTrue = (seed + idx) % 2 === 0 || tfPool.length < 2;
+        const other = tfPool[(idx + 1 + (seed % 3)) % tfPool.length];
+        const shown = isTrue || other.word === v.word ? v.meaning : other.meaning;
+        const correctlyTrue = shown === v.meaning;
+        return {
+          question: `True or false? "${v.word}" means "${shown}".`,
+          options: ["True", "False"],
+          correct: correctlyTrue ? 0 : 1,
+        };
+      });
 
   // Conversation: who said it + complete the line.
   const dialogue = lesson.dialogue ?? [];
