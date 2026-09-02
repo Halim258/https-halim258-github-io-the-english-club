@@ -1,4 +1,7 @@
 import type { LessonData, MCQItem } from "./lessons";
+import { lessonPhotoUrl } from "./lesson-image-library";
+
+
 
 /**
  * Programmatically enriches Spanish lessons with:
@@ -84,14 +87,14 @@ const seedFor = (lesson: LessonData): number => {
   return Math.abs(h) || 1;
 };
 
-// loremflickr returns a real, topic-matching photo. `lock` keeps it stable.
+// Curated CDN photos keep every Spanish lesson image reliable and stable.
 const heroImageFor = (lesson: LessonData): string => {
   const { imgKeywords } = detectTopic(lesson.title);
-  return `https://loremflickr.com/1200/500/${encodeURIComponent(imgKeywords)}?lock=${seedFor(lesson)}`;
+  return lessonPhotoUrl(imgKeywords, seedFor(lesson), 1200, 500);
 };
 const pictureImageFor = (lesson: LessonData): string => {
   const { imgKeywords } = detectTopic(lesson.title);
-  return `https://loremflickr.com/900/600/${encodeURIComponent(imgKeywords)}?lock=${seedFor(lesson) + 1}`;
+  return lessonPhotoUrl(imgKeywords, seedFor(lesson) + 1, 900, 600);
 };
 
 const shuffleDeterministic = <T>(arr: T[], seed: number): T[] => {
