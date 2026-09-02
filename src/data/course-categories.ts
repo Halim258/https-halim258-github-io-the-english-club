@@ -163,7 +163,6 @@ export const categories: Category[] = [
       { name: "English for Teenagers", description: "Engaging content for teens covering school, social life, and pop culture topics.", topics: ["Social Media", "School Life", "Pop Culture"] },
       { name: "ESP (Specific Purposes)", description: "Customized English training for specific professional or academic fields.", topics: ["Custom Content", "Field-Specific"] },
       { name: "Medical English", description: "Medical terminology, patient communication, and healthcare English.", topics: ["Terminology", "Patient Care", "Reports"] },
-      { name: "Customer Service English", description: "A complete A2–B1 workplace pathway with real role-plays for complaints, billing disputes, digital support, CRM, quality, and career skills.", topics: ["A2 entry", "A2–B1", "Complaints", "Payment disputes", "CRM", "20 Lessons"] },
       { name: "Engineering English", description: "Professional English for engineers covering site work, safety, materials, specifications, reports, and technical decisions from B1 to C1. Minimum requirement: B1 English.", topics: ["Minimum B1", "B1–C1", "Safety", "Materials", "Specifications", "Reports"] },
       { name: "IT English", description: "A B1–C1 technology pathway with role-plays for help-desk calls, bug reports, code reviews, incidents, APIs, cloud, and technical meetings.", topics: ["Minimum B1", "B1–C1", "Help desk", "Bug reports", "Code reviews", "20 Lessons"] },
       { name: "Web Development English", description: "Frontend, backend, bugs, features, deployment, and stakeholder communication for learners at B1+.", topics: ["Minimum B1", "B1–C1", "Bugs", "Deployment", "Architecture"] },
@@ -251,6 +250,19 @@ export const categories: Category[] = [
     description: "English for hotels, restaurants, tourism, and the service industry.",
     courses: [
       { name: "Hospitality English", description: "An A2–B1 hospitality pathway with realistic hotel, restaurant, tourism, events, safety, and guest-service role-plays.", topics: ["A2 entry", "A2–B1", "Hotels", "Restaurants", "Tourism", "20 Lessons"] },
+    ],
+  },
+  {
+    icon: Headphones,
+    emoji: "🎧",
+    title: "Customer Service English",
+    slug: "customer-service",
+    color: "from-cyan-600/10 to-emerald-500/5",
+    iconBg: "bg-cyan-600/15",
+    image: professionalImg,
+    description: "A complete A2–B1 customer service pathway with practical workplace communication and realistic role-plays.",
+    courses: [
+      { name: "Customer Service English", description: "Learn to handle enquiries, complaints, payment disputes, digital support, CRM, quality checks, and difficult conversations with confidence.", topics: ["Minimum A2", "A2–B1", "Role-plays", "Complaints", "Payment disputes", "20 Lessons"] },
     ],
   },
   {

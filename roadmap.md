@@ -1,4 +1,5 @@
 - [x] Improve lesson content so each lesson is level-appropriate (A1-C2 depth calibration)
-- [ ] Add Hospitality English and IT English industry courses with clear CEFR prerequisites and complete lesson maps
-- [ ] Add real role-play scenarios and model dialogues to Customer Service lessons and render them in the lesson player
-- [ ] Verify course routes, catalog labels, and build output
+- [x] Add Hospitality English and IT English industry courses with clear CEFR prerequisites and complete lesson maps
+- [x] Add real role-play scenarios and model dialogues to Customer Service lessons and render them in the lesson player
+- [x] Verify course routes, catalog labels, and build output
+- [x] Promote Customer Service English to its own visible catalog category
