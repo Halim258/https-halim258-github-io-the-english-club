@@ -1771,12 +1771,12 @@ export default function LessonPage() {
       <div className="flex items-center justify-between border-b border-border/60 bg-card px-3 sm:px-6 py-3">
         {/* Left: combined Exit · Slides ink pill */}
         <div className="flex items-center rounded-full bg-foreground text-background shadow-sm overflow-hidden">
-          <Link
-            to="/courses"
+          <button
+            onClick={exitLesson}
             className="flex items-center gap-1 pl-3.5 pr-2 py-1.5 text-[11px] font-semibold uppercase tracking-[0.14em] font-sans opacity-80 hover:opacity-100 transition-opacity min-h-[36px] touch-manipulation"
           >
             <ChevronLeft className="h-3 w-3" /> Exit
-          </Link>
+          </button>
           <span className="w-px h-3 bg-background/30" />
           <button
             onClick={() => navigate(`/courses/${levelId}/${lessonId}/slides`)}
