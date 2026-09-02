@@ -741,6 +741,7 @@ export default function Courses() {
       news: "English through News",
       legal: "Legal English",
       hospitality: "Hospitality English",
+      "customer-service": "Customer Service English — Minimum A2",
       conversation: "Conversation Practice",
       "social-media": "English for Social Media",
       healthcare: "English for Healthcare",
