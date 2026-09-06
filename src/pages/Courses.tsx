@@ -897,84 +897,105 @@ export default function Courses() {
   return (
     <div className="overflow-x-hidden">
       {/* Hero Banner */}
-      <section className="relative py-12 md:py-16 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5" />
-        <div className="container mx-auto px-4 relative z-10">
+      <section className="relative overflow-hidden border-b border-border py-10 md:py-14">
+        <div className="container mx-auto px-4">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center"
+            className="grid gap-8 lg:grid-cols-12 lg:items-end"
           >
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary mb-4">
-              <Sparkles className="h-3.5 w-3.5" />
-              A1 → C2 Complete Curriculum
-            </div>
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display max-w-3xl mx-auto leading-tight">
-              Our English{" "}
-              <span className="text-primary">Courses</span>
-            </h1>
-            <p className="mx-auto mt-3 max-w-xl text-muted-foreground text-sm md:text-base">
-              Choose your level and start learning — from complete beginner to mastery.
-            </p>
-
-            <div className="mx-auto mt-6 max-w-2xl rounded-2xl border bg-card/95 p-3 shadow-soft backdrop-blur">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  value={courseSearch}
-                  onChange={(event) => setCourseSearch(event.target.value)}
-                  placeholder="Search courses, skills, exams, levels, jobs..."
-                  className="h-12 rounded-xl pl-10 pr-10 text-base"
-                  aria-label="Search courses"
-                />
-                {courseSearch && (
-                  <button
-                    type="button"
-                    onClick={() => setCourseSearch("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                    aria-label="Clear course search"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                )}
+            <div className="lg:col-span-7">
+              <div className="inline-flex items-center gap-2 border border-primary/25 bg-primary/5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
+                <Sparkles className="h-3 w-3" />
+                A1 → C2 Complete Curriculum
               </div>
-              <div className="mt-3 flex flex-wrap items-center justify-center gap-2 text-xs text-muted-foreground">
-                <span>{courseSearch ? `${resultCount} matching results` : "Try:"}</span>
-                {["Egyptian Schools", "Public School", "National", "International", "IELTS", "Kids"].map((term) => (
-                  <button
-                    key={term}
-                    type="button"
-                    onClick={() => setCourseSearch(term)}
-                    className="rounded-full bg-muted px-2.5 py-1 font-medium transition-colors hover:bg-primary/10 hover:text-primary"
-                  >
-                    {term}
-                  </button>
-                ))}
-              </div>
+              <h1 className="mt-5 font-display text-3xl font-bold leading-[1.08] md:text-5xl">
+                The Course <em className="not-italic text-primary">Catalogue.</em>
+              </h1>
+              <div className="mt-5 h-px w-24 bg-primary" />
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                Every pathway we teach, in one place — school support, CEFR levels, exam preparation
+                and professional English. Choose your level and start learning today.
+              </p>
             </div>
 
-            {/* Quick Level Jump */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex flex-wrap items-center justify-center gap-2 mt-6"
-            >
-              <span className="text-xs text-muted-foreground mr-1">Jump to:</span>
-              {cefrLevels.map((lvl) => (
-                <Link
-                  key={lvl.id}
-                  to={`/courses/${lvl.id}`}
-                  className={`inline-flex items-center gap-1 rounded-full bg-gradient-to-r ${lvl.color} px-3 py-1 text-xs font-bold text-white shadow-sm hover:shadow-md hover:scale-105 transition-all`}
-                >
-                  {lvl.label}
-                </Link>
+            <div className="grid grid-cols-3 gap-px bg-border lg:col-span-5">
+              {[
+                { value: "A1–C2", label: "CEFR levels" },
+                { value: "20", label: "Lessons per level" },
+                { value: "40+", label: "Courses" },
+              ].map((s) => (
+                <div key={s.label} className="bg-card px-3 py-4 text-center">
+                  <p className="font-display text-xl font-bold md:text-2xl">{s.value}</p>
+                  <p className="mt-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                    {s.label}
+                  </p>
+                </div>
               ))}
-            </motion.div>
+            </div>
+          </motion.div>
+
+          {/* Search */}
+          <div className="mt-8 border border-border bg-card p-3">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                value={courseSearch}
+                onChange={(event) => setCourseSearch(event.target.value)}
+                placeholder="Search courses, skills, exams, levels, jobs..."
+                className="h-12 rounded-none border-border pl-10 pr-10 text-base"
+                aria-label="Search courses"
+              />
+              {courseSearch && (
+                <button
+                  type="button"
+                  onClick={() => setCourseSearch("")}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground transition-colors hover:text-foreground"
+                  aria-label="Clear course search"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              )}
+            </div>
+            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+              <span className="font-semibold uppercase tracking-widest text-[10px]">
+                {courseSearch ? `${resultCount} matching results` : "Try"}
+              </span>
+              {["Egyptian Schools", "Public School", "National", "International", "IELTS", "Kids"].map((term) => (
+                <button
+                  key={term}
+                  type="button"
+                  onClick={() => setCourseSearch(term)}
+                  className="border border-border px-2.5 py-1 font-medium transition-colors hover:border-primary/50 hover:text-primary"
+                >
+                  {term}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick Level Jump */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="mt-5 flex flex-wrap items-center gap-2"
+          >
+            <span className="mr-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Jump to</span>
+            {cefrLevels.map((lvl) => (
+              <Link
+                key={lvl.id}
+                to={`/courses/${lvl.id}`}
+                className="inline-flex items-center border border-foreground/15 bg-card px-3.5 py-1.5 font-display text-xs font-bold transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
+              >
+                {lvl.label}
+              </Link>
+            ))}
           </motion.div>
         </div>
       </section>
+
 
       {/* Continue where you left off */}
       {!normalizedSearch && <ContinueLearning />}
@@ -1010,11 +1031,12 @@ export default function Courses() {
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }
                   }}
-                  className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-sm transition-all ${
+                  className={`shrink-0 border px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-all ${
                     active
                       ? "border-primary bg-primary text-primary-foreground"
-                      : "bg-card text-foreground/80 hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                      : "border-border bg-card text-foreground/75 hover:border-primary/50 hover:text-primary"
                   }`}
+
                 >
                   {s.label}
                 </button>
@@ -1289,34 +1311,34 @@ export default function Courses() {
               <motion.div key={lvl.id} variants={staggerItem}>
                 <Link
                   to={`/courses/${lvl.id}`}
-                  className="group relative block rounded-2xl border bg-card shadow-soft hover:shadow-elevated hover:border-primary/25 hover:-translate-y-1.5 transition-all duration-300 h-full overflow-hidden"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-none border border-border bg-card transition-all duration-300 hover:border-primary/50 hover:shadow-elevated"
                 >
                   {/* Image */}
-                  <div className="relative h-40 overflow-hidden">
-                    <img src={lvl.image} alt={`${lvl.label} ${lvl.sublabel}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                    <div className="absolute bottom-3 left-4">
-                      <div className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${lvl.color} px-3.5 py-1.5 shadow-lg ring-1 ring-white/20`}>
-                        <span className="text-sm font-bold text-white font-display">{lvl.label}</span>
-                        <span className="text-[11px] text-white/90 font-medium">{lvl.sublabel}</span>
-                      </div>
+                  <div className="relative h-40 overflow-hidden bg-muted">
+                    <img src={lvl.image} alt={`${lvl.label} ${lvl.sublabel}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 flex items-end gap-3 p-4">
+                      <span className="flex h-11 w-11 items-center justify-center bg-primary font-display text-base font-bold text-primary-foreground">
+                        {lvl.label}
+                      </span>
+                      <span className="pb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-background/90">
+                        {lvl.sublabel}
+                      </span>
                     </div>
-                    <span className="absolute top-3 right-3 rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold text-foreground shadow-sm">
+                    <span className="absolute right-3 top-3 border border-background/40 bg-background/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-foreground">
                       {lvl.lessons} lessons
                     </span>
-                    {/* Decorative corner accent */}
-                    <div className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${lvl.color} opacity-80`} />
                   </div>
                   {/* Content */}
-                  <div className="p-4 pb-5">
-                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                  <div className="flex flex-1 flex-col border-t border-border p-5">
+                    <p className="text-xs leading-relaxed text-muted-foreground line-clamp-2">
                       {lvl.description}
                     </p>
                     {progress[lvl.id] && progress[lvl.id].total > 0 && progress[lvl.id].completed > 0 ? (
                       <CardProgress p={progress[lvl.id]} />
                     ) : (
-                      <div className="mt-3 pt-3 border-t border-border/50">
-                        <div className="flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:gap-2.5 transition-all">
+                      <div className="mt-auto pt-4">
+                        <div className="flex items-center gap-1.5 border-l-2 border-primary pl-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
                           Start learning <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
                         </div>
                       </div>
@@ -1325,6 +1347,7 @@ export default function Courses() {
                 </Link>
               </motion.div>
             ))}
+
           </motion.div>
         </div>
       </section>
@@ -1451,23 +1474,24 @@ export default function Courses() {
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
           >
             {[
-              { icon: Brain, label: "AI Tutor", to: "/ai-tutor", color: "from-violet-500/15 to-violet-500/5", iconColor: "text-violet-600 dark:text-violet-400" },
-              { icon: BookMarked, label: "Dictionary", to: "/dictionary", color: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
-              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz", color: "from-purple-500/15 to-purple-500/5", iconColor: "text-purple-600 dark:text-purple-400" },
-              { icon: BookOpen, label: "Flashcards", to: "/flashcards", color: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
-              { icon: Mic2, label: "Speaking", to: "/practice", color: "from-rose-500/15 to-rose-500/5", iconColor: "text-rose-600 dark:text-rose-400" },
-              { icon: PenLine, label: "Idioms", to: "/idioms", color: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
+              { icon: Brain, label: "AI Tutor", to: "/ai-tutor" },
+              { icon: BookMarked, label: "Dictionary", to: "/dictionary" },
+              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz" },
+              { icon: BookOpen, label: "Flashcards", to: "/flashcards" },
+              { icon: Mic2, label: "Speaking", to: "/practice" },
+              { icon: PenLine, label: "Idioms", to: "/idioms" },
             ].map((tool) => (
               <motion.div key={tool.to} variants={staggerItem}>
                 <Link
                   to={tool.to}
-                  className={`group flex flex-col items-center gap-2 rounded-2xl border bg-gradient-to-br ${tool.color} p-5 shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full`}
+                  className="group flex h-full flex-col items-center gap-2.5 rounded-none border border-border bg-card p-5 transition-all duration-300 hover:border-primary/50 hover:bg-primary/5"
                 >
-                  <div className={`h-11 w-11 rounded-xl bg-background/80 flex items-center justify-center ${tool.iconColor} group-hover:scale-110 transition-transform`}>
+                  <div className="flex h-11 w-11 items-center justify-center border border-border bg-background text-primary transition-colors group-hover:border-primary/40">
                     <tool.icon className="h-5 w-5" />
                   </div>
-                  <span className="text-sm font-semibold text-center">{tool.label}</span>
+                  <span className="text-center text-sm font-semibold">{tool.label}</span>
                 </Link>
+
               </motion.div>
             ))}
           </motion.div>
