@@ -214,64 +214,67 @@ export default function PlacementTest() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="container mx-auto px-4 py-16 md:py-24"
+            className="mx-auto flex min-h-[calc(100svh-7rem)] max-w-6xl items-center px-4 py-8 sm:px-6 md:py-12"
           >
-            <div className="max-w-2xl mx-auto text-center">
-              <ScaleIn>
-                <div className="inline-flex h-20 w-20 items-center justify-center rounded-2xl bg-primary/10 mb-6">
-                  <GraduationCap className="h-10 w-10 text-primary" />
-                </div>
-              </ScaleIn>
+            <div className="w-full overflow-hidden rounded-lg border border-border bg-card shadow-xl">
               <FadeInUp>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-display">
-                  Adaptive Placement Test
-                </h1>
-                <p className="mt-4 text-muted-foreground text-lg max-w-lg mx-auto">
-                  Our smart test adapts to your level in real-time. Answer correctly and questions get harder. Struggle, and they get easier — just like a real Cambridge assessment.
-                </p>
+                <header className="border-b border-border px-6 py-8 text-center sm:px-10 md:px-12 md:py-10">
+                  <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center border border-primary/20 bg-primary/5 text-primary">
+                    <GraduationCap className="h-6 w-6" />
+                  </div>
+                  <p className="mb-3 text-[10px] font-semibold uppercase tracking-[0.22em] text-primary">The English Club Assessment</p>
+                  <h1 className="font-display text-3xl leading-tight text-foreground md:text-4xl">Adaptive Placement Test</h1>
+                  <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-muted-foreground md:text-base md:leading-7">
+                    Answer 25 carefully selected questions. The test adjusts to your answers and identifies your English level from A1 to C2.
+                  </p>
+                </header>
               </FadeInUp>
 
-              <FadeInUp delay={0.15}>
-                <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 md:gap-4 max-w-2xl mx-auto">
+              <FadeInUp delay={0.1}>
+                <div className="grid grid-cols-2 gap-px bg-border md:grid-cols-4">
                   {[
-                    { icon: Brain, label: "Adaptive AI", sub: "Adjusts to your level" },
-                    { icon: Clock, label: "~10 Minutes", sub: "25 smart questions" },
-                    { icon: BarChart3, label: "CEFR Level", sub: "A1 to C2 result" },
-                    { icon: Keyboard, label: "Keyboard Friendly", sub: "A-D to answer" },
+                    { icon: Clock, label: "Duration", sub: "About 10 minutes" },
+                    { icon: BookOpen, label: "Questions", sub: "25 adaptive items" },
+                    { icon: Brain, label: "Method", sub: "Adjusts as you answer" },
+                    { icon: BarChart3, label: "Result", sub: "CEFR level A1–C2" },
                   ].map((item) => (
-                    <div key={item.label} className="rounded-xl border bg-card p-4 shadow-soft text-center">
-                      <item.icon className="h-5 w-5 text-primary mx-auto mb-2" />
-                      <p className="text-sm font-semibold font-display">{item.label}</p>
-                      <p className="text-[11px] text-muted-foreground">{item.sub}</p>
+                    <div key={item.label} className="flex min-h-32 flex-col items-center justify-center bg-card p-5 text-center md:min-h-36 md:p-6">
+                      <item.icon className="mb-3 h-5 w-5 text-primary" />
+                      <span className="mb-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">{item.label}</span>
+                      <span className="text-sm font-medium text-foreground">{item.sub}</span>
                     </div>
                   ))}
                 </div>
               </FadeInUp>
 
-              <FadeInUp delay={0.25}>
-                <div className="mt-10 p-5 rounded-xl border bg-muted/30 text-left max-w-lg mx-auto">
-                  <h3 className="text-sm font-semibold font-display flex items-center gap-2 mb-3">
-                    <AlertCircle className="h-4 w-4 text-primary" /> How It Works
-                  </h3>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex items-start gap-2"><TrendingUp className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Questions adapt — correct answers → harder questions</li>
-                    <li className="flex items-start gap-2"><Zap className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Only 25 questions instead of 50 — faster & more accurate</li>
-                    <li className="flex items-start gap-2"><Lightbulb className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Learn from every answer with instant explanations</li>
-                    <li className="flex items-start gap-2"><Keyboard className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Use A-D or 1-4 keys, Enter to confirm</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Don't use a dictionary or translator</li>
-                    <li className="flex items-start gap-2"><CheckCircle2 className="h-3.5 w-3.5 text-primary mt-0.5 shrink-0" />Your result saves automatically if logged in</li>
-                  </ul>
-                </div>
-              </FadeInUp>
+              <FadeInUp delay={0.2}>
+                <div className="px-6 py-7 sm:px-10 md:px-12 md:py-9">
+                  <div className="border border-border bg-muted/35 p-5 md:p-6">
+                    <h2 className="mb-4 flex items-center gap-2 font-display text-base text-foreground">
+                      <AlertCircle className="h-4 w-4 text-primary" /> Before you begin
+                    </h2>
+                    <ul className="grid gap-x-8 gap-y-3 text-sm leading-6 text-muted-foreground md:grid-cols-2">
+                      <li className="flex items-start gap-2"><CheckCircle2 className="mt-1 h-3.5 w-3.5 shrink-0 text-primary" />Choose a quiet place without distractions.</li>
+                      <li className="flex items-start gap-2"><CheckCircle2 className="mt-1 h-3.5 w-3.5 shrink-0 text-primary" />Answer without a dictionary or translator.</li>
+                      <li className="flex items-start gap-2"><Keyboard className="mt-1 h-3.5 w-3.5 shrink-0 text-primary" />Use A–D or 1–4, then Enter to continue.</li>
+                      <li className="flex items-start gap-2"><Lightbulb className="mt-1 h-3.5 w-3.5 shrink-0 text-primary" />Your result saves automatically when signed in.</li>
+                    </ul>
+                  </div>
 
-              <FadeInUp delay={0.35}>
-                <Button
-                  size="lg"
-                  onClick={startTest}
-                  className="mt-8 rounded-full px-10 font-semibold font-display h-12 text-base shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all"
-                >
-                  Start Test <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
+                  <div className="mt-7 flex flex-col items-stretch justify-between gap-5 sm:flex-row sm:items-center">
+                    <p className="max-w-sm text-xs leading-5 text-muted-foreground">
+                      Questions become easier or harder based on your answers, so choose the answer that feels most accurate.
+                    </p>
+                    <Button
+                      size="lg"
+                      variant="editorial"
+                      onClick={startTest}
+                      className="h-12 shrink-0 px-8 sm:min-w-56"
+                    >
+                      Start Placement Test <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
               </FadeInUp>
             </div>
           </motion.div>
