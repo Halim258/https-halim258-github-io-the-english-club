@@ -48,8 +48,11 @@ import ScrollToTopButton from "@/components/ScrollToTopButton";
 import LearningGuide from "@/components/home/LearningGuide";
 import OnboardingTour from "@/components/OnboardingTour";
 import WordOfTheDay from "@/components/home/WordOfTheDay";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 const WHATSAPP_URL = getWhatsAppUrl();
+const CEFR_LEVELS = ["A1", "A2", "B1", "B2", "C1", "C2"] as const;
 
 /* ── Animated Counter ── */
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
@@ -189,6 +192,65 @@ const testimonials = [
 
 export default function Home() {
   const location = useLocation();
+  const { user, loading: authLoading } = useAuth();
+  const [learningJourney, setLearningJourney] = useState<{
+    currentLevel: string | null;
+    completedByLevel: Record<string, number>;
+  }>({ currentLevel: null, completedByLevel: {} });
+
+  useEffect(() => {
+    if (authLoading) return;
+    if (!user) {
+      setLearningJourney({ currentLevel: null, completedByLevel: {} });
+      return;
+    }
+
+    let cancelled = false;
+    void Promise.all([
+      supabase
+        .from("placement_test_results")
+        .select("cefr_level")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle(),
+      supabase
+        .from("lesson_progress")
+        .select("level_id, lesson_number, completed, completed_at")
+        .eq("user_id", user.id)
+        .order("completed_at", { ascending: false, nullsFirst: false }),
+    ]).then(([testResult, progressResult]) => {
+      if (cancelled) return;
+
+      const completedSets: Record<string, Set<number>> = {};
+      for (const row of progressResult.data ?? []) {
+        const level = row.level_id.toUpperCase();
+        if (!CEFR_LEVELS.includes(level as (typeof CEFR_LEVELS)[number]) || !row.completed) continue;
+        completedSets[level] ??= new Set<number>();
+        completedSets[level].add(row.lesson_number);
+      }
+
+      const recentCourseLevel = progressResult.data?.find((row) =>
+        CEFR_LEVELS.includes(row.level_id.toUpperCase() as (typeof CEFR_LEVELS)[number])
+      )?.level_id.toUpperCase();
+      const testedLevel = testResult.data?.cefr_level?.toUpperCase();
+      const currentLevel = recentCourseLevel || testedLevel || "A1";
+      const completedByLevel = Object.fromEntries(
+        CEFR_LEVELS.map((level) => [level, completedSets[level]?.size ?? 0])
+      );
+
+      setLearningJourney({ currentLevel, completedByLevel });
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [authLoading, user]);
+
+  const currentLevelIndex = learningJourney.currentLevel
+    ? CEFR_LEVELS.indexOf(learningJourney.currentLevel as (typeof CEFR_LEVELS)[number])
+    : -1;
+  const completedLessons = Object.values(learningJourney.completedByLevel).reduce((sum, count) => sum + count, 0);
 
   useEffect(() => {
     const scrollTo = (location.state as any)?.scrollTo;
@@ -283,19 +345,23 @@ export default function Home() {
               <div className="absolute bottom-4 left-4 right-4 border-l-4 border-primary bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-8 sm:left-8 sm:right-8 sm:p-6">
                 <div className="mb-4 flex items-center justify-between gap-4">
                   <h2 className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-foreground sm:text-xs">Your learning journey</h2>
-                  <span className="shrink-0 text-[10px] font-bold uppercase tracking-[0.14em] text-primary">6 levels</span>
+                  <span className="shrink-0 text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
+                    {user ? `${learningJourney.currentLevel ?? "A1"} level` : "6 levels"}
+                  </span>
                 </div>
                 <div className="grid grid-cols-6 gap-1.5" aria-label="English levels from A1 to C2">
-                  {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map((level, index) => (
-                    <div key={level} className="space-y-2 text-center">
-                      <div className={`h-1.5 ${index < 2 ? 'bg-primary' : 'bg-border'}`} />
-                      <span className="block text-[9px] font-bold text-muted-foreground sm:text-[10px]">{level}</span>
+                  {CEFR_LEVELS.map((level, index) => (
+                    <div key={level} className="space-y-2 text-center" aria-current={user && index === currentLevelIndex ? "step" : undefined}>
+                      <div className={`h-1.5 transition-colors ${user ? (index <= currentLevelIndex ? "bg-primary" : "bg-border") : (index < 2 ? "bg-primary" : "bg-border")}`} />
+                      <span className={`block text-[9px] font-bold sm:text-[10px] ${user && index === currentLevelIndex ? "text-primary" : "text-muted-foreground"}`}>
+                        {level}
+                      </span>
                     </div>
                   ))}
                 </div>
                 <div className="mt-3 flex justify-between text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                  <span>Beginner</span>
-                  <span>Fluent</span>
+                  <span>{user ? `${completedLessons} lessons complete` : "Beginner"}</span>
+                  <span>{user ? `Current: ${learningJourney.currentLevel ?? "A1"}` : "Fluent"}</span>
                 </div>
               </div>
             </div>
