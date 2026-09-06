@@ -203,203 +203,103 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       <OnboardingTour />
-      {/* ═══════════════ HERO — Literary Journal Editorial ═══════════════ */}
+      {/* ═══════════════ HERO — Editorial Academic Excellence ═══════════════ */}
       <section dir="ltr" className="bg-background text-foreground">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-10 md:pt-16 pb-12 md:pb-20">
-          {/* Masthead */}
-          <motion.header
-            initial={{ opacity: 0, y: 16 }}
+        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl items-center gap-10 px-5 py-10 sm:px-8 md:py-14 lg:grid-cols-12 lg:gap-12 lg:px-12">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="border-b border-foreground/20 pb-6 md:pb-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6"
+            transition={{ duration: 0.55 }}
+            className="order-1 space-y-7 lg:col-span-5 lg:space-y-8"
           >
-            <div className="space-y-3">
-              <span className="block text-[10px] uppercase tracking-[0.25em] font-semibold text-accent">
-                Agamy, Alexandria • Since 2019
+            <div className="inline-flex items-center gap-2 border border-foreground/10 bg-foreground/[0.035] px-3 py-2">
+              <span className="h-2 w-2 bg-primary" aria-hidden="true" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-foreground">
+                Agamy, Alexandria · Since 2019
               </span>
-              <h1 className="font-display text-5xl md:text-7xl leading-[0.9] italic text-primary">
-                The English <br /> Club
-              </h1>
             </div>
-            <div className="md:text-right max-w-sm md:ml-auto space-y-2">
-              <p className="text-sm leading-relaxed text-foreground/80">
-                A premium educational collective mastering the Cambridge curriculum from A1 to C2. Modernity meets tradition in the heart of Alexandria.
+
+            <div className="space-y-4">
+              <h1 className="font-display text-5xl leading-[1.05] sm:text-6xl md:text-7xl lg:text-[4.25rem]">
+                The English<br />
+                <em className="text-primary">Club.</em>
+              </h1>
+              <p className="max-w-lg text-base leading-7 text-muted-foreground md:text-lg md:leading-8">
+                Build confident, natural English through structured A1–C2 courses, expert teaching, and a learning community rooted in Alexandria.
               </p>
             </div>
-          </motion.header>
 
-          {/* Editorial grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 pt-10 md:pt-14">
-            {/* Lead story */}
-            <div className="lg:col-span-8 flex flex-col gap-8">
-              <motion.div
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.7, delay: 0.1 }}
-                className="relative aspect-[16/10] md:aspect-[16/9] overflow-hidden bg-secondary group"
-              >
-                <img
-                  src={studentsLearning}
-                  alt="Students learning English together in a modern classroom at The English Club Alexandria"
-                  className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.03] transition-transform duration-[1200ms]"
-                  loading="eager"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/60 to-transparent" />
-                {/* editorial inset frame */}
-                <div className="pointer-events-none absolute inset-3 md:inset-5 border border-background/25" />
-                <div className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 max-w-xl">
-                  <span className="text-[10px] uppercase tracking-[0.25em] font-semibold text-accent block mb-3">
-                    Issue 01 — The Method
-                  </span>
-                  <div className="mt-4 md:mt-6 flex flex-wrap gap-3">
-                    <Link to="/courses">
-                      <Button size="lg" className="rounded-none px-5 md:px-7 h-11 md:h-12 font-semibold text-xs md:text-sm uppercase tracking-widest bg-accent text-secondary hover:bg-accent/90 hover:-translate-y-0.5 transition-all">
-                        Start Learning
-                      </Button>
-                    </Link>
-                    <Link to="/courses">
-                      <Button size="lg" variant="outline" className="rounded-none px-5 md:px-7 h-11 md:h-12 font-semibold text-xs md:text-sm uppercase tracking-widest border-background/70 text-background bg-transparent hover:bg-background hover:text-foreground">
-                        Our Courses
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Placement test — prominent hero banner */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
-                className="relative overflow-hidden bg-gradient-to-br from-primary to-primary/90 text-primary-foreground p-6 md:p-8 lg:p-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 shadow-elevated"
-              >
-                <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl" />
-                <div className="absolute bottom-0 left-0 w-48 h-48 bg-accent/20 rounded-full translate-y-1/3 -translate-x-1/4 blur-2xl" />
-                <div className="relative z-10 flex items-start gap-4 md:gap-5">
-                  <div className="hidden sm:flex h-14 w-14 md:h-16 md:w-16 shrink-0 items-center justify-center rounded-2xl bg-primary-foreground/15 backdrop-blur-sm">
-                    <Target className="h-7 w-7 md:h-8 md:w-8 text-primary-foreground" />
-                  </div>
-                  <div className="space-y-2">
-                    <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.28em] font-bold text-primary-foreground/80">
-                      <Sparkles className="h-3 w-3" />
-                      Free Placement Test
-                    </span>
-                    <p className="font-display text-2xl md:text-3xl lg:text-4xl leading-tight italic">
-                      Discover your level in 5 minutes.
-                    </p>
-                    <p className="text-sm md:text-base text-primary-foreground/90 font-serif max-w-lg">
-                      Take our quick Cambridge-aligned diagnostic and get a personalized course recommendation.
-                    </p>
-                    <p dir="rtl" className="text-xs md:text-sm text-primary-foreground/80 font-serif">
-                      اعمل اختبار تحديد المستوى المجاني واعرف هتبدأ منين بالظبط.
-                    </p>
-                  </div>
-                </div>
-                <Link
-                  to="/placement-test"
-                  className="relative z-10 shrink-0 inline-flex items-center gap-2 px-7 py-3.5 md:px-8 md:py-4 bg-primary-foreground text-primary text-xs md:text-sm font-bold uppercase tracking-[0.15em] hover:bg-primary-foreground/90 hover:-translate-y-0.5 transition-all shadow-lg"
-                >
-                  Start the Test <ArrowRight className="h-4 w-4" />
+            <div className="flex flex-col gap-3 sm:flex-row">
+              <Button asChild size="lg" variant="editorial" className="h-12 px-6 sm:px-8">
+                <Link to="/placement-test">
+                  Start Placement Test <ArrowRight className="h-4 w-4" />
                 </Link>
-              </motion.div>
-
-              {/* Audience cards — editorial row */}
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
-                className="grid grid-cols-1 sm:grid-cols-3 gap-px bg-foreground/15"
-              >
-                {audiences.map((a, i) => (
-                  <Link
-                    key={a.title}
-                    to={a.to}
-                    className="group bg-background hover:bg-card transition-colors p-6 flex flex-col gap-2"
-                  >
-                    <span className="inline-block self-start text-[10px] uppercase tracking-[0.25em] font-bold text-primary border-b border-primary pb-1">
-                      0{i + 1} / {a.subtitle}
-                    </span>
-                    <h3 dir="rtl" className="font-display text-2xl leading-tight mt-2 group-hover:italic group-hover:text-primary transition-all">{a.title}</h3>
-                    <p dir="rtl" className="text-sm text-muted-foreground font-serif">{a.desc}</p>
-                    <span className="mt-2 inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-widest text-foreground/70 group-hover:text-primary transition-colors">
-                      Enter <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                    </span>
-                  </Link>
-                ))}
-              </motion.div>
+              </Button>
+              <Button asChild size="lg" variant="ghost-ink" className="h-12 px-6 sm:px-8">
+                <Link to="/courses">View Courses</Link>
+              </Button>
             </div>
 
-            {/* Right column — Word of the Day + Inside the Club */}
-            <aside className="lg:col-span-4 flex flex-col gap-10">
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="bg-card text-card-foreground p-8 border border-foreground/10 shadow-soft"
-              >
-                <span className="text-[10px] uppercase tracking-[0.25em] text-accent font-bold mb-4 block">
-                  Word of the Day
-                </span>
-                <h3 className="font-display text-4xl italic mb-1">Eloquent</h3>
-                <span className="block text-xs text-muted-foreground italic mb-4">
-                  adjective / ˈel.ə.kwənt /
-                </span>
-                <p className="text-sm leading-relaxed mb-5 italic text-foreground/80 font-serif">
-                  “Fluent or persuasive in speaking or writing.”
-                </p>
-                <div className="border-t border-foreground/10 pt-4">
-                  <p className="text-[11px] leading-snug text-muted-foreground">
-                    Use it today: “Her eloquent speech captivated the entire English Club cohort.”
-                  </p>
-                </div>
-              </motion.div>
+            <div className="grid grid-cols-3 gap-3 border-t border-foreground/15 pt-6 sm:gap-6 md:pt-8">
+              <div>
+                <strong className="block font-display text-2xl text-foreground sm:text-3xl">500+</strong>
+                <span className="mt-1 block text-[9px] font-semibold uppercase leading-4 tracking-[0.12em] text-muted-foreground">Active students</span>
+              </div>
+              <div>
+                <strong className="block font-display text-2xl text-foreground sm:text-3xl">40+</strong>
+                <span className="mt-1 block text-[9px] font-semibold uppercase leading-4 tracking-[0.12em] text-muted-foreground">Expert courses</span>
+              </div>
+              <div>
+                <strong className="block font-display text-2xl text-foreground sm:text-3xl">A1–C2</strong>
+                <span className="mt-1 block text-[9px] font-semibold uppercase leading-4 tracking-[0.12em] text-muted-foreground">CEFR pathway</span>
+              </div>
+            </div>
+          </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 }}
-                className="space-y-6"
-              >
-                <h4 className="font-display text-xl border-b border-foreground/20 pb-2">
-                  Inside the Club
-                </h4>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="p-5 bg-secondary text-secondary-foreground">
-                    <span className="font-display text-3xl block">500+</span>
-                    <span className="text-[10px] uppercase tracking-widest opacity-70">Active Students</span>
-                  </div>
-                  <div className="p-5 border border-foreground/15">
-                    <span className="font-display text-3xl block text-primary">100%</span>
-                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Cambridge Success</span>
-                  </div>
-                  <div className="p-5 border border-foreground/15">
-                    <span className="font-display text-3xl block">A1–C2</span>
-                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Level Spectrum</span>
-                  </div>
-                  <div className="p-5 bg-accent/15">
-                    <span className="font-display text-3xl block text-accent-foreground">07</span>
-                    <span className="text-[10px] uppercase tracking-widest text-foreground/70">Years in Agamy</span>
-                  </div>
-                </div>
+          <motion.div
+            initial={{ opacity: 0, x: 22 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="relative order-2 lg:col-span-7"
+          >
+            <div className="absolute -right-4 -top-4 h-24 w-24 bg-primary/10 sm:-right-6 sm:-top-6 sm:h-32 sm:w-32" aria-hidden="true" />
+            <div className="absolute -bottom-4 -left-4 h-28 w-36 border border-foreground/15 sm:-bottom-6 sm:-left-6 sm:h-44 sm:w-48" aria-hidden="true" />
 
-                <ul className="space-y-2.5 pt-2">
-                  {[
-                    "Cambridge-aligned A1–C2 curriculum",
-                    "Live speaking sessions, weekly",
-                    "Certified teachers, in-branch + online",
-                    "Certificate on completion",
-                  ].map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-foreground/80">
-                      <CheckCircle2 className="h-4 w-4 text-accent shrink-0 mt-0.5" />
-                      <span>{item}</span>
-                    </li>
+            <div className="relative aspect-[4/5] overflow-hidden bg-muted shadow-2xl sm:aspect-[16/11] lg:aspect-[16/10]">
+              <img
+                src={studentsLearning}
+                alt="Students learning English together at The English Club Alexandria"
+                className="h-full w-full object-cover transition-transform duration-1000 hover:scale-[1.025]"
+                loading="eager"
+              />
+              <div className="absolute inset-0 bg-gradient-to-tr from-secondary/45 via-transparent to-transparent" aria-hidden="true" />
+
+              <div className="absolute left-4 right-4 top-4 flex justify-center sm:left-8 sm:right-8 sm:top-6">
+                <div className="bg-primary px-4 py-2 text-center text-[9px] font-bold uppercase tracking-[0.18em] text-primary-foreground shadow-lg sm:px-6 sm:text-[10px]">
+                  Cambridge-aligned curriculum
+                </div>
+              </div>
+
+              <div className="absolute bottom-4 left-4 right-4 border-l-4 border-primary bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-8 sm:left-8 sm:right-8 sm:p-6">
+                <div className="mb-4 flex items-center justify-between gap-4">
+                  <h2 className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-foreground sm:text-xs">Your learning journey</h2>
+                  <span className="shrink-0 text-[10px] font-bold uppercase tracking-[0.14em] text-primary">6 levels</span>
+                </div>
+                <div className="grid grid-cols-6 gap-1.5" aria-label="English levels from A1 to C2">
+                  {['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map((level, index) => (
+                    <div key={level} className="space-y-2 text-center">
+                      <div className={`h-1.5 ${index < 2 ? 'bg-primary' : 'bg-border'}`} />
+                      <span className="block text-[9px] font-bold text-muted-foreground sm:text-[10px]">{level}</span>
+                    </div>
                   ))}
-                </ul>
-              </motion.div>
-            </aside>
-          </div>
+                </div>
+                <div className="mt-3 flex justify-between text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                  <span>Beginner</span>
+                  <span>Fluent</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 

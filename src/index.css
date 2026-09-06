@@ -97,8 +97,8 @@
 @layer base {
   :root {
     /* Paper & Ink — editorial institution */
-    --background: 40 30% 96%;      /* paper */
-    --foreground: 0 0% 12%;        /* ink */
+    --background: 40 38% 97%;      /* Oxford paper #FAF8F4 */
+    --foreground: 60 4% 11%;       /* Oxford ink #1D1D1B */
 
     --card: 0 0% 100%;
     --card-foreground: 0 0% 12%;
@@ -107,7 +107,7 @@
     --popover-foreground: 0 0% 12%;
 
     /* Claret — the single saturated accent */
-    --primary: 353 64% 33%;
+    --primary: 351 66% 36%;        /* Oxford crimson #971F32 */
     --primary-foreground: 0 0% 100%;
 
     /* Ink — used for dramatic surfaces */
@@ -124,9 +124,9 @@
     --destructive: 353 64% 33%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 30 12% 82%;
-    --input: 30 12% 82%;
-    --ring: 353 64% 33%;
+    --border: 38 17% 81%;          /* Oxford stone #D8D2C8 */
+    --input: 38 17% 81%;
+    --ring: 351 66% 36%;
 
     --radius: 0.375rem;
 
