@@ -1289,34 +1289,34 @@ export default function Courses() {
               <motion.div key={lvl.id} variants={staggerItem}>
                 <Link
                   to={`/courses/${lvl.id}`}
-                  className="group relative block rounded-2xl border bg-card shadow-soft hover:shadow-elevated hover:border-primary/25 hover:-translate-y-1.5 transition-all duration-300 h-full overflow-hidden"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-none border border-border bg-card transition-all duration-300 hover:border-primary/50 hover:shadow-elevated"
                 >
                   {/* Image */}
-                  <div className="relative h-40 overflow-hidden">
-                    <img src={lvl.image} alt={`${lvl.label} ${lvl.sublabel}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-                    <div className="absolute bottom-3 left-4">
-                      <div className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${lvl.color} px-3.5 py-1.5 shadow-lg ring-1 ring-white/20`}>
-                        <span className="text-sm font-bold text-white font-display">{lvl.label}</span>
-                        <span className="text-[11px] text-white/90 font-medium">{lvl.sublabel}</span>
-                      </div>
+                  <div className="relative h-40 overflow-hidden bg-muted">
+                    <img src={lvl.image} alt={`${lvl.label} ${lvl.sublabel}`} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/20 to-transparent" />
+                    <div className="absolute bottom-0 left-0 flex items-end gap-3 p-4">
+                      <span className="flex h-11 w-11 items-center justify-center bg-primary font-display text-base font-bold text-primary-foreground">
+                        {lvl.label}
+                      </span>
+                      <span className="pb-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-background/90">
+                        {lvl.sublabel}
+                      </span>
                     </div>
-                    <span className="absolute top-3 right-3 rounded-full bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[10px] font-bold text-foreground shadow-sm">
+                    <span className="absolute right-3 top-3 border border-background/40 bg-background/90 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-foreground">
                       {lvl.lessons} lessons
                     </span>
-                    {/* Decorative corner accent */}
-                    <div className={`absolute top-0 left-0 h-1 w-full bg-gradient-to-r ${lvl.color} opacity-80`} />
                   </div>
                   {/* Content */}
-                  <div className="p-4 pb-5">
-                    <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
+                  <div className="flex flex-1 flex-col border-t border-border p-5">
+                    <p className="text-xs leading-relaxed text-muted-foreground line-clamp-2">
                       {lvl.description}
                     </p>
                     {progress[lvl.id] && progress[lvl.id].total > 0 && progress[lvl.id].completed > 0 ? (
                       <CardProgress p={progress[lvl.id]} />
                     ) : (
-                      <div className="mt-3 pt-3 border-t border-border/50">
-                        <div className="flex items-center gap-1.5 text-xs font-semibold text-primary group-hover:gap-2.5 transition-all">
+                      <div className="mt-auto pt-4">
+                        <div className="flex items-center gap-1.5 border-l-2 border-primary pl-2.5 text-[11px] font-bold uppercase tracking-[0.14em] text-primary">
                           Start learning <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
                         </div>
                       </div>
@@ -1325,6 +1325,7 @@ export default function Courses() {
                 </Link>
               </motion.div>
             ))}
+
           </motion.div>
         </div>
       </section>
