@@ -144,21 +144,22 @@ export default function ContinueLearning() {
       transition={{ duration: 0.5, delay: 0.3 }}
       className="container mx-auto px-4 -mt-6 mb-8 relative z-20"
     >
-      <div className="rounded-2xl border bg-gradient-to-r from-primary/5 via-accent/5 to-primary/5 p-5 md:p-6 shadow-soft">
+      <div className="border-l-4 border-primary border-y border-r border-border bg-card p-5 md:p-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
           <div className="flex items-center gap-4 min-w-0">
-            <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+            <div className="h-12 w-12 border border-primary/25 bg-primary/5 flex items-center justify-center shrink-0">
               <Flame className="h-6 w-6 text-primary" />
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-semibold font-display">
+              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
                 {next.fresh ? "Start Learning" : "Continue Learning"}
               </p>
-              <p className="text-xs text-muted-foreground mt-0.5 truncate">
-                <span className="font-bold text-foreground uppercase">{next.level_id}</span>
-                <span className="mx-1.5">·</span>
+              <p className="mt-1 font-display text-base font-bold text-foreground truncate">
                 Lesson {next.lesson_number}
-                {next.title && <span className="text-muted-foreground/80"> — {next.title}</span>}
+                {next.title && <span className="font-normal text-muted-foreground"> — {next.title}</span>}
+              </p>
+              <p className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                {next.level_id} level
               </p>
             </div>
           </div>
@@ -171,13 +172,14 @@ export default function ContinueLearning() {
                   }).toString()}`
                 : ""
             }`}
-            className="shrink-0"
+            className="shrink-0 w-full sm:w-auto"
           >
-            <Button size="sm" className="rounded-full font-semibold gap-1.5 px-5">
+            <Button size="sm" variant="editorial" className="w-full gap-1.5 px-5 font-semibold sm:w-auto">
               <BookOpen className="h-3.5 w-3.5" /> {next.fresh ? "Start" : "Resume"} <ArrowRight className="h-3.5 w-3.5" />
             </Button>
           </Link>
         </div>
+
         {next.total > 0 && !next.fresh && (
           <CourseProgress
             variant="banner"
