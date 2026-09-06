@@ -1031,11 +1031,12 @@ export default function Courses() {
                       window.scrollTo({ top: 0, behavior: "smooth" });
                     }
                   }}
-                  className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold shadow-sm transition-all ${
+                  className={`shrink-0 border px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-all ${
                     active
                       ? "border-primary bg-primary text-primary-foreground"
-                      : "bg-card text-foreground/80 hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+                      : "border-border bg-card text-foreground/75 hover:border-primary/50 hover:text-primary"
                   }`}
+
                 >
                   {s.label}
                 </button>
