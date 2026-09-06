@@ -5,7 +5,7 @@ import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
-  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp, ScrollText, KeyRound
+  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp, ScrollText, KeyRound, Sparkles
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import CommandPalette from "@/components/admin/CommandPalette";
@@ -35,8 +35,9 @@ import CohortAnalytics from "@/components/analytics/CohortAnalytics";
 import AdminNewSignups from "@/components/admin/AdminNewSignups";
 import AdminAuditLog from "@/components/admin/AdminAuditLog";
 import AdminGrantAccess from "@/pages/AdminGrantAccess";
+import AdminCommandCenter from "@/components/admin/AdminCommandCenter";
 
-type Tab = "grant-access" | "overview" | "school-students" | "new-signups" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics" | "cohorts" | "audit-log";
+type Tab = "command-center" | "grant-access" | "overview" | "school-students" | "new-signups" | "employees" | "groups" | "sessions" | "attendance" | "teacher-hours" | "unpaid" | "finance" | "newcomers" | "products" | "receipts" | "online-students" | "tests" | "roles" | "notifications" | "export" | "reports" | "schedule" | "revenue-charts" | "analytics" | "cohorts" | "audit-log";
 
 const LEVEL_COLORS: Record<string, string> = {
   A1: "bg-emerald-500", A2: "bg-teal-500", B1: "bg-blue-500",
@@ -45,7 +46,7 @@ const LEVEL_COLORS: Record<string, string> = {
 
 export default function AdminDashboard() {
   const { user, role } = useAuth();
-  const [tab, setTab] = useState<Tab>("grant-access");
+  const [tab, setTab] = useState<Tab>("command-center");
   const [loading, setLoading] = useState(true);
   const [selectedProfile, setSelectedProfile] = useState<any | null>(null);
   const [selectedTest, setSelectedTest] = useState<any | null>(null);
@@ -125,13 +126,14 @@ export default function AdminDashboard() {
 
   // Tabs secretaries are allowed to see
   const secretaryTabs: Tab[] = [
-    "grant-access", "overview", "school-students", "new-signups", "receipts", "attendance",
+    "command-center", "grant-access", "overview", "school-students", "new-signups", "receipts", "attendance",
     "newcomers", "products", "unpaid", "groups", "sessions",
   ];
 
   const isSecretary = role === "secretary";
 
   const allTabs: { id: Tab; label: string; icon: React.ElementType }[] = [
+    { id: "command-center", label: "Command Center", icon: Sparkles },
     { id: "grant-access", label: "Grant Access", icon: KeyRound },
     { id: "overview", label: "Overview", icon: BarChart3 },
     { id: "school-students", label: "Students", icon: Users },
@@ -221,6 +223,13 @@ export default function AdminDashboard() {
       </div>
 
       {/* Tab Content */}
+      {tab === "command-center" && (
+        <AdminCommandCenter
+          profiles={profiles} schoolStudents={schoolStudents} income={income} outcome={outcome}
+          receipts={receipts} newcomers={newcomers} testResults={testResults} sessions={sessions}
+          onNavigate={(t) => setTab(t as Tab)} onRefresh={loadData}
+        />
+      )}
       {tab === "grant-access" && (
         <AdminGrantAccess />
       )}
