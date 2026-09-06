@@ -102,14 +102,34 @@ const themeUnits: ThemeUnit[] = [
       { id: "kids-15", title: "Holidays & Celebrations", number: 15 },
     ],
   },
+  {
+    title: "Stage 2 — Growing to A2",
+    emoji: "🚀",
+    image: dreamsImg,
+    color: "from-sky-400 to-indigo-500",
+    description: "Past, future, comparing and storytelling — the bridge from A1 to A2!",
+    lessons: [
+      { id: "kids-21", title: "My Weekend — Talking About Yesterday", number: 21 },
+      { id: "kids-22", title: "A Day at the Zoo — Irregular Past Verbs", number: 22 },
+      { id: "kids-23", title: "Bigger, Faster, Taller — Comparing Things", number: 23 },
+      { id: "kids-24", title: "The Best in the World — Superlatives", number: 24 },
+      { id: "kids-25", title: "My Holiday Plans — Going To", number: 25 },
+      { id: "kids-26", title: "I Can, I Must — Abilities and Rules", number: 26 },
+      { id: "kids-27", title: "Right Now! — Present Continuous", number: 27 },
+      { id: "kids-28", title: "At the Market — How Much & How Many", number: 28 },
+      { id: "kids-29", title: "My Busy Week — How Often?", number: 29 },
+      { id: "kids-30", title: "Tell Me a Story — A2 Review", number: 30 },
+    ],
+  },
 ];
 
 const funFacts = [
-  { emoji: "🌟", text: "20 fun lessons" },
+  { emoji: "🌟", text: "30 fun lessons" },
+  { emoji: "🎯", text: "A1 → A2 journey" },
   { emoji: "🎮", text: "Game Center" },
   { emoji: "🔊", text: "Audio in every lesson" },
-  { emoji: "🏆", text: "Earn stars & badges" },
 ];
+
 
 export default function KidsCourse() {
   return (

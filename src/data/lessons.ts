@@ -89,6 +89,8 @@ import { b2Lessons16to20 } from "./b2-lessons-16-20";
 import { c1Lessons16to20 } from "./c1-lessons-16-20";
 import { c2Lessons16to20 } from "./c2-lessons-16-20";
 import { kidsLessons16to20 } from "./kids-lessons-16-20";
+import { kidsLessonsA2 } from "./kids-lessons-a2";
+
 import { communicationLessons } from "./communication-lessons";
 import { communicationLessons2 } from "./communication-lessons-2";
 import { writingLessons } from "./writing-lessons";
@@ -803,6 +805,8 @@ export const lessons: Record<string, LessonData> = {
   ...kidsLessons6to10,
   ...kidsLessons11to15,
   ...kidsLessons16to20,
+  ...kidsLessonsA2,
+
   ...communicationLessons,
   ...communicationLessons2,
   ...writingLessons,
