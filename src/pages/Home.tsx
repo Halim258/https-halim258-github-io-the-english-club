@@ -205,7 +205,7 @@ export default function Home() {
       <OnboardingTour />
       {/* ═══════════════ HERO — Editorial Academic Excellence ═══════════════ */}
       <section dir="ltr" className="bg-background text-foreground">
-        <div className="mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl items-center gap-10 px-5 py-10 sm:px-8 md:py-14 lg:grid-cols-12 lg:gap-12 lg:px-12">
+        <div className="mx-auto grid min-h-[min(calc(100svh-4rem),760px)] max-w-7xl items-center gap-10 px-5 py-10 sm:px-8 md:py-14 lg:grid-cols-12 lg:gap-12 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
