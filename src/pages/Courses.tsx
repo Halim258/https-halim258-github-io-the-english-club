@@ -58,11 +58,12 @@ const introductory: Level = {
 };
 
 const kidsLevel: Level = {
-  id: "kids", label: "English for Kids",
-  sublabel: "Colors → Animals → Family → Food → Numbers → Nature → Dreams",
-  lessons: 20, description: "Fun, interactive lessons designed for young learners aged 5-10",
+  id: "kids", label: "English for Kids (A1 → A2)",
+  sublabel: "Colors → Animals → Family → Food → Numbers → Past & Future → Comparing → Storytelling",
+  lessons: 30, description: "Fun, interactive lessons for young learners aged 5-10 — Stage 1 builds first words, Stage 2 takes them up to A2",
   color: "from-amber-400 to-pink-500", image: kidsImg,
 };
+
 
 const phonicsLevel: Level = {
   id: "phonics", label: "English Phonics Course",
