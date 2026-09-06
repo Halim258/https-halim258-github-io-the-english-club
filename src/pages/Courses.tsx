@@ -1451,23 +1451,24 @@ export default function Courses() {
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
           >
             {[
-              { icon: Brain, label: "AI Tutor", to: "/ai-tutor", color: "from-violet-500/15 to-violet-500/5", iconColor: "text-violet-600 dark:text-violet-400" },
-              { icon: BookMarked, label: "Dictionary", to: "/dictionary", color: "from-blue-500/15 to-blue-500/5", iconColor: "text-blue-600 dark:text-blue-400" },
-              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz", color: "from-purple-500/15 to-purple-500/5", iconColor: "text-purple-600 dark:text-purple-400" },
-              { icon: BookOpen, label: "Flashcards", to: "/flashcards", color: "from-emerald-500/15 to-emerald-500/5", iconColor: "text-emerald-600 dark:text-emerald-400" },
-              { icon: Mic2, label: "Speaking", to: "/practice", color: "from-rose-500/15 to-rose-500/5", iconColor: "text-rose-600 dark:text-rose-400" },
-              { icon: PenLine, label: "Idioms", to: "/idioms", color: "from-amber-500/15 to-amber-500/5", iconColor: "text-amber-600 dark:text-amber-400" },
+              { icon: Brain, label: "AI Tutor", to: "/ai-tutor" },
+              { icon: BookMarked, label: "Dictionary", to: "/dictionary" },
+              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz" },
+              { icon: BookOpen, label: "Flashcards", to: "/flashcards" },
+              { icon: Mic2, label: "Speaking", to: "/practice" },
+              { icon: PenLine, label: "Idioms", to: "/idioms" },
             ].map((tool) => (
               <motion.div key={tool.to} variants={staggerItem}>
                 <Link
                   to={tool.to}
-                  className={`group flex flex-col items-center gap-2 rounded-2xl border bg-gradient-to-br ${tool.color} p-5 shadow-soft hover:shadow-card hover:border-primary/30 hover:-translate-y-1 transition-all duration-300 h-full`}
+                  className="group flex h-full flex-col items-center gap-2.5 rounded-none border border-border bg-card p-5 transition-all duration-300 hover:border-primary/50 hover:bg-primary/5"
                 >
-                  <div className={`h-11 w-11 rounded-xl bg-background/80 flex items-center justify-center ${tool.iconColor} group-hover:scale-110 transition-transform`}>
+                  <div className="flex h-11 w-11 items-center justify-center border border-border bg-background text-primary transition-colors group-hover:border-primary/40">
                     <tool.icon className="h-5 w-5" />
                   </div>
-                  <span className="text-sm font-semibold text-center">{tool.label}</span>
+                  <span className="text-center text-sm font-semibold">{tool.label}</span>
                 </Link>
+
               </motion.div>
             ))}
           </motion.div>
