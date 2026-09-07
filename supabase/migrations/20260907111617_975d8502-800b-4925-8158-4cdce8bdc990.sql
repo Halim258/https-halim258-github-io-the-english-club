@@ -1,0 +1,1 @@
+REVOKE ALL ON FUNCTION public.touch_blog_posts_updated_at() FROM anon, authenticated, PUBLIC;
