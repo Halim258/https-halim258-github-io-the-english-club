@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, Loader2, BookOpen, Users, Sparkles, Eye, EyeOff, Check, X, Mail, Lock, User as UserIcon, AlertCircle, CheckCircle2 } from "lucide-react";
+import { GraduationCap, Loader2, BookOpen, Users, Sparkles, Eye, EyeOff, Check, X, Mail, Lock, User as UserIcon, AlertCircle, CheckCircle2, Phone } from "lucide-react";
 import { notifyWelcome } from "@/lib/notifications";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -15,6 +15,12 @@ type Role = "student" | "teacher";
 const signupBaseSchema = z.object({
   name: z.string().trim().min(2, "Please enter your full name").max(80, "Name is too long"),
   email: z.string().trim().email("Please enter a valid email address").max(255),
+  phone: z
+    .string()
+    .trim()
+    .min(7, "Please enter your phone number")
+    .max(20, "Phone number is too long")
+    .regex(/^[+0-9][0-9\s()-]{6,19}$/, "Please enter a valid phone number"),
   password: z
     .string()
     .min(6, "Password must be at least 6 characters")
@@ -70,12 +76,13 @@ function PasswordStrength({ password }: { password: string }) {
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [role, setRole] = useState<Role>("student");
   const [youtubeUrl, setYoutubeUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
-  const [errors, setErrors] = useState<{ name?: string; email?: string; password?: string; youtubeUrl?: string; form?: string }>({});
+  const [errors, setErrors] = useState<{ name?: string; email?: string; phone?: string; password?: string; youtubeUrl?: string; form?: string }>({});
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -83,7 +90,7 @@ export default function Signup() {
     e.preventDefault();
     setErrors({});
 
-    const parsed = signupBaseSchema.safeParse({ name, email, password, youtubeUrl });
+    const parsed = signupBaseSchema.safeParse({ name, email, phone, password, youtubeUrl });
     const fieldErrors: typeof errors = {};
     if (!parsed.success) {
       for (const issue of parsed.error.issues) {
@@ -107,7 +114,7 @@ export default function Signup() {
       password,
       options: {
         emailRedirectTo: `${window.location.origin}/login`,
-        data: { full_name: name.trim(), role, youtube_intro_url: role === "teacher" ? youtubeUrl.trim() : undefined },
+        data: { full_name: name.trim(), phone: phone.trim(), role, youtube_intro_url: role === "teacher" ? youtubeUrl.trim() : undefined },
       },
     });
     setLoading(false);
@@ -286,6 +293,28 @@ export default function Signup() {
                 />
               </div>
               {errors.email && <p className="text-xs text-destructive">{errors.email}</p>}
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="phone" className="text-sm font-medium">Phone Number</Label>
+              <div className="relative">
+                <Phone className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  id="phone"
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  value={phone}
+                  onChange={(e) => { setPhone(e.target.value); if (errors.phone) setErrors((p) => ({ ...p, phone: undefined })); }}
+                  placeholder="+20 100 000 0000"
+                  aria-invalid={!!errors.phone}
+                  className={`h-12 rounded-xl pl-10 text-base focus:ring-2 focus:ring-primary/20 ${errors.phone ? "border-destructive focus-visible:ring-destructive/30" : ""}`}
+                />
+              </div>
+              {errors.phone ? (
+                <p className="text-xs text-destructive">{errors.phone}</p>
+              ) : (
+                <p className="text-xs text-muted-foreground">We use it to contact you about your classes on WhatsApp.</p>
+              )}
             </div>
             <div className="space-y-1.5">
               <Label htmlFor="password" className="text-sm font-medium">Password</Label>
