@@ -16,6 +16,7 @@ import StudyStreakCalendar from "@/components/StudyStreakCalendar";
 import OnboardingWelcome from "@/components/OnboardingWelcome";
 import StudyGoals from "@/components/StudyGoals";
 import LibraryProgressCard from "@/components/LibraryProgressCard";
+import StudyTimeCard from "@/components/StudyTimeCard";
 import { lessons as allLessons } from "@/data/lessons";
 import { Progress } from "@/components/ui/progress";
 import { getSlideProgress } from "@/hooks/useSlideProgress";
@@ -312,22 +313,8 @@ export default function StudentDashboard() {
         ))}
       </div>
 
-      {weeklyMinutes > 0 && (
-        <div className="mb-6 rounded-2xl border bg-card p-4 shadow-soft flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10">
-              <Clock className="h-4 w-4 text-sky-600 dark:text-sky-400" />
-            </div>
-            <div>
-              <p className="text-[11px] uppercase tracking-wide text-muted-foreground font-semibold">This week</p>
-              <p className="text-lg font-bold font-display">{formatDuration(weeklyMinutes)} of focused study</p>
-            </div>
-          </div>
-          <p className="text-xs text-muted-foreground max-w-xs">
-            Active minutes only — the tracker pauses when your tab is idle or hidden.
-          </p>
-        </div>
-      )}
+      <StudyTimeCard />
+
 
       {/* Quick Actions */}
       <FadeInUp delay={0.05}>

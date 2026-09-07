@@ -1375,6 +1375,33 @@ export type Database = {
         }
         Relationships: []
       }
+      study_time: {
+        Row: {
+          created_at: string
+          id: string
+          seconds: number
+          study_date: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          seconds?: number
+          study_date?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          seconds?: number
+          study_date?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -1669,6 +1696,14 @@ export type Database = {
       is_current_user_member: { Args: never; Returns: boolean }
       is_group_teacher: { Args: { _group_id: string }; Returns: boolean }
       is_public_group: { Args: { _group_id: string }; Returns: boolean }
+      log_study_seconds: {
+        Args: { _seconds: number }
+        Returns: {
+          today_seconds: number
+          total_seconds: number
+          week_seconds: number
+        }[]
+      }
       notify_admins: {
         Args: {
           _link?: string
