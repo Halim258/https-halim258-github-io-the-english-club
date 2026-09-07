@@ -812,6 +812,45 @@ export type Database = {
         }
         Relationships: []
       }
+      pcc_registrations: {
+        Row: {
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          note: string | null
+          phone: string
+          school_or_group: string | null
+          status: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          note?: string | null
+          phone: string
+          school_or_group?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          note?: string | null
+          phone?: string
+          school_or_group?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       placement_test_results: {
         Row: {
           answers: Json
