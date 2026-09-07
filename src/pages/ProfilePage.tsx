@@ -7,6 +7,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import { Link } from "react-router-dom";
+import LearningBadge from "@/components/LearningBadge";
+
 
 export default function ProfilePage() {
   const { user } = useAuth();
@@ -133,7 +135,10 @@ export default function ProfilePage() {
         </div>
       </motion.div>
 
+      <LearningBadge className="mb-6" />
+
       {/* Stats grid */}
+
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}>
         <h2 className="text-sm font-semibold font-display flex items-center gap-2 mb-3">
           <BarChart3 className="h-4 w-4 text-primary" /> Learning Stats

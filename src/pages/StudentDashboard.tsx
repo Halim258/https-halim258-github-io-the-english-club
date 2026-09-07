@@ -17,6 +17,8 @@ import OnboardingWelcome from "@/components/OnboardingWelcome";
 import StudyGoals from "@/components/StudyGoals";
 import LibraryProgressCard from "@/components/LibraryProgressCard";
 import StudyTimeCard from "@/components/StudyTimeCard";
+import LearningBadge from "@/components/LearningBadge";
+
 import { lessons as allLessons } from "@/data/lessons";
 import { Progress } from "@/components/ui/progress";
 import { getSlideProgress } from "@/hooks/useSlideProgress";
@@ -283,7 +285,10 @@ export default function StudentDashboard() {
         </div>
       </motion.div>
 
+      <LearningBadge className="mb-6" />
+
       {/* Quick Stats with XP & Streak */}
+
       <div className="grid gap-3 grid-cols-2 md:grid-cols-3 lg:grid-cols-6 mb-6">
         {[
           { icon: BookOpen, label: "Lessons Done", value: completedLessons.toString(), accent: "from-primary/15 to-primary/5", iconColor: "text-primary" },
