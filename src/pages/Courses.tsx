@@ -1472,30 +1472,43 @@ export default function Courses() {
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, margin: "-40px" }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-border border border-border"
           >
             {[
-              { icon: Brain, label: "AI Tutor", to: "/ai-tutor" },
-              { icon: BookMarked, label: "Dictionary", to: "/dictionary" },
-              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz" },
-              { icon: BookOpen, label: "Flashcards", to: "/flashcards" },
-              { icon: Mic2, label: "Speaking", to: "/practice" },
-              { icon: PenLine, label: "Idioms", to: "/idioms" },
-            ].map((tool) => (
-              <motion.div key={tool.to} variants={staggerItem}>
+              { icon: Brain, label: "AI Tutor", to: "/ai-tutor", desc: "Practise real conversations with instant corrections." },
+              { icon: BookMarked, label: "Dictionary", to: "/dictionary", desc: "Look up meanings, examples and pronunciation." },
+              { icon: Target, label: "Vocab Quiz", to: "/vocab-quiz", desc: "Quick tests that check the words you have learned." },
+              { icon: BookOpen, label: "Flashcards", to: "/flashcards", desc: "Review words with spaced repetition cards." },
+              { icon: Mic2, label: "Speaking", to: "/practice", desc: "Talk with other students in short voice calls." },
+              { icon: PenLine, label: "Idioms", to: "/idioms", desc: "Learn natural expressions used by native speakers." },
+            ].map((tool, i) => (
+              <motion.div key={tool.to} variants={staggerItem} className="bg-card">
                 <Link
                   to={tool.to}
-                  className="group flex h-full flex-col items-center gap-2.5 rounded-none border border-border bg-card p-5 transition-all duration-300 hover:border-primary/50 hover:bg-primary/5"
+                  className="group relative flex h-full flex-col gap-3 bg-card p-5 sm:p-6 transition-colors duration-300 hover:bg-primary/5"
                 >
-                  <div className="flex h-11 w-11 items-center justify-center border border-border bg-background text-primary transition-colors group-hover:border-primary/40">
-                    <tool.icon className="h-5 w-5" />
+                  <span className="absolute left-0 top-0 h-full w-[3px] bg-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                  <div className="flex items-center justify-between">
+                    <div className="flex h-11 w-11 items-center justify-center border border-border bg-background text-primary transition-colors group-hover:border-primary/50">
+                      <tool.icon className="h-5 w-5" />
+                    </div>
+                    <span className="font-display text-xs tabular-nums text-muted-foreground/70">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
                   </div>
-                  <span className="text-center text-sm font-semibold">{tool.label}</span>
+                  <div>
+                    <h3 className="font-display text-base font-bold leading-tight">{tool.label}</h3>
+                    <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{tool.desc}</p>
+                  </div>
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-2 text-xs font-semibold uppercase tracking-wider text-primary">
+                    Open
+                    <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+                  </span>
                 </Link>
-
               </motion.div>
             ))}
           </motion.div>
+
         </div>
       </section>
       )}
