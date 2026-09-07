@@ -15,6 +15,7 @@ export default function ProfilePage() {
   const [fullName, setFullName] = useState("");
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [phone, setPhone] = useState("");
   const [loading, setLoading] = useState(true);
 
   // Stats
@@ -29,7 +30,7 @@ export default function ProfilePage() {
     if (!user) return;
     async function load() {
       const [profileRes, progressRes, xpRes, achieveRes] = await Promise.all([
-        supabase.from("profiles").select("full_name, avatar_url, created_at").eq("id", user!.id).single(),
+        supabase.from("profiles").select("full_name, avatar_url, phone, created_at").eq("id", user!.id).single(),
         supabase.from("lesson_progress").select("id").eq("user_id", user!.id).eq("completed", true),
         supabase.from("user_xp").select("total_xp, current_streak, longest_streak").eq("user_id", user!.id).maybeSingle(),
         supabase.from("achievements").select("id").eq("user_id", user!.id),
@@ -38,6 +39,7 @@ export default function ProfilePage() {
       if (profileRes.data) {
         setFullName(profileRes.data.full_name || "");
         setAvatarUrl(profileRes.data.avatar_url);
+        setPhone(profileRes.data.phone || "");
         setMemberSince(new Date(profileRes.data.created_at).toLocaleDateString("en-US", { month: "long", year: "numeric" }));
       }
       setLessonsCompleted(progressRes.data?.length || 0);
@@ -57,7 +59,7 @@ export default function ProfilePage() {
     setSaving(true);
     const { error } = await supabase
       .from("profiles")
-      .update({ full_name: fullName.trim() || null, updated_at: new Date().toISOString() })
+      .update({ full_name: fullName.trim() || null, phone: phone.trim() || null, updated_at: new Date().toISOString() })
       .eq("id", user.id);
     if (error) {
       toast.error("Failed to save profile.");
@@ -119,6 +121,23 @@ export default function ProfilePage() {
                   placeholder="Enter your name"
                   className="rounded-xl"
                 />
+              </div>
+              <div>
+                <label className="text-xs font-medium text-muted-foreground mb-1 block">Phone Number</label>
+                <Input
+                  value={phone}
+                  type="tel"
+                  inputMode="tel"
+                  autoComplete="tel"
+                  onChange={(e) => setPhone(e.target.value)}
+                  placeholder="+20 100 000 0000"
+                  className="rounded-xl"
+                />
+                {!phone.trim() && (
+                  <p className="mt-1 text-[11px] text-amber-600 dark:text-amber-400">
+                    Please add your phone number so we can reach you about classes.
+                  </p>
+                )}
               </div>
               <div>
                 <label className="text-xs font-medium text-muted-foreground mb-1 block">Email</label>

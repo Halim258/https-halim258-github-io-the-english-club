@@ -851,6 +851,7 @@ export type Database = {
           created_at: string
           full_name: string | null
           id: string
+          phone: string | null
           updated_at: string
           youtube_intro_url: string | null
         }
@@ -859,6 +860,7 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id: string
+          phone?: string | null
           updated_at?: string
           youtube_intro_url?: string | null
         }
@@ -867,6 +869,7 @@ export type Database = {
           created_at?: string
           full_name?: string | null
           id?: string
+          phone?: string | null
           updated_at?: string
           youtube_intro_url?: string | null
         }

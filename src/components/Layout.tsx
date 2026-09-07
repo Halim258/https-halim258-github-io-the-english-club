@@ -8,6 +8,7 @@ import ScrollToTopOnNavigate from "./ScrollToTopOnNavigate";
 import Breadcrumbs from "./Breadcrumbs";
 import GlobalSearch from "./GlobalSearch";
 import MobileBottomNav from "./MobileBottomNav";
+import PhonePrompt from "./PhonePrompt";
 
 const lessonRoutePatterns = [
   /^\/courses\/[^/]+\/[^/]+/,
@@ -40,6 +41,7 @@ export default function Layout() {
       </a>
       <Navbar />
       <GlobalSearch />
+      <PhonePrompt />
       {showBreadcrumbs && <Breadcrumbs />}
       <main id="main-content" className="flex-1 pb-mobile-nav md:pb-0">
         <AnimatePresence mode="wait" initial={false}>
