@@ -16,6 +16,7 @@ import StudyStreakCalendar from "@/components/StudyStreakCalendar";
 import OnboardingWelcome from "@/components/OnboardingWelcome";
 import StudyGoals from "@/components/StudyGoals";
 import LibraryProgressCard from "@/components/LibraryProgressCard";
+import StudyTimeCard from "@/components/StudyTimeCard";
 import { lessons as allLessons } from "@/data/lessons";
 import { Progress } from "@/components/ui/progress";
 import { getSlideProgress } from "@/hooks/useSlideProgress";
