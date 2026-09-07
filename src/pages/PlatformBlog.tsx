@@ -7,6 +7,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "@/hooks/use-toast";
 import DailyAdviceSection from "@/components/blog/DailyAdvice";
+import SiteBlogFeed from "@/components/blog/SiteBlogFeed";
 
 type PreviewKind =
   | "courses" | "dashboard" | "groups" | "teacher" | "ai-tutor" | "dictionary"
@@ -822,6 +823,8 @@ export default function PlatformBlog() {
           <FeatureScreenshot post={post} />
         </div>
       </section>
+
+      <SiteBlogFeed />
 
       <DailyAdviceSection />
 

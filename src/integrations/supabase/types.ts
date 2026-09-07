@@ -71,6 +71,54 @@ export type Database = {
         }
         Relationships: []
       }
+      blog_posts: {
+        Row: {
+          action: string | null
+          arabic: string | null
+          author_id: string
+          category: string
+          created_at: string
+          english: string
+          hashtags: string[]
+          id: string
+          image_url: string | null
+          publish_date: string
+          published: boolean
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          action?: string | null
+          arabic?: string | null
+          author_id: string
+          category?: string
+          created_at?: string
+          english: string
+          hashtags?: string[]
+          id?: string
+          image_url?: string | null
+          publish_date?: string
+          published?: boolean
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          action?: string | null
+          arabic?: string | null
+          author_id?: string
+          category?: string
+          created_at?: string
+          english?: string
+          hashtags?: string[]
+          id?: string
+          image_url?: string | null
+          publish_date?: string
+          published?: boolean
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       bookmarks: {
         Row: {
           created_at: string
