@@ -654,45 +654,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ═══════════════ CLASSROOM BANNER ═══════════════ */}
-      <section dir="ltr" className="relative h-72 md:h-80 lg:h-[28rem] overflow-hidden">
-        <motion.img
-          src={studentsLearning}
-          alt="PCC competition winners with medals, certificates and trophies at The English Club Alexandria"
-          className="absolute inset-0 w-full h-full object-cover"
-          loading="lazy"
-          width={1280}
-          height={720}
-          initial={{ scale: 1.1 }}
-          whileInView={{ scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary/85 via-secondary/60 to-secondary/20" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, x: -40, filter: "blur(6px)" }}
-              whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-              className="max-w-lg"
-            >
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-primary-foreground font-display leading-tight">
-                Learn in a Community That Inspires
-              </h2>
-              <p className="mt-3 text-primary-foreground/80 text-sm md:text-base leading-relaxed">
-                Our classrooms are designed for collaboration, creativity, and real-world English practice.
-              </p>
-              <Link to="/signup">
-                <Button size="lg" className="mt-6 rounded-full px-8 font-semibold shadow-lg hover:scale-[1.03] transition-transform duration-200">
-                  Join Our Classes <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
       {/* ═══════════════ MEET OUR TEACHERS ═══════════════ */}
       <section dir="ltr" className="py-14 md:py-20 lg:py-28">
