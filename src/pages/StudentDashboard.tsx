@@ -17,6 +17,7 @@ import OnboardingWelcome from "@/components/OnboardingWelcome";
 import StudyGoals from "@/components/StudyGoals";
 import LibraryProgressCard from "@/components/LibraryProgressCard";
 import StudyTimeCard from "@/components/StudyTimeCard";
+import StudyTargetCard from "@/components/StudyTargetCard";
 import LearningBadge from "@/components/LearningBadge";
 
 import { lessons as allLessons } from "@/data/lessons";
@@ -318,6 +319,7 @@ export default function StudentDashboard() {
         ))}
       </div>
 
+      <StudyTargetCard className="mb-6" />
       <StudyTimeCard />
 
 
