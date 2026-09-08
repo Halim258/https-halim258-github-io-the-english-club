@@ -23,7 +23,7 @@ const signupBaseSchema = z.object({
     .regex(/^[+0-9][0-9\s()-]{6,19}$/, "Please enter a valid phone number"),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters")
+    .min(1, "Please enter a password")
     .max(128, "Password is too long"),
   youtubeUrl: z.string().trim().max(255).optional().or(z.literal("")),
 });
@@ -34,44 +34,13 @@ function mapSignupError(msg: string): string {
   const m = msg.toLowerCase();
   if (m.includes("already registered") || m.includes("already been registered") || m.includes("user already"))
     return "An account with this email already exists. Try logging in instead.";
-  if (m.includes("password")) return "Password doesn't meet requirements. Try a stronger one.";
+  if (m.includes("password")) return "That password could not be used. Please try again.";
   if (m.includes("rate") || m.includes("too many")) return "Too many attempts. Please wait a minute and try again.";
   return msg;
 }
 
-function PasswordStrength({ password }: { password: string }) {
-  const checks = [
-    { label: "6+ characters", pass: password.length >= 6 },
-    { label: "Uppercase letter", pass: /[A-Z]/.test(password) },
-    { label: "Number", pass: /\d/.test(password) },
-  ];
-  const strength = checks.filter(c => c.pass).length;
-  const colors = ["bg-destructive", "bg-amber-500", "bg-emerald-500"];
-  const labels = ["Weak", "Fair", "Strong"];
 
-  if (!password) return null;
 
-  return (
-    <div className="space-y-2 mt-2">
-      <div className="flex gap-1">
-        {[0, 1, 2].map(i => (
-          <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i < strength ? colors[strength - 1] : "bg-muted"}`} />
-        ))}
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex flex-wrap gap-x-3 gap-y-1">
-          {checks.map(c => (
-            <span key={c.label} className={`flex items-center gap-1 text-[10px] ${c.pass ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground"}`}>
-              {c.pass ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
-              {c.label}
-            </span>
-          ))}
-        </div>
-        {strength > 0 && <span className={`text-[10px] font-semibold ${strength === 3 ? "text-emerald-600" : strength === 2 ? "text-amber-500" : "text-destructive"}`}>{labels[strength - 1]}</span>}
-      </div>
-    </div>
-  );
-}
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -135,7 +104,13 @@ export default function Signup() {
       notifyWelcome(signupData.user.id).catch(() => {});
     }
 
-    toast({ title: "Account created! 🎉", description: "Check your email to verify your account, then log in." });
+    if (signupData.session) {
+      toast({ title: "Account created! 🎉", description: "You're signed in — welcome aboard." });
+      navigate("/", { replace: true });
+      return;
+    }
+
+    toast({ title: "Account created! 🎉", description: "Please log in to continue." });
     navigate("/login");
   };
 
