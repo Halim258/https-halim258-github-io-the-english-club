@@ -316,7 +316,7 @@ export default function Signup() {
                 </button>
               </div>
               {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
-              <PasswordStrength password={password} />
+              
             </div>
 
             {role === "teacher" && (
