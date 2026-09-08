@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, Loader2, BookOpen, Users, Sparkles, Eye, EyeOff, Check, X, Mail, Lock, User as UserIcon, AlertCircle, CheckCircle2, Phone } from "lucide-react";
+import { GraduationCap, Loader2, BookOpen, Users, Sparkles, Eye, EyeOff, Mail, Lock, User as UserIcon, AlertCircle, CheckCircle2, Phone } from "lucide-react";
 import { notifyWelcome } from "@/lib/notifications";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -316,7 +316,7 @@ export default function Signup() {
                 </button>
               </div>
               {errors.password && <p className="text-xs text-destructive">{errors.password}</p>}
-              <PasswordStrength password={password} />
+              
             </div>
 
             {role === "teacher" && (
