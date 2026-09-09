@@ -1234,48 +1234,63 @@ export type Database = {
       school_receipts: {
         Row: {
           created_at: string | null
+          created_by: string | null
           fees: number | null
           given_by: number | null
           id: string
           item_id: number | null
           legacy_number: number | null
+          note: string | null
           paid_fees: number | null
+          payment_method: string | null
+          period_month: string | null
           phone_number: string | null
           receipt_number: number | null
           remaining_fees: number | null
           reservation_date: string | null
           student_id_legacy: number | null
           student_name: string | null
+          user_id: string | null
         }
         Insert: {
           created_at?: string | null
+          created_by?: string | null
           fees?: number | null
           given_by?: number | null
           id?: string
           item_id?: number | null
           legacy_number?: number | null
+          note?: string | null
           paid_fees?: number | null
+          payment_method?: string | null
+          period_month?: string | null
           phone_number?: string | null
           receipt_number?: number | null
           remaining_fees?: number | null
           reservation_date?: string | null
           student_id_legacy?: number | null
           student_name?: string | null
+          user_id?: string | null
         }
         Update: {
           created_at?: string | null
+          created_by?: string | null
           fees?: number | null
           given_by?: number | null
           id?: string
           item_id?: number | null
           legacy_number?: number | null
+          note?: string | null
           paid_fees?: number | null
+          payment_method?: string | null
+          period_month?: string | null
           phone_number?: string | null
           receipt_number?: number | null
           remaining_fees?: number | null
           reservation_date?: string | null
           student_id_legacy?: number | null
           student_name?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
@@ -1763,6 +1778,20 @@ export type Database = {
           _type?: string
         }
         Returns: number
+      }
+      record_payment: {
+        Args: {
+          _fees: number
+          _note: string
+          _paid_fees: number
+          _payment_date: string
+          _payment_method: string
+          _period_month: string
+          _phone_number: string
+          _student_name: string
+          _user_id: string
+        }
+        Returns: string
       }
       submit_daily_challenge: {
         Args: { _answer: string; _challenge_id: string }
