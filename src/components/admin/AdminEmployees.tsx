@@ -11,18 +11,32 @@ import DetailSheet from "./DetailSheet";
 
 interface Employee {
   id: string;
+  legacy_id?: number | null;
   name: string;
   position: string;
   phone_number: string | null;
   phone_number_2: string | null;
 }
 
+interface GroupRef {
+  id: string;
+  legacy_id: number | null;
+  level: string | null;
+  days: string | null;
+  start_time: string | null;
+  end_time: string | null;
+  teacher_employee_id?: string | null;
+}
+
 interface Props {
   employees: Employee[];
+  groups?: GroupRef[];
+  students?: { id: string; school_group_id?: string | null }[];
   onRefresh: () => void;
 }
 
 const emptyForm = { name: "", position: "teacher", phone_number: "", phone_number_2: "" };
+
 
 export default function AdminEmployees({ employees, onRefresh }: Props) {
   const [addOpen, setAddOpen] = useState(false);
