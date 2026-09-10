@@ -157,6 +157,8 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
       _note: form.note || null,
       _settles_receipt_id: form.settles || null,
       _status: form.faulty ? "faulty" : "issued",
+      _given_by: form.givenBy || null,
+
     });
     setSaving(false);
     if (error) {
