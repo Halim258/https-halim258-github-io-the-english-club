@@ -462,7 +462,7 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
           { label: "WhatsApp", value: selectedStudent.whatsapp, type: "phone" as const },
           { label: "Email", value: selectedStudent.email, type: "email" as const },
           { label: "Status", value: selectedStudent.status, type: "badge" as const, badgeColor: selectedStudent.status === "active" ? "bg-emerald-500/10 text-emerald-700" : "bg-red-500/10 text-red-700" },
-          { label: "Group ID", value: selectedStudent.group_id },
+          { label: "Group", value: groupLabel(groups.find(g => g.id === selectedStudent.school_group_id)) },
           { label: "Level", value: selectedStudent.placement_test_result, type: "badge" as const },
           { label: "Membership", value: selectedStudent.membership },
           { label: "Total Fees", value: selectedStudent.fees, type: "currency" as const },
