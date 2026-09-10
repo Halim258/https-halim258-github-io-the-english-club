@@ -197,11 +197,49 @@ export default function AdminEmployees({ employees, groups = [], students = [], 
         </DialogContent>
       </Dialog>
 
+      {employees.length > 0 && (
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer">
+            <input type="checkbox" className="h-4 w-4 accent-primary"
+              checked={selectedIds.length > 0 && employees.every(e => selectedIds.includes(e.id))}
+              onChange={e => setSelectedIds(e.target.checked ? employees.map(x => x.id) : [])} />
+            Select all
+          </label>
+          {selectedIds.length > 0 && (
+            <>
+              <span className="text-xs font-semibold">{selectedIds.length} selected</span>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button size="sm" variant="ghost" disabled={bulkBusy} className="text-destructive hover:text-destructive">
+                    <Trash2 className="h-3.5 w-3.5 mr-1" /> Delete selected
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete {selectedIds.length} employees</AlertDialogTitle>
+                    <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={bulkDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+              <button onClick={() => setSelectedIds([])} className="text-xs text-muted-foreground hover:underline">Clear</button>
+            </>
+          )}
+        </div>
+      )}
+
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {employees.map(emp => (
-          <div key={emp.id} className="rounded-xl border bg-card p-4 shadow-soft cursor-pointer hover:border-primary/50 transition-colors" onClick={() => setSelectedEmp(emp)}>
+          <div key={emp.id} className={`rounded-xl border bg-card p-4 shadow-soft cursor-pointer hover:border-primary/50 transition-colors ${selectedIds.includes(emp.id) ? "border-primary ring-1 ring-primary/40" : ""}`} onClick={() => setSelectedEmp(emp)}>
             <div className="flex items-center justify-between mb-2">
-              <h4 className="font-semibold text-sm text-primary hover:underline">{emp.name}</h4>
+              <h4 className="font-semibold text-sm text-primary hover:underline flex items-center gap-2">
+                <input type="checkbox" className="h-4 w-4 accent-primary" checked={selectedIds.includes(emp.id)}
+                  onClick={e => e.stopPropagation()} onChange={() => toggleOne(emp.id)} aria-label="Select employee" />
+                {emp.name}
+              </h4>
               <span className={`text-[10px] font-bold rounded-full px-2 py-0.5 ${positionColors[emp.position] || positionColors.staff}`}>
                 {emp.position}
               </span>
