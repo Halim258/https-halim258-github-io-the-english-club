@@ -3,49 +3,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { GraduationCap, Loader2, CheckCircle, Eye, EyeOff, Lock, AlertCircle, ArrowLeft, ShieldCheck, Check, X } from "lucide-react";
+import { GraduationCap, Loader2, CheckCircle, Eye, EyeOff, Lock, AlertCircle, ArrowLeft, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
 
 type Status = "verifying" | "invalid" | "ready" | "success";
 
-function PasswordStrength({ password }: { password: string }) {
-  const checks = [
-    { label: "8+ characters", pass: password.length >= 8 },
-    { label: "Uppercase letter", pass: /[A-Z]/.test(password) },
-    { label: "Number", pass: /\d/.test(password) },
-  ];
-  const strength = checks.filter((c) => c.pass).length;
-  const colors = ["bg-destructive", "bg-amber-500", "bg-emerald-500"];
-  const labels = ["Weak", "Fair", "Strong"];
-  if (!password) return null;
-
-  return (
-    <div className="space-y-2 mt-2">
-      <div className="flex gap-1">
-        {[0, 1, 2].map((i) => (
-          <div key={i} className={`h-1.5 flex-1 rounded-full transition-colors ${i < strength ? colors[strength - 1] : "bg-muted"}`} />
-        ))}
-      </div>
-      <div className="flex items-center justify-between">
-        <div className="flex flex-wrap gap-x-3 gap-y-1">
-          {checks.map((c) => (
-            <span key={c.label} className={`flex items-center gap-1 text-[10px] ${c.pass ? "text-emerald-600 dark:text-emerald-400" : "text-muted-foreground"}`}>
-              {c.pass ? <Check className="h-3 w-3" /> : <X className="h-3 w-3" />}
-              {c.label}
-            </span>
-          ))}
-        </div>
-        {strength > 0 && (
-          <span className={`text-[10px] font-semibold ${strength === 3 ? "text-emerald-600" : strength === 2 ? "text-amber-500" : "text-destructive"}`}>
-            {labels[strength - 1]}
-          </span>
-        )}
-      </div>
-    </div>
-  );
-}
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");
@@ -275,7 +239,7 @@ export default function ResetPassword() {
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>
                 </div>
-                <PasswordStrength password={password} />
+                
               </div>
 
               <div className="space-y-1.5">
