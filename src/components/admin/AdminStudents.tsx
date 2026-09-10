@@ -128,7 +128,7 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
     setForm({
       name: s.name, phone_number: s.phone_number || "", whatsapp: s.whatsapp || "",
       email: s.email || "", status: s.status || "active", fees: String(s.fees || 0), paid_fees: String(s.paid_fees || 0),
-      group_id: s.group_id ? String(s.group_id) : "", membership: s.membership || "",
+      school_group_id: s.school_group_id || "", membership: s.membership || "",
       placement_test_result: s.placement_test_result || "", address: s.address || "",
       birth_date: s.birth_date ? new Date(s.birth_date).toISOString().split("T")[0] : "",
       preferred_time: s.preferred_time || "", preferred_activity: s.preferred_activity || "",
