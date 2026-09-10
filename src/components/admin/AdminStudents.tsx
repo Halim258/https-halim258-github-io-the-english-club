@@ -170,7 +170,6 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
     else { toast({ title: "Student deleted" }); onRefresh(); }
   };
 
-  const allFilteredSelected = filtered.length > 0 && filtered.every(s => selectedIds.includes(s.id));
   const pageSelected = paged.length > 0 && paged.every(s => selectedIds.includes(s.id));
 
   const togglePage = () => {
