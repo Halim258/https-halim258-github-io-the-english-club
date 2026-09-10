@@ -402,7 +402,7 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
                 <td className="p-3 text-muted-foreground">{page * perPage + i + 1}</td>
                 <td className="p-3 font-medium text-primary hover:underline">{s.name}</td>
                 <td className="p-3 text-muted-foreground font-mono text-xs">{s.phone_number || "—"}</td>
-                <td className="p-3">{s.group_id || "—"}</td>
+                <td className="p-3 text-xs">{groupShortLabel(groups.find(g => g.id === s.school_group_id)) }</td>
                 <td className="p-3 font-mono">{s.fees?.toLocaleString() || 0}</td>
                 <td className="p-3 font-mono text-emerald-600">{s.paid_fees?.toLocaleString() || 0}</td>
                 <td className="p-3 font-mono text-destructive">{s.remaining_fees?.toLocaleString() || 0}</td>
