@@ -64,12 +64,13 @@ export default function ResetPassword() {
   useEffect(() => {
     let cancelled = false;
 
-    // Detect explicit errors surfaced by Supabase in the URL hash (expired,
-    // already used, malformed, etc.) so we can show a clear message.
+    const url = new URL(window.location.href);
     const hash = window.location.hash.startsWith("#") ? window.location.hash.slice(1) : "";
     const hashParams = new URLSearchParams(hash);
-    const errCode = hashParams.get("error_code") || hashParams.get("error");
-    const errDesc = hashParams.get("error_description");
+
+    // Errors can arrive in the hash or the query string.
+    const errCode = hashParams.get("error_code") || hashParams.get("error") || url.searchParams.get("error_code") || url.searchParams.get("error");
+    const errDesc = hashParams.get("error_description") || url.searchParams.get("error_description");
     if (errCode) {
       const friendly =
         errCode.includes("expired") || (errDesc && errDesc.toLowerCase().includes("expired"))
@@ -80,8 +81,11 @@ export default function ResetPassword() {
       return;
     }
 
+    const cleanUrl = () => {
+      window.history.replaceState({}, "", `${window.location.pathname}`);
+    };
+
     const check = async () => {
-      // getUser re-validates with the auth server (recommended for sensitive flows).
       const { data, error } = await supabase.auth.getUser();
       if (cancelled) return;
       if (error || !data?.user) {
@@ -92,19 +96,59 @@ export default function ResetPassword() {
       }
     };
 
+    const run = async () => {
+      const code = url.searchParams.get("code");
+      const tokenHash = url.searchParams.get("token_hash") || url.searchParams.get("token");
+      const type = url.searchParams.get("type");
+      const accessToken = hashParams.get("access_token");
+      const refreshToken = hashParams.get("refresh_token");
+
+      try {
+        if (accessToken && refreshToken) {
+          // Implicit flow: set the recovery session explicitly.
+          await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+          cleanUrl();
+        } else if (code) {
+          // PKCE flow.
+          const { error } = await supabase.auth.exchangeCodeForSession(code);
+          cleanUrl();
+          if (error) {
+            const { data } = await supabase.auth.getUser();
+            if (!data?.user) {
+              if (cancelled) return;
+              setLinkError("This reset link is invalid or has already been used. Please request a new one.");
+              setStatus("invalid");
+              return;
+            }
+          }
+        } else if (tokenHash && (type === "recovery" || !type)) {
+          const { error } = await supabase.auth.verifyOtp({ token_hash: tokenHash, type: "recovery" });
+          cleanUrl();
+          if (error) {
+            if (cancelled) return;
+            setLinkError("This reset link is invalid or has already been used. Please request a new one.");
+            setStatus("invalid");
+            return;
+          }
+        }
+      } catch {
+        /* fall through to the session check below */
+      }
+      if (cancelled) return;
+      await check();
+    };
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
-      if (event === "PASSWORD_RECOVERY" || event === "SIGNED_IN" || event === "INITIAL_SESSION" || event === "TOKEN_REFRESHED") {
+      if (event === "PASSWORD_RECOVERY" || event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
         check();
       }
     });
 
-    // Give the client a moment to exchange the URL code, then verify.
-    const t = setTimeout(check, 1200);
+    run();
 
     return () => {
       cancelled = true;
       subscription.unsubscribe();
-      clearTimeout(t);
     };
   }, []);
 
@@ -112,14 +156,15 @@ export default function ResetPassword() {
     e.preventDefault();
     setFormError(null);
 
-    if (password.length < 8) {
-      setFormError("Password must be at least 8 characters.");
+    if (password.length < 1) {
+      setFormError("Please enter a password.");
       return;
     }
     if (password !== confirm) {
       setFormError("Passwords don't match.");
       return;
     }
+
 
     setLoading(true);
     const { error } = await supabase.auth.updateUser({ password });
