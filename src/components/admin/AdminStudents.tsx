@@ -205,7 +205,13 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
               {["A1","A2","B1","B2","C1","C2"].map(l => <option key={l} value={l}>{l}</option>)}
             </select>
           </div>
-          <div><Label>Group ID</Label><Input type="number" value={form.group_id} onChange={e => setForm({...form, group_id: e.target.value})} placeholder="#" /></div>
+          <div>
+            <Label>Group</Label>
+            <select value={form.school_group_id} onChange={e => setForm({...form, school_group_id: e.target.value})} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+              <option value="">No group</option>
+              {groups.map(g => <option key={g.id} value={g.id}>{groupLabel(g)}</option>)}
+            </select>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
