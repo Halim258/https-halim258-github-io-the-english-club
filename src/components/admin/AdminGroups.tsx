@@ -89,6 +89,31 @@ export default function AdminGroups({ groups, employees, students = [], receipts
     else { toast({ title: "Group deleted" }); onRefresh(); }
   };
 
+  const toggleOne = (id: string) =>
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+
+  const bulkDelete = async () => {
+    if (!selectedIds.length) return;
+    setBulkBusy(true);
+    await supabase.from("school_students").update({ school_group_id: null, group_id: null }).in("school_group_id", selectedIds);
+    const { error } = await supabase.from("school_groups").delete().in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} group(s) deleted` }); setSelectedIds([]); onRefresh(); }
+  };
+
+  const bulkSetTeacher = async () => {
+    if (!selectedIds.length) return;
+    const emp = teachers.find(t => t.id === bulkTeacher);
+    setBulkBusy(true);
+    const { error } = await supabase.from("school_groups").update({
+      teacher_employee_id: emp?.id ?? null, teacher_id: emp?.legacy_id ?? null, teacher_name: emp?.name ?? null,
+    }).in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} group(s) updated` }); setSelectedIds([]); setBulkTeacher(""); onRefresh(); }
+  };
+
   const formFields = (
     <div className="space-y-3">
       <div><Label>Level</Label><Input value={form.level} onChange={e => setForm({...form, level: e.target.value})} placeholder="A1, B2..." /></div>
