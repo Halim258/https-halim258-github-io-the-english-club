@@ -19,6 +19,14 @@ interface Props {
 
 const emptyForm = { level: "", days: "", start_time: "", end_time: "", teacher_employee_id: "" };
 
+const WEEK_DAYS = ["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"] as const;
+
+const parseDays = (value: string) =>
+  value.split(",").map(s => s.trim()).filter(Boolean);
+
+const formatDays = (list: string[]) =>
+  WEEK_DAYS.filter(d => list.includes(d)).join(", ");
+
 export default function AdminGroups({ groups, employees, students = [], receipts = [], onRefresh }: Props) {
   const [search, setSearch] = useState("");
   const [addOpen, setAddOpen] = useState(false);
@@ -117,11 +125,37 @@ export default function AdminGroups({ groups, employees, students = [], receipts
   const formFields = (
     <div className="space-y-3">
       <div><Label>Level</Label><Input value={form.level} onChange={e => setForm({...form, level: e.target.value})} placeholder="A1, B2..." /></div>
-      <div><Label>Days</Label><Input value={form.days} onChange={e => setForm({...form, days: e.target.value})} placeholder="Sat, Mon, Wed" /></div>
-      <div className="grid grid-cols-2 gap-3">
-        <div><Label>Start Time</Label><Input value={form.start_time} onChange={e => setForm({...form, start_time: e.target.value})} placeholder="10:00" /></div>
-        <div><Label>End Time</Label><Input value={form.end_time} onChange={e => setForm({...form, end_time: e.target.value})} placeholder="12:00" /></div>
+      <div>
+        <Label>Days</Label>
+        <div className="mt-1 flex flex-wrap gap-1.5">
+          {WEEK_DAYS.map(d => {
+            const list = parseDays(form.days);
+            const on = list.includes(d);
+            return (
+              <button key={d} type="button"
+                onClick={() => setForm({ ...form, days: formatDays(on ? list.filter(x => x !== d) : [...list, d]) })}
+                className={`min-h-[36px] rounded-md border px-3 text-xs font-medium transition-colors ${on ? "border-primary bg-primary text-primary-foreground" : "bg-background hover:bg-muted"}`}>
+                {d}
+              </button>
+            );
+          })}
+        </div>
       </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <Label>Start Time</Label>
+          <Input type="time" step={900} value={form.start_time} onChange={e => setForm({...form, start_time: e.target.value})} />
+        </div>
+        <div>
+          <Label>End Time</Label>
+          <Input type="time" step={900} value={form.end_time} onChange={e => setForm({...form, end_time: e.target.value})} />
+        </div>
+      </div>
+      {form.start_time && form.end_time && (
+        <p className="text-xs text-muted-foreground">
+          {form.days || "No days chosen"} · {form.start_time} – {form.end_time}
+        </p>
+      )}
       <div>
         <Label>Teacher</Label>
         <select value={form.teacher_employee_id} onChange={e => setForm({...form, teacher_employee_id: e.target.value})}
