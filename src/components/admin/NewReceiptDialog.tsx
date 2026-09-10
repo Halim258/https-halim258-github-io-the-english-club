@@ -43,7 +43,9 @@ const emptyForm = {
   settles: "",
   newName: "",
   newPhone: "",
+  givenBy: "",
 };
+
 
 export default function NewReceiptDialog({ open, onOpenChange, students, receipts, onSaved }: Props) {
   const { toast } = useToast();
@@ -54,6 +56,16 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState<{ number: number; token: string } | null>(null);
   const [qr, setQr] = useState<string>("");
+  const [issuers, setIssuers] = useState<string[]>([]);
+  const [addingIssuer, setAddingIssuer] = useState(false);
+  const [newIssuer, setNewIssuer] = useState("");
+
+  const loadIssuers = async (pick?: string) => {
+    const { data } = await supabase.from("receipt_issuers").select("name").eq("active", true).order("name");
+    const names = (data || []).map((r: any) => r.name as string);
+    setIssuers(names);
+    setForm((f) => ({ ...f, givenBy: pick || f.givenBy || names[0] || "" }));
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -63,10 +75,27 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
     setNewMode(false);
     setDone(null);
     setQr("");
+    setAddingIssuer(false);
+    setNewIssuer("");
+    void loadIssuers();
     supabase.rpc("next_receipt_number").then(({ data }) => {
       if (typeof data === "number") setForm((f) => ({ ...f, number: String(data) }));
     });
   }, [open]);
+
+  const addIssuer = async () => {
+    const name = newIssuer.trim();
+    if (!name) return;
+    const { error } = await supabase.from("receipt_issuers").insert({ name });
+    if (error && !error.message.includes("duplicate")) {
+      toast({ title: "Could not add the person", description: error.message, variant: "destructive" });
+      return;
+    }
+    setNewIssuer("");
+    setAddingIssuer(false);
+    await loadIssuers(name);
+  };
+
 
   const item = receiptItem(form.itemKey)!;
 
@@ -128,6 +157,8 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
       _note: form.note || null,
       _settles_receipt_id: form.settles || null,
       _status: form.faulty ? "faulty" : "issued",
+      _given_by: form.givenBy || null,
+
     });
     setSaving(false);
     if (error) {
@@ -212,7 +243,32 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
               Mark this number as faulty (nothing is collected)
             </label>
 
+            {/* given by */}
+            <div>
+              <div className="mb-1 flex items-center justify-between">
+                <Label>Given by</Label>
+                <button type="button" onClick={() => setAddingIssuer((v) => !v)}
+                  className="flex items-center gap-1 text-xs font-medium text-primary hover:underline">
+                  <UserPlus className="h-3.5 w-3.5" /> {addingIssuer ? "Choose from list" : "Add person"}
+                </button>
+              </div>
+              {addingIssuer ? (
+                <div className="flex gap-2">
+                  <Input placeholder="Full name" value={newIssuer} onChange={(e) => setNewIssuer(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); void addIssuer(); } }} />
+                  <Button type="button" variant="outline" onClick={addIssuer}>Add</Button>
+                </div>
+              ) : (
+                <select value={form.givenBy} onChange={(e) => setForm({ ...form, givenBy: e.target.value })}
+                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  <option value="">—</option>
+                  {issuers.map((n) => <option key={n} value={n}>{n}</option>)}
+                </select>
+              )}
+            </div>
+
             {!form.faulty && (
+
               <>
                 {/* student */}
                 <div>
@@ -229,8 +285,9 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
                       <Input placeholder="Full name" value={form.newName} onChange={(e) => setForm({ ...form, newName: e.target.value })} />
                       <Input placeholder="Phone number" value={form.newPhone} onChange={(e) => setForm({ ...form, newPhone: e.target.value })} />
                       <p className="col-span-2 text-xs text-muted-foreground">
-                        The student is added to the database now and linked to their account when they sign up with this phone number.
+                        The student is registered now with student number #{form.number || "—"} (this receipt number), and is linked to their account when they sign up with this phone number.
                       </p>
+
                     </div>
                   ) : (
                     <>

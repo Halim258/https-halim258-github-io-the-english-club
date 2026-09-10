@@ -402,16 +402,18 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
             })}
             onComplete={onRefresh}
           />
-          <Dialog open={addOpen} onOpenChange={setAddOpen}>
-            <DialogTrigger asChild>
-              <Button size="sm" onClick={() => setForm(emptyForm)}><Plus className="h-4 w-4 mr-1" /> Add</Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-lg">
-              <DialogHeader><DialogTitle>Add New Student</DialogTitle></DialogHeader>
-              {formFields}
-              <Button onClick={handleAdd} className="w-full mt-2">Add Student</Button>
-            </DialogContent>
-          </Dialog>
+          <Button
+            size="sm"
+            onClick={() =>
+              toast({
+                title: "Add members from Receipts",
+                description: "A new member is registered with their first receipt — their student number is that receipt number.",
+              })
+            }
+          >
+            <Plus className="h-4 w-4 mr-1" /> Add
+          </Button>
+
         </div>
       </div>
 

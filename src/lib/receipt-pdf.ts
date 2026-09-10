@@ -15,6 +15,8 @@ export interface ReceiptForPdf {
   reservation_date?: string | null;
   issued_at?: string | null;
   public_token?: string | null;
+  given_by_name?: string | null;
+
 }
 
 export const receiptShareUrl = (token?: string | null) =>
@@ -60,7 +62,9 @@ export async function downloadReceiptPdf(r: ReceiptForPdf) {
     ["Method", (r.payment_method || "cash").replace("_", " ")],
     ["Date", date ? new Date(date).toLocaleString("en-GB") : "—"],
   ];
+  if (r.given_by_name) rows.push(["Given by", r.given_by_name]);
   if (r.note) rows.push(["Note", r.note]);
+
 
   let y = 110;
   doc.setFontSize(11);
