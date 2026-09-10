@@ -111,7 +111,8 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
     const { error } = await supabase.from("school_students").insert({
       name: form.name, phone_number: form.phone_number || null, whatsapp: form.whatsapp || null,
       email: form.email || null, status: form.status, fees, paid_fees, remaining_fees: fees - paid_fees,
-      group_id: form.group_id ? parseInt(form.group_id) : null, membership: form.membership || null,
+      school_group_id: form.school_group_id || null,
+      group_id: groups.find(g => g.id === form.school_group_id)?.legacy_id ?? null, membership: form.membership || null,
       placement_test_result: form.placement_test_result || null, address: form.address || null,
       birth_date: form.birth_date ? new Date(form.birth_date).toISOString() : null,
       preferred_time: form.preferred_time || null, preferred_activity: form.preferred_activity || null,
