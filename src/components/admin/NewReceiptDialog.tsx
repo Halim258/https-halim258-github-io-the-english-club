@@ -43,7 +43,9 @@ const emptyForm = {
   settles: "",
   newName: "",
   newPhone: "",
+  givenBy: "",
 };
+
 
 export default function NewReceiptDialog({ open, onOpenChange, students, receipts, onSaved }: Props) {
   const { toast } = useToast();
