@@ -312,7 +312,7 @@ export default function AdminDashboard() {
 
       {tab === "receipts" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <AdminReceipts receipts={receipts} onRefresh={loadData} />
+          <AdminReceipts receipts={receipts} students={schoolStudents} onRefresh={loadData} />
         </motion.div>
       )}
 
