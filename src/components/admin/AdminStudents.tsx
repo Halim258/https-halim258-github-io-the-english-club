@@ -491,6 +491,10 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
           <tbody>
             {paged.map((s, i) => (
               <tr key={s.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedStudent(s)}>
+                <td className="p-3" onClick={e => e.stopPropagation()}>
+                  <input type="checkbox" aria-label={`Select ${s.name}`} className="h-4 w-4 accent-primary cursor-pointer"
+                    checked={selectedIds.includes(s.id)} onChange={() => toggleOne(s.id)} />
+                </td>
                 <td className="p-3 text-muted-foreground">{page * perPage + i + 1}</td>
                 <td className="p-3 font-medium text-primary hover:underline">{s.name}</td>
                 <td className="p-3 text-muted-foreground font-mono text-xs">{s.phone_number || "—"}</td>
