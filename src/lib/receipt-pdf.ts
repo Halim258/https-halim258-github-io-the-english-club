@@ -15,6 +15,8 @@ export interface ReceiptForPdf {
   reservation_date?: string | null;
   issued_at?: string | null;
   public_token?: string | null;
+  given_by_name?: string | null;
+
 }
 
 export const receiptShareUrl = (token?: string | null) =>
