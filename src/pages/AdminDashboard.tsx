@@ -79,7 +79,7 @@ export default function AdminDashboard() {
       supabase.from("lesson_progress").select("user_id, level_id, completed"),
       supabase.from("school_students").select("*").order("created_at", { ascending: false }),
       supabase.from("school_employees").select("*").order("name"),
-      supabase.from("school_groups").select("*"),
+      supabase.from("school_groups").select("*").order("legacy_id", { ascending: true }),
       supabase.from("school_sessions").select("*").order("session_date", { ascending: false }),
       supabase.from("school_income").select("*").order("date", { ascending: false }),
       supabase.from("school_outcome").select("*").order("date", { ascending: false }),
