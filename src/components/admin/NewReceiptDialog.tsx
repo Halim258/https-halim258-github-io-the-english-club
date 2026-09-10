@@ -285,8 +285,9 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
                       <Input placeholder="Full name" value={form.newName} onChange={(e) => setForm({ ...form, newName: e.target.value })} />
                       <Input placeholder="Phone number" value={form.newPhone} onChange={(e) => setForm({ ...form, newPhone: e.target.value })} />
                       <p className="col-span-2 text-xs text-muted-foreground">
-                        The student is added to the database now and linked to their account when they sign up with this phone number.
+                        The student is registered now with student number #{form.number || "—"} (this receipt number), and is linked to their account when they sign up with this phone number.
                       </p>
+
                     </div>
                   ) : (
                     <>
