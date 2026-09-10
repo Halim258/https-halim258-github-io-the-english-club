@@ -105,6 +105,18 @@ export default function AdminEmployees({ employees, groups = [], students = [], 
     }
   };
 
+  const assignGroup = async (groupId: string, emp: Employee | null) => {
+    const { error } = await supabase.from("school_groups").update({
+      teacher_employee_id: emp?.id ?? null,
+      teacher_id: emp?.legacy_id ?? null,
+      teacher_name: emp?.name ?? null,
+    }).eq("id", groupId);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: emp ? `Group assigned to ${emp.name}` : "Group unassigned" }); onRefresh(); }
+  };
+
+
+
   const positionColors: Record<string, string> = {
     teacher: "bg-blue-500/10 text-blue-700",
     manager: "bg-purple-500/10 text-purple-700",
