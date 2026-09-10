@@ -26,6 +26,9 @@ export default function AdminGroups({ groups, employees, students = [], receipts
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [openGroupId, setOpenGroupId] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [bulkTeacher, setBulkTeacher] = useState("");
+  const [bulkBusy, setBulkBusy] = useState(false);
   const { toast } = useToast();
 
   const teachers = employees.filter(e => e.position === "teacher");
@@ -86,6 +89,31 @@ export default function AdminGroups({ groups, employees, students = [], receipts
     else { toast({ title: "Group deleted" }); onRefresh(); }
   };
 
+  const toggleOne = (id: string) =>
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+
+  const bulkDelete = async () => {
+    if (!selectedIds.length) return;
+    setBulkBusy(true);
+    await supabase.from("school_students").update({ school_group_id: null, group_id: null }).in("school_group_id", selectedIds);
+    const { error } = await supabase.from("school_groups").delete().in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} group(s) deleted` }); setSelectedIds([]); onRefresh(); }
+  };
+
+  const bulkSetTeacher = async () => {
+    if (!selectedIds.length) return;
+    const emp = teachers.find(t => t.id === bulkTeacher);
+    setBulkBusy(true);
+    const { error } = await supabase.from("school_groups").update({
+      teacher_employee_id: emp?.id ?? null, teacher_id: emp?.legacy_id ?? null, teacher_name: emp?.name ?? null,
+    }).in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} group(s) updated` }); setSelectedIds([]); setBulkTeacher(""); onRefresh(); }
+  };
+
   const formFields = (
     <div className="space-y-3">
       <div><Label>Level</Label><Input value={form.level} onChange={e => setForm({...form, level: e.target.value})} placeholder="A1, B2..." /></div>
@@ -138,12 +166,56 @@ export default function AdminGroups({ groups, employees, students = [], receipts
         </DialogContent>
       </Dialog>
 
+      {filtered.length > 0 && (
+        <div className="mb-3 flex flex-wrap items-center gap-2">
+          <label className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer">
+            <input type="checkbox" className="h-4 w-4 accent-primary"
+              checked={selectedIds.length > 0 && filtered.every(g => selectedIds.includes(g.id))}
+              onChange={e => setSelectedIds(e.target.checked ? filtered.map(g => g.id) : [])} />
+            Select all
+          </label>
+          {selectedIds.length > 0 && (
+            <>
+              <span className="text-xs font-semibold">{selectedIds.length} selected</span>
+              <select value={bulkTeacher} onChange={e => setBulkTeacher(e.target.value)} disabled={bulkBusy}
+                className="h-9 rounded-md border border-input bg-background px-2 text-xs">
+                <option value="">Set teacher…</option>
+                {teachers.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+              </select>
+              <Button size="sm" variant="outline" disabled={bulkBusy} onClick={bulkSetTeacher}>Apply teacher</Button>
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <Button size="sm" variant="ghost" disabled={bulkBusy} className="text-destructive hover:text-destructive">
+                    <Trash2 className="h-3.5 w-3.5 mr-1" /> Delete selected
+                  </Button>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete {selectedIds.length} groups</AlertDialogTitle>
+                    <AlertDialogDescription>Students stay in the system but lose these groups.</AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction onClick={bulkDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+              <button onClick={() => setSelectedIds([])} className="text-xs text-muted-foreground hover:underline">Clear</button>
+            </>
+          )}
+        </div>
+      )}
+
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.map(g => (
           <div key={g.id} onClick={() => setOpenGroupId(g.id)}
-            className="rounded-xl border bg-card p-4 shadow-soft hover:shadow-md hover:border-primary/50 transition-all cursor-pointer">
+            className={`rounded-xl border bg-card p-4 shadow-soft hover:shadow-md hover:border-primary/50 transition-all cursor-pointer ${selectedIds.includes(g.id) ? "border-primary ring-1 ring-primary/40" : ""}`}>
             <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-bold uppercase text-primary">Group #{g.legacy_id ?? "—"}</span>
+              <span className="flex items-center gap-2 text-xs font-bold uppercase text-primary">
+                <input type="checkbox" className="h-4 w-4 accent-primary" checked={selectedIds.includes(g.id)}
+                  onClick={e => e.stopPropagation()} onChange={() => toggleOne(g.id)} aria-label="Select group" />
+                Group #{g.legacy_id ?? "—"}
+              </span>
               {g.level && <span className="text-[10px] font-bold rounded-full px-2 py-0.5 bg-primary/10 text-primary">{g.level}</span>}
             </div>
             <p className="text-sm flex items-center gap-1.5"><GraduationCap className="h-3.5 w-3.5 text-muted-foreground" /> {teacherOf(g)}</p>

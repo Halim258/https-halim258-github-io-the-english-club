@@ -70,8 +70,15 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
   const [sortField, setSortField] = useState<SortField>("name");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [bulkGroup, setBulkGroup] = useState("");
+  const [bulkStatus, setBulkStatus] = useState("");
+  const [bulkBusy, setBulkBusy] = useState(false);
   const perPage = 25;
   const { toast } = useToast();
+
+  const toggleOne = (id: string) =>
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
   const toggleSort = (field: SortField) => {
     if (sortField === field) setSortDir(d => d === "asc" ? "desc" : "asc");
@@ -161,6 +168,42 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
     const { error } = await supabase.from("school_students").delete().eq("id", id);
     if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
     else { toast({ title: "Student deleted" }); onRefresh(); }
+  };
+
+  const pageSelected = paged.length > 0 && paged.every(s => selectedIds.includes(s.id));
+
+  const togglePage = () => {
+    const ids = paged.map(s => s.id);
+    setSelectedIds(prev => pageSelected ? prev.filter(id => !ids.includes(id)) : Array.from(new Set([...prev, ...ids])));
+  };
+
+  const bulkAssignGroup = async () => {
+    if (!selectedIds.length) return;
+    setBulkBusy(true);
+    const { error } = await supabase.from("school_students")
+      .update({ school_group_id: bulkGroup || null, group_id: groups.find(g => g.id === bulkGroup)?.legacy_id ?? null })
+      .in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} student(s) moved` }); setSelectedIds([]); setBulkGroup(""); onRefresh(); }
+  };
+
+  const bulkSetStatus = async () => {
+    if (!selectedIds.length || !bulkStatus) return;
+    setBulkBusy(true);
+    const { error } = await supabase.from("school_students").update({ status: bulkStatus }).in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} student(s) updated` }); setSelectedIds([]); setBulkStatus(""); onRefresh(); }
+  };
+
+  const bulkDelete = async () => {
+    if (!selectedIds.length) return;
+    setBulkBusy(true);
+    const { error } = await supabase.from("school_students").delete().in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} student(s) deleted` }); setSelectedIds([]); onRefresh(); }
   };
 
   const totalFees = students.reduce((s, st) => s + (st.fees || 0), 0);
@@ -380,10 +423,58 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
         </DialogContent>
       </Dialog>
 
+      {selectedIds.length > 0 && (
+        <div className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border bg-muted/40 p-3">
+          <span className="text-sm font-semibold">{selectedIds.length} selected</span>
+          <button onClick={() => setSelectedIds(filtered.map(s => s.id))} className="text-xs text-primary hover:underline">
+            Select all {filtered.length} results
+          </button>
+          <button onClick={() => setSelectedIds([])} className="text-xs text-muted-foreground hover:underline">Clear</button>
+          <div className="flex-1" />
+          <select value={bulkGroup} onChange={e => setBulkGroup(e.target.value)} disabled={bulkBusy}
+            className="h-9 rounded-md border border-input bg-background px-2 text-xs">
+            <option value="">Move to group…</option>
+            <option value="">No group</option>
+            {groups.map(g => <option key={g.id} value={g.id}>{groupLabel(g)}</option>)}
+          </select>
+          <Button size="sm" variant="outline" disabled={bulkBusy} onClick={bulkAssignGroup}>Apply group</Button>
+          <select value={bulkStatus} onChange={e => setBulkStatus(e.target.value)} disabled={bulkBusy}
+            className="h-9 rounded-md border border-input bg-background px-2 text-xs">
+            <option value="">Set status…</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="graduated">Graduated</option>
+          </select>
+          <Button size="sm" variant="outline" disabled={bulkBusy || !bulkStatus} onClick={bulkSetStatus}>Apply status</Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button size="sm" variant="ghost" disabled={bulkBusy} className="text-destructive hover:text-destructive">
+                <Trash2 className="h-3.5 w-3.5 mr-1" /> Delete
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete {selectedIds.length} students</AlertDialogTitle>
+                <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={bulkDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      )}
+
       <div className="rounded-2xl border bg-card shadow-soft overflow-hidden overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b bg-muted/50 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              <th className="p-3">
+                <input type="checkbox" aria-label="Select all on this page" className="h-4 w-4 accent-primary cursor-pointer"
+                  checked={pageSelected} ref={el => { if (el) el.indeterminate = !pageSelected && paged.some(s => selectedIds.includes(s.id)); }}
+                  onChange={togglePage} />
+              </th>
               <th className="p-3">#</th>
               <SortHeader field="name">Name</SortHeader>
               <th className="p-3">Phone</th>
@@ -399,6 +490,10 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
           <tbody>
             {paged.map((s, i) => (
               <tr key={s.id} className="border-b last:border-0 hover:bg-muted/20 transition-colors cursor-pointer" onClick={() => setSelectedStudent(s)}>
+                <td className="p-3" onClick={e => e.stopPropagation()}>
+                  <input type="checkbox" aria-label={`Select ${s.name}`} className="h-4 w-4 accent-primary cursor-pointer"
+                    checked={selectedIds.includes(s.id)} onChange={() => toggleOne(s.id)} />
+                </td>
                 <td className="p-3 text-muted-foreground">{page * perPage + i + 1}</td>
                 <td className="p-3 font-medium text-primary hover:underline">{s.name}</td>
                 <td className="p-3 text-muted-foreground font-mono text-xs">{s.phone_number || "—"}</td>
