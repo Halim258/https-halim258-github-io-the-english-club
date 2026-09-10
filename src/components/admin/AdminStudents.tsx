@@ -424,10 +424,58 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
         </DialogContent>
       </Dialog>
 
+      {selectedIds.length > 0 && (
+        <div className="mb-3 flex flex-wrap items-center gap-2 rounded-xl border bg-muted/40 p-3">
+          <span className="text-sm font-semibold">{selectedIds.length} selected</span>
+          <button onClick={() => setSelectedIds(filtered.map(s => s.id))} className="text-xs text-primary hover:underline">
+            Select all {filtered.length} results
+          </button>
+          <button onClick={() => setSelectedIds([])} className="text-xs text-muted-foreground hover:underline">Clear</button>
+          <div className="flex-1" />
+          <select value={bulkGroup} onChange={e => setBulkGroup(e.target.value)} disabled={bulkBusy}
+            className="h-9 rounded-md border border-input bg-background px-2 text-xs">
+            <option value="">Move to group…</option>
+            <option value="">No group</option>
+            {groups.map(g => <option key={g.id} value={g.id}>{groupLabel(g)}</option>)}
+          </select>
+          <Button size="sm" variant="outline" disabled={bulkBusy} onClick={bulkAssignGroup}>Apply group</Button>
+          <select value={bulkStatus} onChange={e => setBulkStatus(e.target.value)} disabled={bulkBusy}
+            className="h-9 rounded-md border border-input bg-background px-2 text-xs">
+            <option value="">Set status…</option>
+            <option value="active">Active</option>
+            <option value="inactive">Inactive</option>
+            <option value="graduated">Graduated</option>
+          </select>
+          <Button size="sm" variant="outline" disabled={bulkBusy || !bulkStatus} onClick={bulkSetStatus}>Apply status</Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button size="sm" variant="ghost" disabled={bulkBusy} className="text-destructive hover:text-destructive">
+                <Trash2 className="h-3.5 w-3.5 mr-1" /> Delete
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete {selectedIds.length} students</AlertDialogTitle>
+                <AlertDialogDescription>This cannot be undone.</AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction onClick={bulkDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Delete</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
+        </div>
+      )}
+
       <div className="rounded-2xl border bg-card shadow-soft overflow-hidden overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b bg-muted/50 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+              <th className="p-3">
+                <input type="checkbox" aria-label="Select all on this page" className="h-4 w-4 accent-primary cursor-pointer"
+                  checked={pageSelected} ref={el => { if (el) el.indeterminate = !pageSelected && paged.some(s => selectedIds.includes(s.id)); }}
+                  onChange={togglePage} />
+              </th>
               <th className="p-3">#</th>
               <SortHeader field="name">Name</SortHeader>
               <th className="p-3">Phone</th>
