@@ -18,6 +18,8 @@ interface Student {
   whatsapp: string | null;
   status: string | null;
   group_id: number | null;
+  school_group_id?: string | null;
+
   fees: number | null;
   paid_fees: number | null;
   remaining_fees: number | null;
