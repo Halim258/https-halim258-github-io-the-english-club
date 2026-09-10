@@ -45,7 +45,21 @@ export default function AdminEmployees({ employees, groups = [], students = [], 
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [selectedEmp, setSelectedEmp] = useState<Employee | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [bulkBusy, setBulkBusy] = useState(false);
   const { toast } = useToast();
+
+  const toggleOne = (id: string) =>
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
+
+  const bulkDelete = async () => {
+    if (!selectedIds.length) return;
+    setBulkBusy(true);
+    const { error } = await supabase.from("school_employees").delete().in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} employee(s) deleted` }); setSelectedIds([]); onRefresh(); }
+  };
 
   const handleAdd = async () => {
     if (!form.name) { toast({ title: "Name is required", variant: "destructive" }); return; }
