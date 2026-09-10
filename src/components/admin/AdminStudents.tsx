@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import DetailSheet from "./DetailSheet";
+import { groupLabel, groupShortLabel } from "@/lib/group-label";
 
 interface Student {
   id: string;
@@ -18,6 +19,8 @@ interface Student {
   whatsapp: string | null;
   status: string | null;
   group_id: number | null;
+  school_group_id?: string | null;
+
   fees: number | null;
   paid_fees: number | null;
   remaining_fees: number | null;
@@ -36,16 +39,27 @@ interface Student {
   reference_number: string | null;
 }
 
+interface GroupOption {
+  id: string;
+  legacy_id: number | null;
+  level: string | null;
+  days: string | null;
+  start_time: string | null;
+  end_time: string | null;
+}
+
 interface Props {
   students: Student[];
+  groups?: GroupOption[];
   onRefresh: () => void;
 }
 
 type SortField = "name" | "fees" | "remaining_fees" | "created_at";
 
-const emptyForm = { name: "", phone_number: "", whatsapp: "", email: "", status: "active", fees: "", paid_fees: "", group_id: "", membership: "", placement_test_result: "", address: "", birth_date: "", preferred_time: "", preferred_activity: "", other_interests: "", access_method: "", notes: "" };
+const emptyForm = { name: "", phone_number: "", whatsapp: "", email: "", status: "active", fees: "", paid_fees: "", school_group_id: "", membership: "", placement_test_result: "", address: "", birth_date: "", preferred_time: "", preferred_activity: "", other_interests: "", access_method: "", notes: "" };
 
-export default function AdminStudents({ students, onRefresh }: Props) {
+
+export default function AdminStudents({ students, groups = [], onRefresh }: Props) {
   const [search, setSearch] = useState("");
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
@@ -98,7 +112,8 @@ export default function AdminStudents({ students, onRefresh }: Props) {
     const { error } = await supabase.from("school_students").insert({
       name: form.name, phone_number: form.phone_number || null, whatsapp: form.whatsapp || null,
       email: form.email || null, status: form.status, fees, paid_fees, remaining_fees: fees - paid_fees,
-      group_id: form.group_id ? parseInt(form.group_id) : null, membership: form.membership || null,
+      school_group_id: form.school_group_id || null,
+      group_id: groups.find(g => g.id === form.school_group_id)?.legacy_id ?? null, membership: form.membership || null,
       placement_test_result: form.placement_test_result || null, address: form.address || null,
       birth_date: form.birth_date ? new Date(form.birth_date).toISOString() : null,
       preferred_time: form.preferred_time || null, preferred_activity: form.preferred_activity || null,
@@ -114,7 +129,7 @@ export default function AdminStudents({ students, onRefresh }: Props) {
     setForm({
       name: s.name, phone_number: s.phone_number || "", whatsapp: s.whatsapp || "",
       email: s.email || "", status: s.status || "active", fees: String(s.fees || 0), paid_fees: String(s.paid_fees || 0),
-      group_id: s.group_id ? String(s.group_id) : "", membership: s.membership || "",
+      school_group_id: s.school_group_id || "", membership: s.membership || "",
       placement_test_result: s.placement_test_result || "", address: s.address || "",
       birth_date: s.birth_date ? new Date(s.birth_date).toISOString().split("T")[0] : "",
       preferred_time: s.preferred_time || "", preferred_activity: s.preferred_activity || "",
@@ -130,7 +145,8 @@ export default function AdminStudents({ students, onRefresh }: Props) {
     const { error } = await supabase.from("school_students").update({
       name: form.name, phone_number: form.phone_number || null, whatsapp: form.whatsapp || null,
       email: form.email || null, status: form.status, fees, paid_fees, remaining_fees: fees - paid_fees,
-      group_id: form.group_id ? parseInt(form.group_id) : null, membership: form.membership || null,
+      school_group_id: form.school_group_id || null,
+      group_id: groups.find(g => g.id === form.school_group_id)?.legacy_id ?? null, membership: form.membership || null,
       placement_test_result: form.placement_test_result || null, address: form.address || null,
       birth_date: form.birth_date ? new Date(form.birth_date).toISOString() : null,
       preferred_time: form.preferred_time || null, preferred_activity: form.preferred_activity || null,
@@ -190,7 +206,13 @@ export default function AdminStudents({ students, onRefresh }: Props) {
               {["A1","A2","B1","B2","C1","C2"].map(l => <option key={l} value={l}>{l}</option>)}
             </select>
           </div>
-          <div><Label>Group ID</Label><Input type="number" value={form.group_id} onChange={e => setForm({...form, group_id: e.target.value})} placeholder="#" /></div>
+          <div>
+            <Label>Group</Label>
+            <select value={form.school_group_id} onChange={e => setForm({...form, school_group_id: e.target.value})} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm">
+              <option value="">No group</option>
+              {groups.map(g => <option key={g.id} value={g.id}>{groupLabel(g)}</option>)}
+            </select>
+          </div>
         </div>
         <div className="grid grid-cols-2 gap-3">
           <div>
@@ -380,7 +402,7 @@ export default function AdminStudents({ students, onRefresh }: Props) {
                 <td className="p-3 text-muted-foreground">{page * perPage + i + 1}</td>
                 <td className="p-3 font-medium text-primary hover:underline">{s.name}</td>
                 <td className="p-3 text-muted-foreground font-mono text-xs">{s.phone_number || "—"}</td>
-                <td className="p-3">{s.group_id || "—"}</td>
+                <td className="p-3 text-xs">{groupShortLabel(groups.find(g => g.id === s.school_group_id)) }</td>
                 <td className="p-3 font-mono">{s.fees?.toLocaleString() || 0}</td>
                 <td className="p-3 font-mono text-emerald-600">{s.paid_fees?.toLocaleString() || 0}</td>
                 <td className="p-3 font-mono text-destructive">{s.remaining_fees?.toLocaleString() || 0}</td>
@@ -440,7 +462,7 @@ export default function AdminStudents({ students, onRefresh }: Props) {
           { label: "WhatsApp", value: selectedStudent.whatsapp, type: "phone" as const },
           { label: "Email", value: selectedStudent.email, type: "email" as const },
           { label: "Status", value: selectedStudent.status, type: "badge" as const, badgeColor: selectedStudent.status === "active" ? "bg-emerald-500/10 text-emerald-700" : "bg-red-500/10 text-red-700" },
-          { label: "Group ID", value: selectedStudent.group_id },
+          { label: "Group", value: groupLabel(groups.find(g => g.id === selectedStudent.school_group_id)) },
           { label: "Level", value: selectedStudent.placement_test_result, type: "badge" as const },
           { label: "Membership", value: selectedStudent.membership },
           { label: "Total Fees", value: selectedStudent.fees, type: "currency" as const },

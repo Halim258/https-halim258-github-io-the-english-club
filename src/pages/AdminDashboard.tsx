@@ -79,7 +79,7 @@ export default function AdminDashboard() {
       supabase.from("lesson_progress").select("user_id, level_id, completed"),
       supabase.from("school_students").select("*").order("created_at", { ascending: false }),
       supabase.from("school_employees").select("*").order("name"),
-      supabase.from("school_groups").select("*"),
+      supabase.from("school_groups").select("*").order("legacy_id", { ascending: true }),
       supabase.from("school_sessions").select("*").order("session_date", { ascending: false }),
       supabase.from("school_income").select("*").order("date", { ascending: false }),
       supabase.from("school_outcome").select("*").order("date", { ascending: false }),
@@ -119,6 +119,8 @@ export default function AdminDashboard() {
       .on("postgres_changes", { event: "*", schema: "public", table: "school_receipts" }, () => loadData())
       .on("postgres_changes", { event: "*", schema: "public", table: "school_sessions" }, () => loadData())
       .on("postgres_changes", { event: "*", schema: "public", table: "school_attendance" }, () => loadData())
+      .on("postgres_changes", { event: "*", schema: "public", table: "school_groups" }, () => loadData())
+      .on("postgres_changes", { event: "*", schema: "public", table: "school_employees" }, () => loadData())
       .subscribe();
 
     return () => { supabase.removeChannel(channel); };
@@ -244,7 +246,7 @@ export default function AdminDashboard() {
 
       {tab === "school-students" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <AdminStudents students={schoolStudents} onRefresh={loadData} />
+          <AdminStudents students={schoolStudents} groups={groups} onRefresh={loadData} />
         </motion.div>
       )}
 
@@ -256,13 +258,13 @@ export default function AdminDashboard() {
 
       {tab === "employees" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <AdminEmployees employees={employees} onRefresh={loadData} />
+          <AdminEmployees employees={employees} groups={groups} students={schoolStudents} onRefresh={loadData} />
         </motion.div>
       )}
 
       {tab === "groups" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <AdminGroups groups={groups} employees={employees} onRefresh={loadData} />
+          <AdminGroups groups={groups} employees={employees} students={schoolStudents} receipts={receipts} onRefresh={loadData} />
         </motion.div>
       )}
 

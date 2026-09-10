@@ -8,23 +8,38 @@ import { Label } from "@/components/ui/label";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import DetailSheet from "./DetailSheet";
+import { groupLabel } from "@/lib/group-label";
 
 interface Employee {
   id: string;
+  legacy_id?: number | null;
   name: string;
   position: string;
   phone_number: string | null;
   phone_number_2: string | null;
 }
 
+interface GroupRef {
+  id: string;
+  legacy_id: number | null;
+  level: string | null;
+  days: string | null;
+  start_time: string | null;
+  end_time: string | null;
+  teacher_employee_id?: string | null;
+}
+
 interface Props {
   employees: Employee[];
+  groups?: GroupRef[];
+  students?: { id: string; school_group_id?: string | null }[];
   onRefresh: () => void;
 }
 
 const emptyForm = { name: "", position: "teacher", phone_number: "", phone_number_2: "" };
 
-export default function AdminEmployees({ employees, onRefresh }: Props) {
+
+export default function AdminEmployees({ employees, groups = [], students = [], onRefresh }: Props) {
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
@@ -89,6 +104,18 @@ export default function AdminEmployees({ employees, onRefresh }: Props) {
       onRefresh();
     }
   };
+
+  const assignGroup = async (groupId: string, emp: Employee | null) => {
+    const { error } = await supabase.from("school_groups").update({
+      teacher_employee_id: emp?.id ?? null,
+      teacher_id: emp?.legacy_id ?? null,
+      teacher_name: emp?.name ?? null,
+    }).eq("id", groupId);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: emp ? `Group assigned to ${emp.name}` : "Group unassigned" }); onRefresh(); }
+  };
+
+
 
   const positionColors: Record<string, string> = {
     teacher: "bg-blue-500/10 text-blue-700",
@@ -167,6 +194,34 @@ export default function AdminEmployees({ employees, onRefresh }: Props) {
             </div>
             {emp.phone_number && <p className="text-xs text-muted-foreground font-mono">{emp.phone_number}</p>}
             {emp.phone_number_2 && <p className="text-xs text-muted-foreground font-mono">{emp.phone_number_2}</p>}
+            {emp.position === "teacher" && (
+              <div className="mt-3 space-y-1" onClick={e => e.stopPropagation()}>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Groups</p>
+                {groups.filter(g => g.teacher_employee_id === emp.id).length === 0 ? (
+                  <p className="text-xs text-muted-foreground">No group assigned</p>
+                ) : (
+                  groups.filter(g => g.teacher_employee_id === emp.id).map(g => (
+                    <div key={g.id} className="flex items-center justify-between gap-2 text-xs">
+                      <span className="truncate">{groupLabel(g)}</span>
+                      <span className="flex items-center gap-2 shrink-0">
+                        <span className="text-muted-foreground">{students.filter(s => s.school_group_id === g.id).length} st.</span>
+                        <button onClick={() => assignGroup(g.id, null)} className="text-destructive hover:underline">remove</button>
+                      </span>
+                    </div>
+                  ))
+                )}
+                <select
+                  value=""
+                  onChange={e => { if (e.target.value) assignGroup(e.target.value, emp); }}
+                  className="mt-1 flex h-8 w-full rounded-md border border-input bg-background px-2 text-xs"
+                >
+                  <option value="">+ Assign a group…</option>
+                  {groups.filter(g => g.teacher_employee_id !== emp.id).map(g => (
+                    <option key={g.id} value={g.id}>{groupLabel(g)}</option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div className="flex gap-1 mt-3 border-t pt-2" onClick={e => e.stopPropagation()}>
               <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => openEdit(emp)}>
                 <Pencil className="h-3 w-3 mr-1" /> Edit
