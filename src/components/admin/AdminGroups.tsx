@@ -26,6 +26,9 @@ export default function AdminGroups({ groups, employees, students = [], receipts
   const [editId, setEditId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
   const [openGroupId, setOpenGroupId] = useState<string | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [bulkTeacher, setBulkTeacher] = useState("");
+  const [bulkBusy, setBulkBusy] = useState(false);
   const { toast } = useToast();
 
   const teachers = employees.filter(e => e.position === "teacher");
