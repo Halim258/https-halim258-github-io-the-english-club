@@ -66,6 +66,7 @@ const CurriculumPlan = lazyWithRetry(() => import("./pages/CurriculumPlan"));
 const Messages = lazyWithRetry(() => import("./pages/Messages"));
 const CapstoneCertificate = lazyWithRetry(() => import("./pages/CapstoneCertificate"));
 const PendingApproval = lazyWithRetry(() => import("./pages/PendingApproval"));
+const ReceiptView = lazyWithRetry(() => import("./pages/ReceiptView"));
 const queryClient = new QueryClient();
 
 function PageLoader() {
@@ -136,6 +137,7 @@ const App = () => (
               <Route path="/kids/games" element={<ProtectedRoute requireMember><KidsGameCenter /></ProtectedRoute>} />
               <Route path="/courses/:levelId" element={<ProtectedRoute requireMember><Courses /></ProtectedRoute>} />
               <Route path="/pending-approval" element={<ProtectedRoute><PendingApproval /></ProtectedRoute>} />
+              <Route path="/r/:token" element={<ReceiptView />} />
               <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />
               <Route path="/practice" element={<ProtectedRoute><PracticeSpeaking /></ProtectedRoute>} />
               <Route path="/teachers" element={<Teachers />} />
