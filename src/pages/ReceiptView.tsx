@@ -49,7 +49,9 @@ export default function ReceiptView() {
     ["Remaining", money(receipt.remaining_fees)],
     ["Method", String(receipt.payment_method || "cash").replace("_", " ")],
     ["Date", receipt.issued_at ? new Date(receipt.issued_at).toLocaleString("en-GB") : "—"],
+    ...((receipt.given_by_name ? [["Given by", receipt.given_by_name]] : []) as [string, string][]),
   ];
+
 
   return (
     <div className="container mx-auto max-w-xl px-4 py-12">
