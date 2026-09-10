@@ -56,6 +56,16 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
   const [saving, setSaving] = useState(false);
   const [done, setDone] = useState<{ number: number; token: string } | null>(null);
   const [qr, setQr] = useState<string>("");
+  const [issuers, setIssuers] = useState<string[]>([]);
+  const [addingIssuer, setAddingIssuer] = useState(false);
+  const [newIssuer, setNewIssuer] = useState("");
+
+  const loadIssuers = async (pick?: string) => {
+    const { data } = await supabase.from("receipt_issuers").select("name").eq("active", true).order("name");
+    const names = (data || []).map((r: any) => r.name as string);
+    setIssuers(names);
+    setForm((f) => ({ ...f, givenBy: pick || f.givenBy || names[0] || "" }));
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -65,10 +75,27 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
     setNewMode(false);
     setDone(null);
     setQr("");
+    setAddingIssuer(false);
+    setNewIssuer("");
+    void loadIssuers();
     supabase.rpc("next_receipt_number").then(({ data }) => {
       if (typeof data === "number") setForm((f) => ({ ...f, number: String(data) }));
     });
   }, [open]);
+
+  const addIssuer = async () => {
+    const name = newIssuer.trim();
+    if (!name) return;
+    const { error } = await supabase.from("receipt_issuers").insert({ name });
+    if (error && !error.message.includes("duplicate")) {
+      toast({ title: "Could not add the person", description: error.message, variant: "destructive" });
+      return;
+    }
+    setNewIssuer("");
+    setAddingIssuer(false);
+    await loadIssuers(name);
+  };
+
 
   const item = receiptItem(form.itemKey)!;
 
