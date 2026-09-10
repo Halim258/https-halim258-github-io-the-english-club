@@ -914,6 +914,27 @@ export type Database = {
         }
         Relationships: []
       }
+      receipt_issuers: {
+        Row: {
+          active: boolean
+          created_at: string
+          id: string
+          name: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          name: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          id?: string
+          name?: string
+        }
+        Relationships: []
+      }
       reviews: {
         Row: {
           created_at: string
@@ -1248,6 +1269,7 @@ export type Database = {
           created_by: string | null
           fees: number | null
           given_by: number | null
+          given_by_name: string | null
           id: string
           item_id: number | null
           item_key: string | null
@@ -1275,6 +1297,7 @@ export type Database = {
           created_by?: string | null
           fees?: number | null
           given_by?: number | null
+          given_by_name?: string | null
           id?: string
           item_id?: number | null
           item_key?: string | null
@@ -1302,6 +1325,7 @@ export type Database = {
           created_by?: string | null
           fees?: number | null
           given_by?: number | null
+          given_by_name?: string | null
           id?: string
           item_id?: number | null
           item_key?: string | null
@@ -1641,29 +1665,54 @@ export type Database = {
         Args: { _member_ids: string[]; _title: string }
         Returns: string
       }
-      create_receipt: {
-        Args: {
-          _item_key: string
-          _new_student_name?: string
-          _new_student_phone?: string
-          _note?: string
-          _paid: number
-          _payment_date?: string
-          _payment_method?: string
-          _period_month?: string
-          _price?: number
-          _receipt_number?: number
-          _settles_receipt_id?: string
-          _status?: string
-          _student_record_id?: string
-        }
-        Returns: {
-          id: string
-          public_token: string
-          receipt_number: number
-          student_record_id: string
-        }[]
-      }
+      create_receipt:
+        | {
+            Args: {
+              _item_key: string
+              _new_student_name?: string
+              _new_student_phone?: string
+              _note?: string
+              _paid: number
+              _payment_date?: string
+              _payment_method?: string
+              _period_month?: string
+              _price?: number
+              _receipt_number?: number
+              _settles_receipt_id?: string
+              _status?: string
+              _student_record_id?: string
+            }
+            Returns: {
+              id: string
+              public_token: string
+              receipt_number: number
+              student_record_id: string
+            }[]
+          }
+        | {
+            Args: {
+              _given_by?: string
+              _item_key: string
+              _new_student_name?: string
+              _new_student_phone?: string
+              _note?: string
+              _paid: number
+              _payment_date?: string
+              _payment_method?: string
+              _period_month?: string
+              _price?: number
+              _receipt_number?: number
+              _settles_receipt_id?: string
+              _status?: string
+              _student_record_id?: string
+            }
+            Returns: {
+              id: string
+              public_token: string
+              receipt_number: number
+              student_record_id: string
+            }[]
+          }
       get_cohort_analytics: {
         Args: never
         Returns: {
@@ -1733,6 +1782,7 @@ export type Database = {
         Args: { _token: string }
         Returns: {
           fees: number
+          given_by_name: string
           issued_at: string
           item_label: string
           note: string
