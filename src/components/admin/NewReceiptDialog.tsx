@@ -243,7 +243,32 @@ export default function NewReceiptDialog({ open, onOpenChange, students, receipt
               Mark this number as faulty (nothing is collected)
             </label>
 
+            {/* given by */}
+            <div>
+              <div className="mb-1 flex items-center justify-between">
+                <Label>Given by</Label>
+                <button type="button" onClick={() => setAddingIssuer((v) => !v)}
+                  className="flex items-center gap-1 text-xs font-medium text-primary hover:underline">
+                  <UserPlus className="h-3.5 w-3.5" /> {addingIssuer ? "Choose from list" : "Add person"}
+                </button>
+              </div>
+              {addingIssuer ? (
+                <div className="flex gap-2">
+                  <Input placeholder="Full name" value={newIssuer} onChange={(e) => setNewIssuer(e.target.value)}
+                    onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); void addIssuer(); } }} />
+                  <Button type="button" variant="outline" onClick={addIssuer}>Add</Button>
+                </div>
+              ) : (
+                <select value={form.givenBy} onChange={(e) => setForm({ ...form, givenBy: e.target.value })}
+                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm">
+                  <option value="">—</option>
+                  {issuers.map((n) => <option key={n} value={n}>{n}</option>)}
+                </select>
+              )}
+            </div>
+
             {!form.faulty && (
+
               <>
                 {/* student */}
                 <div>
