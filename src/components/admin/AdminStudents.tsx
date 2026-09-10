@@ -70,8 +70,15 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
   const [sortField, setSortField] = useState<SortField>("name");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [selectedIds, setSelectedIds] = useState<string[]>([]);
+  const [bulkGroup, setBulkGroup] = useState("");
+  const [bulkStatus, setBulkStatus] = useState("");
+  const [bulkBusy, setBulkBusy] = useState(false);
   const perPage = 25;
   const { toast } = useToast();
+
+  const toggleOne = (id: string) =>
+    setSelectedIds(prev => prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]);
 
   const toggleSort = (field: SortField) => {
     if (sortField === field) setSortDir(d => d === "asc" ? "desc" : "asc");
