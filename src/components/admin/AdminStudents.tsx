@@ -170,6 +170,43 @@ export default function AdminStudents({ students, groups = [], onRefresh }: Prop
     else { toast({ title: "Student deleted" }); onRefresh(); }
   };
 
+  const allFilteredSelected = filtered.length > 0 && filtered.every(s => selectedIds.includes(s.id));
+  const pageSelected = paged.length > 0 && paged.every(s => selectedIds.includes(s.id));
+
+  const togglePage = () => {
+    const ids = paged.map(s => s.id);
+    setSelectedIds(prev => pageSelected ? prev.filter(id => !ids.includes(id)) : Array.from(new Set([...prev, ...ids])));
+  };
+
+  const bulkAssignGroup = async () => {
+    if (!selectedIds.length) return;
+    setBulkBusy(true);
+    const { error } = await supabase.from("school_students")
+      .update({ school_group_id: bulkGroup || null, group_id: groups.find(g => g.id === bulkGroup)?.legacy_id ?? null })
+      .in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} student(s) moved` }); setSelectedIds([]); setBulkGroup(""); onRefresh(); }
+  };
+
+  const bulkSetStatus = async () => {
+    if (!selectedIds.length || !bulkStatus) return;
+    setBulkBusy(true);
+    const { error } = await supabase.from("school_students").update({ status: bulkStatus }).in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} student(s) updated` }); setSelectedIds([]); setBulkStatus(""); onRefresh(); }
+  };
+
+  const bulkDelete = async () => {
+    if (!selectedIds.length) return;
+    setBulkBusy(true);
+    const { error } = await supabase.from("school_students").delete().in("id", selectedIds);
+    setBulkBusy(false);
+    if (error) toast({ title: "Error", description: error.message, variant: "destructive" });
+    else { toast({ title: `${selectedIds.length} student(s) deleted` }); setSelectedIds([]); onRefresh(); }
+  };
+
   const totalFees = students.reduce((s, st) => s + (st.fees || 0), 0);
   const totalPaid = students.reduce((s, st) => s + (st.paid_fees || 0), 0);
   const totalRemaining = students.reduce((s, st) => s + (st.remaining_fees || 0), 0);
