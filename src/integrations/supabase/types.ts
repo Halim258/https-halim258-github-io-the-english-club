@@ -1051,6 +1051,7 @@ export type Database = {
           start_date: string | null
           start_time: string | null
           teacher_email: string | null
+          teacher_employee_id: string | null
           teacher_id: number | null
           teacher_name: string | null
         }
@@ -1068,6 +1069,7 @@ export type Database = {
           start_date?: string | null
           start_time?: string | null
           teacher_email?: string | null
+          teacher_employee_id?: string | null
           teacher_id?: number | null
           teacher_name?: string | null
         }
@@ -1085,10 +1087,19 @@ export type Database = {
           start_date?: string | null
           start_time?: string | null
           teacher_email?: string | null
+          teacher_employee_id?: string | null
           teacher_id?: number | null
           teacher_name?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "school_groups_teacher_employee_id_fkey"
+            columns: ["teacher_employee_id"]
+            isOneToOne: false
+            referencedRelation: "school_employees"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       school_income: {
         Row: {
@@ -1363,6 +1374,7 @@ export type Database = {
           reference_number: string | null
           remaining_fees: number | null
           reservation_date: string | null
+          school_group_id: string | null
           status: string | null
           student_id_legacy: number | null
           student_number: number | null
@@ -1393,6 +1405,7 @@ export type Database = {
           reference_number?: string | null
           remaining_fees?: number | null
           reservation_date?: string | null
+          school_group_id?: string | null
           status?: string | null
           student_id_legacy?: number | null
           student_number?: number | null
@@ -1423,6 +1436,7 @@ export type Database = {
           reference_number?: string | null
           remaining_fees?: number | null
           reservation_date?: string | null
+          school_group_id?: string | null
           status?: string | null
           student_id_legacy?: number | null
           student_number?: number | null
@@ -1430,7 +1444,15 @@ export type Database = {
           whatsapp?: string | null
           whatsapp_subscription?: boolean | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "school_students_school_group_id_fkey"
+            columns: ["school_group_id"]
+            isOneToOne: false
+            referencedRelation: "school_groups"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       study_time: {
         Row: {
