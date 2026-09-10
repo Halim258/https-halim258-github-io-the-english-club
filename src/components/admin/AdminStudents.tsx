@@ -36,14 +36,25 @@ interface Student {
   reference_number: string | null;
 }
 
+interface GroupOption {
+  id: string;
+  legacy_id: number | null;
+  level: string | null;
+  days: string | null;
+  start_time: string | null;
+  end_time: string | null;
+}
+
 interface Props {
   students: Student[];
+  groups?: GroupOption[];
   onRefresh: () => void;
 }
 
 type SortField = "name" | "fees" | "remaining_fees" | "created_at";
 
-const emptyForm = { name: "", phone_number: "", whatsapp: "", email: "", status: "active", fees: "", paid_fees: "", group_id: "", membership: "", placement_test_result: "", address: "", birth_date: "", preferred_time: "", preferred_activity: "", other_interests: "", access_method: "", notes: "" };
+const emptyForm = { name: "", phone_number: "", whatsapp: "", email: "", status: "active", fees: "", paid_fees: "", school_group_id: "", membership: "", placement_test_result: "", address: "", birth_date: "", preferred_time: "", preferred_activity: "", other_interests: "", access_method: "", notes: "" };
+
 
 export default function AdminStudents({ students, onRefresh }: Props) {
   const [search, setSearch] = useState("");
