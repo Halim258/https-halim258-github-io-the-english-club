@@ -244,7 +244,7 @@ export default function AdminDashboard() {
 
       {tab === "school-students" && (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-          <AdminStudents students={schoolStudents} onRefresh={loadData} />
+          <AdminStudents students={schoolStudents} groups={groups} onRefresh={loadData} />
         </motion.div>
       )}
 
