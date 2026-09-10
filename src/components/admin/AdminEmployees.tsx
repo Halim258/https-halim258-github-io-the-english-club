@@ -38,7 +38,7 @@ interface Props {
 const emptyForm = { name: "", position: "teacher", phone_number: "", phone_number_2: "" };
 
 
-export default function AdminEmployees({ employees, onRefresh }: Props) {
+export default function AdminEmployees({ employees, groups = [], students = [], onRefresh }: Props) {
   const [addOpen, setAddOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [editId, setEditId] = useState<string | null>(null);
