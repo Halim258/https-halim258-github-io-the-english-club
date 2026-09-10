@@ -1250,17 +1250,24 @@ export type Database = {
           given_by: number | null
           id: string
           item_id: number | null
+          item_key: string | null
+          item_label: string | null
           legacy_number: number | null
           note: string | null
           paid_fees: number | null
           payment_method: string | null
           period_month: string | null
           phone_number: string | null
+          public_token: string
           receipt_number: number | null
           remaining_fees: number | null
           reservation_date: string | null
+          settles_receipt_id: string | null
+          status: string
           student_id_legacy: number | null
           student_name: string | null
+          student_record_id: string | null
+          updated_at: string
           user_id: string | null
         }
         Insert: {
@@ -1270,17 +1277,24 @@ export type Database = {
           given_by?: number | null
           id?: string
           item_id?: number | null
+          item_key?: string | null
+          item_label?: string | null
           legacy_number?: number | null
           note?: string | null
           paid_fees?: number | null
           payment_method?: string | null
           period_month?: string | null
           phone_number?: string | null
+          public_token?: string
           receipt_number?: number | null
           remaining_fees?: number | null
           reservation_date?: string | null
+          settles_receipt_id?: string | null
+          status?: string
           student_id_legacy?: number | null
           student_name?: string | null
+          student_record_id?: string | null
+          updated_at?: string
           user_id?: string | null
         }
         Update: {
@@ -1290,20 +1304,42 @@ export type Database = {
           given_by?: number | null
           id?: string
           item_id?: number | null
+          item_key?: string | null
+          item_label?: string | null
           legacy_number?: number | null
           note?: string | null
           paid_fees?: number | null
           payment_method?: string | null
           period_month?: string | null
           phone_number?: string | null
+          public_token?: string
           receipt_number?: number | null
           remaining_fees?: number | null
           reservation_date?: string | null
+          settles_receipt_id?: string | null
+          status?: string
           student_id_legacy?: number | null
           student_name?: string | null
+          student_record_id?: string | null
+          updated_at?: string
           user_id?: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "school_receipts_settles_receipt_id_fkey"
+            columns: ["settles_receipt_id"]
+            isOneToOne: false
+            referencedRelation: "school_receipts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "school_receipts_student_record_id_fkey"
+            columns: ["student_record_id"]
+            isOneToOne: false
+            referencedRelation: "school_students"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       school_sessions: {
         Row: {
@@ -1605,6 +1641,29 @@ export type Database = {
         Args: { _member_ids: string[]; _title: string }
         Returns: string
       }
+      create_receipt: {
+        Args: {
+          _item_key: string
+          _new_student_name?: string
+          _new_student_phone?: string
+          _note?: string
+          _paid: number
+          _payment_date?: string
+          _payment_method?: string
+          _period_month?: string
+          _price?: number
+          _receipt_number?: number
+          _settles_receipt_id?: string
+          _status?: string
+          _student_record_id?: string
+        }
+        Returns: {
+          id: string
+          public_token: string
+          receipt_number: number
+          student_record_id: string
+        }[]
+      }
       get_cohort_analytics: {
         Args: never
         Returns: {
@@ -1668,6 +1727,23 @@ export type Database = {
           max_students: number
           start_time: string
           teacher_name: string
+        }[]
+      }
+      get_receipt_by_token: {
+        Args: { _token: string }
+        Returns: {
+          fees: number
+          issued_at: string
+          item_label: string
+          note: string
+          paid_fees: number
+          payment_method: string
+          period_month: string
+          phone_number: string
+          receipt_number: number
+          remaining_fees: number
+          status: string
+          student_name: string
         }[]
       }
       get_recent_signups: {
@@ -1783,6 +1859,7 @@ export type Database = {
           week_seconds: number
         }[]
       }
+      next_receipt_number: { Args: never; Returns: number }
       notify_admins: {
         Args: {
           _link?: string
