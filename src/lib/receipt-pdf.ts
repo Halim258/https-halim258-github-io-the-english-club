@@ -62,7 +62,9 @@ export async function downloadReceiptPdf(r: ReceiptForPdf) {
     ["Method", (r.payment_method || "cash").replace("_", " ")],
     ["Date", date ? new Date(date).toLocaleString("en-GB") : "—"],
   ];
+  if (r.given_by_name) rows.push(["Given by", r.given_by_name]);
   if (r.note) rows.push(["Note", r.note]);
+
 
   let y = 110;
   doc.setFontSize(11);
