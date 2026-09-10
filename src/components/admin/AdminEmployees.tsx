@@ -181,6 +181,34 @@ export default function AdminEmployees({ employees, groups = [], students = [], 
             </div>
             {emp.phone_number && <p className="text-xs text-muted-foreground font-mono">{emp.phone_number}</p>}
             {emp.phone_number_2 && <p className="text-xs text-muted-foreground font-mono">{emp.phone_number_2}</p>}
+            {emp.position === "teacher" && (
+              <div className="mt-3 space-y-1" onClick={e => e.stopPropagation()}>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground">Groups</p>
+                {groups.filter(g => g.teacher_employee_id === emp.id).length === 0 ? (
+                  <p className="text-xs text-muted-foreground">No group assigned</p>
+                ) : (
+                  groups.filter(g => g.teacher_employee_id === emp.id).map(g => (
+                    <div key={g.id} className="flex items-center justify-between gap-2 text-xs">
+                      <span className="truncate">{groupLabel(g)}</span>
+                      <span className="flex items-center gap-2 shrink-0">
+                        <span className="text-muted-foreground">{students.filter(s => s.school_group_id === g.id).length} st.</span>
+                        <button onClick={() => assignGroup(g.id, null)} className="text-destructive hover:underline">remove</button>
+                      </span>
+                    </div>
+                  ))
+                )}
+                <select
+                  value=""
+                  onChange={e => { if (e.target.value) assignGroup(e.target.value, emp); }}
+                  className="mt-1 flex h-8 w-full rounded-md border border-input bg-background px-2 text-xs"
+                >
+                  <option value="">+ Assign a group…</option>
+                  {groups.filter(g => g.teacher_employee_id !== emp.id).map(g => (
+                    <option key={g.id} value={g.id}>{groupLabel(g)}</option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div className="flex gap-1 mt-3 border-t pt-2" onClick={e => e.stopPropagation()}>
               <Button variant="ghost" size="sm" className="h-7 text-xs" onClick={() => openEdit(emp)}>
                 <Pencil className="h-3 w-3 mr-1" /> Edit
