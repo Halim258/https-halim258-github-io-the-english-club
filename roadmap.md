@@ -7,3 +7,4 @@
 - [ ] Add level-appropriate tests at the end of each level
 - [ ] Add a teacher completion step after each level test
 - [x] Create a distinct, lesson-specific reading passage and comprehension questions for every lesson
+- [x] Improve homepage and navigation UX with British Heritage styling and clearer mobile interactions

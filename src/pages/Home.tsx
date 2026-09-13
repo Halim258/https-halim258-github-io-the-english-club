@@ -262,13 +262,13 @@ export default function Home() {
     <div className="overflow-x-hidden">
       <OnboardingTour />
       {/* ═══════════════ HERO — Editorial Academic Excellence ═══════════════ */}
-      <section dir="ltr" className="bg-background text-foreground">
-        <div className="mx-auto grid min-h-[min(calc(100svh-4rem),760px)] max-w-7xl items-center gap-10 px-5 py-10 sm:px-8 md:py-14 lg:grid-cols-12 lg:gap-12 lg:px-12">
+       <section dir="ltr" className="border-b bg-background text-foreground">
+         <div className="mx-auto grid min-h-[min(calc(100svh-4.5rem),720px)] max-w-7xl items-center gap-8 px-5 py-8 sm:px-8 md:py-10 lg:grid-cols-12 lg:gap-12 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
-            className="order-1 space-y-7 lg:col-span-5 lg:space-y-8"
+             className="order-1 space-y-6 lg:col-span-5"
           >
             <div className="inline-flex items-center gap-2 border border-foreground/10 bg-foreground/[0.035] px-3 py-2">
               <span className="h-2 w-2 bg-primary" aria-hidden="true" />
@@ -278,7 +278,7 @@ export default function Home() {
             </div>
 
             <div className="space-y-4">
-              <h1 className="font-display text-5xl leading-[1.05] sm:text-6xl md:text-7xl lg:text-[4.25rem]">
+               <h1 className="font-display text-5xl leading-[1.07] sm:text-6xl md:text-7xl lg:text-[4.25rem]">
                 The English<br />
                 <em className="text-primary">Club.</em>
               </h1>
@@ -287,7 +287,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
+             <div className="grid gap-3 sm:flex sm:flex-row">
               <Button asChild size="lg" variant="editorial" className="h-12 px-6 sm:px-8">
                 <Link to="/placement-test">
                   Start Placement Test <ArrowRight className="h-4 w-4" />
@@ -318,10 +318,10 @@ export default function Home() {
             initial={{ opacity: 0, x: 22 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="relative order-2 lg:col-span-7"
+             className="relative order-2 lg:col-span-7"
           >
-            <div className="absolute -right-4 -top-4 h-24 w-24 bg-primary/10 sm:-right-6 sm:-top-6 sm:h-32 sm:w-32" aria-hidden="true" />
-            <div className="absolute -bottom-4 -left-4 h-28 w-36 border border-foreground/15 sm:-bottom-6 sm:-left-6 sm:h-44 sm:w-48" aria-hidden="true" />
+             <div className="absolute -right-3 -top-3 h-20 w-20 bg-primary/10 sm:-right-4 sm:-top-4 sm:h-28 sm:w-28" aria-hidden="true" />
+             <div className="absolute -bottom-3 -left-3 h-24 w-28 border border-foreground/15 sm:-bottom-4 sm:-left-4 sm:h-36 sm:w-40" aria-hidden="true" />
 
             <div className="relative aspect-[4/5] overflow-hidden bg-muted shadow-2xl sm:aspect-[16/11] lg:aspect-[16/10]">
               <img
@@ -369,9 +369,9 @@ export default function Home() {
       <ContinueLearning />
 
       {/* ═══════════════ WORD OF THE DAY + LEARNING GUIDE ═══════════════ */}
-      <section className="py-8 md:py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid gap-6 lg:grid-cols-3">
+       <section className="border-b bg-card py-10 md:py-14">
+         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+           <div className="grid items-stretch gap-6 lg:grid-cols-3">
             <div className="lg:col-span-2">
               <LearningGuide />
             </div>
@@ -381,9 +381,7 @@ export default function Home() {
       </section>
 
       {/* ═══════════════ STATS ═══════════════ */}
-      <section dir="ltr" className="border-y bg-muted/30 py-14 md:py-20 lg:py-24 relative overflow-hidden">
-        {/* Subtle gradient accent */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/[0.02] via-transparent to-accent/[0.02] pointer-events-none" />
+       <section dir="ltr" className="relative overflow-hidden border-b bg-secondary py-12 text-secondary-foreground md:py-16">
         <div className="container mx-auto px-4 relative z-10">
           <motion.div
             variants={staggerContainer}
@@ -396,18 +394,18 @@ export default function Home() {
               <motion.div
                 key={s.label}
                 variants={staggerItem}
-                whileHover={{ scale: 1.05, y: -4 }}
+                 whileHover={{ y: -2 }}
                 className="relative text-center group cursor-default"
               >
-                <div className="inline-flex h-12 w-12 md:h-14 md:w-14 items-center justify-center rounded-2xl bg-primary/10 mb-3 md:mb-4 group-hover:bg-primary group-hover:shadow-lg transition-all duration-300">
+                 <div className="mb-3 inline-flex h-12 w-12 items-center justify-center border border-secondary-foreground/20 bg-secondary-foreground/5 transition-colors duration-300 group-hover:bg-primary md:mb-4">
                   <s.icon className="h-5 w-5 md:h-6 md:w-6 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
                 </div>
-                <p className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-primary font-display">
+                 <p className="font-display text-2xl font-bold text-secondary-foreground md:text-3xl lg:text-4xl xl:text-5xl">
                   <AnimatedCounter target={s.value} suffix={s.suffix} />
                 </p>
-                <p className="mt-1 text-xs md:text-sm text-muted-foreground font-medium">{s.label}</p>
+                 <p className="mt-1 text-xs font-medium text-secondary-foreground/70 md:text-sm">{s.label}</p>
                 {i < stats.length - 1 && (
-                  <div className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 w-px h-12 bg-border" />
+                   <div className="absolute right-0 top-1/2 hidden h-12 w-px -translate-y-1/2 bg-secondary-foreground/20 md:block" />
                 )}
               </motion.div>
             ))}
