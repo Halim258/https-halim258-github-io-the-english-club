@@ -364,13 +364,8 @@ export default function Navbar() {
                 <span className="flex-1">Search courses, lessons and tools</span>
                 <span className="rounded-md border bg-background px-1.5 py-0.5 text-[10px]">⌘K</span>
               </button>
-              {allNavLinks.map((l, i) => (
-                <motion.div
-                  key={l.to}
-                  initial={{ opacity: 0, x: -16 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.03 }}
-                >
+              {allNavLinks.map((l) => (
+                <div key={l.to}>
                   <Link
                     to={l.to}
                     onClick={() => setOpen(false)}
@@ -391,7 +386,7 @@ export default function Navbar() {
                     </span>
                     {location.pathname === l.to && <div className="h-1.5 w-1.5 rounded-full bg-primary" />}
                   </Link>
-                </motion.div>
+                </div>
               ))}
               <hr className="my-2 border-border/60" />
               <p className="px-4 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/50">Jump to</p>
