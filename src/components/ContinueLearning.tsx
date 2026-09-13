@@ -142,12 +142,12 @@ export default function ContinueLearning() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="container mx-auto px-4 -mt-6 mb-8 relative z-20"
+      className="relative z-20 mx-auto -mt-3 mb-4 max-w-7xl px-4 sm:px-6 lg:px-8"
     >
-      <div className="border-l-4 border-primary border-y border-r border-border bg-card p-5 md:p-6">
+      <div className="border border-border bg-card px-4 py-4 shadow-sm sm:px-5">
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
           <div className="flex items-center gap-4 min-w-0">
-            <div className="h-12 w-12 border border-primary/25 bg-primary/5 flex items-center justify-center shrink-0">
+             <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-primary/25 bg-primary/5">
               <Flame className="h-6 w-6 text-primary" />
             </div>
             <div className="min-w-0">

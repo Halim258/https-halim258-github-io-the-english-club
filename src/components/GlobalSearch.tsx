@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, BookOpen, Radio, MessageCircle, Trophy, Mic2, Users, GraduationCap, Brain, Command, ArrowRight } from "lucide-react";
+import { Search, BookOpen, Radio, MessageCircle, Trophy, Mic2, Users, GraduationCap, Brain, ArrowRight, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const pages = [
   { path: "/courses", label: "Courses", icon: BookOpen, keywords: "lessons learn study" },
@@ -94,7 +95,7 @@ export default function GlobalSearch() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-foreground/20 backdrop-blur-sm z-[100]"
+            className="fixed inset-0 z-[100] bg-secondary/35 backdrop-blur-sm"
             onClick={() => setOpen(false)}
           />
           <motion.div
@@ -102,7 +103,10 @@ export default function GlobalSearch() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: -20 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-[15%] left-1/2 -translate-x-1/2 w-[90%] max-w-lg z-[101] rounded-2xl border bg-card shadow-2xl overflow-hidden"
+            className="fixed inset-x-3 top-20 z-[101] mx-auto max-w-xl overflow-hidden border bg-card shadow-2xl sm:top-[14%]"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Search courses and tools"
           >
             <div className="flex items-center gap-3 px-4 py-3 border-b">
               <Search className="h-5 w-5 text-muted-foreground shrink-0" />
@@ -114,9 +118,9 @@ export default function GlobalSearch() {
                 placeholder="Search pages, courses, tools..."
                 className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
               />
-              <kbd className="hidden sm:inline-flex items-center gap-0.5 rounded-md border bg-muted px-1.5 py-0.5 text-[10px] font-medium text-muted-foreground">
-                ESC
-              </kbd>
+              <Button type="button" variant="ghost" size="icon" onClick={() => setOpen(false)} className="h-10 w-10 shrink-0" aria-label="Close search">
+                <X className="h-4 w-4" />
+              </Button>
             </div>
             {!query.trim() && (
               <div className="border-b px-4 py-3">
@@ -126,7 +130,7 @@ export default function GlobalSearch() {
                       key={term}
                       type="button"
                       onClick={() => setQuery(term)}
-                      className="rounded-full border bg-muted/40 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
+                      className="min-h-9 border bg-muted/40 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
                     >
                       {term}
                     </button>
@@ -142,7 +146,7 @@ export default function GlobalSearch() {
                   <button
                     key={page.path}
                     onClick={() => go(page.path)}
-                    className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
+                     className={`flex min-h-12 w-full items-center gap-3 px-4 py-2.5 text-sm transition-colors ${
                       i === selectedIdx ? "bg-primary/8 text-primary" : "text-muted-foreground hover:bg-muted/50"
                     }`}
                   >

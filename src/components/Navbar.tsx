@@ -17,25 +17,25 @@ import logo from "@/assets/logo.jpg";
 const primaryLinks = [
   { to: "/", label: "Home" },
   { to: "/courses", label: "Courses" },
-  { to: "/dictionary", label: "Dictionary" },
-  { to: "/flashcards", label: "Flashcards" },
+  { to: "/placement-test", label: "Placement Test" },
   { to: "/ai-tutor", label: "AI Tutor" },
   { to: "/community", label: "Community" },
 ];
 
 const moreLinks = [
-  { to: "/groups", label: "👥 Groups" },
-  { to: "/library", label: "📚 Library" },
-  { to: "/idioms", label: "🗣️ Idioms & Phrasal Verbs" },
-  { to: "/writing", label: "✍️ Writing" },
-  { to: "/grammar", label: "📖 Grammar" },
-  { to: "/progress", label: "📊 My Progress" },
-  { to: "/leaderboard", label: "🏆 Leaderboard" },
-  { to: "/pronunciation", label: "🎙️ Pronunciation" },
-  { to: "/placement-test", label: "📝 Placement Test" },
-  { to: "/fm", label: "📻 FM Radio" },
-  { to: "/blog", label: "📰 Blog" },
-  { to: "/contact", label: "✉️ Contact" },
+  { to: "/dictionary", label: "Dictionary" },
+  { to: "/flashcards", label: "Flashcards" },
+  { to: "/library", label: "Library" },
+  { to: "/groups", label: "Groups" },
+  { to: "/idioms", label: "Idioms & Phrasal Verbs" },
+  { to: "/writing", label: "Writing" },
+  { to: "/grammar", label: "Grammar" },
+  { to: "/progress", label: "My Progress" },
+  { to: "/leaderboard", label: "Leaderboard" },
+  { to: "/pronunciation", label: "Pronunciation" },
+  { to: "/fm", label: "FM Radio" },
+  { to: "/blog", label: "Blog" },
+  { to: "/contact", label: "Contact" },
 ];
 
 const allNavLinks = [...primaryLinks, ...moreLinks];
@@ -114,7 +114,7 @@ export default function Navbar() {
   }, [isHome, navigate]);
 
   return (
-    <nav className={`sticky top-0 z-50 border-b transition-all duration-300 ${
+    <nav aria-label="Main navigation" className={`sticky top-0 z-50 border-b transition-all duration-300 ${
       scrolled
         ? "bg-background/92 glass-morphism border-foreground/15"
         : "bg-background/98 backdrop-blur-md border-foreground/10"
@@ -123,7 +123,7 @@ export default function Navbar() {
       {scrollProgress > 0 && (
         <div className="absolute bottom-0 left-0 h-[2px] bg-primary transition-none z-50" style={{ width: `${scrollProgress}%` }} />
       )}
-      <div dir="ltr" className="container mx-auto flex h-16 items-center justify-between px-4">
+      <div dir="ltr" className="mx-auto flex h-[4.5rem] max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2.5 flex-shrink-0 group">
           <motion.img 
@@ -133,7 +133,7 @@ export default function Navbar() {
             whileHover={{ scale: 1.05, rotate: 2 }}
             transition={{ type: "spring", stiffness: 400 }}
           />
-          <span className="flex flex-col leading-none">
+          <span className="hidden flex-col leading-none min-[390px]:flex">
             <span className="text-[9px] font-editorial-mono uppercase tracking-[0.22em] text-foreground/60">Est. 2019</span>
             <span className="text-lg font-bold text-foreground font-display tracking-tight whitespace-nowrap group-hover:text-primary transition-colors duration-200 mt-0.5">
               The English Club
@@ -142,14 +142,14 @@ export default function Navbar() {
         </Link>
 
         {/* Desktop nav links */}
-        <div className="hidden items-center gap-0 xl:flex">
+        <div className="hidden items-center gap-0 xl:flex" aria-label="Site sections">
           {primaryLinks.map((l) => {
             const isActive = location.pathname === l.to;
             return (
               <Link
                 key={l.to}
                 to={l.to}
-                className="relative px-2 py-2 text-[11px] font-editorial-mono uppercase tracking-[0.15em] font-semibold transition-colors duration-200 group"
+                className="relative px-3 py-3 text-[10px] font-editorial-mono uppercase tracking-[0.14em] font-semibold transition-colors duration-200 group"
               >
                 <span className={isActive ? "text-primary" : "text-foreground/65 group-hover:text-foreground"}>
                   {l.label}
@@ -189,26 +189,26 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute top-full right-0 mt-1 w-48 rounded-xl border bg-card shadow-lg py-1 z-50"
+                  className="absolute right-0 top-full z-50 mt-2 grid w-[28rem] grid-cols-2 border bg-card p-2 shadow-xl"
                 >
                   {moreLinks.map((l) => (
                     <Link
                       key={l.to}
                       to={l.to}
                       onClick={() => setMoreOpen(false)}
-                      className={`block px-4 py-2.5 text-sm font-medium transition-colors ${
+                      className={`block min-h-11 px-3 py-3 text-sm font-medium transition-colors ${
                         location.pathname === l.to ? "bg-primary/10 text-primary" : "text-muted-foreground hover:bg-muted/50 hover:text-foreground"
                       }`}
                     >
                       {l.label}
                     </Link>
                   ))}
-                  <hr className="my-1 border-border/60" />
+                  <hr className="col-span-2 my-1 border-border/60" />
                   {homeSections.map((s) => (
                     <button
                       key={s.id}
                       onClick={() => { setMoreOpen(false); scrollToSection(s.id); }}
-                      className="w-full text-left px-4 py-2 text-sm text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
+                      className="min-h-11 w-full px-3 py-3 text-left text-sm text-muted-foreground transition-colors hover:bg-muted/50 hover:text-foreground"
                     >
                       {s.label}
                     </button>
@@ -221,19 +221,22 @@ export default function Navbar() {
 
         {/* Desktop auth buttons */}
         <div className="hidden items-center gap-1 xl:flex">
-          <button
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
             onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
-            className="flex items-center gap-2 rounded-full border bg-muted/50 px-2.5 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
+            className="h-10 w-10 border text-muted-foreground"
+            aria-label="Search courses and tools"
+            title="Search"
           >
             <Search className="h-3.5 w-3.5" />
-            <span className="hidden 2xl:inline">Search</span>
-            <kbd className="hidden 2xl:inline-flex items-center rounded border bg-background px-1 py-0.5 text-[9px] font-medium">⌘K</kbd>
-          </button>
+          </Button>
           <StudyReminder />
           {user && (
             <Link
               to="/messages"
-              className="relative flex h-9 w-9 items-center justify-center rounded-full border bg-muted/50 text-foreground hover:border-primary/30 hover:text-primary transition-colors"
+              className="relative hidden h-10 w-10 items-center justify-center border bg-muted/50 text-foreground transition-colors hover:border-primary/30 hover:text-primary 2xl:flex"
               aria-label="Messages"
               title="Messages"
             >
@@ -241,7 +244,7 @@ export default function Navbar() {
             </Link>
           )}
           {user && <NotificationBell />}
-          <SoundToggle />
+          <span className="hidden 2xl:inline-flex"><SoundToggle /></span>
 
           <button
             onClick={() => {
@@ -249,7 +252,7 @@ export default function Navbar() {
               setAccent(next);
               speak(next === "uk" ? "British accent selected" : "American accent selected", undefined, 0.95, next);
             }}
-            className="flex items-center gap-1 rounded-full border bg-muted/50 px-2.5 py-1.5 text-[11px] font-semibold text-foreground hover:border-primary/30 hover:text-primary transition-colors"
+            className="hidden h-10 items-center gap-1 border bg-muted/50 px-2.5 text-[11px] font-semibold text-foreground transition-colors hover:border-primary/30 hover:text-primary 2xl:flex"
             aria-label="Toggle voice accent"
             title={accent === "us" ? "Voice: American — click for British" : "Voice: British — click for American"}
           >
@@ -258,7 +261,7 @@ export default function Navbar() {
           </button>
           <motion.button
             onClick={() => setDark(!dark)}
-            className="rounded-full p-2 text-foreground hover:text-primary hover:bg-muted/50 transition-colors"
+            className="flex h-10 w-10 items-center justify-center text-foreground transition-colors hover:bg-muted/50 hover:text-primary"
             aria-label="Toggle dark mode"
             whileTap={{ scale: 0.9, rotate: 180 }}
             transition={{ duration: 0.3 }}
@@ -282,28 +285,25 @@ export default function Navbar() {
             </div>
           ) : user ? (
             <>
-              <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
+               <Button asChild variant="ghost" size="sm" className="gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
                 <Link to={dashboardPath} aria-label="Open dashboard">
                   <User className="h-4 w-4" />
                   <span className="max-w-[80px] truncate">{user.email?.split("@")[0]}</span>
                 </Link>
               </Button>
-              <Button asChild variant="ghost" size="sm" className="rounded-full gap-1.5 hover:bg-primary/8 hover:text-primary transition-colors">
-                <Link to={dashboardPath}>Dashboard</Link>
-              </Button>
-              <Button variant="outline" size="sm" className="rounded-full gap-1 hover:border-destructive/30 hover:text-destructive hover:bg-destructive/5 transition-colors" onClick={handleLogout}>
-                <LogOut className="h-3.5 w-3.5" /> Logout
+               <Button variant="outline" size="icon" className="h-9 w-9 hover:border-destructive/30 hover:text-destructive hover:bg-destructive/5 transition-colors" onClick={handleLogout} aria-label="Log out" title="Log out">
+                 <LogOut className="h-3.5 w-3.5" />
               </Button>
             </>
           ) : (
             <>
               <Link to="/signup">
-                <Button size="sm" className="rounded-full px-5 font-semibold shadow-sm hover:shadow-md hover:scale-[1.02] transition-all duration-200">
-                  Sign Up Free
+                 <Button size="sm" className="px-4 font-semibold shadow-sm transition-all duration-200">
+                   Join
                 </Button>
               </Link>
               <Link to="/login">
-                <Button variant="outline" size="sm" className="rounded-full px-5 font-semibold hover:scale-[1.02] transition-all duration-200">
+                 <Button variant="outline" size="sm" className="px-4 font-semibold transition-all duration-200">
                   Log In
                 </Button>
               </Link>
@@ -316,13 +316,13 @@ export default function Navbar() {
           {user && <NotificationBell />}
           <button
             onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border bg-muted/50 text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
+            className="flex h-11 w-11 items-center justify-center border bg-muted/50 text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
             aria-label="Search courses and tools"
           >
             <Search className="h-4 w-4" />
           </button>
           <motion.button
-            className="p-2 text-foreground rounded-lg hover:bg-muted/50 transition-colors"
+            className="flex h-11 w-11 items-center justify-center text-foreground transition-colors hover:bg-muted/50"
             onClick={() => setOpen(!open)}
             whileTap={{ scale: 0.9 }}
             aria-label="Open navigation menu"
@@ -350,15 +350,15 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-            className="overflow-hidden border-t bg-card/95 backdrop-blur-xl xl:hidden"
+            className="overflow-hidden border-t bg-card/98 backdrop-blur-xl xl:hidden"
           >
-            <div className="p-4 flex flex-col gap-1 max-h-[calc(100vh-4rem)] overflow-y-auto">
+             <div className="mx-auto flex max-h-[calc(100dvh-4.5rem)] max-w-2xl flex-col gap-1 overflow-y-auto p-4 pb-8">
               <button
                 onClick={() => {
                   setOpen(false);
                   window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }));
                 }}
-                className="mb-2 flex items-center gap-3 rounded-xl border bg-muted/50 px-4 py-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
+                 className="mb-2 flex min-h-12 items-center gap-3 border bg-muted/50 px-4 py-3 text-left text-sm font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:text-foreground"
               >
                 <Search className="h-4 w-4 shrink-0" />
                 <span className="flex-1">Search courses, lessons and tools</span>
@@ -374,7 +374,7 @@ export default function Navbar() {
                   <Link
                     to={l.to}
                     onClick={() => setOpen(false)}
-                    className={`rounded-xl px-4 py-3 text-sm font-medium flex items-center justify-between transition-colors ${
+                     className={`flex min-h-12 items-center justify-between px-4 py-3 text-sm font-medium transition-colors ${
                       location.pathname === l.to ? "bg-primary/10 text-primary font-semibold" : "text-muted-foreground hover:bg-muted/50 active:bg-muted"
                     }`}
                   >
@@ -400,7 +400,7 @@ export default function Navbar() {
                   <button
                     key={s.id}
                     onClick={() => scrollToSection(s.id)}
-                    className="rounded-xl px-4 py-2.5 text-sm font-medium text-muted-foreground text-left hover:bg-muted/50 active:bg-muted transition-colors"
+                     className="min-h-11 px-4 py-2.5 text-left text-sm font-medium text-muted-foreground transition-colors hover:bg-muted/50 active:bg-muted"
                   >
                     {s.label}
                   </button>

@@ -13,34 +13,37 @@ const navItems = [
 
 export default function MobileBottomNav() {
   const { pathname } = useLocation();
-  const { user } = useAuth();
+  const { user, role } = useAuth();
 
   if (!user) return null;
 
   // Don't show on lesson/slide pages
   if (pathname.includes("/slides") || pathname.includes("/admin") || pathname.includes("/teacher")) return null;
 
+  const dashboardPath = role === "admin" || role === "secretary" ? "/admin" : role === "teacher" ? "/teacher-dashboard" : "/dashboard";
+  const items = navItems.map((item) => item.to === "/dashboard" ? { ...item, to: dashboardPath } : item);
+
   return (
     <nav
       aria-label="Primary"
-      className="fixed bottom-0 left-0 right-0 z-50 border-t border-foreground/15 bg-background/95 backdrop-blur-xl md:hidden"
+      className="fixed bottom-0 left-0 right-0 z-50 border-t border-foreground/15 bg-background/98 backdrop-blur-xl md:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
-      <div className="flex items-center justify-around px-2">
-        {navItems.map(item => {
+      <div className="grid h-16 grid-cols-5 items-stretch px-1">
+        {items.map(item => {
           const isActive = pathname === item.to || (item.to !== "/" && pathname.startsWith(item.to));
           return (
             <Link
               key={item.to}
               to={item.to}
               aria-current={isActive ? "page" : undefined}
-              className={`relative flex flex-col items-center gap-1 px-3 pt-2.5 pb-2 min-w-11 min-h-11 justify-center touch-manipulation active:scale-95 transition-all rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
+              className={`relative flex min-h-14 min-w-0 touch-manipulation flex-col items-center justify-center gap-1 px-1 py-2 transition-colors active:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring ${
                 isActive ? "text-primary" : "text-foreground/60"
               }`}
             >
               <item.icon className="h-[22px] w-[22px]" strokeWidth={isActive ? 2.2 : 1.6} />
               <span
-                className="text-[10px] font-editorial-mono uppercase tracking-widest font-semibold"
+                 className="max-w-full truncate text-[9px] font-editorial-mono font-semibold uppercase tracking-[0.08em]"
               >
                 {item.label}
               </span>
