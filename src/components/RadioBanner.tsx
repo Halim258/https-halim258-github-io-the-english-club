@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Radio, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function RadioBanner() {
+  const navigate = useNavigate();
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -14,9 +15,10 @@ export default function RadioBanner() {
       <Link
         to="/fm"
         aria-label="Listen to live English radio"
-        className="block cursor-pointer border border-border bg-card px-4 py-4 shadow-sm transition-colors hover:border-primary/40 hover:bg-primary/[0.03] sm:px-5"
+        onClick={() => navigate("/fm")}
+        className="relative z-20 block cursor-pointer border border-border bg-card px-4 py-4 shadow-sm transition-colors hover:border-primary/40 hover:bg-primary/[0.03] sm:px-5"
       >
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+        <div className="pointer-events-none flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div className="flex min-w-0 items-center gap-4">
             <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-primary/25 bg-primary/5">
               <Radio className="h-6 w-6 text-primary" />
