@@ -5,7 +5,9 @@ import {
   Users, BarChart3, GraduationCap, BookOpen,
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
-  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp, ScrollText, KeyRound, Sparkles
+  Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp, ScrollText, KeyRound, Sparkles,
+  RefreshCw, Search
+
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import CommandPalette from "@/components/admin/CommandPalette";
@@ -46,8 +48,10 @@ const LEVEL_COLORS: Record<string, string> = {
 
 export default function AdminDashboard() {
   const { user, role } = useAuth();
-  const [tab, setTab] = useState<Tab>("command-center");
+  const [tab, setTab] = useState<Tab>(() => (localStorage.getItem("admin-tab") as Tab) || "command-center");
+  const [navQuery, setNavQuery] = useState("");
   const [loading, setLoading] = useState(true);
+
   const [selectedProfile, setSelectedProfile] = useState<any | null>(null);
   const [selectedTest, setSelectedTest] = useState<any | null>(null);
 
@@ -523,6 +527,9 @@ export default function AdminDashboard() {
           <AdminAuditLog />
         </motion.div>
       )}
+        </div>
+      </div>
     </div>
   );
+
 }
