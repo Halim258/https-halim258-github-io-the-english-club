@@ -268,7 +268,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55 }}
-             className="order-1 space-y-6 lg:col-span-5"
+             className="relative z-20 order-1 space-y-6 lg:col-span-5"
           >
             <div className="inline-flex items-center gap-2 border border-foreground/10 bg-foreground/[0.035] px-3 py-2">
               <span className="h-2 w-2 bg-primary" aria-hidden="true" />
@@ -287,13 +287,13 @@ export default function Home() {
               </p>
             </div>
 
-             <div className="grid gap-3 sm:flex sm:flex-row">
-              <Button asChild size="lg" variant="editorial" className="h-12 px-6 sm:px-8">
+             <div className="relative z-20 grid gap-3 sm:flex sm:flex-row sm:flex-wrap">
+              <Button asChild size="lg" variant="editorial" className="h-12 w-full justify-center px-6 sm:w-auto sm:px-8">
                 <Link to="/placement-test">
                   Start Placement Test <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="ghost-ink" className="h-12 px-6 sm:px-8">
+              <Button asChild size="lg" variant="ghost-ink" className="h-12 w-full justify-center px-6 sm:w-auto sm:px-8">
                 <Link to="/courses">View Courses</Link>
               </Button>
             </div>
@@ -318,10 +318,10 @@ export default function Home() {
             initial={{ opacity: 0, x: 22 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-             className="relative order-2 lg:col-span-7"
+             className="relative z-0 order-2 lg:col-span-7"
           >
-             <div className="absolute -right-3 -top-3 h-20 w-20 bg-primary/10 sm:-right-4 sm:-top-4 sm:h-28 sm:w-28" aria-hidden="true" />
-             <div className="absolute -bottom-3 -left-3 h-24 w-28 border border-foreground/15 sm:-bottom-4 sm:-left-4 sm:h-36 sm:w-40" aria-hidden="true" />
+             <div className="pointer-events-none absolute -right-3 -top-3 h-20 w-20 bg-primary/10 sm:-right-4 sm:-top-4 sm:h-28 sm:w-28" aria-hidden="true" />
+             <div className="pointer-events-none absolute -bottom-3 -left-3 h-24 w-28 border border-foreground/15 sm:-bottom-4 sm:-left-4 sm:h-36 sm:w-40" aria-hidden="true" />
 
             <div className="relative aspect-[4/5] overflow-hidden bg-muted shadow-2xl min-[420px]:aspect-[5/4] sm:aspect-[16/11] lg:aspect-[16/10]">
               <img
