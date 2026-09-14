@@ -253,7 +253,16 @@ export default function AdminDashboard() {
       <div className="grid gap-6 lg:grid-cols-[15rem_minmax(0,1fr)]">
         {/* Side navigation */}
         <aside className="lg:sticky lg:top-24 lg:self-start">
+          <button
+            onClick={() => setNavOpen((o) => !o)}
+            className="mb-3 flex h-11 w-full items-center justify-between border border-border bg-card px-3 text-sm font-semibold lg:hidden"
+          >
+            <span className="flex items-center gap-2"><Menu className="h-4 w-4" /> {navOpen ? "Hide sections" : "All sections"}</span>
+            <span className="text-[11px] font-medium text-muted-foreground">{activeLabel}</span>
+          </button>
+          <div className={`${navOpen ? "block" : "hidden"} lg:block`}>
           <div className="relative mb-3">
+
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <input
               value={navQuery}
