@@ -222,12 +222,58 @@ export default function AdminCommandCenter({
     }).slice(0, 8);
   }, [query, schoolStudents, profiles, lessons, xp]);
 
+  /* ---------- Automatic money maths ---------- */
+  const monthMoney = useMemo(() => {
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const prevStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
+    const receiptDate = (r: any) => r?.reservation_date || r?.created_at;
+    const valid = receipts.filter((r) => String(r?.status || "paid").toLowerCase() !== "faulty");
+    const thisMonth = valid.filter((r) => inWindow(receiptDate(r), monthStart));
+    const lastMonth = valid.filter((r) => inWindow(receiptDate(r), prevStart, monthStart));
+
+    const sumBy = (rows: any[], field: string) => rows.reduce((s, r) => s + Number(r?.[field] || 0), 0);
+
+    const collected = sumBy(thisMonth, "paid_fees");
+    const billed = sumBy(thisMonth, "fees");
+    const outstandingMonth = Math.max(0, billed - collected);
+    const outstandingAll = schoolStudents.reduce((s, r) => s + Number(r?.remaining_fees || 0), 0);
+    const spent = outcome.filter((o) => inWindow(o?.date, monthStart)).reduce((s, o) => s + Number(o?.amount || 0), 0);
+    const collectionRate = billed > 0 ? Math.round((collected / billed) * 100) : 0;
+    const payers = new Set(thisMonth.map((r) => r.student_record_id || r.student_name).filter(Boolean)).size;
+
+    // 14-day daily collection for the mini chart
+    const bars: { label: string; value: number }[] = [];
+    for (let i = 13; i >= 0; i--) {
+      const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+      const next = new Date(day.getTime() + 86400000);
+      bars.push({
+        label: day.toLocaleDateString("en-GB", { day: "numeric", month: "short" }),
+        value: valid.filter((r) => inWindow(receiptDate(r), day, next)).reduce((s, r) => s + Number(r?.paid_fees || 0), 0),
+      });
+    }
+
+    return {
+      monthLabel: now.toLocaleDateString("en-GB", { month: "long", year: "numeric" }),
+      collected, billed, outstandingMonth, outstandingAll, spent,
+      net: collected - spent,
+      collectionRate,
+      payers,
+      average: payers > 0 ? collected / payers : 0,
+      receiptCount: thisMonth.length,
+      lastMonthCollected: sumBy(lastMonth, "paid_fees"),
+      bars,
+    };
+  }, [receipts, outcome, schoolStudents]);
+
   const kpis = [
     { label: "New sign-ups", value: stats.signups.current, trend: stats.signups, icon: UserPlus, tab: "new-signups" },
     { label: "Newly enrolled", value: stats.enrolled.current, trend: stats.enrolled, icon: Users, tab: "school-students" },
     { label: "Lessons finished", value: stats.lessons.current, trend: stats.lessons, icon: BookOpen, tab: "analytics" },
     { label: "Money received", value: money(stats.revenue.current), trend: stats.revenue, icon: DollarSign, tab: "finance" },
   ];
+
 
   const toneClass = (tone: string) =>
     tone === "destructive"
@@ -253,10 +299,10 @@ export default function AdminCommandCenter({
             </button>
           ))}
         </div>
-        <Button variant="outline" size="sm" className="gap-2 rounded-none" onClick={onRefresh}>
-          <RefreshCw className="h-3.5 w-3.5" /> Refresh
-        </Button>
+        <p className="text-[11px] text-muted-foreground">Totals update automatically</p>
       </div>
+
+
 
       {/* KPIs */}
       <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
@@ -275,6 +321,70 @@ export default function AdminCommandCenter({
           </button>
         ))}
       </div>
+
+      {/* Automatic money summary */}
+      <div className="border border-border bg-card p-5 md:p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <DollarSign className="h-4 w-4 text-primary" />
+            <h2 className="font-display text-lg font-bold">Money — {monthMoney.monthLabel}</h2>
+          </div>
+          <div className="flex gap-2">
+            <Button size="sm" variant="outline" className="rounded-none text-[11px]" onClick={() => onNavigate("receipts")}>Receipts</Button>
+            <Button size="sm" variant="outline" className="rounded-none text-[11px]" onClick={() => onNavigate("unpaid")}>Unpaid</Button>
+          </div>
+        </div>
+
+        <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { label: "Collected this month", value: money(monthMoney.collected), note: `${monthMoney.receiptCount} receipts · last month ${money(monthMoney.lastMonthCollected)}` },
+            { label: "Still to collect", value: money(monthMoney.outstandingMonth), note: `All-time outstanding ${money(monthMoney.outstandingAll)}` },
+            { label: "Spent this month", value: money(monthMoney.spent), note: `Net ${monthMoney.net >= 0 ? "surplus" : "shortfall"} ${money(Math.abs(monthMoney.net))}` },
+            { label: "Average per payer", value: money(monthMoney.average), note: `${monthMoney.payers} ${monthMoney.payers === 1 ? "person" : "people"} paid` },
+          ].map((c) => (
+            <div key={c.label} className="bg-card p-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{c.label}</p>
+              <p className="mt-1.5 font-display text-xl font-bold">{c.value}</p>
+              <p className="mt-1 text-[11px] leading-snug text-muted-foreground">{c.note}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Collection progress */}
+        <div className="mt-5">
+          <div className="mb-1.5 flex items-center justify-between text-[11px] font-semibold text-muted-foreground">
+            <span>Collected {money(monthMoney.collected)} of {money(monthMoney.billed)} billed</span>
+            <span>{monthMoney.collectionRate}%</span>
+          </div>
+          <div className="h-2.5 w-full bg-muted">
+            <div className="h-full bg-primary transition-all" style={{ width: `${Math.min(100, monthMoney.collectionRate)}%` }} />
+          </div>
+        </div>
+
+        {/* 14-day mini chart */}
+        <div className="mt-6">
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Last 14 days of payments</p>
+          <div className="flex h-24 items-end gap-1">
+            {monthMoney.bars.map((b) => {
+              const max = Math.max(...monthMoney.bars.map((x) => x.value), 1);
+              return (
+                <div
+                  key={b.label}
+                  title={`${b.label}: ${money(b.value)}`}
+                  className="flex-1 bg-primary/25 transition-colors hover:bg-primary/60"
+                  style={{ height: `${Math.max(3, (b.value / max) * 100)}%` }}
+                />
+              );
+            })}
+          </div>
+          <div className="mt-1.5 flex justify-between text-[10px] text-muted-foreground">
+            <span>{monthMoney.bars[0]?.label}</span>
+            <span>{monthMoney.bars[monthMoney.bars.length - 1]?.label}</span>
+          </div>
+        </div>
+      </div>
+
+
 
       <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr]">
         {/* Briefing */}
