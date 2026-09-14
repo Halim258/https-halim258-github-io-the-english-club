@@ -63,7 +63,7 @@ export default function LearningGuide() {
           </div>
         </FadeInUp>
 
-        <div className="mt-14 md:mt-16 grid gap-10 md:gap-12 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-14 md:mt-16 grid gap-10 md:gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {steps.map((step, i) => (
             <motion.div
               key={step.title}
