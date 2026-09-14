@@ -75,6 +75,10 @@ export default function AdminDashboard() {
     else if (saved === "light") document.documentElement.classList.remove("dark");
   }, []);
 
+  // Remember the last section opened
+  useEffect(() => { localStorage.setItem("admin-tab", tab); }, [tab]);
+
+
   const loadData = async () => {
     setLoading(true);
     const [profilesRes, testsRes, progressRes, studentsRes, empRes, groupsRes, sessionsRes, incomeRes, outcomeRes, newcomersRes, productsRes, receiptsRes] = await Promise.all([
