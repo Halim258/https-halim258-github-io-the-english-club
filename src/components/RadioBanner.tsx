@@ -4,6 +4,7 @@ import { ArrowRight, Radio, Headphones } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function RadioBanner() {
+  const navigate = useNavigate();
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
