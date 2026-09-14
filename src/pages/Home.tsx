@@ -323,7 +323,7 @@ export default function Home() {
              <div className="absolute -right-3 -top-3 h-20 w-20 bg-primary/10 sm:-right-4 sm:-top-4 sm:h-28 sm:w-28" aria-hidden="true" />
              <div className="absolute -bottom-3 -left-3 h-24 w-28 border border-foreground/15 sm:-bottom-4 sm:-left-4 sm:h-36 sm:w-40" aria-hidden="true" />
 
-            <div className="relative aspect-[4/5] overflow-hidden bg-muted shadow-2xl sm:aspect-[16/11] lg:aspect-[16/10]">
+            <div className="relative aspect-[4/5] overflow-hidden bg-muted shadow-2xl min-[420px]:aspect-[5/4] sm:aspect-[16/11] lg:aspect-[16/10]">
               <img
                 src={studentsLearning}
                 alt="Students learning English together at The English Club Alexandria"
@@ -338,8 +338,8 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="absolute bottom-4 left-4 right-4 border-l-4 border-primary bg-card/95 p-4 shadow-xl backdrop-blur-md sm:bottom-8 sm:left-8 sm:right-8 sm:p-6">
-                <div className="mb-4 flex items-center justify-between gap-4">
+              <div className="absolute bottom-3 left-3 right-3 border-l-4 border-primary bg-card/95 p-3 shadow-xl backdrop-blur-md sm:bottom-8 sm:left-8 sm:right-8 sm:p-6">
+                <div className="mb-3 flex items-center justify-between gap-3 sm:mb-4 sm:gap-4">
                   <h2 className="font-sans text-[10px] font-bold uppercase tracking-[0.18em] text-foreground sm:text-xs">Your learning journey</h2>
                   <span className="shrink-0 text-[10px] font-bold uppercase tracking-[0.14em] text-primary">
                     {user ? `${learningJourney.currentLevel ?? "A1"} level` : "6 levels"}
@@ -355,7 +355,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-3 flex justify-between text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                <div className="mt-3 flex flex-wrap justify-between gap-1 text-[9px] font-semibold uppercase tracking-[0.08em] text-muted-foreground sm:tracking-[0.12em]">
                   <span>{user ? `${completedLessons} lessons complete` : "Beginner"}</span>
                   <span>{user ? `Current: ${learningJourney.currentLevel ?? "A1"}` : "Fluent"}</span>
                 </div>
@@ -503,7 +503,7 @@ export default function Home() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6 }}
-            className="relative overflow-hidden rounded-3xl border bg-card p-8 md:p-12 lg:p-16 shadow-card"
+              className="relative overflow-hidden border bg-card p-5 shadow-card sm:p-8 md:p-12 lg:p-16"
           >
             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/3 blur-3xl" />
             <div className="absolute bottom-0 left-0 w-72 h-72 bg-accent/10 rounded-full translate-y-1/3 -translate-x-1/4 blur-3xl" />

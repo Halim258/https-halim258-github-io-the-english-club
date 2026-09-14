@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Facebook, MapPin, Phone, MessageCircle, GraduationCap, Heart, ArrowUpRight } from "lucide-react";
 import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
+import { Button } from "@/components/ui/button";
 
 const WHATSAPP_URL = getWhatsAppUrl();
 
@@ -43,10 +44,10 @@ export default function Footer() {
   return (
     <footer className="relative border-t bg-secondary text-secondary-foreground overflow-hidden pb-20 md:pb-0">
       {/* Subtle decorative gradient */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/[0.03] rounded-full blur-3xl -translate-y-1/2 pointer-events-none" />
+      <div className="pointer-events-none absolute left-1/2 top-0 h-[25rem] w-[min(50rem,100vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/[0.03] blur-3xl" />
 
       <div className="container mx-auto px-4 py-10 md:py-14 relative">
-        <div className="grid gap-8 grid-cols-2 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-8 min-[420px]:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="col-span-2">
             <div className="flex items-center gap-2.5 mb-4">
@@ -180,11 +181,11 @@ export default function Footer() {
               <p className="text-xs text-secondary-foreground/50">Join 500+ students already improving their English</p>
             </div>
           </div>
-          <Link to="/signup">
-            <button className="rounded-full bg-primary px-6 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors">
+          <Button asChild>
+            <Link to="/signup">
               Get Started Free →
-            </button>
-          </Link>
+            </Link>
+          </Button>
         </div>
       </div>
 

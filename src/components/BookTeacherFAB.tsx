@@ -6,7 +6,7 @@ const WHATSAPP_URL = getWhatsAppUrl();
 
 export default function BookTeacherFAB() {
   return (
-    <div className="fixed bottom-[5.5rem] md:bottom-6 right-3 md:right-6 z-40 flex flex-col gap-2 items-end">
+    <div className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom,0px))] right-3 z-40 flex flex-col items-end gap-2 md:bottom-6 md:right-6">
       <a
         href={WHATSAPP_URL}
         target="_blank"

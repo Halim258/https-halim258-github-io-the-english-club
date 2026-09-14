@@ -213,7 +213,7 @@ export default function TestimonialsSection() {
           )}
         </AnimatePresence>
 
-        <div className="flex gap-px bg-foreground/15 overflow-x-auto snap-x snap-mandatory scrollbar-hide md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible">
+        <div className="-mr-5 flex gap-px overflow-x-auto bg-foreground/15 pr-10 snap-x snap-mandatory scrollbar-hide sm:-mr-8 sm:pr-16 md:mr-0 md:grid md:grid-cols-2 md:overflow-visible md:pr-0 lg:grid-cols-3">
           {allReviews.map((t, i) => (
             <motion.div
               key={t.id}
@@ -221,7 +221,7 @@ export default function TestimonialsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: Math.min(i, 6) * 0.05 }}
-              className="group bg-background hover:bg-card p-6 md:p-8 transition-colors relative min-w-[280px] max-w-[320px] md:min-w-0 md:max-w-none snap-start shrink-0 md:shrink flex flex-col"
+              className="group relative flex min-w-[min(82vw,320px)] max-w-[320px] shrink-0 snap-start flex-col bg-background p-6 transition-colors hover:bg-card md:min-w-0 md:max-w-none md:shrink md:p-8"
             >
               <div className="flex items-start justify-between mb-4">
                 <span className="eyebrow">№ {String(i + 1).padStart(2, "0")}</span>

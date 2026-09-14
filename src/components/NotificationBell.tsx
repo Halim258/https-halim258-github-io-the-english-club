@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, MoreHorizontal, Settings, Filter, Search, X } from "lucide-react";
+import { Bell, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, MoreHorizontal, Settings, Filter, Search, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -66,7 +66,6 @@ export default function NotificationBell() {
   const ref = useRef<HTMLDivElement>(null);
 
   const unreadCount = notifications.filter(n => !n.read).length;
-  const readCount = notifications.length - unreadCount;
   const visible = useMemo(() => {
     let list = tab === "unread" ? notifications.filter(n => !n.read) : notifications;
     if (categoryFilter !== "all") list = list.filter(n => n.type === categoryFilter);
@@ -114,6 +113,22 @@ export default function NotificationBell() {
             }
             if (prefs.desktop) showDesktopNotification(n.title, n.message);
           }
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
+        (payload) => {
+          const updated = payload.new as Notification;
+          setNotifications(prev => prev.map(n => n.id === updated.id ? updated : n));
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
+        (payload) => {
+          const removed = payload.old as Pick<Notification, "id">;
+          setNotifications(prev => prev.filter(n => n.id !== removed.id));
         }
       )
       .subscribe();
@@ -165,23 +180,19 @@ export default function NotificationBell() {
     if (error) toast.error("Couldn't update that notification");
   };
 
-  const markAsUnread = async (ids: string | string[]) => {
-    const list = Array.isArray(ids) ? ids : [ids];
-    if (list.length === 0) return;
-    setNotifications(prev => prev.map(n => list.includes(n.id) ? { ...n, read: false } : n));
-    const { error } = await supabase.from("notifications").update({ read: false }).in("id", list);
-    if (error) toast.error("Couldn't update that notification");
-  };
-
-  const markAllRead = async () => {
-    if (!user) return;
+  const markVisibleAsRead = async () => {
     const unreadIds = notifications.filter(n => !n.read).map(n => n.id);
     if (unreadIds.length === 0) return;
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
     const { error } = await supabase.from("notifications").update({ read: true }).in("id", unreadIds);
-    if (error) toast.error("Couldn't mark all as read");
-    else toast.success(`${unreadIds.length} notification${unreadIds.length > 1 ? "s" : ""} marked as read`);
+    if (error) toast.error("Couldn't update your notifications");
   };
+
+  useEffect(() => {
+    if (open && unreadCount > 0) void markVisibleAsRead();
+    // Opening the panel means the currently loaded notifications have been seen.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
 
   const restore = async (rows: Notification[]) => {
     if (!user || rows.length === 0) return;
@@ -232,17 +243,16 @@ export default function NotificationBell() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => { setOpen(!open); setShowPrefs(false); }}
-        className="relative rounded-full p-2 text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors"
+        className="relative flex h-11 w-11 items-center justify-center text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground"
         aria-label="Notifications"
       >
         <Bell className={`h-[18px] w-[18px] ${unreadCount > 0 ? "text-foreground" : ""}`} />
         {unreadCount > 0 && (
           <>
-            <span className="pointer-events-none absolute -top-0.5 -right-0.5 h-[18px] min-w-[18px] rounded-full bg-red-500/60 animate-ping" />
             <motion.span
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
-              className="absolute -top-0.5 -right-0.5 flex h-[18px] min-w-[18px] px-1 items-center justify-center rounded-full bg-red-500 text-[10px] font-bold text-white ring-2 ring-background"
+              className="absolute right-0 top-0 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground ring-2 ring-background"
             >
               {unreadCount > 99 ? "99+" : unreadCount}
             </motion.span>
@@ -257,37 +267,36 @@ export default function NotificationBell() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -6, scale: 0.97 }}
             transition={{ duration: 0.18, ease: "easeOut" }}
-            className="fixed sm:absolute top-16 sm:top-full right-2 sm:right-0 sm:mt-2 w-[min(94vw,380px)] rounded-2xl border bg-card shadow-2xl overflow-hidden z-50"
+            className="fixed inset-x-0 bottom-0 top-[4.5rem] z-50 flex flex-col overflow-hidden border bg-card shadow-2xl sm:absolute sm:inset-x-auto sm:bottom-auto sm:right-0 sm:top-full sm:mt-2 sm:block sm:max-h-[min(76vh,620px)] sm:w-[min(94vw,400px)] sm:rounded-md"
           >
             {/* Header — Facebook style */}
             <div className="px-4 pt-3 pb-2">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-extrabold tracking-tight font-display">Notifications</h3>
-                <div className="flex items-center gap-0.5">
-                  {unreadCount > 0 && (
-                    <button
-                      onClick={markAllRead}
-                      className="rounded-full p-1.5 text-muted-foreground hover:bg-muted transition-colors"
-                      title="Mark all as read"
-                    >
-                      <CheckCheck className="h-4 w-4" />
-                    </button>
-                  )}
-                  {readCount > 0 && (
+                <div className="flex items-center gap-1">
+                  {notifications.length > 0 && (
                     <button
                       onClick={deleteAllRead}
-                      className="rounded-full p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors"
-                      title="Delete all read"
+                      className="flex h-11 w-11 items-center justify-center text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
+                      aria-label="Clear viewed notifications"
+                      title="Clear viewed notifications"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
                   )}
                   <button
                     onClick={() => setShowPrefs(v => !v)}
-                    className={`rounded-full p-1.5 transition-colors ${showPrefs ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-muted"}`}
+                    className={`flex h-11 w-11 items-center justify-center transition-colors ${showPrefs ? "bg-primary/15 text-primary" : "text-muted-foreground hover:bg-muted"}`}
                     title="Notification settings"
                   >
                     <Settings className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => setOpen(false)}
+                    className="flex h-11 w-11 items-center justify-center text-muted-foreground transition-colors hover:bg-muted sm:hidden"
+                    aria-label="Close notifications"
+                  >
+                    <X className="h-4 w-4" />
                   </button>
                 </div>
               </div>
@@ -358,7 +367,7 @@ export default function NotificationBell() {
             {showPrefs ? (
               <NotificationPreferences onClose={() => setShowPrefs(false)} />
             ) : (
-            <div className="overflow-y-auto max-h-[70vh] sm:max-h-[460px] px-1.5 pb-2">
+            <div className="min-h-0 flex-1 overflow-y-auto px-1.5 pb-[calc(0.5rem+env(safe-area-inset-bottom,0px))] sm:max-h-[460px]">
               {loading ? (
                 <div className="space-y-1 py-1">
                   {[0, 1, 2, 3].map(i => (
@@ -446,21 +455,6 @@ export default function NotificationBell() {
                           className="absolute right-1.5 top-9 z-10 w-44 rounded-xl border bg-popover shadow-xl overflow-hidden"
                           onClick={(e) => e.stopPropagation()}
                         >
-                          {!n.read ? (
-                            <button
-                              onClick={(e) => { e.preventDefault(); markAsRead(n.stackedIds); setMenuFor(null); }}
-                              className="flex w-full items-center gap-2 px-3 py-2 text-xs hover:bg-muted"
-                            >
-                              <Check className="h-3.5 w-3.5" /> Mark as read
-                            </button>
-                          ) : (
-                            <button
-                              onClick={(e) => { e.preventDefault(); markAsUnread(n.stackedIds); setMenuFor(null); }}
-                              className="flex w-full items-center gap-2 px-3 py-2 text-xs hover:bg-muted"
-                            >
-                              <Bell className="h-3.5 w-3.5" /> Mark as unread
-                            </button>
-                          )}
                           <button
                             onClick={(e) => { e.preventDefault(); deleteNotification(n.stackedIds); setMenuFor(null); }}
                             className="flex w-full items-center gap-2 px-3 py-2 text-xs text-destructive hover:bg-destructive/10"
@@ -512,7 +506,7 @@ export default function NotificationBell() {
             )}
 
             {/* Footer */}
-            <div className="border-t px-2 py-1.5 bg-muted/20">
+            <div className="border-t bg-muted/20 px-2 py-1.5">
               <Link
                 to="/notifications"
                 onClick={() => setOpen(false)}

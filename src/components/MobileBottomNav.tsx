@@ -29,7 +29,7 @@ export default function MobileBottomNav() {
       className="fixed bottom-0 left-0 right-0 z-50 border-t border-foreground/15 bg-background/98 backdrop-blur-xl md:hidden"
       style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
     >
-      <div className="grid h-16 grid-cols-5 items-stretch px-1">
+      <div className="grid h-16 grid-cols-5 items-stretch px-2">
         {items.map(item => {
           const isActive = pathname === item.to || (item.to !== "/" && pathname.startsWith(item.to));
           return (
@@ -43,7 +43,7 @@ export default function MobileBottomNav() {
             >
               <item.icon className="h-[22px] w-[22px]" strokeWidth={isActive ? 2.2 : 1.6} />
               <span
-                 className="max-w-full truncate text-[9px] font-editorial-mono font-semibold uppercase tracking-[0.08em]"
+                 className="max-w-full truncate font-editorial-mono text-[10px] font-semibold uppercase tracking-[0.04em]"
               >
                 {item.label}
               </span>

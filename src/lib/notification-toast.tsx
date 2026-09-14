@@ -37,6 +37,7 @@ export function showRichNotifToast(n: RichToastInput) {
   const Icon = iconMap[n.type] || Info;
   const avatar = avatarClass[n.type] || avatarClass.info;
   const duration = durationByType[n.type] ?? 5000;
+  const destination = n.link;
 
   toast.custom(
     (id) => (
@@ -52,9 +53,9 @@ export function showRichNotifToast(n: RichToastInput) {
             <p className="text-sm font-bold leading-tight text-foreground line-clamp-2">{n.title}</p>
             <p className="mt-0.5 text-[12.5px] leading-snug text-muted-foreground line-clamp-3">{n.message}</p>
             <div className="mt-2 flex items-center gap-1.5">
-              {n.link && (
+              {destination && (
                 <button
-                  onClick={() => { toast.dismiss(id); window.location.href = n.link!; }}
+                  onClick={() => { toast.dismiss(id); window.location.href = destination; }}
                   className="rounded-full bg-primary px-3 py-1 text-[11px] font-semibold text-primary-foreground hover:opacity-90 transition"
                 >
                   Open
