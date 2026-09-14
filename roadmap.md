@@ -10,4 +10,4 @@
 - [x] Improve homepage and navigation UX with British Heritage styling and clearer mobile interactions
 - [ ] Verify and fix shared layouts across phone, tablet, laptop, and wide desktop sizes
 - [ ] Simplify notification controls and automatically clear unread indicators when notifications are viewed
-- [ ] Validate navigation, notifications, and representative pages with responsive browser checks
+- [ ] Validate navigation, notifications, and representative pages with responsive browser checks- [x] Modernise the admin dashboard: grouped section navigation, cleaner header, automatic monthly money totals and payment chart
