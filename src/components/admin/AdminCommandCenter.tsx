@@ -299,10 +299,8 @@ export default function AdminCommandCenter({
             </button>
           ))}
         </div>
-        <Button variant="outline" size="sm" className="gap-2 rounded-none" onClick={onRefresh}>
-          <RefreshCw className="h-3.5 w-3.5" /> Refresh
-        </Button>
-      </div>
+        <p className="text-[11px] text-muted-foreground">Totals update automatically</p>
+
 
       {/* KPIs */}
       <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
