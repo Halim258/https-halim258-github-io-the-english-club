@@ -167,6 +167,27 @@ export default function AdminDashboard() {
     ? allTabs.filter(t => secretaryTabs.includes(t.id))
     : allTabs;
 
+  const GROUPS: { title: string; ids: Tab[] }[] = [
+    { title: "Daily", ids: ["command-center", "overview", "new-signups", "grant-access", "notifications"] },
+    { title: "People", ids: ["school-students", "employees", "groups", "newcomers", "online-students", "roles"] },
+    { title: "Classes", ids: ["sessions", "attendance", "schedule", "teacher-hours", "tests", "reports"] },
+    { title: "Money", ids: ["receipts", "unpaid", "finance", "products", "revenue-charts"] },
+    { title: "Insights", ids: ["analytics", "cohorts", "export", "audit-log"] },
+  ];
+
+  const visibleGroups = GROUPS.map((g) => ({
+    title: g.title,
+    items: g.ids
+      .map((id) => tabs.find((t) => t.id === id))
+      .filter((t): t is { id: Tab; label: string; icon: React.ElementType } => {
+        if (!t) return false;
+        const q = navQuery.trim().toLowerCase();
+        return q.length === 0 || t.label.toLowerCase().includes(q);
+      }),
+  })).filter((g) => g.items.length > 0);
+
+  const activeLabel = tabs.find((t) => t.id === tab)?.label || "Dashboard";
+
   if (loading) {
     return (
       <div className="flex min-h-[60vh] items-center justify-center">
@@ -176,53 +197,94 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-10">
+    <div className="container mx-auto px-4 py-6 md:py-8">
       <CommandPalette onNavigate={(id) => setTab(id as Tab)} />
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <Shield className="h-5 w-5 text-primary" />
-            <span className="text-xs font-bold uppercase tracking-wider text-primary">Admin Panel</span>
-            <span className={`text-[10px] font-bold uppercase tracking-wider rounded-full px-2.5 py-0.5 ${
+
+      {/* Header */}
+      <div className="mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-border pb-5">
+        <div className="min-w-0">
+          <div className="mb-1.5 flex flex-wrap items-center gap-2">
+            <Shield className="h-4 w-4 text-primary" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">Admin workspace</span>
+            <span className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] ${
               role === "admin" ? "bg-destructive/10 text-destructive" : "bg-amber-500/10 text-amber-600"
             }`}>
               {role}
             </span>
           </div>
-          <h1 className="text-3xl font-bold font-display">School Management</h1>
-          <p className="text-muted-foreground mt-1">Manage students, staff, courses, and finances.</p>
+          <h1 className="font-display text-2xl font-bold md:text-3xl">{activeLabel}</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Everything is totalled for you automatically and refreshes as new data arrives.
+          </p>
         </div>
-        <button
-          onClick={() => {
-            const root = document.documentElement;
-            const isDark = root.classList.contains("dark");
-            root.classList.toggle("dark", !isDark);
-            localStorage.setItem("admin-theme", isDark ? "light" : "dark");
-          }}
-          className="flex items-center gap-2 rounded-xl border bg-card px-3 py-2 text-sm font-medium shadow-sm hover:bg-muted transition-colors"
-        >
-          <Sun className="h-4 w-4 hidden dark:block" />
-          <Moon className="h-4 w-4 block dark:hidden" />
-          <span className="hidden sm:inline dark:hidden">Dark</span>
-          <span className="hidden sm:inline hidden dark:inline">Light</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={loadData}
+            className="flex h-10 items-center gap-2 border border-border bg-card px-3 text-sm font-medium transition-colors hover:bg-muted"
+          >
+            <RefreshCw className="h-4 w-4" />
+            <span className="hidden sm:inline">Refresh</span>
+          </button>
+          <button
+            onClick={() => {
+              const root = document.documentElement;
+              const isDark = root.classList.contains("dark");
+              root.classList.toggle("dark", !isDark);
+              localStorage.setItem("admin-theme", isDark ? "light" : "dark");
+            }}
+            className="flex h-10 items-center gap-2 border border-border bg-card px-3 text-sm font-medium transition-colors hover:bg-muted"
+          >
+            <Sun className="h-4 w-4 hidden dark:block" />
+            <Moon className="h-4 w-4 block dark:hidden" />
+            <span className="hidden sm:inline dark:hidden">Dark</span>
+            <span className="hidden dark:sm:inline">Light</span>
+          </button>
+        </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 rounded-xl bg-muted p-1 mb-8 overflow-x-auto scrollbar-thin">
-        {tabs.map((t) => (
-          <button
-            key={t.id}
-            onClick={() => setTab(t.id)}
-            className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition-all whitespace-nowrap ${
-              tab === t.id ? "bg-card shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <t.icon className="h-3.5 w-3.5" />
-            {t.label}
-          </button>
-        ))}
-      </div>
+      <div className="grid gap-6 lg:grid-cols-[15rem_minmax(0,1fr)]">
+        {/* Side navigation */}
+        <aside className="lg:sticky lg:top-24 lg:self-start">
+          <div className="relative mb-3">
+            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              value={navQuery}
+              onChange={(e) => setNavQuery(e.target.value)}
+              placeholder="Find a section…"
+              aria-label="Find a section"
+              className="h-10 w-full border border-border bg-card pl-9 pr-3 text-sm outline-none focus:border-primary"
+            />
+          </div>
+          <nav className="max-h-none space-y-4 lg:max-h-[70vh] lg:overflow-y-auto lg:pr-1">
+            {visibleGroups.map((g) => (
+              <div key={g.title}>
+                <p className="mb-1.5 px-1 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{g.title}</p>
+                <div className="grid grid-cols-2 gap-px bg-border sm:grid-cols-3 lg:grid-cols-1">
+                  {g.items.map((t) => (
+                    <button
+                      key={t.id}
+                      onClick={() => setTab(t.id)}
+                      className={`flex min-h-11 items-center gap-2 bg-card px-3 py-2 text-left text-[13px] font-medium transition-colors ${
+                        tab === t.id
+                          ? "border-l-2 border-primary bg-primary/5 text-primary"
+                          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      }`}
+                    >
+                      <t.icon className="h-4 w-4 shrink-0" />
+                      <span className="truncate">{t.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+            {visibleGroups.length === 0 && (
+              <p className="px-1 text-sm text-muted-foreground">No section matches that name.</p>
+            )}
+          </nav>
+        </aside>
+
+        <div className="min-w-0">
+
 
       {/* Tab Content */}
       {tab === "command-center" && (
