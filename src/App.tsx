@@ -138,7 +138,7 @@ const App = () => (
               <Route path="/courses/:levelId" element={<ProtectedRoute requireMember><Courses /></ProtectedRoute>} />
               <Route path="/pending-approval" element={<ProtectedRoute><PendingApproval /></ProtectedRoute>} />
               <Route path="/r/:token" element={<ReceiptView />} />
-              <Route path="/fm" element={<ProtectedRoute><FMRadio /></ProtectedRoute>} />
+              <Route path="/fm" element={<FMRadio />} />
               <Route path="/practice" element={<ProtectedRoute><PracticeSpeaking /></ProtectedRoute>} />
               <Route path="/teachers" element={<Teachers />} />
               <Route path="/groups" element={<Groups />} />
