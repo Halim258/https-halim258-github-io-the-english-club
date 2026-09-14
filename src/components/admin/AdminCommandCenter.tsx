@@ -322,6 +322,70 @@ export default function AdminCommandCenter({
         ))}
       </div>
 
+      {/* Automatic money summary */}
+      <div className="border border-border bg-card p-5 md:p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <DollarSign className="h-4 w-4 text-primary" />
+            <h2 className="font-display text-lg font-bold">Money — {monthMoney.monthLabel}</h2>
+          </div>
+          <div className="flex gap-2">
+            <Button size="sm" variant="outline" className="rounded-none text-[11px]" onClick={() => onNavigate("receipts")}>Receipts</Button>
+            <Button size="sm" variant="outline" className="rounded-none text-[11px]" onClick={() => onNavigate("unpaid")}>Unpaid</Button>
+          </div>
+        </div>
+
+        <div className="grid gap-px bg-border sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { label: "Collected this month", value: money(monthMoney.collected), note: `${monthMoney.receiptCount} receipts · last month ${money(monthMoney.lastMonthCollected)}` },
+            { label: "Still to collect", value: money(monthMoney.outstandingMonth), note: `All-time outstanding ${money(monthMoney.outstandingAll)}` },
+            { label: "Spent this month", value: money(monthMoney.spent), note: `Net ${monthMoney.net >= 0 ? "surplus" : "shortfall"} ${money(Math.abs(monthMoney.net))}` },
+            { label: "Average per payer", value: money(monthMoney.average), note: `${monthMoney.payers} ${monthMoney.payers === 1 ? "person" : "people"} paid` },
+          ].map((c) => (
+            <div key={c.label} className="bg-card p-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">{c.label}</p>
+              <p className="mt-1.5 font-display text-xl font-bold">{c.value}</p>
+              <p className="mt-1 text-[11px] leading-snug text-muted-foreground">{c.note}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Collection progress */}
+        <div className="mt-5">
+          <div className="mb-1.5 flex items-center justify-between text-[11px] font-semibold text-muted-foreground">
+            <span>Collected {money(monthMoney.collected)} of {money(monthMoney.billed)} billed</span>
+            <span>{monthMoney.collectionRate}%</span>
+          </div>
+          <div className="h-2.5 w-full bg-muted">
+            <div className="h-full bg-primary transition-all" style={{ width: `${Math.min(100, monthMoney.collectionRate)}%` }} />
+          </div>
+        </div>
+
+        {/* 14-day mini chart */}
+        <div className="mt-6">
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground">Last 14 days of payments</p>
+          <div className="flex h-24 items-end gap-1">
+            {monthMoney.bars.map((b) => {
+              const max = Math.max(...monthMoney.bars.map((x) => x.value), 1);
+              return (
+                <div
+                  key={b.label}
+                  title={`${b.label}: ${money(b.value)}`}
+                  className="flex-1 bg-primary/25 transition-colors hover:bg-primary/60"
+                  style={{ height: `${Math.max(3, (b.value / max) * 100)}%` }}
+                />
+              );
+            })}
+          </div>
+          <div className="mt-1.5 flex justify-between text-[10px] text-muted-foreground">
+            <span>{monthMoney.bars[0]?.label}</span>
+            <span>{monthMoney.bars[monthMoney.bars.length - 1]?.label}</span>
+          </div>
+        </div>
+      </div>
+
+
+
       <div className="grid gap-6 lg:grid-cols-[1.15fr_1fr]">
         {/* Briefing */}
         <div className="border border-border bg-card p-5 md:p-6">
