@@ -282,7 +282,7 @@ export default function AdminDashboard() {
                   {g.items.map((t) => (
                     <button
                       key={t.id}
-                      onClick={() => setTab(t.id)}
+                      onClick={() => { setTab(t.id); setNavOpen(false); }}
                       className={`flex min-h-11 items-center gap-2 bg-card px-3 py-2 text-left text-[13px] font-medium transition-colors ${
                         tab === t.id
                           ? "border-l-2 border-primary bg-primary/5 text-primary"
