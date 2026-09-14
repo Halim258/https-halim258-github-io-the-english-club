@@ -30,13 +30,13 @@ export default function NotificationPreferences({ onClose }: { onClose?: () => v
   const hours = Array.from({ length: 24 }, (_, i) => i);
 
   return (
-    <div className="p-4 space-y-4 max-h-[60vh] overflow-y-auto">
+    <div className="max-h-[60vh] space-y-4 overflow-y-auto p-3 sm:p-4">
       <div>
         <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Delivery</h4>
         <div className="space-y-1.5">
           <button
             onClick={() => setPrefs({ ...prefs, sound: !prefs.sound })}
-            className="flex w-full items-center justify-between rounded-lg px-3 py-2 hover:bg-muted transition-colors"
+            className="flex min-h-11 w-full items-center justify-between px-3 py-2 transition-colors hover:bg-muted"
           >
             <span className="flex items-center gap-2.5 text-sm">
               {prefs.sound ? <Volume2 className="h-4 w-4 text-primary" /> : <VolumeX className="h-4 w-4 text-muted-foreground" />}
@@ -46,7 +46,7 @@ export default function NotificationPreferences({ onClose }: { onClose?: () => v
           </button>
           <button
             onClick={() => setPrefs({ ...prefs, toast: !prefs.toast })}
-            className="flex w-full items-center justify-between rounded-lg px-3 py-2 hover:bg-muted transition-colors"
+            className="flex min-h-11 w-full items-center justify-between px-3 py-2 transition-colors hover:bg-muted"
           >
             <span className="flex items-center gap-2.5 text-sm">
               {prefs.toast ? <Bell className="h-4 w-4 text-primary" /> : <BellOff className="h-4 w-4 text-muted-foreground" />}
@@ -56,7 +56,7 @@ export default function NotificationPreferences({ onClose }: { onClose?: () => v
           </button>
           <button
             onClick={toggleDesktop}
-            className="flex w-full items-center justify-between rounded-lg px-3 py-2 hover:bg-muted transition-colors"
+            className="flex min-h-11 w-full items-center justify-between px-3 py-2 transition-colors hover:bg-muted"
           >
             <span className="flex items-center gap-2.5 text-sm">
               <Monitor className={`h-4 w-4 ${prefs.desktop ? "text-primary" : "text-muted-foreground"}`} />
@@ -66,7 +66,7 @@ export default function NotificationPreferences({ onClose }: { onClose?: () => v
           </button>
           <button
             onClick={() => setPrefs({ ...prefs, titleBadge: !prefs.titleBadge })}
-            className="flex w-full items-center justify-between rounded-lg px-3 py-2 hover:bg-muted transition-colors"
+            className="flex min-h-11 w-full items-center justify-between px-3 py-2 transition-colors hover:bg-muted"
           >
             <span className="flex items-center gap-2.5 text-sm">
               <Hash className={`h-4 w-4 ${prefs.titleBadge ? "text-primary" : "text-muted-foreground"}`} />
@@ -81,7 +81,7 @@ export default function NotificationPreferences({ onClose }: { onClose?: () => v
         <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Quiet hours</h4>
         <button
           onClick={() => setPrefs({ ...prefs, quietHours: !prefs.quietHours })}
-          className="flex w-full items-center justify-between rounded-lg px-3 py-2 hover:bg-muted transition-colors"
+          className="flex min-h-11 w-full items-center justify-between px-3 py-2 transition-colors hover:bg-muted"
         >
           <span className="flex items-center gap-2.5 text-sm">
             <Moon className={`h-4 w-4 ${prefs.quietHours ? "text-primary" : "text-muted-foreground"}`} />
@@ -111,14 +111,14 @@ export default function NotificationPreferences({ onClose }: { onClose?: () => v
 
       <div>
         <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">Mute categories</h4>
-        <div className="grid grid-cols-2 gap-1.5">
+        <div className="grid grid-cols-1 gap-1.5 min-[380px]:grid-cols-2">
           {NOTIF_CATEGORIES.map(c => {
             const muted = prefs.muted.includes(c.key);
             return (
               <button
                 key={c.key}
                 onClick={() => toggleMuted(c.key)}
-                className={`text-xs rounded-lg px-3 py-2 border transition-all ${
+                className={`min-h-11 border px-3 py-2 text-xs transition-all ${
                   muted
                     ? "border-dashed border-muted-foreground/40 text-muted-foreground bg-transparent"
                     : "border-primary/25 bg-primary/5 text-foreground"

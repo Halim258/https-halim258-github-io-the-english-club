@@ -149,7 +149,7 @@ export default function Navbar() {
               <Link
                 key={l.to}
                 to={l.to}
-                className="relative px-3 py-3 text-[10px] font-editorial-mono uppercase tracking-[0.14em] font-semibold transition-colors duration-200 group"
+                className="group relative px-3 py-3 font-editorial-mono text-xs font-semibold uppercase tracking-[0.1em] transition-colors duration-200"
               >
                 <span className={isActive ? "text-primary" : "text-foreground/65 group-hover:text-foreground"}>
                   {l.label}
@@ -189,7 +189,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -4 }}
                   transition={{ duration: 0.15 }}
-                  className="absolute right-0 top-full z-50 mt-2 grid w-[28rem] grid-cols-2 border bg-card p-2 shadow-xl"
+                  className="absolute right-0 top-full z-50 mt-2 grid w-[min(28rem,calc(100vw-2rem))] grid-cols-2 border bg-card p-2 shadow-xl"
                 >
                   {moreLinks.map((l) => (
                     <Link
@@ -352,7 +352,7 @@ export default function Navbar() {
             transition={{ duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
             className="overflow-hidden border-t bg-card/98 backdrop-blur-xl xl:hidden"
           >
-             <div className="mx-auto flex max-h-[calc(100dvh-4.5rem)] max-w-2xl flex-col gap-1 overflow-y-auto p-4 pb-8">
+             <div className="mx-auto flex max-h-[calc(100dvh-4.5rem)] max-w-2xl flex-col gap-1 overflow-y-auto overscroll-contain p-3 pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))] sm:p-4">
               <button
                 onClick={() => {
                   setOpen(false);

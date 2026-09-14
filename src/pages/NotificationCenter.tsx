@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
-import { Bell, Check, CheckCheck, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, Inbox, Settings, Filter, Search, X } from "lucide-react";
+import { Bell, Trash2, Sparkles, Trophy, BookOpen, Flame, Info, Inbox, Settings, Filter, Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -52,7 +52,6 @@ export default function NotificationCenter() {
   const { user } = useAuth();
   const [notifications, setNotifications] = useState<Notification[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<"all" | "unread">("all");
   const [categoryFilter, setCategoryFilter] = useState<NotifCategory | "all">("all");
   const [showPrefs, setShowPrefs] = useState(false);
   const [query, setQuery] = useState("");
@@ -63,10 +62,15 @@ export default function NotificationCenter() {
       const { data } = await supabase
         .from("notifications")
         .select("*")
-        .eq("user_id", user!.id)
+        .eq("user_id", user.id)
         .order("created_at", { ascending: false })
         .limit(50);
-      setNotifications((data || []) as Notification[]);
+      const rows = (data || []) as Notification[];
+      setNotifications(rows.map(n => ({ ...n, read: true })));
+      const unreadIds = rows.filter(n => !n.read).map(n => n.id);
+      if (unreadIds.length > 0) {
+        await supabase.from("notifications").update({ read: true }).in("id", unreadIds);
+      }
       setLoading(false);
     }
     load();
@@ -78,7 +82,8 @@ export default function NotificationCenter() {
         { event: "INSERT", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
         (payload) => {
           const n = payload.new as Notification;
-          setNotifications(prev => [n, ...prev]);
+          setNotifications(prev => [{ ...n, read: true }, ...prev]);
+          void supabase.from("notifications").update({ read: true }).eq("id", n.id);
           const prefs = loadPrefs();
           if (!prefs.muted.includes(n.type as NotifCategory)) {
             if (prefs.sound) playNotifSound();
@@ -86,22 +91,25 @@ export default function NotificationCenter() {
           }
         }
       )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
+        (payload) => {
+          const updated = payload.new as Notification;
+          setNotifications(prev => prev.map(n => n.id === updated.id ? updated : n));
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "notifications", filter: `user_id=eq.${user.id}` },
+        (payload) => {
+          const removed = payload.old as Pick<Notification, "id">;
+          setNotifications(prev => prev.filter(n => n.id !== removed.id));
+        }
+      )
       .subscribe();
     return () => { supabase.removeChannel(channel); };
   }, [user]);
-
-  const markAsRead = async (id: string) => {
-    await supabase.from("notifications").update({ read: true }).eq("id", id);
-    setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
-  };
-
-  const markAllRead = async () => {
-    if (!user) return;
-    const unreadIds = notifications.filter((n) => !n.read).map((n) => n.id);
-    if (unreadIds.length === 0) return;
-    await supabase.from("notifications").update({ read: true }).in("id", unreadIds);
-    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
-  };
 
   const deleteNotification = async (id: string) => {
     const removed = notifications.find(n => n.id === id);
@@ -114,7 +122,7 @@ export default function NotificationCenter() {
           onClick: async () => {
             const { error } = await supabase.from("notifications").insert({
               id: removed.id,
-              user_id: user!.id,
+              user_id: user?.id,
               title: removed.title,
               message: removed.message,
               type: removed.type,
@@ -129,14 +137,13 @@ export default function NotificationCenter() {
     }
   };
 
-  const unreadCount = notifications.filter((n) => !n.read).length;
   const filtered = useMemo(() => {
-    let list = filter === "unread" ? notifications.filter((n) => !n.read) : notifications;
+    let list = notifications;
     if (categoryFilter !== "all") list = list.filter(n => n.type === categoryFilter);
     const q = query.trim().toLowerCase();
     if (q) list = list.filter(n => (n.title + " " + n.message).toLowerCase().includes(q));
     return list;
-  }, [notifications, filter, categoryFilter, query]);
+  }, [notifications, categoryFilter, query]);
   const grouped = useMemo(() => groupByRecency(filtered), [filtered]);
 
   const clearAll = async () => {
@@ -175,7 +182,7 @@ export default function NotificationCenter() {
   return (
     <div className="container mx-auto px-4 py-6 md:py-10 pb-24 md:pb-10 max-w-2xl">
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}>
-        <div className="flex items-center justify-between mb-6">
+        <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-primary/20 to-primary/5">
               <Bell className="h-6 w-6 text-primary" />
@@ -183,16 +190,11 @@ export default function NotificationCenter() {
             <div>
               <h1 className="text-2xl md:text-3xl font-bold font-display">Notifications</h1>
               <p className="text-sm text-muted-foreground">
-                {unreadCount > 0 ? `${unreadCount} unread` : "All caught up!"}
+                 Viewed notifications are cleared automatically
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            {unreadCount > 0 && (
-              <Button variant="outline" size="sm" className="rounded-full gap-1.5" onClick={markAllRead}>
-                <CheckCheck className="h-3.5 w-3.5" /> Mark all read
-              </Button>
-            )}
+          <div className="flex items-center gap-1.5 self-start sm:self-auto">
             <Button
               variant={showPrefs ? "default" : "outline"}
               size="sm"
@@ -240,22 +242,11 @@ export default function NotificationCenter() {
       </div>
 
       {/* Filters */}
-      <div className="flex gap-2 mb-3 flex-wrap">
-        {(["all", "unread"] as const).map((f) => (
-          <button
-            key={f}
-            onClick={() => setFilter(f)}
-            className={`rounded-full px-4 py-1.5 text-xs font-semibold transition-colors ${
-              filter === f ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"
-            }`}
-          >
-            {f === "all" ? "All" : `Unread (${unreadCount})`}
-          </button>
-        ))}
+      <div className="mb-3 flex flex-wrap gap-2">
         {notifications.length > 0 && (
           <button
             onClick={clearAll}
-            className="ml-auto rounded-full px-4 py-1.5 text-xs font-semibold text-destructive hover:bg-destructive/10 transition-colors"
+            className="min-h-11 px-4 text-xs font-semibold text-destructive transition-colors hover:bg-destructive/10 sm:ml-auto"
           >
             Clear all
           </button>
@@ -290,7 +281,7 @@ export default function NotificationCenter() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-center py-16">
           <Inbox className="h-12 w-12 text-muted-foreground/30 mx-auto mb-3" />
           <p className="text-sm text-muted-foreground font-medium">
-            {filter === "unread" ? "No unread notifications" : "No notifications yet"}
+             No notifications yet
           </p>
           <p className="text-xs text-muted-foreground/60 mt-1">Complete lessons to earn achievements!</p>
         </motion.div>
@@ -307,31 +298,20 @@ export default function NotificationCenter() {
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.03 }}
-                className={`group flex gap-3 rounded-2xl border p-4 transition-all hover:shadow-soft ${
-                  !n.read ? "bg-primary/[0.03] border-primary/15" : "bg-card"
-                }`}
+                transition={{ delay: Math.min(i, 6) * 0.03 }}
+                className="group flex gap-3 border bg-card p-3 transition-all hover:shadow-soft sm:p-4"
               >
                 <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-muted/50 ${color}`}>
                   <Icon className="h-5 w-5" />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-start justify-between gap-2">
-                    <p className={`text-sm font-semibold ${!n.read ? "" : "text-muted-foreground"}`}>{n.title}</p>
-                    {!n.read && <div className="h-2 w-2 shrink-0 rounded-full bg-primary mt-1.5" />}
+                    <p className="text-sm font-semibold text-foreground">{n.title}</p>
                   </div>
                   <p className="text-xs text-muted-foreground leading-relaxed mt-0.5">{n.message}</p>
                   <p className="text-[10px] text-muted-foreground/60 mt-1.5">{timeAgo(n.created_at)}</p>
                 </div>
-                <div className="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
-                  {!n.read && (
-                    <button
-                      onClick={(e) => { e.preventDefault(); e.stopPropagation(); markAsRead(n.id); }}
-                      className="p-1.5 rounded-lg hover:bg-muted" title="Mark read"
-                    >
-                      <Check className="h-3.5 w-3.5 text-muted-foreground" />
-                    </button>
-                  )}
+                <div className="flex shrink-0 flex-col gap-1 opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">
                   <button
                     onClick={(e) => { e.preventDefault(); e.stopPropagation(); deleteNotification(n.id); }}
                     className="p-1.5 rounded-lg hover:bg-destructive/10" title="Delete"
@@ -343,11 +323,11 @@ export default function NotificationCenter() {
             );
 
             return n.link ? (
-              <Link key={n.id} to={n.link} onClick={() => markAsRead(n.id)}>
+              <Link key={n.id} to={n.link}>
                 {inner}
               </Link>
             ) : (
-              <div key={n.id} onClick={() => markAsRead(n.id)} className="cursor-pointer">
+              <div key={n.id}>
                 {inner}
               </div>
             );
