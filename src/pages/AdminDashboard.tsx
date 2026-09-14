@@ -6,7 +6,7 @@ import {
   Shield, UserCheck, DollarSign, Users2, UserPlus,
   Package, Receipt, Calendar, Download, Award, ClipboardCheck,
   Timer, AlertCircle, Moon, Sun, ShieldCheck, Bell, FileText, CalendarDays, TrendingUp, ScrollText, KeyRound, Sparkles,
-  RefreshCw, Search
+  RefreshCw, Search, Menu
 
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -50,6 +50,8 @@ export default function AdminDashboard() {
   const { user, role } = useAuth();
   const [tab, setTab] = useState<Tab>(() => (localStorage.getItem("admin-tab") as Tab) || "command-center");
   const [navQuery, setNavQuery] = useState("");
+  const [navOpen, setNavOpen] = useState(false);
+
   const [loading, setLoading] = useState(true);
 
   const [selectedProfile, setSelectedProfile] = useState<any | null>(null);
@@ -298,7 +300,9 @@ export default function AdminDashboard() {
               <p className="px-1 text-sm text-muted-foreground">No section matches that name.</p>
             )}
           </nav>
+          </div>
         </aside>
+
 
         <div className="min-w-0">
 
