@@ -37,6 +37,7 @@ import TestimonialsSection from "@/components/home/TestimonialsSection";
 import LocationSection from "@/components/home/LocationSection";
 import CoursesSection from "@/components/home/CoursesSection";
 import ContinueLearning from "@/components/ContinueLearning";
+import RadioBanner from "@/components/RadioBanner";
 import { getWhatsAppUrl, openWhatsAppUrl } from "@/lib/whatsapp";
 
 
