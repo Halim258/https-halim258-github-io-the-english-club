@@ -8,3 +8,6 @@
 - [ ] Add a teacher completion step after each level test
 - [x] Create a distinct, lesson-specific reading passage and comprehension questions for every lesson
 - [x] Improve homepage and navigation UX with British Heritage styling and clearer mobile interactions
+- [ ] Verify and fix shared layouts across phone, tablet, laptop, and wide desktop sizes
+- [ ] Simplify notification controls and automatically clear unread indicators when notifications are viewed
+- [ ] Validate navigation, notifications, and representative pages with responsive browser checks
