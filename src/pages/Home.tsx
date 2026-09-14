@@ -368,6 +368,8 @@ export default function Home() {
       {/* ═══════════════ CONTINUE LEARNING ═══════════════ */}
       <ContinueLearning />
 
+      <RadioBanner />
+
       {/* ═══════════════ WORD OF THE DAY + LEARNING GUIDE ═══════════════ */}
        <section className="border-b bg-card py-10 md:py-14">
          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
