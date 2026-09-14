@@ -34,6 +34,13 @@ const steps = [
     to: "/dashboard",
     cta: "View Dashboard",
   },
+  {
+    phase: "PHASE 05",
+    title: "The Listening Room",
+    desc: "Immerse yourself daily in live English radio — news, talk shows, music and learning channels.",
+    to: "/fm",
+    cta: "Listen Live",
+  },
 ];
 
 export default function LearningGuide() {
