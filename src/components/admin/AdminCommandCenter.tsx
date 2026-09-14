@@ -300,6 +300,8 @@ export default function AdminCommandCenter({
           ))}
         </div>
         <p className="text-[11px] text-muted-foreground">Totals update automatically</p>
+      </div>
+
 
 
       {/* KPIs */}
