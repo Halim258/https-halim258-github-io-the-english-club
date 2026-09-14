@@ -222,12 +222,58 @@ export default function AdminCommandCenter({
     }).slice(0, 8);
   }, [query, schoolStudents, profiles, lessons, xp]);
 
+  /* ---------- Automatic money maths ---------- */
+  const monthMoney = useMemo(() => {
+    const now = new Date();
+    const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+    const prevStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+
+    const receiptDate = (r: any) => r?.reservation_date || r?.created_at;
+    const valid = receipts.filter((r) => String(r?.status || "paid").toLowerCase() !== "faulty");
+    const thisMonth = valid.filter((r) => inWindow(receiptDate(r), monthStart));
+    const lastMonth = valid.filter((r) => inWindow(receiptDate(r), prevStart, monthStart));
+
+    const sumBy = (rows: any[], field: string) => rows.reduce((s, r) => s + Number(r?.[field] || 0), 0);
+
+    const collected = sumBy(thisMonth, "paid_fees");
+    const billed = sumBy(thisMonth, "fees");
+    const outstandingMonth = Math.max(0, billed - collected);
+    const outstandingAll = schoolStudents.reduce((s, r) => s + Number(r?.remaining_fees || 0), 0);
+    const spent = outcome.filter((o) => inWindow(o?.date, monthStart)).reduce((s, o) => s + Number(o?.amount || 0), 0);
+    const collectionRate = billed > 0 ? Math.round((collected / billed) * 100) : 0;
+    const payers = new Set(thisMonth.map((r) => r.student_record_id || r.student_name).filter(Boolean)).size;
+
+    // 14-day daily collection for the mini chart
+    const bars: { label: string; value: number }[] = [];
+    for (let i = 13; i >= 0; i--) {
+      const day = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
+      const next = new Date(day.getTime() + 86400000);
+      bars.push({
+        label: day.toLocaleDateString("en-GB", { day: "numeric", month: "short" }),
+        value: valid.filter((r) => inWindow(receiptDate(r), day, next)).reduce((s, r) => s + Number(r?.paid_fees || 0), 0),
+      });
+    }
+
+    return {
+      monthLabel: now.toLocaleDateString("en-GB", { month: "long", year: "numeric" }),
+      collected, billed, outstandingMonth, outstandingAll, spent,
+      net: collected - spent,
+      collectionRate,
+      payers,
+      average: payers > 0 ? collected / payers : 0,
+      receiptCount: thisMonth.length,
+      lastMonthCollected: sumBy(lastMonth, "paid_fees"),
+      bars,
+    };
+  }, [receipts, outcome, schoolStudents]);
+
   const kpis = [
     { label: "New sign-ups", value: stats.signups.current, trend: stats.signups, icon: UserPlus, tab: "new-signups" },
     { label: "Newly enrolled", value: stats.enrolled.current, trend: stats.enrolled, icon: Users, tab: "school-students" },
     { label: "Lessons finished", value: stats.lessons.current, trend: stats.lessons, icon: BookOpen, tab: "analytics" },
     { label: "Money received", value: money(stats.revenue.current), trend: stats.revenue, icon: DollarSign, tab: "finance" },
   ];
+
 
   const toneClass = (tone: string) =>
     tone === "destructive"
