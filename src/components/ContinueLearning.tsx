@@ -137,6 +137,15 @@ export default function ContinueLearning() {
 
   if (!next) return null;
 
+  const resumeTo = `/courses/${next.level_id}/${next.lesson_number}${
+    next.tab || next.card
+      ? `?${new URLSearchParams({
+          ...(next.tab ? { tab: next.tab } : {}),
+          ...(next.card ? { card: String(next.card) } : {}),
+        }).toString()}`
+      : ""
+  }`;
+
   return (
     <motion.section
       initial={{ opacity: 0, y: 20 }}
@@ -144,7 +153,10 @@ export default function ContinueLearning() {
       transition={{ duration: 0.5, delay: 0.3 }}
       className="relative z-20 mx-auto -mt-3 mb-4 max-w-7xl px-4 sm:px-6 lg:px-8"
     >
-      <div className="border border-border bg-card px-4 py-4 shadow-sm sm:px-5">
+      <Link
+        to={resumeTo}
+        className="group block border border-border bg-card px-4 py-4 shadow-sm transition-colors hover:bg-accent/40 sm:px-5"
+      >
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
           <div className="flex items-center gap-4 min-w-0">
              <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-primary/25 bg-primary/5">
@@ -154,7 +166,7 @@ export default function ContinueLearning() {
               <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">
                 {next.fresh ? "Start Learning" : "Continue Learning"}
               </p>
-              <p className="mt-1 font-display text-base font-bold text-foreground truncate">
+              <p className="mt-1 font-display text-base font-bold text-foreground truncate group-hover:underline decoration-1 underline-offset-4">
                 Lesson {next.lesson_number}
                 {next.title && <span className="font-normal text-muted-foreground"> — {next.title}</span>}
               </p>
@@ -163,27 +175,15 @@ export default function ContinueLearning() {
               </p>
             </div>
           </div>
-          <Link
-            to={`/courses/${next.level_id}/${next.lesson_number}${
-              next.tab || next.card
-                ? `?${new URLSearchParams({
-                    ...(next.tab ? { tab: next.tab } : {}),
-                    ...(next.card ? { card: String(next.card) } : {}),
-                  }).toString()}`
-                : ""
-            }`}
-            className="shrink-0 w-full sm:w-auto"
-          >
-            <Button size="sm" variant="editorial" className="w-full gap-1.5 px-5 font-semibold sm:w-auto">
-              <BookOpen className="h-3.5 w-3.5" /> {next.fresh ? "Start" : "Resume"} <ArrowRight className="h-3.5 w-3.5" />
-            </Button>
-          </Link>
+          <span className="inline-flex shrink-0 items-center justify-center gap-1.5 rounded-none border border-primary bg-primary px-5 py-2 text-[13px] font-semibold text-primary-foreground transition-colors group-hover:bg-primary/90 w-full sm:w-auto">
+            <BookOpen className="h-3.5 w-3.5" /> {next.fresh ? "Start" : "Resume"} <ArrowRight className="h-3.5 w-3.5" />
+          </span>
         </div>
 
         {next.total > 0 && !next.fresh && (
           <CourseProgress
             variant="banner"
-            className="mt-4"
+            className="mt-4 pointer-events-none"
             data={{
               completed: next.completed,
               total: next.total,
@@ -193,7 +193,7 @@ export default function ContinueLearning() {
             }}
           />
         )}
-      </div>
+      </Link>
     </motion.section>
   );
 }
